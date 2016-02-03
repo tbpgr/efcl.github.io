@@ -5,9 +5,127 @@
     <description>ブラウザ/JavaScript等についてのブログ</description>
     <link>http://efcl.info/</link>
     <atom:link href="http://efcl.info/feed/" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 03 Feb 2016 11:17:36 +0900</pubDate>
-    <lastBuildDate>Wed, 03 Feb 2016 11:17:36 +0900</lastBuildDate>
+    <pubDate>Wed, 03 Feb 2016 20:39:14 +0900</pubDate>
+    <lastBuildDate>Wed, 03 Feb 2016 20:39:14 +0900</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>メモアプリをDayOneからQuiverに移行した</title>
+        <description>&lt;p&gt;メモアプリとしてEvernote、OneNote、&lt;a href=&quot;https://github.com/azu/markdown-finder&quot;&gt;ファイルベースのMarkdown管理アプリ&lt;/a&gt;、DayOneなどを使っていました。&lt;/p&gt;
+
+&lt;p&gt;EvernoteとOneNoteはメモ機能は強いですが、あんまり気軽に書けるような感じじゃないのでピンときませんでした。
+(画像やテーブルは便利ですが、Markdownみたいなプレーンなテキストじゃないのも微妙な点)&lt;/p&gt;
+
+&lt;p&gt;そのため、&lt;a href=&quot;https://github.com/azu/markdown-finder&quot;&gt;ファイルベースのMarkdown管理アプリ&lt;/a&gt;などを作ったりしましたが、UIを作りこまないとあんまり使いやすくないということが分かったので、途中で飽きてました。&lt;/p&gt;
+
+&lt;p&gt;DayOneは気軽にMarkdownで書けて、iOSアプリもできがいいのは素晴らしいですが、検索機能が微妙でした。
+(書くのはいいが、見るのが難しい)&lt;/p&gt;
+
+&lt;p&gt;最近Quiverというアプリを見つけて、これを使うようになりました。&lt;/p&gt;
+
+&lt;h2 id=&quot;quiver&quot;&gt;Quiver&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;AppStore: &lt;a href=&quot;https://itunes.apple.com/jp/app/quiver-programmers-notebook/id866773894?mt=12&quot; title=&quot;Quiver: The Programmer&amp;amp;#39;s Notebook&quot;&gt;Quiver: The Programmer&amp;#39;s Notebook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Homepage: &lt;a href=&quot;http://happenapps.com/#quiver&quot;&gt;http://happenapps.com/#quiver&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/HappenApps/Quiver/wiki&quot; title=&quot;Home · HappenApps/Quiver Wiki&quot;&gt;Home · HappenApps/Quiver Wiki&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Quiverは&lt;a href=&quot;http://jupyter.org/&quot; title=&quot;Jupyter Notebook&quot;&gt;Jupyter Notebook&lt;/a&gt;のようにセルの概念を持っていて、Text(リッチテキスト)、Markdown、Code、Latex、Diagramsのセルがあります。&lt;/p&gt;
+
+&lt;p&gt;セルが分かれているので、Markdownで書きながらエディタ部分に画像をTextセルで埋め込んだりできます。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://efcl.info/wp-content/uploads/2016/02/03-1454497208.png&quot; alt=&quot;quiver&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;また、&lt;a href=&quot;https://github.com/HappenApps/Quiver/wiki/Getting-Started#diagram-cell&quot; title=&quot;Diagram Cell&quot;&gt;Diagram Cell&lt;/a&gt;ではシーケンスを書いたりできます。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Title: Here is a title
+A-&amp;gt;B: Normal line
+B--&amp;gt;C: Dashed line
+C-&amp;gt;&amp;gt;D: Open arrow
+D--&amp;gt;&amp;gt;A: Dashed open arrow
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;検索も全文検索が数千ファイルでちゃんと機能してるので問題ない感じです。&lt;/p&gt;
+
+&lt;p&gt;どういう機能があるかは以下を見るのがいいと思います。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/HappenApps/Quiver/wiki/Getting-Started&quot; title=&quot;Getting Started · HappenApps/Quiver Wiki&quot;&gt;Getting Started · HappenApps/Quiver Wiki&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;同期はDropboxなどを使ってファイル同期する仕組みがあり(競合した時にどっちを使うかを選択出来る)、上手く動いてていい感じです。&lt;/p&gt;
+
+&lt;h3 id=&quot;体験版&quot;&gt;体験版&lt;/h3&gt;
+
+&lt;p&gt;AppStoreで売ってるだけで体験版は用意されていませんが、GitHub Issueでやり取りしてるβ版を使えば試すことができます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/HappenApps/Quiver/issues/361&quot; title=&quot;Quiver 3.0.1 Beta · Issue #361 · HappenApps/Quiver&quot;&gt;Quiver 3.0.1 Beta · Issue #361 · HappenApps/Quiver&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dayone-to-quiver&quot;&gt;DayOne to Quiver&lt;/h2&gt;
+
+&lt;p&gt;Quiverはデータフォーマットがきちんと定義されていて、公開されています。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/HappenApps/Quiver/wiki/Quiver-Data-Format&quot; title=&quot;Quiver Data Format · HappenApps/Quiver Wiki&quot;&gt;Quiver Data Format · HappenApps/Quiver Wiki&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;そのため、他のノートアプリからのimport/exportツールが色々と用意されています。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/HappenApps/Quiver/wiki/Import-Scripts&quot;&gt;Import Scripts · HappenApps/Quiver Wiki&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/HappenApps/Quiver/wiki/Export-Scripts&quot;&gt;Export Scripts · HappenApps/Quiver Wiki&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;先ほど書いたように元々はDayOneを使っていたので、DayOneからQuiver形式に変換するツールを書きました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/azu/dayone-to-quiver&quot; title=&quot;azu/dayone-to-quiver - JavaScript&quot;&gt;azu/dayone-to-quiver - JavaScript&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;DayOne の&lt;code&gt;Journal.dayone&lt;/code&gt;ファイルをQuiverのNotebook形式に変換できます。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm install -g dayone-to-quiver
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;dayone-to-quiver --entry Journal.dayone --output output.qvnotebook
+
+    --entry path to Journal.dayone
+    --output output path
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;そろそろ&lt;a href=&quot;http://dayoneapp.com/2016/01/introducing-day-one-2/&quot; title=&quot;Day One 2&quot;&gt;Day One 2&lt;/a&gt;が出るようですが、変換元はDayOne 1のみ対応しています。
+(DayOne 2は3カラムになっていて大分ビューアとしてよくなってそう…)&lt;/p&gt;
+
+&lt;h2 id=&quot;おわり&quot;&gt;おわり&lt;/h2&gt;
+
+&lt;p&gt;作者さんが以下のブログで書いてますが、ノートブック/メモアプリに求めるものってそういうものだよなーって感じがしたので使い始めました。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://yaoganglian.com/2015/12/06/What-is-Quiver/&quot; title=&quot;What is Quiver? | Yaogang Lian&quot;&gt;What is Quiver? | Yaogang Lian&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;フォーマットがわかりやすいので、他のいいものがでてきたら変換ツールを書けばいいかなーという感じです。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.ulyssesapp.com/mac/&quot; title=&quot;Ulysses&quot;&gt;Ulysses&lt;/a&gt;や&lt;a href=&quot;http://b00st.io/&quot; title=&quot;Boostnote&quot;&gt;Boostnote&lt;/a&gt;がUI的に近い系統だと思いますが、その辺のフォーマットとかに不安が出てきてしまいイマイチ使うことができなかった。&lt;/p&gt;
+
+&lt;p&gt;エディタ部分が&lt;a href=&quot;https://ace.c9.io/&quot; title=&quot;Ace - The High Performance Code Editor for the Web&quot;&gt;Ace&lt;/a&gt;なのはやっぱり好きではないけど、ぎりぎり許容範囲という感じの動作です。動作的な作りこみなら&lt;a href=&quot;http://www.ulyssesapp.com/mac/&quot; title=&quot;Ulysses&quot;&gt;Ulysses&lt;/a&gt;がやっぱりできがいいと思います。&lt;/p&gt;
+
+&lt;p&gt;タイトルで移行したと書いてますが、DayOneも併用はしていてDayOneには書捨て的なメモを書いたりしてます(今日何したとか)。
+日にちをまたいで書く必要があるメモがQuiver、その場その場でいいのはDayOneみたいな感じの使い分けをしています。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 03 Feb 2016 20:28:00 +0900</pubDate>
+        <link>http://efcl.info/2016/02/03/quiver/</link>
+        <guid isPermaLink="true">http://efcl.info/2016/02/03/quiver/</guid>
+        
+        <category>メモ</category>
+        
+        <category>Mac</category>
+        
+        <category>app</category>
+        
+        <category>software</category>
+        
+        
+        <category>mac</category>
+        
+      </item>
     
       <item>
         <title>未知の頭字語を見つけるtextlintルール</title>
@@ -2897,68 +3015,6 @@ PDFをスライドのようなページめくりをするものを作るとき�
         <category>PDF</category>
         
         <category>スライド</category>
-        
-        
-        <category>javascript</category>
-        
-      </item>
-    
-      <item>
-        <title>WeeklyメルマガのURLを貼ったら中のリンクを全部Pocketに突っ込むアプリ</title>
-        <description>&lt;p&gt;&lt;a href=&quot;https://github.com/azu/read-all-later&quot; title=&quot;azu/read-all-later&quot;&gt;azu/read-all-later&lt;/a&gt;というElectronアプリを作りました。&lt;/p&gt;
-
-&lt;p&gt;ElectronアプリじゃなくてNode.jsのCLIでも良かったのですが面倒そうなことが分かったのでとりあえずアプリとして動きます。
-(OAuthの認証情報を保存するのをどうやって共有させればいいんだろうというのが難しそうだった)&lt;/p&gt;
-
-&lt;h2 id=&quot;機能&quot;&gt;機能&lt;/h2&gt;
-
-&lt;p&gt;機能はとても単純で複数のURLを同時に&lt;a href=&quot;https://getpocket.com/&quot;&gt;Pocket&lt;/a&gt;へ保存することができます。
-加えて、&lt;strong&gt;URL&lt;/strong&gt;にURLを貼るとそのサイト内で出てくるリンク一覧を抽出してPocketに送ることができます。&lt;/p&gt;
-
-&lt;p&gt;以下のような動作になります。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://efcl.info/wp-content/uploads/2015/11/read-all-later.gif&quot; alt=&quot;gif read-all-later&quot;&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;インストール&quot;&gt;インストール&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/azu/read-all-later/releases/latest&quot;&gt;latest release&lt;/a&gt;
-からアプリをダウンロードして起動できます。&lt;/p&gt;
-
-&lt;h2 id=&quot;使い方&quot;&gt;使い方&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Login to &amp;quot;Pocket&amp;quot;&lt;/li&gt;
-&lt;li&gt;URLをペースト&lt;/li&gt;
-&lt;li&gt;(Optional)Tags や URL List を編集&lt;/li&gt;
-&lt;li&gt;Read All Later!&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;でURL ListにあるURLが全部Pocketに送信されます。&lt;/p&gt;
-
-&lt;h2 id=&quot;目的&quot;&gt;目的&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://javascriptweekly.com/&quot; title=&quot;JavaScript Weekly&quot;&gt;JavaScript Weekly&lt;/a&gt;のようなWeekly系のメルマガを購読しててもやっぱり単位がでかいのでちょっと読みにくいなと思ったため作りました。
-(&lt;a href=&quot;http://azu.github.io/Meta-Weekly/&quot; title=&quot;Meta Weekly&quot;&gt;Meta Weekly&lt;/a&gt;というサイトにWeekly系のメルマガをまとめています)&lt;/p&gt;
-
-&lt;p&gt;最初はPocketのようなアプリを作ろうとしましたが、Pocketのアプリが悪くなかったのでもっと使うためにまとめて突っ込めるアプリを書きました。&lt;/p&gt;
-
-&lt;p&gt;以下のようなワークフローで上手く行くのかを今試している感じです。&lt;/p&gt;
-
-&lt;p&gt;とりあえずPocketに記事を個別に突っ込む -&amp;gt; チラ見していって気になったものをPocketでFavする -&amp;gt; FavしたものをIFTTT経由で&lt;a href=&quot;https://www.diigo.com/&quot; title=&quot;Diigo&quot;&gt;Diigo&lt;/a&gt;にブクマ -&amp;gt; &lt;a href=&quot;https://www.diigo.com/&quot; title=&quot;Diigo&quot;&gt;Diigo&lt;/a&gt;のRSSでもう一度見る&lt;/p&gt;
-
-&lt;p&gt;DiigoのRSSは記事の先頭をちょっとだけ出してくれるので良かった。&lt;a href=&quot;https://www.inoreader.com/&quot; title=&quot;Inoreader&quot;&gt;Inoreader&lt;/a&gt;がもっと良さそうでしたが、その機能は有料っぽかったので諦めました(RSSをフィルターしたRSSとかを作れて便利)&lt;/p&gt;
-</description>
-        <pubDate>Mon, 30 Nov 2015 20:41:00 +0900</pubDate>
-        <link>http://efcl.info/2015/11/30/read-all-later/</link>
-        <guid isPermaLink="true">http://efcl.info/2015/11/30/read-all-later/</guid>
-        
-        <category>Electron</category>
-        
-        <category>Pocket</category>
-        
-        <category>JavaScript</category>
-        
-        <category>OAuth</category>
         
         
         <category>javascript</category>
