@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        桜JSでご飯を食べながらLT大会をした | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0403/res3793/">
+    <h1 class="post-title">桜JSでご飯を食べながらLT大会をした</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年04月03日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-04-03-%E6%A1%9Cjs%E3%81%A7%E3%81%94%E9%A3%AF%E3%82%92%E9%A3%9F%E3%81%B9%E3%81%AA%E3%81%8C%E3%82%89lt%E5%A4%A7%E4%BC%9A%E3%82%92%E3%81%97%E3%81%9F.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://togetter.com/li/650571" title="#桜JS">#桜JS</a>でご飯を食べてきた</p>
+
+<ul>
+<li>  <a href="http://togetter.com/li/650571" title="#桜JS - Togetterまとめ">#桜JS &#8211; Togetterまとめ</a></li>
+</ul>
+
+<h2 id="さくらのクラウドのcliについて-&#8211;-azu">さくらのクラウドのCLIについて &#8211; azu</h2>
+
+<ul>
+<li>  <a href="http://azu.github.io/slide/sakurajs/sakura_cloud.html" title="SAKURA(Internet Cloud).js">SAKURA(Internet Cloud).js</a></li>
+<li>  CLIがnode.jsの実装されてるので見ていく</li>
+</ul>
+
+<h2 id="node-v0.12で変わること-&#8211;-yosuke_furukawa">node v0.12で変わること &#8211; yosuke_furukawa</h2>
+
+<ul>
+<li>  <a href="https://speakerdeck.com/yosuke_furukawa/korekarafalsenode-dot-jsfalsehua-wosiyou" title="これからのNode.jsの話をしよう // Speaker Deck">これからのNode.jsの話をしよう // Speaker Deck</a></li>
+<li>  Tracing API</li>
+<li>  同期的なchild_process API 
+
+<ul>
+<li>  そもそもNodeでそういうツールに無理があったのでは感</li>
+</ul></li>
+<li>  <a href="https://github.com/mde/jake" title="Jake">Jake</a> 
+
+<ul>
+<li>  node.jsで書かれたものを配布するならnode.jsで書かれたものを使う的な流れ</li>
+<li>  <a href="https://gist.github.com/callumacrae/9231589" title="Build tools written in JavaScript">Build tools written in JavaScript</a></li>
+<li>  TypeScriptもJake &#8211; <a href="https://typescript.codeplex.com/wikipage?title=Build%20The%20Source" title="To Build TypeScript">To Build TypeScript</a></li>
+<li>  Take?</li>
+</ul></li>
+</ul>
+
+<h2 id="1年後ぐらいのモバイルhtmlゲーム-&#8211;-tkihira">1年後ぐらいのモバイルHTMLゲーム &#8211; tkihira</h2>
+
+<blockquote class="twitter-tweet" lang="en">
+  <p>
+    <a href="https://twitter.com/search?q=%23%E6%A1%9Cjs&src=hash">#桜js</a> コンフィデンシャル資料出て来た！ <a href="http://t.co/S18VnLaEzY">pic.twitter.com/S18VnLaEzY</a>
+  </p>
+  
+  <p>
+    &mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/statuses/451315735164231680">April 2, 2014</a>
+  </p>
+</blockquote>
+
+<ul>
+<li>  HTMLとCanvas</li>
+<li>  Canvasの方が今のところ速度でる</li>
+<li>  WebGLがモバイルにきたら始まる</li>
+<li>  ライトなモバイルユーザー層、タップした瞬間反応しないと離脱する。 
+
+<ul>
+<li>  ゲームだと最初のローディング待ちが結構でかい</li>
+<li>  ネイティブありきなゲームとHTMLゲームではそこが違うかも</li>
+<li>  非同期がより重要になる?</li>
+</ul></li>
+</ul>
+
+<h2 id="webの未来の話-&#8211;-kyo_ago">Webの未来の話 &#8211; kyo_ago</h2>
+
+<ul>
+<li>  Webとは何か</li>
+<li>  定義が曖昧になってきてる</li>
+<li>  DOMがドキュメント以外になってきた</li>
+<li>  インターネットとウェブ</li>
+<li>  URLがあるのがウェブか?</li>
+<li>  URLをシェア出来るゲーム</li>
+</ul>
+
+<h2 id="typescript-&#8211;-otiai10">TypeScript &#8211; otiai10</h2>
+
+<ul>
+<li>  TypeScriptの使い勝手</li>
+<li>  踏み絵</li>
+<li>  CoffeeScriptはaltjs? 
+
+<ul>
+<li>  シンタックスシュガー</li>
+</ul></li>
+<li>  そもそもaltjsとは?</li>
+</ul>
+
+<h2 id="closure-libraryの今-&#8211;-teppeis">Closure Libraryの今 &#8211; teppeis</h2>
+
+<ul>
+<li>  最近更新されてない?</li>
+<li>  Closure Libraryのコミットが超活発</li>
+<li>  Promiseが入った 
+
+<ul>
+<li>  Lab -&gt; stable</li>
+<li>  元々Deferredっぽいのはあった</li>
+</ul></li>
+<li>  型付き文字列</li>
+<li>  <a href="https://www.npmjs.org/package/closure-npc" title="closure-npc">closure-npc</a> 
+
+<ul>
+<li>  Closure Node Package Checker, a type-checker for NodeJS programs</li>
+<li>  コメントアノテーション</li>
+</ul></li>
+<li>  Closure Linter 
+
+<ul>
+<li>  ドキュメントにGoogle社内リンクが多い</li>
+<li>  <a href="https://code.google.com/p/closure-linter/source/detail?r=27" title="GAsLint">GAsLint</a>という謎ツールがある</li>
+<li>  コレ知ってるとClosure界隈で一目置かれる</li>
+</ul></li>
+<li>  Closureマニアの夢は、全てのClosureツールを揃える 
+
+<ul>
+<li>  html css js リソース 全てを1つのJSファイルに圧縮できるようになる</li>
+</ul></li>
+</ul>
+
+<h2 id="続:-なぜ-html-の-form-は-put-/-delete-をサポートしないのか？-&#8211;-jxck">続: なぜ html の form は PUT / DELETE をサポートしないのか？ &#8211; Jxck</h2>
+
+<p><a href="http://jxck.hatenablog.com/entry/why-form-dosent-support-put-delete" title="なぜ html の form は PUT / DELETE をサポートしないのか？ - Block Rockin’ Codes">なぜ html の form は PUT / DELETE をサポートしないのか？ &#8211; Block Rockin’ Codes</a></p>
+
+<ul>
+<li>  Cameron氏がformの拡張仕様を書いてた</li>
+<li>  Cameron氏にメールした 
+
+<ul>
+<li>  手直しとかしてHTML WGに投稿して議論していきたい</li>
+<li>  HTML5.1に入れて行きたいとの話</li>
+</ul></li>
+</ul>
+
+<h2 id="最近のjsフレームワークは結局バインディングとコンポーネント化したいだけなのでは-&#8211;-hokaccha">最近のJSフレームワークは結局バインディングとコンポーネント化したいだけなのでは &#8211; hokaccha</h2>
+
+<ul>
+<li>  最近のJavaScriptはバインディングとコンポーネント化に集約されてる</li>
+<li>  MVCいうなー問題</li>
+<li>  RESTいうなー問題</li>
+<li>  MVCとREST一緒にするなー問題</li>
+</ul>
+
+<h2 id="5分で分かるpower-assert-&#8211;-azu">5分で分かるpower assert &#8211; azu</h2>
+
+<blockquote>
+<p><a href="http://azu.github.io/slide/sakurajs/power-assert.html" title="5minで分かるpower-assert">5minで分かるpower-assert</a> </p>
+</blockquote>
+
+<ul>
+<li>  power assertの動作の概要</li>
+<li>  ブラウザ/Node/Browserifyで動かす設定</li>
+</ul>
+
+<p>今度もうちょっと詳しい記事を書きます</p>
+
+<hr>
+
+<p>結局、全員LTをした桜JSだった</p>
+
+<p>お疲れ様でした。</p>
+
+<p>メモ: 脳内記憶</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-04-03-%E6%A1%9Cjs%E3%81%A7%E3%81%94%E9%A3%AF%E3%82%92%E9%A3%9F%E3%81%B9%E3%81%AA%E3%81%8C%E3%82%89lt%E5%A4%A7%E4%BC%9A%E3%82%92%E3%81%97%E3%81%9F.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

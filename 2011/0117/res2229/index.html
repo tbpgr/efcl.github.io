@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Mozilla勉強会@東京 5thで「世界のJavaScript情報を読もう」という発表をしました | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Firefox,javascript,Jetpack,アウトライン,勉強会,拡張機能" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0117/res2229/">
+    <h1 class="post-title">Mozilla勉強会@東京 5thで「世界のJavaScript情報を読もう」という発表をしました</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年01月17日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-01-17-mozilla%E5%8B%89%E5%BC%B7%E4%BC%9A%E6%9D%B1%E4%BA%AC-5th%E3%81%A7%E3%80%8C%E4%B8%96%E7%95%8C%E3%81%AEjavascript%E6%83%85%E5%A0%B1%E3%82%92%E8%AA%AD%E3%82%82%E3%81%86%E3%80%8D%E3%81%A8%E3%81%84.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="https://dev.mozilla.jp/events/workshop08/" title="Mozilla 勉強会@東京 5th">Mozilla 勉強会@東京 5th</a>でのLT枠で「世界のJavaScript情報を読もう」というタイトルで発表してきましたので、その補足などの記事。<br>
+以下が発表に使ったスライドとなります。</p>
+
+<!--more-->
+
+<div id="__ss_6580879" style="width: 425px;">
+  <strong style="display: block; margin: 12px 0 4px;"><a title="世界のJavaScript情報を読もう" href="http://www.slideshare.net/efcl/javascript-6580879">世界のJavaScript情報を読もう</a></strong><br /> </p> <p>
+    <br class="spacer_" />
+  </p>
+  
+  <div style="padding: 5px 0 12px;">
+    View more <a href="http://www.slideshare.net/">presentations</a> from <a href="http://www.slideshare.net/efcl">azu </a>.
+  </div>
+</div>
+
+<p>途中でリンクの羅列が出てきますが、それらのサイトの詳細は以下の記事にまとめてあるため興味を持った方は見てください。</p>
+
+<ul>
+<li>  <a href="http://efcl.info/2010/1025/res2018/" title="今からRSS購読すべきタグと検索結果 | Web scratch">今からRSS購読すべきタグと検索結果 | Web scratch</a></li>
+<li>  <a href="http://efcl.info/2011/0116/res2185/" title="海外のJavaScript情報を見つけよう | Web scratch">海外のJavaScript情報を見つけよう | Web scratch</a></li>
+</ul>
+
+<p>スライドを読むと分かりますが、世界のいろんなJavaScript情報を紹介するサイト<a href="http://jser.info/" title="JSer.info">JSer.info</a>を公開しました。<br>
+このサイトを立ち上げた理由はスライドや<a href="http://jser.info/about" title="JSer.infoについて | JSer.info">JSer.infoについて | JSer.info</a>に詳しく書いてあるため詳細を省きますが、一週間程度を目安にその時の(過去の内容も含むこともあります)JavaScriptの情報を紹介していくつもりです。<br>
+このサイトは現在Tumblrで運用していますが、Tumblrをブログとして使う準備は以下の記事にまとめてあります。</p>
+
+<ul>
+<li>  <a href="http://efcl.info/2011/0116/res2211/" title="Tumblrをブログとして使うためにやるべき事 | Web scratch">Tumblrをブログとして使うためにやるべき事 | Web scratch</a></li>
+</ul>
+
+<p>もう少しノウハウが溜まってきたら<a href="http://jser.info/" title="JSer.info">JSer.info</a>の方で取り上げるかもしれません。</p>
+
+<p><strong>JSer.info</strong>
+:   <a href="http://jser.info/" title="JSer.info">http://jser.info/</a></p>
+
+<h3 id="アウトラインメモ">アウトラインメモ</h3>
+
+<p>以下は参加時にメモを取った内容です。<br>
+メモ:Onenoteでメモを取った、プレゼンにはPowerPointとi-clickrを使用した。<br class="spacer_" /></p>
+
+<p style="margin: 0in; font-family: Verdana;">
+  <span style="font-size: large;"><span style="font-weight: bold;">スケジュール</span></span>
+</p>
+
+<ul style="margin-left: 0.375in; direction: ltr; unicode-bidi: embed; margin-top: 0in; margin-bottom: 0in;" type="disc">
+  <li style="margin-top: 0pt; margin-bottom: 0pt; vertical-align: middle;">
+    <span style="font-family: Verdana; font-size: 10pt;">14:30 – 15:00: </span><span style="font-family: &amp;amp; font-size: 10pt;">開場、発表者準備</span>
+  </li>
+</ul>
+
+<ul style="margin-left: 0.375in; direction: ltr; unicode-bidi: embed; margin-top: 0in; margin-bottom: 0in;" type="disc">
+  <li style="margin-top: 0pt; margin-bottom: 0pt; vertical-align: middle;">
+    <span style="font-family: Verdana; font-size: 10pt;">15:00 – 15:10: Opening</span>
+  </li>
+  <li style="margin-top: 0pt; margin-bottom: 0pt; vertical-align: middle;">
+    <span style="font-family: Verdana; font-size: 10pt;">15:10 – 15:40: </span><span style="font-family: &amp;amp; font-size: 10pt;">アドオン開発の最新事情</span>
+  </li>
+  <li style="margin-top: 0pt; margin-bottom: 0pt; vertical-align: middle;">
+    <span style="font-family: Verdana; font-size: 10pt;">15:40 – 16:30: Jetpack Library </span><span style="font-family: &amp;amp; font-size: 10pt;">事始め</span>
+  </li>
+  <li style="margin-top: 0pt; margin-bottom: 0pt; vertical-align: middle;">
+    <span style="font-family: Verdana; font-size: 10pt;">—– </span><span style="font-family: &amp;amp; font-size: 10pt;">休憩</span><span style="font-family: Verdana; font-size: 10pt;"> 10 </span><span style="font-family: &amp;amp; font-size: 10pt;">分間</span><span style="font-family: Verdana; font-size: 10pt;"> —–</span>
+  </li>
+  <li style="margin-top: 0pt; margin-bottom: 0pt; vertical-align: middle;">
+    <span style="font-family: Verdana; font-size: 10pt;">16:40 – 17:10: Tumucumaque</span>
+  </li>
+  <li style="margin-top: 0pt; margin-bottom: 0pt; vertical-align: middle;">
+    <span style="font-family: Verdana; font-size: 10pt;">17:10 – 17:25: Panorama</span><span style="font-family: &amp;amp; font-size: 10pt;">関連でちょっと作ってみた系</span>
+  </li>
+  <li style="margin-top: 0pt; margin-bottom: 0pt; vertical-align: middle;">
+    <span style="font-family: Verdana; font-size: 10pt;">17:25 – 18:00: Lightning Talk & Free Discussion</span>
+  </li>
+  <li style="margin-top: 0pt; margin-bottom: 0pt; vertical-align: middle;">
+    <span style="font-family: Verdana; font-size: 10pt;">—– </span><span style="font-family: &amp;amp; font-size: 10pt;">撤収、移動</span><span style="font-family: Verdana; font-size: 10pt;"> 30</span><span style="font-family: &amp;amp; font-size: 10pt;">分</span><span style="font-family: Verdana; font-size: 10pt;"> —–</span>
+  </li>
+  <li style="margin-top: 0pt; margin-bottom: 0pt; vertical-align: middle;">
+    <span style="font-family: Verdana; font-size: 10pt;">18:30〜20:30: 懇親会 (新年会)</span>
+  </li>
+</ul>
+
+<p style="margin: 0in; font-family: Verdana; font-size: 10pt;">
+   
+</p>
+
+<p style="margin: 0in; font-size: 8pt; color: #595959;">
+  <span style="font-family: &amp;amp;">貼り付け元</span><span style="font-family: Verdana;"> < </span><a href="https://dev.mozilla.jp/events/workshop08/"><span style="font-family: Verdana;">https://dev.mozilla.jp/events/workshop08/</span></a><span style="font-family: Verdana;">> </span>
+</p>
+
+<p style="margin: 0in; font-family: Verdana; font-size: 10pt;">
+   
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  <span style="font-weight: bold;">アドオン開発の最新事情</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">Paacked</span><span style="font-family: &amp;amp;" lang="ja">アドオン</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: &amp;amp;" lang="ja">高速化のため</span><span style="font-family: Verdana;" lang="en-US">XPI</span><span style="font-family: &amp;amp;" lang="ja">のままインストールされるようになる</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">UI</span><span style="font-family: &amp;amp;" lang="ja">の変化</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-family: &amp;amp; font-size: 10pt;">
+  ステータスバーの廃止
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-family: &amp;amp; font-size: 10pt;">
+  パノラマ導入に伴うプロパティの追加
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">Tabbrowser</span><span style="font-family: &amp;amp;" lang="ja">の構造の変化</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">Fennc</span><span style="font-family: &amp;amp;" lang="ja">では</span><span style="font-family: Verdana;" lang="en-US">Content</span><span style="font-family: &amp;amp;" lang="ja">と</span><span style="font-family: Verdana;" lang="en-US">Chrome</span><span style="font-family: &amp;amp;" lang="ja">のプロセス分離してるいるため</span><span style="font-family: Verdana;" lang="en-US">gBrowser</span><span style="font-family: &amp;amp;" lang="ja">を使用していない。</span>
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+   
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  アドオンマネージャー
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-family: Verdana; font-size: 10pt;" lang="en-US">
+  32&#215;32 -> 48&#215;48, 64&#215;64
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">OS</span><span style="font-family: &amp;amp;" lang="ja">によっても少し異なる</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">XPCOM</span><span style="font-family: &amp;amp;" lang="ja">の変更</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: &amp;amp;" lang="ja">インターフェイスの凍結は解除されて</span><span style="font-family: Verdana;" lang="en-US">Jetpack</span><span style="font-family: &amp;amp;" lang="ja">が</span><span style="font-family: Verdana;" lang="en-US">API</span><span style="font-family: &amp;amp;" lang="ja">を提供する</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">Jetpack</span><span style="font-family: &amp;amp;" lang="ja">でモバイルアドオンも開発</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">1.1</span><span style="font-family: &amp;amp;" lang="ja">ぐらいで予定</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-family: Verdana; font-size: 10pt;">
+   
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-weight: bold; font-family: Verdana;" lang="ja">Jetpack Library </span><span style="font-weight: bold; font-family: &amp;amp;" lang="ja">事始め</span><span style="font-weight: bold; font-family: Verdana;" lang="en-US"> &#8211; </span><span style="font-weight: bold; font-family: &amp;amp;" lang="ja">あすかぜ</span>
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+   
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">Jetpack prototype </span><span style="font-family: &amp;amp;" lang="ja">→</span><span style="font-family: Verdana;" lang="en-US"> Jetpack SDK </span><span style="font-family: &amp;amp;" lang="ja">→</span><span style="font-family: Verdana;" lang="en-US"> Addon SDK(feature-stable)</span>
+</p>
+
+<p style="margin: 0in; font-family: Verdana; font-size: 10pt;" lang="en-US">
+   
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">API</span><span style="font-family: &amp;amp;" lang="ja">の</span><span style="font-family: Verdana;" lang="en-US">core</span><span style="font-family: &amp;amp;" lang="ja">ごとパッケージしてるのが</span><span style="font-family: Verdana;" lang="en-US">prototype</span><span style="font-family: &amp;amp;" lang="ja">との違い</span><span style="font-family: Verdana;" lang="en-US">(</span><span style="font-family: &amp;amp;" lang="ja">それぞれ独立してる</span><span style="font-family: Verdana;" lang="en-US">)</span>
+</p>
+
+<p style="margin: 0in; font-family: Verdana; font-size: 10pt;" lang="en-US">
+   
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: &amp;amp;" lang="ja">コンテキストとウィジェット程度しかスイッチ的なものは存在していないので、必要なものは低レベル</span><span style="font-family: Verdana;" lang="en-US">API</span><span style="font-family: &amp;amp;" lang="ja">を使って書かないとだめ。</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: &amp;amp;" lang="ja">低レベル</span><span style="font-family: Verdana;" lang="en-US">API</span><span style="font-family: &amp;amp;" lang="ja">→</span><span style="font-family: Verdana;" lang="en-US">Components</span><span style="font-family: &amp;amp;" lang="ja">オブジェクトへのアクセスや</span><span style="font-family: Verdana;" lang="ja">タブやウィンドウ管理など</span>
+</p>
+
+<p style="margin: 0in; font-family: Verdana; font-size: 10pt;">
+   
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  <span style="text-decoration: underline;">再起動不要</span>
+</p>
+
+<p style="margin: 0in; font-family: Verdana; font-size: 10pt;">
+  拡張機能が無効化時に元に戻すのはライブラリの責任。
+</p>
+
+<p style="margin: 0in; font-family: Verdana; font-size: 10pt;">
+  api-utilsのunloadモジュール
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  <span style="text-decoration: underline;">バージョン非依存</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: &amp;amp;" lang="ja">バージョンにより</span><span style="font-family: Verdana;" lang="en-US">Firefox</span><span style="font-family: &amp;amp;" lang="ja">の動作が変わる可能性があるところはライブラリが吸収する</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">API</span><span style="font-family: &amp;amp;" lang="ja">自体は変更しない</span>
+</p>
+
+<p style="margin: 0in; font-family: Verdana; font-size: 10pt;" lang="en-US">
+  <span style="text-decoration: underline;">E10S</span>
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  プロセス分離のコードネーム
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">postMessage</span><span style="font-family: &amp;amp;" lang="ja">を使って非同期通信</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">Jetpack SDK &#8211;e10s</span><span style="font-family: &amp;amp;" lang="ja">のオプションで作成できる。</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana; text-decoration: underline;">Addon kit</span><span style="font-family: &quot;MS Gothic&quot;; text-decoration: underline;">の高レベル</span><span style="font-family: Verdana; text-decoration: underline;">API</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">Addon SDK</span><span style="font-family: &amp;amp;" lang="ja">で</span><span style="font-family: Verdana;" lang="en-US">API</span><span style="font-family: &amp;amp;" lang="ja">の</span><span style="font-family: Verdana;" lang="en-US">Listen</span><span style="font-family: &amp;amp;" lang="ja">モデルが変更された。</span>
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+   
+</p>
+
+<p style="margin: 0in; font-family: Verdana; font-size: 10pt;">
+  <span style="text-decoration: underline;">独自のライブラリ</span>
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  独自のアイコンを追加する例
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  アイコン追加
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">XUL</span><span style="font-family: &amp;amp;" lang="ja">プログラミング的に</span><span style="font-family: Verdana;" lang="en-US">Create</span><span style="font-family: &amp;amp;" lang="ja">して</span><span style="font-family: Verdana;" lang="en-US">append</span>
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  アイコン削除
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  ウィンドウ追加
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  ウィンドウ削除、拡張アンロード時
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  それぞれの場合において動作を書く。
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: &amp;amp;" lang="ja">ウィンドウの監視は</span><span style="font-family: Verdana;" lang="en-US">onTrack,onUntrack</span><span style="font-family: &amp;amp;" lang="ja">で監視する。</span>
+</p>
+
+<p style="margin: 0in; font-family: Verdana; font-size: 10pt;">
+   
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  まとめ
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: &amp;amp;" lang="ja">自作ライブラリを作ることで</span><span style="font-family: Verdana;" lang="en-US">Jetpack</span><span style="font-family: &amp;amp;" lang="ja">の可能は大きく広がる。</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">XUL</span><span style="font-family: &amp;amp;" lang="ja">の構造を知ってる人は今でも必要です。</span>
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+   
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">Addon Builder</span><span style="font-family: &amp;amp;" lang="ja">に自作ライブラリも登録できる。</span>
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+   
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana; text-decoration: underline;">Virtual Park </span><span style="font-family: Verdana; text-decoration: underline;">Tumucumaque</span><span style="font-family: Verdana; text-decoration: underline;">(</span><span style="font-family: &quot;MS Gothic&quot;; text-decoration: underline;">とぅむくまけ</span><span style="font-family: Verdana; text-decoration: underline;">) &#8211; </span><span style="font-family: &quot;MS Gothic&quot;; text-decoration: underline;">あかつきだいすけ</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">Mozilla Parks Project</span><span style="font-family: &amp;amp;" lang="ja">は</span><span style="font-family: Verdana;" lang="en-US">Mozilla foundation</span><span style="font-family: &amp;amp;" lang="ja">のプロジェクトの一つ</span><span style="font-family: Verdana;" lang="en-US">(Nakamoka</span><span style="font-family: &amp;amp;" lang="ja">とか自然公園</span><span style="font-family: Verdana;" lang="en-US">)</span>
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  生物の多様性をキーワードにしたアプリケーションの作成
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="ja">Tumucumaque</span><span style="font-family: &amp;amp;" lang="ja">に関連する</span><span style="font-family: Verdana;" lang="en-US">Tweets</span><span style="font-family: &amp;amp;" lang="ja">を集めてグラフィカル表現</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">tree</span><span style="font-family: &amp;amp;" lang="ja">に関連するものから気を生やす</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">Audio API</span><span style="font-family: &amp;amp;" lang="ja">を使ってマウスカーソルを中心とした音を流す</span><span style="font-family: Verdana;" lang="en-US">(</span><span style="font-family: &amp;amp;" lang="ja">水なら水の音</span><span style="font-family: Verdana;" lang="en-US">)</span>
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  ゴール
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: &amp;amp;" lang="ja">自然の現状</span><span style="font-family: Verdana;" lang="en-US">+</span><span style="font-family: &amp;amp;" lang="ja">人の考える</span><span style="font-family: Verdana;" lang="ja">Tumucumaque</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: &amp;amp;" lang="ja">多様性</span><span style="font-family: Verdana;" lang="en-US">(</span><span style="font-family: &amp;amp;" lang="ja">インターネットの多様性</span><span style="font-family: Verdana;" lang="en-US">)</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-family: &amp;amp; font-size: 10pt;">
+  進化
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-family: &amp;amp; font-size: 10pt;">
+   
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-weight: bold; font-family: Verdana;" lang="ja">Panorama</span><span style="font-weight: bold; font-family: &amp;amp;" lang="ja">関連でちょっと作ってみた系</span><span style="font-weight: bold; font-family: Verdana;" lang="en-US"> &#8211; teramako</span>
+</p>
+
+<p style="margin: 0in; font-family: Verdana; font-size: 10pt;">
+  <span style="text-decoration: underline;">Panoramaをもう少しデスクトップっぽくする。</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: &amp;amp;" lang="ja">壁紙を貼る</span><span style="font-family: Verdana;" lang="en-US"> &#8211; useChrome.css</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-family: Verdana; font-size: 10pt;">
+  chrome://browser/content/tabview.html
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">@moz-document</span><span style="font-family: &amp;amp;" lang="ja">などを駆使して</span><span style="font-family: Verdana;" lang="en-US">HTML</span><span style="font-family: &amp;amp;" lang="ja">に</span><span style="font-family: Verdana;" lang="en-US">CSS</span><span style="font-family: &amp;amp;" lang="ja">適応する</span>
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  パノラマにガジェットを作る
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">userChrome.js</span><span style="font-family: &amp;amp;" lang="ja">の特殊版みたいな</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">SVG</span><span style="font-family: &amp;amp;" lang="ja">でクロックの拡大縮小の対応</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">XUL</span><span style="font-family: &amp;amp;" lang="ja">で書かれていないので</span><span style="font-family: Verdana;" lang="en-US">Script</span><span style="font-family: &amp;amp;" lang="ja">の埋め込みができない、</span><span style="font-family: Verdana;" lang="en-US">link rel</span><span style="font-family: &amp;amp;" lang="ja">も同様</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">MozJSSubScriptLoader</span><span style="font-family: &amp;amp;" lang="ja">で読み込ませる。</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: &amp;amp;" lang="ja">パノラマは起動時には初期化処理が起きないので、</span><span style="font-family: Verdana;" lang="en-US">tabview</span><span style="font-family: &amp;amp;" lang="ja">の提供してる</span><span style="font-family: Verdana;" lang="ja">tabviewframeinitialized</span><span style="font-family: &amp;amp;" lang="ja">イベントを待つ。</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-family: &amp;amp; font-size: 10pt;">
+   
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-weight: bold; font-family: Verdana;" lang="en-US">Vertical Toolbar</span><span style="font-weight: bold; font-family: &amp;amp;" lang="ja">の紹介</span><span style="font-weight: bold; font-family: Verdana;" lang="en-US"> &#8211; </span><span style="font-weight: bold; font-family: Verdana;" lang="ja">Gomita</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">Opera</span><span style="font-family: &amp;amp;" lang="ja">の縦置きのツールバー</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-family: &amp;amp; font-size: 10pt;">
+  自動で隠す機能
+</p>
+
+<p style="margin: 0in 0in 0in 0.75in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">CSS transition</span><span style="font-family: &amp;amp;" lang="ja">で</span><span style="font-family: Verdana;" lang="en-US">left-margin</span><span style="font-family: &amp;amp;" lang="ja">で隠している</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-size: 10pt;">
+  <span style="font-family: &amp;amp;" lang="ja">右側配置は</span><span style="font-family: Verdana;" lang="en-US">dir</span><span style="font-family: &amp;amp;" lang="ja">属性</span><span style="font-family: Verdana;" lang="en-US">rtl</span><span style="font-family: &amp;amp;" lang="ja">をセットすると中身が逆転する</span>
+</p>
+
+<p style="margin: 0in 0in 0in 0.375in; font-family: &amp;amp; font-size: 10pt;">
+   
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  <span style="font-weight: bold;">AMO の新開発者ツールとレビューシステム & キミの知らない AMJ – by kohei.yoshino</span>
+</p>
+
+<p style="margin: 0in; font-size: 10pt;">
+  <span style="font-family: Verdana;" lang="en-US">AMO</span><span style="font-family: &amp;amp;" lang="ja">の開発者ツールが新しくなった。</span>
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+   
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  <span style="font-weight: bold;">はじめてのもじらのばぐじらの歩き方（バグの立て方編）- by saneyuki <br /> </span>
+</p>
+
+<p style="margin: 0in; font-family: &amp;amp; font-size: 10pt;">
+  習うより慣れろ<br /> メールの登録を有効利用する
+</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-01-17-mozilla%E5%8B%89%E5%BC%B7%E4%BC%9A%E6%9D%B1%E4%BA%AC-5th%E3%81%A7%E3%80%8C%E4%B8%96%E7%95%8C%E3%81%AEjavascript%E6%83%85%E5%A0%B1%E3%82%92%E8%AA%AD%E3%82%82%E3%81%86%E3%80%8D%E3%81%A8%E3%81%84.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Firefox","javascript","Jetpack","アウトライン","勉強会","拡張機能"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=Jetpack">Jetpack</a></li>
+                
+                <li><a href="/tags/?q=アウトライン">アウトライン</a></li>
+                
+                <li><a href="/tags/?q=勉強会">勉強会</a></li>
+                
+                <li><a href="/tags/?q=拡張機能">拡張機能</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        テストとセキュリティの葉桜JSに参加してきた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0415/res3844/">
+    <h1 class="post-title">テストとセキュリティの葉桜JSに参加してきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年04月15日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-04-15-%E3%83%86%E3%82%B9%E3%83%88%E3%81%A8%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%81%AE%E8%91%89%E6%A1%9Cjs%E3%81%AB%E5%8F%82%E5%8A%A0%E3%81%97%E3%81%A6%E3%81%8D%E3%81%9F.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://togetter.com/li/655304" title="#葉桜JS - Togetterまとめ">#葉桜JS</a> に参加してきたので記憶メモ。</p>
+
+<ul>
+<li>  <a href="http://togetter.com/li/655304" title="#葉桜JS - Togetterまとめ">#葉桜JS &#8211; Togetterまとめ</a></li>
+</ul>
+
+<p>(脳内記憶で書いたので、何かと解釈が間違ってる場合があります)</p>
+
+<blockquote class="twitter-tweet" lang="en">
+  <p>
+    <a href="https://twitter.com/search?q=%23%E8%91%89%E6%A1%9CJS&src=hash">#葉桜JS</a> 会場の様子です <a href="http://t.co/rIhgaxceHd">pic.twitter.com/rIhgaxceHd</a>
+  </p>
+  
+  <p>
+    &mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/statuses/455652439983525889">April 14, 2014</a>
+  </p>
+</blockquote>
+
+<h3 id="葉桜jsとは">葉桜JSとは</h3>
+
+<p>唐突にネタを持ち寄って食事とかする場所です。<br>
+@<a href="https://twitter.com/kyo_ago" title="kyo ago (kyo_ago) on Twitter">kyo_ago</a>さんとかが適当に投げた、<br>
+それっぽい<a href="http://togetter.com/li/655304">ハッシュタグ</a>に反応した人を適当に呼んで開始しました。</p>
+
+<hr>
+
+<h2 id="kyo_ago">kyo_ago</h2>
+
+<h3 id="buster.jsはどうなってるのか">Buster.JSはどうなってるのか</h3>
+
+<ul>
+<li>  <a href="https://github.com/dwittner" title="dwittner">dwittner</a>さんがメンテしてる</li>
+<li>  ドキュメントよりの人なので、あんまり機能開発は進んでてない</li>
+<li>  Buster.JSにみたいにSinon.JSが統合されてると、stubの開放処理をミスらない</li>
+<li>  テストコードをASTパースして自動的に開放処理を入れられるか? 
+
+<ul>
+<li>  非同期処理の時に何時終わったのか分からない</li>
+</ul></li>
+</ul>
+
+<h3 id="テストのコスト、メトリクス">テストのコスト、メトリクス</h3>
+
+<ul>
+<li>  重要なテストといらないテストを見分けたい</li>
+<li>  テストコードを読むときにどれが重要なのか分からない</li>
+<li>  不要なテストが多いとテスト実行時間がかさむ</li>
+<li>  Seleniumはテストの実行時間の増加が顕著</li>
+<li>  バグを修正するときにそれのSeleniumのテストを書くべきか問題</li>
+<li>  テストにラベル/タグ付けをして、必要なテストをグループで実行出来るような仕組みが有用?</li>
+<li>  YUIのテスト構成について 
+
+<ul>
+<li>  CIではたっぷりテストを回す、テストを回す効率について書かれてる</li>
+<li>  <a href="http://reidburke.com/deck/2013/yuiconf/#slide=title" title="Testing YUI Everywhere">Testing YUI Everywhere</a></li>
+</ul></li>
+<li>  昔のテストといえば、特定のディレクトリにまとまってたのでディレクトリ単位だった</li>
+<li>  今は色んな所にテストがある 
+
+<ul>
+<li>  そのためテストにタグ付けをしていくの主流かも?</li>
+<li>  テストカテゴライズ</li>
+</ul></li>
+</ul>
+
+<h3 id="sourcemapを複数回変換する問題">sourcemapを複数回変換する問題</h3>
+
+<ul>
+<li>  現状だと特に複数回に対する仕様はない</li>
+<li>  a -&gt; b -&gt; c みたいにそれぞれがちゃんとやってることを期待するしかない</li>
+<li>  ウンヨウデカバー</li>
+<li>  a &#8211; &#8230;. -&gt; c みたいなマッピングならできるはず</li>
+</ul>
+
+<h2 id="teppeis">teppeis</h2>
+
+<h3 id="typescript用フルスタック型付きライブラリのご提案">TypeScript用フルスタック型付きライブラリのご提案</h3>
+
+<blockquote>
+<p><a href="https://gist.github.com/teppeis/10659631" title="TypeScript用フルスタック型付きライブラリのご提案 #葉桜JS">TypeScript用フルスタック型付きライブラリのご提案 #葉桜JS</a> </p>
+</blockquote>
+
+<ul>
+<li>  「我々には型が必要な事は明白です」</li>
+<li>  Closure Library という型を持ったライブラリがある</li>
+<li>  JSDoc から TypeScriptの <code>d.ts</code> 型宣言ファイルへと変換するツールを書いてみた</li>
+<li>  <a href="http://esprima.org/" title="Esprima">Esprima</a>と<a href="https://github.com/Constellation/doctrine" title="doctrine">doctrine</a>を使った</li>
+</ul>
+
+<h3 id="言語に依存しない汎用型定義">言語に依存しない汎用型定義</h3>
+
+<ul>
+<li>  特定の言語に依存しない、型を定義するだけの物体が欲しい</li>
+<li>  <a href="https://github.com/Constellation/doctrine" title="doctrine">doctrine</a>ではJSDocをパースした時にJS ASTのように定義をASTっぽい感じにする</li>
+</ul>
+
+<p><strong>現実問題</strong></p>
+
+<ul>
+<li>  現実的な問題として、言語によって<em>型</em>そのものが等の扱いがバラバラ</li>
+<li>  JSXとTypeScriptでさえnullable等の違いがある</li>
+<li>  d.ts -&gt; 他 は TypeScriptの型が少ない目なので意外とできなくはない</li>
+<li>  「汎用型定義生成の夢」</li>
+<li>  write once run anywhereや!</li>
+</ul>
+
+<hr>
+
+<h2 id="azu">azu</h2>
+
+<h3 id="test-runner-tips"><a href="http://azu.github.io/slide/hasakurajs/" title="Test Runner Tips">Test Runner Tips</a></h3>
+
+<p>大体はスライド<a href="http://azu.github.io/slide/hasakurajs/" title="Test Runner Tips">Test Runner Tips</a>書いてあります。</p>
+
+<ul>
+<li>  Mocha 
+
+<ul>
+<li>  実質的な覇者</li>
+<li>  やってる範囲は狭いので他と合わせて使う</li>
+<li>  <code>mocha.opts</code>という謎の設定ファイルのユースケース</li>
+<li>  Node.jsとブラウザで同じものを動かしたい</li>
+<li>  <code>mocha</code>オブジェクトを直接弄ってテストの設定を動的に変更する</li>
+</ul></li>
+<li>  testem 
+
+<ul>
+<li>  まっとう</li>
+<li>  既存ツールと連携しやすい</li>
+<li>  testem2の進捗どうですか?</li>
+</ul></li>
+<li>  Karma 
+
+<ul>
+<li>  大きい</li>
+<li>  プリプロセッサという拡張について</li>
+<li>  sourcemapを使ってスタックトレースの書き換えまでサポートしてる</li>
+<li>  Karmaの未来について 
+
+<ul>
+<li>  よりコミュニティを意識するという話</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="jxck">jxck</h2>
+
+<h3 id="テストライブラリ">テストライブラリ</h3>
+
+<ul>
+<li>  QUnitは最近どうですか?</li>
+<li>  深刻なバグ(requireで使えない)のfixが中々マージされなかった</li>
+<li>  <a href="http://jxck.hatenablog.com/entry/20100721/1279681676" title="QUnitの基本的な使い方 - Block Rockin’ Codes">QUnitの基本的な使い方 &#8211; Block Rockin’ Codes</a>の記事が未だに参照されまくってる話 
+
+<ul>
+<li>  この記事の時に非同期のテストサポートなかった</li>
+<li>  Mochaの記事にかえてしまおうか?</li>
+</ul></li>
+<li>  <a href="https://github.com/substack/tape" title="substack/tape">substack/tape</a>について</li>
+<li>  assertの数を最初に書くのはperl文化っぽい</li>
+<li>  本当にそのassertがテストで実行されたのかを保証したい 
+
+<ul>
+<li>  spyとやりたい事は似てる</li>
+<li>  けど、単純にassertの数を数えるだけでそれが実現できる</li>
+</ul></li>
+<li>  QUnitはその辺もあって、テストが失敗してもテストが続く(今だとQunitだけ?)</li>
+<li>  QUnitの歴史、どのようなテストフレームワークに影響を受けてうまれてたかについて</li>
+</ul>
+
+<h3 id="nanotest"><a href="https://www.npmjs.org/package/nanotest" title="nanotest">nanotest</a></h3>
+
+<ul>
+<li>  最小のテストを目指してた</li>
+<li>  assertの数を数えるメソッドを<code>assert</code>に拡張してた</li>
+<li>  <code>assert</code>を書き換えるのは難しい 
+
+<ul>
+<li>  <code>power-assert</code>でもやってて難しい話</li>
+</ul></li>
+<li>  「<code>require</code>を盗むのはやめましょう」</li>
+</ul>
+
+<p><strong>mochaのdone</strong>について</p>
+
+<ul>
+<li>  <code>done</code>は非同期に対するテスト?</li>
+<li>  それともコールバックに対するテスト?</li>
+<li>  Promiseみたいな例外はテストライブラリがサポートしてないと上手くいかない感 
+
+<ul>
+<li>  本当に<code>then</code>が呼ばれたのかが心配になる</li>
+<li>  assertのカウントがやっぱり必要?</li>
+</ul></li>
+</ul>
+
+<h3 id="「人類は-harmony-を使いこなせるか？-&#8211;-generator-編-」">「人類は Harmony を使いこなせるか？ &#8211; Generator 編 」</h3>
+
+<ul>
+<li>  generatorを直接使いたいか?</li>
+<li>  ライブラリ側で使って、直接は使いたくないかもという話</li>
+<li>  テストだけでgeneratorを使いたい?</li>
+<li>  コードとテストのパラダイムが違うのは問題かどうか? 
+
+<ul>
+<li>  テストをどうしたいかの方針によって違う</li>
+<li>  できるだけ簡単に書きたい =&gt; 別パラダイムあり</li>
+<li>  できるだけ読みやすくしたい、サンプルとしてのテスト =&gt; 同じパラダイム</li>
+</ul></li>
+</ul>
+
+<p>テストの課題</p>
+
+<ul>
+<li>  テストはドキュメント or テストを簡単に書きたい</li>
+<li>  相反する課題</li>
+<li>  テストを簡単に書きたい =&gt; 極論はaltjsでテストを書くようなモノになっていく</li>
+</ul>
+
+<h3 id="formのput/delete-再び">FormのPUT/Delete 再び</h3>
+
+<ul>
+<li>  Formの場合はクッキーを送ってしまう所がXHRでやるのと異なるケースが出てくるかも 
+
+<ul>
+<li>  イントラネットでFormからPut/Deleteがコない前提のものとか</li>
+</ul></li>
+<li>  JavaScriptが発展する前に、Formの拡張の話がきてたら流れは違ったかも。</li>
+<li>  現実面ではサポートコストが大きすぎる部分が多い</li>
+<li>  HTMLの仕様としては欠けてる感がある</li>
+<li>  Amayaの話まで戻る</li>
+<li>  「ホントにPOSTあってよかった」</li>
+</ul>
+
+<hr>
+
+<h2 id="t-wada">t-wada</h2>
+
+<h3 id="「power-assertができるまで」">「power-assertができるまで」</h3>
+
+<blockquote>
+<p><a href="http://twada.herokuapp.com/presentations/power-assert-begins/power-assert-begins.html" title="power-assertができるまで">power-assertができるまで</a> </p>
+</blockquote>
+
+<ul>
+<li>  power-assertが出来るまでの背景</li>
+<li>  Pythonの人がPythonでもPOWER ASSERTができると言ってた</li>
+<li>  PythonでできるならJavaScriptでも出来るはず</li>
+<li>  Node学園でsubstackやIsaacの話を聞いてNodeにもUnix文化があると知った</li>
+<li>  最初はC1以上のカバレッジツールを作りたかった</li>
+<li>  SQLアンチパターンが忙しかった 
+
+<ul>
+<li>  現実逃避 -&gt; power-assertのプロトタイプ作成</li>
+</ul></li>
+<li>  最初はQunitと合わせてた、<code>assert</code>互換になるのは結構後</li>
+<li>  SimpleとEasyは別もの</li>
+<li>  <a href="http://www.infoq.com/presentations/Simple-Made-Easy" title="Rich Hickey">Rich Hickey</a>の話を聞いて、power-assertの構造を決めていった 
+
+<ul>
+<li>  それぞれsimpleのレイヤーを分けた</li>
+</ul></li>
+<li>  AST &lt; -&gt; AST、Source &lt; -&gt; Source、File &lt; -&gt; Fileをやる所がある</li>
+</ul>
+
+<h3 id="power-assert-0.6.0">power-assert <a href="https://github.com/twada/power-assert/releases/tag/v0.6.0" title="0.6.0">0.6.0</a></h3>
+
+<ul>
+<li>  今まで一番大きなアーキテクチャ変更</li>
+<li>  ASTのメタ情報を生成してASTに埋め込む 
+
+<ul>
+<li>  実行時にメタ情報を取り出して、解釈する</li>
+<li>  メリットとしてはレポーター等からもメタ情報を利用できる</li>
+<li>  estraverseの<code>path</code>を使う事で一意にASTのnodeを得られる</li>
+<li>  実行時にそこを見る</li>
+</ul></li>
+</ul>
+
+<h3 id="concrete-syntax-tree"><a href="https://github.com/getify/concrete-syntax-tree" title="Concrete Syntax Tree">Concrete Syntax Tree</a></h3>
+
+<ul>
+<li>  CSTについて</li>
+<li>  ASTだとBinaryExpression(+)の+の位置等の情報そのものはない(tokenとか駆使)</li>
+<li>  CSTはそういった情報やコメントについても定義しようというプロジェクト</li>
+<li>  議論がどこまで進んでいるのか気になる</li>
+</ul>
+
+<hr>
+
+<h2 id="yosuke_furukawa">yosuke_furukawa</h2>
+
+<h3 id="docker-node-tester">Docker Node Tester</h3>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/yosuke_furukawa/docker-node-testerfalsehua-in-xie-ying-js" title="Docker Node Testerの話 in 葉桜js // Speaker Deck">Docker Node Testerの話 in 葉桜js // Speaker Deck</a></p>
+
+<p><a href="http://yosuke-furukawa.hatenablog.com/entry/2014/04/15/091117" title="Docker Node Testerを使ってNode.jsをバージョン毎にテストする #葉桜js - from scratch">Docker Node Testerを使ってNode.jsをバージョン毎にテストする #葉桜js &#8211; from scratch</a> </p>
+</blockquote>
+
+<ul>
+<li>  Node.jsの v0.10と0.11を一緒にテストしたい</li>
+<li>  Githubのtag等を直接checkoutしてテスト環境を作れる</li>
+<li>  多分Node.js以外でもいける</li>
+<li>  TravisだといちいちPushしないといけない、Dockerなのでローカルで出来る</li>
+</ul>
+
+<h3 id="docker">Docker</h3>
+
+<ul>
+<li>  Dockerが突然死ぬことがある</li>
+<li>  JenkinsおじさんからDocker職人へ</li>
+<li>  まだ脆い部分もあるので、Docker一本だと難しい所がある</li>
+<li>  Ubuntuについて 
+
+<ul>
+<li>  本番環境がUbuntuならデスクトップもUbuntuで合わせると楽</li>
+<li>  CentOSツライ</li>
+<li>  最近は色んなソフトがUbuntuサポートしてる</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="mala">mala</h2>
+
+<h3 id="なぜangular.jsを使ってxssがおきるのか">なぜAngular.jsを使ってXSSがおきるのか</h3>
+
+<ul>
+<li>  アカウント登録してメールがきた時点で怪しいURLだった 
+
+<ul>
+<li>  リダイレクトが指定出来る感じだった(なぜか空)</li>
+<li>  <code>javasript:</code>を入れると動いた</li>
+<li>  投稿する前に見つかった</li>
+<li>  今の人は<code>javasript:</code>自体を知らないのでは説</li>
+</ul></li>
+<li>  <a href="http://havelog.ayumusato.com/develop/security/e593-mixins_server_template_and_angular.html" title="AngularJSとサーバーサイドテンプレートの混在とngNonBindable ::ハブろぐ">AngularJSとサーバーサイドテンプレートの混在とngNonBindable ::ハブろぐ</a></li>
+<li>  普通に使ってればAngular.JSは結構固い</li>
+<li>  自由なアカウント名が取られてる話</li>
+<li>  <a href="http://qiita.com/phimcall/items/4c559b70f70ea7f1953b" title="知見 - 登録されるとつらいユーザー名リスト - Qiita">知見 &#8211; 登録されるとつらいユーザー名リスト &#8211; Qiita</a> 
+
+<ul>
+<li>  URLの運用大変そう</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<p>メモ: Twitterに直接と脳内記憶</p>
+
+<h3 id="その他">その他</h3>
+
+<p>後、自分は作って発表する時間なかったので発表してませんでしたが、<br>
+<a href="http://azu.github.io/slide/hasakurajs/power-assert.html" title="power-assertの記事が出来るまで">power-assertの記事が出来るまで</a>というスライドを作りました。</p>
+
+<ul>
+<li>  <a href="http://efcl.info/2014/0406/res3809/" title="power-assertの使い方 Node.js編 | Web scratch">power-assertの使い方 Node.js編 | Web scratch</a></li>
+<li>  <a href="http://efcl.info/2014/0411/res3820/" title="power-assertでJavaScriptのテストをする ブラウザ編 | Web scratch">power-assertでJavaScriptのテストをする ブラウザ編 | Web scratch</a></li>
+</ul>
+
+<p>という2つの記事を書くまでに至った思考の流れとかをまとめた感じです。</p>
+
+<p>調査しながら記事書く時の話みたいな感じです。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-04-15-%E3%83%86%E3%82%B9%E3%83%88%E3%81%A8%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%81%AE%E8%91%89%E6%A1%9Cjs%E3%81%AB%E5%8F%82%E5%8A%A0%E3%81%97%E3%81%A6%E3%81%8D%E3%81%9F.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

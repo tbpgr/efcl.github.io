@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        KeySnailプラグイン開発の方法とデバッグ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Firebug,Firefox,javascript,UI,userChrome.js,検索" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0402/res2453/">
+    <h1 class="post-title">KeySnailプラグイン開発の方法とデバッグ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年04月02日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-04-02-keysnail%E3%81%AE%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E9%96%8B%E7%99%BA.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h4 id="keysnailついて">KeySnailついて</h4>
+
+<p>自分はEmacsユーザーでもありませんが、KeyConfigの代わりに<a href="http://d.hatena.ne.jp/mooz/20090921/p1">KeySnail</a>を使い始めました。<br>
+そもそもKeyConfigとは役割違うし、<a href="http://mozilla.dorando.at/" title="KeyConfig">KeyConfigもFirefox4対応</a>したので併用しています。<br>
+<a href="https://github.com/mooz/keysnail/wiki/keysnail-japanese">keysnail</a>はuserChrome.jsのキー特化みたいな存在で、便利なAPIがある環境みたいなとらえ方でもいいかもしれないです。(emacsのキーバインドは一切使わないで、まっさらな状態で始めました)</p>
+
+<h4 id="&lt;!--more--&gt;keysnailのプラグイン開発について">&lt;!--more--&gt;KeySnailのプラグイン開発について</h4>
+
+<p><a href="https://github.com/azu/KeySnail-Plugins/tree/master/JSReference">JSReference</a>というMDN(<a href="https://developer.mozilla.org/ja">MDC</a>)や<a href="http://www2u.biglobe.ne.jp/%7Eoz-07ams/prog/ecma262r3/">ECMA-262 3rd Edition</a>をKeySnailのプロンプトから検索できるプラグインを書いたので、これに沿って説明していきます。</p>
+
+<p>こんな感じの動作するやつです。(フルスクリーンで見た方がいい)<br>
+端的に言えば<a href="http://subtech.g.hatena.ne.jp/cho45/20100901/1283268146">Chemr-js</a>みたいな感じでインデックスをキャッシュしてリファレンスを検索するものです。</p>
+
+<p><strong>KeySnailのプラグイン開発の情報元</strong></p>
+
+<ul>
+<li>  <a href="https://github.com/mooz/keysnail/wiki/_pages">KeySnailのgithub wiki</a></li>
+<li>  作者ブログ 
+
+<ul>
+<li>  <a href="http://d.hatena.ne.jp/mooz/">mooz deceives you</a></li>
+<li>  <a href="http://keysnail.g.hatena.ne.jp/mooz/">きすねた(ん) &#8211; keysnailグループ</a></li>
+</ul></li>
+<li>  <a href="http://keysnail.g.hatena.ne.jp/">keysnailグループ</a>(はてなグループ)</li>
+<li>  <a href="http://b.hatena.ne.jp/t/keysnail?sort=eid">タグ「keysnail」を含む新着エントリー &#8211; はてなブックマーク</a></li>
+<li>  KeySnailのソースコード(<a href="https://github.com/mooz/keysnail/tree/master/content">content at master from mooz/keysnail &#8211; GitHub</a>)</li>
+</ul>
+
+<p>KeySnailのプラグイン開発についての情報はドキュメントが不足(分散)している印象を受けるため、<a href="https://github.com/mooz/keysnail/wiki">wiki</a>に情報を反映させたり(github wiki使いにくいのでもっと他のがあるといいのだけど)、ブログなど開発手順を記したりすると他の人のためにもなると思います。</p>
+
+<h4 id="メタデータ">メタデータ</h4>
+
+<p>まずKeySnailにはドキュメントも表示できる優秀なプラグインマネージャーとGUIでも追加したコマンドなどの管理ができる(<a href="https://github.com/mooz/keysnail/wiki/Customizing-%28Japanese%29">.keysnail.js</a>を直接いじるのも可能)ため、プラグインを作った時にはメタデータが結構重要です。<figure id="attachment_2455" style="width: 300px;" class="wp-caption alignnone"></p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/03/cacc8d20980b1ae5f38e41eabfbb4bcb.png"><img class="size-medium wp-image-2455" title="2011-03-31-plugin-ss1" src="http://efcl.info/wp-content/uploads/2011/03/cacc8d20980b1ae5f38e41eabfbb4bcb-300x204.png" alt="" width="300" height="204" /></a><figcaption class="wp-caption-text">プラグインマネージャー</figcaption></figure> <figure id="attachment_2456" style="width: 300px;" class="wp-caption alignnone"><a href="http://efcl.info/wp-content/uploads/2011/03/2011-03-31-ss2.png"><img class="size-medium wp-image-2456" title="2011-03-31-ss2" src="http://efcl.info/wp-content/uploads/2011/03/2011-03-31-ss2-300x262.png" alt="" width="300" height="262" /></a><figcaption class="wp-caption-text">GUIで管理できるキーマネージャー</figcaption></figure> 
+プラグインはJavaScript(拡張子は .ks.js)で書きますが、プラグイン内部に<a href="https://developer.mozilla.org/ja/E4X">E4X</a>を利用してメタ情報を含めることができます。(是非入れて)<br>
+メタ情報の書式は<a href="https://github.com/mooz/keysnail/wiki/writing-plugins-japanese"></a><a href="https://github.com/mooz/keysnail/wiki/Writing-Plugins-%28Japanese%29">Writing Plugins (Japanese)</a>に詳細に書いてあるので、これと他の<a href="https://github.com/mooz/keysnail/wiki/Plugin">Plugin</a>をまねるのが早いです。E4Xで書くのでプラグインの詳細な情報を入れるdetail内には簡単なWiki記法を使ってプラグインの詳細を書くことができます。</p>
+
+<pre>&#60;detail lang="ja"&#62;&#60;!&#91;CDATA&#91;
+複数行のヒアドキュメント
+のような書き方ができる。
+簡単なWikiみたいな記法も使える
+
+見出し:
+    - == heading1 == で第一見出し(h1)
+    - === heading2 === で第二見出し(h2)
+    - ==== heading3 ==== で第三見出し(h3)
+整形式テキスト:
+    &#62;|| と ||&#60; で囲むと整形式テキスト(pre)になります。
+    コードなどを書きたい場合に使用できるでしょう。
+など
+ &#93;&#93;&#62;&#60;/detail&#62;</pre>
+
+<p>自分の書いた<a href="https://github.com/azu/KeySnail-Plugins/tree/master/JSReference">JSReference</a>では以下のようなメタ情報を書きました。</p>
+
+<pre>var PLUGIN_INFO =
+        &#60;KeySnailPlugin&#62;
+            &#60;name&#62;JsReferrence&#60;/name&#62;
+            &#60;description&#62;JavaScriptリファレンスを引く&#60;/description&#62;
+            &#60;updateURL&#62;https://github.com/azu/KeySnail-Plugins/raw/master/JSReference/js-referrence.ks.js&#60;/updateURL&#62;
+            &#60;iconURL&#62;https://github.com/azu/KeySnail-Plugins/raw/master/JSReference/MyIcon.png&#60;/iconURL&#62;
+            &#60;version&#62;0.0.1&#60;/version&#62;
+            &#60;author mail="info@efcl.info" homepage="http://efcl.info/"&#62;azu&#60;/author&#62;
+            &#60;license&#62;The MIT License&#60;/license&#62;
+            &#60;provides&#62;
+                &#60;ext&#62;JsReferrence-open-prompt&#60;/ext&#62;
+                &#60;ext&#62;JsReferrence-reIndex&#60;/ext&#62;
+            &#60;/provides&#62;
+            &#60;detail&#62;&#60;!&#91;CDATA&#91;&#93;&#93;&#62;&#60;/detail&#62;
+            &#60;detail lang="ja"&#62;&#60;!&#91;CDATA&#91;
+            === 使い方 ===
+            ....略.....
+            &#93;&#93;&#62;&#60;/detail&#62;
+        &#60;/KeySnailPlugin&#62;;</pre>
+
+<p>それぞれの属性については<a href="https://github.com/mooz/keysnail/wiki/writing-plugins-japanese"></a><a href="https://github.com/mooz/keysnail/wiki/Writing-Plugins-%28Japanese%29">Writing Plugins (Japanese)</a>を見ればいいので飛ばしますが、E4Xを利用しているのでプラグイン内部からこれらのメタデータを利用する事もできます。<br>
+たとえば、プラグイン内部からname(JsReferrence)を取得したいと思ったら、</p>
+
+<pre class="brush:javascript;">var name = PLUGIN_INFO.name.toString();// JsReferrence</pre>
+
+<p>という風に参照することができます。詳しいE4Xのプロパティやメソッドについては<a href="http://rephrase.net/days/07/06/e4x">rephrase § E4X</a>が詳しいです。<br>
+E4X自体については以下にリンクをいろいろまとめてあります。</p>
+
+<ul>
+<li>  <a href="../adiary/E4X%E3%81%A8DOM">E4XとDOM &#8211; prog*sig</a></li>
+</ul>
+
+<p>以上でメタデータについては終わりですが、アップデートURLやアイコンURLなども指定できてとてもいい感じにできてると思います。</p>
+
+<h4 id="デバッグ方法">デバッグ方法</h4>
+
+<p>自分のデバッグ方法を書きますがもっと効率のいい方法があったらお知らせくださいな。<br>
+まずKeySnailにはいくつかのデバッグ<del>関係</del>に使えそうなのAPIがあります。</p>
+
+<pre class="brush:javascript;">util.message("format", &#91;args...&#93;); // コンソールにログを出力
+display.showPopup(title, msg, &#91;options&#93;);// Growlみたいな通知(Firefoxの通知のやつ)
+display.prettyPrint(msg, &#91;options&#93;);// DOM内にポップアップで出力
+display.notify(aMsg, aButtons, aIcon);// ページ上部に出てくるインストールButtonみたいな感じ</pre>
+
+<p>display.prettyPrintは以下みたいなのが出ます。<figure id="attachment_2460" style="width: 300px;" class="wp-caption alignnone"></p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/03/2011-03-31-ss4.png"><img class="size-medium wp-image-2460" title="2011-03-31-ss4" src="http://efcl.info/wp-content/uploads/2011/03/2011-03-31-ss4-300x102.png" alt="" width="300" height="102" /></a><figcaption class="wp-caption-text">display.prettyPrint</figcaption></figure> 
+他のutil関係のAPIは<a href="https://github.com/mooz/keysnail/wiki/util.js">util.js &#8211; GitHub</a>に載っています。(ただこれがkeysnail API全部ではなくてドキュメント化されてないものも含めて他にもたくさんあります)</p>
+
+<p>これらの用意されてる出力形式はオブジェクトを渡すと[object Object]と表示されてしまうので、Firebugでオブジェクトの中身を見られる関数を.keysnail.js(or _keysnail.js)に書き足してデバッグに使っていました。</p>
+
+<pre class="brush:javascript;">// PRESERVE エリア内に
+// firebugでオブジェクトをインスペクト
+function fbug(x) {
+    var args = Array.slice(arguments);
+    var windowManager = Components.classes&#91;'@mozilla.org/appshell/window-mediator;1'&#93;
+                        .getService(Components.interfaces.nsIWindowMediator);
+    var {Firebug} = windowManager.getMostRecentWindow("navigator:browser");
+    if (Firebug.Console.isEnabled() && Firebug.toggleBar(true, 'console')) {
+        Firebug.Console.logFormatted(args);
+    }
+    return args.length &#62; 1 ? args : args&#91;0&#93;;
+}</pre>
+
+<p>上を書き足したら、プラグイン内でfbugというメソッドが使えるようになります。<br>
+fbugに適当な値を渡すとFirebugでそれを開いて表示してくれます。(要はconsole.logみたいなもの)<br>
+この関数は<a href="https://addons.mozilla.org/ja/firefox/addon/xqjs/">xqjs</a>から拝借しています。<a href="https://addons.mozilla.org/ja/firefox/addon/xqjs/">xqjs</a>はとても便利なJavaScript実行コンソールなので是非使うといいです。</p>
+
+<p>注意としてマルチバイトの文字列を渡すと文字化けするので、<a href="https://github.com/mooz/keysnail/wiki/writing-plugins-japanese"></a><a href="https://github.com/mooz/keysnail/wiki/Writing-Plugins-%28Japanese%29">Writing Plugins (Japanese)</a>にも書いてありましたが、そのときはL() と M()を使いましょう。</p>
+
+<h4 id="プラグインのリロードについて">プラグインのリロードについて</h4>
+
+<p>プラグインのインストールは.ks.jsファイルへのリンク上で右クリックかプラグインマネージャーから行う事ができます。<br>
+プラグイン開発しているときはkeysnailのプラグインディレクトリ(プロファイル/keysnail/plugin)に.ks.jsファイルを置いて開発すると思います。変更を反映させるとき、毎回プラグインマネージャーから&#8221;プラグインのリロード&#8221;をするのは面倒なので、以下のようなものを.keysnail.jsに書き込んで使ってます。</p>
+
+<pre class="brush:javascript;">// PRESERVE エリアの外に
+key.setViewKey(&#91;'ESC', 'ESC'&#93;, function (ev) {
+    userscript.loadPlugins();
+}, 'プラグインのリロード');</pre>
+
+<p>これでESCを2回押したらプラグインのリロードするようになるため、プラグインを書き換えて実行→確認がすぐにできるようになります。(ページのリロードすらいらない)</p>
+
+<h4 id="プラグインのapi">プラグインのAPI</h4>
+
+<p>プラグイン内でthisを見ると、プラグインから使える関数などが見えてくるかも知れません。<figure id="attachment_2464" style="width: 300px;" class="wp-caption alignnone"></p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/04/2011-04-02-ss2.png"><img class="size-medium wp-image-2464" title="2011-04-02-ss2" src="http://efcl.info/wp-content/uploads/2011/04/2011-04-02-ss2-300x181.png" alt="" width="300" height="181" /></a><br>
+<figcaption class="wp-caption-text">fbug(this) -thisをFirebugで見る</figcaption></figure> 
+KeySnail 1.8.5からはundersocre.jsを使えるようになっています。</p>
+
+<ul>
+<li>  <a href="http://keysnail.g.hatena.ne.jp/mooz/20110321/1300729753">KeySnail 1.8.5 &#8211; 相対パス指定, underscore.js, 補完強化 &#8211; きすねた(ん) &#8211; keysnailグループ</a></li>
+</ul>
+
+<p>また、プラグイン内でグローバル空間(this)を拡張しても<a href="http://twitter.com/stillpedant/statuses/52977248042627072">問題ない</a>そうです。<br>
+今回、KeySnailプラグイン書くために使ったAPIはJSONでデータの読み書きをするpersist.preserve(aObj, aName) , persist.restore(aName) と 渡した配列から絞り込み検索UIを簡単に使えるprompt.selectorです。<br>
+特にprompt.selectorは便利なので、これのためにKeysnailを使うのもありです。(はてなブックマーク検索ができる<a href="https://github.com/mooz/keysnail/raw/master/plugins/hateb-keysnail-collabo.ks.js">Hatebnail</a>とかがすごく便利)</p>
+
+<p>それぞれのAPIの使い方は以下を参考にしました。</p>
+
+<ul>
+<li>  <a href="http://keysnail.g.hatena.ne.jp/mooz/20100220/1267328272">食堂はじめました &#8211; きすねた(ん) &#8211; keysnailグループ</a></li>
+<li>  <a href="http://d.hatena.ne.jp/mooz/20091004/p1">prompt.selector を使おう　～はてなブックマーク拡張と KeySnail の連携～ &#8211; mooz deceives you</a></li>
+</ul>
+
+<p>注意点としてpersist.preserveに渡すオブジェクトは特にシリアライズしないでそのままオブジェクトを渡せばいいようです。また、prompt.selectorのflagsでHIDDEN IGNORE, ICON以外に数値で指定されている場合がありますが、内部でそれぞれ対応する数値が割り当てされているので、直接数値で指定しても大丈夫なようです。</p>
+
+<ul>
+<li>  <a href="https://github.com/mooz/keysnail/blob/master/content/modules/prompt.js#L9">content/modules/prompt.js at master from mooz/keysnail &#8211; GitHub</a></li>
+</ul>
+
+<p>他にもいろいろ使えるAPIがありますが、Github wikiの方に適当にまとめておいたのでそこら辺を参照するといいです。</p>
+
+<blockquote title="Writing Plugins (Japanese) - GitHub" cite="https://github.com/mooz/keysnail/wiki/Writing-Plugins-(Japanese)">
+  <p>
+    プラグイン開発の参考リンク
+  </p>
+  
+  <p>
+    <cite><a href="https://github.com/mooz/keysnail/wiki/Writing-Plugins-(Japanese)" target="_blank">Writing Plugins (Japanese) &#8211; GitHub</a></cite>
+  </p>
+</blockquote>
+
+<p>以上でKeySnailのプラグイン開発については終わりです。<br>
+是非、引っかかった点や参考にしたものなどは文章化してください。これは別にKeySnailに限ったことではありませんが、文章化されていないコードは非実在コードになりがちなため、文章やドキュメントにすることは大切だと思います。</p>
+
+<p><strong>azu/KeySnail-Plugins &#8211; GitHubi</strong>
+:   <a href="https://github.com/azu/KeySnail-Plugins" title="azu/KeySnail-Plugins - GitHub">https://github.com/azu/KeySnail-Plugins</a></p>
+
+<p><strong>KeySnaili</strong>
+:   <a href="https://github.com/mooz/keysnail/wiki" title="KeySnail">https://github.com/mooz/keysnail/wiki</a></p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-04-02-keysnail%E3%81%AE%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E9%96%8B%E7%99%BA.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Firebug","Firefox","javascript","UI","userChrome.js","検索"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Firebug">Firebug</a></li>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=UI">UI</a></li>
+                
+                <li><a href="/tags/?q=userChrome.js">userChrome.js</a></li>
+                
+                <li><a href="/tags/?q=検索">検索</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

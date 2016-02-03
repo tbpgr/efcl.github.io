@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        #忘年_sushi でJavaScriptの素振りする技術について話してきた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,HTTP2,ServiceWorker,SSL,ES6" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/12/09/year-end-sushi/">
+    <h1 class="post-title">#忘年_sushi でJavaScriptの素振りする技術について話してきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年12月09日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-12-09-year-end-sushi.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="https://twitter.com/search?q=%23%E5%BF%98%E5%B9%B4_sushi" title="#忘年_sushi">#忘年_sushi</a>で<a href="http://azu.github.io/slide/2015/year-end/javascript-swing.html" title="JavaScriptの素振りする技術">JavaScriptの素振りする技術</a>について話してきました。</p>
+
+<ul>
+<li><a href="http://togetter.com/li/910679" title="#忘年_sushi - Togetterまとめ">#忘年_sushi - Togetterまとめ</a></li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="und" dir="ltr">🍣 <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> <a href="https://t.co/NAnBXXucnl">pic.twitter.com/NAnBXXucnl</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674538717093085184">December 9, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+
+<h2 id="angular2">Angular2</h2>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> こう感じ(AngularJS) <a href="https://t.co/rvr8jAsl4S">pic.twitter.com/rvr8jAsl4S</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674535461642104832">December 9, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>Angualr 2を想定して書くAngular 1はAngularらしくない感じ</li>
+<li>Angular 1での縛りプレイ</li>
+<li>Angualr 2はαがアップデートされまくってる
+
+<ul>
+<li><a href="https://github.com/angular/angular/releases" title="Releases · angular/angular">Releases · angular/angular</a></li>
+<li><a href="https://github.com/ReactiveX/RxJS/releases" title="RxJS">RxJS</a>もαがアップデートされまくってる</li>
+</ul></li>
+</ul>
+
+<h2 id="コーチング">コーチング</h2>
+
+<ul>
+<li>コーチングとは
+
+<ul>
+<li>DDDみたいなもの</li>
+</ul></li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">DDDを多人数との現実的なコミュニケーションパターンとして捉えるなら、コーチングで学んでることも同じようなパターンランゲージ&#10; <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674537699605262336">December 9, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>コーチングの分類</li>
+<li>広義なコーチング = 人との関わり全般</li>
+<li>狭義のコーチング = コーチング資格の持ってるひとのやること</li>
+<li>マネージメントとコーチング
+
+<ul>
+<li>コーチングから見るとマネージメントは別</li>
+<li>マネージメントから見るとコーチングは別、またマネージメントの一種の手法</li>
+</ul></li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">マネージメントの問題を解決するときのツールが欲しいという話 <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674541071724994560">December 9, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="pdf.js-controller">pdf.js-controller</h2>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="und" dir="ltr"><a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> <a href="https://t.co/X3FRXzSkzA">pic.twitter.com/X3FRXzSkzA</a></p>&mdash; サスケ (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/674541370808270848">December 9, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><a href="http://efcl.info/2015/12/07/pdf.js-controller/" title="[pdf.js] テキスト選択出来るスライド表示ライブラリを書いた | Web Scratch">[pdf.js] テキスト選択出来るスライド表示ライブラリを書いた | Web Scratch</a></li>
+<li>pdf.jsは扱いにくいけど普通に動いても面白い</li>
+<li>楽に扱えるライブラリを書いたよという話</li>
+</ul>
+
+<h2 id="serviceworkerとhttp/2-push">ServiceWorkerとHTTP/2 push</h2>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">これからの AppCache (？)の話をしている。 <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> <a href="https://t.co/NVr9AntFk6">pic.twitter.com/NVr9AntFk6</a></p>&mdash; Jxck (@Jxck_) <a href="https://twitter.com/Jxck_/status/674553985764737024">December 9, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p><a href="http://jxck.hatenablog.com/entry/service-worker-casper" title="HTTP/2 Push を Service Worker + Cache Aware Server Push で効率化したい話 - Block Rockin’ Codes">HTTP/2 Push を Service Worker + Cache Aware Server Push で効率化したい話 - Block Rockin’ Codes</a></p>
+
+<ul>
+<li>localhostのHTTPS化問題
+
+<ul>
+<li>HTTP2がHTTPSじゃないと使えないので<a href="https://localhost/%E3%81%A8%E3%81%99%E3%82%8B%E5%BF%85%E8%A6%81%E3%81%8C%E3%81%82%E3%82%8B">https://localhost/とする必要がある</a></li>
+<li>でもlocalhostの証明書がinvalidだとSWが登録できない</li>
+<li>これを回避する安全な方法がChromeではバグッてる</li>
+<li>危険なフラグで無理矢理開発してる。怖い。</li>
+</ul></li>
+<li>SWを使ったキャッシュレイヤーがあり、Server pushでそれに必要なものを送り込む
+
+<ul>
+<li>次回のリクエストをhookしてSWがレスポンスを返せれば、実際のリクエストをしなくてよくなるという話</li>
+</ul></li>
+<li>cache aware server pushの理論
+
+<ul>
+<li>クライアントが持ってるSWのキャッシュをサーバに教える</li>
+<li>クッキーかヘッダーか</li>
+</ul></li>
+<li>Hookポイントが色々足りない</li>
+</ul>
+
+<h2 id="社内let&#39;s-encrypt">社内Let&#39;s Encrypt</h2>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">Let&#39;s Encryptが社内ネットワークにあるドメインには使えないという話。&#10;社外から認証のリクエストを制限してるから <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674554358290255872">December 9, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>社内ネットワークにあるドメインにはLet&#39;s Encryptが使えない
+
+<ul>
+<li>社内ネットワーク内のみからアクセス出来るドメイン</li>
+<li>ACMEプロトコルでのやり取りは外と繋ぐ必要がある</li>
+<li>更新時に開けるか社内CA&amp;社内Let&#39;s Encrypt</li>
+</ul></li>
+<li>社内に置くとhttpにしてしまう文化ができがち
+
+<ul>
+<li>AppCache Poistioning + HTTP のリスク</li>
+<li>社内ネットワークからのアクセスのみで中間者攻撃が残る</li>
+<li>社内ネットワークからのアクセスもSSL化すると安全</li>
+<li>社内ツールもちゃんとSSL化する</li>
+</ul></li>
+<li>社内ツールを置くドメイン + ワイルドカードでSSL</li>
+<li>社内CAを作って各端末にRoot証明書?
+
+<ul>
+<li>やっぱりリスクがあるのでは</li>
+</ul></li>
+<li>社内やデータセンター内などのSSL化でACMEプロトコルを使ったものは増えるかも</li>
+<li><a href="http://jxck.hatenablog.com/entry/letsencrypt-acme" title="Let&amp;#39;s Encrypt を支える ACME プロトコル - Block Rockin’ Codes">Let&#39;s Encrypt を支える ACME プロトコル - Block Rockin’ Codes</a></li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">唐突に🍣 <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> <a href="https://t.co/iwIpydUM7j">pic.twitter.com/iwIpydUM7j</a></p>&mdash; teppeis (@teppeis) <a href="https://twitter.com/teppeis/status/674571307334275076">December 9, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="let-vs-const">let vs const</h2>
+
+<p><a href="https://speakerdeck.com/yosuke_furukawa/const-vs-let" title="const vs let // Speaker Deck">const vs let // Speaker Deck</a></p>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">そろそろ決着を付けたい let vs const <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a></p>&mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/status/674437783772004352">December 9, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">御社はこんな会議やってるんですか？ <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> <a href="https://t.co/SIHnmY8hcq">pic.twitter.com/SIHnmY8hcq</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674559952023719936">December 9, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><code>const</code>のPros
+
+<ul>
+<li>脳内メモリの節約に役立つ</li>
+<li>変わる場所だけが<code>let</code>で宣言される</li>
+<li>if分岐で代入みたいなパターンが減る</li>
+</ul></li>
+<li><code>const</code>のCons
+
+<ul>
+<li>オブジェクトのプロパティなどは書き換え可能</li>
+<li><code>const</code>という文字数が長い、威圧感がある</li>
+<li><code>const</code>を使ったからといってすべてがimmutableにはならない</li>
+<li>モジュールからexportされたconstはconstではなくなる</li>
+<li>現状では<code>const</code>できない場所が色々ある
+
+<ul>
+<li><a href="http://wiki.ecmascript.org/doku.php?id=strawman:defensible_classes" title="strawman:defensible_classes [ES Wiki]">strawman:defensible_classes [ES Wiki]</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> 「今のconstは精神的なconst」</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674565236536422400">December 9, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    
+
+<ul>
+<li>精神的なconst
+
+<ul>
+<li>const使う事自体は正しい</li>
+<li>一種のコーディングスタイルに近い効力</li>
+<li>引数のconst問題</li>
+<li>constを利用することは問題ないが、既存の全てをconstにしろと言える程の効力がない</li>
+<li>constで解決出来ることは別のスタイルでも解決できる可能性もある</li>
+</ul></li>
+<li><a href="http://hjm333.hatenablog.com/entry/2015/09/15/000644">【Effective Java】項目１５：可変性を最小限にする - モノクローム</a></li>
+<li><a href="http://tatsuyamuku.hatenablog.com/entry/2015/06/20/223021">【Effective Java】項目15 可変性を最小限にする - tatsuyamukuの日記</a>
+
+<ul>
+<li>Javaのfinalはフィールドなどに対してという話。</li>
+<li>ローカル変数を全てconstしろという話ではない。</li>
+<li>現状のES6 constはローカル変数に対してのconstしかない</li>
+<li>JavaScriptにはスレッドセーフという概念はない</li>
+</ul></li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> 「結論はケースバイケース」 <a href="https://t.co/Qc2vIdnlhP">https://t.co/Qc2vIdnlhP</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674568622187020288">December 9, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="javascriptの素振りする技術"><a href="http://azu.github.io/slide/2015/year-end/javascript-swing.html" title="JavaScriptの素振りする技術">JavaScriptの素振りする技術</a></h2>
+
+<p>JavaScriptのトレンドというのは半分ぐらい主張なので、それを確認する術を身につけようと言う話でした。</p>
+
+<p>需要があったら別の記事で書くかもしれません。</p>
+
+<h2 id="おわり">おわり</h2>
+
+<p>今年もお疲れ様でした！</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-12-09-year-end-sushi.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","HTTP2","ServiceWorker","SSL","ES6"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=HTTP2">HTTP2</a></li>
+                
+                <li><a href="/tags/?q=ServiceWorker">ServiceWorker</a></li>
+                
+                <li><a href="/tags/?q=SSL">SSL</a></li>
+                
+                <li><a href="/tags/?q=ES6">ES6</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

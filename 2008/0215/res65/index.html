@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        zaurus 3桁機で2GB以上のSDを使うには | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="zaurus" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2008/0215/res65/">
+    <h1 class="post-title">zaurus 3桁機で2GB以上のSDを使うには</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2008年02月15日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2008/2008-02-15-65.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>自分用のメモなので、気にしない。</p>
+
+<!--more-->
+
+<p><a href="http://www009.upp.so-net.ne.jp/cakesroom/">Zaurus SL-C7XX/860 に2GB SD ( 4GBもね )</a><br>
+が手に入れば問題なさそうなんだけどな。<br>
+もう配布してないのかな？</p>
+
+<p>他の方法</p>
+
+<p><a href="http://windowsmobile6.blog89.fc2.com/blog-entry-197.html" title="C7xx、860で大容量SDを使う">C750,760、860で大容量SDを使う</a></p>
+
+<p>これを読んで動作の探索</p>
+
+<p><strong>ここからの引用<a href="http://pc11.2ch.net/test/read.cgi/linux/1147049264/">http://pc11.2ch.net/test/read.cgi/linux/1147049264/</a></strong></p>
+
+<p>結局c760で2GBのSDを使いたければ<br>
+** SD-Link11bドライバ**</p>
+
+<p>A-DATA2GB150倍速SD<br>
+残念ながらsuspendすると認識しなくなる。<br>
+問題は速度ではなくメーカーのようだ。</p>
+
+<p>860でトランセンドの2G(x150)試してみたけど、やっぱ、<br>
+suspendすると手動でmountが必要だった。<br>
+カーネルはv14i ドライバはc-guysのやつ。</p>
+
+<p>あと知らなかったんだけど、vfatしか使えないんだね。<br>
+ext2でフォーマットするとmountできない。<br>
+linkファイルが作れない。<br>
+日本語のフォルダ名/ファイル名が表示されない。<br>
+<strong>→日本語が「？」と表示され、2バイト文字が扱えないので、ルート権限で実行できるようにしたZEditorで「/usr/sbin」にある「sdiomgr」を開き、「mount &#8230;（以下略）」となっている部分を以下のように書き換えます mount -o iocharset=utf8,codepage=932,uid=500,gid=500 $DEV $MNT と書き換え上書き保存します</strong></p>
+
+<p>A-DATA 2GB の動作検証をレポートします。 SL-C860 &amp; しーがいすなドライバ &amp; Special-Kernel v14i &amp;ROM 1.40JP 以下、箇条書きにて。 1.ext2フォーマットが出来ない。(正確にはmountが出来ない) 　なお、容量は関係なしです。パナ256MBも認識出来なかったので。 　これはドライバの問題のようですね。 2.SDカード上のアプリケーションが立ち上がっている場合、 　リジューム時の再認識に必ず失敗する。 3.再認識はumount-&gt;mountで行われる（みたい）。 4.リジューム復帰時に/etc/sdcontrolが引き数insertで呼ばれる 　（これで、umount-&gt;mountされる） しーがいずなドライバが完全にリジュームに対応していないだけのような 気がしてきました。。。色々いじってなんとか使用中。 現在の使用状況のレポートや実験が必要なら言ってください。 とりあえず運用中ですので。実験には限界がありますが。。。 かなり制限付きですが、全く再認識しないという訳ではありません。</p>
+
+<p>＞制限というのはSD上のアプリを起動した状態でレジューム不可ということですか？<br>
+そうですね。基本的にはumountが失敗する原因があるとまずいですね。<br>
+1.SD上のアプリが起動中。<br>
+2.swap-offに失敗する。<br>
+3.SD上にckdirしている。<br>
+4.SD上のファイルを開いていて、closeされていない。<br>
+等です。<br>
+ここから、以下の制限が発生します。<br>
+1.頻繁に使用するアプリは本体のCFに移す。<br>
+2.swapはあきらめる。（一時使用程度ですね）<br>
+3.terminalのカレントに気をつける。<br>
+4..navi2chの取り扱いがちょっとめんどうになる。<br>
+ってところですね。</p>
+
+<p><a href="javascript:void(0)" class="resPointer">&gt;&gt;209</a><br>
+＞mkfs.ext2 した途端にmountできなくなるんだよね。<br>
+そうですね。私は1GBのext2イメージを作って、/mnt/cardにマウント<br>
+しています。実際のSDは/mnt/vfatに変更しました。loopマウントして<br>
+も思ったより遅くないですよ。</p>
+
+<p>＞suspendの前にアプリ落とすなんてまんどくせ。<br>
+私は通常使うアプリケーションを本体に移して、翻訳辞書をSDに持って<br>
+行きました。現状はq2ch以外（opera/kconsole/emacs）はうまくいって<br>
+いる見たいです。q2chが唯一、タグを閉じなければなりません。</p>
+
+<p>あと、nethelperを使ってちょっとしたスクリプトを起動してます。</p>
+
+<p>＞SD上のファイルをオープンしたままのレジュームはどうなんでしょう？<br>
+＞問題が出そうな気もしますが・・。<br>
+オープンしたままというのは、アプリによります。<br>
+例えば、emacsではオープンしてもすべて読み込む<br>
+とcloseしてしまいますから、問題はでません。<br>
+q2chは開けっ放しにしているようです。たぶん、<br>
+高速化の一環とかじゃないかと思いますが。で、<br>
+q2chのアーティクルモードから出る時は、<br>
+↑↓（メニュー）Ｑ（タブを閉じる）を<br>
+実行しておかないと、リジューム時の再認識に失敗<br>
+します。たぶん、データを含めて本体CFにいれてお<br>
+けば問題ないと思いますが。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2008/2008-02-15-65.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["zaurus"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=zaurus">zaurus</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

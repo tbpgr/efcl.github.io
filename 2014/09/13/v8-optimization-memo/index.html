@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        V8の最適化とIRHydraでの可視化とベンチマークについてのメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,V8,JIT,最適化" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/09/13/v8-optimization-memo/">
+    <h1 class="post-title">V8の最適化とIRHydraでの可視化とベンチマークについてのメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年09月13日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-09-13-v8-optimization-memo.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>V8 の最適化について 色々(主に<a href="http://mrale.ph/" title="Vyacheslav Egorov">Vyacheslav Egorov</a>さんの記事や<a href="http://mrale.ph/talks/" title="My Talks">スライド</a>)読んでたのでそれのメモ。</p>
+
+<p>この文章は2014年9月13日に書かれて最適化されていないため、この文章を元に最適化をすると失敗すると思います。</p>
+
+<hr>
+
+<h2 id="参考まとめ">参考まとめ</h2>
+
+<p>V8に関するリソースまとめ</p>
+
+<ul>
+<li> <a href="http://mrale.ph/v8/resources.html" title="V8 Resources">V8 Resources</a> - <a href="http://mrale.ph/" title="Vyacheslav Egorov">Vyacheslav Egorov</a>さんによる</li>
+<li><a href="https://github.com/thlorenz/v8-perf" title="thlorenz/v8-perf">thlorenz/v8-perf</a> - <a href="https://github.com/thlorenz" title="Thorsten Lorenz">Thorsten Lorenz</a>さんによる</li>
+<li><a href="https://docs.google.com/presentation/d/19Euy3sy-jt36sbKww8HEZQHYD846h_N-YNCQiQ-PPsQ/pub#slide=id.p" title="Understanding V8 and JIT compilation basics - Google スライド">Understanding V8 and JIT compilation basics - Google スライド</a> - 概要分かりやすい</li>
+</ul>
+
+<h2 id="hidden-class">Hidden Class</h2>
+
+<p>V8がリリースされた時から特徴としてあげられている最適化</p>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=hWhMKalEicY" title="V8: an open source JavaScript engine - YouTube">V8: an open source JavaScript engine - YouTube</a></li>
+<li><a href="http://steps.dodgson.org/bn/2008/09/07/" title="V8 祭り - Backnumbers: Steps to Phantasien">V8 祭り - Backnumbers: Steps to Phantasien</a> - 2008</li>
+</ul>
+
+<p>Hidden Classについては公式サイトにも<a href="https://developers.google.com/v8/design" title="Design Elements - Chrome V8 — Google Developers">Design Elements - Chrome V8 — Google Developers</a>というのがあるのでこれが分かりやすい。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">Point</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>のようなコンストラクタで、これを<code>new</code>したインスタンスの形(プロパティの名前、種類とか)が同じなら、プロパティのアクセスが高速になるやつ。</p>
+
+<ul>
+<li><a href="http://mrale.ph/talks/techtalksnsu2014/#/31" title="JIT compilation - TechTalksNSU - March 2014">JIT compilation - TechTalksNSU - March 2014</a> 図だとこれが面白い</li>
+</ul>
+
+<p>逆に以下みたいな<code>p2</code>みたいに形が崩れると最適化がされなくなる(de-opt)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Point</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Point</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+<span class="nx">p2</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;BREAK&quot;</span><span class="p">;</span> <span class="c1">// &lt;= これで最適化は壊れる</span>
+</code></pre></div>
+<p>これは、Spidermonkeyでも同じようなものがあり<a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Internals/Property_cache" title="Property cache - Mozilla | MDN">Shape based polymorphic caching</a>というのが多分それだと思います。</p>
+
+<ul>
+<li><a href="https://speakerdeck.com/ariya/supersonic-javascript" title="Supersonic JavaScript // Speaker Deck">Supersonic JavaScript // Speaker Deck</a></li>
+<li><a href="http://www.mozilla.jp/static/docs/events/2008-fxdevcon/b3-morita.pdf" title="b3-morita.pdf">b3-morita.pdf</a> 2008</li>
+</ul>
+
+<p>実装的な話だと<a href="http://constellation.hatenablog.com/entry/2012/12/22/235914" title="Polymorphic Inline Cache implementation of iv / lv5 - 枕を欹てて聴く">Polymorphic Inline Cache implementation of iv / lv5 - 枕を欹てて聴く</a>とか。</p>
+
+<p>このHidden Classとかは皆知ってると思いますが、実際にどういうケースで最適化が<strong>行われないか</strong>は<a href="http://mrale.ph/irhydra/2/#" title="IRHydra2">IRHydra2</a>で確認するのが簡単で面白いです。</p>
+
+<h3 id="irhydra2"><a href="http://mrale.ph/irhydra/2/#" title="IRHydra2">IRHydra2</a></h3>
+
+<blockquote>
+<p><a href="https://github.com/mraleph/irhydra" title="mraleph/irhydra">mraleph/irhydra</a></p>
+</blockquote>
+
+<p>IRHydraは、Chrome/V8のデバッグオプションでIR(中間表現)やインライン化等のログを元に<strong>最適化がされていない</strong>(de-opt)な部分を可視化したり、ディスアセンブリ(コードと並べて表示も出来る)、コントールフローの表示等をしてくれるツールです。
+(Dart VMにも対応してます)</p>
+
+<ul>
+<li><a href="http://mrale.ph/blog/2013/02/17/release-the-irhydra.html" title="Release the IRHydra!">Release the IRHydra!</a> v1 </li>
+<li> <a href="http://mrale.ph/blog/2014/01/28/prerelease-irhydra2.html" title="(Pre)release IRHydra 2.0">(Pre)release IRHydra 2.0</a> v2- この動画でdemoを扱ってるので見ておくといいです。</li>
+</ul>
+
+<p><a href="http://mrale.ph/irhydra/2/#" title="IRHydra2">IRHydra2</a>の<a href="http://mrale.ph/irhydra/2/#demo-1">demo-1</a>がまさにHidden Classの最適化されない事例についてのサンプルコードです。</p>
+
+<ul>
+<li><a href="https://code.google.com/p/irhydra/source/browse/web/demos/v8/deopt-eager/demo.js?name=polymerized" title="demo.js - irhydra - In browser viewer for V8 and Dart VM compilation artifacts - Google Project Hosting">demo.js - irhydra - In browser viewer for V8 and Dart VM compilation artifacts - Google Project Hosting</a> demo1のコード</li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">v2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vec2</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span>
+<span class="nx">v2</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;whatever&quot;</span><span class="p">;</span>
+<span class="nx">loop</span><span class="p">(</span><span class="nx">v2</span><span class="p">);</span>
+</code></pre></div>
+<p>というようにv2で<code>Vec2</code>の形が<code>.name</code>によって変化するため、最適化が行われなくなっていることがIRHydra2では可視化されます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/09/13-1410615756.png" alt="Eager deoptimization"></p>
+
+<p><code>CheckMaps</code>というところでpolymorphic(形が多様化)してることが検出されて最適化されてないというメッセージが見られます。</p>
+
+<p>実際に途中で形が変わらないように最初からコンストラクタ関数に<code>name</code>というのを追加してあげるとこのdeoptのメッセージは出なくなります。(これでいいのかな?)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">Vec2</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">_x</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">_y</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span> <span class="c1">// &lt;= 追加</span>
+<span class="p">}</span>
+
+<span class="nx">Vec2</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">get</span> <span class="nx">x</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_x</span><span class="p">;</span> <span class="p">},</span>
+  <span class="nx">get</span> <span class="nx">y</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_y</span><span class="p">;</span> <span class="p">},</span>
+
+  <span class="nx">len2</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
+  <span class="p">},</span>
+
+  <span class="nx">len</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">len2</span><span class="p">());</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">len</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// We are going to deoptimize here when we call</span>
+  <span class="c1">// loop the second time because hidden class of</span>
+  <span class="c1">// v2 does not match hidden class of v.</span>
+  <span class="c1">// We changed by adding a new property &quot;name&quot; to</span>
+  <span class="c1">// the object allocated with Vec2.</span>
+  <span class="k">return</span> <span class="nx">v</span><span class="p">.</span><span class="nx">len</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">loop</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="nx">e5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">len</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">v</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vec2</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span>
+<span class="nx">loop</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">v2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vec2</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span>
+<span class="nx">v2</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;whatever&quot;</span><span class="p">;</span>
+<span class="nx">loop</span><span class="p">(</span><span class="nx">v2</span><span class="p">);</span>
+</code></pre></div>
+<p>実際に自分で書いたコードを試すには、<code>v8_enable_disassembler=1</code>でビルドしたV8が必要です。(ディスアセンブリが必要ない場合は、実行時のオプションだけでいいのかな)</p>
+
+<p>自分は面倒だったので<code>brew edit v8</code>で<a href="https://gist.github.com/azu/203ada47a6a271a91d70" title="v8_enable_disassembler=1">v8_enable_disassembler=1</a>したものを作ってインストールしました。</p>
+
+<p>使い方は<a href="http://mrale.ph/irhydra/2/#" title="IRHydra2">IRHydra2</a>に書いてありますが、v8で以下のようにオプションをつけて実行すると(Chromeもjs-flagで同じような感じ)、<code>hydrogen-34272-1.cfg</code>のようなのと、<code>code.asm</code>というファイルができます。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">v8 example.js <span class="se">\</span>
+--trace-hydrogen <span class="se">\</span>
+--trace-phase<span class="o">=</span>Z <span class="se">\</span>
+--trace-deopt <span class="se">\</span>
+--code-comments <span class="se">\</span>
+--hydrogen-track-positions <span class="se">\</span>
+--trace-inlining <span class="se">\</span>
+--redirect-code-traces <span class="se">\</span>
+--redirect-code-traces-to<span class="o">=</span>code.asm
+</code></pre></div>
+<p>これをInlinedに読み込ませると表示してくれます。</p>
+
+<p><img src="http://monosnap.com/image/MQL21HelEEUj6aXweyzK98mtQSjKwR.png" alt="img"></p>
+
+<p>v8(d8)の使い方やインストールは以下などを参考にした方がいいと思います。</p>
+
+<ul>
+<li><a href="https://gist.github.com/kevincennis/0cd2138c78a07412ef21" title="V8 Installation and d8 shell usage">V8 Installation and d8 shell usage</a></li>
+</ul>
+
+<h3 id="最適化とループ">最適化とループ</h3>
+
+<p>上記のdemo-1であえてループを回してる箇所があったのが疑問に思うかもしれません。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">loop</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="nx">e5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">len</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>自分も最初ループなしで試したいコードを書いたりして以下のようなメッセージがでてcfgとasmファイルが生成されなかったりしてよくわかってなかったです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Concurrent recompilation has been disabled for tracing.
+</code></pre></div>
+<p>これは、ループを回すことでV8側が最適化が必要なhot codeであると認識させるためにループを回してるんだと思います。</p>
+
+<blockquote>
+<p>JVM HotSpotでは、ループの実行中に、 このループを内包した関数はhot codeだなと判断した場合、 実行中の関数をJITコンパイルします。</p>
+</blockquote>
+
+<p><a href="http://nothingcosmos.github.io/V8Crankshaft/src/blog.html" title="V8のJITコンパイラ、Crankshaftについて — V8 Crankshaft Overview 1.3 documentation">V8のJITコンパイラ、Crankshaftについて — V8 Crankshaft Overview 1.3 documentation</a> という文章が分かりやすいです。</p>
+
+<p><a href="https://rfk.id.au/blog/entry/pypy-js-faster-than-cpython/" title="PyPy.js: Now faster than CPython">PyPy.js: Now faster than CPython</a> ででてくるChromeはある程度実行回数が増えた時からパフォーマンスが安定して良くなるのはこれと同じ理由なのかな?</p>
+
+<hr>
+
+<h3 id="hot-codeと最適化">hot codeと最適化</h3>
+
+<p>先ほどループを回す(ある程度同じ処理を実行する)と最適化がかかる(JITコンパイルでコードをコンパイルするなど)というのは理にかなっていると思いますが、
+このようなテストのためにループをするコードはどこかで見覚えがあると思います。</p>
+
+<p><a href="http://jsperf.com/" title="jsPerf">jsPerf</a>を使ってマイクロベンチマークを取るときに、こういう無意味なループを含んだコードを書いたことがあるかもしれません。</p>
+
+<p>何がいいたいかというと、こういうJavaScriptエンジン側の最適化によって取りたいベンチマークとは別の意味になってる可能性があるという話です。</p>
+
+<p>まさにそういう話が以下の記事で書かれています。</p>
+
+<ul>
+<li><a href="http://mrale.ph/blog/2012/12/15/microbenchmarks-fairy-tale.html" title="microbenchmarks fairy tale">microbenchmarks fairy tale</a></li>
+<li><a href="http://mrale.ph/blog/2014/02/23/the-black-cat-of-microbenchmarks.html" title="The Black Cat of Microbenchmarks">The Black Cat of Microbenchmarks</a></li>
+</ul>
+
+<p><a href="http://jsperf.com/bit-multiply" title="bit-multiply · jsPerf">bit-multiply · jsPerf</a> のようにコード的には無意味なループを回してベンチマークを取ることがあると思います。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">),</span>
+    <span class="nx">b</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">);</span>
+
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">multiply</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><a href="http://mrale.ph/blog/2014/02/23/the-black-cat-of-microbenchmarks.html" title="The Black Cat of Microbenchmarks">The Black Cat of Microbenchmarks</a> ではこのコードがV8でどのように最適化されていって、無意味なベンチになってるかを<a href="http://mrale.ph/irhydra/2/#" title="IRHydra2">IRHydra2</a>やEsprimaを使って解析していってます。</p>
+
+<p><code>multiply()</code> という計算を沢山するのを計測したいわけですが、この結果は結局使われていないため、この<code>multiply(a,b);</code>という部分は無意味なコードとみなされてるかもしれません。</p>
+
+<p>そのような無意味なコードは取り除かれる(Dead code elimination (DCE))可能性があります。(どれくらい行われるのか細かい話は分からない)</p>
+
+<ul>
+<li>LICM(loop-invariant code motion)</li>
+<li>Dead code elimination (DCE)</li>
+<li><a href="https://github.com/thlorenz/v8-perf/blob/master/compiler.md#optimizing-compiler" title="v8-perf/compiler.md at master · thlorenz/v8-perf">v8-perf/compiler.md at master · thlorenz/v8-perf</a></li>
+</ul>
+
+<p><a href="http://kolodny.github.io/blog/blog/2014/05/19/unoptimize-devtools-for-easy-debugging/" title="Unoptimize V8 for Easy Debugging - Moshe&amp;#39;s Blog">最適化を無効にする方法はありますが</a>、ベンチマークを取りたい時は最適化自体は有効であってもいいと思うので、それが意図したもの以外も最適化されてるケースがあるかもというのが正しいベンチマークを取る難しさかも知れません。</p>
+
+<h2 id="意識できるレベルの最適化">意識できるレベルの最適化</h2>
+
+<p>ECMAScriptレベルのコードの最適化は実際のコードだと殆ど誤差になりがちで、DOM APIとかの方が圧倒的なのであまりコードを書くときにこういう最適化は気にしてないです。
+(Hidden Classのやつぐらいは知っておいたほうがいいとは思います)</p>
+
+<p>意識してやれるレベルのJavaScriptの最適化については<a href="https://speakerdeck.com/ariya/supersonic-javascript" title="Supersonic JavaScript // Speaker Deck">Supersonic JavaScript // Speaker Deck</a>、<a href="https://speakerdeck.com/ariya/javascript-need-for-speed" title="JavaScript: Need for Speed // Speaker Deck">JavaScript: Need for Speed // Speaker Deck</a>あたりを見るのがいいと思います。</p>
+
+<p>実際にこういうエンジンレベルの最適化を意識してるライブラリ例としては<a href="https://github.com/petkaantonov/bluebird" title="Bluebird">Bluebird</a>、<a href="http://lodash.com/" title="Lo-Dash">Lo-Dash</a>、<a href="https://github.com/facebook/react" title="React">React</a>などがありますが、普通の人はこういう事やらないほうがいいと思います。</p>
+
+<p>Bluebirdは特にこれを意識してて、fast  caseに載せるために色々変則的なコードを書いたりしてて、Wikiにもそれらの事についてまとめられています。(<a href="https://github.com/petkaantonov/bluebird/blob/master/benchmark/stats/latest.md" title="bluebird/latest.md at master · petkaantonov/bluebird">ネイティブのPromiseより早い</a>とかはこういうレベルの話があるからだと思います)</p>
+
+<ul>
+<li><a href="https://github.com/petkaantonov/bluebird/wiki/Optimization-killers" title="Optimization killers · petkaantonov/bluebird Wiki">Optimization killers · petkaantonov/bluebird Wiki</a></li>
+</ul>
+
+<p>Lo-dashも<a href="https://github.com/lodash/lodash/commit/88ad7d5ce5224e75b6106284e668a98007ba0c2f" title="Ensure `EXPANDO` doesn&amp;#39;t disable fast properties in v8. · 88ad7d5 · lodash/lodash">そういうことのための変更</a>を入れたり、ReactはV8側に<a href="http://facebook.github.io/react/blog/2014/09/12/community-round-up-22.html" title="Community Round-up #22 | React">最適化のためのコミット</a>をしたりしています。</p>
+
+<ul>
+<li><a href="http://efcl.wordpress.com/2014/09/13/r21834-v8-v8-javascript-engine-google-project-hosting/" title="r21834 – v8 – V8 JavaScript Engine のfast property名の制限 | GH Issue Note">r21834 – v8 – V8 JavaScript Engine のfast property名の制限 | GH Issue Note</a></li>
+</ul>
+
+<p>Chromium(V8も含む)プロジェクトの最適化周りの変更については以下のページにまとめられているそうです。</p>
+
+<ul>
+<li><a href="http://www.chromium.org/developers/speed-hall-of-fame" title="Speed Hall of Fame - The Chromium Projects">Speed Hall of Fame - The Chromium Projects</a></li>
+</ul>
+
+<p>最初に書いたように自分で理解して、追えるレベルになってからこういう最適化を入れたほうがいいと思います。(自分は興味ないのでやらない)</p>
+
+<p>JavaScriptが最適化されるコード書くより、JavaScriptが最適化されないコードを避ける方が方向としてコストに見合うものができるんじゃないかと思います。</p>
+
+<blockquote>
+<p>この文章を元に最適化をすると失敗すると思います</p>
+</blockquote>
+
+<hr>
+
+<h2 id="その他">その他</h2>
+
+<p>各JavaScriptエンジンのベンチを継続的に取ってるサイト</p>
+
+<ul>
+<li><a href="http://arewefastyet.com/" title="ARE WE FAST YET?">ARE WE FAST YET?</a></li>
+</ul>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p><a href="http://mrale.ph/" title="Vyacheslav Egorov">Vyacheslav Egorov</a>さんのブログを読んでて面白かったのでメモっただけの記事です。
+最近だと<a href="https://github.com/thlorenz/v8-perf" title="thlorenz/v8-perf">thlorenz/v8-perf</a>が広くまとまってるんじゃないかと思います。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-09-13-v8-optimization-memo.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","V8","JIT","最適化"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=V8">V8</a></li>
+                
+                <li><a href="/tags/?q=JIT">JIT</a></li>
+                
+                <li><a href="/tags/?q=最適化">最適化</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

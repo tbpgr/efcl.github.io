@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ESLint 0.1.0がリリースされたので、JSHintとの違いやプラグインの書き方について | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="ECMAScript,javascript,Tool" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2013/1104/res3465/">
+    <h1 class="post-title">ESLint 0.1.0がリリースされたので、JSHintとの違いやプラグインの書き方について</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2013年11月04日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-11-04-eslint-0-1-0%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%80%81.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="eslint-0.1.0">ESLint 0.1.0</h2>
+
+<p><a href="https://github.com/nzakas/eslint" title="nzakas/eslint">ESLint</a> <a href="https://github.com/nzakas/eslint/releases/tag/v0.1.0" title="v0.1.0: Version 0.1.0 · nzakas/eslint">0.1.0</a>がリリースされました。</p>
+
+<ul>
+<li>  <a href="http://www.nczonline.net/blog/2013/11/04/now-available-eslint-v0-1-0/" title="Now available: ESLint v0.1.0 | NCZOnline">Now available: ESLint v0.1.0 | NCZOnline</a></li>
+</ul>
+
+<p><a href="https://github.com/nzakas/eslint" title="nzakas/eslint">ESLint</a>は、<a href="http://www.jslint.com/" title="JSLint, The JavaScript Code Quality Tool">JSLint</a>や<a href="http://www.jshint.com/" title="JSHint, a JavaScript Code Quality Tool">JSHint</a>のようにJavaScriptをLintするツールで、以下のような特徴を持っています。</p>
+
+<p><strong>追記:</strong></p>
+
+<p>この記事は0.1.0の情報のためいくつか古い情報が混じっています。</p>
+
+<ul>
+<li>プラグインの実装とテストのやり方の変更</li>
+<li>速度の開演</li>
+</ul>
+
+<p>などが、変わっている部分があります。</p>
+
+<p>独自のLintルールの実装については以下が参考になります。</p>
+
+<ul>
+<li><a href="http://ameblo.jp/principia-ca/entry-11837554210.html" title="コードのバグはコードで見つけよう！｜サイバーエージェント 公式エンジニアブログ">コードのバグはコードで見つけよう！｜サイバーエージェント 公式エンジニアブログ</a></li>
+</ul>
+
+<h2 id="特徴">特徴</h2>
+
+<p><a href="https://github.com/nzakas/eslint" title="nzakas/eslint">ESLint</a> の大きな特徴として、<a href="http://esprima.org/" title="Esprima">Esprima</a>でパースした<a href="https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API" title="AST">AST</a>を元に、<br>
+それぞれのLintするルールがプラグインとして実装されている点です。</p>
+
+<ul>
+<li>  <a href="http://www.nczonline.net/blog/2013/07/16/introducing-eslint/" title="Introducing ESLint | NCZOnline">Introducing ESLint | NCZOnline</a></li>
+</ul>
+
+<p>それぞれのプラグインは本体とは切り離れて実装されているので、<br>
+<a href="http://www.jshint.com/docs/options/" title="JSHint Options">JSHint Options</a>のように設定で無効化することや、そもそもプラグインファイルを読み込まないということも出来ます。</p>
+
+<p>現在用意されている<a href="https://github.com/nzakas/eslint/blob/master/docs/rules/README.md" title="Rules">Rules</a>のプラグインは、<a href="http://www.jslint.com/" title="JSLint, The JavaScript Code Quality Tool">JSLint</a>、<a href="http://www.jshint.com/" title="JSHint, a JavaScript Code Quality Tool">JSHint</a>互換のものがプラグインとして作られています。</p>
+
+<ul>
+<li>  <a href="https://docs.google.com/spreadsheet/lv?key=0Ap5QGaRT4AJ_dGV6VXBlMEw3NHhVRl9vQ0lIX2FnVlE&amp;usp=sharing" title="ESLint Rules List - Google ドキュメント">ESLint Rules List</a></li>
+</ul>
+
+<p>後述しますが、公式のプラグインの他に自分でプラグインを追加して利用する方法も用意されているので、独自のルールをプラグインとして追加することも可能です。</p>
+
+<ul>
+<li>  <a href="https://github.com/nzakas/eslint/blob/master/docs/developer-guide/working-with-rules.md" title=" Working with Rules">Working with Rules</a></li>
+</ul>
+
+<h3 id="jshintとの違い">JSHintとの違い</h3>
+
+<p><a href="http://www.jslint.com/" title="JSLint, The JavaScript Code Quality Tool">JSLint</a> と <a href="http://www.jshint.com/" title="JSHint, a JavaScript Code Quality Tool">JSHint</a> の違いは <a href="http://anton.kovalyov.net/p/why-jshint/" title="Why I forked JSLint to JSHint">Why I forked JSLint to JSHint</a> {<a href="http://blog.node.ws/?p=1379" title="JSLint から JSHint をフォークした理由(翻訳) | 黒くないすべてのものはカラスではない">JSLint から JSHint をフォークした理由(翻訳)</a>} を読んでもらうとして、</p>
+
+<p><a href="https://github.com/nzakas/eslint" title="nzakas/eslint">ESLint</a> と <a href="http://www.jshint.com/" title="JSHint, a JavaScript Code Quality Tool">JSHint</a> の違いについて簡単にまとめてみます。</p>
+
+<h4 id="eslint"><a href="https://github.com/nzakas/eslint" title="nzakas/eslint">ESLint</a></h4>
+
+<ul>
+<li>  プラグイン機構を持っているので、Lintするルールを追加できる 
+
+<ul>
+<li>  <a href="https://github.com/nzakas/eslint" title="nzakas/eslint">ESLint</a> 本体のコードがシンプルに保たれる</li>
+</ul></li>
+<li>  <a href="https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API" title="Mozilla JavaScript AST">Mozilla JavaScript AST</a> をベースとしているため、他のものと連携しやすい</li>
+<li>  <a href="http://esprima.org/" title="Esprima">Esprima</a>でパースしたASTをLintする two-pass のツール 
+
+<ul>
+<li>  つまりEsprimaでパースできないとLintはできない</li>
+<li>  また、現段階だと巨大なjsファイルではJSHintより3倍程度遅い</li>
+<li>  <a href="https://github.com/nzakas/eslint/wiki/Rule-performance" title="Rule performance">Rule performance</a> などにまとめられている、速度については今後改善していくとのこと</li>
+</ul></li>
+<li>  JSLint/JSHint互換のようなルールが作られている &#8211; <a href="https://docs.google.com/spreadsheet/lv?key=0Ap5QGaRT4AJ_dGV6VXBlMEw3NHhVRl9vQ0lIX2FnVlE&amp;usp=sharing" title="ESLint Rules List - Google ドキュメント">ESLint Rules List</a></li>
+<li>  Node.js で書かれているツール 
+
+<ul>
+<li>  将来的には <a href="https://github.com/nzakas/eslint/wiki/Release-goals" title="Browserified">Browserified</a> されたバージョンも出す予定</li>
+</ul></li>
+<li>  ドキュメントがよく書かれている 
+
+<ul>
+<li>  それぞれのルールごとにドキュメントが書かれている</li>
+<li>  <a href="https://github.com/nzakas/eslint/tree/master/docs/rules" title="eslint/docs/rules at master · nzakas/eslint">eslint/docs/rules at master · nzakas/eslint</a></li>
+<li>  <a href="http://jslinterrors.com/" title="JSLint Error Explanations">JSLint Error Explanations</a>のような説明がデフォルトにある感じ</li>
+</ul></li>
+</ul>
+
+<h4 id="jshint"><a href="http://www.jshint.com/" title="JSHint, a JavaScript Code Quality Tool">JSHint</a></h4>
+
+<ul>
+<li>  広く使われてるので安定している</li>
+<li>  内部にJavaScriptパーサーを持っている 
+
+<ul>
+<li>  ES6の先行的な実装やMozilla特有のJSなどにも対応したLintも行える</li>
+</ul></li>
+<li>  パースしながらLintを行える single-pass のツール 
+
+<ul>
+<li>  構文エラーとWarningを両方出せる</li>
+<li>  編集中にLintをガンガン出す場合は、今のところは<a href="http://www.jshint.com/" title="JSHint, a JavaScript Code Quality Tool">JSHint</a>の方がよく働くはず</li>
+<li>  そのかわりJSHintコード内部は複雑</li>
+</ul></li>
+<li>  Rhinoやブラウザなど色々なruntimeで動かすことができる</li>
+</ul>
+
+<p>どちらとも、共通している点としてオープンソースでありGithubで活発に開発されています。</p>
+
+<p>また、reporterをカスタマイズすることができ、<br>
+<a href="https://github.com/sindresorhus/eslint-stylish" title="sindresorhus/eslint-stylish">sindresorhus/eslint-stylish</a>のように出力を見やすくしたり、<a href="https://github.com/sindresorhus/eslint-tap" title="tap">tap</a>形式で出力する等ができます。</p>
+
+<ul>
+<li>  <a href="http://www.jshint.com/docs/reporters/" title="JSHint reporter">JSHint reporter</a></li>
+</ul>
+
+<h2 id="ロードマップ">ロードマップ</h2>
+
+<p>ESLint の ロードマップは <a href="https://github.com/nzakas/eslint/wiki/Release-goals" title="Release goals · nzakas/eslint Wiki">Release goals · nzakas/eslint Wiki</a> に書かれています。</p>
+
+<p>また、<a href="http://www.nczonline.net/blog/2013/11/04/now-available-eslint-v0-1-0/" title="Now available: ESLint v0.1.0 | NCZOnline">Now available: ESLint v0.1.0 | NCZOnline</a>にも少し書かれています。</p>
+
+<p>0.1.0はまだα版の位置づけのため、設定の方法やプラグインのためのAPIなどに変更があるかもしれませんが、フィードバックは<a href="https://github.com/nzakas/eslint/issues" title="Issues · nzakas/eslint">Issues · nzakas/eslint</a>や<a href="https://groups.google.com/forum/#!forum/eslint" title="ESLint - Google グループ">ESLint &#8211; Google グループ</a>から行えます。</p>
+
+<h2 id="プラグインを書いてみよう">プラグインを書いてみよう</h2>
+
+<hr>
+
+<p><strong>追記(2014-07-10):</strong> このプラグインの作り方は現在のバージョンと異なる場合があります。</p>
+
+<p>以下なども参考にしてください。</p>
+
+<ul>
+<li><a href="http://ameblo.jp/principia-ca/entry-11837554210.html" title="コードのバグはコードで見つけよう！｜サイバーエージェント 公式エンジニアブログ">コードのバグはコードで見つけよう！｜サイバーエージェント 公式エンジニアブログ</a></li>
+</ul>
+
+<hr>
+
+<p><a href="https://github.com/nzakas/eslint" title="nzakas/eslint">ESLint</a> は <a href="https://github.com/nzakas/eslint/tree/master/lib/rules" title="eslint / lib / rules /">eslint / lib / rules /</a> にある公式のプラグインと<br>
+<code>$ eslint --rulesdir /path/to/dir/</code> のCLIオプションで自分の書いたプラグインを追加し読み込む機能があります。</p>
+
+<ul>
+<li>  <a href="https://github.com/nzakas/eslint/blob/master/docs/command-line-interface/README.md" title=" Command line Interface">Command line Interface</a></li>
+</ul>
+
+<p>今回は、 <code>--rulesdir</code> で追加するシンプルなプラグインを書いてみたいと思います。</p>
+
+<p>ソースコードは <a href="https://github.com/azu/eslint-plugin-example" title="azu/eslint-plugin-example">azu/eslint-plugin-example</a> においてあります。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/eslint-plugin-example" title="azu/eslint-plugin-example">azu/eslint-plugin-example</a></li>
+</ul>
+
+<p>今回は、公式にPullRequestで追加するようなプラグインではなく、オレオレプラグインを作る環境の話なので、多少やりかたは違いますが基本的には<a href="https://github.com/nzakas/eslint/blob/master/docs/developer-guide/README.md" title=" Developer Guide">Developer Guide</a>と同じなので、こちらを読んでおくといいでしょう。</p>
+
+<h3 id="taboo-name">taboo-name</h3>
+
+<p><a href="https://github.com/azu/eslint-plugin-example" title="azu/eslint-plugin-example">azu/eslint-plugin-example</a> で作るプラグインは、指定した名前に一致する変数名等があったらWarningを出すものです。</p>
+
+<p>ESLintは<a href="http://www.jshint.com/docs/options/" title="JSHint Options">JSHint Options</a>と同じように、configファイルでルールの有効化の有無やルールに対してオプションとなる値を渡せるようになっています。</p>
+
+<p>今回の <code>taboo-name</code> では、以下のように、 <code>&quot;taboo-name&quot;: [1, &quot;taboo&quot;]</code> という値が指定しています。</p>
+
+<pre><code class="json">{
+    "env": {
+        "browser": false,
+        "node": false,
+        "amd": false
+    },
+    "rules": {
+        "taboo-name": [1, "taboo"],
+
+        "no-alert": 0,
+        "……" :  1
+    }
+}
+</code></pre>
+
+<p>これで、<code>1</code> 有効化(Warning、2ならError) で、<code>&quot;taboo&quot;</code> という値を <code>taboo-name</code> ルールに渡すという意味になります。</p>
+
+<p>プロジェクトの構造は以下のようになっています。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">├── eslint(submodule)
+├── example
+│   ├── config.json
+│   └── squalid.js
+├── plugin
+│   └── taboo-name.js
+└── test
+    └── taboo-nameSpec.js
+</code></pre></div>
+<p><code>taboo-name.js</code> というプラグインのファイル名そのものが、Configで指定するルールの名前(RULE_ID)になっていることに注意しておいて下さい。</p>
+
+<p>eslintのリポジトリをsubmoduleとして配置して、<a href="https://github.com/azu/eslint-plugin-example/blob/master/package.json#L27" title="git submodule foreach &#39;npm install || :">git submodule foreach &#39;npm install || :</a>のような感じで、eslint内で <code>npm install</code> してeslintが依存してるモジュールをインストールしておくといいでしょう。</p>
+
+<p>公式のプラグインは<a href="http://vowsjs.org/" title="Vows">Vows</a>でテストを書きますが、今回は<a href="http://visionmedia.github.io/mocha/" title="Mocha">Mocha</a> + <a href="http://chaijs.com/" title="Chai">Chai</a>で書いています。</p>
+
+<h3 id="テストを書こう">テストを書こう</h3>
+
+<p>まずはプラグインのテストを書いていきます。</p>
+
+<p>公式のプラグインの場合は最初からpluginを置くディレクトリが定義されているので、そこに配置するだけで問題ないですが、今回のは違うディレクトリにpluginを置いています。</p>
+
+<p>そのため、<code>ruleLoader.load(path/to/dir)</code> を使い、pluginを読み込むディレクトリを変更しておきます。</p>
+
+<p>eslintをモジュールとして読み込んでおけば、 <code>eslint.verify(評価するコード文字列, config);</code> でeslintでlintした結果を得ることが出来ます。</p>
+
+<p>lintした結果が予期してる通りがどうかをassertでテストしています。</p>
+
+<p>公式プラグインの<a href="https://github.com/nzakas/eslint/tree/master/tests" title="tests">tests</a>の書き方を真似るのが楽でいいと思います。</p>
+
+<pre><code class="js">var assert = require('chai').assert;
+var eslint = require("../eslint/lib/eslint");
+var ruleLoader = require("../eslint/lib/rules");
+// load my plugin directory.
+ruleLoader.load(__dirname + "/../plugin");
+var RULE_ID = "taboo-name";
+describe("taboo-name", function () {
+    context("when evaluating 'var taboo = 1;'", function () {
+        it("should report a violation", function () {
+            var config = { rules: {} };
+            config.rules[RULE_ID] = [1, "taboo"];
+            // eslintでコードとconfigを渡してLintをかける
+            var messages = eslint.verify("var taboo = 1;", config);
+            // Lintした結果、1つのWarningが出てることをテストする
+            assert.equal(messages.length, 1);
+            assert.equal(messages[0].ruleId, RULE_ID);
+            assert.equal(messages[0].message, "恥ずかしい'taboo'禁止!");
+            assert.include(messages[0].node.type, "Identifier");
+        });
+    });
+});
+</code></pre>
+
+<h3 id="プラグインを実装しよう">プラグインを実装しよう</h3>
+
+<p>次にテストを通るようにプラグインの <code>taboo-name.js</code> を実装していきます。<br>
+(現在は <code>RULE_ID</code> と ファイル名が同一で固定ですが、将来的にこの部分は変更されるかもしれません)</p>
+
+<p>と、その前にESLintはJavaScriptの<a href="https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API" title="Parser API - SpiderMonkey Redirect 1 | MDN">AST</a>を元にLintを書くツールなので、簡単にJavaScriptのASTとはなにかという話をします。</p>
+
+<h4 id="javascript-ast">JavaScript AST</h4>
+
+<p>AST(Abstract Syntax Tree) は名前の通り、コードをパースした構文木のことで、<br>
+JavaScriptのASTといえば、 <a href="http://esprima.org/" title="Esprima">Esprima</a> や <a href="http://marijnhaverbeke.nl/acorn/" title=" acorn.js ">acorn.js</a> が対応してるMozilla JavaScript AST(<a href="https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API" title="Parser API">Parser API</a>)が一般的です。</p>
+
+<p>実際にどういうものかは、<a href="http://esprima.org/demo/parse.html" title="Esprima: Parser">Esprima: Parser</a>でコードを入力して試してみるといいでしょう。</p>
+
+<p>コードをパースした結果JavaScript ASTはJSONで表現されたものが出力されます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/11/SpiderMonkey_Parser_API-_A_Standard_For_Structured_JS_Representations1.jpg" alt="AST Image"></p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/11/SpiderMonkey_Parser_API-_A_Standard_For_Structured_JS_Representations_7.jpg" alt="AST Image"></p>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/michaelficarra/spidermonkey-parser-api-a-standard-for-structured-js-representations" title="SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck">SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck</a> より引用 </p>
+</blockquote>
+
+<p>上記のようにコードが、それぞれExpressionなどのオブジェクトがツリーとなった感じに変換されて、<br>
+このオブジェクトを見ていきながら何らかのルールに沿ってるかどうかをチェックしていくのがESLintの基本的な機能です。</p>
+
+<p>率直に言えばJSONを見てチェックする感じです。</p>
+
+<p>ESLintのプラグインは次のような形で書くことになっていて、nodeのtypeごとにチェックする機能を実装していく感じです。</p>
+
+<pre><code class="js">module.exports = function(context) {
+    "use strict";
+    return {
+        "Identifier": function(node) {
+            // nodeのtypeが"Identifier"ものに対してのチェックを書く
+        }
+    };
+
+};
+</code></pre>
+
+<p>node は さきほどの図でいうところのそれぞれ色がついたオブジェクトの部分の事で、<br>
+<code>&quot;Identifier&quot;</code> というのはNodeのtypeを示しています。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/11/SpiderMonkey_Parser_API-_A_Standard_For_Structured_JS_Representations_7.jpg" alt="AST Image"></p>
+
+<p>ESLint内部では<a href="https://github.com/Constellation/estraverse" title="Estraverse">Estraverse</a>を使い、このASTを走査しながらnodeオブジェクトをプラグインに渡して、プラグインがチェックした結果を出力する感じになっています。<br>
+(nodeから親やコメントの取得するメソッド等もcontextに用意されてる)</p>
+
+<h3 id="taboo-name.js">taboo-name.js</h3>
+
+<p>実際に書いたプラグインを見ていきます。</p>
+
+<pre><code class="js">module.exports = function (context) {
+
+    "use strict";
+
+    var checkForLoops = function (node) {
+        var name = node.name;
+        context.options.forEach(function (tabooName) {
+            if (name.indexOf(tabooName) !== -1) {
+                context.report(node, "恥ずかしい''禁止!", {
+                    name: name
+                });
+            }
+        });
+    };
+
+    return {
+        'Identifier': checkForLoops
+    };
+};
+</code></pre>
+
+<p><code>&quot;Identifier&quot;</code> typeのnodeは、<code>var a;</code> でいうところの <code>a</code> にあたる部分が入ってるnodeなので、変数名や関数名と言ったnodeに対して、<code>checkForLoops</code> という関数でチェックしています。</p>
+
+<p><code>context.options</code> には テストの方で渡していた <code>config.rules[RULE_ID] = [1, &quot;taboo&quot;];</code> の <code>[&quot;taboo&quot;]</code> という配列が入ってるので、それと変数名等が一致してないかをチェックし、一致してたら <code>context.report</code> で報告するというシンプルなものです。</p>
+
+<h3 id="プラグインを動かしてみる">プラグインを動かしてみる</h3>
+
+<p><code>eslint</code> コマンドでは <code>--rulesdir</code> でプラグインを読み込むディレクトリを追加できるので、今作ったプラグインのディレクトリを指定する事でプラグインを含んだLintを行う事が出来ます。</p>
+
+<p><strong>squalid.js</strong></p>
+
+<pre><code class="js">(function () {
+    var taboo = "this is taboo variable.";
+})();
+</code></pre>
+
+<pre><code class="sh">$ eslint -c example/config.json --rulesdir plugin/ example/squalid.js
+example/squalid.js: line 5, col 8, Warning - 恥ずかしい'taboo'禁止!
+
+1 problem
+</code></pre>
+
+<p>ソースコード</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/eslint-plugin-example" title="azu/eslint-plugin-example">azu/eslint-plugin-example</a></li>
+</ul>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p><a href="http://www.nczonline.net/blog/2013/11/04/now-available-eslint-v0-1-0/" title="ESLint v0.1.0">ESLint v0.1.0</a> がリリースされたので、ESLintの概要とJSHintとの違いなどについて簡単に書いてみました。</p>
+
+<p>gitのpre-commit時により他のLintツールでできない詳細なチェックをするなど、プラグインが作りやすくなってるので、色々使い道がでてくるかもしれません。</p>
+
+<p>最近はJavaScriptのASTがツール的に色々面白いと思ってるので、<a href="http://tkbjs.doorkeeper.jp/events/6786" title="オフラインJavaScript勉強会 - Online Study TokyoBouldering.js | Doorkeeper">オフラインJavaScript勉強会 &#8211; Online Study TokyoBouldering.js | Doorkeeper</a>あたりで何か話せればいいなと思います。</p>
+
+<h3 id="参考">参考</h3>
+
+<ul>
+<li>  <a href="https://speakerdeck.com/michaelficarra/spidermonkey-parser-api-a-standard-for-structured-js-representations" title="SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck">SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck</a></li>
+<li>  <a href="http://d.hatena.ne.jp/oogatta/20110928/1317193687" title="ECMAScript の（構文上の）ごく基本的な構造 - oogattaの勉強日記">ECMAScript の（構文上の）ごく基本的な構造 &#8211; oogattaの勉強日記</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-11-04-eslint-0-1-0%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%80%81.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["ECMAScript","javascript","Tool"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=ECMAScript">ECMAScript</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=Tool">Tool</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

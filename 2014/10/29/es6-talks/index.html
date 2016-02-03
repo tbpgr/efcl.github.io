@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ES6+カジュアルトークでES7について発表してきた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,ECMAScript,スライド,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/10/29/es6-talks/">
+    <h1 class="post-title">ES6+カジュアルトークでES7について発表してきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年10月29日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-10-29-es6-talks.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="es6+カジュアルトーク---connpass"><a href="http://connpass.com/event/9113/" title="ES6+カジュアルトーク - connpass">ES6+カジュアルトーク - connpass</a></h1>
+
+<p><a href="http://connpass.com/event/9113/" title="ES6+カジュアルトーク - connpass">ES6+カジュアルトーク</a> に参加と発表してきました。</p>
+
+<p>自分は<a href="http://azu.github.io/slide/es6talks/" title="明日には使えなくなるES7トーク">明日には使えなくなるES7トーク</a>というES7の話をしてきました。</p>
+
+<h2 id="「runstant-始めるecmascript6-入門」-by-@phi_jp">「runstant 始めるEcmaScript6 入門」 by @phi_jp</h2>
+
+<blockquote>
+<p><a href="http://phi-jp.github.io/runstant/release/alpha/#UEsDBAoAAAAAAGmRXUXv/Olb5BEAAOQRAAAEAAAAZGF0YXsidmVyc2lvbiI6IjAuMC4xIiwiY3VycmVudCI6InNjcmlwdCIsInNldHRpbmciOnsidGl0bGUiOiJFY21hU2NyaXB0IDYg44Gu44K144Oz44OX44Or6ZuGIiwiZGV0YWlsIjoiRWNtYVNjcmlwdCA2IOOBruOCteODs+ODl+ODq+mbhiJ9LCJjb2RlIjp7Imh0bWwiOnsidHlwZSI6Imh0bWwiLCJ2YWx1ZSI6IjwhRE9DVFlQRSBodG1sPlxuIFxuPGh0bWw+XG4gICAgPGhlYWQ+XG4gICAgICAgIDxtZXRhIGNoYXJzZXQ9XCJVVEYtOFwiIC8+XG4gICAgICAgIDxtZXRhIG5hbWU9XCJ2aWV3cG9ydFwiIGNvbnRlbnQ9XCJ3aWR0aD1kZXZpY2Utd2lkdGgsIHVzZXItc2NhbGFibGU9bm9cIiAvPlxuICAgICAgICA8bWV0YSBuYW1lPVwiYXBwbGUtbW9iaWxlLXdlYi1hcHAtY2FwYWJsZVwiIGNvbnRlbnQ9XCJ5ZXNcIiAvPlxuIFxuICAgICAgICA8dGl0bGU+JHt0aXRsZX08L3RpdGxlPlxuICAgICAgICA8bWV0YSBuYW1lPVwiZGVzY3JpcHRpb25cIiBjb250ZW50PVwiJHtkZXNjcmlwdGlvbn1cIiAvPlxuXG4gICAgICAgIDxzdHlsZT4ke3N0eWxlfTwvc3R5bGU+XG5cbiAgICAgICAgPHNjcmlwdCBzcmM9XCJodHRwOi8vY2RuLnJhd2dpdC5jb20vcGhpLWpwL2hpZ2gvMC4wLjMvaGlnaC5qc1wiPjwvc2NyaXB0PlxuXHRcdDxzY3JpcHQ+JHtzY3JpcHR9PC9zY3JpcHQ+XG4gICAgPC9oZWFkPlxuICAgIDxib2R5PlxuICAgICAgICA8aDE+SGVsbG8sIHJ1bnN0YW50ITwvaDE+XG4gICAgPC9ib2R5PlxuPC9odG1sPiJ9LCJzdHlsZSI6eyJ0eXBlIjoiY3NzIiwidmFsdWUiOiJib2R5IHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjQwLCAyNDAsIDI1MCk7XG59XG5cbmgxIHtcbiAgICBjb2xvcjogIzQ0NDtcbiAgICBmb250LXNpemU6IDIzcHg7XG4gICAgZm9udC1mYW1pbHk6ICdMdWNpZGEgR3JhbmRlJywnSGlyYWdpbm8gS2FrdSBHb3RoaWMgUHJvTicsIE1laXJ5bywgc2Fucy1zZXJpZjtcbn0ifSwic2NyaXB0Ijp7InR5cGUiOiJlY21hc2NyaXB0NiIsInZhbHVlIjoiLypcbiAqICMgRWNtYVNjcmlwdCA2XG4gKiBFY21hU2NyaXB0IDYg44Gu44K144Oz44OX44Or6ZuGXG4gKi9cblxuc2FtcGxlX2xldCgpO1xuLy8gc2FtcGxlX2Jhc2UoKTsgLy8gMumAsuaVsCwgOOmAsuaVsFxuLy8gc2FtcGxlX2Fycm93KCk7XG4vLyBzYW1wbGVfZGVmYXVsdF9wYXJhbSgpO1xuLy8gc2FtcGxlX2Rlc3RydWN0dXJpbmcoKTsgLy8g44OH44K544OI44Op44Kv44OB44Oj44Oq44Oz44KwXG4vLyBzYW1wbGVfdGVtcGxhdGUoKTsgLy8g44OQ44OD44Kv44Kv44Kp44O844OIXG4vLyBzYW1wbGVfY2xhc3MoKTtcblxuXG4vKlxuICogbGV0IOOBruOCteODs+ODl+ODq1xuICog44K544Kz44O844OX44Gn6ZaJ44GY44Gf5aSJ5pWw44KS5L2/44GI44KLXG4gKi9cbmZ1bmN0aW9uIHNhbXBsZV9sZXQoKSB7XG4gICAgbGV0IGhvZ2UgPSAxMjg7XG4gICAgXG4gICAgaWYgKHRydWUpIHtcbiAgICAgICAgLy8g44K544Kz44O844OX44GM6YGV44GG44Gu44GnXG4gICAgICAgIGxldCBob2dlID0gMjU2O1xuICAgICAgICBjb25zb2xlLmxvZyhob2dlKTsgLy8gMjU2XG4gICAgfVxuICAgIC8vIOacgOWIneOBq+S7o+WFpeOBl+OBn+WApOOBjOihqOekuuOBleOCjOOCi1xuICAgIGNvbnNvbGUubG9nKGhvZ2UpOyAvLyAxMjhcbn07XG5cbi8qXG4gKiAy6YCy5pWwLCA46YCy5pWwXG4gKiDmm7jjgZHjgovjgojjgYbjgavjgarjgaPjgZ9cbiAqL1xuZnVuY3Rpb24gc2FtcGxlX2Jhc2UoKSB7XG4gICAgLy8gMumAsuaVsFxuICAgIGNvbnNvbGUubG9nKDBiMDAxMSk7IC8vIDNcbiAgICAvLyA46YCy5pWwXG4gICAgY29uc29sZS5sb2coMG8wMDExKTsgLy8gOVxufTtcblxuLypcbiAqIGFycm93IGZ1bmN0aW9uIOOBruOCteODs+ODl+ODq1xuICog6Imy44CF44Go55yB55Wl44GX44Gf6Zai5pWw5a6a576p44GM44Gn44GN44KL44KIXG4gKi9cbmZ1bmN0aW9uIHNhbXBsZV9hcnJvdygpIHtcbiAgICBcbiAgICAvLyDku4rjgb7jgadcbiAgICB2YXIgc3F1YXJlMSA9IGZ1bmN0aW9uICh4KSB7XG4gICAgICAgIHJldHVybiAoeCAqIHgpO1xuICAgIH07XG4gICAgXG4gICAgLy8gZnVuY3Rpb24g44KS55yB55WlXG4gICAgdmFyIHNxdWFyZTIgPSAoeCkgPT4ge1xuICAgICAgICByZXR1cm4gKHggKiB4KTtcbiAgICB9O1xuICAgIFxuICAgIC8vIOaLrOW8p+OCkuecgeeVpVxuICAgIHZhciBzcXVhcmUzID0geCA9PiB7XG4gICAgICAgIHJldHVybiAoeCAqIHgpO1xuICAgIH07XG4gICAgXG4gICAgLy8gcmV0dXJuIOOCkuecgeeVpVxuICAgIHZhciBzcXVhcmU0ID0geCA9PiAoeCAqIHgpO1xuICAgIFxuICAgIC8vIOWFqOmDqOe1kOaenOOBr+S4gOe3klxuICAgIGNvbnNvbGUubG9nKHNxdWFyZTEoMykpO1xuICAgIGNvbnNvbGUubG9nKHNxdWFyZTIoMykpO1xuICAgIGNvbnNvbGUubG9nKHNxdWFyZTMoMykpO1xuICAgIGNvbnNvbGUubG9nKHNxdWFyZTQoMykpO1xufTtcblxuLypcbiAqIOODh+ODleOCqeODq+ODiOODkeODqeODoeODvOOCv1xuICog44OH44OV44Kp44Or44OI5byV5pWw5oyH5a6a44Gn44GN44KL44KI44GG44Gr44Gq44Gj44Gf44KIXG4gKi9cbmZ1bmN0aW9uIHNhbXBsZV9kZWZhdWx0X3BhcmFtKCkge1xuICAgIC8vIOODh+ODleOCqeODq+ODiOW8leaVsOOCkuioreWumihD44Go44GL44Go5ZCM44GYKVxuICAgIHZhciBoZWxsbyA9IGZ1bmN0aW9uKHlvdSA9IFwid29ybGRcIikge1xuICAgICAgICBjb25zb2xlLmxvZyhcIkhlbGxvLCBcIiArIHlvdSk7XG4gICAgfTtcbiAgICBcbiAgICAvLyDnnIHnlaXjgZnjgovjgaggXCJ3b3JsZFwiXG4gICAgaGVsbG8oKTsgLy8gSGVsbG8sIHdvcmxkIVxuICAgIC8vIOaMh+WumuOBmeOCi+OBqOOBneOBo+OBoeOCkuWEquWFiFxuICAgIGhlbGxvKFwieW9zdWtlXCIpOyAvLyBIZWxsbywgeW9zdWtlXG59O1xuXG4vKlxuICog5YiG5Ymy5Luj5YWlXG4gKiDliIblibLku6PlhaXjgafjgY3jgovjgohcbiAqL1xuZnVuY3Rpb24gc2FtcGxlX2Rlc3RydWN0dXJpbmcoKSB7XG4gICAgLy8g5YiG5Ymy5Luj5YWl44Gn44GN44G+44GZXG4gICAgdmFyIGEgPSA1O1xuICAgIHZhciBiID0gMjtcblxuICAgIGNvbnNvbGUubG9nKGEpOyAvLyA1XG4gICAgY29uc29sZS5sb2coYik7IC8vIDJcbiAgICBcbiAgICB2YXIgW2EsIGJdID0gW2IsIGFdO1xuICAgIFxuICAgIGNvbnNvbGUubG9nKGEpOyAvLyAyXG4gICAgY29uc29sZS5sb2coYik7IC8vIDVcbiAgICBcbiAgICAvLyDjgqrjg5bjgrjjgqfjgq/jg4jjgoLjgYTjgZHjgoso44Gq44Gc44GL44Ko44Op44O8KVxuICAgIC8qXG4gICAgdmFyIHYgPSB7XG4gICAgICAgIHg6IDEyOCxcbiAgICAgICAgeTogMjU2LFxuICAgIH07XG4gICAgXG4gICAgdmFyIHt4LCB5fSA9IHY7XG4gICAgXG4gICAgY29uc29sZS5sb2coeCk7XG4gICAgY29uc29sZS5sb2coeSk7XG4gICAgKi9cbn07XG5cbi8qXG4gKiDmloflrZfliJfjg4bjg7Pjg5fjg6zjg7zjg4hcbiAqIOODkOODg+OCr+OCr+OCqeODvOODiOOBp+WbsuOCgOOBqOODkuOCouODieOCreODpeODoeODs+ODiOabuOOBhOOBn+OCilxuICog5aSJ5pWw5bGV6ZaL44Gn44GN44Gf44KK44GZ44KLXG4gKi9cbmZ1bmN0aW9uIHNhbXBsZV90ZW1wbGF0ZSgpIHtcbiAgICAvLyDmlLnooYzovrzjgb/jgafmm7jjgZHjgZ/jgopcbiAgICB2YXIgc3RyID0gYOWQvui8qeOCj+OBjOOBr+OBhOOBr+eMq+OBp+OBguOCi+OAguWQjeWJjeOBr+OBvuOBoOeEoeOBhOOAglxu44Gp44GT44Gn55Sf44KM44Gf44GL44Go44KT44Go6KaL5b2T44GR44KT44Go44GG44GM44Gk44GL44Gs44CCYDtcbiAgICBjb25zb2xlLmxvZyhzdHIpO1xuICAgIFxuICAgIC8vIOWkieaVsOOBruWxlemWi+OBp+OBjeOBn+OCilxuICAgIHZhciB1c2VyID0ge1xuICAgICAgICBuYW1lOiAncGhpJyxcbiAgICAgICAgYmxvb2RUeXBlOiAnTycsXG4gICAgfTtcbiAgICBjb25zb2xlLmxvZyhgbmFtZTogJyR7dXNlci5uYW1lfScsIGJsb29kVHlwZTogJyR7dXNlci5ibG9vZFR5cGV9J2ApO1xuICAgIFxuICAgIC8vIOioiOeul+OCguOBhOOBkeOBn+OCiuOBmeOCi1xuICAgIGNvbnNvbGUubG9nKGAyKzQ9JHsyKzR9YCk7XG59O1xuXG5cbi8qXG4gKiDjgq/jg6njgrnjga7jgrXjg7Pjg5fjg6tcbiAqL1xuZnVuY3Rpb24gc2FtcGxlX2NsYXNzKCkge1xuICAgIC8vIOOCiOOBj+OBguOCi+OCr+ODqeOCueWumue+qeOCkiBqcyDjgafjgoIhIVxuICAgIGNsYXNzIFZlY3RvcjIge1xuICAgICAgICBjb25zdHJ1Y3Rvcih4PTAsIHk9MCkge1xuICAgICAgICAgICAgdGhpcy54ID0geDtcbiAgICAgICAgICAgIHRoaXMueSA9IHk7XG4gICAgICAgIH1cbiAgICAgICAgXG4gICAgICAgIGxvZygpIHtcbiAgICAgICAgICAgIGNvbnNvbGUubG9nKFwieD1cIiArIHRoaXMueCk7XG4gICAgICAgICAgICBjb25zb2xlLmxvZyhcInk9XCIgKyB0aGlzLnkpO1xuICAgICAgICB9XG4gICAgfTtcbiAgICBcbiAgICAvLyDmma7pgJrjgavkvb/jgYjjgotcbiAgICB2YXIgdiA9IG5ldyBWZWN0b3IyKDIsIDQpO1xuICAgIHYubG9nKCk7IC8vIHg9MiwgeT00XG59O1xuXG5cblxuXG5cblxuXG5cblxuXG5cblxuXG5cblxuXG4ifX19UEsBAhQACgAAAAAAaZFdRe/86VvkEQAA5BEAAAQAAAAAAAAAAAAAAAAAAAAAAGRhdGFQSwUGAAAAAAEAAQAyAAAABhIAAAAA" title="EcmaScript 6 のサンプル集 | runstant">EcmaScript 6 のサンプル集 | runstant</a></p>
+</blockquote>
+
+<ul>
+<li><a href="http://phi-jp.github.io/runstant/release/alpha/" title="template - tmlib.js | runstant">runstant</a>
+
+<ul>
+<li>jsfiddle的なツール</li>
+</ul></li>
+<li>ハンズオン</li>
+<li><code>let</code></li>
+<li>2進数を直接書ける
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Numeric_literals" title="Lexical grammar - JavaScript | MDN">Lexical grammar - JavaScript | MDN</a><br></li>
+</ul></li>
+<li>デフォルトパラメータ
+
+<ul>
+<li>引数にデフォルト値を設定出来る</li>
+</ul></li>
+<li>分割代入</li>
+<li>template strings
+
+<ul>
+<li>バッククオートでヒアドキュメントを書ける</li>
+</ul></li>
+<li><code>class</code> syntax</li>
+</ul>
+
+<h2 id="「node.js-v0.12で使えるようになるes6+αの機能」-by-@yosuke_furukawa">「Node.js v0.12で使えるようになるES6+αの機能」 by @yosuke_furukawa</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/yosuke_furukawa/node-dot-js-v0-dot-12deshi-eruyouninarues6-plus-falseji-neng-lan" title="Node.js v0.12で使えるようになるES6+の機能一覧 // Speaker Deck">Node.js v0.12で使えるようになるES6+の機能一覧 // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>Node.jsの0.12のビルドして入ってるV8のES6の機能について</li>
+<li><code>--harmony-typeof</code>が消えた
+
+<ul>
+<li><code>typeof null</code>が消えた</li>
+<li>これからも<code>typeof null</code>はobjectのまま</li>
+</ul></li>
+<li><code>harmony_arrow_function</code>
+
+<ul>
+<li><code>=&gt;</code></li>
+</ul></li>
+</ul>
+
+<h3 id="v0.12でデフォルトになった機能">v0.12でデフォルトになった機能</h3>
+
+<ul>
+<li>Symbol
+
+<ul>
+<li>オブジェクトのkeyに利用できる特殊なキー</li>
+<li><code>Symbol</code>を使うと外のスコープから見えないキーを作れる</li>
+<li>外からキーを指定できないので、Privateなプロパティを作れる</li>
+<li><a href="https://curiosity-driven.org/private-properties-in-javascript" title="Private properties in JavaScript — Curiosity driven">Private properties in JavaScript — Curiosity driven</a></li>
+</ul></li>
+<li>Map/Set
+
+<ul>
+<li>Collectionとなるオブジェクト</li>
+<li>いわゆるマップオブジェクト</li>
+</ul></li>
+<li>Set
+
+<ul>
+<li>重複を持たない</li>
+<li>Mapで実装されてる?</li>
+<li><a href="https://code.google.com/p/v8/source/browse/trunk/src/collection.js" title="collection.js - v8 - V8 JavaScript Engine - Google Project Hosting">collection.js - v8 - V8 JavaScript Engine - Google Project Hosting</a></li>
+</ul></li>
+<li><code>for-of</code>
+
+<ul>
+<li>iterableなものを繰り返し辿れる</li>
+<li>Arrayなども回せる</li>
+<li>Generatorはiterableなもの(nextで次へ行ける)</li>
+<li>for-ofでGnerator関数を回せる</li>
+<li>自分でiteratorを作ることも出来る</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text"> [Symbol.iterator](){
+
+ }
+</code></pre></div>
+<ul>
+<li>Promise
+
+<ul>
+<li>非同期関数をPromiseでラップして処理する</li>
+</ul></li>
+<li><code>Object.observe</code>
+
+<ul>
+<li>ES7の機能</li>
+<li><code>Array</code>や<code>Object</code>の変更を正しく監視出来る</li>
+</ul></li>
+</ul>
+
+<h2 id="「ecmascript6による-関数型プログラミング」-by-@tanukkii007">「ECMAScript6による 関数型プログラミング」 by @TanUkkii007</h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/TanUkkii/ecma-script6-40864841" title="Ecma script6による関数型プログラミング">ECMAScript6による 関数型プログラミング</a></p>
+</blockquote>
+
+<ul>
+<li>関数型プログラミングの構成要素
+
+<ul>
+<li>第一級オブジェクトとしての関数</li>
+<li>イミュータビリティ
+
+<ul>
+<li>副作用を排除出来る</li>
+</ul></li>
+<li><a href="http://ksmakoto.hatenadiary.com/entry/2014/01/23/175535" title="JavaScript と Scheme について - ksmakotoのhatenadiary">JavaScript と Scheme について - ksmakotoのhatenadiary</a></li>
+</ul></li>
+<li><code>const</code>
+
+<ul>
+<li>再代入できない変数</li>
+<li><code>strict mode</code></li>
+</ul></li>
+<li>分割代入(デストラクチャリング)
+
+<ul>
+<li>配列やオブジェクトからパターンで値を抽出</li>
+</ul></li>
+<li>再帰で繰り返し処理
+
+<ul>
+<li>ES6では末尾呼び出し最適化が入る</li>
+</ul></li>
+<li>プロキシ
+
+<ul>
+<li>既存のオブジェクトをラップしてその一部の内部メソッドの挙動を変えることが出来る</li>
+<li>ラップする内部の挙動(トラップ)を指定して、既存処理に対して処理を割り込める</li>
+</ul></li>
+<li>配列に割り込んでコピーを返すようにする = 不変配列を作れる
+
+<ul>
+<li><code>get</code>トラップの中で呼び出されたメソッド破壊的なメソッドだったら、sliceでコピーを返す</li>
+<li>透過的なAPIを保ちながら不変配列を作れる</li>
+<li>Immutable Array</li>
+</ul></li>
+</ul>
+
+<h2 id="「introduing-break-the-web:-array-extra-methods-case」by-@constellation">「Introduing Break the Web: Array extra methods case」by @Constellation</h2>
+
+<ul>
+<li>ES6でメソッドが追加されて
+
+<ul>
+<li><code>Array.prototype.values</code></li>
+<li> <code>Array.prototype.keys</code></li>
+<li> <code>Array.prototype.entries</code></li>
+<li>等便利なメソッドが入った</li>
+</ul></li>
+<li>既に同じ名前で定義してるやつがあるのでは…
+
+<ul>
+<li>全く同じ挙動ならいいけどそうではない</li>
+</ul></li>
+<li><code>with</code>ブロックの中ではES6の配列拡張は隠れてる
+
+<ul>
+<li><code>@@unscopables</code>というプロパティに<code>values</code>等が入ってる</li>
+<li>Safe break the web</li>
+<li>このハックによりES6になっても壊れない</li>
+</ul></li>
+<li>MooTools
+
+<ul>
+<li><code>Array#contains</code></li>
+<li>enumableなものとして定義してる</li>
+<li>ES5では<code>contains</code>はnon-enumable</li>
+<li>ES6では変わった</li>
+<li>jsfiddleやoutlook.com等が壊れた</li>
+</ul></li>
+<li>Case Study 2
+
+<ul>
+<li><code>Array.prototype.values</code>をChromeにPublicにした</li>
+<li><code>&quot;values&quot; in</code>という判定で処理をわけてた
+
+<ul>
+<li>Chromeでは常にtrueになるので壊れた</li>
+</ul></li>
+</ul></li>
+<li>学び
+
+<ul>
+<li>短縮された判定をするな(<code>in</code>)
+
+<ul>
+<li><code>hasOwnProperty</code>等を使いましょう</li>
+</ul></li>
+<li>今のオブジェクトの形に依存するな
+
+<ul>
+<li>今定義されてるメソッド一覧の配列で定義しないで、列挙を使って実行時に取り出そう</li>
+<li>✘ <code>[&quot;map&quot;, &quot;each&quot;...]</code></li>
+</ul></li>
+<li><code>use strict</code>を使おう</li>
+</ul></li>
+</ul>
+
+<h2 id="「closure-compilerのes6対応-あるいは-es6時代のaltjs生存戦略」-by-@teppeis">「Closure CompilerのES6対応 あるいは ES6時代のAltJS生存戦略」 by @teppeis</h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/teppeis/es6-closurecompileraltjs" title="Closure CompilerのES6対応 あるいはES6時代のAltJS生存戦略">Closure CompilerのES6対応 あるいはES6時代のAltJS生存戦略</a></p>
+</blockquote>
+
+<ul>
+<li>Closure Compiler
+
+<ul>
+<li>JavaScript to JavaScript</li>
+<li>圧縮、最適化</li>
+<li>JSDocベースの静的型付け</li>
+<li>RefasterJS(自動リファクタリング)</li>
+</ul></li>
+<li>Conformance(規約チェック)</li>
+<li>JSDocベースの静的型付け
+
+<ul>
+<li>冗長だけど、既存のJSとの親和がある</li>
+<li>JavaScriptの進化に追従できる</li>
+<li>コンパイルなしでも実行可能</li>
+</ul></li>
+<li>Compile ES6 to ES3
+
+<ul>
+<li>in,outで指定出来る</li>
+<li>結構色々サポートしてる</li>
+</ul></li>
+<li><a href="http://kangax.github.io/compat-table/es6/" title="ECMAScript 6 compatibility table">ECMAScript 6 compatibility table</a></li>
+<li>なぜClosure CompilerはTraceurを使わないか
+
+<ul>
+<li>Traceurは変換結果にコメントを残せない</li>
+<li>Closure CompilerはJSDocが大事</li>
+<li>パフォーマンスの問題
+
+<ul>
+<li>Closure Compiler + Traceurに変換が二重になる</li>
+</ul></li>
+</ul></li>
+<li>Traceurの微妙なところ
+
+<ul>
+<li>自前で実装する基準が良く分からない</li>
+<li>ランタイムがでかくなる</li>
+<li>コンパイル不要な機能も入ってる</li>
+</ul></li>
+<li>AltJS
+
+<ul>
+<li>各種AltJSが色々できた</li>
+<li>ES6/7だけでも十分モダンなsyntaxに</li>
+<li>各ブラウザとかコンパイラがES6対応していってる</li>
+</ul></li>
+<li>AltJSの選定基準
+
+<ul>
+<li>コンテキストにおけるJSの不満を解決</li>
+<li>AltJSからの出口戦略</li>
+<li>プロダクトとAltJSどっちが長生きかどうか
+
+<ul>
+<li>開発の継続性</li>
+<li>移行コスト</li>
+</ul></li>
+</ul></li>
+<li>Closure CompilerはECMAScript準拠の強み
+
+<ul>
+<li>JSDocなので、基本的に移行には強い</li>
+</ul></li>
+<li>ES6時代のAltJS</li>
+<li>最強の出口は標準化してしまうこと</li>
+<li>大統一言語</li>
+</ul>
+
+<h2 id="明日には使えなくなるes7トーク---@azu_re"><a href="http://azu.github.io/slide/es6talks/" title="明日には使えなくなるES7トーク">明日には使えなくなるES7トーク</a> - @azu_re</h2>
+
+<blockquote>
+<p><a href="http://azu.github.io/slide/es6talks/" title="明日には使えなくなるES7トーク">明日には使えなくなるES7トーク</a></p>
+</blockquote>
+
+<p>明日には使えなくなるかもしれないES7+で提案されてる仕様についての発表をしてきました。</p>
+
+<p>まだ実装もないような仕様についてが中心です。</p>
+
+<h3 id="ecmascript-7の策定プロセス"><a href="https://docs.google.com/document/d/1QbEE0BsO4lvl7NFTn5WXWeiEIBfaVUF7Dk0hpPpPDzU/edit" title="TC39 Process">ECMAScript 7の策定プロセス</a></h3>
+
+<ul>
+<li>Stage 0. <code>Strawman</code> : ESに入れたいアイデアを議論する段階</li>
+<li>Stage 1. <code>Proposal</code> : <code>Strawman</code>を具体化、デモ作成、分析</li>
+<li>Stage 2. <code>Draft</code> : 正式な仕様定義の形式で仕様書を書く段階</li>
+<li>Stage 3. <code>Candidate</code>: Draftの実装等をしてフィードバック</li>
+<li>Stage 4. <code>Finished</code>: ECMAScriptに正式採用 - <a href="https://github.com/tc39/test262" title="Test262">Test262</a>へ実装</li>
+</ul>
+
+<p>このプロセスに沿ったStageごとに仕様紹介と最近話題のTypesやAtScript、Flowといった話についてをしました。</p>
+
+<p>詳しくは<a href="http://azu.github.io/slide/es6talks/" title="明日には使えなくなるES7トーク">明日には使えなくなるES7トーク</a>を下にスクロールするとキャプションが見えます。</p>
+
+<hr>
+
+<h3 id="メモ">メモ</h3>
+
+<ul>
+<li>FoldingText</li>
+<li>Deckset</li>
+</ul>
+
+<h3 id="懇談会">懇談会</h3>
+
+<ul>
+<li><a href="http://connpass.com/event/9067/" title="JSer.info 200回記念イベント">JSer.info 200回記念イベント</a>についてのパネルディスカッションの打ち合わせをした</li>
+<li><a href="http://www.google.com/moderator/?hl=ja#16/e=213da7" title="JSer.info 200回記念イベントの質問 - Google モデレーター">JSer.info 200回記念イベントの質問 - Google モデレーター</a>に質問を当日まで貯めています</li>
+<li>オレオレFluxの流行やリアルワールドのAltJSどうなのという話をしました</li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-10-29-es6-talks.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","ECMAScript","スライド","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=ECMAScript">ECMAScript</a></li>
+                
+                <li><a href="/tags/?q=スライド">スライド</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        多段SourceMapとASTの現状について話してきた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="イベント,JavaScript,SourceMap,AST,testing" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/09/22/sourcemap-ast/">
+    <h1 class="post-title">多段SourceMapとASTの現状について話してきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年09月22日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-09-22-sourcemap-ast.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>ConstさんがWebKitにコミットしてたCSS JIT入りのiOS8リリースがされたのを記念して@Constellationさんと@saneyuki_s さんと<a href="http://togetter.com/li/722602" title="#DOMQuery寿司">#DOMQuery寿司</a>をしてきました。</p>
+
+<p>元ネタは以下の記事です。</p>
+
+<ul>
+<li><a href="http://www.sencha.com/blog/apple-shows-love-for-html5-with-ios-8" title="Apple Shows Love for HTML5 with iOS 8 | Blog | Sencha">Apple Shows Love for HTML5 with iOS 8 | Blog | Sencha</a></li>
+<li><a href="https://www.xenophy.com/sencha-blog/11578" title="iOS 8 に Apple の HTML5 への愛を見た | 株式会社ゼノフィ">iOS 8 に Apple の HTML5 への愛を見た | 株式会社ゼノフィ</a></li>
+</ul>
+
+<h2 id="sourcemapとastの問題点">SourceMapとASTの問題点</h2>
+
+<blockquote class="twitter-tweet" lang="en"><p>これが <a href="https://twitter.com/hashtag/DOMQuery%E5%AF%BF%E5%8F%B8?src=hash">#DOMQuery寿司</a> です <a href="http://t.co/o4qpKqrKYT">pic.twitter.com/o4qpKqrKYT</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/513999410615689216">September 22, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>一つ目の献立として発表したのは、SourceMapとASTでちょっと似てるなーと思った問題点の話について。
+前半の多段SourceMapについては以下の記事で書いた話と大体同じです。</p>
+
+<ul>
+<li><a href="http://efcl.info/2014/09/03/multi-stage-sourcemap/" title="多段SourceMapの対応方法とライブラリ | Web Scratch">多段SourceMapの対応方法とライブラリ | Web Scratch</a></li>
+</ul>
+
+<p>発表に使ったスライドは <a href="http://azu.github.io/slide/DOMQuery/sourcemap.pdf" title="sourcemap.pdf">http://azu.github.io/slide/DOMQuery/sourcemap.pdf</a> です。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/09/basic-sourcemap.png" alt="basic-sourcemap.png"></p>
+
+<p>標準的なSourceMapの使い方なら何も問題はありません。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/09/multiple-sourcemap.png" alt="multiple-sourcemap.png"></p>
+
+<p>ただし、これが複数回の変換した結果できたファイルでは、最初(Original)と最後(Generated)を繋ぐSourceMapがありません。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/09/sourcemap-8.png" alt="page-8"></p>
+
+<p>そのため、AltJSなどを使った場合にこの問題が起きることがあります。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/09/multiple-stage-sourcemap.png" alt="multiple-stage-sourcemap.png"></p>
+
+<p>これを汎用的に解決するために <a href="https://github.com/azu/multi-stage-sourcemap" title="multi-stage-sourcemap">multi-stage-sourcemap</a> というライブラリをつくりました。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/09/sourcemap-12.jpg" alt="page-12"></p>
+
+<p><a href="https://github.com/azu/multi-stage-sourcemap" title="multi-stage-sourcemap">multi-stage-sourcemap</a> は中間にあるSourceMapを使って新しく最初と最後を結ぶSourceMapを作り直すためのライブラリです。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/09/sourcemap-19.png" alt="page-19"></p>
+
+<p>中間情報は失ってしまいますが、そもそもSourceMapに世代の情報があればこの問題は解決できたかもしれません。
+現状ではGruntやGulpやBrowserify等それぞれの対応方法が必要となってしまっています。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/09/sourcemap-20.png" alt="page-20"></p>
+
+<p>SourceMapは<strong>SourceMap</strong>という単一のファイルは仕様として定められていますが、それが連続的に変換された時に関する扱いについては取り決めがないという問題があります。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/09/sourcemap-22.png" alt="page-22-ast"></p>
+
+<p>同じような問題?がJavaScript ASTにも存在します。</p>
+
+<p>JavaScript ASTを扱うライブラリ同士(結合や圧縮等)を繋げて使おうとしてた時に、多くのライブラリはコードを受け取りコードを返すAPIを提供しています。</p>
+
+<p>コードを受け取りコードを返す場合、変換する毎にcode parseとcode generateが必要になってしまうため非効率です。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/09/sourcemap-23.png" alt="page-23"></p>
+
+<p>現状のGruntやGulp、Browserifyではこの問題がまだ解決出来ていません。</p>
+
+<p><img src="http://monosnap.com/image/MQJmxXkCRlIvOzq5x0bzyoytP5zZOl.png" alt="fit"></p>
+
+<p>Gruntではファイル読み込み-&gt;パース-&gt;変換-&gt;コード生成-&gt;ファイルに書き出しというサイクルが取られます。</p>
+
+<p><img src="http://monosnap.com/image/kQhPiCykxgEsNZnr4CAYhDUjpw60YO.png" alt="fit"></p>
+
+<p>GulpやBroserifyでは、Gruntからファイルの読み込みと書き出しを最初と最後の一度だけにすることで効率化していますが、パースとコード生成は毎回それぞれのプラグイン間で行われています。</p>
+
+<p><img src="http://monosnap.com/image/9iwjh67u7SxayeMmmqTePdohvwGC0k.png" alt="fit"></p>
+
+<p>それを解決しようとして作られているのが<a href="http://rreverser.com/aster-ast-based-code-builder/" title="aster - AST-based code builder">aster - AST-based code builder</a>です。</p>
+
+<p><a href="http://rreverser.com/aster-ast-based-code-builder/" title="aster - AST-based code builder">aster</a>ではそれぞれのプラグインはASTを受け取り、変換したASTを返すだけとなっています。</p>
+
+<p>そのため、毎回パースやコード生成をする必要ななくなるというチェーンを提供するためのビルドツールです。</p>
+
+<p><a href="https://github.com/broccolijs/broccoli" title="Broccoli">Broccoli</a>が効率的なビルドを目指すツールと同じように、<a href="http://rreverser.com/aster-ast-based-code-builder/" title="aster - AST-based code builder">aster</a>も効率的なASTの変換を目指すツールと言えるかもしれません。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/09/page-27.png" alt="page-27"></p>
+
+<p>しかし、現実的には&quot;ASTを受け取り、ASTを返す&quot;というAPIを公開していないモジュールも見られます。これは明確なメリットが見えていない現状だと仕方ないのかもしれません。</p>
+
+<p>このようにASTを連続的に扱う場合にもそれを扱う定番的な方法が決まっていないため、あやふやな状態が出てくるのが多段SourceMapと似ているねという話をしてきました。
+(AST自体も<a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API" title="Parser API">Parser API</a>がベースとなっているだけで、細かい所に扱いの違いがあります - 主にES6)</p>
+
+<h4 id="その他">その他</h4>
+
+<ul>
+<li>最近(ES6)のASTってどうなの?
+
+<ul>
+<li><a href="https://github.com/Constellation/escodegen" title="Escodegen">Escodegen</a>最近色々対応作業してるよ</li>
+<li>要望色々くる</li>
+</ul></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API" title="Parser API - Mozilla | MDN">Parser API - Mozilla | MDN</a>ってどうなの?
+
+<ul>
+<li>結構ラフなドキュメント</li>
+<li><code>Reflect</code> ちゃんと実装されてないのでは…</li>
+<li>ドキュメントがここにしかないのでここを参照してる</li>
+<li>他の所にドキュメントを写してやった方がいいのかも</li>
+</ul></li>
+<li><a href="http://www.2ality.com/2014/06/es6-schedule.html" title="The ECMAScript 6 schedule changes">ES6のスケジュールが遅れた</a>のって結局何が原因?
+
+<ul>
+<li>module! module!</li>
+<li>Acornとかesprima-fbとかもASTがバラバラだし、どれも最終案とは違う…</li>
+<li>これでfinal!? <a href="http://www.2ality.com/2014/09/es6-modules-final.html" title="ECMAScript 6 modules: the final syntax">ECMAScript 6 modules: the final syntax</a></li>
+</ul></li>
+</ul>
+
+<h2 id="power-assertのデモサイトを作った話">power-assertのデモサイトを作った話</h2>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/DOMQuery%E5%AF%BF%E5%8F%B8?src=hash">#DOMQuery寿司</a> power-assert デモについて <a href="http://t.co/vep82qnyEJ">pic.twitter.com/vep82qnyEJ</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/514007886825938944">September 22, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>一昨日ぐらいに<a href="http://azu.github.io/power-assert-demo/" title="power-assert playground">power-assert playground</a>というクライアントサイドで、power-assertのテストを動かせるデモサイトを作った話を軽くしました。(立ち話レベル)</p>
+
+<p>発表に使ったスライドは<a href="http://azu.github.io/slide/DOMQuery/power-assert-in-browser.pdf" title="power-assert-in-browser.pdf">http://azu.github.io/slide/DOMQuery/power-assert-in-browser.pdf</a>です。</p>
+
+<p>これは以下のような構成で作られているサイトです。</p>
+
+<ul>
+<li>Editor - <a href="http://codemirror.net/" title="CodeMirror">CodeMirror</a></li>
+<li>Component - <a href="http://www.ractivejs.org/" title="Ractive.js">Ractive.js</a></li>
+<li>Event manager - <a href="http://www.ractivejs.org/" title="Ractive.js">Ractive.js</a></li>
+<li>power-assert化 - <a href="https://github.com/twada/espower-source" title="espower-source">espower-source</a></li>
+<li>Test Runner - <a href="http://visionmedia.github.io/mocha/" title="Mocha">Mocha</a></li>
+</ul>
+
+<p>このサイトは、すべてクライアントサイドで変換からテストの実行までをやっています。</p>
+
+<p><a href="https://github.com/twada/espower-source" title="espower-source">espower-source</a>ではコードを受け取りpower-assert化したコードを返すので、これをiframeのsrcdocにmochaを使ったrunner htmlを埋め込んで実行させています。</p>
+
+<p>srcdocにはiframeの中で表示するHTMLコードをそのまま入れて表示出来ます。</p>
+
+<p><code>srcdoc</code> つまりiframeで実行する事で実行時の変数の漏れなどを無くすようにしています。(そのため多分IEだと動かない)</p>
+
+<p>また全体的なcomponentやイベントは<a href="http://www.ractivejs.org/" title="Ractive.js">Ractive.js</a>を使って書いていて、<a href="http://browserify.org/" title="Browserify">Browserify</a>を使ってビルドしています。</p>
+
+<p>Ractive.jsはVue.jsを使った事がある人は大体似たような感覚があるかもしれませんが、<a href="http://docs.ractivejs.org/latest/components" title="Components">Components</a>ではテンプレート(<a href="http://docs.ractivejs.org/latest/mustaches" title="Mustache">Mustache</a>ベース)とCSS文字列を指定できます。</p>
+
+<p>例えば、Editorは<a href="https://github.com/azu/power-assert-demo/tree/master/app/component/editor" title="power-assert-demo/app/component/editor at master · azu/power-assert-demo">power-assert-demo/app/component/editor at master · azu/power-assert-demo</a>のようにcomponentを作って利用しています。</p>
+
+<ul>
+<li><code>js-editor-component.js</code></li>
+<li><code>js-editor-component.js.hbs</code></li>
+</ul>
+
+<p>という感じのファイルにしていて、これは以下のように書くことでcomponentのjsからテンプレートファイルを読み込んでインライン化できるためです。(ファイルのインライン化には<a href="https://github.com/substack/brfs" title="brfs">brfs</a>を使います)</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">template</span><span class="o">:</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">).</span><span class="nx">readFileSync</span><span class="p">(</span><span class="nx">__filename</span> <span class="o">+</span> <span class="s2">&quot;.hbs&quot;</span><span class="p">,</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">),</span>
+</code></pre></div>
+<p>Node.jsスタイルでスッキリ書きやすいので最近色々試している感じです。
+イベント周りも子のcomponentに対して貼ったりできるので、結構柔軟に行けそうな気がします。(まだcomponentのテストどうやるのかがよくわかってない)</p>
+
+<p>後、さきほどの<a href="http://docs.ractivejs.org/latest/mustaches" title="Mustache">Mustache</a>テンプレートをベースにした最近話題の<a href="https://github.com/ractivejs/ractive/tree/dev/src/virtualdom" title="virtualdom">virtualdom</a>実装を持っていることも面白いかもしれません。</p>
+
+<h3 id="その他">その他</h3>
+
+<ul>
+<li>Vue.js データバインディングのため大量のdataを入れるとそこで処理に時間がかかる
+
+<ul>
+<li>別途管理するのが必要なのかも</li>
+<li>Flux - <a href="http://fluxxor.com/" title="Fluxxor - Home">Fluxxor - Home</a>, <a href="https://github.com/deloreanjs/delorean" title="deloreanjs/delorean">deloreanjs/delorean</a></li>
+<li>ractiveは選択式で、データバインディングに選択肢欲しい</li>
+</ul></li>
+<li>データバインディング系に<a href="http://examples.ractivejs.org/infinite-scroll" title="Infinite scroll | Examples | Ractive.js">Infinite scroll | Examples | Ractive.js</a>のデモが欲しい</li>
+<li>Reactの話
+
+<ul>
+<li>設計とかもコメントに大量に書いてある</li>
+<li>テストのためのコードとかとても冗長</li>
+<li>C++のコードをJavaScriptに移植したっぽいコード</li>
+<li>内部的にflow(FB社が今月末に発表する型チェックツール)のアノテーションついたバージョン持ってそう</li>
+</ul></li>
+<li><a href="https://github.com/Matt-Esch/virtual-dom" title="virtual-dom">virtual-dom</a>の話
+
+<ul>
+<li>コメント無くて分かりにくい、でも短い</li>
+<li><a href="http://calendar.perfplanet.com/2013/diff/" title="Performance Calendar » React’s diff algorithm">Performance Calendar » React’s diff algorithm</a>とかみて趣味で実装したっぽい</li>
+<li>実用される事は最初頭になかったのでは</li>
+</ul></li>
+</ul>
+
+<h2 id="その他のその他">その他のその他</h2>
+
+<ul>
+<li>CSS <code>:visited</code>
+
+<ul>
+<li><a href="http://dbaron.org/mozilla/visited-privacy" title="Preventing attacks on a user&amp;#39;s history through CSS :visited selectors">Preventing attacks on a user&#39;s history through CSS :visited selectors</a> に書かれてないケースを解読</li>
+<li><code>:visited + *</code> と <code>a:visited a:visited</code>のケース</li>
+<li><code>visited</code> が getComputedStyle から読めないのと2状態の関係</li>
+<li><a href="https://bugs.webkit.org/show_bug.cgi?id=135639" title="Bug 135639 – CSS: Refactor :visited handling in SelectorChecker">Bug 135639 – CSS: Refactor :visited handling in SelectorChecker</a></li>
+</ul></li>
+<li>CSS <code>:has</code>の問題
+
+<ul>
+<li><code>:has</code>がでてきたら下からたどってきたものを、もう一度下まで辿り直さないといかない(非効率…)</li>
+<li>上手い対処法について考える</li>
+<li>:has :has がネストするケースの問題…</li>
+<li>Specレベルの問題なのでは</li>
+</ul></li>
+</ul>
+
+<!--    - `visited` が getComputedStyle から読めないのは、それぞれのnodeごとにvisitedに該当する/しないのパターンで持っていて、getComputedStyleはしないパターンから引くので原理的にvisitedを得ることはない-->
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-09-22-sourcemap-ast.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["イベント","JavaScript","SourceMap","AST","testing"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=SourceMap">SourceMap</a></li>
+                
+                <li><a href="/tags/?q=AST">AST</a></li>
+                
+                <li><a href="/tags/?q=testing">testing</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

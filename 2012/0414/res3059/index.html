@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        テストで学ぶJavaScriptについて | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,test" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2012/0414/res3059/">
+    <h1 class="post-title">テストで学ぶJavaScriptについて</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2012年04月14日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2012/2012-04-14-%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E5%AD%A6%E3%81%B6javascript%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="https://github.com/rmurphey/js-assessment">A Test-Driven JS Assessment</a> というテストを通るようなコードを書いて、JavaScriptを学ぶものが公開されていたので、それの紹介です。<br>
+<a href="https://github.com/rmurphey/js-assessment">JS Assessment</a>は最初に失敗するテストが用意されていて、そのテストコードを通るような関数などを書いていってJavaScriptの力試し、学習をするものです。</p>
+
+<p>簡単にやり方を書くと、Node環境を用意した状態で</p>
+
+<p><code>git clone https://github.com/rmurphey/js-assessment.git</code>などで、リポジトリをダウンロードして、<br>
+ダウンロードしたディレクトリ内で、 nodeを使って以下のようコマンドを実行してテストが実行できるローカルサーバを立ち上げます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install
+node bin/serve
+</code></pre></div>
+<p>実行した状態で <a href="http://localhost:4444">http://localhost:4444</a> というURLに行けば、Mochaで書かれたテストが走った結果が表示されます。</p>
+
+<p>テストを通るコードの書き方は、node bin/serve を実行した時に表示されますが、</p>
+
+<pre>To work on the tests, open a browser and visit http://localhost:4444. Then,
+edit the tests in the files in the tests/app directory, reloading your browser
+to see whether the tests are passing.
+
+Each test will look something like this:
+
+    it("you should be able to return a truthy value", function() {
+      // define a function for fn so that the following will pass
+      expect(fn()).to.be.ok();
+    });
+
+In the case of the above test, you'd need to define a value for fn (by default,
+fn is a function that does nothing):
+
+    it("you should be able to return a truthy value", function() {
+      // define a function for fn so that the following will pass
+      fn = function() {
+        return true;
+      };
+      expect(fn()).to.be.ok();
+    });
+
+For some tests, the instructions will be more involved; in those cases, the
+inline comments should give you the details you need.</pre>
+
+<p>と書かれているように、tests/appにあるコードを編集して、それぞれのitの中にテストケースを通るような関数を定義したりして、<br>
+<a href="http://localhost:4444">http://localhost:4444</a>にアクセスして全てのテストが通るようにするのが目的です。</p>
+
+<p>e.g) <a href="https://github.com/azu/js-assessment/commit/c955516d4a66de510585e50f7811253363422e8a">solve Arrays Test · c955516 · azu/js-assessment</a></p>
+
+<p><img title="arrays.js - js-assessment - [~_workspace_js_js-assessment].png" src="http://efcl.info/wp-content/uploads/2012/04/arrays.js-js-assessment-_workspace_js_js-assessment.png" border="0" alt="Arrays js  js assessment   ~ workspace js js assessment" width="600" height="400" /></p>
+
+<p>テストコードはNodeで動くテストフレームワークの<a href="http://visionmedia.github.com/mocha/">Mocha</a>を使って書かれています。<br>
+expectで期待してる動作は結構そのまま分かる感じなので、itのテスト文とあわせれば、大体期待してる挙動はわかるとは思いますが、<br>
+<a href="http://visionmedia.github.com/mocha/">Mocha</a>自体の挙動も少し知っておいたほうがいい場合もあります。</p>
+
+<ul>
+<li>  <a href="http://blog.livedoor.jp/ryu22e/archives/65636256.html">ryu22eBlog : Node.jsのテスティングフレームワーク「Mocha」（前編）</a> </li>
+</ul>
+
+<p>用意されてるテストはArrayの機能のテストやBackboneを使ったViewのテスト、非同期のテスト等が入っています。</p>
+
+<p>これで、<a href="https://github.com/rmurphey/js-assessment">A Test-Driven JS Assessment</a>の紹介は終わりですが、これ見た時に<a href="http://el.jibun.atmarkit.co.jp/rails/2011/01/koan-3c38.html">禅の公案（Koan）</a>に何か似てるなとか思った。<br>
+JavaScriptでは</p>
+
+<ul>
+<li>  <a href="https://github.com/liammclennan/JavaScript-Koans">liammclennan/JavaScript-Koans</a> ( <a href="http://code.google.com/p/javascript-koans/">javascript-koans &#8211; Javascript learning tool. &#8211; Google Project Hosting</a> )</li>
+<li>  <a href="http://d.hatena.ne.jp/ninoseki/20111023/1319369396">禅の公安スタイルでCoffeeScriptを学ぶ「coffeescript-koans」 &#8211; にのせき日記</a> </li>
+</ul>
+
+<p>あたりが知られてそうな気がします。(他にも色々あるみたいだけど <a href="https://github.com/search?langOverride=&amp;q=Koans+Javascript&amp;repo=&amp;start_value=1&amp;type=Repositories&amp;utf8=%E2%9C%93">Search · Koans Javascript</a> ) <br>
+Koanとは以下のような穴埋め用のテストがかかれていて、そのテストを正しく書いてプログラミングを学べるものです。</p>
+
+<pre><code lang="javasript">test("not", function() {
+    not(__, 'what is a false value?');
+});</code></pre>
+
+<p>という穴埋め問題だったら</p>
+
+<pre><code lang="javasript">test("not", function() {
+    not(false, 'what is a false value?');
+});</code></pre>
+
+<p>のように、穴埋めするという感じのものです。</p>
+
+<p>Koanと<a href="https://github.com/rmurphey/js-assessment">JS Assessment</a>を比較すると、Koanは穴埋めという要素が強くてロジックなどは用意されてる感じになっています。<br>
+一方 、<a href="https://github.com/rmurphey/js-assessment">A Test-Driven JS Assessment</a>はテストだけ書かれていて、ロジックなどを書いてそのテストを通るような関数を書くというものになっています。<br>
+似ているところもありますが、やりたいことは逆な感じなので、<a href="https://github.com/rmurphey/js-assessment">A Test-Driven JS Assessment</a>の場合は人によって答えが全然違うという事もありえて、<br>
+実際のテストファーストなものを書くのに近い感じになっていそうです。</p>
+
+<p>これを書きながら、JavaScriptを学ぶ時に、最初からテストと絡めて学習したほうが良い感じになるのかなということについて考えていました。<br>
+実際に新人教育とかでそういう事をしている<a href="http://tech.kayac.com/">会社</a>さん等の成果とかを聞いてみたいですね。</p>
+
+<ul>
+<li>  <a href="http://rmurphey.com/blog/2012/04/12/a-baseline-for-front-end-developers/">A Baseline for Front-End Developers &#8211; Adventures in JavaScript Development</a></li>
+<li>  <a href="http://testfirst.org/">TestFirst.org &#8211; The Home of Test-First Teaching</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2012/2012-04-14-%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E5%AD%A6%E3%81%B6javascript%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","test"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=test">test</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

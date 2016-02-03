@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        #pxgridjs でJavaScript忘年会をしてきた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="イベント,JavaScript,Testing,ECMAScript,IE" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/12/18/pxgridjs/">
+    <h1 class="post-title">#pxgridjs でJavaScript忘年会をしてきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年12月18日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-12-18-pxgridjs.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://togetter.com/li/758927" title="#pxgridjs">#pxgridjs</a> というLTイベント(食事)をしてきました。</p>
+
+<ul>
+<li><a href="http://togetter.com/li/758927" title="#pxgridjs - Togetterまとめ">#pxgridjs - Togetterまとめ</a></li>
+</ul>
+
+<h2 id="アウトライン">アウトライン</h2>
+
+<p>詳しくは<a href="http://togetter.com/li/758927" title="#pxgridjs">#pxgridjs</a>を見るといいと思います。</p>
+
+<h3 id="faketimerの今後とsinonjsが分離した理由---@kyo_ago">fakeTimerの今後とsinonjsが分離した理由 -  @kyo_ago</h3>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a> 「fakeTimerの今後とsinonjsが分離した理由」</p>&mdash; kyo ago (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/544127219413426177">December 14, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>Promiseが複数出てくるテストだとSinonのfake timerができない</li>
+<li>Sinon自体が結構闇実装が多いのでキレイなSinonが欲しい</li>
+</ul>
+
+<h3 id="fluxモジュールのpr送った話---@muddydixon">FluxモジュールのPR送った話 - @muddydixon</h3>
+
+<blockquote>
+<p>資料: <a href="https://github.com/facebook/flux/pull/115" title="Select action type by muddydixon · Pull Request #115 · facebook/flux">Select action type by muddydixon · Pull Request #115 · facebook/flux</a></p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/facebook/flux" title="Flux">Flux</a>モジュールはDispatcherだけの実装</li>
+<li>このモジュールだけではFluxができるとは言ってない</li>
+</ul>
+
+<p>デフォルトではactionを登録するときに、payloadにそのtype等を適当に置かないといけない。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">payload</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>という感じで、以下の様なpayloadを渡して使う。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span> <span class="nx">source</span><span class="o">:</span> <span class="s1">&#39;VIEW_ACTION&#39;</span><span class="p">,</span>
+  <span class="nx">action</span><span class="o">:</span> <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;TODO_CREATE&#39;</span><span class="p">,</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Write blog post about Flux&#39;</span> <span class="p">}</span> <span class="p">}</span>
+</code></pre></div>
+<p><a href="https://github.com/facebook/flux/pull/115" title="Select action type by muddydixon · Pull Request #115 · facebook/flux">Select action type by muddydixon · Pull Request #115 · facebook/flux</a>というPRでは、イベントネームみたいにactionのtypeを指定出来るようにして、シンプルにそのtypeのコールバックを書けるようにしてる。
+(今までのやつだとコールバック内でswitchを並べる感じになってる <a href="http://facebook.github.io/flux/docs/todo-list.html#content" title="Flux | Application Architecture for Building User Interfaces">Flux | Application Architecture for Building User Interfaces</a> ) </p>
+
+<h3 id="react.js使ってみた---@-ama-ch">React.js使ってみた - @ ama-ch</h3>
+
+<blockquote>
+<p>資料:  <a href="https://gist.github.com/ama-ch/23fd010a086b82eb76e0" title="React.js使ってみた">React.js使ってみた</a></p>
+</blockquote>
+
+<ul>
+<li>Reactを使ってみて思った疑問点</li>
+<li>先駆者からの<a href="https://gist.github.com/ama-ch/23fd010a086b82eb76e0#comment-1358075" title="なみにDOMの追加削除の確認は、React.addons.Perf.start()、React.addons.Perf.stop()で該当箇所を囲んでR">回答</a>は<a href="https://gist.github.com/ama-ch/23fd010a086b82eb76e0#comment-1357966" title="gist:23fd010a086b82eb76e0">コメント欄</a>に</li>
+</ul>
+
+<h3 id="direct-proxyでobject.observeはpolyfillできるのか？">Direct ProxyでObject.observeはpolyfillできるのか？</h3>
+
+<blockquote>
+<p>スライド: <a href="https://speakerdeck.com/hokaccha/direct-proxiesdeobject-dot-observefalse-polyfillhadekirufalseka" title="Direct ProxiesでObject.observeの Polyfillはできるのか // Speaker Deck">Direct ProxiesでObject.observeの Polyfillはできるのか // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/tvcutsem/harmony-reflect" title="tvcutsem/harmony-reflect">tvcutsem/harmony-reflect</a>に</li>
+<li>&gt; observer: a self-hosted implementation of the ES7 Object.observe notification mechanism.</li>
+<li>とあった</li>
+<li>実際には全く同じ挙動は無理(polyfillは無理)</li>
+<li>機能的に同じ事はできる(使い方が若干異なる)</li>
+</ul>
+
+<h3 id="fix-for-ie8-by-teppeis-·-pull-request-#17-·-jxck/assert-の話---@teppeis"><a href="https://github.com/Jxck/assert/pull/17" title="Fix for IE8 by teppeis · Pull Request #17 · Jxck/assert">Fix for IE8 by teppeis · Pull Request #17 · Jxck/assert</a> の話 - @teppeis</h3>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a> twadaさんも言いづらいassertのpr話 by teppeis</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/545172188538490880">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>power-assertがIE8で動かなかった</li>
+<li>IE8対応のPRをJxck/assert送った</li>
+<li>今<a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a>はassertライブラリとして<a href="https://github.com/defunctzombie/commonjs-assert" title="defunctzombie/commonjs-assert">defunctzombie/commonjs-assert</a>を使ってる</li>
+<li>アレ??</li>
+<li>IE8の寿命を考えよう</li>
+<li><a href="http://japan.zdnet.com/article/35057570/" title="セールスフォース、2015年5月に「IE7」と「IE8」のサポートを打ち切りへ - ZDNet Japan">セールスフォース、2015年5月に「IE7」と「IE8」のサポートを打ち切りへ - ZDNet Japan</a></li>
+<li>とりあえず<a href="https://github.com/defunctzombie/commonjs-assert" title="defunctzombie/commonjs-assert">defunctzombie/commonjs-assert</a>にもIE8対応のPRを送る?</li>
+</ul>
+
+<h3 id="ブラウザのキーイベント---@k_kinzal">ブラウザのキーイベント - @k_kinzal</h3>
+
+<blockquote>
+<p>資料:  <a href="https://docs.google.com/spreadsheet/lv?key=0AgmiuHBYwYUVdHA3bzJSaWxLb29VS3VWcjBrUU9EVlE&amp;usp=sharing" title="kecode.map - Google Docs">kecode.map - Google Docs</a></p>
+</blockquote>
+
+<blockquote class="twitter-tweet" lang="en"><p>バッチエンジニア！？ざわざわ <a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a></p>&mdash; ama-ch (@ama_ch) <a href="https://twitter.com/ama_ch/status/545173151303225345">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>ブラウザのキーイベントが大変</li>
+<li>DOM Lv3 <a href="https://developer.mozilla.org/ja/docs/DOM/KeyboardEvent" title="KeyboardEvent">KeyboardEvent</a></li>
+<li>Selenium等を使って<a href="https://docs.google.com/spreadsheet/lv?key=0AgmiuHBYwYUVdHA3bzJSaWxLb29VS3VWcjBrUU9EVlE&amp;usp=sharing" title="kecode.map - Google Docs">調べた</a></li>
+<li>英字、日本語、ハングルキーボードで違ったり色々大変</li>
+<li>キーイベント周りは<a href="https://twitter.com/d_toybox" title="@d_toybox">@d_toybox</a>さんが詳しそう</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p>「とりあえずこの悲惨な状況を理解してもらえれば」 <a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a></p>&mdash; kyo ago (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/545173893854412800">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="web-componentsがjqueryくらい簡単に使えるようになるのか---@nakajmg">Web ComponentsがjQueryくらい簡単に使えるようになるのか -  @nakajmg</h3>
+
+<ul>
+<li>Web Componentsは普通の人が使える難易度のものなのか?</li>
+<li>jQueryとかそういう感じで使うのは難しそう</li>
+<li>Shadow DOMとか複雑すぎる</li>
+<li>一般には無理そう</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a> 「WebComponentも低レベルのレイヤーだから一般に使うのは難しい」</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/545176420956110848">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>最近は低レベルを意識した感じのAPIが多い</li>
+<li>頭いい人がそれをベースに作ったライブラリを使う世界になるのでは?</li>
+</ul>
+
+<h3 id="#javascript忘年会---azu">#JavaScript忘年会 - azu</h3>
+
+<blockquote>
+<p>スライド:  <a href="http://azu.github.io/slide/pixelgrid/forget-js.html" title="#JavaScript忘年会">#JavaScript忘年会</a></p>
+</blockquote>
+
+<p><a href="https://twitter.com/search?q=%23JavaScript%E5%BF%98%E5%B9%B4%E4%BC%9A&amp;src=typd" title="#JavaScript忘年会">#JavaScript忘年会</a> というハッシュタグで集めたものにちょっと解説や現状どうなってるかを調べて発表しました。</p>
+
+<p>フェードアウト気味のものから、<a href="https://github.com/vowsjs/vows" title="vows">vows</a> みたいに予想に反して最近活発になってたりしたものもありました。</p>
+
+<h3 id="serviceworkerはsameoriginを超えられるのか---azu">ServiceWorkerはSameOriginを超えられるのか - azu</h3>
+
+<blockquote>
+<p>スライド:  <a href="http://azu.github.io/slide/pixelgrid/serviceworker-cors.html" title="ServiceWorkerはSameOriginを超えられるのか">ServiceWorkerはSameOriginを超えられるのか</a></p>
+</blockquote>
+
+<p>Fetch APIの話題がでたので、万が一の時に用意したFetch APIとCORSの話をしました</p>
+
+<blockquote class="twitter-tweet" lang="en"><p>「Fetch APIも用意してあります」 <a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a></p>&mdash; Muddy Dixon (@muddydixon) <a href="https://twitter.com/muddydixon/status/545181239137685504">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="画面遷移の管理どうしてますか?---@kyosuke">画面遷移の管理どうしてますか? - @kyosuke</h3>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a> テキストベースの画面遷移図管理ツールが欲しいという話</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/545183736480808960">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>画面遷移図がどこ向けなのか用意するレベルが変わる</li>
+<li>納品レベルだとキチンとしたものが必要</li>
+<li>テキストベースで画面遷移図を作れるものが欲しい</li>
+<li>UI Flowsをいい感じに実現するツールはないか?</li>
+<li><a href="http://www.standardinc.jp/reflection/article/ui-flows/" title="画面遷移に疑問を感じたあなたにオススメするUI Flowsというツール | Reflection | UIデザイン会社Standard Incのブログ">画面遷移に疑問を感じたあなたにオススメするUI Flowsというツール | Reflection | UIデザイン会社Standard Incのブログ</a></li>
+<li>画面のデザインと遷移のデザイン(フロー)は分ける派</li>
+<li>画面仕様ではなくローカルプロキシを書く人</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p>kyo_ago「画面仕様書のかわりにlocal proxy書いてます」 <a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a></p>&mdash; teppeis (@teppeis) <a href="https://twitter.com/teppeis/status/545182840166440962">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="contenteditableとペーストのバグ---@ykhs">ContentEditableとペーストのバグ - @ykhs</h3>
+
+<ul>
+<li><a href="http://ckeditor.com/" title="CKEditor.com | The best web text editor for everyone">CKEditor</a>でペースト時に起きる謎のバグ</li>
+<li>ペーストすると<code>&lt;body&gt;</code>のスタイルを引き継いだスタイルが適応されてしまう</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a> 「Table要素の文字が小さくなることが分かります」</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/545184984709877760">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>色々試すとCKEditorなしでも再現が可能</li>
+<li>複雑に絡み合う条件で発生する(Chromeのみ?)</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p>「この挙動を再現することができました」 <a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a></p>&mdash; kyo ago (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/545185479734206464">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" lang="en"><p>「ドルアーガの塔みたい」「誰もクリアできない」 <a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a></p>&mdash; kyo ago (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/545186158385188864">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>ブラウザのバグ報告ガイドラインはこちらです</p>
+
+<ul>
+<li><a href="http://please-sleep.cou929.nu/how-to-report-bugs-of-browser.html" title="ブラウザのバグを見つけたときにやること - Please Sleep">ブラウザのバグを見つけたときにやること - Please Sleep</a></li>
+</ul>
+
+<h3 id="その他">その他</h3>
+
+<p>MS</p>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a>  kyo_ago「MSを讃えよう」</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/545188182585655296">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a> MS叩いてた時もあったけど、今はマシになってきてるので、そういうのを行動として表そうという話。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/545190594721480704">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>TypeScriptのダメなところ</p>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a> TypeScript 今ES6に沿ってなくて、邪魔になってきてる機能がある。&#10;例えば内部モジュール</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/545190855976292352">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a> d.tsは他の型定義(言語)も参照してるが、d.tsの問題はTypeScriptを元にしてるので内部モジュールとかが邪魔になってきてるのでは…って話。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/545191764194123776">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>ES6 moduleがあやふやな時代に作られたのでしょうがないところはある</li>
+</ul>
+
+<h2 id="メモ">メモ</h2>
+
+<blockquote class="twitter-tweet" data-partner="tweetdeck"><p>MacbookProのモニタがリアルタイムグリッチエディタになった <a href="http://t.co/nsMlcKKixo">pic.twitter.com/nsMlcKKixo</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/545220045656182784">December 17, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>MacBookProが便利なグリッチモニタになった。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-12-18-pxgridjs.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["イベント","JavaScript","Testing","ECMAScript","IE"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=Testing">Testing</a></li>
+                
+                <li><a href="/tags/?q=ECMAScript">ECMAScript</a></li>
+                
+                <li><a href="/tags/?q=IE">IE</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        [2015-02] 最近のJavaScript AST標準化の動き | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="AST,JavaScript,Parser" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/02/26/recent-js-ast/">
+    <h1 class="post-title">[2015-02] 最近のJavaScript AST標準化の動き</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年02月26日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-02-26-recent-js-ast.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>以前書いた記事からのどんな感じの動きがあったのかまとめたものです。</p>
+
+<ul>
+<li><a href="http://efcl.info/2014/0419/res3859/" title="最近気になったJavaScript AST周りの動き | Web Scratch">最近気になったJavaScript AST周りの動き | Web Scratch</a> 前回の記事</li>
+</ul>
+
+<p>2015年の1月前後の内容が中心です。</p>
+
+<p>前回のに比べ、JavaScriptのエコシステムの根幹でもあるパーサやASTの仕様まわりについての動きが最近活発なので、その辺を中心にまとめています。</p>
+
+<h2 id="rreverser"><a href="https://github.com/RReverser" title="RReverser (Ingvar Stepanyan)">RReverser</a></h2>
+
+<p><a href="https://github.com/RReverser" title="RReverser (Ingvar Stepanyan)">RReverser</a>さんはここ最近のJavaScript ASTに関係するところならどこでもみかけると思うので紹介。
+主にacornのコミッターでもありますが、後ほど出てくるESTreeやBabelなど色々なところで活動しています。</p>
+
+<p>また<a href="https://github.com/asterjs" title="aster">aster</a>というASTの効率的に処理できるツールチェインを出したりしています。</p>
+
+<p>AST周りでよく見る人やパーサをいかにまとめてあります。</p>
+
+<ul>
+<li><a href="https://gist.github.com/azu/a44cc817c233c53a496c">JavaScript AST Links.</a></li>
+</ul>
+
+<h2 id="estools"><a href="https://github.com/estools/">estools</a></h2>
+
+<p>estoolsはASTを使って作るツールを補助するライブラリなどをまとめたGitHub Organizationです。</p>
+
+<p>元々はConstさんが色々作ってたツールのリポジトリをまとめたいという話になってできたものです。</p>
+
+<blockquote class="twitter-tweet" lang="en"><p>escodegen の module とか esutils とかどっか organization に移したいんですけど, なんかいい名前募集で</p>&mdash; utatane (@Constellation) <a href="https://twitter.com/Constellation/status/536158120393723905">November 22, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="6to5"><a href="http://6to5.org/" title="6to5">6to5</a></h2>
+
+<p>もう大分使われるようになってきて有名ですが、6to5(現Babel)が出てきたのが2014年10月8日ごろです。</p>
+
+<blockquote class="twitter-tweet" lang="en"><p>ES6のコードをランタイムなしのES5に変換するツール。&#10;SourceMap対応、BrowserifyからGrunt等のpluginが用意されてる。&#10;他のES6コード変換との比較表も載せている &quot;sebmck/6to5&quot; <a href="https://t.co/iATEMW1fHk">https://t.co/iATEMW1fHk</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/519852785982898176">October 8, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    
+
+<p>大体初日に20コぐらいissueとか立てたり立ったりしましたが、その日のうちに全部closeされるようなスピードでした。
+Babelとなった今でもそのペースが落ちずに進んでいるので、すごい勢いで開発されてることがわかると思います。</p>
+
+<h2 id="espree"><a href="https://github.com/eslint/espree" title="eslint/espree">Espree</a></h2>
+
+<p><a href="https://github.com/eslint/espree" title="eslint/espree">Espree</a>は<a href="http://eslint.org/" title="ESLint">ESLint</a>プロジェクトでES6対応やJSXのオプショナルサポートをするためにEsprimaをフォークしたものです。</p>
+
+<p>Espreeがリリースされた頃(2014年12月6日) Esprimaは動きが遅かったのと、ES6の対応はHarmonyブランチで行われていましたが<a href="https://github.com/jquery/esprima/issues/1024" title="Revert comment attachment to 1.2 behavior? · Issue #1024 · jquery/esprima">Comment Attachのアルゴリズムの違い</a>もあって、masterブランチのforkとして作成が開始されました。(Esprima 2.0でHarmonyはmasterにマージされています)</p>
+
+<p>ESLintはASTだけではなく少し細かい単位のtokenなどにも依存したLintを行っているため、acornなど別のパーサへ移行することが難しいのでforkした感じでした。</p>
+
+<p>なぜforkしたのかは<a href="https://github.com/eslint/espree" title="eslint/espree">espreeのREADME</a>や<a href="http://azu.github.io/slide/crosushi/shift-ast.html" title="最近のASTパーサの動き">[2015-01] 最近のASTパーサの動き</a>などを見てみるといいかと思います。</p>
+
+<p>基本的にはEsprimaが吐き出すASTと互換性を持ちながら、ES6のサポートなどを追加していってます。
+Esprimaと相互参照するIssueも多く、ライブラリとしては別ですがAST的には大体同じです。
+(Espreeはどの機能/構文をパース可能にするかがオプショナルになっているのでかなり細かい作り)</p>
+
+<ul>
+<li><a href="https://github.com/eslint/espree/issues/10" title="Add ECMAScript 6 features · Issue #10 · eslint/espree">Add ECMAScript 6 features · Issue #10 · eslint/espree</a></li>
+</ul>
+
+<h2 id="shift-ast-specification"><a href="https://github.com/shapesecurity/shift-spec" title="Shift AST Specification">Shift AST Specification</a></h2>
+
+<ul>
+<li><a href="http://engineering.shapesecurity.com/2014/12/announcing-shift-javascript-ast.html" title="Announcing the Shift JavaScript AST Specification">Announcing the Shift JavaScript AST Specification</a></li>
+<li><a href="http://engineering.shapesecurity.com/2015/01/a-technical-comparison-of-shift-and.html" title="A Technical Comparison of the Shift and SpiderMonkey AST Formats">A Technical Comparison of the Shift and SpiderMonkey AST Formats</a></li>
+</ul>
+
+<p>Esprimaの<a href="https://github.com/ariya" title="ariya">@ariya</a>や<a href="https://github.com/michaelficarra/CoffeeScriptRedux" title="CoffeeScriptRedux">CoffeeScriptRedux</a>の<a href="https://github.com/michaelficarra" title="michaelficarra">@michaelficarra</a>がいる<a href="https://github.com/shapesecurity" title="Shape Security">Shape Security</a>からShift ASTというASTの仕様策定と実装が2014年12月23日に公開されました。</p>
+
+<p>基本的には、Esprimaなどで使われていてデファクトだった<a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API" title="Parser API - Mozilla | MDN">SpiderMonkey AST</a>から変換できる程度にはベースは同じですが、ES6などの対応を含め進められています。(まだ進行中の仕様です)</p>
+
+<p>Shift ASTの仕様策定、パーサ、ジェネレータ、バリデータ、SpiderMonkey ASTからの変換ツール、Javaの実装が公開されています。</p>
+
+<ul>
+<li><a href="https://github.com/shapesecurity/shift-parser-js/issues/8" title="ES6: Add support for ES6 · Issue #8 · shapesecurity/shift-parser-js">ES6: Add support for ES6 · Issue #8 · shapesecurity/shift-parser-js</a></li>
+</ul>
+
+<p>SpiderMonkey ASTはもともとFirefoxのJavaScriptエンジンであるSpiderMonkeyの内部表現として始まったため、ツールとして扱うASTとしては微妙な部分などが存在しました。</p>
+
+<p>また、SpiderMonkey ASTはES6への対応やドキュメントの更新が疎かになっていたため、各パーサがES6対応をする際に参照するものがなかったのもひとつの理由です。</p>
+
+<p>詳しくは<a href="http://engineering.shapesecurity.com/2014/12/announcing-shift-javascript-ast.html" title="This doesn&amp;#39;t exist already?">This doesn&#39;t exist already?</a>にかかれていますが、その扱いにくくなっているASTの部分の整理などをする目的もあります。</p>
+
+<p>「SpiderMonkey ASTからShift ASTに乗り換えるべきなの?」という疑問も生まれるかもしれませんが、現在ある意味安定してるSpiderMonkey ASTを扱った方がツール間の連携も上手くいくので、実験目的以外ならShift ASTをまだ使う理由はないと思います。</p>
+
+<p>進行中の仕様なので実験してIssueとかを立てたりするのは、歓迎されると思うので後述する<a href="https://github.com/estree/estree" title="estree/estree">ESTree</a>と共に見ていくのがいいと思います。</p>
+
+<h2 id="jquery-foundation-adopts-esprima-|-official-jquery-blog"><a href="http://blog.jquery.com/2015/01/26/jquery-foundation-adopts-esprima/" title="jQuery Foundation adopts Esprima | Official jQuery Blog">jQuery Foundation adopts Esprima | Official jQuery Blog</a></h2>
+
+<p>2015年1月26日 上記の記事で書かれているように、<a href="https://github.com/ariya/esprima">ariya/esprima</a>が<a href="https://github.com/jquery/esprima">jquery/esprima</a>へとリポジトリが移管されました。</p>
+
+<p><a href="https://github.com/ariya" title="ariya">@ariya</a>がEsprimaの開発を辞めたという感じではなく、よりパーサ周りの開発を活性化、集中化するためにjQuery Foundationに移管されて<a href="https://github.com/jquery/esprima">jquery/esprima</a>となりました。</p>
+
+<p>Esprimaのプロジェクトリーダは変わらずAriyaです。</p>
+
+<h2 id="[2015-01]-最近のastパーサの動き"><a href="http://azu.github.io/slide/crosushi/shift-ast.html">[2015-01] 最近のASTパーサの動き</a></h2>
+
+<p>ここまでのASTの話をパーサ中心にまとめたスライドです。</p>
+
+<p>EsprimaがjQuery Foundationに移譲されたばかりの時でまだはっきりとした動きはわかってなかったので、2015年1月までの現状をまとめたという感じです。</p>
+
+<hr>
+
+<p>ここまでが<a href="http://azu.github.io/slide/crosushi/shift-ast.html">[2015-01] 最近のASTパーサの動き</a>のスライドの振り返りです。</p>
+
+<hr>
+
+<h2 id="jquery-foundationの手腕">jQuery Foundationの手腕</h2>
+
+<p>先ほども書いていましたが、JavaScriptのパーサで最も使われてるEsprimaがjQuery Foundationに移管されました。</p>
+
+<p>移管後の2015年2月4日のミーティング <a href="https://docs.google.com/document/d/1l02VT94tdphwUUZfPJorRYOY0Q_v41R_TyYhKayiP9M/edit#" title="Esprima Meeting Agenda - Google ドキュメント">Esprima Meeting Agenda - Google ドキュメント</a> で、移管の目的について以下のように書かれています。</p>
+
+<ul>
+<li>Why the jQuery Foundation adopted this project
+
+<ul>
+<li>Lots of fragmentation in this task space</li>
+<li>Effort being spent in duplicated efforts</li>
+<li>Not seeing progress on important common needs</li>
+</ul></li>
+<li>Philosophy - What the Foundation would like to encourage
+
+<ul>
+<li>Be the &quot;main fork&quot; for a JavaScript parser in JavaScript</li>
+<li>Have a multi-person core team run by consensus</li>
+<li>Be open to contributions from the community</li>
+<li>Do work and make decisions in public</li>
+</ul></li>
+</ul>
+
+<p><a href="http://azu.github.io/slide/crosushi/shift-ast.html">[2015-01] 最近のASTパーサの動き</a>でも登場していたJavaScriptパーサが色々あることからわかるように、2015年1月をピークにパーサ周りでは労力が分散していました。(同じ機能について各パーサで考えて実装したり、<a href="https://github.com/estools/escodegen" title="estools/escodegen">estools/escodegen</a>がその分散を吸収してたり)</p>
+
+<p>実際にjQuery Foundationが間に入ったことで開発速度は大幅に改善されていて、後述するESTreeなどのAST標準化作業も始まり、jQuery Foundationがやったことは大きかったと思います。</p>
+
+<p>ここまででjQuery Foundationがやったこと</p>
+
+<ul>
+<li>Esprima 2.0のリリース
+
+<ul>
+<li>主なコミットはAriya</li>
+</ul></li>
+<li>EsprimaがGoogle CodeからGitHub Issueを中心に回るように
+
+<ul>
+<li><a href="https://github.com/jquery/esprima/wiki/Maintainer%27s-guide" title="Maintainer&amp;#39;s Guide · jquery/esprima Wiki">Maintainer&#39;s Guide · jquery/esprima Wiki</a></li>
+</ul></li>
+<li><a href="https://github.com/dherman" title="dherman">@dherman</a>を召喚して<a href="https://github.com/estree/estree" title="estree/estree">ESTree</a>の作成</li>
+<li>Ariyaを含めEsprimaについての定期ミーティング
+
+<ul>
+<li><a href="https://docs.google.com/document/d/1l02VT94tdphwUUZfPJorRYOY0Q_v41R_TyYhKayiP9M/edit#" title="Esprima Meeting Agenda - Google ドキュメント">Esprima Meeting Agenda - Google ドキュメント</a> アジェンダ</li>
+<li><a href="http://irc.jquery.org/%23esprima-meeting/" title="IRC logs">IRC logs</a>にログ</li>
+<li><a href="https://github.com/ariya" title="ariya">@ariya</a>(Esprima/Shift AST)、<a href="https://github.com/ikarienator" title="ikarienator">@ikarienator</a>(Shift AST)、<a href="https://github.com/michaelficarra" title="michaelficarra">@michaelficarra</a>(Shift AST)、<a href="https://github.com/mikesherov" title="mikesherov">@mikesherov</a>(JSCS/jQuery Foundation)、<a href="https://github.com/jeffmo" title="jeffmo">@jeffmo</a>(esprima-fb/facebook)、<a href="https://github.com/nzakas/" title="nzakas">@nzakas</a>(espree/ESLint)が主となって定期的にIRC/Skypeでミーティングをやっています</li>
+</ul></li>
+</ul>
+
+<p>この中でもAST全体で見て大きいのはあやふやだったMozilla ASTのドキュメントを整備する<a href="https://github.com/estree/estree" title="estree/estree">ESTree</a>というプロジェクトを作ったことだと思います。</p>
+
+<h2 id="estree"><a href="https://github.com/estree/estree" title="estree/estree">ESTree</a></h2>
+
+<p>基本はSpiderMonkey ASTと同じものだと思ってもらって問題ないですが、SpiderMonkey ASTをそのまま維持しつつ、ES6についてなどの未定義だった部分の仕様を整理していくコミュニティプロジェクトです。(仕様といってもECMAみたいな標準化団体としてやったりしてるわけではないです)</p>
+
+<p>SpiderMonkey ASTじゃなくてESTreeという名前になってるのには、あまり大きな意味はなくて単純にSpiderMonkeyの内部表現以外でも使われる仕様ということなので、ESTreeという名前に変わった感じだと思います。</p>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/rauschma">@rauschma</a> Note that this is not a &quot;new&quot; standard, but simply the original SpiderMonkey standard (<a href="https://t.co/LObMtM6xEq">https://t.co/LObMtM6xEq</a>) now on Github.</p>&mdash; Michael Ficarra (@jspedant) <a href="https://twitter.com/jspedant/status/567037276450848768">February 15, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p><a href="https://github.com/estree/estree#participating-members" title="Participating Members">Participating Members</a>には以下のメンバーが主となって議論していることが書かれています。</p>
+
+<ul>
+<li>Dave Herman (Mozilla)</li>
+<li>Ingvar Stepanyan (<a href="https://github.com/marijnh/acorn">Acorn</a>)</li>
+<li>Mike Sherov (<a href="https://github.com/jquery/esprima">Esprima</a>)</li>
+<li>Michael Ficarra (<a href="https://github.com/michaelficarra">@michaelficarra</a>)</li>
+<li>Sebastian McKenzie (<a href="https://github.com/babel/babel">Babel</a>)</li>
+</ul>
+
+<p>先ほどの<a href="https://docs.google.com/document/d/1l02VT94tdphwUUZfPJorRYOY0Q_v41R_TyYhKayiP9M/edit#" title="Esprima Meeting Agenda - Google ドキュメント">Esprima Meeting</a>のメンバーを合わせると、JavaScriptパーサに関係する人はだいたい関わってることがわかると思います。</p>
+
+<p>パーサの実装に関わる人が仕様を決めるオープンなコミュニティができたことで、今後パーサ間でどのようなASTを吐くかのズレなどが少なくなっていくと思います。(少なくともECMAScriptの範囲では)</p>
+
+<h2 id="estreeとshift-astの目的の違い">ESTreeとShift ASTの目的の違い</h2>
+
+<p><a href="https://github.com/shapesecurity/shift-spec" title="Shift AST Specification">Shift AST Specification</a>と<a href="https://github.com/estree/estree" title="estree/estree">ESTree</a>はどちらもASTの仕様を決めているのでどちらも同じように見えます。この２つの違いは何でしょうか?</p>
+
+<p>Shift ASTの<a href="https://github.com/michaelficarra" title="michaelficarra">@michaelficarra</a>さんが次のように書いています。</p>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/py">@py</a> RE: ESTree, I think it&#39;s great that there&#39;s finally a canonical spec, but I look at it as legacy; I&#39;m confident Shift will be the future</p>&mdash; Michael Ficarra (@jspedant) <a href="https://twitter.com/jspedant/status/569238440044142592">February 21, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><a href="https://github.com/estree/estree/issues/30" title="Shift initiative · Issue #30 · estree/estree">Shift initiative · Issue #30 · estree/estree</a></li>
+</ul>
+
+<p>先ほども述べたように<a href="https://github.com/estree/estree" title="estree/estree">ESTree</a>は新しい仕様ではなくて、既存のSpiderMonkey ASTで未定義だったES6についてを後方互換性をできるだけ維持しながら、コミュニティレベルで標準化していくプロジェクトです。</p>
+
+<p>現在作られてるパーサの結果を仕様に落としたりしてるので、既に動いてる仕様です。</p>
+
+<p>一方、<a href="https://github.com/shapesecurity/shift-spec" title="Shift AST Specification">Shift AST Specification</a>が<a href="https://speakerdeck.com/michaelficarra/spidermonkey-parser-api-a-standard-for-structured-js-representations" title="SpiderMonkey Parser API: A Standard For Structured JS Representations // Speaker Deck">現在のASTの扱いにくい部分がある問題</a>などを修正した未来の仕様を目指していて、後方互換性よりもその修正を優先しています。</p>
+
+<p>また、SpiderMonkey AST(ESTree)からShift ASTに変換するモジュールも公開しています。</p>
+
+<ul>
+<li><a href="https://github.com/shapesecurity/shift-spidermonkey-converter-js" title="shapesecurity/shift-spidermonkey-converter-js">shapesecurity/shift-spidermonkey-converter-js</a></li>
+</ul>
+
+<p>Shift ASTの人もESTreeの目的は分かって一緒にやっていて、今すぐ使える仕様が複数存在するという感じではないので、基本的にはESTreeを参照してツールが作られています。</p>
+
+<h2 id="babel"><a href="https://babeljs.io/" title="Babel · The transpiler for writing next generation JavaScript">Babel</a></h2>
+
+<p>2015年2月15日に6to5がBabelへとリネームされました。</p>
+
+<ul>
+<li><a href="http://babeljs.io/blog/2015/02/15/not-born-to-die/" title="Not Born to Die · Babel">Not Born to Die · Babel</a></li>
+</ul>
+
+<p>Babelは<a href="https://github.com/babel/acorn-babel" title="babel/acorn-babel">babel/acorn-babel</a>というacornをベースにJSXやES7+の対応をしているパーサを使っています。</p>
+
+<p>そのため、<a href="https://github.com/sebmck" title="sebmck">@sebmck</a>も先ほど紹介した<a href="https://github.com/estree/estree" title="estree/estree">ESTree</a>でのASTの標準化にも関わっていて、特に<a href="https://github.com/estree/estree/blob/master/es6.md" title="estree/es6.md at master · estree/estree">ES6</a>や<a href="https://github.com/estree/estree/blob/master/experimental.md" title="estree/experimental.md at master · estree/estree">ES7+</a>を中心にコミットされています。</p>
+
+<h2 id="おまけ:-mdast">おまけ: <a href="https://github.com/wooorm/mdast" title="wooorm/mdast">mdast</a></h2>
+
+<p>これはJavaScriptのASTではありませんが、MarkdownをパースしてASTにしてくれる<a href="https://github.com/wooorm/mdast" title="wooorm/mdast">mdast</a>が最近公開されています。</p>
+
+<p>JavaScript ASTと同じようにNodeに分けられて、それぞれのNodeの位置情報もあるため色々使い道がありそうです。
+ASTからMarkdown文字列を生成することもできるので、Markdownツールのエコシステムとしてかなり有用な気がします。</p>
+
+<hr>
+
+<h2 id="今後の見どころ">今後の見どころ</h2>
+
+<p>2015年2月26日現在のAST周りの動きについて書きましたが、まだまだ決めるべきことは色々あると思います。</p>
+
+<ul>
+<li>ESTreeによる標準化作業</li>
+<li>ASTより粒度が小さいtokenの扱い
+
+<ul>
+<li>以前CST(<a href="https://github.com/getify/concrete-syntax-tree" title="getify/concrete-syntax-tree">getify/concrete-syntax-tree</a>)というのが考えられたけど頓挫した</li>
+</ul></li>
+<li>拡張仕様(JSXなど)をどう扱うのか</li>
+</ul>
+
+<p>この記事ででてきたリポジトリや<a href="https://gist.github.com/azu/a44cc817c233c53a496c" title="JavaScript AST Links.">JavaScript AST Links.</a>で紹介してる人などを追ってみると良さそうな気がします。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-02-26-recent-js-ast.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["AST","JavaScript","Parser"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=AST">AST</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=Parser">Parser</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

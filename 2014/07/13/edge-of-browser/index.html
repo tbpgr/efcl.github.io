@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ブラウザエンジン先端観測会 アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="イベント,Browser,JavaScript,C++,CSS,JIT,Gecko,Firefox" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/07/13/edge-of-browser/">
+    <h1 class="post-title">ブラウザエンジン先端観測会 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年07月13日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-07-13-edge-of-browser.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="ブラウザエンジン先端観測会">ブラウザエンジン先端観測会</h1>
+
+<p><a href="http://atnd.org/events/52121" title="ブラウザエンジン先端観測会 : ATND">ブラウザエンジン先端観測会 : ATND</a> に参加してきたのでメモ。</p>
+
+<p>途中から参加なのでServoの話は途中からです。</p>
+
+<p>Twitterのログはこちら</p>
+
+<ul>
+<li><a href="http://togetter.com/li/692648" title="ブラウザエンジン先端観測会 #1 - Togetterまとめ">ブラウザエンジン先端観測会 #1 - Togetterまとめ</a></li>
+</ul>
+
+<hr>
+
+<h2 id="servo-(by-tetsuharu-ohzeki-a.k.a-@saneyuki_s)">Servo (by Tetsuharu OHZEKI a.k.a @saneyuki_s)</h2>
+
+<ul>
+<li><p>スライド: <a href="http://www.slideshare.net/saneyuki/servo-parallelism" title="Servo parallelism">Servo parallelism</a></p></li>
+<li><p>ACID2は通った</p></li>
+<li><p>Servoのレイアウトの計算</p>
+
+<ul>
+<li>ボトムアップの場合
+
+<ul>
+<li>子供のノードは並列に計算する</li>
+<li>全ての計算が終わった時に親に行く</li>
+</ul></li>
+<li>トップダウン
+
+<ul>
+<li>もっとシンプルに親からやっていく</li>
+</ul></li>
+<li>floatの話
+
+<ul>
+<li>floatの影響を受けるものはフラグを立てる</li>
+<li>フラグが立ったものは遅延的に計算する</li>
+<li>floatの計算終了後に再度計算する</li>
+<li>= assign height</li>
+<li>遅延的にやるのは、同計算していいのか分からないため</li>
+</ul></li>
+<li>overflow
+
+<ul>
+<li>Block format contextのこと</li>
+<li>assign-widthの時に仮定を指定widthをやっていく</li>
+<li>大体でやっていく、Blockとしてやれると仮定</li>
+</ul></li>
+</ul></li>
+<li><p>DOMのライフサイクル管理の一本化</p>
+
+<ul>
+<li>過去の事例 - DOM.js
+
+<ul>
+<li>DOM.jsというJavaScriptでDOMかいていいじゃね =&gt; メモリバカ食い遅い =&gt; 失敗</li>
+</ul></li>
+<li>現在 - SpiderMonkeyのGCに任せて管理</li>
+<li>GPUでのセレクタマッチング</li>
+<li>Intelの一時メモキャッシュ早いということがわかった</li>
+</ul></li>
+<li><p>まとめ</p>
+
+<ul>
+<li>ACID2は達成</li>
+<li>大体アーキテクチャできた</li>
+<li>Samsungの人がどっかいった
+
+<ul>
+<li>以前はTableレイアウトとか頑張ってた</li>
+</ul></li>
+<li>NO PLAN
+
+<ul>
+<li>何も考えずにつくってる</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="アクセシビリティオブジェクトが作られない場合（by-@takenspc）">アクセシビリティオブジェクトが作られない場合（by @Takenspc）</h2>
+
+<ul>
+<li><p>スライド: <a href="http://www.slideshare.net/takenspc/20140713-accessibility-object" title="アクセシビリティオブジェクトについて">アクセシビリティオブジェクトについて</a></p></li>
+<li><p>ブラウザのHTML5対応コンテキスト</p></li>
+<li><p>アクセシビリティAPIについて</p></li>
+<li><p>アクセシビリティオブジェクトとは何か</p>
+
+<ul>
+<li>Access + Ability = アビリティ , A11Y</li>
+</ul></li>
+<li><p>ウェブへのアクセス</p>
+
+<ul>
+<li>画面をみれなかったり</li>
+<li>マウス、キーボードじゃなくてタッチスクリーンだったり</li>
+<li>音声入力だったり</li>
+<li>ウェブへのアクセス方法も色々ある</li>
+</ul></li>
+<li><p>支援技術</p>
+
+<ul>
+<li>Assistive Technology</li>
+<li>特定の技術を使いやすくする</li>
+<li>そのままで行えないものを出来るようするための製品、ツール、デバイス</li>
+</ul></li>
+<li><p>支援技術のデモ</p>
+
+<ul>
+<li>「オープンオペラ」 in Mozillaオフィス</li>
+<li>ブラウザが対応してるから音声入力で操作できる</li>
+</ul></li>
+<li><p>アクセシビリティAPIの特徴</p>
+
+<ul>
+<li>アクセシビリティAPiの語彙、セマンティックはHTMLとは違う</li>
+<li>ブラウザ専用じゃないので</li>
+<li>ブラウザがコンテンツをアクセシビリティオブジェクトに変換して利用する</li>
+</ul></li>
+<li><p>ブラウザはコンテンツを支援技術に伝える</p>
+
+<ul>
+<li>コンテンツをアクセシビリティオブジェクトに変換する</li>
+</ul></li>
+<li><p>アクセシビリティオブジェクト</p>
+
+<ul>
+<li>役割  : 種類(role) ≒ HTMLの要素</li>
+<li>状態 : 動的な属性 - チェックされてるとか、ボタンが押されてるとか</li>
+<li>プロパティ : 静的な属性</li>
+<li>その他
+
+<ul>
+<li>位置や大きさ、関連要素、文字の大きさ色</li>
+</ul></li>
+</ul></li>
+<li><p>アクセシビリティオブジェクトを作るには</p>
+
+<ul>
+<li>DOMツリー + レンダリングツリー =&gt; アクセシビリティツリー</li>
+<li>アクセシビリティツリーをプラットフォーム別のアクセシビリティツリーに変換</li>
+<li>変換したアクセシビリティツリーを支援技術に伝える</li>
+</ul></li>
+<li><p>(Gecko)DOMからアクセシビリティオブジェクトの作成</p>
+
+<ul>
+<li>非表示だったらオブジェクトは作らない</li>
+<li>WAI-ARIAを見てやる</li>
+<li>HTML要素だったら型や属性を見る</li>
+<li>それでも出来ない場合はFrameの種類(レンダーオブジェクトから)からオブジェクトを作る</li>
+</ul></li>
+<li><p>Webkit/Chromeのアクセシビリティオブジェクト</p>
+
+<ul>
+<li>レンダーツリーをイテレート</li>
+<li>レンダーツリーからやっていくのが基本的な流れ</li>
+<li>CanvasはDOMをみる</li>
+<li>WebCoreとBlinkは色々特殊
+
+<ul>
+<li>ノードのWAI-ARIAや種類を見る</li>
+<li>ノードがWAI-ARIAのグリッドのケースの処理</li>
+<li>roleの決定が複雑</li>
+</ul></li>
+<li>Roleの決定
+
+<ul>
+<li>WAI-ARIAを見る</li>
+<li>レンダーオブジェクトのboxの種類を見て判定するコードを並ぶ</li>
+<li>レンダーツリーの隣接レンダーオブジェクトを見ていく</li>
+</ul></li>
+</ul></li>
+<li><p>HTML5対応とは何か</p>
+
+<ul>
+<li>HTML5には色々な側面がある</li>
+<li><a href="http://www.w3.org/TR/html-aapi/" title="HTML to Platform Accessibility APIs Implementation Guide">HTML to Platform Accessibility APIs Implementation Guide</a> 実装ガイド</li>
+<li><a href="http://html5accessibility.com/" title="HTML5 accessibility - work in progress March 2014">HTML5 accessibility - work in progress March 2014</a> 実装状況</li>
+</ul></li>
+<li><p>アクセシビリティオブジェクトの調査</p>
+
+<ul>
+<li>どうやってブラウザが対応してるのかをチェックするか</li>
+<li>チェックツール
+
+<ul>
+<li>プラットフォームのアクセシビリティツリーをチェックするツール(プラットフォーム固有)
+
+<ul>
+<li><a href="http://blog.paciellogroup.com/2013/03/aviewer-2013/" title="aViewer 2013 | The Paciello Group Blog">aViewer 2013 | The Paciello Group Blog</a></li>
+</ul></li>
+<li>内部的なアクセシビリティツリーをチェックするツール(ブラウザが持ってる)
+
+<ul>
+<li>DOM Inspector</li>
+</ul></li>
+</ul></li>
+<li>期待と違う結果
+
+<ul>
+<li>そもそも対応してないケース</li>
+<li>レンダーツリーが影響してる場合</li>
+<li>HTML5と一対一対応ではない =&gt; フラット化してる</li>
+</ul></li>
+</ul></li>
+<li><p>フラット化</p>
+
+<ul>
+<li>アクセシビリティオブジェクトはツリー構造</li>
+<li>重要と判断したノードに対してだけ見せる(=ユーザーに伝える)</li>
+<li>重要かどうかはブラウザが判断する</li>
+<li>HTML要素と一対一対応だと意味ないネストが発生する(装飾目的)</li>
+<li>そのためフラット化してシンプルにしていく</li>
+</ul></li>
+<li><p>WebKitのバグ</p>
+
+<ul>
+<li>支援技術に見せるかどうかでの判定があまい</li>
+<li>見せるべきものを伝えない場合がある</li>
+</ul></li>
+<li><p>まとめ</p>
+
+<ul>
+<li>ブラウザにはHTMLに対応したアクセシビリティツリーを作る責務</li>
+<li>HTML5対応にはアクセシビリティAPIの側面を含めて考える必要がある</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="css-jit-(by-@constellation)">CSS JIT (by @Constellation)</h2>
+
+<ul>
+<li>スライド : <a href="https://speakerdeck.com/constellation/css-jit-optimizing-css-selector-matching-with-just-in-time-compilation" title="CSS JIT: Optimizing CSS Selector Matching with Just-in-Time Compilation // Speaker Deck">CSS JIT: Optimizing CSS Selector Matching with Just-in-Time Compilation // Speaker Deck</a></li>
+<li><p>関連記事 : <a href="https://www.webkit.org/blog/3271/webkit-css-selector-jit-compiler/" title="Surfin&amp;#39; Safari - Blog Archive » Little overview of WebKit’s CSS JIT Compiler">Surfin&#39; Safari - Blog Archive » Little overview of WebKit’s CSS JIT Compiler</a></p></li>
+<li><p>WebKitコミッター</p></li>
+<li><p>モチベーション</p>
+
+<ul>
+<li>CSSセレクタはものすごい回数が実行される</li>
+<li>この要素にはこのスタイルを当てるというだけでも多い</li>
+<li>QuerySelectorでも大量に行われる</li>
+<li><code>.rabitt .house{ }</code> というのだけでも全ての要素に対してやっていく必要がある</li>
+</ul></li>
+<li><p>QuerySelectorの実装</p>
+
+<ul>
+<li>rootから全ての要素を列挙する</li>
+<li>一個一個セレクタにマッチするかどうかを確認
+
+<ul>
+<li>現実的に動いてるのはC++が早いだけなのでは</li>
+</ul></li>
+<li>return マッチしたものを返す</li>
+</ul></li>
+<li><p>CSS JITのゴール</p>
+
+<ul>
+<li>セレクタマッチングを高速化するのは重要な意味を持つ</li>
+<li>あるセレクタが与えられた要素にマッチするかを返すpredicateの高速化</li>
+</ul></li>
+<li><p>現在の高速化実装</p>
+
+<ul>
+<li>C++実装</li>
+<li>セレクタを div と ~ という感じに分ける</li>
+<li>~や+は関係性を示すもの(combinator)</li>
+<li>div 単純な子孫、desendant(simple)</li>
+<li>=&gt; 合わせてcompound selector</li>
+</ul></li>
+<li><p>CSS Selectorの基礎</p>
+
+<ul>
+<li>descendantから親を辿る列は常に一定になる (子 -&gt; 親 -&gt; 親)</li>
+<li>CSSセレクタは右からマッチしていく</li>
+</ul></li>
+<li><p>div&gt; のケース</p>
+
+<ul>
+<li>子(div) -&gt; 親を見て間違ってる時、そこで探査は終わる</li>
+<li>&gt; は子なので、親がdivじゃない時で探査はやめていい</li>
+</ul></li>
+<li><p>バックトラッキング</p>
+
+<ul>
+<li>セレクタのマッチを確認して行った時に間違ったマッチが起きた時にバックトラックをする</li>
+<li>間違っていた場合はdescendantに戻ってマッチを再開</li>
+<li>マッチに失敗した時、次にマッチを再開するときにマッチの候補は少なくなるはず</li>
+<li>そういう仮定をして、 <code>section &gt; div＊1  div＊2  span</code> という時
+
+<ul>
+<li>＊1で間違ってた時に、＊2の方をずらしたりしない</li>
+<li>余計なバックトラックだとわかってるので、div＊2にマッチする要素を再度探索するところからはやらない</li>
+<li>＊1に関してを探索していく</li>
+</ul></li>
+</ul></li>
+<li><p>CSS Selector JIT</p>
+
+<ul>
+<li>セレクタのマッチングをJITをしていく</li>
+</ul></li>
+<li><p>マッチングコードのコンパイル</p>
+
+<ul>
+<li>バックトラッキングを開始する時</li>
+<li>descendantに戻る</li>
+<li>descendantはレジスタのどこにあるのか分かってる</li>
+<li>そのため、レジスタにある一個前(descendant)へjumpすればいい</li>
+<li>関数コールとかが必要なくなる</li>
+<li>これでバックトラッキングが高速に出来る</li>
+<li>バックトラック用のレジスタが1つでいける = スタックに積んでいない</li>
+<li>バックトラックで必要なのは最後に見たやつだけ</li>
+<li>ステートマシンみたいなジャンプするコードが吐かれてる</li>
+</ul></li>
+<li><p>アセンブラで見るCSS JIT</p>
+
+<ul>
+<li>spanとかの文字列はatomic、ポインタで持ってくる</li>
+<li>直接<code>cmp</code>して比較、jnzでジャンプ</li>
+<li>parentを見た時に、null pointer = rootまできちゃった</li>
+<li>textノードじゃなくてelementかどうかを <code>test</code>でチェック</li>
+</ul></li>
+<li><p>More intelligent バックトラッキング</p>
+
+<ul>
+<li><code>ul &gt; li &gt; p span</code></li>
+<li>ulが失敗した時、子供のelementとして pや spanを持ってる事を知ってる</li>
+<li>そのため、spanのチェックを省けて再開する</li>
+<li>つまり保存する1つのレジスタを削れる + 無駄なバックトラッキングを1つ減る</li>
+<li>親をlookupする処理は重い = ノードは適当に作られるのでメモリの分布がバラバラでキャッシュ効率が悪くて、ジャンプするコストがある
+
+<ul>
+<li>バックトラッキングがひとつ減る効果はある</li>
+</ul></li>
+</ul></li>
+<li><p>ステータス</p>
+
+<ul>
+<li>x64 / ARMv7s(nthでの計算命令) / ARM64 バックエンド 等に対応してる</li>
+</ul></li>
+<li><p>まとめ</p>
+
+<ul>
+<li>CSS Selectorのマッチングコストは大きいので高速化できる</li>
+<li>普通にやっていくとドンドンスタックを積んでいくので遅くなる</li>
+<li>CSS JITでは最小限をレジスタに置く、関数コールを省いてジャンプコールだけでやれる</li>
+<li>より賢いバックトラッキングをやっていく</li>
+</ul></li>
+<li><p>Q&amp;A</p>
+
+<ul>
+<li>Q. 全てのセレクタが対象?</li>
+<li>A. 7割ぐらいは対象、擬似要素、擬似クラスは対象外、今後やっていく</li>
+<li>Q. :hoverとか :activeとかも効率的?</li>
+<li>A. element自体にそういうフラグが入ってるので、CSS JITで高速化の対象になる</li>
+<li>Q. 並列?</li>
+<li>A. 今はシーケンシャルな性能についてを検証、実装</li>
+<li>Q. JITコンパイルしたコードの容量の問題はないの?</li>
+<li>A. JsCoreのインラインマクロでJIT生成するので、基本はそっちが破棄とか自動でやってくれるので気にしてない。</li>
+<li>ある程度自動的に解放してくれたりをやってくれる</li>
+<li>Q. CSSセレクタ自体の最適化やってる?</li>
+<li>A. 常に失敗するというケースはスグにFAILさせるというのはある。</li>
+<li>静的に失敗するケースが分かるものはその時点で捨ててる</li>
+<li>Q. atomizeするタイミング</li>
+<li>A. JSでタグ作った時とかCSSパースした時とか出てきた時に何でもatomizeしていく</li>
+<li><a href="https://twitter.com/objectxplosive/status/488229099177930753">https://twitter.com/objectxplosive/status/488229099177930753</a></li>
+<li>Q. descendantだけ?</li>
+<li>A. 隣接とかも同じような仕組みでやってる</li>
+<li>descendantとsibling等でグルーピングしてマッチングのバックトラッキングはやる</li>
+<li>siblingが並ぶパターン自体が少ない</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<ul>
+<li>メモ
+
+<ul>
+<li>omnioutliner</li>
+</ul></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-07-13-edge-of-browser.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["イベント","Browser","JavaScript","C++","CSS","JIT","Gecko","Firefox"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+                <li><a href="/tags/?q=Browser">Browser</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=C++">C++</a></li>
+                
+                <li><a href="/tags/?q=CSS">CSS</a></li>
+                
+                <li><a href="/tags/?q=JIT">JIT</a></li>
+                
+                <li><a href="/tags/?q=Gecko">Gecko</a></li>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

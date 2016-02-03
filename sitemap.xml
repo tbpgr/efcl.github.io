@@ -1,34 +1,3240 @@
----
-title : Sitemaps
----
-
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>{{ site.url }}{{ site.baseurl }}/</loc>
-        <lastmod>{{ site.time | date:'%Y-%m-%d' }}</lastmod>
+        <loc>http://efcl.info/</loc>
+        <lastmod>2016-02-03</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>{{ site.url }}{{ site.baseurl }}/archives/</loc>
-        <lastmod>{{ site.time | date:'%Y-%m-%d' }}</lastmod>
+        <loc>http://efcl.info/archives/</loc>
+        <lastmod>2016-02-03</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>{{ site.url }}{{ site.baseurl }}/categories/</loc>
-        <lastmod>{{ site.time | date:'%Y-%m-%d' }}</lastmod>
+        <loc>http://efcl.info/categories/</loc>
+        <lastmod>2016-02-03</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>{{ site.url }}{{ site.baseurl }}/tags/</loc>
-        <lastmod>{{ site.time | date:'%Y-%m-%d' }}</lastmod>
+        <loc>http://efcl.info/tags/</loc>
+        <lastmod>2016-02-03</lastmod>
         <changefreq>weekly</changefreq>
     </url>
-    {% for post in site.posts %}
+    
     <url>
-        <loc>{{ site.url }}{{ site.baseurl }}{{ post.url }}</loc>
-        <lastmod>{% if post.modified %}{{ post.modified }}{% else %}{{ post.date | date:'%Y-%m-%d' }}{% endif %}</lastmod>
+        <loc>http://efcl.info/2016/01/22/textlint-unexpanded-acronym/</loc>
+        <lastmod>2016-01-22</lastmod>
         <changefreq>never</changefreq>
     </url>
-    {% endfor %}
+    
+    <url>
+        <loc>http://efcl.info/2016/01/22/es-usage-rate/</loc>
+        <lastmod>2016-01-22</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2016/01/17/jserinfo-5years/</loc>
+        <lastmod>2016-01-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2016/01/12/textlint-coverage/</loc>
+        <lastmod>2016-01-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/12/31/oss-in-2015/</loc>
+        <lastmod>2015-12-31</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/12/30/textlint-preset/</loc>
+        <lastmod>2015-12-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/12/25/github-ribbon-generator/</loc>
+        <lastmod>2015-12-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/12/09/year-end-sushi/</loc>
+        <lastmod>2015-12-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/12/07/pdf.js-controller/</loc>
+        <lastmod>2015-12-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/11/30/read-all-later/</loc>
+        <lastmod>2015-11-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/11/20/textlint5.0.0/</loc>
+        <lastmod>2015-11-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/11/15/firefox-devconf-2015/</loc>
+        <lastmod>2015-11-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/11/07/nodefest-2015/</loc>
+        <lastmod>2015-11-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/10/19/textlint-plugin-JTF-style/</loc>
+        <lastmod>2015-10-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/10/18/nextwebconf/</loc>
+        <lastmod>2015-10-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/10/18/textlint-4.0/</loc>
+        <lastmod>2015-10-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/10/18/ecmascript-paper/</loc>
+        <lastmod>2015-10-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/10/03/es5-to-es6/</loc>
+        <lastmod>2015-10-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/09/28/easy-to-create-ebook/</loc>
+        <lastmod>2015-09-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/09/27/niku_sushi/</loc>
+        <lastmod>2015-09-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/09/14/textlint-rule-prh/</loc>
+        <lastmod>2015-09-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/09/10/introduce-textlint/</loc>
+        <lastmod>2015-09-10</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/08/24/flux-utils/</loc>
+        <lastmod>2015-08-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/08/10/power-doctest1.0/</loc>
+        <lastmod>2015-08-10</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/07/30/github-issue-manager/</loc>
+        <lastmod>2015-07-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/07/29/example-test-on-npm/</loc>
+        <lastmod>2015-07-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/07/28/tkbjs/</loc>
+        <lastmod>2015-07-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/07/28/nwjs-electron-github-release/</loc>
+        <lastmod>2015-07-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/07/27/assistant-bucho/</loc>
+        <lastmod>2015-07-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/07/27/video-transcript-note/</loc>
+        <lastmod>2015-07-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/07/23/browser-runner/</loc>
+        <lastmod>2015-07-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/07/21/browser-javascript-resource/</loc>
+        <lastmod>2015-07-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/06/26/nodejs-es6/</loc>
+        <lastmod>2015-06-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/06/23/promises-book-v1.5/</loc>
+        <lastmod>2015-06-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/06/18/good-changelog/</loc>
+        <lastmod>2015-06-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/06/17/listening-javascript-english/</loc>
+        <lastmod>2015-06-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/06/16/jser-half-year/</loc>
+        <lastmod>2015-06-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/06/05/this-component/</loc>
+        <lastmod>2015-06-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/05/30/ecma-262/</loc>
+        <lastmod>2015-05-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/05/26/cto_sushi/</loc>
+        <lastmod>2015-05-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/05/16/rust1.0/</loc>
+        <lastmod>2015-05-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/05/14/reftest-runner/</loc>
+        <lastmod>2015-05-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/05/10/codemirror-anywhere/</loc>
+        <lastmod>2015-05-10</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/05/10/espower-babel3.0.0/</loc>
+        <lastmod>2015-05-10</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/05/07/es6-draft-search/</loc>
+        <lastmod>2015-05-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/05/06/this-is-es6-module/</loc>
+        <lastmod>2015-05-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/05/04/pdf-annotation-markdown/</loc>
+        <lastmod>2015-05-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/04/30/npm-namespace/</loc>
+        <lastmod>2015-04-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/04/24/react-meetup/</loc>
+        <lastmod>2015-04-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/04/08/npm-publish-pattern/</loc>
+        <lastmod>2015-04-08</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/04/06/wait-for-element/</loc>
+        <lastmod>2015-04-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/04/01/opensource-transfer/</loc>
+        <lastmod>2015-04-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/03/22/typescript-sushi/</loc>
+        <lastmod>2015-03-22</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/03/17/material-flux/</loc>
+        <lastmod>2015-03-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/03/07/error-handling-sushi/</loc>
+        <lastmod>2015-03-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/03/04/linting-article/</loc>
+        <lastmod>2015-03-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/02/26/recent-js-ast/</loc>
+        <lastmod>2015-02-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/02/21/frontrend/</loc>
+        <lastmod>2015-02-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/02/20/refute-assert/</loc>
+        <lastmod>2015-02-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/02/16/kbkz_tech/</loc>
+        <lastmod>2015-02-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/02/11/node-events/</loc>
+        <lastmod>2015-02-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/02/08/whr-300hp2/</loc>
+        <lastmod>2015-02-08</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/02/01/github-open-pullrequest/</loc>
+        <lastmod>2015-02-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/01/31/promise-book-translation/</loc>
+        <lastmod>2015-01-31</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/01/30/cross-2015/</loc>
+        <lastmod>2015-01-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/01/28/e2e-template-literal-sushi/</loc>
+        <lastmod>2015-01-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/01/26/promises-book1.4/</loc>
+        <lastmod>2015-01-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/01/25/html5-conf/</loc>
+        <lastmod>2015-01-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/01/24/testium-e2e-refactoring/</loc>
+        <lastmod>2015-01-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/01/15/awesome-commit-english/</loc>
+        <lastmod>2015-01-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/01/15/reactsushi/</loc>
+        <lastmod>2015-01-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/01/11/refactoring-tales/</loc>
+        <lastmod>2015-01-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/01/09/write-es6/</loc>
+        <lastmod>2015-01-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/01/07/textlint1.4/</loc>
+        <lastmod>2015-01-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2015/01/06/ebook-env/</loc>
+        <lastmod>2015-01-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/12/31/oss-in-2014/</loc>
+        <lastmod>2014-12-31</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/12/30/textlint/</loc>
+        <lastmod>2014-12-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/12/29/new-mac/</loc>
+        <lastmod>2014-12-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/12/18/pxgridjs/</loc>
+        <lastmod>2014-12-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/12/09/deku-codereading/</loc>
+        <lastmod>2014-12-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/12/05/chatworkjs/</loc>
+        <lastmod>2014-12-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/11/30/ruby-translator-greasemonkey/</loc>
+        <lastmod>2014-11-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/11/17/tkbjs-promises-book/</loc>
+        <lastmod>2014-11-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/11/15/nodefest-2014/</loc>
+        <lastmod>2014-11-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/11/13/oreilly-late/</loc>
+        <lastmod>2014-11-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/11/02/jserinfo200/</loc>
+        <lastmod>2014-11-02</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/10/29/es6-talks/</loc>
+        <lastmod>2014-10-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/10/20/lint-tech-word/</loc>
+        <lastmod>2014-10-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/10/19/modern-ie/</loc>
+        <lastmod>2014-10-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/10/11/hackernews-api/</loc>
+        <lastmod>2014-10-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/10/07/pdf-presentation/</loc>
+        <lastmod>2014-10-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/10/04/npm2-local-module/</loc>
+        <lastmod>2014-10-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/09/22/sourcemap-ast/</loc>
+        <lastmod>2014-09-22</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/09/16/promises-spec-ref-list/</loc>
+        <lastmod>2014-09-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/09/13/v8-optimization-memo/</loc>
+        <lastmod>2014-09-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/09/12/slide-boomarklets/</loc>
+        <lastmod>2014-09-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/09/08/bookmarklets-env/</loc>
+        <lastmod>2014-09-08</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/09/05/node-webkit-binary-release/</loc>
+        <lastmod>2014-09-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/09/03/multi-stage-sourcemap/</loc>
+        <lastmod>2014-09-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/09/02/webspec-here/</loc>
+        <lastmod>2014-09-02</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/08/31/github-issue-widget/</loc>
+        <lastmod>2014-08-31</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/08/29/golang-liteide-debugger/</loc>
+        <lastmod>2014-08-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/08/28/mercury/</loc>
+        <lastmod>2014-08-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/08/27/floating-memo/</loc>
+        <lastmod>2014-08-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/08/24/codemirror-typewriter-scrolling/</loc>
+        <lastmod>2014-08-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/08/22/cocoapods-podspec-release-tools/</loc>
+        <lastmod>2014-08-22</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/08/21/jekyll-alfred-workflow/</loc>
+        <lastmod>2014-08-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/08/20/potatotips/</loc>
+        <lastmod>2014-08-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/08/19/promises-book-1.2.0/</loc>
+        <lastmod>2014-08-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/08/12/webstorm-9-EAP/</loc>
+        <lastmod>2014-08-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/08/08/shibuyaxss/</loc>
+        <lastmod>2014-08-08</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/08/08/heroku-button/</loc>
+        <lastmod>2014-08-08</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/07/30/find-github-release/</loc>
+        <lastmod>2014-07-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/07/29/voting-badge/</loc>
+        <lastmod>2014-07-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/07/28/browserify-5-standalone-derequire/</loc>
+        <lastmod>2014-07-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/07/21/Greasemonkey-v2/</loc>
+        <lastmod>2014-07-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/07/20/git-tag-to-release-github/</loc>
+        <lastmod>2014-07-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/07/20/NYreport/</loc>
+        <lastmod>2014-07-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/07/19/study-note/</loc>
+        <lastmod>2014-07-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/07/18/take-github-account/</loc>
+        <lastmod>2014-07-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/07/13/edge-of-browser/</loc>
+        <lastmod>2014-07-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/07/11/ten1club/</loc>
+        <lastmod>2014-07-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/07/11/decode-file-name/</loc>
+        <lastmod>2014-07-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/07/06/new-blog/</loc>
+        <lastmod>2014-07-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0629/res3956/</loc>
+        <lastmod>2014-06-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0628/res3950/</loc>
+        <lastmod>2014-06-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0623/res3943/</loc>
+        <lastmod>2014-06-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0622/res3933/</loc>
+        <lastmod>2014-06-22</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0616/res3931/</loc>
+        <lastmod>2014-06-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0529/res3919/</loc>
+        <lastmod>2014-05-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0528/res3914/</loc>
+        <lastmod>2014-05-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0521/res3908/</loc>
+        <lastmod>2014-05-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0518/res3905/</loc>
+        <lastmod>2014-05-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0506/res3894/</loc>
+        <lastmod>2014-05-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0430/res3872/</loc>
+        <lastmod>2014-04-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0419/res3859/</loc>
+        <lastmod>2014-04-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0419/res3864/</loc>
+        <lastmod>2014-04-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0415/res3844/</loc>
+        <lastmod>2014-04-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0411/res3820/</loc>
+        <lastmod>2014-04-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0406/res3809/</loc>
+        <lastmod>2014-04-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0404/res3802/</loc>
+        <lastmod>2014-04-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0403/res3793/</loc>
+        <lastmod>2014-04-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0401/res3779/</loc>
+        <lastmod>2014-04-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0401/res3788/</loc>
+        <lastmod>2014-04-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0329/res3769/</loc>
+        <lastmod>2014-03-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0328/res3756/</loc>
+        <lastmod>2014-03-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0323/res3750/</loc>
+        <lastmod>2014-03-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0322/res3743/</loc>
+        <lastmod>2014-03-22</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0320/res3733/</loc>
+        <lastmod>2014-03-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0316/res3719/</loc>
+        <lastmod>2014-03-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0314/res3708/</loc>
+        <lastmod>2014-03-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0305/res3702/</loc>
+        <lastmod>2014-03-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0301/res3692/</loc>
+        <lastmod>2014-03-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0226/res3682/</loc>
+        <lastmod>2014-02-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0217/res3675/</loc>
+        <lastmod>2014-02-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0214/res3668/</loc>
+        <lastmod>2014-02-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0209/res3658/</loc>
+        <lastmod>2014-02-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0201/res3651/</loc>
+        <lastmod>2014-02-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0129/res3637/</loc>
+        <lastmod>2014-01-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0125/res3630/</loc>
+        <lastmod>2014-01-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0123/res3625/</loc>
+        <lastmod>2014-01-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0120/res3605/</loc>
+        <lastmod>2014-01-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0119/res3594/</loc>
+        <lastmod>2014-01-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0117/res3589/</loc>
+        <lastmod>2014-01-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2014/0115/res3586/</loc>
+        <lastmod>2014-01-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1230/res3580/</loc>
+        <lastmod>2013-12-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1229/res3573/</loc>
+        <lastmod>2013-12-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1228/res3565/</loc>
+        <lastmod>2013-12-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1227/res3557/</loc>
+        <lastmod>2013-12-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1217/res3551/</loc>
+        <lastmod>2013-12-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1215/res3535/</loc>
+        <lastmod>2013-12-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1215/res3542/</loc>
+        <lastmod>2013-12-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1208/res3526/</loc>
+        <lastmod>2013-12-08</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1201/res3494/</loc>
+        <lastmod>2013-12-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1126/res3486/</loc>
+        <lastmod>2013-11-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1117/res3481/</loc>
+        <lastmod>2013-11-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1104/res3465/</loc>
+        <lastmod>2013-11-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1102/res3462/</loc>
+        <lastmod>2013-11-02</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1011/res3455/</loc>
+        <lastmod>2013-10-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1008/res3450/</loc>
+        <lastmod>2013-10-08</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/1003/res3440/</loc>
+        <lastmod>2013-10-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0918/res3425/</loc>
+        <lastmod>2013-09-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0906/res3420/</loc>
+        <lastmod>2013-09-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0901/res3415/</loc>
+        <lastmod>2013-09-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0825/res3409/</loc>
+        <lastmod>2013-08-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0824/res3396/</loc>
+        <lastmod>2013-08-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0811/res3392/</loc>
+        <lastmod>2013-08-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0804/res3384/</loc>
+        <lastmod>2013-08-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0802/res3377/</loc>
+        <lastmod>2013-08-02</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0801/res3366/</loc>
+        <lastmod>2013-08-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0729/res3362/</loc>
+        <lastmod>2013-07-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0724/res3351/</loc>
+        <lastmod>2013-07-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0721/res3337/</loc>
+        <lastmod>2013-07-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0721/res3346/</loc>
+        <lastmod>2013-07-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0711/res3327/</loc>
+        <lastmod>2013-07-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0707/res3320/</loc>
+        <lastmod>2013-07-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/flvplayer_wrapper/</loc>
+        <lastmod>2013-07-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/nico_soft/</loc>
+        <lastmod>2013-07-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/niconico_greasemonkey/</loc>
+        <lastmod>2013-07-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/niconicoapi/</loc>
+        <lastmod>2013-07-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/post-now-browsing-to-twitter/</loc>
+        <lastmod>2013-07-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/wiki/</loc>
+        <lastmod>2013-07-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0616/res3315/</loc>
+        <lastmod>2013-06-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0613/res3301/</loc>
+        <lastmod>2013-06-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0607/res3295/</loc>
+        <lastmod>2013-06-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0601/res3292/</loc>
+        <lastmod>2013-06-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0520/res3282/</loc>
+        <lastmod>2013-05-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0519/res3272/</loc>
+        <lastmod>2013-05-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0510/res3267/</loc>
+        <lastmod>2013-05-10</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0427/res3264/</loc>
+        <lastmod>2013-04-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0405/res3256/</loc>
+        <lastmod>2013-04-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0321/res3234/</loc>
+        <lastmod>2013-03-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0303/res3214/</loc>
+        <lastmod>2013-03-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0220/res3198/</loc>
+        <lastmod>2013-02-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2013/0209/res3182/</loc>
+        <lastmod>2013-02-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2012/1220/res3171/</loc>
+        <lastmod>2012-12-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2012/1209/res3166/</loc>
+        <lastmod>2012-12-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2012/1028/res3154/</loc>
+        <lastmod>2012-10-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2012/0909/res3111/</loc>
+        <lastmod>2012-09-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2012/0818/res3102/</loc>
+        <lastmod>2012-08-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2012/0812/res3075/</loc>
+        <lastmod>2012-08-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2012/0614/res3065/</loc>
+        <lastmod>2012-06-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2012/0414/res3059/</loc>
+        <lastmod>2012-04-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2012/0407/res3047/</loc>
+        <lastmod>2012-04-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2012/0405/res3027/</loc>
+        <lastmod>2012-04-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2012/0324/res3020/</loc>
+        <lastmod>2012-03-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2012/0226/res3015/</loc>
+        <lastmod>2012-02-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2012/0121/res2997/</loc>
+        <lastmod>2012-01-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2012/0116/res2985/</loc>
+        <lastmod>2012-01-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/1213/res2982/</loc>
+        <lastmod>2011-12-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/1013/res2971/</loc>
+        <lastmod>2011-10-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/1003/res2967/</loc>
+        <lastmod>2011-10-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0905/res2963/</loc>
+        <lastmod>2011-09-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0820/res2954/</loc>
+        <lastmod>2011-08-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0820/res2949/</loc>
+        <lastmod>2011-08-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0718/res2942/</loc>
+        <lastmod>2011-07-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0712/res2923/</loc>
+        <lastmod>2011-07-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0706/res2921/</loc>
+        <lastmod>2011-07-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0624/res2917/</loc>
+        <lastmod>2011-06-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0622/res2907/</loc>
+        <lastmod>2011-06-22</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0615/res2874/</loc>
+        <lastmod>2011-06-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0612/res2855/</loc>
+        <lastmod>2011-06-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0607/res2835/</loc>
+        <lastmod>2011-06-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0606/res2830/</loc>
+        <lastmod>2011-06-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0605/res2817/</loc>
+        <lastmod>2011-06-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0604/res2808/</loc>
+        <lastmod>2011-06-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0601/res2788/</loc>
+        <lastmod>2011-06-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0527/res2764/</loc>
+        <lastmod>2011-05-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0524/res2760/</loc>
+        <lastmod>2011-05-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0518/res2753/</loc>
+        <lastmod>2011-05-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0510/res2744/</loc>
+        <lastmod>2011-05-10</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0506/res2733/</loc>
+        <lastmod>2011-05-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0501/res2717/</loc>
+        <lastmod>2011-05-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0501/res2423/</loc>
+        <lastmod>2011-05-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0424/res2647/</loc>
+        <lastmod>2011-04-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0423/res2558/</loc>
+        <lastmod>2011-04-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0420/res2588/</loc>
+        <lastmod>2011-04-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0419/res2566/</loc>
+        <lastmod>2011-04-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0413/res2550/</loc>
+        <lastmod>2011-04-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0409/res2494/</loc>
+        <lastmod>2011-04-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0405/res2488/</loc>
+        <lastmod>2011-04-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0404/res2482/</loc>
+        <lastmod>2011-04-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0402/res2453/</loc>
+        <lastmod>2011-04-02</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0329/res2449/</loc>
+        <lastmod>2011-03-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0328/res2425/</loc>
+        <lastmod>2011-03-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0326/res2411/</loc>
+        <lastmod>2011-03-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0326/res2406/</loc>
+        <lastmod>2011-03-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0325/res2397/</loc>
+        <lastmod>2011-03-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0320/res2366/</loc>
+        <lastmod>2011-03-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0320/res2380/</loc>
+        <lastmod>2011-03-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0306/res2353/</loc>
+        <lastmod>2011-03-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0303/res2341/</loc>
+        <lastmod>2011-03-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0303/res2330/</loc>
+        <lastmod>2011-03-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0301/res2303/</loc>
+        <lastmod>2011-03-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0226/res2291/</loc>
+        <lastmod>2011-02-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0224/res2283/</loc>
+        <lastmod>2011-02-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0223/res2281/</loc>
+        <lastmod>2011-02-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0218/res2272/</loc>
+        <lastmod>2011-02-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0130/res2258/</loc>
+        <lastmod>2011-01-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0123/res2246/</loc>
+        <lastmod>2011-01-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0117/res2229/</loc>
+        <lastmod>2011-01-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0116/res2185/</loc>
+        <lastmod>2011-01-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0116/res2211/</loc>
+        <lastmod>2011-01-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2011/0105/res2206/</loc>
+        <lastmod>2011-01-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1226/res2191/</loc>
+        <lastmod>2010-12-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1216/res2183/</loc>
+        <lastmod>2010-12-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1211/res2177/</loc>
+        <lastmod>2010-12-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1208/res2174/</loc>
+        <lastmod>2010-12-08</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1207/res2169/</loc>
+        <lastmod>2010-12-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1204/res2165/</loc>
+        <lastmod>2010-12-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1203/res2152/</loc>
+        <lastmod>2010-12-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1127/res2112/</loc>
+        <lastmod>2010-11-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1127/res2129/</loc>
+        <lastmod>2010-11-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1126/res2111/</loc>
+        <lastmod>2010-11-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1121/res2092/</loc>
+        <lastmod>2010-11-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1119/res2075/</loc>
+        <lastmod>2010-11-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1110/res2069/</loc>
+        <lastmod>2010-11-10</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1106/res2062/</loc>
+        <lastmod>2010-11-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1101/res2053/</loc>
+        <lastmod>2010-11-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1027/res2023/</loc>
+        <lastmod>2010-10-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1025/res2018/</loc>
+        <lastmod>2010-10-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1021/res2008/</loc>
+        <lastmod>2010-10-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1017/res2004/</loc>
+        <lastmod>2010-10-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/1015/res1985/</loc>
+        <lastmod>2010-10-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0926/res1970/</loc>
+        <lastmod>2010-09-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0926/res1960/</loc>
+        <lastmod>2010-09-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0920/res1952/</loc>
+        <lastmod>2010-09-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0914/res1947/</loc>
+        <lastmod>2010-09-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0906/res1930/</loc>
+        <lastmod>2010-09-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0905/res1923/</loc>
+        <lastmod>2010-09-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0902/res1917/</loc>
+        <lastmod>2010-09-02</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0825/res1909/</loc>
+        <lastmod>2010-08-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0821/res1906/</loc>
+        <lastmod>2010-08-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0816/res1888/</loc>
+        <lastmod>2010-08-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0809/res1872/</loc>
+        <lastmod>2010-08-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0804/res1862/</loc>
+        <lastmod>2010-08-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0730/res1852/</loc>
+        <lastmod>2010-07-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0723/res1841/</loc>
+        <lastmod>2010-07-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0709/res1829/</loc>
+        <lastmod>2010-07-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0701/res1819/</loc>
+        <lastmod>2010-07-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0628/res1811/</loc>
+        <lastmod>2010-06-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0625/res1808/</loc>
+        <lastmod>2010-06-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0621/res1801/</loc>
+        <lastmod>2010-06-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0615/res1769/</loc>
+        <lastmod>2010-06-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0613/res1759/</loc>
+        <lastmod>2010-06-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0612/res1754/</loc>
+        <lastmod>2010-06-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0610/res1721/</loc>
+        <lastmod>2010-06-10</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0609/res1715/</loc>
+        <lastmod>2010-06-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0606/res1708/</loc>
+        <lastmod>2010-06-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0516/res1699/</loc>
+        <lastmod>2010-05-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0512/res1692/</loc>
+        <lastmod>2010-05-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0509/res1678/</loc>
+        <lastmod>2010-05-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0504/res1674/</loc>
+        <lastmod>2010-05-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0504/res1669/</loc>
+        <lastmod>2010-05-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0502/res1664/</loc>
+        <lastmod>2010-05-02</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0421/res1658/</loc>
+        <lastmod>2010-04-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0328/res1636/</loc>
+        <lastmod>2010-03-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0324/res1624/</loc>
+        <lastmod>2010-03-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0320/res1614/</loc>
+        <lastmod>2010-03-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0310/res1595/</loc>
+        <lastmod>2010-03-10</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0304/res1584/</loc>
+        <lastmod>2010-03-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0223/res1577/</loc>
+        <lastmod>2010-02-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0221/res1569/</loc>
+        <lastmod>2010-02-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0205/res1563/</loc>
+        <lastmod>2010-02-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0126/res1547/</loc>
+        <lastmod>2010-01-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0124/res1543/</loc>
+        <lastmod>2010-01-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0115/res1537/</loc>
+        <lastmod>2010-01-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0113/res1531/</loc>
+        <lastmod>2010-01-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0103/res1522/</loc>
+        <lastmod>2010-01-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2010/0102/res1519/</loc>
+        <lastmod>2010-01-02</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1212/res1508/</loc>
+        <lastmod>2009-12-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1203/res1496/</loc>
+        <lastmod>2009-12-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1125/res1488/</loc>
+        <lastmod>2009-11-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1122/res1483/</loc>
+        <lastmod>2009-11-22</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1121/res1477/</loc>
+        <lastmod>2009-11-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1115/res1465/</loc>
+        <lastmod>2009-11-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1115/res1463/</loc>
+        <lastmod>2009-11-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1113/res1459/</loc>
+        <lastmod>2009-11-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1110/res1429/</loc>
+        <lastmod>2009-11-10</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1108/res1424/</loc>
+        <lastmod>2009-11-08</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1104/res1421/</loc>
+        <lastmod>2009-11-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1103/res1416/</loc>
+        <lastmod>2009-11-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1015/res1411/</loc>
+        <lastmod>2009-10-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1010/res1334/</loc>
+        <lastmod>2009-10-10</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/1008/res1389/</loc>
+        <lastmod>2009-10-08</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0930/res1378/</loc>
+        <lastmod>2009-09-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0929/res1369/</loc>
+        <lastmod>2009-09-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0927/res1363/</loc>
+        <lastmod>2009-09-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0923/res1348/</loc>
+        <lastmod>2009-09-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0923/res1352/</loc>
+        <lastmod>2009-09-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0923/res1358/</loc>
+        <lastmod>2009-09-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0921/res1345/</loc>
+        <lastmod>2009-09-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0920/res1338/</loc>
+        <lastmod>2009-09-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0919/res1311/</loc>
+        <lastmod>2009-09-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0918/res1323/</loc>
+        <lastmod>2009-09-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0911/res1303/</loc>
+        <lastmod>2009-09-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0831/res1276/</loc>
+        <lastmod>2009-08-31</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0831/res1272/</loc>
+        <lastmod>2009-08-31</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0826/res1266/</loc>
+        <lastmod>2009-08-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0819/res1262/</loc>
+        <lastmod>2009-08-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0818/res1256/</loc>
+        <lastmod>2009-08-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0813/res1249/</loc>
+        <lastmod>2009-08-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0813/res1242/</loc>
+        <lastmod>2009-08-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0813/res1252/</loc>
+        <lastmod>2009-08-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0812/res1233/</loc>
+        <lastmod>2009-08-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0811/res1226/</loc>
+        <lastmod>2009-08-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0811/res1228/</loc>
+        <lastmod>2009-08-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0719/res1199/</loc>
+        <lastmod>2009-07-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0703/res1198/</loc>
+        <lastmod>2009-07-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0628/res1192/</loc>
+        <lastmod>2009-06-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0523/res834/</loc>
+        <lastmod>2009-05-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0523/res805/</loc>
+        <lastmod>2009-05-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0505/res791/</loc>
+        <lastmod>2009-05-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0429/res648/</loc>
+        <lastmod>2009-04-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0326/res637/</loc>
+        <lastmod>2009-03-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0321/res628/</loc>
+        <lastmod>2009-03-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0321/res622/</loc>
+        <lastmod>2009-03-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0317/res613/</loc>
+        <lastmod>2009-03-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0307/res592/</loc>
+        <lastmod>2009-03-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0220/res580/</loc>
+        <lastmod>2009-02-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0220/res577/</loc>
+        <lastmod>2009-02-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0214/res569/</loc>
+        <lastmod>2009-02-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0211/res541/</loc>
+        <lastmod>2009-02-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0201/res424/</loc>
+        <lastmod>2009-02-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0131/res467/</loc>
+        <lastmod>2009-01-31</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0117/res457/</loc>
+        <lastmod>2009-01-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0114/res453/</loc>
+        <lastmod>2009-01-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0105/res419/</loc>
+        <lastmod>2009-01-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2009/0101/res413/</loc>
+        <lastmod>2009-01-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/1225/res411/</loc>
+        <lastmod>2008-12-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/1223/res405/</loc>
+        <lastmod>2008-12-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/1214/res390/</loc>
+        <lastmod>2008-12-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/1214/res401/</loc>
+        <lastmod>2008-12-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/1214/res394/</loc>
+        <lastmod>2008-12-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/1213/res386/</loc>
+        <lastmod>2008-12-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/1212/res381/</loc>
+        <lastmod>2008-12-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/1206/res369/</loc>
+        <lastmod>2008-12-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/1018/res355/</loc>
+        <lastmod>2008-10-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0915/res340/</loc>
+        <lastmod>2008-09-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0912/res328/</loc>
+        <lastmod>2008-09-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0905/res326/</loc>
+        <lastmod>2008-09-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0823/res323/</loc>
+        <lastmod>2008-08-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0822/res320/</loc>
+        <lastmod>2008-08-22</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0813/res318/</loc>
+        <lastmod>2008-08-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0811/res309/</loc>
+        <lastmod>2008-08-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0809/res305/</loc>
+        <lastmod>2008-08-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0805/res299/</loc>
+        <lastmod>2008-08-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0803/res294/</loc>
+        <lastmod>2008-08-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0802/res288/</loc>
+        <lastmod>2008-08-02</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0731/res284/</loc>
+        <lastmod>2008-07-31</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0727/res278/</loc>
+        <lastmod>2008-07-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0725/res271/</loc>
+        <lastmod>2008-07-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0717/res253/</loc>
+        <lastmod>2008-07-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0717/res252/</loc>
+        <lastmod>2008-07-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0717/res251/</loc>
+        <lastmod>2008-07-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0714/res248/</loc>
+        <lastmod>2008-07-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0713/res246/</loc>
+        <lastmod>2008-07-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0712/res242/</loc>
+        <lastmod>2008-07-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0712/res238/</loc>
+        <lastmod>2008-07-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0711/res245/</loc>
+        <lastmod>2008-07-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0710/res237/</loc>
+        <lastmod>2008-07-10</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0708/res236/</loc>
+        <lastmod>2008-07-08</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0706/res235/</loc>
+        <lastmod>2008-07-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0704/res233/</loc>
+        <lastmod>2008-07-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0704/res231/</loc>
+        <lastmod>2008-07-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0628/res230/</loc>
+        <lastmod>2008-06-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0626/res228/</loc>
+        <lastmod>2008-06-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0622/res227/</loc>
+        <lastmod>2008-06-22</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0621/res226/</loc>
+        <lastmod>2008-06-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0619/res224/</loc>
+        <lastmod>2008-06-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0618/res223/</loc>
+        <lastmod>2008-06-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0617/res222/</loc>
+        <lastmod>2008-06-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0616/res219/</loc>
+        <lastmod>2008-06-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0615/res218/</loc>
+        <lastmod>2008-06-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0614/res217/</loc>
+        <lastmod>2008-06-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0613/res215/</loc>
+        <lastmod>2008-06-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0612/res212/</loc>
+        <lastmod>2008-06-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0612/res214/</loc>
+        <lastmod>2008-06-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0607/res206/</loc>
+        <lastmod>2008-06-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0607/res207/</loc>
+        <lastmod>2008-06-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0604/res202/</loc>
+        <lastmod>2008-06-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0604/res201/</loc>
+        <lastmod>2008-06-04</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0525/res198/</loc>
+        <lastmod>2008-05-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0524/res195/</loc>
+        <lastmod>2008-05-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0521/res96/</loc>
+        <lastmod>2008-05-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0518/res192/</loc>
+        <lastmod>2008-05-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0515/res187/</loc>
+        <lastmod>2008-05-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0514/res182/</loc>
+        <lastmod>2008-05-14</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0510/res178/</loc>
+        <lastmod>2008-05-10</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0509/res177/</loc>
+        <lastmod>2008-05-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0507/res174/</loc>
+        <lastmod>2008-05-07</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0503/res169/</loc>
+        <lastmod>2008-05-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0502/res166/</loc>
+        <lastmod>2008-05-02</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0501/res164/</loc>
+        <lastmod>2008-05-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0430/res159/</loc>
+        <lastmod>2008-04-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0427/res153/</loc>
+        <lastmod>2008-04-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0426/res152/</loc>
+        <lastmod>2008-04-26</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0422/res149/</loc>
+        <lastmod>2008-04-22</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0421/res148/</loc>
+        <lastmod>2008-04-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0419/res147/</loc>
+        <lastmod>2008-04-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0413/res145/</loc>
+        <lastmod>2008-04-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0410/res143/</loc>
+        <lastmod>2008-04-10</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0406/res139/</loc>
+        <lastmod>2008-04-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0405/res137/</loc>
+        <lastmod>2008-04-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0403/res131/</loc>
+        <lastmod>2008-04-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0401/res128/</loc>
+        <lastmod>2008-04-01</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0329/res121/</loc>
+        <lastmod>2008-03-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0329/res123/</loc>
+        <lastmod>2008-03-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0327/res116/</loc>
+        <lastmod>2008-03-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0327/res119/</loc>
+        <lastmod>2008-03-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0325/res115/</loc>
+        <lastmod>2008-03-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0322/res113/</loc>
+        <lastmod>2008-03-22</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0318/res109/</loc>
+        <lastmod>2008-03-18</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0317/res106/</loc>
+        <lastmod>2008-03-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0315/res105/</loc>
+        <lastmod>2008-03-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0313/res102/</loc>
+        <lastmod>2008-03-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0312/res99/</loc>
+        <lastmod>2008-03-12</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0311/res97/</loc>
+        <lastmod>2008-03-11</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0308/res92/</loc>
+        <lastmod>2008-03-08</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0305/res91/</loc>
+        <lastmod>2008-03-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0303/res88/</loc>
+        <lastmod>2008-03-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0303/res90/</loc>
+        <lastmod>2008-03-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0229/res86/</loc>
+        <lastmod>2008-02-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0227/res83/</loc>
+        <lastmod>2008-02-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0225/res81/</loc>
+        <lastmod>2008-02-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0225/res82/</loc>
+        <lastmod>2008-02-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0222/res77/</loc>
+        <lastmod>2008-02-22</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0220/res72/</loc>
+        <lastmod>2008-02-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0220/res73/</loc>
+        <lastmod>2008-02-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0219/res70/</loc>
+        <lastmod>2008-02-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0217/res71/</loc>
+        <lastmod>2008-02-17</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0216/res66/</loc>
+        <lastmod>2008-02-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0215/res65/</loc>
+        <lastmod>2008-02-15</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0213/res64/</loc>
+        <lastmod>2008-02-13</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0209/res60/</loc>
+        <lastmod>2008-02-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0209/res49/</loc>
+        <lastmod>2008-02-09</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0208/res62/</loc>
+        <lastmod>2008-02-08</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0203/res54/</loc>
+        <lastmod>2008-02-03</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0131/res42/</loc>
+        <lastmod>2008-01-31</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0130/res41/</loc>
+        <lastmod>2008-01-30</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0128/res37/</loc>
+        <lastmod>2008-01-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0127/res35/</loc>
+        <lastmod>2008-01-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0125/res32/</loc>
+        <lastmod>2008-01-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0123/res30/</loc>
+        <lastmod>2008-01-23</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0121/res27/</loc>
+        <lastmod>2008-01-21</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0120/res24/</loc>
+        <lastmod>2008-01-20</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0119/res23/</loc>
+        <lastmod>2008-01-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0119/res20/</loc>
+        <lastmod>2008-01-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0119/res19/</loc>
+        <lastmod>2008-01-19</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0116/res17/</loc>
+        <lastmod>2008-01-16</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2008/0105/res15/</loc>
+        <lastmod>2008-01-05</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2007/1229/res14/</loc>
+        <lastmod>2007-12-29</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2007/1228/res12/</loc>
+        <lastmod>2007-12-28</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2007/1227/res11/</loc>
+        <lastmod>2007-12-27</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2007/1225/res9/</loc>
+        <lastmod>2007-12-25</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2007/1224/res8/</loc>
+        <lastmod>2007-12-24</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
 </urlset>

@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ECMAScriptの仕様策定に関するカンニングペーパー | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="ECMAScript,JavaScript,spec" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/10/18/ecmascript-paper/">
+    <h1 class="post-title">ECMAScriptの仕様策定に関するカンニングペーパー</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年10月18日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-10-18-ecmascript-paper.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="ecmascriptのカンペ">ECMAScriptのカンペ</h1>
+
+<p>ECMAScript関係についてざっとみるカンニングペーパー。</p>
+
+<p>2015年10月18日の<a href="http://nextwebconf.connpass.com/event/19699/" title="次世代 Web カンファレンス">次世代 Web カンファレンス</a>でstandardizationのセッションで議論に参加するらしいのでそれのカンペです。</p>
+
+<p>ここに書かれている情報は2015年10月17日現在のものです。</p>
+
+<p>追記: 縦に長い記事読むのが面倒な人向けにスライド形式にしたものも置いておきます。</p>
+
+<div class="kwout" style="text-align: center;"><a href="http://azu.github.io/slide-what-is-ecmascript/"><img src="http://kwout.com/cutout/x/xm/dp/mv7_bor.jpg" alt="http://azu.github.io/slide-what-is-ecmascript/" title="Introduction | ECMAScriptとは何か？" width="600" height="369" style="border: none;" /></a><p style="margin-top: 10px; text-align: center;"><a href="http://azu.github.io/slide-what-is-ecmascript/">Introduction | ECMAScriptとは何か？</a></p></div>
+
+<h2 id="ecmascriptとは?">ECMAScriptとは?</h2>
+
+<p><a href="http://www.ecma-international.org/default.htm" title="Ecma International">Ecma International</a>によって標準化されてるJavaScriptの仕様の事。</p>
+
+<ul>
+<li>仕様: ECMAScript</li>
+<li>実装: JavaScript</li>
+</ul>
+
+<p>2015年10月18日のStableな最新版はECMAScript 2015(aka. ES6)。</p>
+
+<ul>
+<li><a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm" title="ECMAScript® 2015 Language Specification">ECMAScript® 2015 Language Specification</a></li>
+</ul>
+
+<h2 id="ecma-262">ECMA-262</h2>
+
+<p>ECMAScriptの事。<em>262</em>はEcma Internationalでの管理番号。</p>
+
+<ul>
+<li><a href="http://www.ecma-international.org/publications/standards/Standard.htm" title="Ecma Standards - list">Ecma Standards - list</a></li>
+</ul>
+
+<h2 id="tc39">TC39</h2>
+
+<p>Technical Committee = 専門委員会。</p>
+
+<p>TC39: ECMAScriptを策定してる専門委員会のこと。</p>
+
+<p>Ecmaは色々な仕様を策定しているので、その中でECMAScriptを策定してるグループの名前がTC39。</p>
+
+<ul>
+<li><a href="http://www.ecma-international.org/memento/TC39.htm" title="TC39 - ECMAScript">TC39 - ECMAScript</a></li>
+</ul>
+
+<p>ちなみに同じくEcma標準化されてるDartはTC52。</p>
+
+<ul>
+<li><a href="http://www.ecma-international.org/memento/TC52.htm" title="TC52 - Dart">TC52 - Dart</a></li>
+</ul>
+
+<h2 id="ecmascript-6-/-2015の呼び方">ECMAScript 6 / 2015の呼び方</h2>
+
+<p>一応の正式名称はECMAScript 2015。通称(多くの人に馴染みがあるという意味)ではES6と呼ぶ人も多い。</p>
+
+<blockquote>
+<p>ES2015が正式名称であり、来年以降のECMAScriptの策定やリリースのスタイルに名称を合わせるというのが理由</p>
+</blockquote>
+
+<ul>
+<li><a href="http://blog.cybozu.io/entry/9081" title="ES6 or ES2015 ? 〜WEB+DB PRESS Vol.87 ES6特集に寄せて〜 - Cybozu Inside Out | サイボウズエンジニアのブログ">ES6 or ES2015 ? 〜WEB+DB PRESS Vol.87 ES6特集に寄せて〜 - Cybozu Inside Out | サイボウズエンジニアのブログ</a></li>
+</ul>
+
+<p>ES6以降は1年毎にリリースしていく予定のため、2015, 2016...となるように変更された。</p>
+
+<h3 id="es6のエディタリーダー">ES6のエディタリーダー</h3>
+
+<p>ES6の仕様策定のリーダー(実際に仕様書に載せる文章を書く人)。</p>
+
+<p><a href="https://twitter.com/awbjs" title="Allen Wirfs-Brock (@awbjs) | Twitter"><img src="https://monosnap.com/file/YZf9xQvF692CCyPm6UZilXBrzJKUIS.png" alt="icon"></a></p>
+
+<ul>
+<li>Allen Wirfs-Brock(アレン・ワーフスブラック) @ <del>Mozilla</del> <a href="https://twitter.com/awbjs/status/649995551467945984">family business</a></li>
+<li><a href="https://twitter.com/awbjs" title="@awbjs">@awbjs</a></li>
+</ul>
+
+<h2 id="ecma標準とiso標準の違い">Ecma標準とISO標準の違い</h2>
+
+<p>ECMAScriptはデファクト標準(<a href="http://www.ecma-international.org/default.htm" title="Ecma International">Ecma International</a>により標準化)でもあり、<a href="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=55755" title="ISO/IEC 16262">ISO/IEC 16262</a>としてISO標準化(デジュール標準)もされている。</p>
+
+<ul>
+<li><a href="http://www.atmarkit.co.jp/ait/articles/1210/23/news153.html" title="OSSコミュニティの“中の人”（4）：できないことは全部やる。できる依頼は断る――竹迫良範氏インタビュー【後編】 (1/2) - ＠IT">OSSコミュニティの“中の人”（4）：できないことは全部やる。できる依頼は断る――竹迫良範氏インタビュー【後編】 (1/2) - ＠IT</a></li>
+<li><a href="http://www.slideshare.net/takesako/devsumi2010-ecmascript5-isoiec-jtc1sc22" title="Devsumi2010 Ecmascript5 (ISO/IEC JTC1/SC22)">Devsumi2010 Ecmascript5 (ISO/IEC JTC1/SC22)</a></li>
+</ul>
+
+<p>日本ではISO/IEC JTC1/SC22のECMAScript adhoc委員会でFast Trackの手続きをやってたり(<a href="https://github.com/azu">@azu</a>もレビュアとして参加)。</p>
+
+<h3 id="なぜiso標準が必要?">なぜISO標準が必要?</h3>
+
+<blockquote>
+<p>AWB: The issue is ISO. There is concern about divergence between those two documents (ISO document with changes made by their reviewers, Ecma version)</p>
+
+<p>BT/IS clarifying why we need ISO version?</p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/rwaldron/tc39-notes/blob/master/es7/2015-07/july-28.md#4i-status-of-isoiec-fast-track-of-ecma-262-ed6-ecma-402-ed2-and-ecma-404" title="tc39-notes/july-28.md at master · rwaldron/tc39-notes">tc39-notes/july-28.md at master · rwaldron/tc39-notes</a></li>
+</ul>
+
+<h2 id="ecmascript-7-?-2016">ECMAScript 7 ? 2016</h2>
+
+<p>ECMAScript 7 or 2016って何のこと??</p>
+
+<p>大抵の場合は次(ES6の次)のECMAScriptの事を言ってる。</p>
+
+<p>「ES7のDecoratorについて」といった言い方はまだ仕様に入ることすら決まっていないもののことを言っているので正しくはない。</p>
+
+<p>「次期ECMAScriptに提案されているDecoratorについて」というのがより正確。</p>
+
+<p>次期ECMAScriptの事をECMAScript nextとかES.nextと言ったりもする。</p>
+
+<ul>
+<li><a href="http://benmccormick.org/2015/09/14/es5-es6-es2016-es-next-whats-going-on-with-javascript-versioning/" title="ES5, ES6, ES2016, ES.Next: What&#39;s going on with JavaScript versioning?">ES5, ES6, ES2016, ES.Next: What&#39;s going on with JavaScript versioning?</a></li>
+</ul>
+
+<h2 id="es.next">ES.next</h2>
+
+<p>現在から見て次期ECMAScriptの事(2015年10月18日から見ると、次期ECMAScriptは2016以降の事)。</p>
+
+<h2 id="es.nextのエディタリーダー">ES.nextのエディタリーダー</h2>
+
+<p><a href="https://twitter.com/bterlson"><img src="https://monosnap.com/file/GxYyVcRB3ZDE4VcJ2nYBoLzfbrrzaz.png" alt="Brian Terlson"></a></p>
+
+<ul>
+<li>Brian Terlson(ブライアン・テルソン) @ Microsoft</li>
+<li><a href="https://twitter.com/bterlson" title="@bterlson">@bterlson</a></li>
+</ul>
+
+<blockquote>
+<p>Thanks TC39 for the support :) I&#39;m excited to take on the editorship of ECMA262!
+-- <a href="https://twitter.com/bterlson/status/626104816511512576">https://twitter.com/bterlson/status/626104816511512576</a></p>
+</blockquote>
+
+<p>2015年7月29日のTC39ミーティングで承認され、ECMAScriptのエディタはAllen Wirfs-BrockからBrian Terlsonに交代。</p>
+
+<ul>
+<li><a href="http://blogs.windows.com/msedgedev/2015/08/03/recapping-the-july-2015-tc39-committee-meeting-in-redmond/" title="Recapping the July 2015 TC39 Committee meeting in Redmond | Microsoft Edge Dev Blog">Recapping the July 2015 TC39 Committee meeting in Redmond | Microsoft Edge Dev Blog</a></li>
+</ul>
+
+<p>ES.nextのエディタはBrian Terlsonとなった。</p>
+
+<h2 id="es.nextと策定プロセス">ES.nextと策定プロセス</h2>
+
+<p>ES.nextは今までのECMAScriptとは策定プロセスが異なる。</p>
+
+<p>ECMAScript 2016からは機能ごとに仕様のプロポーザル(提案)を出し策定していく。それぞれのプロポーザルには<strong>Stage</strong>と呼ばれる5段階のラベルが振られている。</p>
+
+<p>Stage 4となったプロポーザルは次期ECMAScriptに取り込まれ、正式にECMAScriptの仕様となる。</p>
+
+<ul>
+<li>0. Strawman</li>
+<li>1. Proposal</li>
+<li>2. Draft</li>
+<li>3. Candidate</li>
+<li>4. Finished</li>
+</ul>
+
+<p>言いかたを変えると、次期ECMAScriptは1年ごとに出るので、その時までにStage 4となったものが次期ECMAScriptに入る。</p>
+
+<iframe src="http://azu.github.io/tc39-svg/" height="600px" width="100%"></iframe>
+
+<ul>
+<li><a href="http://azu.github.io/tc39-svg/" title="TC39 Process">TC39 Process</a></li>
+</ul>
+
+<p><img src="https://monosnap.com/file/XqpEfoMeWxcLw92Jx1UOQ8EWe1e37m.png" alt="ecmascript-timeline"></p>
+
+<p>via <a href="https://channel9.msdn.com/Events/Build/2015/2-763" title="What’s New in JavaScript for Fast and Scalable Apps | Build 2015 | Channel 9">What’s New in JavaScript for Fast and Scalable Apps | Build 2015 | Channel 9</a></p>
+
+<h2 id="tc39-process:-stage">TC39 Process: Stage</h2>
+
+<p>それぞれのStageについて。詳しくは<a href="https://tc39.github.io/process-document/" title="The TC39 Process">The TC39 Process</a>を読む。</p>
+
+<ul>
+<li>Stage 0: Strawman
+
+<ul>
+<li>アイデア</li>
+</ul></li>
+<li>Stage 1: Proposal
+
+<ul>
+<li>プロポーザルの目的や解決方法を示す</li>
+<li>Polyfillやデモ等を用いて解説する</li>
+</ul></li>
+<li>Stage 2: Draft
+
+<ul>
+<li>いわゆるドラフト</li>
+<li>ECMAScript標準と同じルールでAPIや構文、セマンティックについて説明していなければならない</li>
+</ul></li>
+<li>Stage 3: Candidate
+
+<ul>
+<li>仕様は完成した状態</li>
+<li>実装や外部のフィードバックを求める状態</li>
+<li>レビュアはその仕様策定者以外ならだれでもなれるが専門的な知識を持っている必要がある</li>
+<li>ECMAScriptのエディタがチェックする必要があり </li>
+</ul></li>
+<li>Stage 4: Finished
+
+<ul>
+<li>2つの実装(not Polyfill)が必要</li>
+<li>ECMAScriptへ取り込まれる準備が完了したことを示す状態</li>
+<li>ECMAScriptのエディタがチェックする必要があり</li>
+</ul></li>
+</ul>
+
+<p>それぞれのStageはTC39のミーティング等で話し合い、それぞれのStageの条件を満たしている場合に次のStageへあがる。</p>
+
+<h3 id="何で1年ごとにリリースするの?">何で1年ごとにリリースするの?</h3>
+
+<p>ES6はリリースするまで結局6年かかったので、もっと少しずつ出していきたいため。</p>
+
+<p>この方針はエディタリーダーが交代する前から決まっていた。</p>
+
+<h3 id="誰がプロポーザル書いてるの?">誰がプロポーザル書いてるの?</h3>
+
+<p>色々な人。</p>
+
+<ul>
+<li>ブラウザベンダー</li>
+<li>ウェブ開発者</li>
+</ul>
+
+<p><a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a>にプロポーザル一覧とStageが載っている。</p>
+
+<h2 id="新しいプロポーザルを提案するには">新しいプロポーザルを提案するには</h2>
+
+<p><a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a>の<code>stage0.md</code>にプロポーザルを追加してPull Requestする。Ecma Internationalの特許、著作権のポリシーに同意してる人ならば誰でも出来る。</p>
+
+<ul>
+<li><a href="https://github.com/tc39/ecma262#contributing-new-proposals" title="Contributing New Proposals">Contributing New Proposals</a></li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">ECMAScriptに仕様提案までのフロー(Ecma非会員の場合)&#10;1. 仕様策定のプロセスを理解しましょう&#10;2. フォームから必要な情報送ってルールに同意してね &#10;3. ProposalをPull Requestしましょう&#10;<a href="https://t.co/vTcqEPzzBg">https://t.co/vTcqEPzzBg</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/652419947059150848">October 9, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="ecmascriptとgithub">ECMAScriptとGitHub</h2>
+
+<p>ECMAScript 2016のドラフトはGitHubで公開されている。</p>
+
+<ul>
+<li><a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a></li>
+</ul>
+
+<h2 id="仕様についてはどこで議論されてるの">仕様についてはどこで議論されてるの</h2>
+
+<ul>
+<li>メーリングリスト
+
+<ul>
+<li><a href="https://esdiscuss.org/" title="ES Discuss">ES Discuss</a></li>
+</ul></li>
+<li>TC39のFace to Faceのミーティング
+
+<ul>
+<li><a href="https://github.com/rwaldron/tc39-notes" title="rwaldron/tc39-notes">rwaldron/tc39-notes</a></li>
+</ul></li>
+<li>各仕様のGitHub Issue
+
+<ul>
+<li><a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a></li>
+</ul></li>
+<li>ECMAScriptのBugzilla
+
+<ul>
+<li><a href="https://bugs.ecmascript.org/">bugs.ecmascript.org</a></li>
+</ul></li>
+<li>SNS
+
+<ul>
+<li>Twitter/GitHub/Google+</li>
+</ul></li>
+</ul>
+
+<h2 id="結局ecmascript-2016って何が入るの?">結局ECMAScript 2016って何が入るの?</h2>
+
+<p><a href="https://github.com/tc39/ecma262/releases/tag/es2016-draft-1" title="ES2016 Draft 1">ES2016 Draft 1</a>がリリースされている。</p>
+
+<p>Draft 1は基本的にはES2015と同じで、細かいバグ修正のみ。その他の違いとしては、仕様書がWordではなく<a href="http://bterlson.github.io/ecmarkup/" title="Ecmarkup">Ecmarkup</a>で書きなおされたこと。</p>
+
+<p>リリースする時期は決まっていて、<a href="http://www.ecma-international.org/memento/GA.htm" title="General Assembly">General Assembly</a>で承認されて初めてリリースされるので、次の総会が行われる2016年6月15-16日あたりにES2016がリリースされる。</p>
+
+<p>仕様を提出するまでにStage 4となったものも一緒にES2016に含まれてリリースされるが、ES2016はProposalが独立してるのでそれを仕様にマージしたり編集の作業が必要(Brianさんが頑張る)。</p>
+
+<p>そのため、提出の半年ぐらい前には入れる機能はフリーズされる(何を入れるかを決めて、残りはtypoや実装からのフィードバックなどの機能以外の修正)。</p>
+
+<p>なので、ES2016は2016年1月ぐらいには細かいところを除きフリーズされる(この時期を&quot;freezing&quot; deadlineと呼んだりしてる)。</p>
+
+<p><strong>結論:</strong> 2016年1月中にStage 4となってる仕様がES2016には入る。</p>
+
+<p>可能性としてありえるのは以下の仕様あたり。</p>
+
+<ul>
+<li><a href="https://github.com/tc39/ecmascript-asyncawait">tc39/ecmascript-asyncawait</a></li>
+<li><a href="https://github.com/tc39/Array.prototype.includes/">tc39/Array.prototype.includes</a></li>
+<li><a href="https://github.com/rwaldron/exponentiation-operator">rwaldron/exponentiation-operator</a></li>
+</ul>
+
+<p>2016年1月までにある<a href="https://github.com/tc39/agendas">ミーティング</a>は2回。</p>
+
+<ul>
+<li>November 17 - 19, 2015 (San Jose - Paypal) </li>
+<li>January 26 - 28, 2016 (San Francisco - Salesforce) </li>
+</ul>
+
+<hr>
+
+<p>例) ES6の場合</p>
+
+<p>ES6は<a href="http://ecma-international.org/news/Publication%20of%20ECMA-262%206th%20edition.htm">2015年の6月17日にリリース</a>された。</p>
+
+<p>以下の図のように大体1月ぐらいには機能はフリーズされて、そこからは実装のフィードバックを受けての修正がメインとなっていた(実際には細かな機能が増えたりしたけど)。</p>
+
+<p><a href="http://monosnap.com/image/VdNAJQPs9B0Jynw6bG3BoDxceqAEzl.png" title="ES6 timeline" target="_blank"><img width="100%" src="http://monosnap.com/image/VdNAJQPs9B0Jynw6bG3BoDxceqAEzl.png" alt="ES6 Release Schedule"/></a></p>
+
+<p><a href="http://monosnap.com/image/VdNAJQPs9B0Jynw6bG3BoDxceqAEzl.png" title="ES6 timeline" target="_blank">＊画像横に長いのでクリック</a></p>
+
+<ul>
+<li><a href="http://www.2ality.com/2014/06/es6-schedule.html" title="The ECMAScript 6 schedule changes">The ECMAScript 6 schedule changes</a></li>
+</ul>
+
+<hr>
+
+<h2 id="ecmarkup">Ecmarkup</h2>
+
+<p>今までのECMAScriptはWordファイルだったが、ES.nextでは<a href="http://bterlson.github.io/ecmarkup/" title="Ecmarkup">Ecmarkup</a>を使ったHTMLベースで書くようになっている。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;emu-production</span> <span class="na">name=</span><span class="s">&quot;SourceCharacter&quot;</span> <span class="na">type=</span><span class="s">&quot;lexical&quot;</span> <span class="na">id=</span><span class="s">&quot;prod-SourceCharacter&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;emu-nt&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#prod-SourceCharacter&quot;</span><span class="nt">&gt;</span>SourceCharacter<span class="nt">&lt;/a&gt;&lt;emu-mods&gt;&lt;/emu-mods&gt;&lt;/emu-nt&gt;&lt;emu-geq&gt;</span>::<span class="nt">&lt;/emu-geq&gt;&lt;emu-rhs&gt;&lt;emu-gprose&gt;</span>any Unicode code point<span class="nt">&lt;/emu-gprose&gt;&lt;/emu-rhs&gt;</span>
+<span class="nt">&lt;/emu-production&gt;</span>
+</code></pre></div>
+<p><a href="http://bterlson.github.io/ecmarkup/" title="Ecmarkup">Ecmarkup</a>は仕様書向けのタグを定義したHTML。</p>
+
+<h2 id="es.nextの進捗">ES.nextの進捗</h2>
+
+<p><a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a>にそれぞれのプロポーザルのStageが掲載されている。またStageは2ヶ月に一度行われるTC39のミーティングにより変化するため、ミーティングの記録を読めばいい。</p>
+
+<ul>
+<li><a href="https://github.com/rwaldron/tc39-notes" title="rwaldron/tc39-notes">rwaldron/tc39-notes</a></li>
+</ul>
+
+<h2 id="次の仕様っていつリリースされるの?">次の仕様っていつリリースされるの?</h2>
+
+<p>ECMAScript 2016のリリース予定は2016年の6月15-16日。</p>
+
+<p>Ecmaの<a href="http://www.ecma-international.org/memento/GA.htm" title="General Assembly">General Assembly</a>(GA)で正式に承認された後にリリースされるので、次にGAが行われるのは15-16 Juneなので。</p>
+
+<h2 id="ecmascriptとmoduleとwhatwg">ECMAScriptとModuleとWHATWG</h2>
+
+<p>Module loaderはES6から外されたけど、<a href="https://github.com/whatwg/loader" title="whatwg/loader">whatwg/loader</a>で議論されてる。</p>
+
+<h2 id="es6に入らなかったプロポーザルって?">ES6に入らなかったプロポーザルって?</h2>
+
+<p>仕様として提案されたが、ES6には入らなかったものも多い。</p>
+
+<p>仕様そのものが良くない、仕様策定に時間がかかる(Module loaderはコレ)など理由は色々。</p>
+
+<ul>
+<li><a href="http://www.slideshare.net/KMC_JP/ecmascriptproposal" title="ECMAScript没proposal追悼式">ECMAScript没proposal追悼式</a></li>
+</ul>
+
+<h2 id="ecmascriptの実装ってどれぐらいあるの?">ECMAScriptの実装ってどれぐらいあるの?</h2>
+
+<p>ES.nextの仕様に入るには2つ以上の実装が必要。ここに関わるのはブラウザベンダーによる実装。</p>
+
+<ul>
+<li><a href="https://msdn.microsoft.com/en-us/library/dn249673(v=vs.94).aspx" title="Chakra">Chakra</a> @ MicroSoft</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey" title="SpiderMonkey">SpiderMonkey</a> @ Mozilla</li>
+<li><a href="https://code.google.com/p/v8/" title="V8">V8</a> @ Google</li>
+<li><a href="https://www.webkit.org/projects/javascript/" title="JavaScriptCore">JavaScriptCore</a> @ Apple</li>
+</ul>
+
+<p>組み込みやJVM向けなどもあるけど多分カウントされない気がする。</p>
+
+<ul>
+<li><a href="http://openjdk.java.net/projects/nashorn/" title="Nashorn">Nashorn</a></li>
+<li><a href="http://duktape.org/index.html" title="Duktape">Duktape</a></li>
+<li><a href="https://github.com/cesanta/v7/" title="cesanta/v7">cesanta/v7</a></li>
+</ul>
+
+<h2 id="ecmascriptの実装状況ってどうなの?">ECMAScriptの実装状況ってどうなの?</h2>
+
+<p><a href="http://kangax.github.io/compat-table/es6/" title="ECMAScript 6 compatibility table">ECMAScript 6 compatibility table</a>で、ブラウザの実装状況を見ることが出来ます。</p>
+
+<p>それぞれのブラウザの更新履歴などについては以下を参照。</p>
+
+<ul>
+<li><a href="https://github.com/azu/browser-javascript-resource" title="azu/browser-javascript-resource">azu/browser-javascript-resource</a></li>
+</ul>
+
+<h2 id="transpilerって何?">Transpilerって何?</h2>
+
+<p>Transpilerは<a href="https://en.wikipedia.org/wiki/Source-to-source_compiler" title="Source-to-source compiler">Source-to-source compiler</a>の事。コードからコードへ変換するツールの事で、JavaScriptやCSSなどの世界では色々なツールがある。</p>
+
+<p>ECMAScriptではES6以降のコードをES5のコードに変換する<a href="https://babeljs.io/" title="Babel">Babel</a>(元々は6to5という名前)や、CSSでは<a href="https://github.com/postcss/postcss" title="PostCSS">PostCSS</a>などがある。</p>
+
+<p>古い環境にそもそも同等の表現を出来る機能がない場合はTranspilerでも実装する事はできない。</p>
+
+<p>例) ES6 Proxy、ES6 Classesのサブクラスなど</p>
+
+<p>同様の事が原因で、全ての機能が仕様通りの動きをするわけではない。</p>
+
+<p>Babelの作者である@<a href="https://github.com/sebmck" title="sebmck">sebmck</a>もTranspilerだけで新しい言語機能を学ぶべきではないと言っている。</p>
+
+<p><img src="http://azu.github.io/slide/nodejs-es6/img/JavaScript_transformation.png" alt="slide"></p>
+
+<ul>
+<li><a href="https://speakerdeck.com/sebmck/javascript-transformation-jsconf-2015">JavaScript Transformation - JSConf 2015 // Speaker Deck</a></li>
+<li><a href="http://azu.github.io/slide/nodejs-es6/how-to-learn.html">どうやってECMAScript 6を学び始めるか</a></li>
+</ul>
+
+<h2 id="polyfillって何?">Polyfillって何?</h2>
+
+<p>一種のライブラリ。</p>
+
+<p>仕様で策定されている機能だが、古いブラウザなどではまだ実装されていない時に、APIが全く同じ互換実装を提供するライブラリの事。</p>
+
+<p><code>Promise</code>や<code>Array.from</code>などのオブジェクトやメソッドの追加が主な働き。Transpilerと違って新しい構文を古いブラウザで動かせるようにするのではなく、既存の構文で新しい機能を追加する(つまりライブラリ)。</p>
+
+<p>ECMAScriptにはマクロのような仕組みはないのでコードで構文を拡張することが難しい。そのため、TranspilerとPolyfillを使い分け、組み合わせて利用する。</p>
+
+<p><a href="https://babeljs.io/" title="Babel">Babel</a>はTranspiler、<a href="https://github.com/zloirock/core-js" title="core-js">core-js</a>はPolyfill。</p>
+
+<p>ECMAScriptよりもDOM APIはPolyfillとして実装しやすいため多くのPolyfillが実装されている。</p>
+
+<ul>
+<li><a href="https://cdn.polyfill.io/v1/docs/" title="Polyfill service">Polyfill service</a></li>
+</ul>
+
+<h2 id="ずっとbabelを使い続けるのか?">ずっとBabelを使い続けるのか?</h2>
+
+<p><a href="https://babeljs.io/" title="Babel">Babel</a>ではES6で追加された構文の大部分が変換でき、古いブラウザなどでもES6を利用できるようになっている。</p>
+
+<p>そのため、とりあえずBabelを使っておけばという人も多い。</p>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=oSPv5IPDSxE" title="Effective ES6 / Teppei Sato - YouTube">Effective ES6 / Teppei Sato - YouTube</a></li>
+</ul>
+
+<p>ブラウザ側の実装も進んでいるため、IEのようなアップデートのライフサイクルが異なるブラウザを無視すれば、モダンなブラウザでもES6の機能を利用できるようになってきている。</p>
+
+<p>Q. ブラウザでも実装された後もBabelを使い続けていくのか? それは健全なのか? という話について。</p>
+
+<p>A.</p>
+
+<ul>
+<li>健全かどうかについては、個人的な考えではYES。</li>
+<li>使い続けるかどうかは、その人による</li>
+</ul>
+
+<p>Babelを利用するのは利用者のブラウザで動かせるという実利的な理由もあるが、仕様策定側から見てもメリットがあると考えられている。</p>
+
+<p>TC39のメンバーでもある<a href="https://twitter.com/jhusain" title="@jhusain">@jhusain</a>が、「これからもTranspilerをずっと使い続けていくのか?」という疑問に対して次のように答えている。</p>
+
+<blockquote>
+<p>“I hope so. Transpilers have been an incredibly valuable thing for the committee.”</p>
+</blockquote>
+
+<ul>
+<li><a href="https://devchat.tv/js-jabber/168-jsj-the-future-of-javascript-with-jafar-husain" title="168JSJ The Future of JavaScript with Jafar Husain">168JSJ The Future of JavaScript with Jafar Husain</a></li>
+<li><a href="https://gist.github.com/azu/ec6c5721393b8c3a6845" title="JSJ The Future of JavaScript with Jafar Husainのメモ :memo:">JSJ The Future of JavaScript with Jafar Husainのメモ :memo:</a></li>
+</ul>
+
+<p>現実的な問題として仕様に関わる人があまり数が多くない。しかし、仕様策定側は仕様に対するフィードバックを求めている。</p>
+
+<p>Transpilerがあると、策定中の仕様をウェブ開発者が試すことができ仕様に対するフィードバックがより多く集まる事が挙げられている。</p>
+
+<p>ウェブの変化が高速になっているのに伴い、ECMAScriptなどの仕様策定も高速になっていく傾向がある。</p>
+
+<ul>
+<li>ES.nextは1年ごとのリリース。機能ベースの仕様策定</li>
+<li>HTML5仕様のモジュール化
+
+<ul>
+<li><a href="https://html5experts.jp/shumpei-shiraishi/16641/" title="【エキスパートガチトーク】Web技術の未来を「Extensible Web」から探る！（後編）─技術の進化は必要か？ | HTML5Experts.jp">【エキスパートガチトーク】Web技術の未来を「Extensible Web」から探る！（後編）─技術の進化は必要か？ | HTML5Experts.jp</a></li>
+</ul></li>
+</ul>
+
+<p>そのため、できるだけ短い期間で多くのフィードバックが必要になる傾向があり、フィードバックする機会を失う問題が起きやすいので、Transpilerはそこを補完する事ができるのではと期待されている。</p>
+
+<blockquote>
+<p>フィードバック側は最新の情報に気づかないとフィードバックする機会を失う</p>
+</blockquote>
+
+<ul>
+<li><a href="http://azu.github.io/slide/jser200/javascript-2014.html" title="世界のJavaScriptを読もう @ 2014">世界のJavaScriptを読もう @ 2014</a></li>
+</ul>
+
+<p>ES.nextでも <em>Stage 1: Proposal</em> あたりで、TranspilerやPolyfillを仕様と共に提供して、より多くの人が試せるようにしているケースが多い(TranspilerやPolyfillはStage 4となるのに必要な実装数にはカウントされない)。</p>
+
+<p>ES6で言語としてのベースラインがかなり整ったので、普通に使うだけならES6の機能だけでも十分に使える。
+なので、新しい仕様をわざわざ試したくない場合は別にBabelを使わなくなるというのはあり得る。</p>
+
+<h2 id="どうやって仕様へcontributingするの?">どうやって仕様へContributingするの?</h2>
+
+<h3 id="es6">ES6</h3>
+
+<p>やはり、仕様の問題は実装時に多く見つかるので、JavaScriptエンジンに仕様の実装をしてみる。JavaScriptエンジンの多くはJavaScriptでJavaScriptを実装できるようになっているので、機能によっては外部の人でも手を出しやすいとの事。</p>
+
+<ul>
+<li><a href="http://mozaic.fm/post/125673651143/19-es7" title="#19 ES7 | mozaic.fm">#19 ES7 | mozaic.fm</a></li>
+</ul>
+
+<p>仕様の問題を見つけたら<a href="https://esdiscuss.org/" title="ES Discuss">ES Discuss</a>等に投げて、<a href="https://bugs.ecmascript.org/">bugs.ecmascript.org</a>にIssueを立てるなど。</p>
+
+<p>ブラウザの実装を試して、挙動が異なってたりするならブラウザベンダーのBTSにIssueを立てるなど。</p>
+
+<ul>
+<li><a href="https://github.com/azu/browser-javascript-resource" title="azu/browser-javascript-resource">azu/browser-javascript-resource</a></li>
+</ul>
+
+<h3 id="es.next">ES.next</h3>
+
+<ul>
+<li>ES.nextの仕様は殆どがGitHubのリポジトリを持ってるので、それぞれのリポジトリにIssueやPull Requestを送ってみる
+
+<ul>
+<li><a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a></li>
+</ul></li>
+<li>ECMAScriptの仕様本体も<a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a>にある
+
+<ul>
+<li><a href="https://github.com/tc39/ecma262/blob/master/CONTRIBUTING.md" title="CONTRIBUTING.md">CONTRIBUTING.md</a>を見て分かるように普通にIssueやPull Requestで修正できる</li>
+<li>細かい変更ならCLAへのサインも必要ない</li>
+</ul></li>
+<li>最新の議論は<a href="https://github.com/rwaldron/tc39-notes" title="TC39 Meeting Notes">TC39 Meeting Notes</a>に記録されているがtypoなどの間違いが多いので修正してみる</li>
+<li>Transpilerなどのツールが新しい構文に対応するには、まずそのコードをパースできないといけない
+
+<ul>
+<li>各種パーサが対応出来るようにPull Requestを送ってみる</li>
+<li><a href="http://efcl.info/2015/02/26/recent-js-ast/" title="[2015-02] 最近のJavaScript AST標準化の動き | Web Scratch">[2015-02] 最近のJavaScript AST標準化の動き | Web Scratch</a></li>
+</ul></li>
+<li>仕様のTranspilerやPolyfillを実装してみる</li>
+<li>TranspilerやPolyfillを使ってみて使い勝手などのフィードバックを書いてみる</li>
+</ul>
+
+<h2 id="こんな機能ってes.nextに入るの?">こんな機能ってES.nextに入るの?</h2>
+
+<p>検索しましょう！</p>
+
+<form style="font-size: 2rem;" method="get" action="https://github.com/tc39/ecma262/search">
+  <input style="font-size: 1.5rem;" name="q" type="text">
+  <input name="utf8" value="✓" type="hidden">
+  <input style="font-size: 1.5rem;" value="search" type="submit">
+</form>
+
+<p>続きはウェブで</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-10-18-ecmascript-paper.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["ECMAScript","JavaScript","spec"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=ECMAScript">ECMAScript</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=spec">spec</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

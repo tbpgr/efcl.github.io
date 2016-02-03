@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        DropPagesでエクストリームコードリーディング環境を作る | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="blog,code,WebStorm,wiki" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0510/res2744/">
+    <h1 class="post-title">DropPagesでエクストリームコードリーディング環境を作る</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年05月10日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-05-10-droppages%E3%81%A7%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%A0%E3%82%B3%E3%83%BC%E3%83%89%E3%83%AA%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://droppages.com/">DropPages</a>というDropboxにテンプレートファイルとMarkdownで書いたコンテンツ(記事)を置いて公開できるサービスを利用してどこでもコードリーディングができる環境を作って使っています。</p>
+
+<h3 id="droppagesについて"><a href="http://droppages.com/">DropPages</a>について</h3>
+
+<p><a href="http://droppages.com/">DropPages</a>の導入方法</p>
+
+<p>詳細は<a href="http://droppages.com/Getting+started">Getting started | DropPages.com</a>を見る。</p>
+
+<ol>
+<li> <a href="http://droppages.com/">DropPages</a>から好きなThemeファイルのzipをダウンロードする</li>
+<li> zipを展開すると<Theme名>.droppages.com というフォルダができるので、<br>
+このフォルダ毎、Dropboxフォルダの好きな所に置く</li>
+<li> <Theme名>..droppages.com の<Theme名>を自分の使いたいサブドメイン名にする。<br>
+たとえばうちは<a href="http://sig.droppages.com/" title="http://sig.droppages.com/">http://sig.droppages.com/</a>なので、sig.droppages.comというフォルダ名にリネーム。</li>
+<li> Dropboxフォルダ内なら、<strong>右クリック-&gt;Dropbox-&gt;このフォルダを共有</strong>からDropboxのサイトが開いて、<br>
+コラボレータのメールアドレスを入力する画面になる。</li>
+<li> 招待するコラボレーターに<a href="mailto:server1@droppages.com">server1@droppages.com</a>と入力すれば共有は完了。</li>
+</ol>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/05/image10.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/05/image_thumb10.png" border="0" alt="image" width="240" height="162" /></a></p>
+
+<p>後は、その共有したフォルダ名のアドレス(sig.droppages.comなら<a href="http://sig.droppages.com/" title="http://sig.droppages.com/">http://sig.droppages.com/</a>)にアクセスできるようになるまで待つだけ(結構かかります。一日とか)</p>
+
+<p><strong>Droppagesの構造</strong></p>
+
+<p><a href="http://droppages.com/Getting+started/FolderLayout">FolderLayout | DropPages.com</a></p>
+
+<div>
+  <pre id="codeSnippet" class="csharpcode">sig.droppages.com
+├Content[DIR]
+│  └記事となるmarkdownファイル
+├Public[DIR]
+│  └css, js ,画像などのテンプレートから呼び出すリソース
+└Templates[DIR]
+   └テンプレート.html</pre>
+</div>
+
+<div>
+  どのテンプレートも3つのフォルダからできていて、それぞれの意味は上のような感じです。
+</div>
+
+<div>
+  Publicは単純にリソースをおけて、テンプレートやコンテンツから/ ルートでアクセスできます。
+</div>
+
+<div>
+  テンプレートは思ったより頑張れるので、<a href="http://droppages.com/Getting+started/Managing+pages">Managing pages | DropPages.com</a>や既存のテーマを参考にいじってみるのがいいと思います。
+</div>
+
+<div>
+  簡単にまとめると
+</div>
+
+<table border="0" cellspacing="0" cellpadding="2" width="526">
+  <tr>
+    <td style="text-align: center;" width="200" valign="top">
+      <p>
+        <strong>構文</strong>
+      </p>
+    </td>
+    
+    <td width="324" valign="top">
+      <p style="text-align: center;">
+        <strong>意味</strong>
+      </p>
+    </td>
+  </tr>
+  
+  <tr>
+    <td width="200" valign="top">
+      <p>
+        :テンプレート名
+      </p>
+    </td>
+    
+    <td width="324" valign="top">
+      テンプレート間でのテンプレート内容を継承
+    </td>
+  </tr>
+  
+  <tr>
+    <td width="200" valign="top">
+      @変数名 変数に入れたい文字列 <br />@変数名 <br />変数に入れたい文字列のブロック <br />複数行でもいい(Bodyとかに使われてる)
+    </td>
+    
+    <td width="324" valign="top">
+      変数名の定義はコンテンツ、テンプレートどちらでもできる。 <br />変数名に入れたものはテンプレートから参照して使う。 <br /> で参照できて、プレースホルダ部分は変数が定義されてないときの初期値を決められる。
+    </td>
+  </tr>
+  
+  <tr>
+    <td width="200" valign="top">
+      @Titleや@Bodyなど <br /> <br /> <br /> <br />
+    </td>
+    
+    <td width="324" valign="top">
+      最初から決められてる特殊な変数がある。 <br /><a href="http://droppages.com/Getting+started/Managing+templates">Managing templates | DropPages.com</a> <br />テンプレートを書くときに、子のコンテンツを列挙するやサイトマップ的なやパンくずリスト的ななどは結構工夫すればブログみたいになる
+    </td>
+  </tr>
+  
+  <tr>
+    <td width="200" valign="top">
+      _drafts フォルダ
+    </td>
+    
+    <td width="324" valign="top">
+      _drafts という名前でコンテンツ内にフォルダを作れば、それはドラフト扱いになり公開されない。 <br />フォルダじゃなくても_と先頭につければ <br />などの列挙対象にはならない気がする。(直接URLたたくとアクセスできるけど)
+    </td>
+  </tr>
+</table>
+
+<p>自分のサイトは<a href="https://github.com/azu/4-Code-Reading">azu/4-Code-Reading &#8211; GitHub</a>でコンテンツ共々テンプレートも公開しているので、適当に見てください。(アクセス解析のコードとは固有になっちゃってるけど)</p>
+
+<p>Droppagesのコンテンツ(記事)はtxtファイルに、以下のような感じで書いていって保存すると、Dropboxで同期されて自動でWebサイト側が更新される仕組みなってます。</p>
+
+<div id="codeSnippetWrapper">
+  <pre id="codeSnippet" class="csharpcode">@Title タイトル
+@Body
+記事内容書ける
+Markdown記法を使える
+これ以外にも変数は定義できるけど</pre>
+</div>
+
+<div>
+  自分がDroppagesを気に入った理由にMarkdown記法で書けるという所が結構大きくて、これが結構便利です。 <br />デモなどではtxtファイルになっていますが拡張子がmdなmarkdownファイルでも問題なく扱えます!
+</div>
+
+<div>
+  Markdownの書き方は
+</div>
+
+<ul>
+<li>  <a href="http://www.kotono8.com/wiki/Markdown">Markdown &#8211; 閾ペディアことのは</a></li>
+<li>  <a href="http://www.kawaz.org/projects/kawaz/wikis/Markdown%E3%81%AE%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">Kawaz &#8211; Markdownの使用方法</a></li>
+</ul>
+
+<p>などを見るとよいと思います。</p>
+
+<p>MarkdownならiPadの<a href="http://ryosblog.net/6682">Textastic</a>など対応してるアプリもいろいろある。</p>
+
+<h3 id="コードリーディング">コードリーディング</h3>
+
+<p>Droppagesを使えば、markdownファイルに書いて保存するだけど自動的にWebに公開するという手順が簡単に行えます。<br>
+で、なんでコードリーディングサイトにしようと思ったのかは、元々Markdownなどでコードリーディング記録を書きたいなーと思っててGithub pages + Sphinxなどいろいろ試してたんですが面倒な手順が多くて、そこに自動的にMarkdownを変換して公開できるサービスとして<a href="http://droppages.com/">DropPages</a>がきたわけです。</p>
+
+<p>コードリーディングの環境には<a href="http://www.jetbrains.com/webstorm/">WebStorm</a>を使っています。<br>
+WebStormなら<a href="http://plugins.intellij.net/plugin/?webide&amp;id=5970">Markdown</a>プラグイン(EAPだと動かなかったりするのでWebstormは正式版を使う)があるのと、WebStormには構文解析をおこなってコードの構造がつかみやすいのでコードリーディング自体に最適だと思います。<br>
+(ブックマークや変数、関数、参照先へのジャンプ、アウトラインなどなど)</p>
+
+<p>WebStormはファイルの分割表示を持ってるので、左でコードを読んで、右でMarkdown形式でコードリーディングの記録を書いていくという事もできます(EmacsとかVimとかでも似たような環境作れると思う)</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/05/image11.png"><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/05/image_thumb11.png" border="0" alt="image" width="240" height="146" /></a><a href="http://efcl.info/wp-content/uploads/2011/05/image12.png"><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/05/image_thumb12.png" border="0" alt="image" width="240" height="146" /></a><a href="http://efcl.info/wp-content/uploads/2011/05/image13.png"><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/05/image_thumb13.png" border="0" alt="image" width="240" height="146" /></a>Markdownのプレビューもその場でできる。</p>
+
+<p>少し戻って、テンプレートはいろいろいじって、記事毎にいろいろメタ情報の変数を定義させるようにすれば、普通のブログと遜色ないぐらいの記事が簡単に作れます。<br>
+毎回その変数定義を手入力だと面倒なので、WebStormのテンプレートからファイルを作るFile Templeteの機能を使って以下のような感じにしています</p>
+
+<ul>
+<li>  <a href="https://gist.github.com/951733">DroppagesのFile Templete — Gist</a></li>
+</ul>
+
+<p>実際に入力して出てくる感じは下のようなもの。後はBody以下を書いていくだけ。</p>
+
+<div id="codeSnippetWrapper">
+  <pre id="codeSnippet" class="csharpcode">@Title Underscore.js
+@description 便利関数の詰め合わせライブラリUnderscore.jsのコードリーディング
+@keywords Underscore.js
+@Dates 2011年05月03日
+@Body
+[Underscore.js] 1.1.6のソースコードを見ていく
+
+Table of Contentsによるとそれぞれジャンル分けされているので、それに沿って読む。</pre>
+</div>
+
+<div>
+  実際に<a href="http://sig.droppages.com/Code+Reading/underscoreJS">Underscore.jsのコードリーディング</a>をしていて、Markdownはコードリーディングととても相性がよいと思いました。
+</div>
+
+<div>
+  > が先頭にあれば引用になったり(一行preみたいな使い方できる) <br />タブがスペース4つで字下げすれば、<a href="http://www.kotono8.com/wiki/Markdown#.E3.82.B3.E3.83.BC.E3.83.89.E3.83.96.E3.83.AD.E3.83.83.E3.82.AF">コードブロック</a>になるので編集中もとても読みやすくコードを書ける。(他の記法のように何かで囲むなどをしなくていいので見通しがよい) <br />後はMarkdownの<a href="http://www.kotono8.com/wiki/Markdown#.E3.83.AA.E3.83.B3.E3.82.AF_2">リンク</a>管理ですが、これも一カ所にリンクをまめて書くことができるので、上手くやればいい感じにリンクを書ける。
+</div>
+
+<div>
+  実際の自分のコードリーディング手順は以下のような感じで
+</div>
+
+<ol>
+<li> コードはブロックぐらいで適当に区切って読んでいく</li>
+<li> ## ブロックタイトル とMarkdownにブロックのタイトルをつける(テンプレートで自動的に目次生成をしているため)</li>
+<li> コードを読みながらコード本体にコメントとして、コードの解説やアノテーションなどを書いていく</li>
+<li> コードブロックを読みながら、気になったことや使い方や例などはMarkdownに書いていく</li>
+<li> コードブロックを読み終わったら、そのコードブロックをMarkdownにコピペする(先ほどのように字下げしてpreにする)</li>
+<li> 1から繰り返し</li>
+<li> 全部読み終わったら<a href="http://jashkenas.github.com/docco/">Docco</a>でコンパイルして、コード全体とコメントを見比べしやすいHTMLを生成する。(コード本体にコメントを書いていくのはこれも目的にしているため)</li>
+</ol>
+
+<p>## でサブタイトルをつけて区切っていくのは<a href="http://efcl.info/2010/1126/res2111/">英語が読めない人向け、英語技術書の読み方 | Web scratch</a>でやっていたような章ごとに本を読んでいくのと同じ感覚でやっています。<br>
+また<a href="http://sig.droppages.com/Code+Reading/underscoreJS/Functions">Functions of undersocore.js &#8211; 4 Code Reading</a>など適当なページを見てもらうと分かると思いますが、h2,h3などのタグには自動的に内部リンクを振って目次を作るためにもサブタイトルをつけています。</p>
+
+<p>また、コンテンツは先ほどから言っているようにmarkdownで書けるので、githubとも相性がいいです。(githubはmdファイルを変換して表示してくれる)<br>
+どこまで読んだかをgitで管理できたり、githubなどを使って複数人で共有したりもできるのでいろいろな使い道があると思います。また仮に<a href="http://droppages.com/">DropPages</a>が消滅しても手元にはコンテンツファイルが残るので、markdownならそこそこメジャーなので逃げ道もいろいろあると思います(htmlに変換もできるし)</p>
+
+<p><a href="http://db.tt/GfwDjDR">Dropbox</a>+<a href="http://droppages.com/">DropPages</a>+<a href="http://ja.wikipedia.org/wiki/Markdown">Markdown</a>+<a href="https://github.com/">GitHub</a>+<a href="http://www.jetbrains.com/webstorm/">WebStorm</a>(任意のエディタ)</p>
+
+<p>= 素敵なコードリーディング生活</p>
+
+<p>ここから<a href="http://db.tt/GfwDjDR">Dropboxに登録</a>すれば250MBのボーナスがうんぬんです。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/4-Code-Reading">azu/4-Code-Reading &#8211; GitHub</a> (自分のサイトのテンプレートなど)</li>
+<li>  <a href="http://droppages.com/">Home | DropPages.com</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-05-10-droppages%E3%81%A7%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%A0%E3%82%B3%E3%83%BC%E3%83%89%E3%83%AA%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["blog","code","WebStorm","wiki"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=blog">blog</a></li>
+                
+                <li><a href="/tags/?q=code">code</a></li>
+                
+                <li><a href="/tags/?q=WebStorm">WebStorm</a></li>
+                
+                <li><a href="/tags/?q=wiki">wiki</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

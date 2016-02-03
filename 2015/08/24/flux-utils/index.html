@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        はてなブックマーク検索を作りながらFlux Utilsについて学ぶ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Flux,JavaScript,library,React,はてなブックマーク" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/08/24/flux-utils/">
+    <h1 class="post-title">はてなブックマーク検索を作りながらFlux Utilsについて学ぶ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年08月24日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-08-24-flux-utils.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="https://github.com/facebook/flux" title="facebook/flux">facebook/flux</a> <a href="https://github.com/facebook/flux/blob/master/CHANGELOG.md#210" title="2.1.0">2.1.0</a>から<a href="http://facebook.github.io/flux/docs/flux-utils.html" title="Flux Utils">Flux Utils</a>というStoreなどの実装が含まれるようになりました。</p>
+
+<p>今回Flux Utilsを使って、指定したアカウントのはてなブックマークを検索するウェブアプリを書いてみました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/hatebu-mydata-search" title="azu/hatebu-mydata-search">azu/hatebu-mydata-search</a></li>
+<li><a href="http://azu.github.io/hatebu-mydata-search/">azu.github.io/hatebu-mydata-search/</a></li>
+<li>mydataのAPIがCORS対応してないので<a href="https://jsonp.afeld.me/" title="JSONProxy">JSONProxy</a>を挟んでます。(なのでブックマークデータが多いアカウント名は避けたほうが…)</li>
+</ul>
+
+<p><img src="https://monosnap.com/file/KPhJNSpqHIVUsqFOd5cHzFw3yEyCeH.png" alt="はてなブックマーク検索"></p>
+
+<p>これを作ってみてFlux Utilsについて思ったことを書いていきます。</p>
+
+<h2 id="flux-utils">Flux Utils</h2>
+
+<p><a href="http://facebook.github.io/flux/docs/flux-utils.html" title="Flux Utils">Flux Utils</a>の紹介ページに、Flux Utilsの解説が書かれています。</p>
+
+<p>簡単にまとめると以下の4つのクラスがFlux Utilsとして提供されています。</p>
+
+<ul>
+<li>Store
+
+<ul>
+<li>ベースとなるクラス</li>
+</ul></li>
+<li>ReduceStore
+
+<ul>
+<li>Storeを継承</li>
+<li><code>state</code>を保持していて、actionsに対して<code>reduce</code>することで<code>state</code>更新する</li>
+</ul></li>
+<li>MapStore
+
+<ul>
+<li>ReduceStoreを継承</li>
+<li><a href="https://facebook.github.io/immutable-js/" title="Immutable.js">Immutable.js</a>に依存している</li>
+</ul></li>
+<li>Container
+
+<ul>
+<li>mixinsの代わり</li>
+<li>React ComponentラップするComponentを作るコンテナ</li>
+<li>Storeを登録しておいて、Storeの変更を元にComponentに通知する</li>
+</ul></li>
+</ul>
+
+<p>Storeはおそらく直接使わない、<code>MapStore</code>は<a href="https://facebook.github.io/immutable-js/" title="Immutable.js">Immutable.js</a>に依存しているので、使うとしたら<code>ReduceStore</code>と<code>Container</code>がメインとなると思います。</p>
+
+<p><a href="https://github.com/azu/hatebu-mydata-search" title="azu/hatebu-mydata-search">azu/hatebu-mydata-search</a>でも<code>ReduceStore</code>と<code>Container</code>の2つを利用しました。</p>
+
+<p>Flux Utilsは<a href="https://facebook.github.io/immutable-js/" title="Immutable.js">Immutable.js</a>を一部使っているのからも分かりますが(使わなくても問題ない)、Immutableなオブジェクトを<code>state</code>として使うのが前提となった作りになっています。</p>
+
+<p><a href="https://facebook.github.io/immutable-js/" title="Immutable.js">Immutable.js</a>はFlowやTypeScriptなどの型付き言語で使いやすくなってたり、<a href="https://www.youtube.com/watch?v=I7IdS-PbEgI">Immutableな実装でのパフォーマンス</a>におけるメリットはありますが、癖があって普通に扱うのが難しいのです。</p>
+
+<p>そのため、今回はImmutableなstateオブジェクトとして、もう少し扱いやすい<a href="https://github.com/christianalfoni/immutable-store" title="christianalfoni/immutable-store">christianalfoni/immutable-store</a>を利用しました。</p>
+
+<p>追記: immutable-storeはDEPRECATEDなので、<a href="https://github.com/omniscientjs/immstruct" title="omniscientjs/immstruct">omniscientjs/immstruct</a>や<a href="https://github.com/facebook/immutable-js" title="immutable-js">immutable-js</a>を使いましょう</p>
+
+<p>Flux Utilsを利用する場合、以下のように<code>flux/utils</code>とパスを指定して読み込むことで利用できます。
+(Facebookはこういうのが多いですが、browserifyした時とかに使ってないものが勝手に含まれないから?)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span><span class="nx">ReduceStore</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;flux/utils&#39;</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h4 id="余談:ファイルサイズ">余談:ファイルサイズ</h4>
+
+<p>Flux Utilsを含む前後の<a href="https://github.com/facebook/flux" title="facebook/flux">facebook/flux</a>のファイルサイズは以下のような感じです。</p>
+
+<p>Before:</p>
+
+<p><img src="https://monosnap.com/file/LJ9RcmuK37jo9Uq9XvAKsnbwTn1Oay.png" alt="before"></p>
+
+<p>After:</p>
+
+<p><img src="https://monosnap.com/file/aihEzm0aYcT9xKFegKM4zZefrAEQne.png" alt="after"></p>
+
+<p><img src="https://i.gyazo.com/f1bff7884bb1d30416345cce9e58de71.gif" alt="gif"></p>
+
+<p><a href="https://github.com/facebook/flux" title="facebook/flux">facebook/flux</a>の<code>dist</code>にはデフォルトでFlux Utilsが含まれていないため、Flux Utilsを明示的にimportしない限りファイルサイズは増えたりはしないと思います。</p>
+
+<p>また、immutable.jsに直接依存してるのはMapStoreだけで、他のReduceStoreなどはimportしてもimmutable.js含まれないため、そこまでファイルサイズ気にしなくても良いと思います。</p>
+
+<p>MapStoreを使う場合はImmutable.jsを使うことになるので、結構大きくなります。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span><span class="nx">MapStore</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;flux/utils&#39;</span><span class="p">;</span>
+</code></pre></div>
+<hr>
+
+<h2 id="flux-+-reactなアプリ作成の流れ">Flux + Reactなアプリ作成の流れ</h2>
+
+<p>ここからは<a href="https://github.com/azu/hatebu-mydata-search" title="azu/hatebu-mydata-search">azu/hatebu-mydata-search</a>がどういう順番で作成したかに沿った流れで書いていきます。</p>
+
+<p>最初はビルド環境や<code>index.html</code>を置いて<code>build.js</code>を読み込めるようにします。</p>
+
+<p>babel+babelify+browserifyな感じでJavaScriptを書けるようにしてます。
+CSSは<a href="http://cssnext.io/" title="cssnext">cssnext</a>と<a href="http://purecss.io/" title="Pure">Pure</a>を使いました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/hatebu-mydata-search/commit/101d6310659d4d8b701e9cfffa14fafde351a7b3" title="setup devlopment env · azu/hatebu-mydata-search@101d631">setup devlopment env · azu/hatebu-mydata-search@101d631</a></li>
+</ul>
+
+<h3 id="ステートレスコンポーネント">ステートレスコンポーネント</h3>
+
+<p>コミットをそこまでキレイに分けてないので上記のコミットに含まれてますが、まずはステートレスなReact Componentを作成していくようにしています。
+(React Componentで<code>this.state</code>を使わないと考えれば書きやすいと思います)</p>
+
+<p>具体的には以下のユーザ名の入力するinput要素を<code>InputUserName.js</code>という名前で最初に作っています。</p>
+
+<p><img src="https://monosnap.com/file/F7JnaZowpENswNEtLEcjpN1uGSiVKH.png" alt="input"></p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">InputUserName</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">onSubmit</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+        <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">findDOMNode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">userName</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onSubmit</span><span class="p">({</span>
+            <span class="nx">name</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&quot;InputUserName&quot;</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">form</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&quot;InputUserName-form pure-form&quot;</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="nx">ref</span><span class="o">=</span><span class="s2">&quot;userName&quot;</span><span class="o">&gt;&lt;</span><span class="err">/input&gt;</span>
+                <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&quot;pure-button&quot;</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;変更&quot;</span><span class="o">&gt;&lt;</span><span class="err">/input&gt;</span>
+            <span class="o">&lt;</span><span class="err">/form&gt;</span>
+        <span class="o">&lt;</span><span class="err">/div&gt;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>この作ったComponentを確認する意味も含めて、<code>App.js</code>というエントリポイントとなるファイルを作って、単純に読み込んで<code>document.body</code>へ表示しています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span>
+<span class="kr">import</span> <span class="nx">InputUserName</span> <span class="nx">from</span> <span class="s2">&quot;./components/InputUserName&quot;</span>
+<span class="kd">function</span> <span class="nx">onSubmit</span><span class="p">({</span><span class="nx">name</span><span class="p">})</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">React</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">InputUserName</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="nx">onSubmit</span><span class="p">}</span><span class="o">/&gt;</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
+</code></pre></div>
+<p>こうすることで<code>submit</code>イベントがちゃんと動いてるのかをstateがなくても確認できたりするので、HTMLでまず構造を書いてみるのに近い作業で入り口とするのに向いています。</p>
+
+<p>同じ要領でブックマークのデータを表示するList要素として<code>BookmarkList</code>を作って</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">BookmarkListItem</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="p">{</span><span class="nx">title</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">comment</span><span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">bookmark</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&quot;BookmarkListItem&quot;</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="p">{</span><span class="nx">url</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
+
+            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">comment</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+        <span class="o">&lt;</span><span class="err">/li&gt;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">BookmarkList</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">items</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">bookmarks</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">bookmark</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="o">&lt;</span><span class="nx">BookmarkListItem</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">bookmark</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span> <span class="nx">bookmark</span><span class="o">=</span><span class="p">{</span><span class="nx">bookmark</span><span class="p">}</span><span class="o">/&gt;</span><span class="p">;</span>
+        <span class="p">});</span>
+        <span class="k">return</span> <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&quot;BookmarkList&quot;</span><span class="o">&gt;</span>
+            <span class="p">{</span><span class="nx">items</span><span class="p">}</span>
+        <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>App.js</code>にダミーの配列データ(<code>bookmarks</code>)を置いて表示しています。</p>
+<div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gi">+import BookmarkList from &quot;./components/BookmarkList&quot;</span>
+ function onSubmit({name}) {
+     console.log(name);
+ }
+<span class="gd">-React.render(&lt;InputUserName onSubmit={onSubmit}/&gt;, document.body);</span>
+<span class="gi">+var bookmarks = [</span>
+<span class="gi">+    {</span>
+<span class="gi">+        title: &quot;タイトル&quot;,</span>
+<span class="gi">+        url: &quot;http://localhost:3000/&quot;,</span>
+<span class="gi">+        comment: &quot;[test] メッセージ&quot;</span>
+<span class="gi">+    },</span>
+<span class="gi">+    {</span>
+<span class="gi">+        title: &quot;NW.jsでのバイナリリリース&quot;,</span>
+<span class="gi">+        url: &quot;http://efcl.info/2014/09/05/node-webkit-binary-release/&quot;,</span>
+<span class="gi">+        comment: &quot;[test] ビルドが楽になりたい&quot;</span>
+<span class="gi">+    }</span>
+<span class="gi">+];</span>
+<span class="gi">+React.render(&lt;div&gt;</span>
+<span class="gi">+    &lt;InputUserName onSubmit={onSubmit}/&gt;</span>
+<span class="gi">+    &lt;BookmarkList bookmarks={bookmarks}/&gt;</span>
+<span class="gi">+&lt;/div&gt;, document.body);</span>
+</code></pre></div>
+<p>後は同じようにブックマークをフィルターするキーワードを入れる<a href="https://github.com/azu/hatebu-mydata-search/commit/0a061deb51ef33b8a0a778809faa77b28923cdc7"><code>SearchBox</code></a>を作ったりしています。</p>
+
+<p>ここまでで、画面に必要な要素をステートレスコンポーネントとして用意してとりあえず表示できるようになりました。</p>
+
+<p>もちろんまだCSSが存在してないので、デザインとか配置については何も設定されていないですが、上記のコンポーネントを見て分かるように<code>InputUserName</code>というコンポーネントには<code>.InputUserName</code>というCSSクラスが適応されています。</p>
+
+<p>これはSUIT CSSという命名ルールと殆ど同じで、MyComponentというコンポーネントには.MyComponentというクラス名をつけるという命名ルールです。</p>
+
+<p>MyComponent以下にある要素のクラスなら、<code>.MyComponent-part</code>という感じでReact Componentみたいなものとは相性がいいと思うのでよく使ってます。</p>
+
+<ul>
+<li><a href="http://suitcss.github.io/" title="SUIT CSS: style tools for UI components">SUIT CSS: style tools for UI components</a></li>
+</ul>
+
+<h3 id="flux-utilsの導入">Flux Utilsの導入</h3>
+
+<p>コンポーネントが揃ったらボタンを押したらデータを読み込むみたいな動きをつけていくので、ここでやっとFluxを導入します。</p>
+
+<ul>
+<li><a href="https://github.com/azu/hatebu-mydata-search/commit/24ff494f227b2d0c0fc4b340b411a2b6e5eaf1d3" title="feat(flux): use flux-utils · azu/hatebu-mydata-search@24ff494">feat(flux): use flux-utils · azu/hatebu-mydata-search@24ff494</a></li>
+</ul>
+
+<p>このコミットだと<a href="https://facebook.github.io/immutable-js/" title="Immutable.js">Immutable.js</a>を使ってますが、最終的には<a href="https://github.com/christianalfoni/immutable-store" title="immutable-store">immutable-store</a>を使っています。(値を取得するときに<code>get(&quot;key&quot;)</code>みたいな事をしなくて良いので自然に使える)</p>
+
+<p>Fluxをどこから実装するかですが、Flux Utilsを使った場合はStoreかActionCreatorあたりからが自然になると思います。
+(ContainerはStoreがないとそもそも始まらない)</p>
+
+<h4 id="actioncreator">ActionCreator</h4>
+
+<p>自分はActionに<code>keys</code>を置きたいので、まずはActionCreatorから書きました。
+(一般的にはconstantsみたいな別のファイルに<code>type</code>だけを定義したりする)</p>
+
+<p>ただ、Flux Utilsのサンプルを見てみると分かるようにそもそもActionCreatorがなくなっていて、FlowTypeで書かれたActionの型だけが定義されています。</p>
+
+<ul>
+<li><a href="https://github.com/facebook/flux/tree/master/examples/flux-utils-todomvc" title="flux/examples/flux-utils-todomvc at master · facebook/flux">flux/examples/flux-utils-todomvc at master · facebook/flux</a></li>
+<li><a href="https://github.com/facebook/flux/blob/master/examples/flux-utils-todomvc/js/flux-infra/TodoActions.js" title="flux/TodoActions.js at master · facebook/flux">flux/TodoActions.js at master · facebook/flux</a></li>
+</ul>
+
+<p>自分の中ではそれぞれ以下のような認識で単語を使っていますが、正直あんまり深く考えてないです。</p>
+
+<ul>
+<li>Action: ペイロードオブジェクト(typeとデータを持ってる)</li>
+<li>ActionCreator: ActionをDispatcherに渡してdispatchする関数をまとめたヘルパークラス</li>
+</ul>
+
+<p><a href="https://facebook.github.io/react/blog/2014/07/30/flux-actions-and-the-dispatcher.html#actions-and-actioncreators" title="Flux: Actions and the Dispatcher | React">Flux: Actions and the Dispatcher | React</a></p>
+
+<p><code>SearchAction</code>というクラスは上記の定義だと<code>ActionCreator</code>に当たるものですが長いので。。</p>
+
+<p>簡単に書くと以下のように特定の<code>type</code>を持ったActionオブジェクトをdispatchするだけのメソッドを持ったクラスです。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span><span class="nx">getMyData</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;./SearchUtils&quot;</span>
+<span class="kr">import</span> <span class="nx">Dispatcher</span> <span class="nx">from</span> <span class="s2">&quot;../Dispatcher&quot;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">reset</span><span class="o">:</span> <span class="nx">Symbol</span><span class="p">(</span><span class="s2">&quot;reset&quot;</span><span class="p">),</span>
+    <span class="nx">inputText</span><span class="o">:</span> <span class="nx">Symbol</span><span class="p">(</span><span class="s2">&quot;inputText&quot;</span><span class="p">),</span>
+    <span class="nx">loadItems</span><span class="o">:</span> <span class="nx">Symbol</span><span class="p">(</span><span class="s2">&quot;loadItems&quot;</span><span class="p">)</span>
+
+<span class="p">};</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">SearchAction</span> <span class="p">{</span>
+    <span class="kr">static</span> <span class="nx">reset</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">({</span>
+            <span class="nx">type</span><span class="o">:</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">reset</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="kr">static</span> <span class="nx">inputText</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">({</span>
+            <span class="nx">type</span><span class="o">:</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">inputText</span><span class="p">,</span>
+            <span class="nx">text</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="kr">static</span> <span class="nx">loadItems</span><span class="p">(</span><span class="nx">userName</span><span class="p">,</span> <span class="nx">fromDate</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">getMyData</span><span class="p">(</span><span class="nx">userName</span><span class="p">,</span> <span class="nx">fromDate</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">items</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">({</span>
+                <span class="nx">type</span><span class="o">:</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">loadItems</span><span class="p">,</span>
+                <span class="nx">items</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>ここに出てくる<a href="https://github.com/azu/hatebu-mydata-search/blob/d51fb88290699f5325bb4ff0995b128a4a6446f7/src/Dispatcher.js" title="Dispatcher.js">Dispatcher.js</a>はシングルトンなDispatcherで、Flux Utils的にもDispatcherはシングルトンを前提としたものとなっているようです。</p>
+
+<h4 id="store">Store</h4>
+
+<p>次に<code>ReduceStore</code>を使ってフィルターとなる単語と表示してるブックマークのstateを管理するStoreを作ります。</p>
+
+<p>ReduceStoreは<code>setState</code>のようなメソッドは持っていません。
+代わり<code>reduce(state, action)</code>というメソッドを実装して、ここでreturnした値が次のstateとなるような仕組みになっています。</p>
+
+<p>Actionの<code>keys</code>を使って、<code>keys.loadItems</code>という<code>type</code>のActionが来たならば(ここでいうなら<code>SearchAction.loadItems()</code>が呼ばれたならば)、現在のstateのitemsを<code>action.items</code>に置き換えたものを新しいstateにするといった感じです。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ReduceStore</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;flux/utils&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">SearchDispatcher</span> <span class="nx">from</span> <span class="s2">&quot;./SearchDispatcher&quot;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">keys</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;./SearchAction&quot;</span>
+<span class="kr">import</span> <span class="nx">Immutable</span> <span class="nx">from</span> <span class="s2">&quot;immutable-store&quot;</span>
+
+<span class="kr">class</span> <span class="nx">SearchStore</span> <span class="kr">extends</span> <span class="nx">ReduceStore</span> <span class="p">{</span>
+    <span class="nx">getInitialState</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Immutable</span><span class="p">({</span>
+            <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;items&quot;</span><span class="o">:</span> <span class="p">[]</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="nx">reduce</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">inputText</span><span class="o">:</span>
+                <span class="k">return</span> <span class="nx">state</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="nx">text</span><span class="p">);</span>
+            <span class="k">case</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">loadItems</span><span class="o">:</span>
+                <span class="k">return</span> <span class="nx">state</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;items&quot;</span><span class="p">,</span> <span class="nx">action</span><span class="p">.</span><span class="nx">items</span><span class="p">);</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// ここもシングルトン</span>
+<span class="c1">// Export a singleton instance of the store, could do this some other way if</span>
+<span class="c1">// you want to avoid singletons.</span>
+<span class="c1">// と書いてあるぐらいなので</span>
+<span class="kr">const</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SearchStore</span><span class="p">(</span><span class="nx">SearchDispatcher</span><span class="p">);</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">instance</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="container">Container</h4>
+
+<p>Flux Utilsで書いてて結構気に入ってるのはContainerという仕組みです。</p>
+
+<p>これは<code>static getStores()</code>で並べたStoreから&quot;Change&quot;イベントがemitされたら、<code>static calculateState(prevState)</code>でReact Componentのstateとなるものを返して、React Componentに<code>setState(calculateState()))</code>されるというイメージです。</p>
+
+<p>Containerで包むべきReact ComponentはRootとなるComponentとするべきです。
+これはReactを書くときのパターンとしてよくある、stateを中央の一箇所に集めるパターン(Centralize State)で書いているとわかりやすく適応できます。
+(子となるReact Component内でstateを持つこともありますが、そのstateは外から不要なstateであるべきです)</p>
+
+<p>最初にステートレスコンポーネントで書いていたのも、<code>App.js</code>から<code>state</code>を渡すことで、それぞれ子となるコンポーネントがstateを持たなくてもよくなるからです。</p>
+
+<ul>
+<li><a href="http://aeflash.com/2015-02/react-tips-and-best-practices.html" title="React Tips and Best Practices - ÆFLASH">React Tips and Best Practices - ÆFLASH</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-diff" data-lang="diff"> import InputUserName from &quot;./components/InputUserName&quot;
+ import BookmarkList from &quot;./components/BookmarkList&quot;
+ import SearchBox from &quot;./components/SearchBox&quot;
+<span class="gi">+import SearchStore from &quot;./Search/SearchStore&quot;</span>
+<span class="gi">+import SearchAction from &quot;./Search/SearchAction&quot;</span>
+<span class="gi">+import {Container} from &#39;flux/utils&#39;;</span>
+ function onSubmit({name}) {
+     console.log(name);
+ }
+ function onChange(text) {
+<span class="gi">+    SearchAction.inputText(text);</span>
+ }
+ var bookmarks = [
+<span class="gu">@@ -22,8 +26,27 @@ var bookmarks = [</span>
+         comment: &quot;[test] ビルドが楽になりたい&quot;
+     }
+ ];
+<span class="gd">-React.render(&lt;div&gt;</span>
+<span class="gd">-    &lt;InputUserName onSubmit={onSubmit}/&gt;</span>
+<span class="gd">-    &lt;SearchBox onChange={onChange}/&gt;</span>
+<span class="gd">-    &lt;BookmarkList bookmarks={bookmarks}/&gt;</span>
+<span class="gd">-&lt;/div&gt;, document.body);</span>
+<span class="gi">+export default class App extends React.Component {</span>
+<span class="gi">+    static getStores() { // 変更を監視したいStore一覧</span>
+<span class="gi">+        return [SearchStore];</span>
+<span class="gi">+    }</span>
+<span class="gi">+    // returnされたものが`setState`される</span>
+<span class="gi">+    static calculateState(prevState) {</span>
+<span class="gi">+        return {</span>
+<span class="gi">+            search: SearchStore.getState()</span>
+<span class="gi">+        }</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    render() {</span>
+<span class="gi">+        return &lt;div&gt;</span>
+<span class="gi">+            &lt;InputUserName onSubmit={onSubmit}/&gt;</span>
+<span class="gi">+            &lt;SearchBox onChange={onChange}/&gt;</span>
+<span class="gi">+            &lt;BookmarkList bookmarks={this.state.search.get(&quot;items&quot;)}/&gt;</span>
+<span class="gi">+        &lt;/div&gt;</span>
+<span class="gi">+    }</span>
+<span class="gi">+}</span>
+<span class="gi">+</span>
+<span class="gi">+SearchAction.loadItems();</span>
+// Container.createで`&lt;App /&gt;`をラップしてる
+<span class="gi">+const AppContainer = Container.create(App);</span>
+<span class="gi">+React.render(&lt;AppContainer /&gt;, document.body);</span>
+</code></pre></div>
+<p>これにより、ContainerがStoreの変更を監視してViewに変更を通知できるようになります。</p>
+
+<p><img src="https://monosnap.com/file/x2eJ7ciE8F4nOB62M3yrOXIesyZSTm.png" alt="flux"></p>
+
+<p>ここで問題になるのが、<strong>Storeの変更</strong>とは何かです。</p>
+
+<p>Flux Utilsでは他のFlux実装のように<code>setState</code>や<code>eventEmitter.emit(&quot;change&quot;)</code>のような部分は隠蔽されています。</p>
+
+<p>Flux UtilsのReduceStoreにおける<strong>Storeの変更</strong>とは<code>reduce(state, action)</code>の結果が現在とは異なるstateオブジェクトである時をいいます。</p>
+
+<p>現在とは異なるstateオブジェクトになった ==&gt; stateが変更された ==&gt; Storeの変更イベントが発火</p>
+
+<p>ということになっています。</p>
+
+<p>異なるstateオブジェクトかどうかという判定は<a href="https://github.com/facebook/flux/blob/2b59cf8f83333b02c663ba57445facfe52979ad7/src/stores/FluxReduceStore.js#L59-L61" title="areEqual(one: TState, two: TState): boolean">areEqual(one: TState, two: TState): boolean</a>というメソッドで行われていて、以下のような判定となっています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js">  <span class="nx">areEqual</span><span class="p">(</span><span class="nx">one</span><span class="o">:</span> <span class="nx">TState</span><span class="p">,</span> <span class="nx">two</span><span class="o">:</span> <span class="nx">TState</span><span class="p">)</span><span class="o">:</span> <span class="kr">boolean</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">one</span> <span class="o">===</span> <span class="nx">two</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div>
+<h4 id="stateがimmutable?">StateがImmutable?</h4>
+
+<p>ここで最初の方にも書いてたFlux UtilsがなぜImmutable前提と言えるのかという話をしておきます。</p>
+
+<p>先ほどの<code>areEqual</code>は<code>===</code>でstateを比較しているので、以下のようなstateオブジェクトのプロパティを変更した場合でも、同じstateとみなされます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">key</span> <span class="o">:</span> <span class="s2">&quot;value&quot;</span> <span class="p">};</span>
+<span class="nx">state</span><span class="p">.</span><span class="nx">key</span> <span class="o">=</span> <span class="s2">&quot;!!!&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">newState</span> <span class="o">=</span> <span class="nx">state</span><span class="p">;</span>
+<span class="nx">areEqual</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">newState</span><span class="p">);</span><span class="c1">// true</span>
+</code></pre></div>
+<p>そのため、Storeのstateを変更したという状態にするには<code>reduce</code>で現在のstateオブジェクトをcloneしてから変更するなどが必要になります。</p>
+
+<p>そのため、Flux Utilsでは<a href="https://facebook.github.io/immutable-js/" title="Immutable.js">Immutable.js</a>や<a href="https://github.com/christianalfoni/immutable-store" title="immutable-store">immutable-store</a>といったものを使ってstateを扱わないとかなり面倒になると思います。</p>
+
+<p><a href="https://github.com/christianalfoni/immutable-store" title="immutable-store">immutable-store</a>だと以下のように<code>===</code>で異なるオブジェクトが作れます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">state</span> <span class="o">=</span> <span class="nx">Store</span><span class="p">{</span>
+  <span class="nx">foo</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">newState</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar2&#39;</span><span class="p">);</span>
+<span class="nx">areEqual</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">newState</span><span class="p">);</span><span class="c1">// false</span>
+</code></pre></div>
+<p>このstateはImmutableであるというのは、stateが汚れたりしないのでいいところもありますが、逆に<code>setState</code>のような無理やりstateを変えたいという時に結構面倒な事があります。</p>
+
+<h3 id="ローカルストレージからの復元">ローカルストレージからの復元</h3>
+
+<p><a href="https://github.com/azu/hatebu-mydata-search" title="azu/hatebu-mydata-search">azu/hatebu-mydata-search</a>でも一つ遭遇して、このアプリでは取得済みのブックマークやユーザー名などはIndexedDBに保存しています。</p>
+
+<p>画面を表示した後、非同期で取得したデータをstateを設定し直すのに<code>setState</code>みたいな単純な方法がないので以下のような作りにしました。</p>
+
+<p><code>restoreType</code>というtypeを追加して、ストレージから取得したオブジェクトをstateにするというものを<code>reduce</code>に追加しています。</p>
+
+<p>要はActionCreatorから<code>restoreType</code>というActionとストレージにあるstateをdispatchするという、他のActionと全く同じ流れを踏むようになっています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span><span class="nx">ReduceStore</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;flux/utils&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">Dispatcher</span> <span class="nx">from</span> <span class="s2">&quot;../Dispatcher&quot;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">keys</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;./HatebuAction&quot;</span>
+<span class="kr">import</span> <span class="nx">Immutable</span> <span class="nx">from</span> <span class="s2">&quot;immutable-store&quot;</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">getStorage</span><span class="p">,</span> <span class="nx">setStorage</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;../LocalStorageContainer&quot;</span>
+<span class="kr">const</span> <span class="nx">restoreType</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">(</span><span class="s2">&quot;restore&quot;</span><span class="p">);</span>
+<span class="kr">class</span> <span class="nx">HatebuStore</span> <span class="kr">extends</span> <span class="nx">ReduceStore</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
+        <span class="nx">getStorage</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">name</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">state</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">({</span>
+                <span class="nx">type</span><span class="o">:</span> <span class="nx">restoreType</span><span class="p">,</span>
+                <span class="nx">state</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">storeName</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">state</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getState</span><span class="p">();</span>
+            <span class="nx">setStorage</span><span class="p">(</span><span class="nx">storeName</span><span class="p">,</span> <span class="nx">state</span><span class="p">).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="s2">&quot; on &quot;</span> <span class="o">+</span> <span class="nx">storeName</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="nx">getInitialState</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Immutable</span><span class="p">({</span>
+            <span class="s2">&quot;userName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="nx">reduce</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">inputUser</span><span class="o">:</span>
+                <span class="k">return</span> <span class="nx">state</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;userName&quot;</span><span class="p">,</span> <span class="nx">action</span><span class="p">.</span><span class="nx">userName</span><span class="p">);</span>
+            <span class="k">case</span> <span class="nx">restoreType</span><span class="o">:</span>
+                <span class="k">return</span> <span class="nx">state</span><span class="p">.</span><span class="kr">import</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">state</span><span class="p">);</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>最初はReduceStoreをハックしてどうにかしようとしていますが結構難しい事がわかったので、<code>restoreType</code>というActionでやる形にしています。</p>
+
+<p>やってみるとFlux Utilsはこういった感じで結構ルール外なことはやりにくいようになっている気がするので、ギブス的にもなってるような気がします。</p>
+
+<p>ストレージから復元もActionでやったほうが例外的なルールもなくなるので真っ当な設計だと思います。</p>
+
+<h2 id="まとめ">まとめ</h2>
+
+<p><a href="https://gist.github.com/azu/e0274b703ef97226b0db" title="flux-utilsについて">flux-utilsについて</a>でも書いていましたが、特に<code>MapStore</code>などは<a href="http://flowtype.org/" title="Flow">Flow</a>やTypeScriptといった型付き言語だと使いやすいような形となっています。
+そういったものと一緒にFlux Utilsを使うといろんな人がいても書き方がかなり統一されるような感じがします。</p>
+
+<p>また<a href="http://facebook.github.io/flux/docs/flux-utils.html" title="Flux Utils">Flux Utils</a>のページの最初にも書いてあるように、別にFluxアーキテクチャをやる際にFlux Utilsを絶対使うべきというものでもないと思います。</p>
+
+<blockquote>
+<p>Flux Utils is a set of basic utility classes to help get you started with Flux. These base classes are a solid foundation for a simple Flux application, but they are not a feature-complete framework that will handle all use cases. There are many other great Flux frameworks out there if these utilities do not fulfill your needs.</p>
+</blockquote>
+
+<p><a href="http://flowtype.org/" title="Flow">Flow</a>で書きやすいようにするというモチベーションがありそうですが、immutable state、pure functionといったあたりは<a href="https://github.com/rackt/redux" title="rackt/redux">rackt/redux</a>などにも近いような話も出てきますが、その前に一度Flux Utilsを触ってみると面白いかもしれません。</p>
+
+<p>以前のDispatcherしかなかった<code>flux</code>モジュールに比べて、コード量も少なくなり、Storeなどの形も一定になって見通しが良くなったり、Containerが結構いい感じなので普通に使えるといった印象です。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-08-24-flux-utils.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Flux","JavaScript","library","React","はてなブックマーク"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Flux">Flux</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=library">library</a></li>
+                
+                <li><a href="/tags/?q=React">React</a></li>
+                
+                <li><a href="/tags/?q=はてなブックマーク">はてなブックマーク</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Windowsで使えるCoffeeScriptコンパイラを書いた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="CoffeeScript,javascript,NILScript,Windows" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0409/res2494/">
+    <h1 class="post-title">Windowsで使えるCoffeeScriptコンパイラを書いた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年04月09日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-04-09-windows%E3%81%A7%E4%BD%BF%E3%81%88%E3%82%8Bcoffeescript%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E3%82%92%E6%9B%B8%E3%81%84%E3%81%9F.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://jashkenas.github.com/coffee-script/">CoffeeScript</a>をJavaScriptのコードに変換するコンパイラ(<a href="http://jashkenas.github.com/coffee-script/#scripts">coffee-script.js</a>をラップしただけ)を<a href="http://efcl.info/2010/0816/res1888/" title="NILScriptの使い方と書き方">NILScript</a>を使って書いてみました。NILScriptはSpiderMonkeyが実行環境に利用されているので、ブラウザで実行できるようために配布されてる<a href="http://jashkenas.github.com/coffee-script/#scripts">coffee-script.js</a>をそのまま利用しています。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/NILScript/tree/master/utilityTools/CoffeeScript">CoffeeScript Compiler at master from azu/NILScript &#8211; GitHub</a></li>
+</ul>
+
+<p><strong>使い方</strong></p>
+
+<p><a href="http://lukewarm.s151.xrea.com/nilscript.html">NILScript</a>が必要なので、ダウンロードしておいてください。<br>
+CS-Compiler.ng と <a href="https://github.com/azu/NILScript/tree/master/utilityTools/%3Chttps://github.com/jashkenas/coffee-script/blob/master/extras/coffee-script.js%3E">coffee-script.js</a>(自分で最新のものを持ってきた方がいいです)を適当な同じディレクトリに置きます。</p>
+
+<pre>$ng.exe CS-Compiler.ngへパス "FilePath" or "DirectoryPath"</pre>
+
+<p>という感じでコマンドプロンプト(自分はConsole2+nyaos)から実行して使用します。(D&amp;Dでも使えるかも)<br>
+コンパイルはファイル、ディレクトリどちらに対しても利用できます。<br>
+ng.exe CS-Compiler.ngへパスをまとめたリンクファイルを作っておくと楽かも知れません。</p>
+
+<p>コマンドラインの例は<a href="https://github.com/azu/NILScript/tree/master/utilityTools/CoffeeScript">utilityTools/CoffeeScript at master from azu/NILScript &#8211; GitHub</a>にも書いてあるので参考にしてください。</p>
+
+<p>ファイルの更新に反応して自動的にコンパイルし直すwatchオプションがあるので次のように</p>
+
+<pre>$ng CS-Compiler.ng code.coffee --watch</pre>
+
+<p>という感じで起動すれば、code.coffeeを書き換えるたびにコマンドプロンプトにコンパイル結果が表示されます。<br>
+watchオプション(&#8211;watch or -w)はディレクトリにも使えるようになっていて、起動してからその監視対象のディレクトリに新しくファイルを入れた場合もそのファイルが監視対象に加わるようになっています。</p>
+
+<p>&nbsp;<figure id="attachment_2495" style="width: 300px;" class="wp-caption alignnone"></p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/04/2011-04-09-ss2.png"><img class="size-medium wp-image-2495" title="2011-04-09-ss2" src="http://efcl.info/wp-content/uploads/2011/04/2011-04-09-ss2-300x69.png" alt="" width="300" height="69" /></a><figcaption class="wp-caption-text">watchオプションを入れた様子</figcaption></figure> 
+&nbsp;</p>
+
+<p>コンパイルの実行速度ですが20Kbほどあるunderscore.coffeeが1-2秒ぐらいでコンパイルできるので、まあまあ使ってられるものだと思います。WindowsでCoffeeScriptをコマンドラインでコンパイルできて、ファイルの変更監視ができるものが見つからなかったので<a href="http://kennyj-jp.blogspot.com/2011/01/coffeescriptwindows.html">kennyjのブログ(仮): CoffeeScriptをWindowsで使う</a>を見て何となく書きました。<br>
+(Rubyのやつの使い方分からなかった<a href="http://sites.google.com/site/sappariwiki/coffeescript/coffeescript-install">CoffeeScript インストール &#8211; sappari wiki</a>)</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/NILScript/tree/master/utilityTools/CoffeeScript">utilityTools/CoffeeScript at master from azu/NILScript &#8211; GitHub</a></li>
+<li>  <a href="../adiary/0112">CoffeeScriptの勉強(写経)をした &#8211; prog*sig</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-04-09-windows%E3%81%A7%E4%BD%BF%E3%81%88%E3%82%8Bcoffeescript%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E3%82%92%E6%9B%B8%E3%81%84%E3%81%9F.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["CoffeeScript","javascript","NILScript","Windows"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=CoffeeScript">CoffeeScript</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=NILScript">NILScript</a></li>
+                
+                <li><a href="/tags/?q=Windows">Windows</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

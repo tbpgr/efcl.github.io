@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Tumblrをブログとして使うためにやるべき事 | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="AutoPagerize,blog,Tumblr,日本語,検索" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0116/res2211/">
+    <h1 class="post-title">Tumblrをブログとして使うためにやるべき事</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年01月16日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-01-16-tumblr%E3%82%92%E3%83%96%E3%83%AD%E3%82%B0%E3%81%A8%E3%81%97%E3%81%A6%E4%BD%BF%E3%81%86%E3%81%9F%E3%82%81%E3%81%AB%E3%82%84%E3%82%8B%E3%81%B9%E3%81%8D%E4%BA%8B.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>Tumblrをブログとして使うためにやるべき事</p>
+
+<h3 id="投稿用サブブログを作成">投稿用サブブログを作成</h3>
+
+<p>Tumblrはメインブログと、Create tumblelogから改めて作成するサブブログと分かれていて、メインブログは共同更新ができない感じになっています。なので、今後そういう可能性があるならばCreate tumblelogから改めてtumblelogを作成します。</p>
+
+<p><a href="http://journal.mycom.co.jp/series/tumblr/012/index.html" title="【連載】『Tumblr』のおさらい (12) 複数人でTumblelogを共同更新してみる | ネット | マイコミジャーナル">【連載】『Tumblr』のおさらい (12) 複数人でTumblelogを共同更新してみる | ネット | マイコミジャーナル</a></p>
+
+<h3 id="ドメイン">ドメイン</h3>
+
+<p>Tumblrは独自ドメインが使用できます。<br>
+特にドメインの制限はないので、DNSレコードでTumblrのIPアドレスを振って、「Info」 メニューの一番下にある 「Use a custom domain name」 にチェックして取得したドメインを設定するだけでOKです。<br>
+(別にドメインを持ってなくてもドメインを指定できてしまい、誰かが指定してあるとそのドメインは他の人が指定できないといういたずら要素が存在してる…)</p>
+
+<ul>
+<li>  <a href="http://hyper-text.org/archives/2009/04/tumblr_custom_domain.shtml" title="独自ドメインで Tumblr を使う | WWW WATCH">独自ドメインで Tumblr を使う | WWW WATCH</a></li>
+</ul>
+
+<h3 id="テーマ">テーマ</h3>
+
+<p>Tumblrは元からテーマがいろいろと用意されているので、それらを見本にしていじるのが手っ取り早いです。<br>
+TumblrのテーマはHTMLの構造を自由にいじれるので、比較的自由度は高めだと思います。<br>
+ただし、Tumblrサービスで共通したHTML構造にならないという意味でもあるためAutopagerizeが動かないページも多いです。<br>
+Autopagerizeが動かないと鈍器で殴られるので下を参考に対応しましょう。</p>
+
+<ul>
+<li>  <a href="http://otsune.tumblr.com/post/334387549/autopagerize-tumblr" title="Autopagerizeが動かないtumblrなんて… - otsune tumblr まとめサイト 画像保管庫Q">Autopagerizeが動かないtumblrなんて… &#8211; otsune tumblr まとめサイト 画像保管庫Q</a></li>
+</ul>
+
+<h3 id="seoやアクセス解析や検索">SEOやアクセス解析や検索</h3>
+
+<p>まずはブログとして使うと外部からのリンクも多いと思うのでアクセス解析を入れます。<br>
+多分多くのテーマに{block:IfGoogleAnalyticsUACode}という<a href="http://www.google.com/intl/ja/analytics/" title="Google Analytics | 公式ウェブサイト">Google Analytics</a>のブロックがあると思うので、それを消してから<br>
+</head>の前に次のようなGoogle Analyticsの非同期コードを仕込んでおきます。<br>
+{text:Google Analytics UA Code}という部分は設定のApperenceタブにUA-xxxxxと入力する場所があるので、そこで設定した値に置き換わります。またこの非同期コードはheadセクション内に存在しないと機能しないことに注意してください(</body>前とかはダメ)</p>
+
+<ul>
+<li>  <a href="http://www.google.com/support/analytics/bin/answer.py?answer=174894" title="設定の確認 - Analytics ヘルプ">設定の確認 &#8211; Analytics ヘルプ</a></li>
+</ul>
+
+<pre class="brush:javascript;">{block:IfGoogleAnalyticsUACode}
+&#60;script type="text/javascript"&#62;
+
+  var _gaq = _gaq || &#91;&#93;;
+  _gaq.push(&#91;'_setAccount', ''&#93;);
+  _gaq.push(&#91;'_trackPageview'&#93;);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')&#91;0&#93;; s.parentNode.insertBefore(ga, s);
+  })();
+
+&#60;/script&#62;
+{/block:IfGoogleAnalyticsUACode}
+</pre>
+
+<p>Google Analyticsの非同期コードを入れたついでに<a href="https://www.google.com/webmasters/tools/home?hl=ja" title="ウェブマスター ツール - ホーム">Googleウェブマスター ツール</a>でsitemap.xmlを登録しましょう。<br>
+使ってるTumblrのURLを追加して、所有者の確認で&#8221;Google Analytics アカウントにリンク&#8221;を選べば簡単に登録できます。(非同期コードを仕込んでいる必要があるので、他の方法でも可能)<br>
+サイト設定→サイトマップから&#8221;サイトマップを送信&#8221;でサイトマップのURLを追加します。<br>
+サイトマップのURLは <em><a href="http://site.tumblr.com/sitemap.xml">http://site.tumblr.com/sitemap.xml</a></em> に自動的に生成されていると思うのでそれを指定します。<br>
+検索エンジン対して優しくなるように設定のAdvanecedでインデックスの許可やユーザーフレンドリーなURLにするなどの設定を見ておくといいでしょう(デフォルトであんまり問題無かったけど)</p>
+
+<ul>
+<li>  <a href="http://tumblelog.jauderho.com/post/122434303/4-tumblr-seo-tips" title="4 Tumblr SEO Tips - Jauder Ho - tumblr, seo, sitemap, - links and things">4 Tumblr SEO Tips &#8211; Jauder Ho &#8211; tumblr, seo, sitemap, &#8211; links and things</a></li>
+<li>  <a href="http://hana-asobi.tumblr.com/post/444383843/tumblr-note4-tumblr-4-seo" title="tumblr. note4 tumblrの４つのSEO対策 - 花あそびエコブログ">tumblr. note4 tumblrの４つのSEO対策 &#8211; 花あそびエコブログ</a> (上の訳)</li>
+<li>  <a href="http://ido.nu/kuma/2008/01/29/now-tumblr-supports-google-sitemaps/" title="tumblrがgoogle sitemaps対応になってた « ku">tumblrがgoogle sitemaps対応になってた « ku</a></li>
+<li>  <a href="http://www.socialblogr.com/2010/03/seo-on-tumblr-blog.html" title="SEO on Tumblr Blog | SocialBlogr">SEO on Tumblr Blog | SocialBlogr</a></li>
+</ul>
+
+<h3 id="最後に検索について">最後に検索について</h3>
+
+<p>Tumblrの検索は日本語が通らない(タグでは通る)ので、何かしらの代用手段が必要になると思います。</p>
+
+<ul>
+<li>  <a href="http://webkit.seesaa.net/article/129746010.html" title="Tumblrで日本語検索をするいくつかの方法 - conflict error">Tumblrで日本語検索をするいくつかの方法 &#8211; conflict error</a></li>
+</ul>
+
+<p>これを打破するために<a href="http://trunk.ly/" title="Trunk.ly">Trunk.ly</a>というサービスを利用します。<a href="http://trunk.ly/" title="Trunk.ly">Trunk.ly</a>はTwitterやRSSからリンクを取り込んで検索する事ができるサービスです。検索対象にしたいTumblrのRSSを取り込めば、取り込んだ時点からの内容は検索が可能になります。日本語も通るかつ、記事中に出てきたリンク先も解析対象にするため検索の取りこぼしは少ないです。</p>
+
+<h3 id="tumblrをブログとして使うメリット">Tumblrをブログとして使うメリット</h3>
+
+<p>Tumblrはブログシステムとしても機能が十分にあり、他のブログシステムとは違ってReblogやLikeと言ったコミュニケーション機能が存在します。そうした反応を作りやすい仕組みになっているため、ブログより更新の障壁は低くなるかもしれません。<br>
+WordPressといった高機能なブログエンジンもありますが、無料で手軽に利用できるTumblrは選択肢としてあっても良いかもしれません。</p>
+
+<ul>
+<li>  <a href="http://web-g.org/post/318214726" title="tumblrはブログツールとしてもオススメ : web-g.org">tumblrはブログツールとしてもオススメ : web-g.org</a></li>
+</ul>
+
+<p><strong>【連載】『Tumblr』のおさらい | ネット | マイコミジャーナル</strong>
+:   <a href="http://journal.mycom.co.jp/series/tumblr/menu.html" title="【連載】『Tumblr』のおさらい | ネット | マイコミジャーナル">http://journal.mycom.co.jp/series/tumblr/menu.html</a></p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-01-16-tumblr%E3%82%92%E3%83%96%E3%83%AD%E3%82%B0%E3%81%A8%E3%81%97%E3%81%A6%E4%BD%BF%E3%81%86%E3%81%9F%E3%82%81%E3%81%AB%E3%82%84%E3%82%8B%E3%81%B9%E3%81%8D%E4%BA%8B.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["AutoPagerize","blog","Tumblr","日本語","検索"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=AutoPagerize">AutoPagerize</a></li>
+                
+                <li><a href="/tags/?q=blog">blog</a></li>
+                
+                <li><a href="/tags/?q=Tumblr">Tumblr</a></li>
+                
+                <li><a href="/tags/?q=日本語">日本語</a></li>
+                
+                <li><a href="/tags/?q=検索">検索</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

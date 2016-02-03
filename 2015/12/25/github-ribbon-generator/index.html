@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        GitHub Ribbon GeneratorをVue.jsで書いた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,Vue.js,Flux,GitHub" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/12/25/github-ribbon-generator/">
+    <h1 class="post-title">GitHub Ribbon GeneratorをVue.jsで書いた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年12月25日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-12-25-github-ribbon-generator.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://qiita.com/advent-calendar/2015/vue" title="Vue.js Advent Calendar 2015 - Qiita">Vue.js Advent Calendar 2015 - Qiita</a> 25日目</p>
+
+<h2 id="github-ribbon-generator">GitHub Ribbon Generator</h2>
+
+<p><a href="http://azu.github.io/github-ribbon-generator/" title="GitHub Ribbon Generator">GitHub Ribbon Generator</a>というツールを作りました。</p>
+
+<p><a href="http://azu.github.io/github-ribbon-generator/"><img src="http://efcl.info/wp-content/uploads/2015/12/25-1451045310.png" alt="github ribbon"></a></p>
+
+<p><a href="https://github.com/blog/273-github-ribbons" title="GitHub Ribbons">GitHub Ribbons</a>というのは、右上にあるFork Meボタンのことです。</p>
+
+<ul>
+<li><a href="https://github.com/blog/273-github-ribbons" title="GitHub Ribbons">GitHub Ribbons</a> 公式の解説</li>
+</ul>
+
+<h2 id="使い方">使い方</h2>
+
+<ul>
+<li>GitHub Repository</li>
+<li>Position(右か左)</li>
+<li>Color</li>
+</ul>
+
+<p>を入力してあげれば、そのままコピペ出来るGitHub RibbonのHTMLが出来上がるので後はコピペするだけです。</p>
+
+<h2 id="仕組み">仕組み</h2>
+
+<p>このツール自体はコピペしてURLを書き換えとか毎回やるの面倒だなと思って作った程度ですが、
+もう一つの目的としては<a href="http://vuejs.org/2015/10/26/1.0.0-release/" title="Vue.js 1.0.0">Vue.js 1.0.0</a>を使ってみたかったというのがあります。</p>
+
+<ul>
+<li><a href="https://github.com/azu/github-ribbon-generator" title="azu/github-ribbon-generator">azu/github-ribbon-generator</a></li>
+</ul>
+
+<p><a href="http://jp.vuejs.org/guide/application.html" title="大規模アプリケーションの構築 - vue.js">大規模アプリケーションの構築 - vue.js</a>にかかれていること大体実装した感じになっています。
+Vue.jsというと2 wayのgetter/setterを使ったデータバインディング的な感じですが、アプリが大きくなると辛くなるというのはわかっていました。(フォームとかは簡単で便利ですが)</p>
+
+<p>なので、目的としては以下の2つになっています。</p>
+
+<ul>
+<li>React + Fluxみたいなデータの流れは実装ができるのか</li>
+<li><code>.vue</code>というフォーマット?での書き心地を確かめたい</li>
+</ul>
+
+<p>大したことはやってないので<a href="https://github.com/azu/github-ribbon-generator" title="azu/github-ribbon-generator">azu/github-ribbon-generator</a>を直接見たほうが速いです。</p>
+
+<h3 id="state">state</h3>
+
+<p>このツールではstateは3つしか出てきません。</p>
+
+<ul>
+<li>GitHub Repository</li>
+<li>Position</li>
+<li>Color</li>
+</ul>
+
+<p>これを<a href="https://github.com/azu/github-ribbon-generator/blob/master/src/store/UserStore.js" title="UserStore">UserStore</a>という適当なものへ出し入れ出来るようにしています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// ChangeEmitterは</span>
+<span class="kr">import</span> <span class="nx">ChangeEmitter</span> <span class="nx">from</span> <span class="s2">&quot;./ChangeEmitter&quot;</span><span class="p">;</span>
+<span class="kr">class</span> <span class="nx">UserStore</span> <span class="kr">extends</span> <span class="nx">ChangeEmitter</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">repositoryURL</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nx">position</span><span class="o">:</span> <span class="nx">defaultOptions</span><span class="p">.</span><span class="nx">position</span><span class="p">,</span>
+            <span class="nx">color</span><span class="o">:</span> <span class="nx">defaultOptions</span><span class="p">.</span><span class="nx">color</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="nx">setState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="p">{},</span> <span class="nx">state</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">emitChange</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="nx">getState</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">const</span> <span class="nx">emitter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UserStore</span><span class="p">();</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">emitter</span><span class="p">;</span>
+</code></pre></div>
+<h3 id=".vue">.vue</h3>
+
+<p><code>.vue</code> はVue.jsが公式に提供してるBrowseryとWebpackから扱えるフォーマットで、HTML/CSS/JSを一つにまとめたファイルです。</p>
+
+<ul>
+<li><a href="http://vuejs.github.io/vue-loader/start/spec.html">Vue Component Spec | Introduction</a></li>
+<li><a href="https://github.com/vuejs/vue-loader">vuejs/vue-loader</a></li>
+<li><a href="https://github.com/vuejs/vueify">vuejs/vueify</a></li>
+</ul>
+
+<p>このツールのRoot Componentとなってる<a href="https://github.com/azu/github-ribbon-generator/blob/master/src/component/app.vue" title="app.vue">app.vue</a>を見てみると分かりやすいと思います。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span>
+    <span class="nc">.App</span> <span class="p">{</span>
+        <span class="k">padding-left</span><span class="o">:</span> <span class="m">2em</span><span class="p">;</span>
+        <span class="k">padding-right</span><span class="o">:</span> <span class="m">2em</span><span class="p">;</span>
+        <span class="k">margin-left</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span>
+        <span class="k">margin-right</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span>
+        <span class="k">padding-top</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
+        <span class="k">max-width</span><span class="o">:</span> <span class="m">768px</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nc">.App</span> <span class="nt">h1</span><span class="o">,</span> <span class="nc">.App</span> <span class="nt">h2</span> <span class="p">{</span>
+        <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+        <span class="k">font-weight</span><span class="o">:</span> <span class="m">100</span><span class="p">;</span>
+        <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nc">.App</span> <span class="nc">.header</span> <span class="p">{</span>
+        <span class="k">margin-bottom</span><span class="o">:</span> <span class="m">1</span><span class="n">rem</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;template&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;App&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>GitHub Ribbon Generator<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;header&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h2&gt;</span>
+                <span class="nt">&lt;iframe</span> <span class="na">src=</span><span class="s">&quot;https://ghbtns.com/github-btn.html?user=azu&amp;repo=github-ribbon-generator&amp;type=star&amp;count=true&amp;size=large&quot;</span>
+                        <span class="na">frameborder=</span><span class="s">&quot;0&quot;</span> <span class="na">scrolling=</span><span class="s">&quot;0&quot;</span> <span class="na">width=</span><span class="s">&quot;160px&quot;</span> <span class="na">height=</span><span class="s">&quot;30px&quot;</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+            <span class="nt">&lt;/h2&gt;</span>
+            <span class="nt">&lt;h2&gt;</span>Create Copy-Pastable GitHub Ribbon HTML snippet<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;user-input</span> <span class="na">:repository-url=</span><span class="s">&quot;state.repositoryURL&quot;</span>
+                    <span class="na">:color=</span><span class="s">&quot;state.color&quot;</span>
+                    <span class="na">:position=</span><span class="s">&quot;state.position&quot;</span><span class="nt">&gt;&lt;/user-input&gt;</span>
+        <span class="nt">&lt;copy-paste-box</span> <span class="na">:repository-url=</span><span class="s">&quot;state.repositoryURL&quot;</span>
+                        <span class="na">:color=</span><span class="s">&quot;state.color&quot;</span>
+                        <span class="na">:position=</span><span class="s">&quot;state.position&quot;</span><span class="nt">&gt;&lt;/copy-paste-box&gt;</span>
+        <span class="nt">&lt;git-hub-ribbon</span> <span class="na">:repository-url=</span><span class="s">&quot;state.repositoryURL&quot;</span>
+                        <span class="na">:color=</span><span class="s">&quot;state.color&quot;</span>
+                        <span class="na">:position=</span><span class="s">&quot;state.position&quot;</span><span class="nt">&gt;&lt;/git-hub-ribbon&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+    <span class="kr">import</span> <span class="nx">UserInput</span> <span class="nx">from</span> <span class="s2">&quot;./user-input.vue&quot;</span><span class="p">;</span>
+    <span class="kr">import</span> <span class="nx">GitHubRibbon</span> <span class="nx">from</span> <span class="s2">&quot;./github-ribbon.vue&quot;</span><span class="p">;</span>
+    <span class="kr">import</span> <span class="nx">CopyPasteBox</span> <span class="nx">from</span> <span class="s2">&quot;./copypaste-box.vue&quot;</span><span class="p">;</span>
+    <span class="kr">import</span> <span class="nx">Store</span> <span class="nx">from</span> <span class="s2">&quot;../store/UserStore&quot;</span><span class="p">;</span>
+    <span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;App&quot;</span><span class="p">,</span>
+        <span class="c1">// App&#39;s state</span>
+        <span class="nx">data</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="nx">state</span><span class="o">:</span> <span class="nx">Store</span><span class="p">.</span><span class="nx">getState</span><span class="p">()</span>
+            <span class="p">};</span>
+        <span class="p">},</span>
+        <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">UserInput</span><span class="p">,</span>
+            <span class="nx">GitHubRibbon</span><span class="p">,</span>
+            <span class="nx">CopyPasteBox</span>
+        <span class="p">},</span>
+        <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+            <span class="c1">// update State</span>
+            <span class="nx">updateState</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="kr">const</span> <span class="nx">state</span> <span class="o">=</span> <span class="nx">Store</span><span class="p">.</span><span class="nx">getState</span><span class="p">();</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">state</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nx">created</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="nx">Store</span><span class="p">.</span><span class="nx">onChange</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">updateState</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="nx">destroyed</span><span class="p">(){</span>
+            <span class="nx">Store</span><span class="p">.</span><span class="nx">removeChange</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">updateState</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div>
+<ul>
+<li><code>&lt;style&gt;</code> に書いたものがそのまま<code>&lt;style&gt;</code>要素として追加されています。
+
+<ul>
+<li><code>&lt;style scoped&gt;</code> とすればカプセル化もできます。</li>
+</ul></li>
+<li><code>&lt;template&gt;</code> がそのコンポーネントなので、分かりやすく<code>&lt;div class=&quot;App&quot;&gt;</code>で囲んでいます。</li>
+<li><code>&lt;script&gt;</code> はVueの<a href="http://jp.vuejs.org/guide/components.html" title="コンポーネント">コンポーネント</a>のコードです。</li>
+</ul>
+
+<p><img src="http://efcl.info/wp-content/uploads/2015/12/2015-12-25_20-00-13.jpg" alt=".vue style"></p>
+
+<p>Reactだと<code>&lt;style&gt;</code>がない事以外は大体同じですが、<code>&lt;style&gt;</code>が同じ所に書けるのでコンポーネントのスタイルを簡単に適応するのがやりやすいです。</p>
+
+<p>Reactの場合も、コンポーネント毎にCSSファイルを作ってスタイルの設定をしていたので、同じ事がそのままできるのは分かりやすいです。</p>
+
+<blockquote>
+<p>これはSUIT CSSという命名ルールと殆ど同じで、MyComponentというコンポーネントには.MyComponentというクラス名をつけるという命名ルールです。</p>
+</blockquote>
+
+<ul>
+<li><a href="http://efcl.info/2015/08/24/flux-utils/" title="はてなブックマーク検索を作りながらFlux Utilsについて学ぶ | Web Scratch">はてなブックマーク検索を作りながらFlux Utilsについて学ぶ | Web Scratch</a></li>
+</ul>
+
+<p>逆に分かりにくい所としては、<code>.Vue</code>でも<code>components</code>に子コンポーネントの<code>.vue</code>を読み込んだインスタンスを渡す事で、<code>&lt;template&gt;</code>の中でそのコンポーネントをタグとして書くことが出来ます。
+(JSXでも大体同じ)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js">        <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">UserInput</span><span class="p">,</span>
+            <span class="nx">GitHubRibbon</span><span class="p">,</span>
+            <span class="nx">CopyPasteBox</span>
+        <span class="p">},</span>
+</code></pre></div>
+<p>しかし、<code>.vue</code>では<code>components</code>に渡した名前そのままではなく、ケバブケースにした名前で<code>&lt;template&gt;</code>に書く必要があります。</p>
+
+<p>例えば、<code>UserInput</code>ならば<code>user-input</code>というようになります。(keyで指定すればそのkeyで書くことが出来ます)</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;user-input</span> <span class="na">:repository-url=</span><span class="s">&quot;state.repositoryURL&quot;</span>
+            <span class="na">:color=</span><span class="s">&quot;state.color&quot;</span>
+            <span class="na">:position=</span><span class="s">&quot;state.position&quot;</span><span class="nt">&gt;&lt;/user-input&gt;</span>
+</code></pre></div>
+<blockquote>
+<p>HTML の属性は大文字と小文字を区別しません。キャメルケースされた prop 名を属性として使用するとき、それらをケバブケース(kebab-case: ハイフンで句切られた)として使用する必要があります:</p>
+</blockquote>
+
+<ul>
+<li><a href="http://jp.vuejs.org/guide/components.html#%E3%82%AD%E3%83%A3%E3%83%A1%E3%83%AB%E3%82%B1%E3%83%BC%E3%82%B9_%E5%AF%BE_%E3%82%B1%E3%83%90%E3%83%96%E3%82%B1%E3%83%BC%E3%82%B9" title="キャメルケース 対 ケバブケース">キャメルケース 対 ケバブケース</a></li>
+</ul>
+
+<p>このケバブケースで書かないといけないのが、警告もでなくてとても分かりにくい感じでした。
+(Reactの<code>className</code>とか、Riotの<a href="http://riotjs.com/ja/api/#tag" title="riot.tag">riot.tag</a>関数の制限とかも似た話ですが)</p>
+
+<h3 id="コンポーネントとデータ">コンポーネントとデータ</h3>
+
+<p>ReactのPropsと同じですが、Vue.jsも<code>props</code>というの子コンポーネントで宣言してあげると、親コンポーネントから値を受け取れます。</p>
+
+<p>親(App.vue)からは</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;user-input</span> <span class="na">:repository-url=</span><span class="s">&quot;state.repositoryURL&quot;</span>
+            <span class="na">:color=</span><span class="s">&quot;state.color&quot;</span>
+            <span class="na">:position=</span><span class="s">&quot;state.position&quot;</span><span class="nt">&gt;&lt;/user-input&gt;</span>
+</code></pre></div>
+<p>と3つの値を渡したいで、子となる<a href="https://github.com/azu/github-ribbon-generator/blob/master/src/component/user-input.vue" title="user-input.vue">user-input.vue</a>では</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">props: {
+    repositoryURL: String,
+    position: String,
+    color: String
+},
+</code></pre></div>
+<p>と宣言しています。</p>
+
+<p>受け取れるデータのタイプも書くことができ、<a href="https://facebook.github.io/react/docs/reusable-components.html" title="React.PropTypes">React.PropTypes</a>よりはシンプルなので分かりやすいです。</p>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">Why is React&#39;s PropTypes naming inconsistent with JS? number, object, string, array — all good — but then &quot;func&quot; and &quot;bool&quot;. Um...</p>&mdash; kangax (@kangax) <a href="https://twitter.com/kangax/status/647110546194624512">September 24, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span>
+    <span class="nc">.UserInput</span> <span class="nc">.UserInput-field</span> <span class="p">{</span>
+        <span class="k">margin</span><span class="o">:</span> <span class="m">1</span><span class="n">rem</span> <span class="m">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;template&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;UserInput&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;form</span> <span class="na">class=</span><span class="s">&quot;pure-form pure-form-aligned&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;fieldset&gt;</span>
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;UserInput-field pure-control-group&quot;</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label&gt;</span>GitHub Repository:<span class="nt">&lt;/label&gt;</span>
+                    <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">&quot;pure-input-2-3&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">v-model=</span><span class="s">&quot;repositoryURL&quot;</span>
+                           <span class="na">placeholder=</span><span class="s">&quot;https://github.com/jquery/jquery&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;/div&gt;</span>
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;UserInput-field pure-control-group&quot;</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;position&quot;</span><span class="nt">&gt;</span>Position:<span class="nt">&lt;/label&gt;</span>
+                    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&quot;position&quot;</span> <span class="na">v-model=</span><span class="s">&quot;position&quot;</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;option</span> <span class="na">v-for=</span><span class="s">&quot;position in positionList&quot;</span> <span class="na">:value=</span><span class="s">&quot;position.value&quot;</span><span class="nt">&gt;</span>
+
+                        <span class="nt">&lt;/option&gt;</span>
+                    <span class="nt">&lt;/select&gt;</span>
+                <span class="nt">&lt;/div&gt;</span>
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;UserInput-field pure-control-group&quot;</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;color&quot;</span><span class="nt">&gt;</span>Color:<span class="nt">&lt;/label&gt;</span>
+                    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&quot;color&quot;</span> <span class="na">v-model=</span><span class="s">&quot;color&quot;</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;option</span> <span class="na">v-for=</span><span class="s">&quot;color in colorList&quot;</span> <span class="na">:value=</span><span class="s">&quot;color.value&quot;</span><span class="nt">&gt;</span>
+
+                        <span class="nt">&lt;/option&gt;</span>
+                    <span class="nt">&lt;/select&gt;</span>
+                <span class="nt">&lt;/div&gt;</span>
+            <span class="nt">&lt;/fieldset&gt;</span>
+        <span class="nt">&lt;/form&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+    <span class="kr">import</span> <span class="nx">Store</span> <span class="nx">from</span> <span class="s2">&quot;../store/UserStore&quot;</span><span class="p">;</span>
+    <span class="kr">import</span> <span class="p">{</span><span class="nx">colorList</span><span class="p">,</span> <span class="nx">positionList</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;../util/ribbon&quot;</span><span class="p">;</span>
+    <span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;UserInput&#39;</span><span class="p">,</span>
+        <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">repositoryURL</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+            <span class="nx">position</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+            <span class="nx">color</span><span class="o">:</span> <span class="nb">String</span>
+        <span class="p">},</span>
+        <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+            <span class="c1">// http://jp.vuejs.org/guide/forms.html#Select</span>
+            <span class="c1">// Create [{ text, value }]</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="nx">colorList</span><span class="o">:</span> <span class="nx">colorList</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">color</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="p">{</span><span class="nx">text</span><span class="o">:</span> <span class="nx">color</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="nx">color</span><span class="p">}</span>
+                <span class="p">}),</span>
+                <span class="nx">positionList</span><span class="o">:</span> <span class="nx">positionList</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">position</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="p">{</span><span class="nx">text</span><span class="o">:</span> <span class="nx">position</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="nx">position</span><span class="p">}</span>
+                <span class="p">})</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nx">watch</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">repositoryURL</span><span class="p">(</span><span class="nx">newVal</span><span class="p">,</span> <span class="nx">oldVal</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">Store</span><span class="p">.</span><span class="nx">setRepositoryURL</span><span class="p">(</span><span class="nx">newVal</span><span class="p">);</span>
+            <span class="p">},</span>
+            <span class="nx">color</span><span class="p">(</span><span class="nx">newVal</span><span class="p">,</span> <span class="nx">oldVal</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">Store</span><span class="p">.</span><span class="nx">setColor</span><span class="p">(</span><span class="nx">newVal</span><span class="p">);</span>
+            <span class="p">},</span>
+            <span class="nx">position</span><span class="p">(</span><span class="nx">newVal</span><span class="p">,</span> <span class="nx">oldVal</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">Store</span><span class="p">.</span><span class="nx">setPosition</span><span class="p">(</span><span class="nx">newVal</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div>
+<p><code>&lt;template&gt;</code>ではその受け取った値を元に表示するHTMLを書くという感じです。</p>
+
+<p>Vue.jsでは<code>watch</code>プロパティに書いたキー名で、Vueインスタンス[キー名] を監視する機能があるので、
+これで値が変わったらStoreの値を書き換える<code>Store.set*</code>を呼んでいます。
+(<a href="http://jp.vuejs.org/api/#vm-$watch(_expOrFn,_callback,_%5Boptions%5D_)" title="vm.$watch">vm.$watch</a>の宣言的なバージョンですね)</p>
+
+<p>Storeに直接setter的なメソッドが生えてますが、この辺をAction的なものを経由するようにしたりすれば、大体Fluxと似たようなデータフローになると思います。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2015/12/25-1451042957.png" alt="data-flow"></p>
+
+<ul>
+<li><a href="http://jp.vuejs.org/guide/application.html" title="大規模アプリケーションの構築 - vue.js">大規模アプリケーションの構築 - vue.js</a></li>
+</ul>
+
+<p>今回はFluxフレームワーク的なライブラリを使わずにEventEmitterのみで書いてます。</p>
+
+<p>公式でもFluxライクなフレームワークは作ってるらしいので、その辺を見てみると面白いかもしれません。</p>
+
+<ul>
+<li><a href="http://qiita.com/tomato360/items/b2f11a392bf8fb125610">Vue.js用のFluxライクなライブラリVuexを試してみる - Qiita</a></li>
+<li><a href="https://github.com/vuejs/vuex">vuejs/vuex</a></li>
+<li><a href="http://blog.mmmcorp.co.jp/blog/2015/12/03/vue-with-redux/" title="Vue.jsにreduxを載せた話 | MMMブログ">Vue.jsにreduxを載せた話 | MMMブログ</a></li>
+</ul>
+
+<h2 id="まとめ">まとめ</h2>
+
+<ul>
+<li>React + Fluxみたいなデータの流れは実装ができるのか
+
+<ul>
+<li>=&gt; まあ普通にできそう</li>
+</ul></li>
+<li><code>.vue</code>というフォーマット?での書き心地を確かめたい
+
+<ul>
+<li>=&gt; HTML/CSS/JSがまとまった感じ</li>
+<li>JSXに比べるとCSSも一緒なのは分かりやすい</li>
+<li>テンプレートがちょこちょこ難しい</li>
+</ul></li>
+</ul>
+
+<p>データフローの話は公式でも<a href="https://github.com/vuejs/vuex">vuejs/vuex</a>みたいので模索していそうです。</p>
+
+<p>Vue.jsで適当に書くとデータバインディングに頼って、どこで何が更新されているのか分からなくなるみたいな事が起きやすい印象です。
+そのため、複雑になったものからデータフローをどう整理するかを色々考えてみると面白そうです。
+(Reactでもいい気はしていますが)</p>
+
+<p><code>.vue</code>はCSSのカプセル化もあり結構いい感じですが、ただの独自フォーマットであるのでやり過ぎると後戻りできなくなる場合があるので気をつける必要がありそうです。</p>
+
+<ul>
+<li>Browserify、Webpackのプラグインとして実装されているので全てをコントロールできなくて破壊的な変更が起きる可能性</li>
+<li><a href="http://vuejs.github.io/vue-loader/" title="vue-loader">vue-loader</a>は特に何でも出来る感じなので、何でもやると危なそう</li>
+</ul>
+
+<p>また、テンプレートの構文がちょこちょこ複雑(評価結果が見た目から直感的に分からない)な所があったりします。</p>
+
+<ul>
+<li><a href="http://jp.vuejs.org/guide/components.html#%E3%83%AA%E3%83%86%E3%83%A9%E3%83%AB_%E5%AF%BE_%E5%8B%95%E7%9A%84" title="リテラル 対 動的">リテラル 対 動的</a></li>
+<li><a href="http://jp.vuejs.org/guide/syntax.html" title="データバインディング構文 - vue.js">データバインディング構文 - vue.js</a></li>
+</ul>
+
+<p>この辺は独自のテンプレート言語を持つ宿命という感じがするので慣れなのかもしれません。</p>
+
+<p>ただ、今回のツールだと大体何で書いても大した違いはない気がします。
+以下の比較も読んでみると面白いかもしれません。</p>
+
+<ul>
+<li><a href="http://jp.vuejs.org/guide/comparison.html" title="他のフレームワークとの比較 - vue.js">他のフレームワークとの比較 - vue.js</a></li>
+</ul>
+
+<p>以上、JavaScriptの素振りの話でした。</p>
+
+<ul>
+<li><a href="http://qiita.com/azu/items/bacd146ed2e26980b9b0" title="JavaScriptのトレンドを素振りして確認する方法 - Qiita">JavaScriptのトレンドを素振りして確認する方法 - Qiita</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-12-25-github-ribbon-generator.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","Vue.js","Flux","GitHub"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=Vue.js">Vue.js</a></li>
+                
+                <li><a href="/tags/?q=Flux">Flux</a></li>
+                
+                <li><a href="/tags/?q=GitHub">GitHub</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

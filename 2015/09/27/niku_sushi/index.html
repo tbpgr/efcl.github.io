@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Markdownで書く電子書籍について話してきた #niku_sushi | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,sushi" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/09/27/niku_sushi/">
+    <h1 class="post-title">Markdownで書く電子書籍について話してきた #niku_sushi</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年09月27日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-09-27-niku_sushi.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="https://twitter.com/search?q=%23niku_sushi" title="#niku_sushi">#niku_sushi</a>で<a href="http://azu.github.io/slide/niku_sushi/ebook_development.html" title="Markdownで書く電子書籍開発環境">Markdownで書く電子書籍開発環境</a>について発表してきました。</p>
+
+<ul>
+<li><a href="http://togetter.com/li/879455" title="#niku_sushi - Togetterまとめ">#niku_sushi - Togetterまとめ</a></li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">今日のメニュー <a href="https://twitter.com/hashtag/niku_sushi?src=hash">#niku_sushi</a> <a href="http://t.co/S6rnCrunGB">pic.twitter.com/S6rnCrunGB</a></p>&mdash; Jxck (@Jxck_) <a href="https://twitter.com/Jxck_/status/648064989203312641">September 27, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+
+<h2 id="webrtc---kyo_ago">WebRTC - kyo_ago</h2>
+
+<ul>
+<li>WebRTCでは大人数に同時に対応できているサービスは殆どない</li>
+<li>大抵は8人-12人以下というところになっている</li>
+<li>人数が多くなると安定したものが難しい</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">名もなき馬刺し <a href="https://twitter.com/hashtag/niku_sushi?src=hash">#niku_sushi</a> <a href="http://t.co/7Q6FiIeYMF">pic.twitter.com/7Q6FiIeYMF</a></p>&mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/status/648063083357671424">September 27, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>WebRTCはパテントの世界</li>
+<li>コーデックもパテントの問題</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">馬刺しユッケ <a href="https://twitter.com/hashtag/niku_sushi?src=hash">#niku_sushi</a> <a href="http://t.co/ZROlo8YVMB">pic.twitter.com/ZROlo8YVMB</a></p>&mdash; Jxck (@Jxck_) <a href="https://twitter.com/Jxck_/status/648065460781494272">September 27, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>MSEdgeがORTCの実装とかを最近頑張ってる</li>
+<li><a href="http://microsoft-news.com/microsoft-edge-to-natively-support-skype-voice-and-video-calls-by-the-end-of-this-year/" title="Microsoft Edge to natively support Skype voice and video calls by the end of this year - Microsoft News">Microsoft Edge to natively support Skype voice and video calls by the end of this year - Microsoft News</a></li>
+<li>MSEdgeのバージョンがわかりにくい</li>
+<li>Build 10547みたいのじゃなくて、メニューからちゃんとEdge 12という形式のバージョンが確認できる</li>
+<li><a href="http://windows.microsoft.com/ja-jp/windows-10/find-out-which-version-of-microsoft-edge-you-have" title="Microsoft Edge のバージョンを確認する - Windows ヘルプ -">Microsoft Edge のバージョンを確認する - Windows ヘルプ -</a></li>
+<li>最近のES6対応状況は MSEdge &gt; Firefox &gt; WebKit &gt; Chrome という感じ</li>
+<li><a href="http://kangax.github.io/compat-table/es6/" title="ECMAScript 6 compatibility table">ECMAScript 6 compatibility table</a></li>
+<li>だけど、MSEdgeはブラウザとしての使い勝手がまだ悪い</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">名もなき高級生ハム <a href="https://twitter.com/hashtag/niku_sushi?src=hash">#niku_sushi</a> <a href="http://t.co/Meo3GmktgA">pic.twitter.com/Meo3GmktgA</a></p>&mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/status/648075403588820992">September 27, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="markdownで書く電子書籍開発環境---azu"><a href="http://azu.github.io/slide/niku_sushi/ebook_development.html" title="Markdownで書く電子書籍開発環境">Markdownで書く電子書籍開発環境</a> - azu</h2>
+
+<p><a href="http://azu.github.io/slide/niku_sushi/ebook_development.html" title="Markdownで書く電子書籍開発環境">Markdownで書く電子書籍開発環境</a>という話をした。</p>
+
+<p><a href="https://www.gitbook.com/">GitBook</a>とMarkdownで電子書籍を書いて、<a href="https://github.com/azu/textlint" title="textlint">textlint</a>や<a href="http://eslint.org/" title="ESLint">ESLint</a>などを使って文章やコードのチェックをしながら技術書を書く環境について。</p>
+
+<p>文章は人により解釈が変わりやすいので、根拠を残しやすくするためのIssue/Pull Request駆動についてなどの話をしました。</p>
+
+<p>追記: <a href="http://efcl.info/2015/09/28/easy-to-create-ebook/" title="今すぐ電子書籍(技術書)を書き始める方法と文章の自動チェック | Web Scratch">今すぐ電子書籍(技術書)を書き始める方法と文章の自動チェック | Web Scratch</a>にもう少し詳しい話を書きました。</p>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="und" dir="ltr"><a href="https://twitter.com/hashtag/niku_sushi?src=hash">#niku_sushi</a> <a href="http://t.co/d68CjaRdj1">pic.twitter.com/d68CjaRdj1</a></p>&mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/status/648076139743711232">September 27, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>技術書を書く話</li>
+<li>雑誌で連載する話</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">「みんなmd2inaoの各言語版作ろうとして我にかえる」 <a href="https://twitter.com/hashtag/niku_sushi?src=hash">#niku_sushi</a></p>&mdash; 求道者 (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/648080305522257920">September 27, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>編集者はもっと著者に口出しするべきかという話</li>
+<li>編集者が直接修正をPull Requestを送る例</li>
+<li>著者が自由なフォーマットで書いて、編集者が組版向けに直すのは二度手間</li>
+<li>細かい表記の揺れなどを編集者に投げっぱなしにしてしまう問題</li>
+<li>もっとLintとかそういうので自動化できる部分があるのでは</li>
+<li>出版社は秘伝の表記揺れ辞書とかもっと公開していくといいのでは</li>
+<li><a href="https://gist.github.com/inao/7dd71a7063ea6b75da1b">https://gist.github.com/inao/7dd71a7063ea6b75da1b</a></li>
+<li>技術書を書くことが慈善事業になってしまう懸念</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">すき焼き <a href="https://twitter.com/hashtag/niku_sushi?src=hash">#niku_sushi</a> <a href="http://t.co/SNBkdKZ5Wd">pic.twitter.com/SNBkdKZ5Wd</a></p>&mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/status/648086440782336000">September 27, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>書籍を書きながらウェブで公開スタイルを日本では見かけないのはなぜ?</li>
+<li>反応を見ながら書けたほうがいいのではないかという話</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">気持ち野菜 <a href="https://twitter.com/hashtag/niku_sushi?src=hash">#niku_sushi</a> <a href="http://t.co/PyY4DTWP4C">pic.twitter.com/PyY4DTWP4C</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/648089901334953984">September 27, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="ortc-svc-simulcast---jxck"><a href="http://www.slideshare.net/Jxck/ortc-svc-simulcast" title="ORTC SVC SimulCast">ORTC SVC SimulCast</a> - jxck</h2>
+
+<ul>
+<li>ORTCとサイマルキャスト</li>
+<li>ORTC ≒ WebRTC 1.0 + SimulCast + MultiStream interop </li>
+<li>ORTCは低レベルなのでWebRTCはORTCで実装できる。</li>
+<li>サイマルキャストとは、それぞれの端末に向けて最適な解像度、ビットレートな動画をおくること</li>
+<li>サイマルキャストをするのにそれぞれ再エンコードするのは無駄</li>
+<li>SVC(scalable video coding)の登場</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">サイマルキャストは端末に最適な解像度で送りつけることができる仕様。&#10;WebRTCはビットレートを調整してから送るのが必要だったから再エンコードが必要になってた。&#10;SVCというスケーラブルな動画のエンコードの仕様があってこれでエンコードしたものをサイマルする <a href="https://twitter.com/hashtag/niku_sushi?src=hash">#niku_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/648092094775492608">September 27, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>SVC(scalable video coding)はbase layerとenhancement layerというレイヤー構造</li>
+<li>ベースレイヤーが届けばとりあえず見られる</li>
+<li>端末ごとにenhancement layerを送ることで、ビットレートが高くなったりというような調整ができる</li>
+<li>再エンコードするものがいらなくなる</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">低スペックにはベースのレイヤーだけを配信する。配信するときにルーティングがどれくらいのレイヤーを送るかを決める。&#10;基本的にはルーティングがいるのでP2Pじゃないケースが多い <a href="https://twitter.com/hashtag/niku_sushi?src=hash">#niku_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/648093013504212992">September 27, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>WebRTCにサイマルキャストを1.0に入れたいという話</li>
+<li>実装が欲しいのでブラウザベンダー大忙し</li>
+</ul>
+
+<h3 id="ortcについて">ORTCについて</h3>
+
+<ul>
+<li><a href="http://jxck.hatenablog.com/entry/ortc-to-webrtcnv" title="ORTC が切り開く SVC サイマルキャストと WebRTC NV - Block Rockin’ Codes">ORTC が切り開く SVC サイマルキャストと WebRTC NV - Block Rockin’ Codes</a></li>
+<li>ORTC の Low Level API セット</li>
+<li>WebRTCでは<code>RTCPeerConnection</code>が一つの塊だった</li>
+<li>ORTCではそれをスタック毎に分けたクラスにして組み合わせて使うようにするという形</li>
+<li>オプションパラメータで細かい調整ができるのでSVC Simulcastのようなことができる</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">焼き待ちみさとちゃん <a href="https://twitter.com/hashtag/niku_sushi?src=hash">#niku_sushi</a> <a href="http://t.co/Nhr2niIGkN">pic.twitter.com/Nhr2niIGkN</a></p>&mdash; Jxck (@Jxck_) <a href="https://twitter.com/Jxck_/status/648098102839148545">September 27, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>ORTCレベルになると迂闊に手をだすと死ぬ</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">みさとちゃん完成 <a href="https://twitter.com/hashtag/niku_sushi?src=hash">#niku_sushi</a> <a href="http://t.co/xBAM0KUnhJ">pic.twitter.com/xBAM0KUnhJ</a></p>&mdash; Jxck (@Jxck_) <a href="https://twitter.com/Jxck_/status/648099830422634496">September 27, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="cssだけでカヌーセルできるようになった話---cto">CSSだけでカヌーセルできるようになった話 - CTO</h2>
+
+<ul>
+<li><a href="http://caniuse.com/#feat=css-snappoints" title="CSS Scroll snap points">CSS Scroll snap points</a>がiOS9、Safariで実装された</li>
+<li>CSSだけでカヌーセルスクロールができる</li>
+<li>対応してない場合はただsのスクロールになる</li>
+<li>Firefoxは実装済みでMSが仕様書いているので、残りはChromeのみ</li>
+</ul>
+
+<h2 id="node-conf-euに行った話---会長">Node Conf EUに行った話 - 会長</h2>
+
+<ul>
+<li>Node Conf EUに行った話</li>
+<li>ドバイ</li>
+<li><a href="https://github.com/thlorenz/visulator" title="thlorenz/visulator">thlorenz/visulator</a></li>
+<li>IoTについての話がやたら多かった</li>
+<li>エンタープライズでもNodeが増えた。</li>
+<li>IBM</li>
+<li>エンタープライズ分野でもJavaScriptがないと舞台に立てない感じなってきた。</li>
+<li>Mad Scienceの人がNode Conf EUには多かった。</li>
+<li>Node.jsで普通のウェブアプリを作ってる人が少ない印象</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/niku_sushi?src=hash">#niku_sushi</a> どの業界もIoTがバズってるので、NodeとかJavaScriptにそれがやってきた結果なのではという話</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/648110064973144065">September 27, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="safari-9のcontent-blockerの仕組み-について---副本部長">Safari 9のContent Blockerの仕組み について - 副本部長</h2>
+
+<ul>
+<li>Content Blockerの仕組み</li>
+<li>実装してみてものすごく簡単につくれることが分かった</li>
+<li><a href="http://qiita.com/noir/items/599b7b8032a18c1e00a7" title="[iOS9]広告ブロック(Content Blocking Safari Extensions)の作り方 - Qiita">[iOS9]広告ブロック(Content Blocking Safari Extensions)の作り方 - Qiita</a></li>
+<li>Content BlockerはiOSから呼ばれるあるメソッドでJSONファイルを返すだけしか指定できない。</li>
+<li>なのでロジック的なものはContent Blockerにはなくて静的に決定される</li>
+<li>Safariの動作に対して動的な処理はない</li>
+<li>JSONはDFAとなりバイトコードとして処理される</li>
+<li>拡張アプリからユーザーの行動履歴は辿れないようになってる。</li>
+<li>今どこにいて、そこから出るリクエストをブロックする という組み合わせは今のところ表現できない</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/niku_sushi?src=hash">#niku_sushi</a> 意外と影響は少ないとは思うが、それが可視化されない。&#10;広告論とかじゃなくてパフォーマンスの問題で導入されたんじゃないかという話。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/648118310886752257">September 27, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>プライバシーや広告倫理とかではなくて、単純に遅くなるのを解決するためにいれたのでは</li>
+<li>document.writeが廃止されていれば、広告が<code>document.write</code>を使わなくなって、このContent Blockerは違う形になったのでは?</li>
+<li><a href="http://jser.info/2014/11/02/jser200/">http://jser.info/2014/11/02/jser200/</a></li>
+</ul>
+
+<h2 id="npmで成果物をsemantic-release-:rocket:---azu"><a href="http://azu.github.io/slide/niku_sushi/npm-semantic-release.html" title="npmで成果物をsemantic-release :rocket:">npmで成果物をsemantic-release :rocket:</a>  - azu</h2>
+
+<ul>
+<li>辞書などのリソースをnpmで配布する方法についての話</li>
+</ul>
+
+<h2 id="おわり">おわり</h2>
+
+<p>ごちそうさまでした</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-09-27-niku_sushi.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","sushi"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=sushi">sushi</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

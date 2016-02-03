@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        node-webkitアプリをTravis CI経由でGitHub Releaseにバイナリ登録する | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="node-webkit,GitHub,TravisCI" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/09/05/node-webkit-binary-release/">
+    <h1 class="post-title">node-webkitアプリをTravis CI経由でGitHub Releaseにバイナリ登録する</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年09月05日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-09-05-node-webkit-binary-release.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="travis-ciからデプロイ">Travis CIからデプロイ</h2>
+
+<p>Travis CIには<a href="http://docs.travis-ci.com/user/deployment/" title="Deployment">Deployment</a>という機能があり、Heroku等色々なサービスに対応しています。</p>
+
+<p>その一つとして、GitHub Releasesに対してファイルをデプロイする事が出来ます。</p>
+
+<ul>
+<li><a href="http://docs.travis-ci.com/user/deployment/releases/" title="Travis CI: GitHub Releases Uploading">Travis CI: GitHub Releases Uploading</a></li>
+<li><a href="http://efcl.info/2014/07/20/git-tag-to-release-github/" title="Git tagとGitHub ReleasesとCHANGELOG.mdの自動化について | Web Scratch">Git tagとGitHub ReleasesとCHANGELOG.mdの自動化について | Web Scratch</a>
+
+<ul>
+<li>GitHub Releasesの使い方に関して</li>
+</ul></li>
+</ul>
+
+<p>zipファイルならなんでも登録でき、登録するファイルサイズはリポジトリにpushするより大きくても問題ないので、バイナリサイズがでかいnode-webkitアプリには向いていると言えます。</p>
+
+<p>この記事は基本的には<a href="http://qiita.com/methane/items/f8c5a5f2209739daf44e" title="Travis-CI で Go の Windows 用バイナリを Github release に登録する - Qiita">Travis-CI で Go の Windows 用バイナリを Github release に登録する - Qiita</a>と同じなので、先に読んでおくといいかと思います。</p>
+
+<h2 id="node-webkitアプリの実行ファイルの作成">node-webkitアプリの実行ファイルの作成</h2>
+
+<p>node-webkitアプリの実行ファイル(バイナリ)の作成方法といっても基本的にランタイムを丸ごと入れた実行ファイルを作るだけです。</p>
+
+<p>これは<a href="https://github.com/mllrsohn/node-webkit-builder" title="mllrsohn/node-webkit-builder">mllrsohn/node-webkit-builder</a>を使うと簡単に行うことができます。</p>
+
+<p>以下のように対応したいプラットフォームと、node-webkitアプリのrootディレクトリを指定するだけでプラットフォームごとの実行ファイルを作ってくれます。(デフォルトでは<code>build/</code>ディレクトリに作られる)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">nwbuild -p &#39;win,osx,linux32,linux64&#39; ./&quot;
+</code></pre></div>
+<p>Macなら<code>.app</code>、Windowsなら<code>.exe</code>のようなファイルがそれぞれ、<code>build/win/github-reader.exe</code>のような感じで作成されます。</p>
+
+<h3 id="ビルドスクリプト">ビルドスクリプト</h3>
+
+<p>GitHub Releasesに登録するためにはzipファイルでないと行けないので、ビルドしたものをzip化する必要があります。</p>
+
+<p><a href="https://github.com/azu/github-reader" title="azu/github-reader">azu/github-reader</a> でのビルドスクリプトは以下のような感じです。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;$TRAVIS_TAG&quot;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+    rm -rf build
+    nwbuild -p <span class="s1">&#39;win,osx,linux32,linux64&#39;</span> ./ -o ./build
+    <span class="nb">cd </span>build
+    <span class="c"># ziped in build/</span>
+    zip -q github-reader-osx.zip -r github-reader/osx
+    zip -q github-reader-win.zip -r github-reader/win
+    zip -q github-reader-linux32.zip -r github-reader/linux32
+    zip -q github-reader-linux64.zip -r github-reader/linux64
+    <span class="nb">cd</span> -
+    <span class="nb">echo</span> <span class="s2">&quot;ziped!&quot;</span>
+<span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Not Release&quot;</span>
+<span class="k">fi</span>
+</code></pre></div>
+<p>このスクリプトを<code>travis.yml</code>でdeployする前に設定しておくと、ビルドした実行ファイルのzipファイルがプロジェクトのrootに並びます。</p>
+
+<p><code>$TRAVIS_TAG</code>はTravis CIがつけてくれる環境変数で、git tagのコミットの時に値が入る変数となっています。値があるときのみビルドスクリプトを走らせる感じです。</p>
+
+<p>(このzipを展開すると<code>github-reader/osx/github-reader.app</code>のような無駄な階層が含まれるのを削るオプションはあるのかな?)</p>
+
+<h2 id="travis-ciの設定">Travis CIの設定</h2>
+
+<p><a href="http://qiita.com/methane/items/f8c5a5f2209739daf44e" title="Travis-CI で Go の Windows 用バイナリを Github release に登録する - Qiita">Travis-CI で Go の Windows 用バイナリを Github release に登録する - Qiita</a>と全く同じことなので、簡単に解説します。</p>
+
+<p><code>travis setup releases</code> を行うとGitHub Releasesへ登録するためのAPIキー等発行されて<code>.travis.yml</code>に登録されます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">gem install travis
+travis setup releases
+</code></pre></div>
+<p>ただし、上記の記事で書かれているように<code>all_branches: true</code>がないと正しく動かないバグあることに注意して下さい。</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml">  <span class="l-Scalar-Plain">on</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">repo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">azu/github-reader</span>
+    <span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+    <span class="l-Scalar-Plain">all_branches</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>最終的な<code>.travis.yml</code>は以下のようになりました。</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">deploy</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">releases</span>
+  <span class="l-Scalar-Plain">api_key</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">secure</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">qS2igPviHIlN6zGVUPa9s5lh/TnYH/nELBxb9EfjXQzhaScV1/R3csjg0AI28Bh0ReSp1xhRWc7I5EiKLsS5wqYM821MfTiyrjoKneAjDYy5XeW4+kFKXaqvMgYK+v5f1CoiuJVKtJwVv5uEVb3NsXpX5qUGcLmIvmWmUoRrjik=</span>
+  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">build/github-reader-osx.zip</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">build/github-reader-win.zip</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">build/github-reader-linux32.zip</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">build/github-reader-linux64.zip</span>
+  <span class="l-Scalar-Plain">on</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">repo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">azu/github-reader</span>
+    <span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+    <span class="l-Scalar-Plain">all_branches</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+  <span class="l-Scalar-Plain">skip_cleanup</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+</code></pre></div>
+<p><code>tags: true</code> にしておくと、git tagをつけたコミットに対してのみ<code>deploy</code>が動作するようになります。(スクリプト側では<code>$TRAVIS_TAG</code>を見てビルド)</p>
+
+<p>このように設定したら後は<code>git tag</code>をはってpushするだけで、自動的に<a href="https://github.com/azu/github-reader/releases/latest">最新のタグ</a>にバイナリが登録されます。(Travis CIの回線結構早いのでローカルでやるより楽な気がします)</p>
+
+<h3 id="tips">Tips</h3>
+
+<p>GitHub Releasesでは最新のタグにリンクを貼る方法が存在します。</p>
+
+<p><a href="https://github.com/azu/github-reader/releases/latest">https://github.com/azu/github-reader/releases/latest</a></p>
+
+<p>という感じでバージョンではなく、<code>latest</code>という指定をすると最新バージョンへリダイレクトされます。(添付したダウンロードファイルでは使えないのが不便…)</p>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>Travis CIの<a href="http://docs.travis-ci.com/user/deployment/" title="Deployment">Deployment</a>を使ってGitHub Releaseにnode-webkitアプリのバイナリを登録する方法について紹介しました。</p>
+
+<p>node-webkitアプリはランタイムも含む都合上(含めない方法もありnwファイルがそれです)、ファイルサイズが数十から数百MBとなったりします。</p>
+
+<p>GitHubにはpush出来るファイルにサイズ制限があるため、node-webkitアプリのバイナリをリポジトリに置くのは難しいと思います。</p>
+
+<ul>
+<li><a href="https://help.github.com/articles/what-is-my-disk-quota" title="What is my disk quota? · GitHub Help">What is my disk quota? · GitHub Help</a></li>
+</ul>
+
+<p>そのため、大きなファイルを配布する場合は、別の所におくか、GitHub Releaseを使うのが一般的です。</p>
+
+<ul>
+<li><a href="https://help.github.com/articles/distributing-large-binaries" title="Distributing large binaries · GitHub Help">Distributing large binaries · GitHub Help</a></li>
+</ul>
+
+<p>Travis CIはただのテストだけではなく、こういったデプロイの用途にも使えて便利だと思います。</p>
+
+<p>GitHub Releaseでのバイナリ配布は以下から実例を見られます。</p>
+
+<ul>
+<li><a href="https://github.com/azu/github-reader" title="azu/github-reader">azu/github-reader</a></li>
+<li><a href="https://github.com/azu/github-reader/releases" title="Releases · azu/github-reader">Releases · azu/github-reader</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-09-05-node-webkit-binary-release.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["node-webkit","GitHub","TravisCI"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=node-webkit">node-webkit</a></li>
+                
+                <li><a href="/tags/?q=GitHub">GitHub</a></li>
+                
+                <li><a href="/tags/?q=TravisCI">TravisCI</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

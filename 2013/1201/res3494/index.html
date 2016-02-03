@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        JavaScriptでdoctestを行う power-doctest を作った | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,Node.js,test" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2013/1201/res3494/">
+    <h1 class="post-title">JavaScriptでdoctestを行う power-doctest を作った</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2013年12月01日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-12-01-javascript%E3%81%A7doctest%E3%82%92%E8%A1%8C%E3%81%86-power-doctest-%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%9F.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://www.adventar.org/calendars/56">Node.js Advent Calendar 2013</a> 5日目 の記事です。</p>
+
+<h1 id="power-doctest"><a href="https://github.com/azu/power-doctest" title="azu/power-doctest">power-doctest</a></h1>
+
+<p><a href="https://github.com/azu/power-doctest" title="azu/power-doctest">power-doctest</a> という doctest風 にコードと評価結果のコメントを並べるとテストとして実行出来るようなNode製のツールを作りました。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">評価したい式; // =&gt; 期待する評価結果
+</code></pre></div>
+<p>の形式のコードをそのままテストとして実行するようなツールです。</p>
+
+<p><img src="http://gyazo.com/56ea3848bb1a419d7d0ed47d111b39fc.gif" alt="ScreenShot"></p>
+
+<h2 id="使い方">使い方</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -g power-doctest
+</code></pre></div>
+<p>npmでインストールできます。</p>
+
+<p>以下のような感じでコードを書いて、これを <code>main.js</code> として保存しておきます。</p>
+
+<div class="highlight">
+  <pre><span class="kd">function</span> <span class="nx">sum</span><span class="p">(</span><span class="nx">ary</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">ary</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">current</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">current</span> <span class="o">+</span> <span class="nx">next</span>
+    <span class="p">},</span> <span class="mi"></span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">total</span> <span class="o">=</span> <span class="nx">sum</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span>
+<span class="nx">total</span><span class="p">;</span> <span class="c1">// &gt; 5</span>
+</pre>
+</div>
+
+<p>そして、ファイル名を指定してテストを評価します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ power-doctest main.js
+</code></pre></div>
+<p>上記の例では <code>total; // &gt; 5</code> という部分が、 <code>total === 5</code> であるかをテストした結果が表示されます。この場合はテストが失敗するので以下のようなエラーが出力されます。</p>
+
+<div class="highlight">
+  <pre><span class="nv">$ </span>power-doctest main.js
+FAIL <span class="c"># at line: 13</span>
+
+assert<span class="o">(</span><span class="nv">total</span> <span class="o">===</span> 5<span class="o">)</span>;
+       |     |
+       15    <span class="nb">false</span>
+</pre>
+</div>
+
+<p>また以下のように書いても問題ありません。</p>
+
+<div class="highlight">
+  <pre><span class="nx">sum</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span><span class="c1">// &gt; 5</span>
+</pre>
+</div>
+
+<p>この場合は以下のようなエラー表示になります。</p>
+
+<div class="highlight">
+  <pre>assert<span class="o">(</span>sum<span class="o">([</span>1,2,3,4,5<span class="o">])</span> <span class="o">===</span> 5<span class="o">)</span>;
+       |                |
+       15               <span class="nb">false</span>
+</pre>
+</div>
+
+<p>上記のエラー表示を見るとわかりますが、<a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a> を使ったアサーションが行われるようになっています。</p>
+
+<hr>
+
+<p>こっから先はどういう思想で作ったのかや仕組みなどの話になっています。</p>
+
+<p>面倒な人は以下のスライドに簡略化された概要が載ってるので、そちらをみるといいかもしれません。</p>
+
+<div class="kwout" style="text-align: center;">
+  <a href="http://azu.github.io/slide/okonomi.js/"><img src="http://kwout.com/cutout/w/2c/hc/36t.jpg" alt="http://azu.github.io/slide/okonomi.js/" title="power-doctest @ okonomi.js" width="600" height="189" style="border: none;" usemap="#map_w2chc36t" /></a> <p style="margin-top: 10px; text-align: center;">
+    <a href="http://azu.github.io/slide/okonomi.js/">power-doctest @ okonomi.js</a>
+  </p>
+</div>
+
+<h2 id="目的">目的</h2>
+
+<p>このツールの目的として書籍のサンプルコードの写経などでの動作確認を楽にすることがあります。</p>
+
+<p>多くの書籍では、紙面のスペースの都合等もありますが、以下のように実行結果を横にコメントで書くようなケースが多いと思います。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/12/effective_javascript-2013-12-01-21-43-23.jpg" alt="Effective javascript 2013 12 01 21 43 23" title="effective_javascript 2013-12-01 21-43-23.jpg" border="0" width="600" height="217" /></p>
+
+<p>これを写経して試す際には、ブラウザやNodeのREPLなどで試す必要があってエディタから離れないと行けないので不便な感じです。</p>
+
+<p>また、書籍のサンプルコードはテストをちゃんと書いてないケースもあるので、動かないサンプルコードというのも結構ある感じがします。</p>
+
+<p><a href="https://github.com/azu/power-doctest" title="azu/power-doctest">power-doctest</a> はそういうの補助するために作ったdoctestっぽいツールで、以下のように</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">評価したい式; // =&gt; 期待する評価結果
+</code></pre></div>
+<p>というのが、そのままテストとして実行されるようになっています。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/12/Effective_JavaScript-2013-12-01-21-49-24.jpg" alt="Effective JavaScript 2013 12 01 21 49 24" title="Effective_JavaScript] 2013-12-01 21-49-24.jpg" border="0" width="600" height="304" /></p>
+
+<p><img src="http://gyazo.com/56ea3848bb1a419d7d0ed47d111b39fc.gif" alt="ScreenShot"></p>
+
+<p>デフォルトでは(今は切り替えとかないですが)、<a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a>を使っているので、単純な式なら間違っていた時にかなり分かりやすい結果を表示できます。</p>
+
+<p>かなり単純な仕組みなので、ライブラリ等のプロダクトコード的なテスト用途にはあんまり考えてないです。</p>
+
+<p>他のJavaScriptのdoctestツールとしては以下のようなものがあります。</p>
+
+<ul>
+<li>  <a href="https://github.com/dtao/autodoc" title="dtao/autodoc">dtao/autodoc</a> 
+
+<ul>
+<li>  JSDocの <code>@example</code> をテストする感じのドキュメントツール</li>
+</ul></li>
+<li>  <a href="https://github.com/davidchambers/doctest" title="davidchambers/doctest">davidchambers/doctest</a> 
+
+<ul>
+<li>  ASTを書き換えてテストするツール. ちょっと欲しかったものとは趣旨が違う構造だったのでforkしなかった</li>
+</ul></li>
+<li>  <a href="http://doctestjs.org/" title="Doctest.js: the humane Javascript test framework">Doctest.js: the humane Javascript test framework</a> 
+
+<ul>
+<li>  書き方もよく似てて色々細かい処理もできるみたいだけど、動かしてないので分からない。</li>
+<li>  CLIというよりはブラウザで動かす感じっぽい</li>
+</ul></li>
+</ul>
+
+<h3 id="仕組み">仕組み</h3>
+
+<p>上記のスクリーンショットを見て気づく人もいると思いますが、JavaScript ASTを書き換えて行っています。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">評価したい式; // =&gt; 期待する評価結果
+</code></pre></div>
+<p>というものを見つけたら(=&gt;以外も-&gt;や&gt;でも大丈夫だけど)、</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">assert(評価したい式 === 期待する評価結果);
+</code></pre></div>
+<p>という風に書き換えているだけなので、これをnodeの<a href="http://nodejs.jp/nodejs.org_ja/api/vm.html" title="vm">vm</a>モジュールで実行しています。</p>
+
+<p>NodeのvmモジュールではJavaScriptコード文字列をファイルから読み込んで実行したかのようにでき、また<a href="https://github.com/azu/power-doctest/blob/697b3eb1fb263dc44e32a5d573176251d72f99da/lib/power-doctest.js#L173" title="context">context</a>(アクティベーションオブジェクトとか<a href="http://d.hatena.ne.jp/vividcode/20110430/1304182281" title="実行コンテキスト">実行コンテキスト</a>言われてたようなやつ)を設定できるので、グローバルにいるようなものを書き換えたりした状態で、コードを動かすことが出来ます。</p>
+
+<p>power-doctest は <a href="https://github.com/azu/power-doctest/blob/697b3eb1fb263dc44e32a5d573176251d72f99da/lib/power-doctest.js#L158">グローバルにassert (power-assert)を追加する</a>という手法を取ってますが、この方法が最善なのかよくわかってないので、もっといい方法があったら知りたいです。<br>
+(行番号がずれるとかある)</p>
+
+<p>vmモジュールを利用すれば、以下のようにプライベートメソッドのテストもできたりするようです。</p>
+
+<ul>
+<li>  <a href="http://nazomikan.hateblo.jp/entry/2013/04/10/032410" title="Nodeでプライベートな(exportsされてない)メソッドのテスト - ぶれすとつーる">Nodeでプライベートな(exportsされてない)メソッドのテスト &#8211; ぶれすとつーる</a></li>
+</ul>
+
+<p>JavaScript ASTについては以下の記事を見るといいかと思います。</p>
+
+<ul>
+<li>  <a href="http://efcl.info/2013/1117/res3481/" title="tkbjsでJavaScript ASTについて発表してきました | Web scratch">tkbjsでJavaScript ASTについて発表してきました | Web scratch</a></li>
+</ul>
+
+<p>power-doctestではコメントも扱えるtraversalライブラリの<a href="https://github.com/millermedeiros/rocambole" title="millermedeiros/rocambole">millermedeiros/rocambole</a>を使ってます。<br>
+(弊害なのかわからないですが、コメントを維持したままコードを生成できてない…)</p>
+
+<p>仕組みとしては、assertへの書き換えとvmモジュールを使った実行 だけなので、大体1日ぐらいでできた感じです。</p>
+
+<h3 id="todo">Todo</h3>
+
+<p>突貫で作ったのでまだ良くない部分もあります。</p>
+
+<ul>
+<li>  deepEqualのサポート(オブジェクト同士の比較) 
+
+<ul>
+<li>  <del><a href="https://github.com/azu/power-doctest/issues/1" title="deepEqual support · Issue #1 · azu/power-doctest">deepEqual support · Issue #1 · azu/power-doctest</a></li> </ul> </li> 
+<li>
+    Try-catch等の例外のサポート</del> <ul>
+      <li>
+        いい構文が思いつかない
+      </li>
+      <li>
+        <del><a href="https://github.com/azu/power-doctest/issues/2" title="exception tests support · Issue #2 · azu/power-doctest">exception tests support · Issue #2 · azu/power-doctest</a></del>
+      </li>
+    </ul>
+  </li>
+</ul> </li>
+</ul></li>
+</ul>
+
+<p><p>
+            サポートしました =&gt; <a href="http://efcl.info/2013/1208/res3526/" title="オブジェクト同士の比較と例外のテストをサポートしたpower-doctest 0.2.0リリース | Web scratch">オブジェクト同士の比較と例外のテストをサポートしたpower-doctest 0.2.0リリース | Web scratch</a>
+          </p></p>
+
+<p><h3>
+            蛇足 &#8211; 写経側
+          </h3></p>
+
+<p><p>
+            わざわざdoctest風にしないでも、mocha等を使ってインラインにテストを書けばもっと自由に細かくテストを出来ます。<br /> <a href="https://github.com/azu/FunctionalJavaScript" title="Functional JavaScript">Functional JavaScriptを写経した際</a> にはそのような方法をとって、気になったこともコメントとして埋め込んで<a href="https://github.com/nevir/groc" title="groc">groc</a>を使ってドキュメントページとして見られるような感じにしてました。
+          </p></p>
+
+<p><ul>
+            <li>
+              =&gt; <a href="https://github.com/azu/FunctionalJavaScript" title="azu/FunctionalJavaScript">azu/FunctionalJavaScript</a>
+            </li>
+          </ul></p>
+
+<p><p>
+            この方法は、<a href="https://github.com/azu/FunctionalJavaScript/blob/master/Chapter4/Ch.4.Higher-OrderFunctions.js" title="Ch.4.Higher-OrderFunctions.js">Ch.4.Higher-OrderFunctions.js</a>などを見るとわかりますが、コードが結構ごちゃごちゃするのであんまり見やすくないです…
+          </p></p>
+
+<p><p>
+            また、<a href="http://www.functionaljavascript.com/" title="Functional JavaScript">Functional JavaScript</a>は関数型スタイルの書籍だったので関数という単位がコードになってたのでテストも書きやすいですが、普通の書籍はもっとバラバラなのでいちいちassertionとかを書くと大変になると思います。
+          </p></p>
+
+<p><h3>
+            蛇足 &#8211; 書く側
+          </h3></p>
+
+<p><p>
+            自分で<a href="https://the-little-book-of-busterjs.readthedocs.org/en/latest/" title="The little book of Buster.JS">The little book of Buster.JS</a>のような電子書籍を書いてる時は、書籍内に出てくるサンプルコードが正しく動くことを保証するために以下のような事をしてました。
+          </p></p>
+
+<p><p>
+            書籍自体(<a href="https://github.com/azu/busterjs-ebook" title="azu/busterjs-ebook">azu/busterjs-ebook</a>)はSphinxを使って書いていた。
+          </p></p>
+
+<p><p>
+            普通にrstでインラインにコードを書くのも出来ましたがサンプルコードは別のリポジトリ(<a href="https://github.com/azu/busterjs-kumite" title="azu/busterjs-kumite">azu/busterjs-kumite</a>)に用意して、Sphinxの機能でコードを読み込んで表示するようにしていました。
+          </p></p>
+
+<p><p>
+            そして、サンプルコードはそれぞれテストを動かして意図した通りの動作になってるかを確認できるようにしてました(そもそもテストについて書いてたので、テストをするテストを書いてたりしましたが)
+          </p></p>
+
+<p><ul>
+            <li>
+              <a href="https://github.com/azu/busterjs-ebook" title="azu/busterjs-ebook">azu/busterjs-ebook</a>
+            </li>
+            <li>
+              <a href="https://github.com/azu/busterjs-kumite" title="azu/busterjs-kumite">azu/busterjs-kumite</a>
+            </li>
+          </ul></p>
+
+<p><p>
+            なので、書籍とか書く人はちゃんとサンプルコードのテストもかいてあげるといいと思います。<br /> (サンプルコードを配布する事例は多いですが、テストが入ってるケースは意外と少ない)
+          </p></p>
+
+<p><p>
+            <a href="https://github.com/azu/power-doctest" title="azu/power-doctest">power-doctest</a> のような簡易なものでもある程度意味あるとは思うので、何か上手く行く仕組みがあればもっとテスト付きのサンプルコードが増えるかなと思ったのも作ったきっかけではあります。
+          </p></p>
+
+<p><p>
+            書籍じゃなくても readme とかでも同じことが言えて、<a href="https://github.com/vesln/jsmd" title="vesln/jsmd">vesln/jsmd</a>のようにreadmeに書かれているサンプルコードをテスト出来るようなツールも存在します。<br /> (readmeは更新されてなくて、古いコードが載ってて動かないケースが多い)
+          </p></p>
+
+<p><p>
+            このように、今なら大体の場所に書かれているコードを動かす方法があると思うので、動かないコードを減らせればいいなーと思います。
+          </p></p>
+
+<p><p>
+            <strong>JS testing everywhere!</strong>
+          </p></p>
+
+<p>2015-08-15 追記: <a href="http://efcl.info/2015/08/10/power-doctest1.0/" title="power-assertを使ったDoctestツール power-doctestを書き直した | Web Scratch">power-assertを使ったDoctestツール power-doctestを書き直した | Web Scratch</a></p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-12-01-javascript%E3%81%A7doctest%E3%82%92%E8%A1%8C%E3%81%86-power-doctest-%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%9F.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","Node.js","test"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+                <li><a href="/tags/?q=test">test</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

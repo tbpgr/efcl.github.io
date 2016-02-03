@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Firefox3をインストール[設定やアドオンの移行方法] | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Firefox,Firefox3,javascript,vista,アドオン,バックアップ" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2008/0515/res187/">
+    <h1 class="post-title">Firefox3をインストール[設定やアドオンの移行方法]</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2008年05月15日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2008/2008-05-15-firefox3%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E8%A8%AD%E5%AE%9A%E3%82%84%E3%82%A2%E3%83%89%E3%82%AA%E3%83%B3%E3%81%AE%E7%A7%BB%E8%A1%8C%E6%96%B9%E6%B3%95.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>Firefox3に移行するための準備</p>
+
+<p>バージョンはFirefox2から<a href="http://www.mozilla-japan.org/products/firefox/beta/">Firefox 3 Beta 5</a>へ<br>
+パソコンはWindows Vista</p>
+
+<h3 id="まずはバックアップから"><span style="color: #000000; font-size: medium;">まずはバックアップから</span></h3>
+
+<p><strong>Firefox3をインストールする前に</strong>、まずは今使ってるFirefoxのバックアップから開始するべき。<br>
+<a href="https://addons.mozilla.org/ja/firefox/addon/2109">FEBE :: Firefox Add-ons</a>で拡張やプロファイルをバックアップしておき、<a href="https://addons.mozilla.org/ja/firefox/addon/2942">CLEO :: Firefox Add-ons</a>でFirefox3に持って行きたいアドオンを固める。<br>
+<a href="https://addons.mozilla.org/ja/firefox/addon/2942">CLEO</a>でアドオンを固めたものは<a href="https://addons.mozilla.org/ja/firefox/addon/2942">CLEO</a>を入れたFirefoxでしかインストールできないので注意。</p>
+
+<p>必要なアドオンを選別ための情報</p>
+
+<ul>
+<li>  <a href="http://slashcolon.com/wordpress/?page_id=138">Slashcolon /: » Firefoxアドオン3系対応状況</a></li>
+<li>  <a href="http://bowz.info/1351">主な拡張機能の Firefox 3 対応状況 | Bowz::Notebook</a></li>
+</ul>
+
+<p>基本的にはバージョンがあってなくても動く場合の方が多い。(PCに優しいかどうかは置いといて)<br>
+タブやブックマーク関係は更新されてないと動かないことが多い。<br>
+セキュアなインストールしか受付なくなったので野良アドオンはインストールできないことがある。</p>
+
+<p><a href="http://piro.sakura.ne.jp/latest/blosxom/mozilla/xul/2007-09-04_addon-security.htm">Latest topics &gt; Firefox 3でのアドオンの自動更新に関する仕様変更（セキュアじゃないアドオンは全部蹴られる件） &#8211; outsider reflex</a></p>
+
+<h3 id="設定も移行できるものはエクスポート">設定も移行できるものはエクスポート</h3>
+
+<p>Tab mixなど設定や<strong>ブックマーク</strong>などエクスポートできるものはエクスポートしておく。</p>
+
+<h3 id="firefox3をインストール(まだ起動しない)"><span style="font-size: medium;">Firefox3をインストール(まだ起動しない)</span></h3>
+
+<p>それからFirefox3をインストールを開始するが、インストールしてもすぐには起動させないように注意する。<br>
+(インストーラー画面でボタン連打は危険)<br>
+Firefox２と共存させる場合は</p>
+
+<ul>
+<li>  <a href="http://www.koikikukan.com/archives/2008/04/14-000555.php">小粋空間: Firefox2 と Firefox3（ベータ版）の共存</a></li>
+<li>  <a href="http://www.mozilla-japan.org/products/firefox/beta/">次世代ブラウザ Firefox &#8211; Firefox 3 ベータ版ダウンロード</a></li>
+</ul>
+
+<p>をよく見て、プロファイルを別に作るようにしておく。<br>
+<strong>まだFirefox3を起動させないように。</strong></p>
+
+<h3 id="パスワードやフォームなどの履歴のコピー"><span style="font-size: medium;">パスワードやフォームなどの履歴のコピー</span></h3>
+
+<p>自動的に入力されるパスワードやフォーム履歴を移行したい人は<br>
+<a href="http://firefoxhacks.at.webry.info/200801/article_1.html#trackback">新しいプロファイルにデータを移行する Firefox Hacks 翻訳日記/ウェブリブログ</a></p>
+
+<p>をよくみてFirefox2で使っていたプロファイルから新しく作ったプロファイルへコピーする。<br>
+プロファイルの場所は以下の通り<br>
+C:Users(自分のユーザー名)AppDataLocalMozillaFirefoxxxxxxxxx.プロファイル名<br>
+（xxxxxxxxの部分には8桁の英数字が入ります）<br>
+<a href="http://firefoxhacks.at.webry.info/200801/article_1.html"></a></p>
+
+<p>パスワードの移行は少し複雑なので(上手く認識しなかったりするので)コメント欄に書いてように場合によって少しやり方を変える。**<br>
+移行するときにFirefoxは停止してからやらないと上書きされる場合があるので注意。**<br>
+<strong>まだ一度もFirefox3を起動してない場合</strong><br>
+<a href="http://firefoxhacks.at.webry.info/200801/article_1.html#trackback"><br>
+</a></p>
+
+<blockquote>
+<ol>
+<li>インストールしたら「すぐに起動」せず、プロファイルマネージャを起動。 2. 新規のプロファイルを作成。（この時点では signons3.txt は生成されない） 3. Fx 2 のプロファイルから signons2.txt と key3.db をコピー。 4. 新規のプロファイルでおもむろに Fx 3 を起動。 でもいいようです。 3. で history.dat もコピーして、bookmarks.html を上書きコピーしておくと places.sqlite にコンバートしてくれる模様。</li>
+</ol>
+</blockquote>
+
+<p><strong>一度Firefox3を起動してしまった場合</strong><br>
+<a href="http://firefoxhacks.at.webry.info/200801/article_1.html#trackback"></a></p>
+
+<blockquote>
+<p>・起動してプロファイル・フォルダが完成したら終了 ・プロファイル・フォルダから signons3.txt を削除 ・2.0.0.x の signons2.txt と key3.db を 3.0b のプロファイル・フォルダにコピー ・3.0 を起動して、設定を読み込んだ signons3.txt を生成させる ・パスワード設定が有効になっていれば signons2.txt を削除しても構わない</p>
+
+<p style="text-align: left;">
+  </blockquote> <p>
+    <strong>ブックマーク</strong>はエクスポートしたものをインポートした方が上手くいくので、ここれ移動させるのは微妙かも。
+  </p>
+  
+
+<p><h3>
+    <span style="font-size: medium;">Firefox3を起動してデータの移行</span>
+  </h3></p>
+
+<p><p>
+    Firefox2とは別のプロファイルから起動して設定をいじっていく。
+  </p></p>
+
+<p><p>
+    上で移行したものが反映しているかを確かめてから、アドオンなどをインストールしていく。
+  </p></p>
+
+<p><p>
+    まずはアドオンがFirefox3をサポートしてなくても、インストールできるように
+  </p></p>
+
+<p><ul>
+    <li>
+      <a href="https://addons.mozilla.org/ja/firefox/addon/6543">Nightly Tester Tools</a>
+    </li>
+    <li>
+      <a href="https://addons.mozilla.org/ja/firefox/addon/2109">FEBE</a>
+    </li>
+  </ul></p>
+
+<p><p>
+    のどちらかをインストールする。(これらのアドオンはバージョンチェックを無効にすることで無理矢理インストールできる状態を作る。)<br /> 最初に<a href="https://addons.mozilla.org/ja/firefox/addon/2109">FEBE</a>+<a href="https://addons.mozilla.org/ja/firefox/addon/2942">CLEO</a>でアドオンを固めた場合は<a href="https://addons.mozilla.org/ja/firefox/addon/2109">FEBE</a>と<a href="https://addons.mozilla.org/ja/firefox/addon/2942">CLEO</a>をインストールする。
+  </p></p>
+
+<p><p>
+    <a href="https://addons.mozilla.org/ja/firefox/">Firefox Add-ons</a>で
+  </p></p>
+
+<p><p>
+    <span style="text-decoration: underline;"><strong>このアドオンは古いバージョンの Firefox 向けです</strong><br /> とでてインストールできない場合は下の方の</span><br /> <span style="text-decoration: underline;"><strong><span class="view">すべてのバージョンを表示</span></strong><br /> というところからいけばインストールできる。(動くかどうか別)</span><br /> そしてアドオンをインストールして行きながら動くかどうかを確かめていく。<br /> <a href="https://addons.mozilla.org/ja/firefox/">Firefox Add-ons</a>に対応しているものがない場合は無理矢理インストールしてみるか、作者のところから作者ページに行き<br /> 最新版があるかを確認してみる。(まだ<a href="https://addons.mozilla.org/ja/firefox/">Firefox Add-ons</a>で公開してない人も多い。)
+  </p></p>
+
+<p><h3>
+    <span style="font-size: medium;">使ってみての感想</span>
+  </h3></p>
+
+<p><p>
+    CPUやメモリの使用量については少し減ったかなという感じで、元々量自体はあまり気にしていなかったので、<br /> 気にならないがやはり実行スピード自体はかなり改善されてる印象と体感がある。<br /> JavaScriptの実行速度はかなりよくなってる、前とはだいぶ動き自体が違う感じがして重いページでも読み終わるまで<br /> 動けなかったのが、普通にうごけるようになってたりとこれは乗り換えていいと思った。
+  </p></p>
+
+<p><p>
+    気になるところは、データ実行防止 (<strong>DEP</strong>)というWindowsの悪質なマルチウェアなどを防止する機能が働いて落ちる事が目立つ。<br /> これはパソコンとの相性やベータ版であることと無理矢理アドオンを動かしてるので、まだ仕方ないかということで無視している。
+  </p></p>
+
+<p><p>
+    Firefox2と違うとことしてplaces.sqliteとかurlclassifier3.sqliteによるHDDへの書き込みが頻繁に行われている感じが見られたけど、パフォーマンス自体にはそこまで気にする程度ものでもないかな。
+  </p></p>
+
+<p><p>
+    places.sqliteはブックマークのデータベースでFirefox3のPlaces Organizerに関係してるものかな。
+  </p></p>
+
+<p><p>
+    <a href="http://gigazine.net/index.php?/news/comments/20070913_firefox3_places/">ついにFirefox3の新機能「Places Organizer」の全貌が明らかに &#8211; GIGAZINE</a>
+  </p></p>
+
+<p><blockquote>
+    <p>
+      今回発表された「Places Organizer」の画像を見ると、ブックマークだけでなく、ページ閲覧履歴やダウンロードしたファイルの履歴、さらにはサムネイル画像やタグ付けなど、Firefoxに関するもろもろのものを集中管理するための機能というのが正しい位置づけのようです。
+    </p>
+  </blockquote></p>
+
+<p><p>
+    urlclassifier3.sqliteは「攻撃・偽装サイト」のデータベースを、バックグラウンドで頻繁に更新してるので書き込みが見られるみたい。<br /> でも特定のタイミングでやってるのでそこまで気にならない。
+  </p></p>
+
+<p><p>
+    もっと詳しく見てみたい人は<a href="http://homepage.mac.com/project_h2/note_class/note_040308a.html">やってもzillaな備忘録</a>にいろいろ書いてある。
+  </p></p>
+
+<p><p>
+    まとめると、動きがよくなったはかなりいい感じで全く動かないアドオンは少なく使用していたヤツの一割ぐらいだった。<br /> 次のRCぐらいで安定したら移っても問題ないような気がする。<br /> データ実行防止 (<strong>DEP</strong>)で落ちるは早く改善してもらいたいところ。
+  </p></p>
+
+<p><p>
+    <span id="trackbacks-link">追記:</span>データ実行防止 (<strong>DEP</strong>)で落ちる原因を調べていたら、Flashのdllが上手く認識してないのが原因かもしれない。
+  </p></p>
+
+<p><p>
+    <a href="http://as3s.org/archives/2007/10/firefoxflash-player.html">FirefoxでFlash Playerの動作確認 &#8211; AS3S.ORG</a>
+  </p></p>
+
+<p><blockquote>
+    <p>
+      FirefoxでFlashの動作確認環境を整備するためのメモ。 以下、基本的にWindowsXP SP2の場合。
+    </p>
+  </blockquote></p>
+
+<p><p>
+    Firefoxは<br /> C:WINDOWSsystem32MacromedFlash<strong>NPSWF32.dll</strong><strong><br /> </strong>をみないで<strong><br /> </strong><strong>C:Program FilesMozilla FirefoxpluginsNPSWF32.dll</strong><br /> を見に行くらしいので<strong>C:Program FilesMozilla FirefoxpluginsNPSWF32.dll</strong>を確認したら見事になかったので、Flashのフォルダからコピーして入れてみた。
+  </p></p>
+
+<p><p>
+    でも、これをする前にflashプレイヤーは動作してたからこれが原因かは不明。
+  </p></p>
+</blockquote>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2008/2008-05-15-firefox3%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E8%A8%AD%E5%AE%9A%E3%82%84%E3%82%A2%E3%83%89%E3%82%AA%E3%83%B3%E3%81%AE%E7%A7%BB%E8%A1%8C%E6%96%B9%E6%B3%95.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Firefox","Firefox3","javascript","vista","アドオン","バックアップ"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=Firefox3">Firefox3</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=vista">vista</a></li>
+                
+                <li><a href="/tags/?q=アドオン">アドオン</a></li>
+                
+                <li><a href="/tags/?q=バックアップ">バックアップ</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

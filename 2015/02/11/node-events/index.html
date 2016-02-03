@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        東京Node学園15時限目 アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Node.js,io.js,イベント,JavaScript" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/02/11/node-events/">
+    <h1 class="post-title">東京Node学園15時限目 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年02月11日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-02-11-node-events.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="東京node学園15時限目">東京Node学園15時限目</h1>
+
+<p><a href="http://nodejs.connpass.com/event/11436/" title="東京Node学園 15時限目 - connpass">東京Node学園 15時限目 - connpass</a>に参加してきたのでメモ</p>
+
+<hr>
+
+<h2 id="「io.jsについて」-by-@yosuke_furukawa">「io.jsについて」 by @yosuke_furukawa</h2>
+
+<blockquote>
+<p>スライド : <a href="https://speakerdeck.com/yosuke_furukawa/io-dot-js-dong-jing-nodexue-yuan-15shi-xian-mu" title="io.js 東京Node学園 15時限目 // Speaker Deck">io.js 東京Node学園 15時限目 // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>最初はforkじゃなくてsporkと書いてあった
+
+<ul>
+<li>forkほど先割れじゃないよという</li>
+</ul></li>
+<li>io.jsはオープンガバナンスモデル
+
+<ul>
+<li>Node.jsは何に着手してるのかが不透明</li>
+<li>どういうふうに取り組んでいるのかを公開する</li>
+<li>Google Hangoutで議論したものの動画を公開</li>
+<li>基本的には合議制、Voteで :+1: :-1: を投票</li>
+<li>コミットが活性化しだした</li>
+<li>Comitterが追加された</li>
+</ul></li>
+<li>Node.jsとの機能面での違い
+
+<ul>
+<li>io.jsはV8のバージョンが新しい</li>
+<li>V8が新しいのでES6の機能が入ってる</li>
+<li><a href="https://github.com/koajs/koa" title="koajs/koa">koajs/koa</a>とかがそのまま使える</li>
+<li><code>const</code>や<code>let</code>が使える</li>
+<li><code>--es_staging</code> というオプションをつけると、V8でフラグが必要な機能も有効化できる</li>
+<li><a href="https://iojs.org/en/es6.html" title="io.js - JavaScript I/O">io.js - JavaScript I/O</a></li>
+<li><code>var v8 = require(&quot;v8&quot;);</code> を使って、GCのトレースを取ったりするオプションを有効化したりできる。</li>
+<li><code>assert</code> のdeepEqualStrictの追加</li>
+<li><code>util.debuglog</code> <a href="https://github.com/visionmedia/debug" title="visionmedia/debug">visionmedia/debug</a>みたいなモジュール</li>
+</ul></li>
+<li>Node.jsとio.js
+
+<ul>
+<li>どっち使ったほうがいい?</li>
+<li>混乱を生まないようにしたい</li>
+<li><a href="http://iojs-jp-slack.herokuapp.com/" title="Join us on Slack!">Join us on Slack!</a> 日本語コミュニティ議論してるよ</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="「extensible-web」-by-@jxck_">「extensible web」 by @Jxck_</h2>
+
+<blockquote>
+<p>スライド: <a href="http://www.slideshare.net/Jxck/extensible-web" title="Extensible web">Extensible web</a></p>
+</blockquote>
+
+<ul>
+<li><a href="https://extensiblewebmanifesto.org/ja/" title="The Extensible Web Manifesto">The Extensible Web Manifesto</a></li>
+<li>Shut the fuck up and write some code ということ</li>
+<li>なんで標準化をしてる人たちがこういうことを言ってるのか
+
+<ul>
+<li>標準化はやっぱり時間がかかる</li>
+<li>ベンダーが実装するまで開発者が使えない</li>
+<li>開発者のところに来るまでに時間がかかる</li>
+<li>フィードバックまでのループが遠い</li>
+<li>=&gt; 開発者がもっと主導できるようにしよう extensible web</li>
+</ul></li>
+<li>Extensible webの流れ
+
+<ul>
+<li>開発者がPOCを作成</li>
+<li>よい実装だったら仕様化しよう</li>
+<li>ベンダーが実装する</li>
+</ul></li>
+<li>それをするには低レベルな機能が必要
+
+<ul>
+<li>既存の機能を説明できる低レベルなAPIが必要</li>
+<li>開発者がその低レベルなAPIを使っていいものを作ろう</li>
+</ul></li>
+<li>e.g.) Fetch
+
+<ul>
+<li>XHRよりも低レベルな色々なところを定義</li>
+</ul></li>
+<li>e.g.) URL
+
+<ul>
+<li>URLを正しくパースできる</li>
+<li>IPv6にちゃんと対応してる?</li>
+<li>ライブラリを作るときはこの<code>URL</code>を使えばいい</li>
+</ul></li>
+<li>e.g.) Web Components(Custom Elements)</li>
+<li>これらの低レベルなAPIがあれば、開発者は欲しいものが作れる</li>
+<li><a href="http://jxck.hatenablog.com/entry/extensible-lowlevel-api" title="Extensible Web を支える低レベル API 群 - Block Rockin’ Codes">Extensible Web を支える低レベル API 群 - Block Rockin’ Codes</a>
+
+<ul>
+<li>Web Componentsを触って書くコードが多いのは、それが低レベルなAPIなので当たり前。</li>
+<li>低レベルなAPIをラップした便利なライブラリを書きましょう</li>
+</ul></li>
+<li>問題
+
+<ul>
+<li>まず最初にLow Level APIがブラウザに実装される必要があるが、</li>
+<li>Pure JavaScriptでも書ける低レベルなAPIは書けるケースが多い</li>
+<li>アルゴリズムは実装できるはず</li>
+</ul></li>
+<li>Fetch
+
+<ul>
+<li>URL
+
+<ul>
+<li>gotoが書かれてる</li>
+</ul></li>
+<li>URLSearchParams</li>
+<li>Encoding
+
+<ul>
+<li>obtain-unicode</li>
+<li><code>String.fromCodePoint</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h1 id="websocketの圧縮機能とsocket.io-by-@nkzawa">WebSocketの圧縮機能とSocket.IO by @nkzawa</h1>
+
+<blockquote>
+<p>スライド:  <a href="https://speakerdeck.com/nkzawa/websocketfalseya-suo-ji-neng-tosocket-dot-io" title="WebSocketの圧縮機能とSocket.IO // Speaker Deck">WebSocketの圧縮機能とSocket.IO // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>wsモジュール
+
+<ul>
+<li>Nodeのデファクトモジュール</li>
+<li>昔からあった機能を追加</li>
+</ul></li>
+<li>メッセージデータのdeflate圧縮を実装</li>
+<li>圧縮パラメータ
+
+<ul>
+<li>http: 圧縮データのheaderに含める</li>
+<li>websocket: ハンドシェイク時に交換</li>
+</ul></li>
+<li>2つの値
+
+<ul>
+<li>windowBits: glibの値</li>
+<li>Context Takeover
+
+<ul>
+<li>各メッセージを同一コンテキストで圧縮する</li>
+<li>メッセージを渡していく時に後半のほうが圧縮率が良くなる(同じ文が前半で出ているなるほどそうなる)</li>
+</ul></li>
+</ul></li>
+<li>残念
+
+<ul>
+<li>Chromeのみのサポート</li>
+<li>Firefox 37から</li>
+<li>ブラウザでは設定変更ができない</li>
+<li>WebScoket APIから変更することができない</li>
+</ul></li>
+<li>この圧縮機能を使えるオプションが入った</li>
+</ul>
+
+<hr>
+
+<h2 id="「codeonmobile」-by-@dai_shi">「CodeOnMobile」 by @dai_shi</h2>
+
+<ul>
+<li>移動中にコーディングできるといいのでは</li>
+<li>iPhoneアプリとか探した</li>
+<li><a href="http://codeonmobile.axlight.com/#/home" title="CodeOnMobile">CodeOnMobile</a>というものを作った</li>
+<li>ACEを使ってる</li>
+</ul>
+
+<hr>
+
+<h2 id="今できる通信高速化にトライしてみた-by-@shibu_jp">今できる通信高速化にトライしてみた by @shibu_jp</h2>
+
+<blockquote>
+<p>スライド: <a href="http://www.slideshare.net/shibukawa/node-44508626" title="東京Node学園 今できる通信高速化にトライしてみた">東京Node学園 今できる通信高速化にトライしてみた</a></p>
+</blockquote>
+
+<ul>
+<li>JavaScriptでgoto
+
+<ul>
+<li><a href="https://gist.github.com/shibukawa/315765020c34f4543665" title="goto for JS">goto for JS</a></li>
+</ul></li>
+<li>今できるとは
+
+<ul>
+<li>Service Workerはまだ実験的</li>
+</ul></li>
+<li>LZ4コマンド
+
+<ul>
+<li> JSパーサで生成JSONを圧縮</li>
+<li>gzip -&gt; LZ4 するとファイルサイズが小さくなる</li>
+</ul></li>
+<li>主に繰り返しの多いJSONやテキストで起きる
+
+<ul>
+<li>gzipはウェブのスタンダード</li>
+<li>JavaScriptでLZ4を展開できるようにするといいのでは?</li>
+</ul></li>
+<li>LZ4をJavaScriptで展開
+
+<ul>
+<li>JSXで実行</li>
+<li>WebWorker
+
+<ul>
+<li>通信とLZ4の展開は別スレッド</li>
+<li>ArrayBufferでは0コストでWorker間でやりとり</li>
+</ul></li>
+</ul></li>
+<li>ベンチマーク
+
+<ul>
+<li>Appleの開発ツールを使って通信制限をして検証</li>
+</ul></li>
+<li>結果
+
+<ul>
+<li>ダウンロードの高速化できた</li>
+<li>展開のコストがあるので、ダウンロードコスト &gt; 展開コストなら良い</li>
+</ul></li>
+<li>メリット
+
+<ul>
+<li>通信量の削減</li>
+</ul></li>
+<li>デメリット
+
+<ul>
+<li>でかいファイルじゃないとあんまりファイル自体が小さくならない</li>
+</ul></li>
+<li>ネイティブアプリならもっと展開速度が稼げるので使い道があるかも?</li>
+</ul>
+
+<hr>
+
+<h2 id="「socket.ioを使ってライフゲームで遊ぶ」-by-@tako_black_">「Socket.IOを使ってライフゲームで遊ぶ」 by @tako_black_</h2>
+
+<blockquote>
+<p>スライド: <a href="http://www.slideshare.net/ssuser375b1b/socketio-44399338" title="Socket.ioを使ってライフゲームで遊ぶ">Socket.ioを使ってライフゲームで遊ぶ</a></p>
+</blockquote>
+
+<ul>
+<li>ライフゲーム
+
+<ul>
+<li>マスに生死のルールが存在する</li>
+<li>図形みたいな事すると面白い</li>
+</ul></li>
+<li>Socket.IO
+
+<ul>
+<li>HTML5 Canvas</li>
+<li>io.js</li>
+<li>で作った</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="その他">その他</h2>
+
+<p>shibukawaさん + いつもの</p>
+
+<ul>
+<li>JSXのネーミングの問題</li>
+<li><code>X-Powered-By</code>ヘッダについて</li>
+<li>ExcelとXSLTとXML Schemaのリンク切れについて
+
+<ul>
+<li>DTDにあるURLがリンク切れになってる問題</li>
+<li>ドメインリスク</li>
+<li>GitHubのURLをid代わりに使ったりするのは永遠なのか</li>
+</ul></li>
+<li>コードホスティングの信頼性
+
+<ul>
+<li>暗号やアルゴリズムなどはGoogle Codeに置かれたりすることが多い</li>
+<li>アカウントの重み??
+
+<ul>
+<li>SourceForge &gt; Google Code &gt; GitHub</li>
+<li>SourceForgeのアカウント持ってたら昔からやってたんだとわかる</li>
+</ul></li>
+<li>Gitはなくなっても大丈夫だが、GitHubは現状だとなくなるのが困る</li>
+</ul></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-02-11-node-events.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Node.js","io.js","イベント","JavaScript"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+                <li><a href="/tags/?q=io.js">io.js</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

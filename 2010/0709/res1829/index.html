@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        SIMなしiPhone3GをiPodとして運用する(iTunesの使い方) | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="cydia,DAP,iPhone,itunes,music,ソフトウェア,脱獄" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2010/0709/res1829/">
+    <h1 class="post-title">SIMなしiPhone3GをiPodとして運用する(iTunesの使い方)</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2010年07月09日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-07-09-sim%E3%81%AA%E3%81%97iphone3g%E3%82%92ipod%E3%81%A8%E3%81%97%E3%81%A6%E9%81%8B%E7%94%A8%E3%81%99%E3%82%8Bitunes%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>iPhone4に機種変更して切り替え済みのSIMとiPhone3Gが手元に残ったのでその活用方法を考える。<br>
+SIMは特に返却することが無かったが、切り替えが済んでるのでどういう使い道があるのかよく分からない。<br>
+SIMがないとOSを変えるときiPhoneをアクティベーションできないが、脱獄時にHactivationすることで一応アクティベーションはできる(ただし、動くSIMを入れても電話などが使えなくなるけど)</p>
+
+<p>使えないSIM入れても電波を探索してバッテリーを消耗してる気がするので、今回は最初からSIMなしで運用してみることにする。<br>
+一新してクリーンな環境にしたいので、<strong>OS3.1.2JBで復元</strong>し直して新しい環境を作る。<br>
+SIMなしでiPhone3G(OS3.1.2)を起動すると&#8221;<strong>SIMカードが挿入されていません</strong>&#8220;(&#8220;NO SIM card installed&#8221;)というダイアログがrespring毎にでて大変うっとうしいので、まずはそれが出ないように<strong>機内モードをON</strong>にする。<br>
+なぜか機内モードをONするとSIMが入ってないというアラートが出なくなるのと、機内モードでもwifiは動くので丁度良い。(<a href="http://twitter.com/azu_re/status/17583551461">SIMなし</a>表記の書き換えとかしようとしてたけど飛行機マークになるので必要なくなった)</p>
+
+<h3 id="iphoneの音楽プレーヤー">iPhoneの音楽プレーヤー</h3>
+
+<p>iPhoneに音楽を転送する方法を考えてみると以下の3つぐらいになる。</p>
+
+<ul>
+<li>  iTunesを使って転送(iPod.appへ登録)</li>
+<li>  iTunesを使わずに転送(iPod.appへ登録)</li>
+<li>  iPhoneにディレクトリを維持したままファイルを転送(iFunboxなどを使う)</li>
+</ul>
+
+<p>iTunes以外の転送ソフトウェアは<a href="http://ja.wikipedia.org/wiki/IPod%E7%AE%A1%E7%90%86%E3%82%BD%E3%83%95%E3%83%88">iPod管理ソフト &#8211; Wikipedia</a>が詳しい。<br>
+前者2つはiPod.appに登録されるので、iPod.appや関連するアプリで再生できるが、ファイルをそのまま転送した場合はiPod.appでは再生できないので他のプレイヤーアプリが必要となる。</p>
+
+<h3 id="itunesを使って運用">iTunesを使って運用</h3>
+
+<p>iTunes自体は重くて使いにくいが、やはり標準と言うことで補助ソフトがたくさんあるためライブラリの構築はiTunesで行うのが最適そうです。自分のやっている手順を適当に書いてみる</p>
+
+<ol>
+<li> 音楽ファイルの入手(CDからリップしたり、ダウンロードしたり)<br>
+個人が配布してるようなものを多く聞いてるから自動的にmp3タグが付いてないこともしばしば(ファイルはmp3で管理する)</li>
+<li> MP3タグの編集<br>
+タグの編集には<a href="http://haseta2003.hp.infoseek.co.jp/cgi-bin/index.cgi?%a6%c2%c8%c7%a4%ce%a5%c0%a5%a6%a5%f3%a5%ed%a1%bc%a5%c9">STEP β</a>を使用する。<a href="http://haseta2003.hp.infoseek.co.jp/cgi-bin/index.cgi?%a5%c0%a5%a6%a5%f3%a5%ed%a1%bc%a5%c9">本体＋標準プラグイン</a>とβ版のexeやプラグインをダウンロードすれば導入できる。<br>
+ベータ版はアルバムアーティストとコンピレーションに対応しているので、一つのアルバムに複数のアーティストが混じっている場合にそれが統一できるためiTunesのようにフォルダ管理ができないもので結構重宝する。<br>
+オプションの表示項目からアルバムアーティストとコンピレーションにチェックを入れて使えるようにしておく。<br>
+<a href="http://efcl.info/wp-content/uploads/2010/07/ss-2010-07-09-1.png"><img class="alignnone size-medium wp-image-1836" title="ss-2010-07-09-1" src="http://efcl.info/wp-content/uploads/2010/07/ss-2010-07-09-1-300x274.png" alt="" width="300" height="274" /></a><br>
+iTunes(iPod)ではアルバムアーティストを統一すると、アーティスト毎にアルバムが重複して表示されなくなるのでiPod上でまともに曲を扱うには必要、またコンピレーションに&#8221;はい&#8221;をいれた場合compilationという場所で管理される。<br>
+STEPで編集したものはアルバム毎のフォルダに分けてフォルダ管理している</li>
+<li> iTunesライブラリに登録<br>
+曲をフォルダ管理している人はiTunesでの管理(データベース型)にちょっと拒否感が出たりしますがフォルダ管理のままiTunesでも曲をコピーせず管理することができます。<br>
+<a href="http://itlu.ownz.ch/wordpress">iTunes Library Updater</a>というソフトウェアを使います。iTLUは特定のフォルダにある曲をiTunesのライブラリに登録してくれるソフトウェアです。<br>
+例えばMUSICSというフォルダ以下にフォルダ管理した曲を置いておいて、iTLUでMUSICSを指定すればその中身を全部登録してくれます。<br>
+iTLUで設定を保存するにはsave profileを押して.itluというファイルを作ると次回は.itluをクリックして起動すると設定が維持された状態で起動できます。</li>
+<li> アートワークの登録<br>
+フォルダ管理していた場合はfolder.jpgなどフォルダ内にジャケットなどを置いて管理している人もいると思います。<br>
+それらをiTunesのアートワークに登録するには<a href="http://www.d6f.com/">iArtworx</a>というソフトウェアが便利です。<br>
+曲があるフォルダに.jpgのファイルを見つけると自動的にアートワークに設定してくれれます。(pngができないのが残念)<br>
+アートワークがローカルになくて新たにインターネット上から探すには<a href="http://www.voralent.com/products/broadway/">Broadway</a>が便利です。(以前はVoralent Invidiという名前だった)iTunesで再生している曲にあってそうな画像を検索してアートワークとして設定できます。またローカルにある画像も直接指定できたりします。<br>
+これら2つのアートワークソフトはmp3に直接画像を埋め込む事ができるので他の音楽管理ソフトに移行してアートワークが表示されるので便利です。</li>
+<li> 楽曲の整理<br>
+フォルダ管理している場合は適当な表記でもあまり問題ありませんがデータベース型だと表記の揺れで重複が出たり細かい点で困ったりする事があります。そのような表記揺れを解決するソフトとして<a href="http://www.beatunes.com/">beaTunes</a>(シェアウェア)が便利です。<br>
+beaTunes2はアーティスト名の表記揺れやデットリンクやアルバムアーティストとコンピレーションの適切がどうかなど細かい事を自動的に処理できます。日本語のアーティスト名などの表記揺れなども解決できます。</li>
+</ol>
+
+<p>後はiPhoneと同期すればiPod.appに反映します。</p>
+
+<h3 id="iphoneで再生">iPhoneで再生</h3>
+
+<p>iPhoneで同期した音楽を再生するのにはiPod.appや他のアプリなどが使えます。<br>
+しかしどのアプリもiPhoneアプリで<strong>アルバム</strong>の最後の曲が終わったら自動で隣の<strong>アルバム</strong>へみたいな事ができなくて若干困ってる。(最後の曲が終わると停止してしまう)<br>
+プレイリストを作って聞けという方針なのか謎ですが、プレイリストの作りやすいアプリだと<a href="http://appshopper.com/music/amp-music-player">Amp Music Player</a>あたりがお勧めです。<br>
+是非上の事が解決できる方法が合ったら教えて下さい。</p>
+
+<h3 id="pc上での再生">PC上での再生</h3>
+
+<p>PC上での再生は元々フォルダ管理したものがそのまま使えるので、以前と同じ環境で聞くこともできます。<br>
+せっかくiTunesでライブラリを構築したのでそれを利用して聞きたいと思います。そこで使えるのが<a href="http://www.getmusicbee.com/">MusicBee &#8211; Music Manager and Player</a>という音楽プレイヤーです。iTunesからライブラリをインポートしたり、iPhoneとも同期できたりするので、人によってはiTunes自体が不必要になるかも知れません(アートワーク周りはiTunesが補助ソフトが多くていい)<br>
+<a href="http://www.getmusicbee.com/">MusicBee </a>自体も軽量で使いやすいプレイヤーなので、そのまま使えるのは魅力的だと思います。</p>
+
+<h3 id="itunesを使わない運用">iTunesを使わない運用</h3>
+
+<p>脱獄向けです。<br>
+簡単に書くとフォルダごとそのままiPhoneに転送して、どうにかしてiPhoneでそのフォルダに入ってる曲を聴くというものです。<br>
+iPhoneでエクスプローラのように探索して曲を聴くにiFileを使うことができます(確か有料版の機能)そのままフォルダ内の曲が再生できるのでお手軽です。<br>
+もう一つはpwnplayer liteを使う方法。pwnplayer liteは既にレポジトリなどからなくなってるので直接debファイルを拾ってインストールする必要があるみたいです。<a href="http://ipod-touch-max.ru/cydia/index.php?cat=package&amp;id=5933">PwnPlayer Lite</a> にありましたが保証はしないので自己責任で導入して下さい。導入すると<br>
+<em>/var/mobile/Media/Music/</em>にある音楽ファイルを直接再生できます。<br>
+最後の方法は面倒でローカルにサーバを立ててooTunesのようなサーバからダウンロードできるタイプのアプリを使って再生する方法です。</p>
+
+<p><a href="http://kitta.jf.land.to/index.cgi?page=iPod+touch%2F2.0%B0%CA%B9%DF%2Flighttpd">iPod touch/2.0以降/lighttpd &#8211; ひとりウィキ</a> を参考にlighttpdを導入して(sbsettingの方もあると便利)ローカルでサーバを動かします。自分が使ったファイルは<a href="http://efcl.info/wp-content/uploads/2010/07/2010-07-09_lighttpd_set.zip">2010-07-09_lighttpd_setに置いておきます。</a></p>
+
+<p>苦労する割にはいまいちな感じがあります。</p>
+
+<p>iPhoneで再生が普通のDAPレベルになってくれればもっと良くなると思います。Rockboxが使えたり、Androidのインストールがもっと良くなることを祈りましょう。</p>
+
+<p><strong>//////</strong>//D6F.com// iArtworx<br>
+**
+:   <a href="http://www.d6f.com/" title="//////**//D6F.com//">http://www.d6f.com/</a></p>
+
+<p><strong>Broadway &#8211; Voralent Computer Service</strong>
+:   <a href="http://www.voralent.com/products/broadway/" title="Broadway - Voralent Computer Service">http://www.voralent.com/products/broadway/</a></p>
+
+<p><strong>beaTunes ~ build better playlists</strong>
+:   <a href="http://www.beatunes.com/" title="beaTunes ~ build better playlists">http://www.beatunes.com/</a></p>
+
+<p><strong>STEP Wiki &#8211; β版のダウンロード &#8211; 最新β版のダウンロードができます。</strong>
+:   <a href="http://haseta2003.hp.infoseek.co.jp/cgi-bin/index.cgi?%a6%c2%c8%c7%a4%ce%a5%c0%a5%a6%a5%f3%a5%ed%a1%bc%a5%c9" title="STEP Wiki - β版のダウンロード - 最新β版のダウンロードができます。">http://haseta2003.hp.infoseek.co.jp/cgi-bin/index.cgi?%a6%c2%c8%c7%a4%ce%a5%c0%a5%a6%a5%f3%a5%ed%a1%bc%a5%c9</a></p>
+
+<div id="_mcePaste" style="position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;">
+  <h3 class="r">
+    <a class="l" onmousedown="return rwt(this,'','','','1','AFQjCNH7C9DrKx6wyetcXqNbAk3lAJSXgw','MJq5RKweu_SQs0wadBvc-g','0CBgQFjAA')" href="http://www.hackint0sh.org/f207/93231.htm" target="_blank"><em>Hactivation</em></a>
+  </h3>
+</div>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-07-09-sim%E3%81%AA%E3%81%97iphone3g%E3%82%92ipod%E3%81%A8%E3%81%97%E3%81%A6%E9%81%8B%E7%94%A8%E3%81%99%E3%82%8Bitunes%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["cydia","DAP","iPhone","itunes","music","ソフトウェア","脱獄"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=cydia">cydia</a></li>
+                
+                <li><a href="/tags/?q=DAP">DAP</a></li>
+                
+                <li><a href="/tags/?q=iPhone">iPhone</a></li>
+                
+                <li><a href="/tags/?q=itunes">itunes</a></li>
+                
+                <li><a href="/tags/?q=music">music</a></li>
+                
+                <li><a href="/tags/?q=ソフトウェア">ソフトウェア</a></li>
+                
+                <li><a href="/tags/?q=脱獄">脱獄</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

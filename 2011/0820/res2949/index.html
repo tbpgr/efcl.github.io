@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        サイボウズラボユース中間結果発表会アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,まとめ,アウトライン,最適化,正規表現" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0820/res2949/">
+    <h1 class="post-title">サイボウズラボユース中間結果発表会アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年08月20日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-08-20-%E3%82%B5%E3%82%A4%E3%83%9C%E3%82%A6%E3%82%BA%E3%83%A9%E3%83%9C%E3%83%A6%E3%83%BC%E3%82%B9%E4%B8%AD%E9%96%93%E7%B5%90%E6%9E%9C%E7%99%BA%E8%A1%A8%E4%BC%9A%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="https://job.rikunabi.com/2012/company/blog/detail/r646010018/42/">サイボウズ・ラボユース 「中間成果報告会」</a>に参加してきたのでそのときのメモです。<br>
+かなり乱雑なメモで正確性など存在していないので、そのまま読まない方がいいです。<br>
+(特に手元でスライドがあるわけじゃないので、ちゃんとメモれてすらないです…)</p>
+
+<p>環境記録<br>
+メモソフトウェア: <a href="https://github.com/bodhi/MarkdownEditor">bodhi/MarkdownEditor &#8211; GitHub</a></p>
+
+<h2 id="サイボウズラボユース中間結果発表会">サイボウズラボユース中間結果発表会</h2>
+
+<p>NDAは結ばずに、成果をオープンすることを条件に支援を行う。</p>
+
+<ul>
+<li>  <a href="http://labs.cybozu.co.jp/recruit/youth.html">サイボウズ・ラボユース</a></li>
+</ul>
+
+<h2 id="「ロボット制作を支援するログ解析プログラムの開発」-by-@sn_monochr-{#bysn_monochr}">「ロボット制作を支援するログ解析プログラムの開発」 by @sn_monochr {#bysn_monochr}</h2>
+
+<h4 id="マイコンカー">マイコンカー</h4>
+
+<p>赤外線センサーを使ってリアルタイムで制御するカー。 C言語で開発を行う。</p>
+
+<h4 id="マイコンカーの走行ログ">マイコンカーの走行ログ</h4>
+
+<p>走行ログ</p>
+
+<ul>
+<li>  制御プログラムの動作状態</li>
+<li>  赤外線などのセンサー状態</li>
+</ul>
+
+<p>メモリが限られているので、データはシフト演算などを使って一つにまとめて保存、送信を行う。 これらのデータを可視化していくため、解析ソフトウェアを開発する。(Windows)</p>
+
+<h4 id="走行ログの可視化">走行ログの可視化</h4>
+
+<ul>
+<li>  データに基づいたマシン調整が可能になる</li>
+<li>  １つのソフトウェアに統合</li>
+</ul>
+
+<h4 id="夏の合宿">夏の合宿</h4>
+
+<p>目標設定をして合宿を行った</p>
+
+<ul>
+<li>  走行ログの可視化</li>
+</ul>
+
+<p>ラインの中でモードの変更をライン色の変更してる。</p>
+
+<ul>
+<li>  無線通信でログのやり取りをするのが今後目標</li>
+</ul>
+
+<p>走るコースに、車線変更や直角カーブなどのマークが書かれていて、それを読み取ってモードを変えることで動きを変える。</p>
+
+<hr>
+
+<h2 id="「世界最速の正規表現jitエンジンの実装」by-@sinya8282-{#jitbysinya8282}">「世界最速の正規表現JITエンジンの実装」by @sinya8282 {#jitbysinya8282}</h2>
+
+<ul>
+<li>  正規表現エンジンの作成</li>
+<li>  正規表現の歴史は古い 1960～</li>
+<li>  *   実装はたくさんある</li>
+<li>  *   いろいろやられている</li>
+</ul>
+
+<p>「正規表現エンジンの開発」には意義があるのですか? -&gt; 車輪は車輪でも「最速の車輪」を開発する</p>
+
+<p><em>正規表現エンジンRegen(れーげん)の開発</em></p>
+
+<h3 id="regen-{#regen}">Regen {#regen}</h3>
+
+<p>動的コード生成</p>
+
+<ul>
+<li>  Xbyak でJIT regex</li>
+<li>  正規表現に合わせて、プログラムがプログラムを生成する</li>
+<li>  正規表現コンパイルに最適化レベル導入(O0 &#8211; O4)</li>
+<li>  *   最適化しにくいパターンもある</li>
+</ul>
+
+<p><strong>マッチング並列化</strong></p>
+
+<ul>
+<li>  並列化のための特殊なモデルを実装</li>
+</ul>
+
+<h4 id="ベンチマーク">ベンチマーク</h4>
+
+<p>Google RE2との比較。</p>
+
+<p>JITしても3-5倍の高速化 -&gt; 今はメニーコアの時代 -&gt; 正規表現の並列化</p>
+
+<ul>
+<li>  6コアでガクって落ちるのはアーキテクチャの問題</li>
+</ul>
+
+<h4 id="まとめ">まとめ</h4>
+
+<p>高速化の二台手法は実装した、成果もでた</p>
+
+<ul>
+<li>  JIT</li>
+<li>  並列化</li>
+</ul>
+
+<p><strong>これからの課題</strong></p>
+
+<ul>
+<li>  実システムへの応用、ツールの作成</li>
+<li>  正規表現エンジンじゃないと処理できない問題</li>
+<li>  *   なければ作る</li>
+<li>  ライブラリとして今夏中に整えたい</li>
+</ul>
+
+<h4 id="質問">質問</h4>
+
+<ul>
+<li>  正規表現 &lt;-&gt; インデクシング</li>
+<li>  フィルターなどの分野では、流れるデータに対して正規表現の活用などもある。</li>
+<li>  禁止ワードのORつなぎみたいなものは正規表現より向いてる方法があるとか</li>
+</ul>
+
+<hr>
+
+<h2 id="「javascriptによる型推論器の実装と可視化」by-takuto_h-{#javascriptbytakuto_h}">「JavaScriptによる型推論器の実装と可視化」by takuto_h {#javascriptbytakuto_h}</h2>
+
+<ul>
+<li>  <a href="http://d.hatena.ne.jp/takuto_h/20110401/ibis" title="JavaScriptで型推論器を作りました - takuto_hの日記">JavaScriptで型推論器を作りました &#8211; takuto_hの日記</a></li>
+</ul>
+
+<p>型推論</p>
+
+<ul>
+<li>  型を書かなくて楽</li>
+<li>  型があるんで安全</li>
+</ul>
+
+<h4 id="引数の型">引数の型</h4>
+<div class="highlight"><pre><code class="language-text" data-lang="text">function foo(bar){ return bar + 1; }
+</code></pre></div>
+<p>どのような演算子を呼んでいるかを見て、型を推論する</p>
+
+<h4 id="型推論は方程式">型推論は方程式</h4>
+
+<ul>
+<li>  値が広志位なら型が等しい</li>
+<li>  方の上での方程式を集めて解くのが型推論</li>
+</ul>
+
+<p>コンピューターでは解くのか</p>
+
+<blockquote>
+<p>a = b, b = c, c = d, d= int</p>
+</blockquote>
+
+<p><code>&lt;a&gt;, &lt;b&gt;, &lt;c&gt;, &lt;d&gt;</code>というオブジェクトとintという物体を用意する。</p>
+
+<ul>
+<li>  a = b で <code>&lt;a : &lt;b&gt;&gt;, &lt;b&gt;, &lt;c&gt;, &lt;d&gt;</code></li>
+<li>  b = c で ….</li>
+</ul>
+
+<p>どんどん置き換えて行って型推論を行う。</p>
+
+<h4 id="ibisという型推論機-{#ibis}">Ibisという型推論機 {#ibis}</h4>
+
+<p>IbisはJavaScriptで書かれている。</p>
+
+<ul>
+<li>  まずはパースして構文木にする</li>
+<li>  ここからステップごとに型推論の計算(推論)を表示</li>
+<li>  最終的に、関数の入力と出力の型推論結果が表示される</li>
+</ul>
+
+<blockquote>
+<p>型推論はパズル</p>
+</blockquote>
+
+<h4 id="質問">質問</h4>
+
+<blockquote>
+<p>型推論にとってオブジェクトは鬼門</p>
+</blockquote>
+
+<p>Q . 循環参照の時はどうするの?</p>
+
+<p>２つの考え方</p>
+
+<ul>
+<li>  禁止する方針</li>
+<li>  再帰的なものも許す方針</li>
+</ul>
+
+<p>OCamlは不健全な循環参照は禁止されている。 再帰的なものはチェックを付けて型推論を続ける。</p>
+
+<p>演算子のオーバーロードがあると型推論はむずい</p>
+
+<hr>
+
+<h4 id="「世界で一番仕様に忠実なjavascript処理系の作成」-by-constellation-{#javascriptbyconstellation}">「世界で一番仕様に忠実なJavaScript処理系の作成」 by Constellation {#javascriptbyconstellation}</h4>
+
+<p>iv/lv5</p>
+
+<p><a href="http://d.hatena.ne.jp/Constellation/20110727/1311697245" title="iv / lv5 VM engine - 枕を欹てて聴く">iv / lv5 VM engine &#8211; 枕を欹てて聴く</a></p>
+
+<ul>
+<li>  ESのパーサーiv</li>
+<li>  エンジンlv5</li>
+</ul>
+
+<p>sputniktestというECMA262への正確性を測るテスト</p>
+
+<ul>
+<li>  以前はASTはインタープリンタ</li>
+<li>  VMに変えたのでECMAエンジンといえますね。</li>
+<li>  インタープリタと共存している(オプションで切り替えが可能)</li>
+</ul>
+
+<p>JITをモジュールとして取り込めるのではないかと。</p>
+
+<h4 id="高速化">高速化</h4>
+
+<p>いろいろ。11倍近く高速</p>
+
+<p>まだJITはしていない。</p>
+
+<h4 id="今後">今後</h4>
+
+<ul>
+<li>  RegisterVmについての検討</li>
+<li>  GCの自作</li>
+</ul>
+
+<h4 id="az:-ecmascript-analyzer-{#az:ecmascriptanalyzer}">az: ECMAScript Analyzer {#az:ecmascriptanalyzer}</h4>
+
+<p>JavaScriptの補完候補を出す</p>
+
+<h4 id="型の推論-doctorjs-{#doctorjs}">型の推論 Doctorjs {#doctorjs}</h4>
+
+<ul>
+<li>  抽象的なAbstractインタプリターを使って型情報を集めている</li>
+<li>  これを元にC++にした</li>
+</ul>
+
+<p>JavaScriptは後ろに関数宣言置けるし、補完するときにシンタックスは壊れてるからどうするの?</p>
+
+<h5 id="方針:-シンタックスが不正なastに対して解析を行う-{#ast}">方針: シンタックスが不正なASTに対して解析を行う {#ast}</h5>
+
+<ul>
+<li>  シンタックスが不正なスクリプトでも常にASTを得る</li>
+</ul>
+
+<blockquote>
+<p>target.</p>
+</blockquote>
+
+<p>こういう時はに解析を行うと、式がエラーになるので、ここでステートメントにマークを付ける。</p>
+
+<p>改行があったらそのへんは大丈夫なんじゃないかと、してぶっちぎる。 JavaScriptにはセミコロン自動挿入があるので、改行を判定に使う必要性が出てくる。</p>
+
+<h5 id="問題点">問題点</h5>
+
+<ul>
+<li>  Abstractインタープリタは状態が有限でないと終わらない</li>
+<li>  なので状態を有限して、行う</li>
+<li>  jQueryとのfor inとかむず</li>
+</ul>
+
+<p>WebStromの場合</p>
+
+<ul>
+<li>  JSDocで型情報を読んでこれを基準に解析</li>
+<li>  元に情報を用意して何とかする方向</li>
+</ul>
+
+<h4 id="おわり">おわり</h4>
+
+<blockquote>
+<p>仕様忠実は第一</p>
+</blockquote>
+
+<hr>
+
+<h2 id="「現役高校生の考えるクラウドosの設計と実装」by-liva_s-{#osbyliva_s}">「現役高校生の考えるクラウドOSの設計と実装」by liva_s {#osbyliva_s}</h2>
+
+<h4 id="クラスドosって何だろう?-{#os}">クラスドOSって何だろう? {#os}</h4>
+
+<p>Googleの場合</p>
+
+<ul>
+<li>  ブラウザ上でWebアプリを走らせている</li>
+<li>  確かにクラウドを利用している</li>
+</ul>
+
+<h4 id="僕の考えるクラウド化">僕の考えるクラウド化</h4>
+
+<h5 id="カーネルのクラウド化">カーネルのクラウド化</h5>
+
+<ul>
+<li>  カーネルがやるべきことをクラウドサーバー上で一括処理するのはどうだろか?</li>
+<li>  サーバー側に処理を置くことで、クライアント側の負荷が減る</li>
+</ul>
+
+<p>カーネルを分割して、クラウド上でカーネルが動いてるいうという状態</p>
+
+<ul>
+<li>  当然ローカルでやるべきことも残る(ハードウェア制御)</li>
+<li>  ローカルとくらうどの線引きが大事になる</li>
+</ul>
+
+<p>どの境界線はどう測るべきものかがわからない(ベンチマークで?)</p>
+
+<h4 id="マイクロカーネル開発">マイクロカーネル開発</h4>
+
+<p>カーネルには最小限なものにして、Serverというアプリケーションにわけてやるもの。 この時のServerをクラウドに乗っければ、クラウドOSになる。</p>
+
+<p>=&gt; マイクロカーネルの開発がいいのではないかと</p>
+
+<p>Serverを単位にして、ローカルとクラウドでベンチマークを取れば、境界線がわかりやくなる。</p>
+
+<h4 id="モジュール開発とマイクロカーネル">モジュール開発とマイクロカーネル</h4>
+
+<p>モジュールはプロセス管理を作る前に、モジュールを開発できる。 (後で動かせばいい)</p>
+
+<h5 id="まとめ">まとめ</h5>
+
+<blockquote>
+<p>クラウドOSはWebアプリベースのOSではない</p>
+</blockquote>
+
+<p>Q. カーネルでどの辺がボトルネックになってるのか?</p>
+
+<p>A. モジュール化していけばベンチは測りやすいから、これからは。</p>
+
+<p>カーネルのモジュール化はダイナミックに構成を変更できるということが結構面白い事になる</p>
+
+<p>Q.マルチキャストの逆みたいな話。同じような処理をしてるコンピューターはいっぱいあるから、そのへんの処理を効率ができるのではないかと</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-08-20-%E3%82%B5%E3%82%A4%E3%83%9C%E3%82%A6%E3%82%BA%E3%83%A9%E3%83%9C%E3%83%A6%E3%83%BC%E3%82%B9%E4%B8%AD%E9%96%93%E7%B5%90%E6%9E%9C%E7%99%BA%E8%A1%A8%E4%BC%9A%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","まとめ","アウトライン","最適化","正規表現"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=まとめ">まとめ</a></li>
+                
+                <li><a href="/tags/?q=アウトライン">アウトライン</a></li>
+                
+                <li><a href="/tags/?q=最適化">最適化</a></li>
+                
+                <li><a href="/tags/?q=正規表現">正規表現</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Frontrend Vol.4 アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2013/0209/res3182/">
+    <h1 class="post-title">Frontrend Vol.4 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2013年02月09日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-02-09-frontrend-vol-4-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>Frontrend Vol.4 に参加してきたのでその時のメモです。</p>
+
+<h1 id="ca-frontrend-v04">CA Frontrend v04</h1>
+
+<ul>
+<li>  <a href="http://atnd.org/events/35720" title="Frontrend Vol.4 powered by CyberAgent, Inc. : ATND">Frontrend Vol.4 powered by CyberAgent, Inc. : ATND</a></li>
+<li>  場所: サイバーエージェント本社 13F セミナールーム （東京都渋谷区道玄坂一丁目12番1号渋谷マークシティ ウエスト13階）</li>
+<li>  <del>Frontrend Vol.4 powered by CyberAgent, Inc. に回答するとスライドがある</del></li>
+</ul>
+
+<h2 id="javascript-development-tools-–-javascript開発の効率アップ-&#8211;-layzie">JavaScript Development Tools – JavaScript開発の効率アップ &#8211; Layzie</h2>
+
+<ul>
+<li>  JavaScript開発に役立つGUI</li>
+<li>  JavaScript開発に役立つCUI</li>
+</ul>
+
+<h3 id="chrome-developer-tools">Chrome Developer Tools</h3>
+
+<ul>
+<li>  ショートカット</li>
+<li>  ブレークポイント 
+
+<ul>
+<li>  DOMの属性が変更</li>
+<li>  Throw Error</li>
+<li>  XHRでURLに通信した時にbreak</li>
+<li>  etc…</li>
+</ul></li>
+<li>  Timeline</li>
+<li>  Profile</li>
+</ul>
+
+<h3 id="chorme://net-internals">chorme://net-internals</h3>
+
+<ul>
+<li>  SPDYなどの通信を見られる</li>
+</ul>
+
+<h3 id="charles">Charles</h3>
+
+<ul>
+<li>  デバッグ用Proxy</li>
+<li>  Fiddler</li>
+<li>  MapLocal 
+
+<ul>
+<li>  URL先のファイルとローカルファイルをすり替えられる</li>
+<li>  AutoResponder的な機能</li>
+</ul></li>
+<li>  Throttle 
+
+<ul>
+<li>  回線のエミューレート</li>
+<li>  3G相当の通信の遅さをサイト</li>
+</ul></li>
+</ul>
+
+<h3 id="dochub">Dochub</h3>
+
+<p><a href="http://dochub.io/#css/">http://dochub.io/#css/</a></p>
+
+<ul>
+<li>  JS/CSS APIの検索サイト</li>
+<li>  MDNのコンテンツの検索</li>
+</ul>
+
+<h3 id="jsfiddle">jsFiddle</h3>
+
+<ul>
+<li>  jsbin/jsdot.it 系のサイト</li>
+<li>  Debug on Mobile 
+
+<ul>
+<li>  モバイル用のデバッグURLがある</li>
+</ul></li>
+</ul>
+
+<h3 id="jspref">jsPref</h3>
+
+<ul>
+<li>  JavaScriptのベンチマークを見るサイト</li>
+</ul>
+
+<h3 id="browsering">browsering</h3>
+
+<ul>
+<li>  substack</li>
+<li>  ブラウザのテスト</li>
+<li>  $20/month</li>
+<li>  ci.testing.com</li>
+</ul>
+
+<h3 id="jshint">JSHint</h3>
+
+<ul>
+<li>  JavaScriptのLintをかけるツール</li>
+</ul>
+
+<h3 id="jq">jq</h3>
+
+<ul>
+<li>  jsonのsed</li>
+<li>  jsonをqueryでいじれる</li>
+<li>  jsonを整形表示される</li>
+</ul>
+
+<h3 id="doctor-js">Doctor JS</h3>
+
+<ul>
+<li>  ctag的なJavaScriptのタグファイルを作成するツール</li>
+<li>  静的解析したファイルを作ってエディタ</li>
+</ul>
+
+<h3 id="yeoman">Yeoman</h3>
+
+<ul>
+<li>  パッケージ管理</li>
+<li>  土台作るCLI</li>
+<li>  scaffold</li>
+<li>  grunt server</li>
+</ul>
+
+<p>Nodefront という類似なCLIもある</p>
+
+<h2 id="jquery-performance-tips-–-jqueryにおける高速化-&#8211;-@pocotan001">jQuery Performance Tips – jQueryにおける高速化 &#8211; @pocotan001</h2>
+
+<p>マシンの仕事を少なくすることが、高速なプログラムになる</p>
+
+<h3 id="jqueryライクを保ってパフォーマンスチューニング">jQueryライクを保ってパフォーマンスチューニング</h3>
+
+<ul>
+<li>  ファイルサイズ</li>
+<li>  セレクタ</li>
+<li>  リフロー影響</li>
+</ul>
+
+<h3 id="ファイルサイズ">ファイルサイズ</h3>
+
+<ul>
+<li>  jQuery 1.9と 2.0をIEの条件コメントで読み込むものを分ける</li>
+<li>  スタート時には最小構成で始めるほうがいい</li>
+</ul>
+
+<h3 id="jquery-migrate-plugin">jquery migrate plugin</h3>
+
+<ul>
+<li>  jQuery 1.9で削除されたAPIを補完するプラグイン</li>
+<li>  非推奨のことについても警告してくれる</li>
+<li>  警告の詳しい内容はGithubに</li>
+</ul>
+
+<h3 id="jquery-セレクタ">jQuery セレクタ</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$(&quot;#target p&quot;);
+</code></pre></div>
+<p><code>$(&quot;#target&quot;).find(&quot;p&quot;)</code></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$(&#39;#tareget).find(&#39;p:first&#39;);
+</code></pre></div>
+<ul>
+<li>  QuerySelectorAll -&gt; 失敗</li>
+<li>  getElementTagName</li>
+<li>  jQueryパース</li>
+</ul>
+
+<p>次のように分けるか、<code>:first-child</code> を使う</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$(&#39;#tareget).find(&#39;p&#39;).first();
+</code></pre></div>
+<h3 id="リフロー">リフロー</h3>
+
+<p>HTML &#8211; DOM &#8211; レンダーツリー &#8211; CSSOM &#8211; CSS</p>
+
+<p>描画のフローは一度ではなく、段階的に描画していってる</p>
+
+<ul>
+<li>  CSS Reflow</li>
+<li>  Chrome Devloper Tools &#8211; Timelimeで可視化できる</li>
+</ul>
+
+<p>DOMツリーとレンダーツリー</p>
+
+<ul>
+<li>  DOMツリーにはあって、レンダーツリーにはないものも 
+
+<ul>
+<li>  display : noneなどされてる要素はレンダーツリーには出てこない</li>
+<li>  display : blockにして見えるようになった時、レンダーツリーに出現する</li>
+<li>  これがリフローに関係する</li>
+</ul></li>
+</ul>
+
+<p>同じリフローが起きる処理を2回呼んだ場合は、ブラウザがクッションを挟んで1度に済ませたりする</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$(&#39;p&#39;).css(&#39;margin&#39; , &#39;5px&#39;);
+</code></pre></div>
+<h4 id="リフローのトリガー">リフローのトリガー</h4>
+
+<ul>
+<li>  ユーザー入力</li>
+<li>  positionの変更</li>
+</ul>
+
+<h3 id="リフローを減らす">リフローを減らす</h3>
+
+<ul>
+<li>  hideにしてから変更すればリペイントはまとまる</li>
+<li>  $.cssはオブジェクトで指定したほうがいい。</li>
+<li>  offset()等の計算は変数に入れて使いまわす</li>
+</ul>
+
+<p>の中にscriptがある場合</p>
+
+<p>表示 -&gt; JS -&gt; 変更</p>
+
+<p>でdocument.readyで動かす</p>
+
+<p>JS -&gt; 表示 -&gt;</p>
+
+<h3 id="ボトルネックを解消をする">ボトルネックを解消をする</h3>
+
+<ul>
+<li>  描画コストの高いCSS</li>
+<li>  アニメーション</li>
+<li>  ループ</li>
+</ul>
+
+<h4 id="chrome-cannaryを使う">Chrome Cannaryを使う</h4>
+
+<ul>
+<li>  cannaryにしかない機能もある</li>
+<li>  Timelimeで表示する内容のしきい値を指定できる(ALl , 15ms)</li>
+<li>  10ms以内でするのがモバイルだとちょうどいい</li>
+<li>  Timelineの山がコストの大きさ</li>
+<li>  設定 -&gt; Rendering 
+
+<ul>
+<li>  レンダリングの可視化</li>
+<li>  FPSの表示</li>
+<li>  連続的なレンダリングの可視化</li>
+</ul></li>
+</ul>
+
+<h3 id="jqueryアニメーションとcss3">jQueryアニメーションとCSS3</h3>
+
+<ul>
+<li>  CSSのほうがネイティブに近いので基本的には早い</li>
+<li>  requestAnimationFrame</li>
+</ul>
+
+<h3 id="まびく">まびく</h3>
+
+<p>処理を間引いて行う</p>
+
+<ul>
+<li>  throttle</li>
+<li>  debounce</li>
+</ul>
+
+<h3 id="その他">その他</h3>
+
+<ul>
+<li>  スタイルの変更を末端要素で影響範囲を抑える</li>
+<li>  アニメーションはfixedにしておく</li>
+<li>  Tableレイアウトをしない 
+
+<ul>
+<li>  テーブルは特別的な感じなので</li>
+</ul></li>
+</ul>
+
+<h2 id="javascript-–-テストしやすいjavascriptとテストについて-&#8211;-cssradar">Javascript – テストしやすいJavaScriptとテストについて &#8211; CSSRADAR</h2>
+
+<ul>
+<li>  テストしやすいJavaScriptとは</li>
+<li>  ユニットテストツールとは</li>
+</ul>
+
+<h3 id="テストしやすいjavascriptとは">テストしやすいJavaScriptとは</h3>
+
+<h4 id="ベストプラクティス">ベストプラクティス</h4>
+
+<ul>
+<li>  オブジェクト指向JavaScript</li>
+<li>  デザインパターン</li>
+<li>  MV*構造</li>
+<li>  ユニットテスト</li>
+</ul>
+
+<h3 id="リファクタリングを前提に考える">リファクタリングを前提に考える</h3>
+
+<ul>
+<li>  リファクタリングをする前提で書く</li>
+<li>  テストはリファクタリングを補助する</li>
+<li>  ロジックにもデザインがある</li>
+</ul>
+
+<h3 id="テストしずらいコードを見ていく">テストしずらいコードを見ていく</h3>
+
+<ul>
+<li>  テストしにくいコードからテストしやすいコードを学ぶ</li>
+<li>  QOF</li>
+</ul>
+
+<h3 id="untestable-code">untestable code</h3>
+
+<ul>
+<li>  50行の中に5つの役割がある 
+
+<ul>
+<li>  jQueryのready</li>
+<li>  clickイベント</li>
+<li>  フォームのインプット内容を取得</li>
+<li>  appendでDOM捜査</li>
+<li>  appendするHTML生成</li>
+<li>  // XHR</li>
+</ul></li>
+<li>  コードの役割分担が複雑だとテストしにくいコードなる</li>
+<li>  コード間で密接な関係を持つとテストしにくくなる</li>
+<li>  これをリファクタリングしていく</li>
+</ul>
+
+<h3 id="テスト駆動リファクタリング">テスト駆動リファクタリング</h3>
+
+<ul>
+<li>  テストはデザイン</li>
+<li>  パターンはよくある問題の解決する</li>
+</ul>
+
+<h3 id="リファクタリング">リファクタリング</h3>
+
+<ul>
+<li>  まずは、テストコードからアプリケーションコードへアクセスできるようにする</li>
+<li>  init にとりあえず、以前のreadyの中身を突っ込む</li>
+</ul>
+
+<p>QUnitを使ってテストコードを書いていく</p>
+
+<ul>
+<li>  名前空間があるか</li>
+<li>  getDataでユーザーが入力したデータを取得できてかをテストを書く</li>
+<li>  単一責任の原則 -&gt; それぞれのユニットが正しいかを確認していく</li>
+<li>  setupで、ユーザーの入力を入れて、teardownでユーザーの入力を消す</li>
+</ul>
+
+<h3 id="テストツール">テストツール</h3>
+
+<h4 id="jasmine">Jasmine</h4>
+
+<ul>
+<li>  BDD</li>
+<li>  descript 何が it どうなる</li>
+</ul>
+
+<h4 id="qunit">Qunit</h4>
+
+<ul>
+<li>  jQueryが元々</li>
+<li>  安定している</li>
+<li>  test 振る舞い</li>
+</ul>
+
+<h4 id="mocha">Mocha</h4>
+
+<ul>
+<li>  Node.jsが元々</li>
+<li>  assertion libraryを持ってない 
+
+<ul>
+<li>  chai , expect.js</li>
+</ul></li>
+</ul>
+
+<h4 id="pahntomjs">PahntomJS</h4>
+
+<ul>
+<li>  ヘッドレスブラウザ &#8211; test runnerとして使う</li>
+</ul>
+
+<h4 id="grunt.js">Grunt.js</h4>
+
+<ul>
+<li>  ビルドツールで自動化</li>
+</ul>
+
+<h3 id="koans">Koans</h3>
+
+<ul>
+<li>  テストで学ぶJavaScript</li>
+</ul>
+
+<h2 id="q&amp;a">Q&amp;A</h2>
+
+<ul>
+<li>  チームの他の人がテストしたがらない場合に何から始めるか? 
+
+<ul>
+<li>  テストは何を行うものが体験してもらう</li>
+<li>  Koansみたいな動かしてみるところからやってみる</li>
+</ul></li>
+</ul>
+
+<h2 id="jquery-to-backbone-–-アーキテクチャを意識したjavascript入門-&#8211;-ahomu">jQuery to Backbone – アーキテクチャを意識したJavaScript入門 &#8211; ahomu</h2>
+
+<ul>
+<li>  jQueryについて</li>
+<li>  Backbone.jsについて</li>
+<li>  jQuery to Backbone.js</li>
+</ul>
+
+<p>jQuery replace backboneではなく、フォーカスを移すイメージ</p>
+
+<h3 id="backbone.js">Backbone.js</h3>
+
+<ul>
+<li>  軽量で短く</li>
+<li>  jQuery/Unserscore.jsに依存してる</li>
+</ul>
+
+<h3 id="jquery">jQuery</h3>
+
+<ul>
+<li>  DOM APIを隠蔽して簡潔に記述する</li>
+<li>  クロスブラウザ対応の諸問題を対処</li>
+<li>  プラグインが豊富</li>
+</ul>
+
+<h3 id="jqueryが解決しない問題">jQueryが解決しない問題</h3>
+
+<ul>
+<li>  アプリケーションコードの肥大化</li>
+<li>  スパゲティコード</li>
+<li>  テストしにくいコード</li>
+</ul>
+
+<p>これをBackboneを使いつつ上手く解決していく</p>
+
+<h3 id="mv*">MV*</h3>
+
+<ul>
+<li>  TodoMVC 
+
+<ul>
+<li>  JavaScriptのMV*ライブラリを作ってサンプルのTodoアプリを作ってサイト</li>
+<li>  30個以上ある</li>
+</ul></li>
+</ul>
+
+<h3 id="backbone.js">Backbone.js</h3>
+
+<ul>
+<li>  やさしい構造をサポート</li>
+<li>  Model/View/Router</li>
+</ul>
+
+<h3 id="デザインパターン">デザインパターン</h3>
+
+<ul>
+<li>  デザインパターンから一般的なパターンを学ぶ</li>
+</ul>
+
+<h4 id="facade">facade</h4>
+
+<h4 id="singleton">Singleton</h4>
+
+<ul>
+<li>  オブジェクトが1個にあって欲しい</li>
+</ul>
+
+<h4 id="flyweight">FlyWeight</h4>
+
+<ul>
+<li>  動的にインスタンスを生成し、同一のものは使いまわすパターン</li>
+</ul>
+
+<h4 id="observer">Observer</h4>
+
+<ul>
+<li>  イベントをつけて監視して発火する</li>
+<li>  1 vs 1</li>
+</ul>
+
+<h4 id="mediator">Mediator</h4>
+
+<ul>
+<li>  イベントの仲介をするパターン</li>
+<li>  Pub/Sub &#8211; 3者</li>
+</ul>
+
+<h3 id="jquery-to-backbone.js">jQuery to Backbone.js</h3>
+
+<p>View</p>
+
+<ul>
+<li>  見た目入力</li>
+<li>  DOM要素の管理</li>
+<li>  イベント制御</li>
+</ul>
+
+<p><code>Backbone.View.extend</code></p>
+
+<p>Model</p>
+
+<ul>
+<li>  取り扱うデータの単位</li>
+<li>  ストレージとの通信・動機</li>
+<li>  APIや情報のレコードを表現</li>
+</ul>
+
+<p><code>Backbone.Model.extend</code></p>
+
+<p>Collection</p>
+
+<ul>
+<li>  Modelが集合したリスト</li>
+<li>  リスト操作など</li>
+<li>  Modelとの通信、同期</li>
+</ul>
+
+<p><code>Backbone.Collection.extend</code></p>
+
+<p>Router</p>
+
+<ul>
+<li>  URLによるルーティング</li>
+<li>  hisotyr.pushState</li>
+</ul>
+
+<h3 id="demo">DEMO</h3>
+
+<ul>
+<li>  Backbone.Viewを作成</li>
+<li>  renderメソッドを中執</li>
+<li>  テンプレートの分離</li>
+</ul>
+
+<h3 id="モジューラーjavascript">モジューラーJavaScript</h3>
+
+<ul>
+<li>  依存性の低さによる変更のひしゃすさ</li>
+<li>  継続的なメンテナンス性がアップする</li>
+</ul>
+
+<h3 id="modelとcollection">ModelとCollection</h3>
+
+<ul>
+<li>  CollectionはModelsを束ねるもの</li>
+<li>  new Model()</li>
+</ul>
+
+<h3 id="collectionのソート">Collectionのソート</h3>
+
+<ul>
+<li>  collectionのcomparatorにソート条件を書く</li>
+<li>  <code>sort</code> にイベントをつけておいて、sortされたらrenderメソッドを呼ぶようにする</li>
+</ul>
+
+<h3 id="アーキテクチャを考えるためのbackbone.js">アーキテクチャを考えるためのBackbone.js</h3>
+
+<ul>
+<li>  アーキテクチャを実際の実装から学べる</li>
+</ul>
+
+<h3 id="その他">その他</h3>
+
+<ul>
+<li>  Marionette 
+
+<ul>
+<li>  Backboneをラップしてlistなどを追加してるフレームワーク</li>
+</ul></li>
+<li>  Chaplin</li>
+<li>  Thorax</li>
+</ul>
+
+<h3 id="q&amp;a">Q&amp;A</h3>
+
+<ul>
+<li>  Backbone.js 使ってよかったどうか? 
+
+<ul>
+<li>  Viewが多いけどRequire.jsで分けて読んでる</li>
+</ul></li>
+<li>  Backbone.jsでjQuery/Zepto.jsの選択肢、スマートフォンだとどっちを使う? 
+
+<ul>
+<li>  プロジェクトでバラバラ</li>
+<li>  Zepto.js のほうがファイルサイズは小さい</li>
+<li>  jQueryはベンチマークテストだと有利</li>
+</ul></li>
+<li>  モバイルでCanvas使い物になる? 
+
+<ul>
+<li>  Androidとかに苦しめられる</li>
+</ul></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-02-09-frontrend-vol-4-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

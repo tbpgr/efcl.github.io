@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Google Tasksをサイドバーに表示するボタン作ってみた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Firefox,google,todo" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0223/res2281/">
+    <h1 class="post-title">Google Tasksをサイドバーに表示するボタン作ってみた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年02月23日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-02-23-google-tasks%E3%82%92%E3%82%B5%E3%82%A4%E3%83%89%E3%83%90%E3%83%BC%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%83%9C%E3%82%BF%E3%83%B3%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>要<a href="https://addons.mozilla.org/ja/firefox/addon/custom-buttons/" title="Custom Buttons">Custom Buttons</a>で、<a href="http://mail.google.com/mail/help/tasks/" title="Tasks">Google Tasks</a>をサイドバーに表示するボタンを作ってみました。<br>
+いつもは<a href="http://www.google.com/ig/adde?source=task&amp;moduleurl=www.google.com/ig/modules/tasks.xml" title="Google の公式 ToDo リスト ガジェット">Google の公式 ToDo リスト ガジェット</a>を使ってサブのTodoしてGoogle Tasksを使っています。<br>
+操作が軽快でツリー上にTodoを書いていけるので直ぐに消化するタイプのTodoに向いていると思います。</p>
+
+<ul>
+<li>  <a href="custombutton://%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Ccustombutton%20xmlns%3Acb%3D%22http%3A//custombuttons2.com/%22%3E%0A%20%20%3CCb2Ver%3E3.1.0%3C/Cb2Ver%3E%0A%20%20%3Cname%3EGoogle%20Tasks%3C/name%3E%0A%20%20%3Cimage%3E%3C%21%5BCDATA%5Bdata%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAFXUlEQVRIiX2WX4xcdRXHP7977/zZ2Znudne77W67Sy0lLIlNJFvbipLiWiFV0Qo8Ikok0URrQojhwQc1PGBISGNMND5JIMQnNcSYQGKqDS+0gAn/bKBSWUqXuoX9N7Mz9/fvHB/unSmr6C/53Xvumcnn3HN+33NmDED18JOpKrfu3T1+cv/sjoXGUGUU5b+WqKKqoKWNgoBQ+L2PdunqxrkLi8ungD+6s/cFUz/8VDYx1vrZiS/OPzS3bw9RFFEUMGhhiAgiQoyKqCCiA58Ppa2iqmoMcOXqhzz3/OuPr250Hza1w099/Qf33f77qZ0ThFh8SVW3QESkCCzX/FEE74XpiZQowjtXHIlRRFSNUXNleZU/nXnl89lN+6cenJmepJs7FSngMQpaQkS0hPftwh+j0qjDHYea/Gs1sNp2fLDmUVETRXRie8tMjrVOZtM7Rg5Z5/E+mCiClpB+SfoBY5mFqhKikCbKws0tXvtnj20Nw02zFV5oW9q9gKiY4A2T482FJDGmZq1X6zzOBazzWBewLuB8IHce6wPWF8/WedDAzTdUubLiuPf2cb4wP0I1g/kb67SGlW7uyJ3XLDWjSYyC9cG4EmJdwP1HkCK4xzmHc57rdmU0aoZ7FsYAGB5K+drRcRKjXL+nxkgrIbfexKgkUQRrfblLoA8477G+8Dvni2xsYHxbwr6pCkc+2WS4nqKldJtDKfffOc1YK2Nmskov98QYSaLEEhhx3pM7X8Ctx9kC7HyglztqFWHhYIuRZsYnpodQVYwxGGNQVdLEcNdtk/z94jrOe6IqSYxa1t1hrWdbXZmbqRJiEdA6Ty93NGpw66e2sbLhuePIGKoABmAQqL3p+eHP32BxqUOIocwgSlnfQM96jhwYppIJN85UiwN2njRVbpitU83gG8enyr5WjLkGj1H40a/Oc+6NFVSF3AUGZ+CcZ33T8uXPjrC24Tj26e2MNhMOXN+gmwf2TdeYGss4cXRyyxsDg/tjT17gzMvLCHEglhgjWZRIN/fsm66yuuH4zond1Gspl5Z7pKly7OAok+MVbjkwRrORbYFqUSeeObPE08++gw/lGIlCfxokMSpd67luV42F+e3Ua4Uyjn9mB7O76oQY2LOjztze5gD40SxeOr/KT379OpubHmdLSZdKFIlkMQrBB169sM63v7p7C+Arn9vJ/j0N5vY2t0zVPvzie22+9+iLXF3pYRLK8VKMFVWlUoEkxkgIgTcX17n/p39jY9MPpAcwt7c1UMtH677RcXzzxy9waXkTkYgvBWG9x3pH7jwxStlozuF95OLlDvc8fJalqz1UBOssucuxzha2zYtesYGTj73Em4trBB9KaLGLKRBxLvQDKNZFrI/4EFh8v8MDj7zIW+92MCibnS7tTod2p0O32yUxhlNPn+eZv76Lc76Ucn/EFE0ZfCBKBCj6IPderXM4V3z46lurPPDIOd6+bBlpNeh0urTbHca2t/jts4s8+pvXcOFalzvvCSEMxjwopryY2eO/W61V66M+BKSUVhQhBmF4KOUPp44yN1NDVTl7vs2Xvv9nQhBUZaCq4qaD8+mLoNWs2WStk5+OErA+aH+SOudxwfPBeo9j332OV/7RZelD5e6HTuOcJ8aAiPTJGMMWYQBayRJc0HMmmX/itp1jjb/4oIQoKipGpPiRES0ymZoYol5NePtymwHify81xpjGUIXNXO5Kk+kTl1yIw/VackuIYrwPhBBVpAgEykbHsbLuSBMzeNOP2ZokxlSy1FQrKdbzuAq/NADpwScy4M7hevpgJUsOJYmpfdzflv+3jAEfZC138bT1+gvgeXn5W/HfvFlL9NLiOXwAAAAASUVORK5CYII%3D%5D%5D%3E%3C/image%3E%0A%20%20%3Cmode%3E0%3C/mode%3E%0A%20%20%3Ccode%3E%3C%21%5BCDATA%5Bvar%20title%20%3D%20%22Google%20Tasks%22%3B%0Avar%20uri%20%3D%20%22https%3A//mail.google.com/tasks/ig%22%3B%0Avar%20sidebarTitle%20%3D%20document.getElementById%28%22sidebar-title%22%29.value%3B%0Avar%20sidebarBox%20%3D%20document.getElementById%28%22sidebar-box%22%29%3B%0Aif%20%28title%20%3D%3D%20sidebarTitle%29%20%7B%0A%09toggleSidebar%28%29%3B%0A%7D%20else%20%7B%0A%09openWebPanel%28title%2C%20uri%29%3B%20%20%0A%7D%5D%5D%3E%3C/code%3E%0A%20%20%3Cinitcode%3E%3C%21%5BCDATA%5B/*Initialization%20Code*/%5D%5D%3E%3C/initcode%3E%0A%20%20%3Caccelkey%3E%3C%21%5BCDATA%5B%5D%5D%3E%3C/accelkey%3E%0A%20%20%3Chelp%3E%3C%21%5BCDATA%5B%5D%5D%3E%3C/help%3E%0A%3C/custombutton%3E" title="Google Tasks"><img style="margin: 0 6px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAFXUlEQVRIiX2WX4xcdRXHP7977/zZ2Znudne77W67Sy0lLIlNJFvbipLiWiFV0Qo8Ikok0URrQojhwQc1PGBISGNMND5JIMQnNcSYQGKqDS+0gAn/bKBSWUqXuoX9N7Mz9/fvHB/unSmr6C/53Xvumcnn3HN+33NmDED18JOpKrfu3T1+cv/sjoXGUGUU5b+WqKKqoKWNgoBQ+L2PdunqxrkLi8ungD+6s/cFUz/8VDYx1vrZiS/OPzS3bw9RFFEUMGhhiAgiQoyKqCCiA58Ppa2iqmoMcOXqhzz3/OuPr250Hza1w099/Qf33f77qZ0ThFh8SVW3QESkCCzX/FEE74XpiZQowjtXHIlRRFSNUXNleZU/nXnl89lN+6cenJmepJs7FSngMQpaQkS0hPftwh+j0qjDHYea/Gs1sNp2fLDmUVETRXRie8tMjrVOZtM7Rg5Z5/E+mCiClpB+SfoBY5mFqhKikCbKws0tXvtnj20Nw02zFV5oW9q9gKiY4A2T482FJDGmZq1X6zzOBazzWBewLuB8IHce6wPWF8/WedDAzTdUubLiuPf2cb4wP0I1g/kb67SGlW7uyJ3XLDWjSYyC9cG4EmJdwP1HkCK4xzmHc57rdmU0aoZ7FsYAGB5K+drRcRKjXL+nxkgrIbfexKgkUQRrfblLoA8477G+8Dvni2xsYHxbwr6pCkc+2WS4nqKldJtDKfffOc1YK2Nmskov98QYSaLEEhhx3pM7X8Ctx9kC7HyglztqFWHhYIuRZsYnpodQVYwxGGNQVdLEcNdtk/z94jrOe6IqSYxa1t1hrWdbXZmbqRJiEdA6Ty93NGpw66e2sbLhuePIGKoABmAQqL3p+eHP32BxqUOIocwgSlnfQM96jhwYppIJN85UiwN2njRVbpitU83gG8enyr5WjLkGj1H40a/Oc+6NFVSF3AUGZ+CcZ33T8uXPjrC24Tj26e2MNhMOXN+gmwf2TdeYGss4cXRyyxsDg/tjT17gzMvLCHEglhgjWZRIN/fsm66yuuH4zond1Gspl5Z7pKly7OAok+MVbjkwRrORbYFqUSeeObPE08++gw/lGIlCfxokMSpd67luV42F+e3Ua4Uyjn9mB7O76oQY2LOjztze5gD40SxeOr/KT379OpubHmdLSZdKFIlkMQrBB169sM63v7p7C+Arn9vJ/j0N5vY2t0zVPvzie22+9+iLXF3pYRLK8VKMFVWlUoEkxkgIgTcX17n/p39jY9MPpAcwt7c1UMtH677RcXzzxy9waXkTkYgvBWG9x3pH7jwxStlozuF95OLlDvc8fJalqz1UBOssucuxzha2zYtesYGTj73Em4trBB9KaLGLKRBxLvQDKNZFrI/4EFh8v8MDj7zIW+92MCibnS7tTod2p0O32yUxhlNPn+eZv76Lc76Ucn/EFE0ZfCBKBCj6IPderXM4V3z46lurPPDIOd6+bBlpNeh0urTbHca2t/jts4s8+pvXcOFalzvvCSEMxjwopryY2eO/W61V66M+BKSUVhQhBmF4KOUPp44yN1NDVTl7vs2Xvv9nQhBUZaCq4qaD8+mLoNWs2WStk5+OErA+aH+SOudxwfPBeo9j332OV/7RZelD5e6HTuOcJ8aAiPTJGMMWYQBayRJc0HMmmX/itp1jjb/4oIQoKipGpPiRES0ymZoYol5NePtymwHify81xpjGUIXNXO5Kk+kTl1yIw/VackuIYrwPhBBVpAgEykbHsbLuSBMzeNOP2ZokxlSy1FQrKdbzuAq/NADpwScy4M7hevpgJUsOJYmpfdzflv+3jAEfZC138bT1+gvgeXn5W/HfvFlL9NLiOXwAAAAASUVORK5CYII=" border="0" alt="Google Tasks" />Google Tasks</a></li>
+</ul>
+
+<p>上記のボタンをクリックしてインストールできます。</p>
+
+<p>アイコンは<a href="http://nsk89.posterous.com/google-tasksfluid" title="Google TasksのFluid用アイコン作った - ( ﾉ・ω・)ﾉ⌒○・。">Google TasksのFluid用アイコン作った &#8211; ( ﾉ・ω・)ﾉ⌒○・。</a>から拝借しました。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-02-23-google-tasks%E3%82%92%E3%82%B5%E3%82%A4%E3%83%89%E3%83%90%E3%83%BC%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%83%9C%E3%82%BF%E3%83%B3%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Firefox","google","todo"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=google">google</a></li>
+                
+                <li><a href="/tags/?q=todo">todo</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

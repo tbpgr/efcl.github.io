@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        jser/jser.github.ioの記事をpull request時にLintする仕組み | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,Markdown,TravisCI" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/03/04/linting-article/">
+    <h1 class="post-title">jser/jser.github.ioの記事をpull request時にLintする仕組み</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年03月04日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-03-04-linting-article.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>このブログや<a href="http://jser.info">JSer.info</a>はJekyllを使って動いているのですが、
+どちらも記事を書くときはMarkdownを使って書かれています。</p>
+
+<p>最近になって、Markdownで書いた技術用語の表記などをLintする仕組みを追加して、pull requestした際にLint結果がinvalidなら修正を促す(主に自分に対して)レビューコメントが書き込まれる<a href="https://houndci.com/" title="Hound">HoundCI</a>みたいな仕組みを追加しました。</p>
+
+<h2 id="記事のlint">記事のLint</h2>
+
+<p>MarkdownなのでLintingには<a href="https://github.com/azu/textlint" title="textlint">textlint</a>を使いました。</p>
+
+<p>また、<a href="http://jser.info/" title="JSer.info">JSer.info</a>は記事の書式が<a href="https://github.com/jser/jser.info/issues/27" title="ブログ記事のセマンティックを考える · Issue #27 · jser/jser.info">特殊</a>なので、それ用のtextlintルールを書いて使っています。</p>
+
+<p>といっても基本的には<a href="https://github.com/azu/spellcheck-tech-word-textlint-rule" title="azu/spellcheck-tech-word-textlint-rule">azu/spellcheck-tech-word-textlint-rule</a>をベースにして無視するルールを追加した<a href="https://github.com/jser/jser.github.io/blob/master/test/rules/spellcheck-post.js" title="spellcheck-post.js">spellcheck-post.js</a>を作って使っています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// LICENSE : MIT</span>
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">RuleHelper</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;textlint-rule-helper&quot;</span><span class="p">).</span><span class="nx">RuleHelper</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">spellCheck</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;spellcheck-technical-word&quot;</span><span class="p">).</span><span class="nx">spellCheckText</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">ContributingLink</span> <span class="o">=</span> <span class="s1">&#39;[Contributing Guide](https://github.com/jser/jser.github.io/blob/master/CONTRIBUTING.md)&#39;</span><span class="p">;</span>
+<span class="cm">/**</span>
+<span class="cm"> * @param {RuleContext} context</span>
+<span class="cm"> */</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">helper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">RuleHelper</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">exports</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="kd">var</span> <span class="nx">Syntax</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Syntax</span><span class="p">;</span>
+    <span class="c1">// HTMLの中身は無視する</span>
+    <span class="kd">var</span> <span class="nx">isCurrentHTMLBlock</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="nx">exports</span><span class="p">[</span><span class="nx">context</span><span class="p">.</span><span class="nx">Syntax</span><span class="p">.</span><span class="nx">Html</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">isCurrentHTMLBlock</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="c1">// ---- &lt;h1 class=&quot;site-genre&quot;&gt;ヘッドライン&lt;/h1&gt; きたらリセット</span>
+    <span class="nx">exports</span><span class="p">[</span><span class="nx">context</span><span class="p">.</span><span class="nx">Syntax</span><span class="p">.</span><span class="nx">HorizontalRule</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">isCurrentHTMLBlock</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="c1">// 次のParagraphがきたらHTMLブロックは終わった事にする</span>
+    <span class="nx">exports</span><span class="p">[</span><span class="nx">context</span><span class="p">.</span><span class="nx">Syntax</span><span class="p">.</span><span class="nx">Paragraph</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">isCurrentHTMLBlock</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="nx">exports</span><span class="p">[</span><span class="nx">context</span><span class="p">.</span><span class="nx">Syntax</span><span class="p">.</span><span class="nx">Str</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">isCurrentHTMLBlock</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// Headerは自動でサイトのタイトルを使うので無視する</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">helper</span><span class="p">.</span><span class="nx">isChildNode</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="p">[</span><span class="nx">Syntax</span><span class="p">.</span><span class="nx">Link</span><span class="p">,</span> <span class="nx">Syntax</span><span class="p">.</span><span class="nx">Image</span><span class="p">,</span> <span class="nx">Syntax</span><span class="p">.</span><span class="nx">BlockQuote</span><span class="p">,</span> <span class="nx">Syntax</span><span class="p">.</span><span class="nx">Header</span><span class="p">]))</span> <span class="p">{</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">getSource</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">results</span> <span class="o">=</span> <span class="nx">spellCheck</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+        <span class="nx">results</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="cm">/*SpellCheckResult*/</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// line, column</span>
+            <span class="nx">context</span><span class="p">.</span><span class="nx">report</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="k">new</span> <span class="nx">context</span><span class="p">.</span><span class="nx">RuleError</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">actual</span> <span class="o">+</span> <span class="s2">&quot; =&gt; &quot;</span> <span class="o">+</span> <span class="nx">result</span><span class="p">.</span><span class="nx">expected</span> <span class="o">+</span> <span class="s2">&quot;\n&quot;</span> <span class="o">+</span> <span class="nx">ContributingLink</span><span class="p">,</span> <span class="p">{</span>
+                <span class="nx">line</span><span class="o">:</span> <span class="nx">result</span><span class="p">.</span><span class="nx">paddingLine</span><span class="p">,</span>
+                <span class="nx">column</span><span class="o">:</span> <span class="nx">result</span><span class="p">.</span><span class="nx">paddingColumn</span>
+            <span class="p">}));</span>
+        <span class="p">});</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="nx">exports</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<ul>
+<li><a href="https://github.com/azu/technical-word-rules" title="azu/technical-word-rules">azu/technical-word-rules</a> 辞書本体</li>
+<li><a href="https://github.com/azu/spellcheck-technical-word/" title="azu/spellcheck-technical-word">azu/spellcheck-technical-word</a> 上記の辞書を使ってチェックする関数</li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&quot;scripts&quot;: {
+  &quot;postinstall&quot;: &quot;bower-installer&quot;,
+  &quot;lint:spell&quot;: &quot;textlint --rulesdir test/rules -f pretty-error&quot;
+},
+</code></pre></div>
+<p>という感じでnpm run-scriptを定義してあるので、</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ npm run lint:spell -- path/to/file.md
+</code></pre></div>
+<p>とすることで記事をLintすることができるようになりました。</p>
+
+<h2 id="lint結果をコメント">Lint結果をコメント</h2>
+
+<p>これで記事のLint自体はでるようになりましたが、単純にTravis CIでテストしてパスするかだと何が間違ってるかをTravis CIに見に行く必要があります。</p>
+
+<p><a href="https://github.com/jser/jser.info/" title="jser/jser.info">jser/jser.info</a>の記事の元データの方はほぼ自分しか更新しないので、Travis CIで辞書Lintがパスするかどうかのテストしてますが、記事のMarkdownファイルがある<a href="https://github.com/jser/jser.github.io" title="jser.github.io">jser.github.io</a>は自分以外もpull requestで更新がきたりするので、テストでパスするかどうかだとちょっと不親切です。</p>
+
+<ul>
+<li><a href="http://azu.github.io/slide/jser200/" title="JSer.info 200 回目記念イベント">JSer.info 200 回目記念イベント</a> (記事の元データうんぬんはこちら参照)</li>
+</ul>
+
+<p>というのも、使ってる辞書のLintはそこまで正確ではないので、Warning的な扱いがちょうどいいと思ってます(最悪無視してもいいし、辞書の方を直したほうがいい時も多い)</p>
+
+<p>なので、<a href="https://github.com/jser/jser.github.io" title="jser.github.io">jser.github.io</a>の方はLintした結果をレビューコメントとして書き込むようになってます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2015/03/05-1425550592.png" alt="レビューコメントのイメージ"></p>
+
+<p>pull request時にしかこのLintは動かないので、最近記事を書くときはWIPでpull requestしながら記事を書いています。</p>
+
+<p><a href="https://github.com/jser/jser.github.io/pull/52" title="[WIP] 2015-03-09のJS by azu · Pull Request #52 · jser/jser.github.io">[WIP] 2015-03-09のJS by azu · Pull Request #52 · jser/jser.github.io</a> みたいな感じなので、途中でヘッドラインのオススメとかあればコメントくれれば反映されるかもしれません。</p>
+
+<h2 id="travici--&gt;-lint--&gt;-レビューコメント">TraviCI -&gt; Lint -&gt; レビューコメント</h2>
+
+<p>これは<a href="https://github.com/packsaddle/ruby-saddler" title="packsaddle/ruby-saddler">packsaddle/ruby-saddler</a>を使ってやっています。</p>
+
+<p>Saddlerはcheckstyle形式のLint結果を渡すと、Travis CIやCircle CIからレビューコメントとして書き込んでくれるコマンドラインツールです。</p>
+
+<p>基本的には以下でやっている書かれていることをやっているだけです。</p>
+
+<ul>
+<li><a href="http://packsaddle.org/articles/saddler-overview/" title="変更したファイルにrubocopやjscsを実行して pull requestに自動でコメントする – Saddler - checkstyle to anywhere">変更したファイルにrubocopやjscsを実行して pull requestに自動でコメントする – Saddler - checkstyle to anywhere</a></li>
+</ul>
+
+<p>TravisCIからPull Request時にコメントするためにGitHubのtokenを取得して、travis.ymlに追加します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">travis encrypt -r jser/jser.github.io GITHUB_ACCESS_TOKEN=b95xasdasx3bxsadsdadsaxx --add
+</code></pre></div>
+<p><a href="https://github.com/jser/jser.github.io/blob/master/test/travis-spellcheck.sh" title="travis-spellcheck.sh">travis-spellcheck.sh</a>という感じのスクリプトを作って、textlintは<code>$(npm bin)/textlint --rulesdir test/rules -f checkstyle</code> という感じでcheckstyle形式でも出力できるので、それをSaddlerに渡す感じです。</p>
+
+<p>そのままだとファイル全体のLintの結果が含まれるので、実際にコミットの差分だけに絞りたい場合は<a href="https://github.com/packsaddle/ruby-checkstyle_filter-git" title="packsaddle/ruby-checkstyle_filter-git">packsaddle/ruby-checkstyle_filter-git</a>をパイプするとできます。</p>
+
+<hr>
+
+<h2 id="使ったツール">使ったツール</h2>
+
+<ul>
+<li><a href="https://github.com/azu/textlint">azu/textlint</a></li>
+<li><a href="https://github.com/packsaddle/ruby-saddler">packsaddle/ruby-saddler</a></li>
+<li><a href="https://github.com/packsaddle/ruby-checkstyle_filter-git">packsaddle/ruby-checkstyle_filter-git</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-03-04-linting-article.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","Markdown","TravisCI"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=Markdown">Markdown</a></li>
+                
+                <li><a href="/tags/?q=TravisCI">TravisCI</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

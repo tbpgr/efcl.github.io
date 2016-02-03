@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        shibuya_sp 勉強会 vol1 アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Android,iOS,iPhone,test" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/1213/res2982/">
+    <h1 class="post-title">shibuya_sp 勉強会 vol1 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年12月13日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-12-13-shibuya_sp-%E5%8B%89%E5%BC%B7%E4%BC%9A-vol1-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://atnd.org/events/22758#comments">#shibuya_sp 勉強会 vol1 : ATND</a>に参加してきたので、その時のメモです。</p>
+
+<h3>iOSアプリケーションのUnit Test &#8211; 岸川</h3>
+
+<h4>テストを習慣化するには</h4>
+
+<h4>なぜテストを書かないか</h4>
+
+<ul>
+<li>テストの効果がわかりにくい</li>
+<li>iPhoneアプリのテストってどう書けばいいのかワカラナイ</li>
+<li>デバイス固有のデータを利用していたりする</li>
+</ul>
+
+<h4>ツール/フレームワークを使う</h4>
+
+<ul>
+<li>繰り返し実行するのが簡単</li>
+<li>自動化できる</li>
+<li>テスト結果が見えてくるようになる</li>
+</ul>
+
+<h4>無理をしない</h4>
+
+<ul>
+<li>モデルのテストは書きやすい</li>
+<li>論理構造はそう簡単に変わらないはず</li>
+<li>繰り返し実行するメリットがあるので(正常系/例外/異常/境界値)をちゃんとテストする</li>
+</ul>
+
+<p>表示は論理構造が簡単にひっくり返る事があるので、テストを無理に書こうとしない</p>
+
+<h4>テストしやすいコードを書く努力はする</h4>
+
+<ul>
+<li>テストしやすいコードは、使い易いコードなので良い設計にも繋がる</li>
+<li>メソッドをきちんと分けてあげる</li>
+</ul>
+
+<h4>単体テストをワークフローに取り入れる</h4>
+
+<ul>
+<li>OCUnit</li>
+<li>GHUnit</li>
+</ul>
+
+<h6>OCUnit</h6>
+
+<ul>
+<li>XCode標準</li>
+<li>XCodeと統合されてるが、アサーションが貧弱</li>
+<li>非同期テストがサポートされてない</li>
+</ul>
+
+<p>GHUnit</p>
+
+<ul>
+<li>XCode非標準</li>
+<li>アサーションが豊富</li>
+<li>まともなテストができる(teardown/setup)</li>
+<li>非同期テストのサポート(waitを使える)</li>
+<li>OCUnitのテストケースも実行可能</li>
+<li>viewのテスト機能が追加された</li>
+</ul>
+
+<h4>Viewのテスト</h4>
+
+<p>GHVerifyView  あらかじめ取っておいた画面の画像と照らしあわせてテストしてくれる 画像での比較</p>
+
+<h3>Flashからcocos2dに移植した話 &#8211; CAつりポンチーム</h3>
+
+<ul>
+<li>
+<p>Flashとcocos2dに移植した</p>
+</li>
+<li>
+<p>1万７千件のレビュー</p>
+</li>
+<li>
+<p>平均4.5☆</p>
+</li>
+<li>
+<p>Twitterによる拡散</p>
+</li>
+<li>完全無料広告なし</li>
+<li>アメーバピグ</li>
+<li>ストレスフリー</li>
+<li>App Storeのレビュー誘導</li>
+</ul>
+
+<h4>オフライン対応</h4>
+
+<h4>非会員対応</h4>
+
+<ul>
+<li>ほぼすべての機能を非会員でも遊べる</li>
+<li>会員と非会員の差別化</li>
+<li>タイトル画面の対応のみ</li>
+<li>ポイントの管理をローカルにおいて、サーバ側からポイント管理を排除</li>
+</ul>
+
+<p><strong>iPod Touchのユーザーが30%</strong> =&gt; オフライン対応の成果?</p>
+
+<h3>cocos2dとFlash</h3>
+
+<p>大量の画像を書きだす</p>
+
+<ul>
+<li>手動は日が暮れるので</li>
+<li>アクションを作って、画像ファイル名=レイヤー名にしてバッチで生成</li>
+</ul>
+
+<h4>texturepacker を知る</h4>
+
+<ul>
+<li>一枚の画像に素材を貼り付けて、座標データからファイルを切り出して表示する</li>
+<li>CSS スプライトみたいな</li>
+</ul>
+
+<h4>AutoSD</h4>
+
+<p>自動でRetinaと通常の解像度を作成できる</p>
+
+<h4>Spriteはフォルダ管理</h4>
+
+<p>Finder上でフォルダ構造そのままにSPriteを管理できて楽 texturepacker上に反映する</p>
+
+<h4>見ていて飽きないガチャを作れという司令</h4>
+
+<p>まずはFlashで動きを作る</p>
+
+<ol>
+<li>色を選ぶ</li>
+<li>ガチャを出すアニメーション</li>
+</ol>
+
+<h4>自作AIRツールで座標の抽出</h4>
+
+<p>swfから座標の抽出をするソフトを作成した</p>
+
+<ul>
+<li>座標系の違いを補正する スクリーン座標 -&gt; デカルト座標</li>
+<li>Flash上のレイアウトがそのままcocos2dに移植</li>
+</ul>
+
+<p>cocos2dを利王した最適化と高速化</p>
+
+<ul>
+<li>描画処理の高速化</li>
+<li>テクスチャロードの非同期化</li>
+</ul>
+
+<h4>iPhoneのOpenGLの傾向と対策</h4>
+
+<ul>
+<li>OpenGLの描画を呼び出すほどオーバーヘッドが大きなリ重くなる傾向</li>
+<li>なので、texturepackerを使ってテクスチャを一回でロードしたりして 呼び出し回数を減らした。</li>
+</ul>
+
+<h4>テクスチャロードの非同期化</h4>
+
+<ul>
+<li>非同期で先にテクスチャを読み込んで、読み込み待ちを減少させる</li>
+<li>addImageAsyncを使って非同期ロード</li>
+</ul>
+
+<h4>テクスチャフォーマットの調整</h4>
+
+<ul>
+<li>RGBA4444に統一してる(32bit -&gt; 16bit)</li>
+</ul>
+
+<h4>モーション制御の最適化</h4>
+
+<p>CCPawnやCCSequenceを処理コストが多いでの、人体とかが苦手だった。 モーションデータを削減して、モーション制御をNEONで並列処理にして最適化</p>
+
+<h4>コンフィグの微調整</h4>
+
+<p>ccConfig.hでCC<em>USES</em>VBOを無効にするだけで結構変わる</p>
+
+<h4>Time Profiler</h4>
+
+<p>順次上から見て最適化をしていく</p>
+
+<h4>まとめ</h4>
+
+<ul>
+<li>テクスチャは一枚にまとめてCCSpriteBatchNodeで描画</li>
+<li>NEONなどSIMDを使って最適化 </li>
+<li>ccConfig.hをみてチューニング</li>
+</ul>
+
+<h3>OCTOBAから見た面白いAndroidアプリ &#8211; 丸岡</h3>
+
+<h4>Android Market</h4>
+
+<p>アプリ削除率</p>
+
+<ul>
+<li>37%?</li>
+</ul>
+
+<p>OCTOBA</p>
+
+<ul>
+<li>男性が多い</li>
+<li>30-40代が多い</li>
+</ul>
+
+<h4>パーミッションの問題</h4>
+
+<p>Any.Do</p>
+
+<ul>
+<li>機密ログデータの読取</li>
+<li>このパーミッションを要求するアプリはレビューしない</li>
+</ul>
+
+<p>いろいろなパーミッション</p>
+
+<ul>
+<li>機密ログデータの読取</li>
+<li>連絡先データの読取</li>
+<li>SMSメッセージの送信</li>
+<li>アカウントの認証情報を利用</li>
+<li>起動中のアプリケーション情報</li>
+<li>端末ステータスとIDの取得</li>
+</ul>
+
+<p>広告SDKでGPSデータを利用してターゲティングを使用したりするものもある。 組み込んだアプリでGPSを使ってなくても、パーミッションが求められる</p>
+
+<h4>レビューの基準</h4>
+
+<h6>人気ジャンル</h6>
+
+<p>セキュリティが5月(2011)あたりが入ってる</p>
+
+<ul>
+<li>ツール・設定系</li>
+<li>ゲームエンタメ系</li>
+</ul>
+
+<p>昔はツール系が多かったが、ゲームエンタメ系が増えてきている</p>
+
+<h4>検索キーワード</h4>
+
+<ol>
+<li>電話帳</li>
+<li>時計</li>
+<li>メール</li>
+</ol>
+
+<h3>使ってもらえるアプリの考え方 &#8211; fladdict</h3>
+
+<h4>ATMアプリを考えてみる</h4>
+
+<p>架空の事例で考える</p>
+
+<h4>リサーチ</h4>
+
+<ul>
+<li>既存のATMの機能?</li>
+<li>既存のATMの不便?</li>
+<li>どういう時に使う</li>
+</ul>
+
+<h6>既存のATMの機能</h6>
+
+<ul>
+<li>残高確認</li>
+<li>入金、引き出し</li>
+<li>送金</li>
+<li>設定変更</li>
+</ul>
+
+<p>オンラインバンキングを含めるともっとたくさんあるので、 どの機能をアプリに含めるのかを考える -&gt; 絞り込む、利用の想定</p>
+
+<h4>シナリオ</h4>
+
+<ul>
+<li>通販などの振込</li>
+<li>通常の送金</li>
+<li>支払い忘れへの緊急対応</li>
+<li>残高確認</li>
+</ul>
+
+<p>逆にスマートフォンで保険や税金管理などの操作はしないとのでいらないはず</p>
+
+<p>90%のユーザーが必要な機能を入れる</p>
+
+<ul>
+<li>ヘルプなしでわかるアプリを作る</li>
+<li>アプリを起動してからそのアプリのタスクを1-2駅程度の間に完了できるようにする</li>
+</ul>
+
+<p>必要な機能を絞り込んでから、コンセプトを立てる</p>
+
+<h4>コンセプトの定義</h4>
+
+<p>iPhoneアプリは大体4つの形がある</p>
+
+<ul>
+<li>ユーティリティ型</li>
+<li>ナビゲーション型(TableView)</li>
+<li>タブ型</li>
+<li>没入型(全画面)</li>
+</ul>
+
+<p>それぞれのタイプをプロトタイピングして検証していく。</p>
+
+<h4>ユーティリティ型</h4>
+
+<ul>
+<li>最低限だけの機能</li>
+<li>残高の確認</li>
+<li>送金ができる</li>
+</ul>
+
+<h4>ナビゲーション型</h4>
+
+<p>ユーティリティより機能は増える</p>
+
+<ul>
+<li>ニュース</li>
+<li>残高</li>
+<li>送金</li>
+<li>設定</li>
+</ul>
+
+<h4>タブ型</h4>
+
+<p>ナビゲーション型と似た機能を持つが、平行して機能を使える</p>
+
+<h4>没入型</h4>
+
+<p>iPhoneのUIに頼らないので時間がかかる</p>
+
+<ul>
+<li>実際の画面に似せるなど</li>
+<li>ナビゲーションを出してみたり</li>
+<li>現実のメタファ</li>
+</ul>
+
+<p><strong>今回はナビゲーション型かタブ型</strong></p>
+
+<h4>ナビゲーション型</h4>
+
+<ul>
+<li>拡張しやすい</li>
+<li>単純</li>
+</ul>
+
+<p>タブ型</p>
+
+<ul>
+<li>拡張に限界がある</li>
+<li>平行して機能を利用できるのが利点</li>
+</ul>
+
+<p>ナビゲーション型は階層が深いと、作業を切り替えるにコストがかかるので、タブ型の方がやりやすい</p>
+
+<h4>タブ型のメニュー</h4>
+
+<p>よく使うものから左から右へ配置していく</p>
+
+<p>ニュースを残高確認後に見る人はあまりいない ニュースをATM側としては配信したいので、ニュースを左に持ってきて自動的に見せるようにした。</p>
+
+<h4>設定画面</h4>
+
+<ul>
+<li>ピンコード</li>
+<li>アカウント名</li>
+<li>銀行アカウントのパスコード</li>
+</ul>
+
+<h4>入力UI</h4>
+
+<ul>
+<li>Pickerを使って桁ミスなくすなど</li>
+<li>送金時はボタンのミスタッチをなくす</li>
+<li>スライドで送金処理を完了させる &lt;= 難しいUIな気がする…</li>
+<li>最初にボタンを詰め込みすぎない</li>
+</ul>
+
+<hr />
+
+<p>Edit <a href="http://www.inkcode.net/qute">Qute for PC/Mac</p>
+
+<p></a></p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-12-13-shibuya_sp-%E5%8B%89%E5%BC%B7%E4%BC%9A-vol1-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Android","iOS","iPhone","test"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Android">Android</a></li>
+                
+                <li><a href="/tags/?q=iOS">iOS</a></li>
+                
+                <li><a href="/tags/?q=iPhone">iPhone</a></li>
+                
+                <li><a href="/tags/?q=test">test</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

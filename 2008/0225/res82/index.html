@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Firefoxの右クリックメニュー項目を並び替え、編集する | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Firefox,アドオン,拡張機能" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2008/0225/res82/">
+    <h1 class="post-title">Firefoxの右クリックメニュー項目を並び替え、編集する</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2008年02月25日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2008/2008-02-25-firefox%E3%81%AE%E5%8F%B3%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC%E9%A0%85%E7%9B%AE%E3%82%92%E4%B8%A6%E3%81%B3%E6%9B%BF%E3%81%88%E3%80%81%E7%B7%A8%E9%9B%86%E3%81%99%E3%82%8B.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>アドオンを増やしてくると右クリックメニューが煩雑になり、せっかくの拡張機能が塚づらくなってしまいます。<br>
+その右メニューの項目を削除したり並び替えたりするアドオンはいくつか存在します。</p>
+
+<p>上から順に簡単→難しい</p>
+
+<p><a href="http://mozilla.seesaa.net/article/2085013.html">Menu Editor 1.2.3 日本語版</a><br>
+<a href="http://mozilla.seesaa.net/article/2085013.html">Menu Editor</a>は視覚的に判断して、右クリックメニューとツールバーのメニュー項目を編集できます。<br>
+しかし、何かと他の拡張と競合するので、インストールしてみて競合する場合は避けた方がいいかも。</p>
+
+<p>もう一つのアドオンとしてMenuManipulatorがあります。</p>
+
+<p>MenuManipulator</p>
+
+<p><a href="http://wikiwiki.jp/firefox/?cmd=read&page=Ext%2FMenuManipulator" target="_blank"><a href="http://wikiwiki.jp/firefox/?cmd=read&amp;page=Ext%2FMenuManipulator">http://wikiwiki.jp/firefox/?cmd=read&amp;page=Ext%2FMenuManipulator</a></a><br>
+<a href="http://mozilla.dorando.at/" target="_blank"><a href="http://mozilla.dorando.at/">http://mozilla.dorando.at/</a></a></p>
+
+<p>これはFirefox1.5で更新が止まっているので、インストールするにはextensions.checkCompatibility をFalseにする必要があります。<br>
+詳しくは<a href="http://fxwiki.blog63.fc2.com/blog-entry-66.html" title="Firefox2.0に未対応な拡張機能を使うには？">Firefox2.0に未対応な拡張機能を使うには？</a> や<a href="http://wikiwiki.jp/firefox/?%B8%DF%B4%B9%C0%AD">互換性について</a>を参照するといいでしょう。<br>
+簡単に言えば互換性がありますよと言い張る処理をさせる必要があるのです。</p>
+
+<p>MenuManipulatorメニューの並べ変えなど、複雑な処理もできます。<br>
+使い方が少し複雑なのと情報が少ないのがアレデスね。</p>
+
+<p>参考サイト<br>
+<a href="http://blogs.dion.ne.jp/k_sn/archives/3016008.html">三軒隣の斜め向かい</a></p>
+
+<p>もう一つは<a href="http://firefox.geckodev.org/index.php?userchrome.css" title="userchrome.css">userChrome.css</a>を使う方法です。</p>
+
+<p><a href="http://firefox.geckodev.org/index.php?userchrome.css" title="userchrome.css">userChrome.css</a>はFirefoxのメニューなどをcssでいじくるものです。</p>
+
+<ul>
+<li>  <a href="http://firefox.geckodev.org/?userchrome.css">userchrome.css &#8211; Mozilla Firefox まとめサイト</a></li>
+<li>  <a href="http://blog.livedoor.jp/blankcity/archives/15346691.html">小さな瞬き:Firefox &#8211; コンテキストメニュー(右クリックメニュー)の編集</a><span style="text-decoration: underline"></span></li>
+<li>  <a href="http://suzumi.boo.jp/adanami/200505/01_2106.php">徒波｜不要なコンテキストメニューを非表示にする　【userChrome.css】</a></li>
+<li>  <a href="http://browserjs.blog102.fc2.com/blog-entry-600.html">Browser.js Firefox：Tips 9 Firefoxのコンテキストメニューを変更する</a></li>
+</ul>
+
+<p>などを参考にすれば右メニューの編集はできると思いますが、少し知識が必要な方法だと思います。</p>
+
+<p>MenuManipulatorでclassやidを調べて(変更して)、 <a href="http://firefox.geckodev.org/index.php?userchrome.css" title="userchrome.css">userChrome.css</a>で非表示にするのが弊害が出なくていい方法だと思う。</p>
+
+<p><a href="http://firefox.geckodev.org/index.php?userchrome.css" title="userchrome.css">userChrome.css</a>についてはもう一度書く変更かも。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2008/2008-02-25-firefox%E3%81%AE%E5%8F%B3%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC%E9%A0%85%E7%9B%AE%E3%82%92%E4%B8%A6%E3%81%B3%E6%9B%BF%E3%81%88%E3%80%81%E7%B7%A8%E9%9B%86%E3%81%99%E3%82%8B.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Firefox","アドオン","拡張機能"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=アドオン">アドオン</a></li>
+                
+                <li><a href="/tags/?q=拡張機能">拡張機能</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

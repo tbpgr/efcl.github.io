@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        第４回「ブラウザー勉強会」 アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="browser,javascript,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2013/0427/res3264/">
+    <h1 class="post-title">第４回「ブラウザー勉強会」 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2013年04月27日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-04-27-%E7%AC%AC%EF%BC%94%E5%9B%9E%E3%80%8C%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%83%BC%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%80%8D-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="第4回ブラウザー勉強会">第4回ブラウザー勉強会</h1>
+
+<p><a href="http://www.zusaar.com/event/622003" title="第４回「ブラウザー勉強会」 on Zusaar">第４回「ブラウザー勉強会」 on Zusaar</a> に参加してきたので、その時のメモです。</p>
+
+<hr>
+
+<h2 id="午前の部-:-コミュニティ-セッション">午前の部 : コミュニティ セッション</h2>
+
+<h2 id="オフラインキャッシュについて-&#8211;-hebikuzure">オフラインキャッシュについて &#8211; hebikuzure</h2>
+
+<ul>
+<li>  <a href="https://skydrive.live.com/?cid=aed8f154b3b1a454&amp;id=AED8F154B3B1A454!118&amp;authkey=!AM5rs-7HxUCSlM4#!/view.aspx?cid=AED8F154B3B1A454&amp;resid=AED8F154B3B1A454!355&amp;app=PowerPoint&amp;authkey=!AM5rs-7HxUCSlM4">IE のキャッシュのオフライン調査について(改訂版)</a></li>
+<li>  <a href="http://www.slideshare.net/hebikuzure/ie-cache-data" title="IE のキャッシュのオフライン調査について">IE のキャッシュのオフライン調査について</a> の改訂版</li>
+</ul>
+
+<h3 id="content.ie5">Content.IE5</h3>
+
+<ul>
+<li>  IEのキャシュデータ構造はIE5から変わってなかった</li>
+<li>  Window2000 の頃と同じ</li>
+</ul>
+
+<h3 id="ie10のキャシュのシステム変更">IE10のキャシュのシステム変更</h3>
+
+<ul>
+<li>  IE10ではキャッシュのシステムを変更されてる</li>
+</ul>
+
+<h3 id="content.ie5の中身">Content.IE5の中身</h3>
+
+<ul>
+<li>  index.dat 
+
+<ul>
+<li>  インデックスファイル</li>
+</ul></li>
+<li>  英数8文字のキャッシュフォルダ 
+
+<ul>
+<li>  実際のファイルが並んでる</li>
+</ul></li>
+<li>  4個つづキャッシュフォルダを作ってキャッシュを書き込む</li>
+</ul>
+
+<h3 id="キャッシュの情報はどこ?">キャッシュの情報はどこ?</h3>
+
+<ul>
+<li>  最終更新日時とかのメタデータはどこ?</li>
+<li>  index.datに含まれている 
+
+<ul>
+<li>  バイナリファイル</li>
+<li>  データ構造は非公開</li>
+</ul></li>
+</ul>
+
+<h3 id="index.dat">index.dat</h3>
+
+<ul>
+<li>  キャッシュフォルダ名はそのままアスキーコードで入ってたり</li>
+<li>  HTTPのレスポンスヘッダも大体そのまま入ってる</li>
+<li>  index.dat フォーマット(非公式)公開されてる</li>
+</ul>
+
+<h3 id="ie10のキャッシュシステム">IE10のキャッシュシステム</h3>
+
+<ul>
+<li>  index.datはなくなった</li>
+<li>  container.datという0バイトになってある</li>
+<li>  キャシュされた実ファイルはそのまま</li>
+</ul>
+
+<h3 id="プロセスモニター">プロセスモニター</h3>
+
+<ul>
+<li>  WebChaceV01.data</li>
+<li>  Jet BlueというMSの内蔵データベース</li>
+<li>  IE10のキャッシュはJet Blueのデータベースで管理してる</li>
+<li>  WebCache01.datというファイルがある</li>
+</ul>
+
+<h3 id="ログ">ログ</h3>
+
+<ul>
+<li>  V01.log 
+
+<ul>
+<li>  バイナリとレスポンスヘッダーとかがアスキーコードでそのまま入ってる</li>
+</ul></li>
+</ul>
+
+<h3 id="まとめ">まとめ</h3>
+
+<ul>
+<li>  IE10で一時ファイルの管理方法が変更される</li>
+<li>  IE自体もタブとかでマルチプロセスなので、古い方法はキャッシュが壊れる原因になってあ</li>
+<li>  インデックス管理はindex.datのバイナリファイルからExtensible Storage EngineのISAMデータベースに変更</li>
+<li>  インデックスが堅牢になった</li>
+</ul>
+
+<hr>
+
+<h2 id="office365-&#8211;-もくだい">Office365 &#8211; もくだい</h2>
+
+<ul>
+<li>  <a href="http://service.exceedone.co.jp/fadcharacter/" title="ファイリア">ファイリア</a></li>
+</ul>
+
+<hr>
+
+<h2 id="午後の部">午後の部</h2>
+
+<h2 id="アンケート結果">アンケート結果</h2>
+
+<ul>
+<li>  Chrome &gt; Firefox &gt; IE &gt; Safari &gt; Opera 
+
+<ul>
+<li>  重複解答有り</li>
+</ul></li>
+<li>  1ブラウザ主義はChromeだけ突出</li>
+<li>  マルチブラウザ主義の場合はFirefoxとChromeが均衡</li>
+</ul>
+
+<h3 id="javascript">JavaScript</h3>
+
+<p>領域の拡大</p>
+
+<ul>
+<li>  サーバーサイド</li>
+<li>  ローカルアプリケーション</li>
+</ul>
+
+<h3 id="javascriptのトランスコンパイル">JavaScriptのトランスコンパイル</h3>
+
+<p>JavaScriptへ変換する変換言語</p>
+
+<ul>
+<li>  シンタックスシュガー</li>
+<li>  静的型付き言語 
+
+<ul>
+<li>  Haxe</li>
+<li>  JSX</li>
+<li>  TypeScript</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="「モテる、javascript-」--物江修さん">「モテる、JavaScript-」- 物江修さん</h2>
+
+<ul>
+<li>  <a href="http://www.slideshare.net/osamum/java-script-20062574" title="モテる Java script">モテる Java script</a></li>
+</ul>
+
+<h3 id="目的">目的</h3>
+
+<ul>
+<li>  他人に見られて恥ずかしくないコードを書く</li>
+<li>  カコイイJavaScriptコードを書いてモテる</li>
+</ul>
+
+<h3 id="知っておきたい慣例的な命名規則">知っておきたい慣例的な命名規則</h3>
+
+<ul>
+<li>  変数名はキャメルケース</li>
+<li>  コンストラクタ関数は大文字から始める CalendarCtrl</li>
+<li>  this 
+
+<ul>
+<li>  &gt; vat that = this;</li>
+</ul></li>
+<li>  定数は大文字</li>
+<li>  プライベート 
+
+<ul>
+<li>  <code>_private</code></li>
+</ul></li>
+</ul>
+
+<p>変数/関数</p>
+
+<ul>
+<li>  関数: 動詞を先頭に入れる</li>
+<li>  変数をあえて_で区切ることでわかりやすくする</li>
+</ul>
+
+<p>変数を宣言する場所</p>
+
+<ul>
+<li>  <code>var</code> で変数を宣言する</li>
+<li>  変数宣言を関数の先頭にまとめる</li>
+<li>  JavaScriptの変数スコープは関数単位でhositingが起きるので先頭に書く</li>
+</ul>
+
+<h3 id="中括弧の書き方">中括弧の書き方</h3>
+
+<p>暗黙的セミコロンの挿入による意図と反する動作を避けるため</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">function main (){
+    return {
+        // returnの後に暗黙的にセミコロン挿入があるので気をつける
+    }
+}
+</code></pre></div>
+<p>中括弧の省略は避ける</p>
+
+<ul>
+<li>  他の人が書き換えるときに間違える元となったりする</li>
+</ul>
+
+<h3 id="domアクセスについて">DOMアクセスについて</h3>
+
+<ul>
+<li>  複数回同じにDOMにアクセスするときは変数に入れておきましょう</li>
+<li>  jQueryとかはDOMにアクセスする周りで色々やるので効果的</li>
+</ul>
+
+<h3 id="かっこいい書き方">かっこいい書き方</h3>
+
+<ul>
+<li>  曖昧評価の利用 
+
+<ul>
+<li>  <code>if(hoge){}</code></li>
+</ul></li>
+<li>  短絡評価の利用 
+
+<ul>
+<li>  <code>hoge || &quot;default</code></li>
+</ul></li>
+<li>  厳密等価演算子 
+
+<ul>
+<li>  <code>===</code> <code>!===</code></li>
+</ul></li>
+<li>  即時実行関数</li>
+</ul>
+
+<h3 id="クロージャー">クロージャー</h3>
+
+<ul>
+<li>  部分適応を使った例</li>
+</ul>
+
+<h3 id="メソッドチェーン">メソッドチェーン</h3>
+
+<ul>
+<li>  thisを返す関数を書いてメソッドチェーン</li>
+</ul>
+
+<h3 id="最近の書き方">最近の書き方</h3>
+
+<ul>
+<li>  オブジェクトで分けていく</li>
+<li>  <code>init</code> で初期化処理を行う</li>
+</ul>
+
+<p>JavaScriptはページ表示時かイベントから呼ばれることが殆どなので、<br>
+初期化処理をまとめておくのが重要</p>
+
+<h2 id="javascriptがもっと好きになる。javascriptを知るために-&#8211;-kyo_ago">JavaScriptがもっと好きになる。JavaScriptを知るために &#8211; kyo_ago</h2>
+
+<ul>
+<li>  スライド: <a href="http://0-9.sakura.ne.jp/pub/browserws20130427/start.html" title="JavaScriptがもっと好きになる。JavaScriptを知るために">JavaScriptがもっと好きになる。JavaScriptを知るために</a></li>
+</ul>
+
+<p>「JavaScriptを知るために」</p>
+
+<p>=&gt; 「作ってみる」</p>
+
+<p>=&gt; 「静的解析しましょうか」</p>
+
+<h3 id="静的解析とは">静的解析とは</h3>
+
+<p>コードを文字列として分割してどういった内容が書かれてるかを解釈すること</p>
+
+<p>を 正規表現 で</p>
+
+<h4 id="エスケープのエンコード">エスケープのエンコード</h4>
+
+<p>文字列の中に <code>&quot;</code> のようなエスケープ文字列があると、<br>
+対応をちゃんと見ないと行けないので、最初に 別の 記号的なものに変換しておく</p>
+
+<h3 id="使い道">使い道</h3>
+
+<ul>
+<li>  簡易プリプロセッサ</li>
+<li>  console.logの除去等</li>
+<li>  言語の仕様の理解</li>
+<li>  文字列処理のノウハウ</li>
+</ul>
+
+<h3 id="難しい所">難しい所</h3>
+
+<ul>
+<li>  <code>/**/</code></li>
+<li>  <code>var hoge = 5 / 1; /* comment */</code></li>
+<li>  <code>/[/]]/</code></li>
+</ul>
+
+<h3 id="結論">結論</h3>
+
+<p><a href="http://esprima.org/" title="Esprima">Esprima</a> を使ったほうがいい</p>
+
+<hr>
+
+<h2 id="いつソースを読むのか-&#8211;-kyo_ago">いつソースを読むのか &#8211; kyo_ago</h2>
+
+<ul>
+<li>  <a href="http://0-9.sakura.ne.jp/pub/browserws20130427/code_reading.html" title="「いつソースを読むのか」">「いつソースを読むのか」</a></li>
+</ul>
+
+<p>ブラウザの特性で公開されてるプロダクトのソースを読むことができる</p>
+
+<ul>
+<li>  新規プロダクトごとに少しずつコードがよくなってる</li>
+<li>  ライセンスを圧縮時に消してしまってること等</li>
+</ul>
+
+<h3 id="コードを読む文化">コードを読む文化</h3>
+
+<ul>
+<li>  動いてるプロダクトコードを直接読める世界は今まで殆どなかっtあ</li>
+<li>  フレームワークなどが標準で圧縮されてるようになって読みにくくなってる</li>
+<li>  圧縮する前に1ファイル化 + gzipで十分な場合もある。</li>
+<li>  圧縮前のソースをコメントに入れておく</li>
+<li>  SourceMapを使う</li>
+</ul>
+
+<hr>
+
+<h2 id="テンプレートエンジンを作ろう-&#8211;-kyo_ago">テンプレートエンジンを作ろう &#8211; kyo_ago</h2>
+
+<ul>
+<li>  <a href="http://0-9.sakura.ne.jp/pub/browserws20130427/how-to-make-a-template-engine.html" title="テンプレートエンジンを作ろう！">テンプレートエンジンを作ろう！</a></li>
+</ul>
+
+<h3 id="テンプレートエンジンとは何か">テンプレートエンジンとは何か</h3>
+
+<p>テンプレートエンジンとはデータとテンプレートをあわせて表示する</p>
+
+<p><a href="https://github.com/janl/mustache.js" title="mustache.js">mustache.js</a>、</p>
+
+<h3 id="テンプレートエンジンを作る">テンプレートエンジンを作る</h3>
+
+<h3 id="簡単な言語実装ができる">簡単な言語実装ができる</h3>
+
+<ul>
+<li>  テンプレートエンジンはロジックが入るならある種のプログラムになる。</li>
+</ul>
+
+<h3 id="tddと相性がいい">TDDと相性がいい</h3>
+
+<ul>
+<li>  ロジックのみに集中しやすい</li>
+<li>  処理が基本的に同期処理なのでテストしやすい</li>
+<li>  どういう機能が必要なのか、input / outputがわかりやすい</li>
+</ul>
+
+<h3 id="文字列処理の練習">文字列処理の練習</h3>
+
+<ul>
+<li>  文字列処理の練習に鳴る</li>
+</ul>
+
+<h3 id="テンプレートの仕様">テンプレートの仕様</h3>
+
+<p>仕様によってテンプレートエンジン作成の難易度が変わる</p>
+
+<h3 id="テンプレートエンジンとテスト">テンプレートエンジンとテスト</h3>
+
+<ul>
+<li>  テンプレートエンジンはテストがそのままドキュメントになりやすい</li>
+<li>  input -&gt; outputがわかりやすいため</li>
+</ul>
+
+<hr>
+
+<h2 id="白石の異常な愛情-または私は如何にして心配するのを止めてnodeを愛するようになったか-&#8211;-白石-俊平">白石の異常な愛情 または私は如何にして心配するのを止めてNodeを愛するようになったか &#8211; 白石 俊平</h2>
+
+<ul>
+<li>  敵役がいたほうがプレゼンが盛り上がる</li>
+<li>  Node vs Java</li>
+</ul>
+
+<h3 id="node">Node</h3>
+
+<ul>
+<li>  JavaScriptコードはツギハギだらけになる</li>
+<li>  逆に考えるんだ</li>
+<li>  ラピッドスタートをそのままにコードに持ってこれてぐちゃぐちゃだけど動くコードを書ける</li>
+</ul>
+
+<h3 id="ラピッドスタート">ラピッドスタート</h3>
+
+<ul>
+<li>  npmで便利なモジュールを取ってこれる</li>
+</ul>
+
+<h3 id="変更容易性">変更容易性</h3>
+
+<ul>
+<li>  クライアント/サーバで言語脳の切り替えが不要</li>
+<li>  JSONで直接データベースに格納できる 
+
+<ul>
+<li>  インビーダンスミスマッチが起こらない</li>
+</ul></li>
+</ul>
+
+<h3 id="その他の良いところ">その他の良いところ</h3>
+
+<ul>
+<li>  日本語のリソースが豊富</li>
+<li>  対応してるクラウドサービスが豊富 
+
+<ul>
+<li>  Windows Azure/Node Ninja&#8230;</li>
+<li>  決定を遅延できる </li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="javascriptでもwindowsアプリ作りたい!-&#8211;-mayuki">JavaScriptでもWindowsアプリ作りたい! &#8211; mayuki</h2>
+
+<ul>
+<li>  <a href="https://speakerdeck.com/mayuki/javascriptdemowindowsapurigazuo-ritai" title="JavaScriptでもWindowsアプリが作りたい! // Speaker Deck">JavaScriptでもWindowsアプリが作りたい! // Speaker Deck</a></li>
+</ul>
+
+<h3 id="javascriptでアプリを作りたい">JavaScriptでアプリを作りたい</h3>
+
+<ul>
+<li>  JavaScriptが色々な所で動かせる</li>
+<li>  パッケージで配布、ウェブではなくてネイティブでしか出来ないことをしたい</li>
+<li>  他のものと共通したコードが使えるかもしれない</li>
+</ul>
+
+<h3 id="アプリケーションの種類">アプリケーションの種類</h3>
+
+<ul>
+<li>  コンソールアプリケーション</li>
+<li>  Windowsアプリケーション 
+
+<ul>
+<li>  GUIアプリケーション</li>
+</ul></li>
+<li>  その他(ガジェット、ウィジェット)</li>
+</ul>
+
+<h3 id="コンソールアプリケーション">コンソールアプリケーション</h3>
+
+<p>GUIが必要なCLIのアプリ</p>
+
+<ul>
+<li>  Node.js</li>
+<li>  JScript/JScript.NET</li>
+</ul>
+
+<h3 id="node.js">Node.js</h3>
+
+<ul>
+<li>  特徴と利点 
+
+<ul>
+<li>  npmで豊富なライブラリ</li>
+<li>  エンジンがV8なので高速、新しい文法が使える</li>
+</ul></li>
+<li>  *nix系っぽい色がある</li>
+</ul>
+
+<h3 id="jscript">JScript</h3>
+
+<ul>
+<li>  Windowsには必ず入ってる</li>
+<li>  COMとの親和性がよい</li>
+</ul>
+
+<h4 id="欠点">欠点</h4>
+
+<ul>
+<li>  JScript 5.7相当なので色々ショボイ</li>
+<li>  ネイティブに干渉にはCOM経由になる</li>
+</ul>
+
+<h3 id="jscript.net">JScript.NET</h3>
+
+<ul>
+<li>  NETFrameworkのパワーがある程度利用できる</li>
+<li>  JScript 5.7より文法が強化されてる</li>
+</ul>
+
+<h4 id="欠点">欠点</h4>
+
+<ul>
+<li>  MSのやる気がない</li>
+</ul>
+
+<h3 id="htmlアプリケーション-(hta)">HTMLアプリケーション (HTA)</h3>
+
+<p>IEのエンジンを使った枠を提供するもの</p>
+
+<ul>
+<li>  Windowsなら必ず入ってる</li>
+<li>  htmlがそのまま動く</li>
+</ul>
+
+<h4 id="欠点">欠点</h4>
+
+<ul>
+<li>  環境のIEのバージョンに依存</li>
+<li>  exeにはならない</li>
+<li>  IE10だと機能制限がある</li>
+</ul>
+
+<h3 id="windowsストアアプリ">Windowsストアアプリ</h3>
+
+<ul>
+<li>  Windows8向けの配布・販売できる</li>
+<li>  枠となるアプリが不要</li>
+<li>  Windows Runtime(WinRT)でネイティブで動かせる</li>
+</ul>
+
+<h4 id="欠点">欠点</h4>
+
+<ul>
+<li>  要 Windows8 </li>
+</ul>
+
+<h3 id="chromium-embedded-framework">Chromium Embedded Framework</h3>
+
+<ul>
+<li>  アプリにChromiumを組み込むライブラリ</li>
+<li>  Chrome相当でリッチなUIが作れる</li>
+</ul>
+
+<h4 id="欠点">欠点</h4>
+
+<ul>
+<li>  枠のアプリケーションを自分で用意する必要</li>
+</ul>
+
+<h4 id="利用点">利用点</h4>
+
+<ul>
+<li>  ネイティブの機能を使いたい</li>
+<li>  ロード機能を使いたい</li>
+</ul>
+
+<h3 id="appjs">AppJS</h3>
+
+<ul>
+<li>  Chromium Embedded Framework + Node</li>
+<li>  マルチプラットフォーム</li>
+<li>  アプリケーションの枠をJavaScriptで作れる</li>
+</ul>
+
+<h4 id="欠点">欠点</h4>
+
+<ul>
+<li>  動作が不安定</li>
+</ul>
+
+<h3 id="xulrunner">XULRunner</h3>
+
+<ul>
+<li>  マルチプラットフォーム</li>
+<li>  HTMLとXULで作れる</li>
+<li>  アプリケーションの枠は用意されてる</li>
+</ul>
+
+<h4 id="欠点">欠点</h4>
+
+<ul>
+<li>  使うまでのハードルが若干ある</li>
+<li>  XPCOMと仲良くなる必要がある</li>
+</ul>
+
+<h3 id="adobe-air">Adobe AIR</h3>
+
+<ul>
+<li>  マルチプラットフォーム</li>
+<li>  Webkitを持ってるのHTMLとJSで作れる</li>
+<li>  ランタイムを含む実行ファイルを含めたファイルを作れる</li>
+<li>  アプリケーションの枠は用意されている</li>
+</ul>
+
+<h4 id="欠点">欠点</h4>
+
+<ul>
+<li>  Adobe AIR</li>
+</ul>
+
+<hr>
+
+<h2 id="lt">LT</h2>
+
+<hr>
+
+<h2 id="新しいofficeはjavascriptで動くんです！-&#8211;-野呂清二">新しいOfficeはJavaScriptで動くんです！ &#8211; 野呂清二</h2>
+
+<ul>
+<li>  Officeストア</li>
+<li>  Office 内でHTML+JavaScriptで動くアプリが動いて</li>
+</ul>
+
+<h3 id="office-+-javascript">Office + JavaScript</h3>
+
+<ul>
+<li>  JavaScriptでExcel内で動くアプリ</li>
+<li>  Eventを使って色々連動</li>
+</ul>
+
+<h3 id="offfice-jsライブラリ">Offfice JSライブラリ</h3>
+
+<ul>
+<li>  <code>office.js</code> というライブラリが用意されてる</li>
+<li>  <a href="http://msdn.microsoft.com/ja-jp/library/fp142185.aspx" title="JavaScript API for Office">JavaScript API for Office</a></li>
+</ul>
+
+<hr>
+
+<h2 id="お前は今まで入力したselfの数を覚えているのか-&#8211;-hokaccha">お前は今まで入力したselfの数を覚えているのか &#8211; hokaccha</h2>
+
+<blockquote>
+<p>var self = this; </p>
+</blockquote>
+
+<p>thisが代入されてる変数名を調査するツールをesprimaを使って書いた</p>
+
+<ul>
+<li>  <a href="https://github.com/hokaccha/js-count-this" title="hokaccha/js-count-this · GitHub">hokaccha/js-count-this · GitHub</a></li>
+</ul>
+
+<h2 id="私の愛するfor文たち-&#8211;-川田寛">私の愛するfor文たち &#8211; 川田寛</h2>
+
+<p><a href="http://www.slideshare.net/kawada_hiroshi/for-20066584" title="私の愛するFor文たち">私の愛するFor文たち</a></p>
+
+<ul>
+<li><p>モテるfor文</p></li>
+<li><p>線形探索</p></li>
+<li><p>iterator</p></li>
+<li><p>ポインター</p></li>
+</ul>
+
+<hr>
+
+<h2 id="おわり">おわり</h2>
+
+<ul>
+<li>  メモ : <a href="http://markdownlive.com/" title="Markdown Life">Markdown Life</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-04-27-%E7%AC%AC%EF%BC%94%E5%9B%9E%E3%80%8C%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%83%BC%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%80%8D-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["browser","javascript","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=browser">browser</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        GreasemonkeyからScriptishへ環境設定を移行する | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Firefox,Greasemonkey,NILScript,Scriptish,設定" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0326/res2411/">
+    <h1 class="post-title">GreasemonkeyからScriptishへ環境設定を移行する</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年03月26日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-03-26-greasemonkey%E3%81%8B%E3%82%89scriptish%E3%81%B8%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A%E3%82%92%E7%A7%BB%E8%A1%8C%E3%81%99%E3%82%8B.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>Greasemonkeyから<a href="https://addons.mozilla.org/ja/firefox/addon/scriptish/">Scriptish</a>への環境移行メモです。<br>
+<a href="https://addons.mozilla.org/ja/firefox/addon/scriptish/">Scriptish</a>については<a href="https://github.com/erikvold/scriptish/wiki">Scriptish wiki!</a>や<a href="http://d.hatena.ne.jp/teramako/20100930/p1">Scriptish （Greasemonkey フォーク版） キタ━━━ヽ(ﾟ∀ﾟ)ﾉ━ &#8211; hogehoge @teramako</a>を見るとよいです。<br>
+簡単にまとめると、使えるAPIが増えた(開発者的にうれしい)、管理画面の設定項目がGreasemonkeyより豊富(Greasemonkey0.9で削られたinclude,excludeの設定もGUIからできます)、UIが日本語化されてる(ちょっと分かりづらい訳だけど…)<br>
+Greasemonkeyからフォークしてるので、Greasemonkey向けに書かれたスクリプト自体の互換性は問題ないです。<br>
+逆にScriptishの新APIを使ったものはGreasemonkeyでは動かない事があるぐらいだと思います。</p>
+
+<h3 id="環境の移行方法">環境の移行方法</h3>
+
+<p><a href="https://github.com/erikvold/scriptish/wiki/How-To%3A--Manually-transfer-user-scripts-from-Greasemonkey-to-Scriptish">How To: Manually transfer user scripts from Greasemonkey to Scriptish &#8211; GitHub</a><br>
+に手動での環境移行手順が書かれています。<br>
+簡単に書き出してみると</p>
+
+<ol>
+<li> スクリプトフォルダ名はgm_scriptsからscriptish_scriptsになった<br>
+(フォルダの中のconfig.xmlや配置自体は同じなのでフォルダ名だけ変更すればOK)</li>
+<li> <code>prefs.jsへスクリプトの設定の保存書式が変更された&lt;br /&gt;これが移行時にネックになってる大きな変更で、GM_setValueなどGreasemonkeyスクリプトから値を保存するとpref.jsに書き込まれますが、そのときの書式が変わっているためGreasemonkey時に保存した値が引き継がれません。&lt;br /&gt;一応手動での書き換え手順も書かれています。&lt;br /&gt;greasemonkey.scriptvals から extensions.scriptish.scriptvals へ置換する&lt;br /&gt;スクリプト名とネームスペースの間の/を@に置き換える</code></li>
+</ol>
+
+<p>GreasemonkeyとScriptishのpref.jsの書式の違いを見てみると</p>
+
+<pre>user_pref("greasemonkey.scriptvals.http://efcl.info//Post Now browsing to Twitter.GM_config", "{"defaultTag":"見てる:","isSelection":true,"removeUtm":true,"avoidLinktoMeta":true,"PostWithCtrl":true,"ShortCutKey":"C-Delete","ShortURL":"bit.ly","bitlyUserName":"remiko","bitlyAPIKey":"R_fa2240c646c07b2091c6bc6d109089ef","googlAPIKey":"AIzaSyDYer57o2GyHX_xylyaa4iGIyyjd81kGxc"}");</pre>
+
+<pre>// =&#62;</pre>
+
+<pre>user_pref("extensions.scriptish.scriptvals.PostNowbrowsingtoTwitter@httpefcl.info.GM_config",  "{"defaultTag":"Now  browsing:","isSelection":true,"removeUtm":true,"avoidLinktoMeta":true,"PostWithCtrl":true,"ShortCutKey":"C-Delete","ShortURL":"bit.ly","bitlyUserName":"remiko","bitlyAPIKey":"R_fa2240c646c07b2091c6bc6d109089ef","googlAPIKey":""}");</pre>
+
+<p>という風にpref.jsに保存される書式が変化しています。<br>
+ネームスペースとスクリプト名の位置も逆転してまたスペースなど除去されてたりします。<br>
+手動でやっても結構手間がかかるので、大事なものだけやって、後は普通に設定し直した方が楽だと思います。<br>
+一応、自動的にできるように<a href="https://github.com/azu/NILScript/wiki">NILScrip</a>tで<a href="https://github.com/azu/NILScript/tree/master/utilityTools/Greasemonkey">GreasemonkeyToScriptish.ng</a>というものを作ってみました。</p>
+
+<pre>pref.jsに保存された値をGreasemonkeyからScriptishの書式へ変更する
+    pref.jsと同じディレクトリにこのngスクリプトを置いて実行するとnew_pref.jsが生成される。</pre>
+
+<p>実行する前にpref.jsのバックアップをとっておいてから、pref.jsと同じディレクトリにおいて実行すると、それぞれの値を書き換えたnew_pref.jsというのができるので、後はpref.jsのコピーし直すかpref.jsにリネームして使うなどしてください。<br>
+不完全かもしれないので、保証はできません。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/NILScript/blob/master/utilityTools/Greasemonkey/GreasemonkeyToScriptish.ng">utilityTools/Greasemonkey/GreasemonkeyToScriptish.ng at master from azu/NILScript &#8211; GitHub</a></li>
+</ul>
+
+<h3 id="dropboxフォルダでスクリプト管理">Dropboxフォルダでスクリプト管理</h3>
+
+<p>これを期にGreasemonkeyスクリプトのファイル自体をDropboxで共有しようと思ったので、移行手順の1の時にDropboxにgm_scriptsフォルダを移して、プロファイルフォルダにscriptish_scriptsへのシンボリックリンクを作りました。<br>
+Windowsだとmklinkとかコマンドラインがややこしいので、<a href="http://schinagl.priv.at/nt/hardlinkshellext/hardlinkshellext.html">Link Shell Extension</a>を使ってシンボリックリンクを張りました。</p>
+
+<ul>
+<li>  <a href="http://sukima-manual.seesaa.net/article/113336296.html">隙間マニュアル: Dropboxで任意のフォルダやファイルを同期する方法</a></li>
+<li>  <a href="http://www.forest.impress.co.jp/article/2008/12/11/linkshellext.html">窓の杜 &#8211; 【REVIEW】エクスプローラ上で手軽にシンボリックリンクを作成「Link Shell Extension」</a></li>
+</ul>
+
+<p>このソフトを使えば普通のショートカットみたいにシンボリックリンクが貼れるので簡単。<br>
+(シンボリックリンクのフォルダ名をちゃんとscriptish_scriptsにするのを忘れない)</p>
+
+<p>追記:起動時に変更がたくさんある(Dropbox共有してると起きやすい)とnotificationが大量に通知されて使い物にならないので、<br>
+<a href="https://github.com/erikvold/scriptish/wiki/Manual%3A-Preferences">Manual: Preferences &#8211; GitHub</a>を参考にabout:configのextensions.scriptish.enableScriptRefreshing を false にして変更の監視をオフにしました。副作用として、スクリプトのメタブロックを書き換えても反映されなくなると思います。<br>
+(Greasemonkey0.8あたりと同じ動作になると思う)</p>
+
+<p>これでGreasemonkeyからScriptishへの移行手順は終わりです。<br>
+Firefox4への移行と同時にGreasemonkeyもScriptishへ移行を行えば、無駄なスクリプトを削除できたり汚れたpref.jsも掃除できるので同時期にやると良いかと思います。(<a href="http://efcl.info/2010/1021/res2008/" title="使ってないGreasemonkeyスクリプトを削除・整理するNILScript">使ってないGreasemonkeyスクリプトを削除するngスクリプト</a>も以前書きました)<br>
+まだどっちのアドオンが優れてるのかはよく分かってないので、使ってるうちに何らかの違いが分かるんではないかと。<br>
+(Scriptish向けのスクリプトってなんて呼べば良いんだろ?)</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-03-26-greasemonkey%E3%81%8B%E3%82%89scriptish%E3%81%B8%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A%E3%82%92%E7%A7%BB%E8%A1%8C%E3%81%99%E3%82%8B.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Firefox","Greasemonkey","NILScript","Scriptish","設定"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=Greasemonkey">Greasemonkey</a></li>
+                
+                <li><a href="/tags/?q=NILScript">NILScript</a></li>
+                
+                <li><a href="/tags/?q=Scriptish">Scriptish</a></li>
+                
+                <li><a href="/tags/?q=設定">設定</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        WebStorm 7EAPのkarma連携について | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,test,WebStorm" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2013/0601/res3292/">
+    <h1 class="post-title">WebStorm 7EAPのkarma連携について</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2013年06月01日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-06-01-webstorm-7eap%E3%81%AEkarma%E9%80%A3%E6%90%BA%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://blog.jetbrains.com/webstorm/2013/05/webstorm-7-eap/" title="WebStorm 7 EAP">WebStorm 7 EAP</a> がリリースされましたが、今までは<a href="http://blog.jetbrains.com/webide/2011/10/javascript-unit-testing-support/#comments" title="JsTestDriver">JsTestDriver</a>ぐらいしかテスト連携のサポートは入っていませんでしたが、<a href="https://github.com/karma-runner/karma" title="karma-runner/karma · GitHub">karma</a>のサポートが追加されました。</p>
+
+<h2 id="karmaとwebstormの設定">KarmaとWebStormの設定</h2>
+
+<p>まだ、karma@canary(いわゆるdevloperバージョン)でしか動かないらしいので、</p>
+
+<p>以下のように <a href="https://github.com/karma-runner/karma" title="karma-runner/karma · GitHub">karma</a> のcanaryをインストールします</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ npm install -g karma@canary
+</code></pre></div>
+<p>次に、通常のようにkarmaのセットアップをするため、 <code>karma init</code> を実行してconfファイルを作ります。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">karma init
+</code></pre></div>
+<p>今回は、デフォルトのJasmineの構成にしました。</p>
+
+<p>次にWebStormでプロジェクトを開いて、WebStormのkarmaの設定をします。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/05/RunDebug-Configurations-2013-05-31-22-13-37.jpg" alt="RunDebug Configurations 2013 05 31 22 13 37" title="RunDebug Configurations 2013-05-31 22-13-37.jpg" border="0" width="600" /></p>
+
+<p>RunDebug Configurationsにkarmaが増えているのでそれを追加して、 <code>karma.conf.js</code> のパスを設定してあげればWebStormの設定は完了です。</p>
+
+<h2 id="karmaのテストを実行">Karmaのテストを実行</h2>
+
+<p>作成したConfigurationsをRunするとKarmaサーバが起動します。(karma start)</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/05/karma_webstorm_server.jpg" alt="HelloTest js  karma webstorm" title="karma_webstorm_server.jpg" border="0" width="600" height="268" /></p>
+
+<p>Karmaサーバにテストしたいブラウザでアクセスしてキャプチャしておきます。<br>
+(デフォルトでは <a href="http://localhost:9876/">http://localhost:9876/</a> にアクセス)</p>
+
+<p>ブラウザがキャプチャした状態で、もう一度Runするとテストが実行されて結果が見られます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/05/helloTest.js.jpg" alt="HelloTest js  karma webstorm   ~DropboxworkspaceJavaScriptprojectkarma webstorm  WebStorm WS 130 753 2013 05 31 22 24 16" title="helloTest.js.jpg" border="0" width="600" height="181" /></p>
+
+<p>BDD系のJasmineなので、構造的なテスト結果の表示になっています。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/05/context-karma.png" alt="2013 05 31 at 22 26 50" title="context-karma.png" border="0" width="600" height="367" /></p>
+
+<p>Jump to Source等のテスト結果からの移動やエラーログからのジャンプはできるようになっていて便利です。<br>
+まだ、個別のテストを実行するRunやDebugなどは対応してないようです。</p>
+
+<p>Debug実行に対応してないので、ブレークポイントを貼ってデバッガー連携はまだできない様子???</p>
+
+<p>テストコンソールを見ると、Auto-Test というアイコンがあり、これを有効にすると一定時間ごとにテストを走らせて、<br>
+結果をMacだとNotification Centerとアイコンに表示してくれるようです。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/05/toogle-auto-test.png" alt="2013 05 31 at 22 25 52" title="toogle-auto-test.png" border="0" width="240" height="254" /></p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/05/Icon-karma-webstorm.jpg" alt="失敗したテストの個数" title="Icon-karma-webstorm.jpg" border="0" width="34" height="40" /> 失敗したテストの個数を表示してくれてる。</p>
+
+<h2 id="まとめ">まとめ</h2>
+
+<ul>
+<li>  <a href="https://github.com/karma-runner/karma" title="karma-runner/karma · GitHub">karma</a> のテスト結果がWebStormないから見やすくなった</li>
+<li>  karmaを使ったテストのデバッグがしやすくなった</li>
+<li>  JSTD以外のTest Runner連携がWebStormについた</li>
+</ul>
+
+<p>今までは、古臭いJsTestDriverのサポートしかありませんでした(<a href="http://wiki.netbeans.org/NewAndNoteworthyNB73#Unit_Testing" title="NetBeans 73">NetBeans 73</a>にも最近同様の機能が入りました)。</p>
+
+<p>以下のようにJavaScript Test Runnerは色々出ていますが(個人的は<a href="http://yeti.cx/" title="Yeti">Yeti</a>も気になります)、</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/05/javascript-test-why-what-how-130426060325-phpapp01.jpg" alt="Javascript test why what how 130426060325 phpapp01" title="javascript-test-why-what-how-130426060325-phpapp01.jpg" border="0" width="600" height="450" /></p>
+
+<p>via <a href="http://www.slideshare.net/teppeis/javascript-testwhywhathow" title="JavaScript Unit Test Why? What? How?">JavaScript Unit Test Why? What? How?</a></p>
+
+<p>初期の頃からWebStormからデバッグしやすいようにしていたりした、<a href="https://github.com/karma-runner/karma" title="karma-runner/karma · GitHub">karma</a> が対応されるのは順当な感じがします。<br>
+(AngularJSのpluginとかコミュニティ的にもWebStormと馴染みが大きそうだし)</p>
+
+<p>まだ、EAPなので中途半端な部分もありますが、これからもテスト連携周りが色々良くなって行くといいなと思います。</p>
+
+<h2 id="余談">余談</h2>
+
+<p>WebStormとブラウザを連携するような機能は、<a href="http://blog.jetbrains.com/webide/2012/08/liveedit-plugin-features-in-detail/" title="LiveEdit">LiveEdit</a>やJavaScriptデバッガー連携などがありますが、このような機能は他のエディタでも見かけるようになってきたと思います。</p>
+
+<p><a href="http://download.brackets.io/" title="Brackets">Brackets</a>でも Live Preview や、NodeやChromeのデバッガーと連携して、エディタ上からブレークポイントを貼ったりできます。</p>
+
+<ul>
+<li>  <a href="http://veadardiary.blog29.fc2.com/blog-entry-4489.html" title="ライブプレビューで編集している部分がハイライトされるHTML・CSSエディタ『Brackets』 - Macの手書き説明書">ライブプレビューで編集している部分がハイライトされるHTML・CSSエディタ『Brackets』 &#8211; Macの手書き説明書</a></li>
+</ul>
+
+<p>また、Bracketsだと<a href="https://github.com/adobe-research/theseus" title="adobe-research/theseus · GitHub">adobe-research/theseus · GitHub</a>というデバッガーのプラグインも先進的で面白いです。</p>
+
+<ul>
+<li>  <a href="http://www.youtube.com/watch?v=-J5LG2bFPMg" title="Brackets: Better JavaScript Debugging with Theseus - YouTube">Brackets: Better JavaScript Debugging with Theseus &#8211; YouTube</a></li>
+</ul>
+
+<p><a href="http://www.chris-granger.com/2013/04/28/light-table-040/" title="Light Table 0.4">Light Table 0.4</a>でもブラウザと繋いでリアルタイム編集(Live Edit的な)やJavaScriptをevalで評価してインラインにその結果をインスペクタ的に表示したりなどができます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/06/ligttable-html.png" alt="Skitched 20130601 110418" title="ligttable-html.png" border="0" width="600" height="422" /></p>
+
+<p>こういう実行環境と連携する機能が色々出ていてワクワクしますが、こういう機能がどうしたら安定(動作自体や仕様的な面、色んなエディタに普及)するのかが最近の考えどころです。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-06-01-webstorm-7eap%E3%81%AEkarma%E9%80%A3%E6%90%BA%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","test","WebStorm"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=test">test</a></li>
+                
+                <li><a href="/tags/?q=WebStorm">WebStorm</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

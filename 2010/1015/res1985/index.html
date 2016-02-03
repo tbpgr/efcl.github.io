@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        JavaScriptベストプラクティス30選-jsEdu | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,twitter,まとめ" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2010/1015/res1985/">
+    <h1 class="post-title">JavaScriptベストプラクティス30選-jsEdu</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2010年10月15日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-10-15-javascript%E3%83%99%E3%82%B9%E3%83%88%E3%83%97%E3%83%A9%E3%82%AF%E3%83%86%E3%82%A3%E3%82%B930%E9%81%B8.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://twitter.com/#search?q=%23jsEdu">#jsEdu</a>から適当に選んで日本語にしたものです。<br>
+訳とかは全く正確ではなく、as possibleなど表現をかなり省いてるので命令口調になってます。<br>
+フィーリング的なものはあんまり入れてないので、興味をもったら<a href="http://togetter.com/li/59441">Togetter &#8211; 「JavaScriptのベストプラクティス大会 jsEdu」</a>を読みましょう。(まとめた奴はこれの10倍くらいありますが、被ってるのや関係無いのもあるので読める程度の量です)<br>
+全てを確認したわけではないので、正確性は保証しかねます。</p>
+
+<!--more-->
+
+<ol>
+<li> ==ではなく===を使うべき<br>
+(自動的に型変換に行われないのでバグが減る、高速)</li>
+<li><p>new Object() and new Array() よりも[] or {}を使うべき。<br>
+[]や{}の方がシンプル<br>
+<a href="http://journal.mycom.co.jp/news/2009/11/11/015/index.html">JavaScriptを高速化する6つのテクニック | エンタープライズ | マイコミジャーナル</a>で出てくるのは間違いだと思う。 <ul type="circle">
+  <li>
+    <a href="http://jsperf.com/vs-new-array">[] vs new Array() · jsPer</a>
+  </li>
+  <li>
+    <a href="http://twitter.com/Constellation/status/27351865075"><a href="http://twitter.com/Constellation/status/27351865075">http://twitter.com/Constellation/status/27351865075</a></a>
+  </li>
+</ul></p></li>
+<li><p>evalなど文字列から実行するタイプの使うのを避けろ</p></li>
+<li><p>クロージャーでvar that = this;の方が意味合いがいい気がする</p></li>
+<li><p>ループ内で使う変数の宣言はループの外側でしろ</p></li>
+<li><p>If(){}の{}はできる限り省略するな</p></li>
+<li><p>プロトタイプ汚染があるかも知れないときにfor inはhasOwnProperty()と組み合わせ</p></li>
+<li><p><strong>奇数や偶数を知るためにif( i % 2 )を使うなら、ビット演算でif( i &amp; 1 )とやった方が高速。</strong>(補足あり)<br>
+(整数以外の時は気をつける必要あり <a href="https://twitter.com/Constellation/statuses/27349855309">https://twitter.com/Constellation/statuses/27349855309</a> )</p></li>
+<li><p>変数宣言するときにvarはつけ忘れるな。スコープで混乱する</p></li>
+<li><p>jQuery で下のように書くと便利<br>
+( function( $ ) { /* Code */ } )( jQuery );</p></li>
+<li><p>alert(&#8220;hello&#8221;); (いや何となく入れたかった)</p></li>
+<li><p>初期化にvar foo = o || {};とするとoが無いときに空のオブジェクトが入るテクニック。<br>
+if文でやるよりも&amp;演算子を使ってオブジェクトの確認した方が高速。<br>
+var bar = o &amp;&amp; o.bar;// oがあったらo.barがbarに入る</p></li>
+<li><p>jQuery on IE6,IE7でClassnameだけのセレクタ指定は避けた方がいい。(遅い)</p></li>
+<li><p>*<em>ある年月の日数を取得するには(その月の最終日)<br>
+var numdays = 32 &#8211; new Date([year], [month], 32).getDate();<br>
+*</em><a href="https://twitter.com/xulapp/statuses/27442123309">https://twitter.com/xulapp/statuses/27442123309</a></p></li>
+<li><p>文字列の結合は配列に入れて最後にjoin(&#8220;&#8221;)するといい<br>
+(主に差が出るのはIE)</p></li>
+<li><p>p<span style="text-decoration: line-through;">arseInt(number, 10);</span>よりも~~number というようにビット演算使った方が高速(補足あり)<br>
+(Math.floorの代替)</p></li>
+<li><p>グローバル名前空間を汚すことないように即時実行できる無名関数を使えるときは使う。<br>
+(function(){ /* MY CODE HERE */ })()</p></li>
+<li><p>Ajaxリクエストでキャッシュが使われたくないときはURLに適当なクエリをつける<br>
+var sUrl = &#8220;ajaxResponse.php?t=&#8221;+new Date().getTime();</p></li>
+<li><p>forループで毎回lengthを参照するのは非効率なので、最初か外に出しましょう。(5と似てる)<br>
+for(var 0, arrLen = myArray.length; i&lt;arrLen; i++){&#8230;}</p></li>
+<li><p>関数のcontextを変えるには&#8221;myFunction.call&#8221; や&#8221;myFunction.apply&#8221;が使えるよ。</p></li>
+<li><p>javascript 1.8ならオブジェクトのプロパティ数を取得できる。<br>
+function getPropertyCount(obj) return obj.__count__;<br>
+<a href="http://www.nczonline.net/blog/2009/02/24/mozilla-javascript-extension-count/">Mozilla JavaScript Extension: __count__ | NCZOnline</a><br>
+<a href="http://ido.nu/kuma/2007/10/23/javascript-object-__count__-property/">javascript object __count__ property « ku</a></p></li>
+<li><p>a onclick=&#8221;soVeryWrong();&#8221;は止めておけ。イベントリスナーを使いましょう。</p></li>
+<li><p><strong>Math.max.apply(Math, arr); その配列arrの最大値が取得できる。</strong></p></li>
+<li><p>Math.floorの代わりにビット演算(補足あり)<br>
+var num = 2.222 | 0;// 2</p></li>
+<li><p>*<em>無名関数の即時実行の応用で、undefinedの手に入れ方<br>
+(function(undefined){/*now you can be sure that undefined really is undefined\</em>/}()); **<br>
+(JavaScriptだとundefinedは書き換え可能なので、void 0などでundefined取得する方法などがある)</p></li>
+<li><p>argumentsを配列に変換するなら<br>
+var ary = Array.prototype.slice.call(arguments);</p></li>
+<li><p>ワンライナーでURLのファイル部分(/から最後まで)を取得するには<br>
+location.href.split(&#8220;/&#8221;).pop(); や location.href.split(&#8220;/&#8221;).slice(-1)[0];// こっちは非破壊的(この場合意味ないけど)</p></li>
+<li><p>JavaScriptでステートメントの最後には<strong>;</strong>をいつもつけておいた方がいい。</p></li>
+<li><p><strong>if文などで偽として評価されるのはfalse, null, undefined, 0, &#8220;&#8221;, NaNの6つ。</strong></p></li>
+<li><p>sort()は安定ソートではない(Chrome and Operaは特に)、なので扱う時気をつけろ。</p></li>
+</ol>
+
+<p>16,24の補足<br>
+ビット演算は速いけど、副作用がある場合があるので使う時は気をつける。(負の値の時とか)</p>
+
+<ul>
+<li>  <a href="http://d.hatena.ne.jp/sii-side/20090319/p1">小数から整数部分だけを取り出すときのアレコレ &#8211; まるでとりとめのない。</a></li>
+<li>  <a href="http://d.hatena.ne.jp/mindcat/20091119/1258651717">JavaScriptのビット演算の仕組みを理解する &#8211; 風と宇宙とプログラム</a></li>
+<li>  <a href="http://labs.cybozu.co.jp/blog/mitsunari/2007/07/1.html">論理演算1 (mitsunari@cybozu labs)</a> &#8211; 副作用</li>
+<li>  <a href="https://developer.mozilla.org/en/JavaScript/Reference/Operators/Bitwise_Operators">Bitwise Operators &#8211; MDC</a></li>
+</ul>
+
+<p><strong>Togetter &#8211; 「JavaScriptのベストプラクティス大会 jsEdu」</strong>
+:   <a href="http://togetter.com/li/59441" title="Togetter - 「JavaScriptのベストプラクティス大会 jsEdu」">http://togetter.com/li/59441</a></p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-10-15-javascript%E3%83%99%E3%82%B9%E3%83%88%E3%83%97%E3%83%A9%E3%82%AF%E3%83%86%E3%82%A3%E3%82%B930%E9%81%B8.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","twitter","まとめ"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=twitter">twitter</a></li>
+                
+                <li><a href="/tags/?q=まとめ">まとめ</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

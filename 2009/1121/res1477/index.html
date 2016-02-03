@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ニコニコ動画のマイリストページに埋め込まれている情報(DOM) | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="API,Firebug,javascript,ニコニコ動画" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2009/1121/res1477/">
+    <h1 class="post-title">ニコニコ動画のマイリストページに埋め込まれている情報(DOM)</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2009年11月21日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2009/2009-11-21-%E3%83%8B%E3%82%B3%E3%83%8B%E3%82%B3%E5%8B%95%E7%94%BB%E3%81%AE%E3%83%9E%E3%82%A4%E3%83%AA%E3%82%B9%E3%83%88%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AB%E5%9F%8B%E3%82%81%E8%BE%BC%E3%81%BE%E3%82%8C%E3%81%A6.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://efcl.info/2008/1206/res369/">ニコニコ動画の再生ページに埋め込まれている情報 | Web scratch</a> のマイリストページ版みたいなものです。<br>
+マイリストにもAPIがありますが(<a href="/?page_id=1445">ニコニコ動画のAPIまとめ | Web scratch</a> )マイリストページにいるならば、わざわざAPI叩かなくてもいろんな情報が取得できます。<br>
+なんでわざわざDOMから情報を取ってるかというと、変更の影響を受けにくかったりするからです。<br>
+ここでのマイリストは人が公開してるマイリストのこと。</p>
+
+<pre>my
+    Mylist.groupList
+        id (number): マイリストID
+        user_id (number): マイリストのユーザーID
+        name (string): マイリストのタイトル
+        description (string): マイリスト説明文
+        public (boolean): true // 公開状況
+        default_sort (number): 1 (1-17)
+        create_time (number): UNIX時間(util.unix2で戻せる)
+        update_time (number): UNIX時間
+        icon_id (number): 0
+        sort_order (number): 0 
+    my.currentItems
+        &#91;0&#93;...配列
+            item_type (number): 0
+            item_id (string): 接頭辞がない動画番号(常時)
+            description (string): マイリスト登録者による説明文
+            item_data 
+                video_id (string): 接頭辞がある動画番号(sm数字)
+                title (string):  動画タイトル
+                thumbnail_url (string): サムネイルURL
+                first_retrieve (number): 投稿日時(UNIX時間)
+                update_time (number): 更新日時(UNIX時間)
+                view_counter (string): 再生数
+                mylist_counter (string): マイリスト数
+                num_res (string): コメント数
+                group_type (string): default 
+                length_seconds (string): 再生時間(秒)
+                deleted (string): 0 (削除状態0-3?)
+                last_res_body (string): 最近のコメント(文字列)
+                watch_id (string): 接頭辞なしの動画番号(コミュ、マイメモリー以外だと接頭辞がある)
+            watch (number): 0
+            create_time (number): マイリスト登録日時(UNIX時間)
+            update_time (number): マイリスト更新日時(UNIX時間)</pre>
+
+<p>Firebugなどから、console.dir(my)などして構造を確認しておくといいです。<br>
+DOMから動画情報を取得するのを少しだけ手助けする関数群を置いておきます。(思ったより役に立たない)</p>
+
+<pre class="brush:javascript;">(function () {
+    var w = unsafeWindow;
+    Mylist = {
+        // マイリストの属性
+        /*
+        Mylist.groupListのツリー
+            id (number): マイリストID
+            user_id (number): マイリストのユーザーID
+            name (string): マイリストのタイトル
+            description (string): マイリスト説明文
+            public (boolean): true // 公開状況
+            default_sort (number): 1 (1-17)
+            create_time (number): UNIX時間(util.unix2で戻せる)
+            update_time (number): UNIX時間
+            icon_id (number): 0
+            sort_order (number): 0
+        */
+        // Mylist.groupList - my.CurrentGroupのコピー
+        groupList: function () {
+            return w.my.currentGroup;
+        },
+        /*
+        my.currentItemsのツリー
+            item_type (number): 0
+            item_id (string): 接頭辞がない動画番号(常時)
+            description (string): マイリスト登録者による説明文
+            item_data
+                video_id (string): 接頭辞がある動画番号(sm数字)
+                title (string):  動画タイトル
+                thumbnail_url (string): サムネイルURL
+                first_retrieve (number): 投稿日時(UNIX時間)
+                update_time (number): 更新日時(UNIX時間)
+                view_counter (string): 再生数
+                mylist_counter (string): マイリスト数
+                num_res (string): コメント数
+                group_type (string): default
+                length_seconds (string): 再生時間(秒)
+                deleted (string): 0 (削除状態0-3?)
+                last_res_body (string): 最近のコメント(文字列)
+                watch_id (string): 接頭辞なしの動画番号(コミュ、マイメモリー以外だと接頭辞がある)
+            watch (number): 0
+            create_time (number): マイリスト登録日時(UNIX時間)
+            update_time (number): マイリスト更新日時(UNIX時間)
+        */
+        // Mylist.itemList - my.currentItemsのコピー
+        itemList : function(){
+            return w.my.currentItems;
+        },
+    }
+
+    // utility関数群
+    utils = {
+      playlength : transPlaylength,
+      unix2 : unixTodate,
+      clone : clone,
+    }
+
+    // 再生時間を分秒に変換
+    function transPlaylength(length){
+        return (length / 60).toFixed(2).toString().split(".").join("分") + "秒";
+    }
+    // 10桁の数字(UNIXTIME)から2009/10/1 00:00形式で返す
+    function unixTodate(x){
+        var t=new Date(x*1000);
+        return t.getFullYear() + "/" + fillZero(t.getMonth() + 1) + "/" + fillZero(t.getDate()) + " " + fillZero(t.getHours()) + ":" + fillZero(t.getMinutes()) + ":" + fillZero(t.getSeconds());
+    }
+    // http://d.hatena.ne.jp/javascripter/20080514/1210791575
+    // 先頭を0で埋める デフォルト2桁
+    function fillZero(num , digit){
+        var n = (digit) ? digit : 2;// デフォルト値
+        var zero=new Array(n).join('0');//0をn-1文字分つなげた文字列を作る。n==4だと'000'
+        var str=zero+num;//zeroとthisをくっつけた文字列を作る。
+        var result=str.substr(-n);//strの後ろから、n文字分の文字列を取ってくる。
+        return result;
+    }
+    // オブジェクトのコピーのコピーを作成
+    function clone(obj){
+        return (typeof uneval == "function") ? eval(uneval(obj)) : false;
+    }
+
+})();</pre>
+
+<p><a href="http://gist.github.com/239541">gist: 239541 &#8211; GitHub</a></p>
+
+<p>どんな風に使うかというと、上の関数群を読み込んで使用します。<br>
+DOMへのアクセスをするものと少しのutility関数群から構成されています。<br>
+再生時間を分秒に直したり、UNIX時間で格納されている時間を2009/10/1 00:00形式に直したりするだけです。</p>
+
+<pre class="brush:javascript;">// ==UserScript==
+// @name           Nico mylist Test
+// @namespace      http://efcl.info/
+// @include        http://www.nicovideo.jp/mylist/*
+// @require        http://gist.github.com/raw/239541/1dab27439133948bd6309f4ba959921a8ce938b9/NicoMylistDom.js
+// ==/UserScript==
+var t = Mylist.itemList();// DOM my.currentItemsにアクセス
+var cpObj = utils.clone(t);// オブジェクトのコピー作成(元の値を残す)
+console.log(cpObj.length)
+for(var i =0,l =cpObj.length;i&#60;l;i++){
+  console.log(i + " : " + cpObj&#91;i&#93;.item_data.title + "投稿日 : "+ utils.unix2(cpObj&#91;i&#93;.item_data.first_retrieve))
+}
+cpObj&#91;i-1&#93;.item_data.title = "buzz";//コピーしたものを書き換える
+console.log(t&#91;i-1&#93;.item_data.title)// 元のDOMには影響ない</pre>
+
+<ul>
+<li>  <a href="http://gist.github.com/raw/239576/20b1a6a94c098aeb9af3acdf4cbd6be76e4583b9/Nico%20mylist%20Test.user.js">Nico mylist Test.user.js</a></li>
+</ul>
+
+<p>上の関数群のテスト例です。インストールしてマイリストページに行くとコンソールに例が表示されるので参考にどうぞ</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2009/2009-11-21-%E3%83%8B%E3%82%B3%E3%83%8B%E3%82%B3%E5%8B%95%E7%94%BB%E3%81%AE%E3%83%9E%E3%82%A4%E3%83%AA%E3%82%B9%E3%83%88%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AB%E5%9F%8B%E3%82%81%E8%BE%BC%E3%81%BE%E3%82%8C%E3%81%A6.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["API","Firebug","javascript","ニコニコ動画"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=API">API</a></li>
+                
+                <li><a href="/tags/?q=Firebug">Firebug</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=ニコニコ動画">ニコニコ動画</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

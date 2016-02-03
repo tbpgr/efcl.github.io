@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        多段SourceMapの対応方法とライブラリ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,Browser,SourceMap,library" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/09/03/multi-stage-sourcemap/">
+    <h1 class="post-title">多段SourceMapの対応方法とライブラリ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年09月03日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-09-03-multi-stage-sourcemap.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="source-map">Source Map</h2>
+
+<p>SourceMapとは何かについては以前、<a href="http://efcl.info/2014/0622/res3933/" title="Source Mapを扱う関連ライブラリのまとめ">Source Mapを扱う関連ライブラリのまとめ</a>にて紹介しました。</p>
+
+<h3 id="source-mapとは">Source Mapとは</h3>
+
+<ul>
+<li>  <a href="https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit" title="Source Map Revision 3 Proposal - Google ドキュメント">Source Map Revision 3 Proposal &#8211; Google ドキュメント</a> 
+
+<ul>
+<li>  SourceMap仕様</li>
+</ul></li>
+<li>  <a href="http://imaya.blog.jp/archives/7169783.html" title="#JSオジサンで Source Map について話してきました : document">#JSオジサンで Source Map について話してきました : document</a> 
+
+<ul>
+<li>  SourceMap概要</li>
+</ul></li>
+<li>  <a href="http://safx-dev.blogspot.jp/2013/08/javascriptsource-map.html" title="JavaScriptのSource Mapの内部表現について">JavaScriptのSource Mapの内部表現について</a> 
+
+<ul>
+<li>  Base64の<code>mappings</code>部分の仕組み</li>
+<li>  <a href="http://sokra.github.io/source-map-visualization/" title="ビジュアライズ">source-map-visualization</a> ビジュアライズツール</li>
+</ul></li>
+<li>  <a href="https://github.com/mozilla/source-map" title="mozilla/source-map">mozilla/source-map</a>
+
+<ul>
+<li>  SourceMapのコアと言えるモジュール(色々なモジュールが使う)</li>
+</ul></li>
+</ul>
+
+<p>SourceMapはAltJS等からJavaScriptへの変換など、Original Code -&gt; Generated Codeへと変換する時に、
+変換後のファイルから、変換前のファイルの該当する場所(Line numberとColumn)をたどるための情報が入った
+マッピングファイルです。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/09/basic-sourcemap.png" alt="basic-sourcemap.png"></p>
+
+<p>変換後のコードと変換前のコードの位置関係を参照できるので、SassやCoffeeScriptやTypeScript等のデバッグに使われていますね。</p>
+
+<h3 id="多段sourcemap(multi-level-sourcemap)とは">多段SourceMap(Multi-level SourceMap)とは</h3>
+
+<p>仕様書のNOTE部分にも書いてありますが、現在の仕様では以下のような複数回の変換を経由した時の標準的な仕組みは存在していません。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/09/multiple-sourcemap.png" alt="multiple-sourcemap.png"></p>
+
+<p>例えば、CoffeeScriptで書いて(Original)、それをJavaScriptに変換して(Generated)、さらにそれを圧縮した(Minified)時などが該当します。
+このように変換とSourceMapの生成を複数回繰り返して行った場合の事を多段SourceMapと呼んでると思います。</p>
+
+<p>この場合、圧縮したコードから、元のCoffeeScriptのコードの対応関係をそのままだと見ることが出来ません。
+(例としてMinifiedなどとしていますが、これはSourceMapを生成する変換なら何でもいいです。テンプレートの変換やConcatも同じです)</p>
+
+<p>多段SourceMapについては仕様上のサポートがないので、現状をまとめると以下のような感じですね。</p>
+
+<ul>
+<li>圧縮したコード(Minified)から変換されたJS(Generated)のSourceMapはある</li>
+<li>変換されたJS(Generated)からCoffeeScript(Original)のSourceMapはある</li>
+<li>圧縮したコード(Minified)からCoffeeScript(Original)のSourceMapがない</li>
+</ul>
+
+<h3 id="multi-stage-sourcemap"><a href="https://github.com/azu/multi-stage-sourcemap" title="multi-stage-sourcemap">multi-stage-sourcemap</a></h3>
+
+<blockquote>
+<p>圧縮したコード(Minified)からCoffeeScript(Original)のSourceMapがない</p>
+</blockquote>
+
+<p>先ほどの図から想像できると思いますが、中間のそれぞれのSourceMapは存在しているため、Minified -&gt; Original というSourceMapを作ることは容易だと分かりますね。</p>
+
+<p>これを行うのモジュールとして <a href="https://github.com/azu/multi-stage-sourcemap" title="multi-stage-sourcemap">multi-stage-sourcemap</a> というものを作りました。</p>
+
+<p>中間の2つのSourceMapを使って、Minified -&gt; OriginalというジャンプしたSourceMapを作ることが出来ます。</p>
+
+<p>つまり、最初と最後だけを繋いだSourceMapを作り直すだけです。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/09/multiple-stage-sourcemap.png" alt="multiple-stage-sourcemap.png"></p>
+
+<p>これは、仕様書のNOTEで中間地点の情報は失うけど簡単な方法として書かれています。</p>
+
+<blockquote>
+<p>The easy but lossy way is to ignore the intermediate steps in the process for the purposes of debugging, the source location information from the translation is either ignored (the intermediate translation is considered the “Original Source”) or the source location information is carried through (the intermediate translation hidden).  - <a href="https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit#" title="Source Map Revision 3 Proposal - Google ドキュメント">Source Map Revision 3 Proposal </a></p>
+</blockquote>
+
+<p>自分も仕様見る前に<a href="http://twitter.com/azu_re/status/453839139348041728">多分出来るんだと思ってた</a>ので、それの<a href="http://ja.wikipedia.org/wiki/%E6%A6%82%E5%BF%B5%E5%AE%9F%E8%A8%BC" title="Proof of concept">Proof of concept</a>として作りました。(<a href="http://efcl.info/2014/0622/res3933/" title="Source Mapを扱う関連ライブラリのまとめ">探した</a>のですが何故か汎用的なものがなかった)</p>
+
+<p>先ほどの例であげている圧縮に関しては<a href="http://www.thecssninja.com/JavaScript/multi-level-sourcemaps" title=". UglifyJS2">UglifyJS2</a>が同様の実装をしています。</p>
+
+<h3 id="ユースケース">ユースケース</h3>
+
+<p>汎用的なものがなかったのは、この多段SourceMapが必要な状況に遭遇するケースが少なかったからかもしれません。</p>
+
+<p>幾つかユースケースをあげておきます。</p>
+
+<ul>
+<li>AltJS -&gt; JavaScript -&gt; 圧縮.js
+
+<ul>
+<li>例に上げている一番遭遇するパターン</li>
+<li><a href="http://www.thecssninja.com/JavaScript/multi-level-sourcemaps" title=". UglifyJS2">UglifyJS2</a>は対応済み、<a href="https://github.com/Constellation/esmangle" title="esmangle">esmangle</a>等も <a href="https://github.com/azu/multi-stage-sourcemap" title="multi-stage-sourcemap">multi-stage-sourcemap</a>のような仕組みを使えば対応できる</li>
+</ul></li>
+<li>AltJS + <a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a>
+
+<ul>
+<li>power-assert は用意されてテストコードを変換し、テストが失敗した時に分かりやすい情報が出せるようにしている。</li>
+<li>そのため、AltJSで書いたものを利用する場合はAltJS -&gt; JavaScript -&gt; power-assert化されたコードとなる</li>
+<li><a href="https://github.com/twada/power-assert/releases/tag/v0.9.0" title="power-assert 0.9.0">power-assert 0.9.0</a> にて多段SourceMapに対応した</li>
+<li>実際にGrunt、Gulp、Browserify、モジュールで多段SourceMapの対応する方法については<a href="https://gist.github.com/twada/103d34a3237cecd463a6" title="power-assert 多段 SourceMap 対応の方針">power-assert 多段 SourceMap 対応の方針</a>を参照</li>
+</ul></li>
+<li>ES6 -&gt; ES5 -&gt; <a href="http://qiita.com/laco0416/items/985044f0019ebef6cb2c" title="Spy-js">Spy-js</a>
+
+<ul>
+<li>ES6で書いたコードをES5で動くように変換したものをspy-jsでプロファイリングするときに有用です。</li>
+<li><a href="http://qiita.com/laco0416/items/985044f0019ebef6cb2c" title="Spy-js">Spy-js</a>はJavaScriptのコードをプロファイリングするために、計測用の関数を仕込んだ形に変換してから実行しています。</li>
+<li>AltJS -&gt; JS -&gt; instrument.js という感じです。</li>
+</ul></li>
+<li>AltJS -&gt; JavaScript -&gt; コードカバレッジ
+
+<ul>
+<li>思いついただけ</li>
+</ul></li>
+<li>テンプレート + JS -&gt; 圧縮
+
+<ul>
+<li>一般的にはテンプレートとJSを一緒に変換する(BrowserifyやWebPack等)ので、問題ない</li>
+<li>ただ、テンプレートをJSとして変換済みのものを用意して、concatして、それを圧縮したいとなった場合、元のテンプレートへの参照には多段SourceMapが必要かも</li>
+</ul></li>
+</ul>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>SourceMapにおける多段SourceMap(Multi-level SourceMap)が必要になる状況とその解決方法の一つを提供する<a href="https://github.com/azu/multi-stage-sourcemap" title="azu/multi-stage-sourcemap">azu/multi-stage-sourcemap</a>について紹介しました。</p>
+
+<p><a href="https://github.com/azu/multi-stage-sourcemap" title="azu/multi-stage-sourcemap">multi-stage-sourcemap</a> はAPIがイマイチ(パラメータの名前がどっちがわかりにくい)なので、BREAKING CHANGEレベルのContributingも募集しています。</p>
+
+<p>実際に<a href="https://github.com/azu/multi-stage-sourcemap" title="azu/multi-stage-sourcemap">multi-stage-sourcemap</a>を使った実装については以下を参照するといいと思います。</p>
+
+<ul>
+<li><a href="https://gist.github.com/twada/103d34a3237cecd463a6" title="power-assert 多段 SourceMap 対応の方針">power-assert 多段 SourceMap 対応の方針</a></li>
+<li><a href="https://github.com/twada/battlefield-sourcemaps" title="twada/battlefield-sourcemaps">twada/battlefield-sourcemaps</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-09-03-multi-stage-sourcemap.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","Browser","SourceMap","library"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=Browser">Browser</a></li>
+                
+                <li><a href="/tags/?q=SourceMap">SourceMap</a></li>
+                
+                <li><a href="/tags/?q=library">library</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

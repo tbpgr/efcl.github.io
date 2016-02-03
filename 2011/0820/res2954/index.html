@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        第３回ブラウザー勉強会 アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="browser,chrome,Firefox,javascript,アウトライン,イベント,勉強会" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0820/res2954/">
+    <h1 class="post-title">第３回ブラウザー勉強会 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年08月20日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-08-20-%E7%AC%AC%EF%BC%93%E5%9B%9E%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%83%BC%E5%8B%89%E5%BC%B7%E4%BC%9A-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>2011年8月20日開催された<a href="http://bws.hebikuzure.com/">第３回ブラウザー勉強会</a>に参加してきたので、その時のメモです。</p>
+
+<p>Twittterのログは<a href="http://togetter.com/li/176968">Togetter &#8211; 「第3回 ブラウザー勉強会(#BrowserWS)のまとめ」</a>にまとまっています。</p>
+
+<!--more-->
+
+<p><span style="font-size: 18px; font-weight: bold;">第3回 ブラウザー勉強会</span></p>
+
+<h2 id="午前の部-:コミュニティー-セッション">午前の部 :コミュニティー セッション</h2>
+
+<h3 id="ショートセッション-:-kyo_ago -(http://tech.kayac.com/) 「testで始まる物語（ストーリー）-qunit-cuiの紹介」-{#kyo_agohttp:tech.kayac.comtestqunitcui}">ショートセッション : kyo_ago  (<a href="http://tech.kayac.com/)%E2%80%A8%E3%80%8CTest%E3%81%A7%E5%A7%8B%E3%81%BE%E3%82%8B%E7%89%A9%E8%AA%9E%EF%BC%88%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AA%E3%83%BC%EF%BC%89">http://tech.kayac.com/) 「Testで始まる物語（ストーリー）</a> QUnit CUIの紹介」 {#kyo_agohttp:tech.kayac.comtestqunitcui}</h3>
+
+<p>[<a href="http://www.ustream.tv/recorded/16762261">Ustream</a>] [<a href="http://jsrun.it/kyo_ago/browserws3">発表資料</a>]</p>
+
+<h4 id="jquery-plugin-testフレームワーク-{#jqueryplugintest}">jQuery Plugin testフレームワーク {#jqueryplugintest}</h4>
+
+<ul>
+<li>  非同期実行されるコードのテストが面倒</li>
+<li>  UIのテストが面倒</li>
+</ul>
+
+<p>テストコードは次の３つから構成される</p>
+
+<ul>
+<li>  テスト前のHTML</li>
+<li>  テストするコード</li>
+<li>  テスト後のHTML</li>
+</ul>
+
+<p>コードにすると以下みたいな感じ。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;script type=&quot;dom/base&quot; /&gt; &lt;script type=&quot;test/code&quot; /&gt; &lt;script type=&quot;dom/comp&quot; /&gt;
+</code></pre></div>
+<ul>
+<li>  iframe内でこれを行うので、セレクタなどの心配が不要</li>
+<li>  自動的にdiffをとれる</li>
+<li>  複数端末上で分散実行</li>
+<li>  複数ブラウザでの比較</li>
+<li>  pluginのテストコードを生成</li>
+</ul>
+
+<hr>
+
+<h3 id="ショートセッション-:-はせがわようすけ-「using-win32-api-inside-chrome-extension」-{#usingwin32apiinsidechromeextensionbrowserws}">ショートセッション : はせがわようすけ 「Using Win32 API inside Chrome Extension」 {#usingwin32apiinsidechromeextensionbrowserws}</h3>
+
+<p>[<a href="http://www.ustream.tv/recorded/16762480">Ustream</a>] [<a href="http://utf-8.jp/public/20110820/chrome.pptx">発表資料</a>]</p>
+
+<p>Chrome Extensionの構成</p>
+
+<ul>
+<li>  HTML + JavaScript</li>
+<li>  マニフェストとリソース</li>
+</ul>
+
+<h4 id="chrome-extentionの制約を超える-{#chromeextention}">Chrome Extentionの制約を超える {#chromeextention}</h4>
+
+<p>NPAPI DLL &#8211; プラグインを書くためのもの</p>
+
+<ul>
+<li>  OSに依存する</li>
+<li>  Extension内にplugin DLL 
+
+<ul>
+<li>  リモートHTMLから直接利用は無理</li>
+</ul></li>
+</ul>
+
+<p>マニフェストにdllのロードパスを書くだけで読み込める。</p>
+
+<ul>
+<li>  拡張の制約が超えられる</li>
+<li>  化石のようなもの</li>
+</ul>
+
+<h4 id="npwin32-{#npwin32}">NPWIN32 {#npwin32}</h4>
+
+<p>何でも使える汎用DLL * JavaScriptから何でもできる</p>
+
+<p>JavaScriptからネイティブコードを呼び出すことができる</p>
+
+<ul>
+<li>  Windowsの方のalertを呼び出す</li>
+<li>  デスクトップ情報の取得</li>
+</ul>
+
+<p>NaCLとの違い * NaCLは OSネイティブの機能は呼び出せない。</p>
+
+<hr>
+
+<h3 id="ライトニング-トーク-:-normalian-さん-(http://d.hatena.ne.jp/waritohutsu/)-{#normalianhttp:d.hatena.ne.jpwaritohutsu}">ライトニング トーク : normalian さん (<a href="http://d.hatena.ne.jp/waritohutsu/">http://d.hatena.ne.jp/waritohutsu/</a>) {#normalianhttp:d.hatena.ne.jpwaritohutsu}</h3>
+
+<p>[<a href="http://www.ustream.tv/recorded/16762671">Ustream</a>] [発表資料]</p>
+
+<p>「ブラウザ戦国時代で考えるクロスブラウザなテスト方法（仮題）」</p>
+
+<ul>
+<li><p>ブラウザのバージョンアップ頻度が高くなった</p></li>
+<li><p>ブラウザレンダリングの差異</p></li>
+<li><p>JavaScriptのイベントハンドリングの差異</p></li>
+<li><p>HTMl5の対応状況の差異</p></li>
+</ul>
+
+<h4 id="jquery-&amp;-modernizr-{#jquerymodernizr}">jQuery &amp; Modernizr {#jquerymodernizr}</h4>
+
+<h4 id="jquery-{#jquery}">jQuery {#jquery}</h4>
+
+<ul>
+<li>  jQuery Core</li>
+<li>  jQuery Mobile</li>
+<li>  jQuery Template</li>
+<li>  jQuery Validate</li>
+</ul>
+
+<h5 id="modernizr-{#modernizr}">Modernizr {#modernizr}</h5>
+
+<ul>
+<li>  ブラウザのHTML5対応度合いの確認</li>
+</ul>
+
+<p>jQuery UIとjQuery Mobileはソースコードは一部流用されている。 混ぜると危険。</p>
+
+<hr>
+
+<p><span style="font-size: 14px; font-weight: bold;">モバイルブラウザのタブの傾向と対策 -Androidスマフォを主に- saneyuki_s</span></p>
+
+<p>[<a href="http://www.ustream.tv/recorded/16762887">Ustream</a>] [<a href="http://www.slideshare.net/saneyuki/ss-8930380">発表資料</a>]</p>
+
+<ul>
+<li><p><a href="http://www.slideshare.net/saneyuki/ss-8930380" title="モバイルブラウザのタブの傾向まとめ">モバイルブラウザのタブの傾向まとめ</a> <strong>スマートフォンブラウザの「タブ」の様式にデファクトがない</strong></p></li>
+<li><p>ウィンドウ式</p></li>
+<li><p>メニューからウィンドウを出して切り替える</p></li>
+<li><p>画面下部に表示 </p>
+
+<ul>
+<li>  Opera</li>
+<li>  Sleipnir Mobile</li>
+<li>  サムネイル付きが多くてわかりやすい</li>
+</ul></li>
+<li><p>画面上部に表示 </p>
+
+<ul>
+<li>  Dolphine Browser</li>
+<li>  タブレットでは一般的</li>
+</ul></li>
+<li><p>FIrefox Mobile式 </p>
+
+<ul>
+<li>  サイドに格納する</li>
+</ul></li>
+</ul>
+
+<p><strong>番外</strong></p>
+
+<ul>
+<li>IE9 Mobile &#8211; タスクスイッチャーと連動<br></li>
+<li>Sleipnir Mobile &#8211; タブグループ機能 -  面倒くさい工程</li>
+</ul>
+
+<h4 id="まとめ">まとめ</h4>
+
+<p>様式は落ち着かないだろう。</p>
+
+<hr>
+
+<h3 id="google-chromeはエンタープライズの夢をみるか-:-hebikuzure-{#googlechrome:hebikuzure}">Google Chromeはエンタープライズの夢をみるか : Hebikuzure {#googlechrome:hebikuzure}</h3>
+
+<p>[<a href="http://www.ustream.tv/recorded/16763031">Ustream</a>] [<a href="http://www.slideshare.net/hebikuzure/chrome-gpo-availability">発表資料</a>]</p>
+
+<ul>
+<li>  ユーザ権限でインストールできる</li>
+<li>  勝手にアップデートできる</li>
+<li>  Google Chrome Frame</li>
+</ul>
+
+<p>管理者が投げ捨てる可能性</p>
+
+<h4 id="chrome-にはグループポリシー機能がある-{#chrome}">Chrome にはグループポリシー機能がある {#chrome}</h4>
+
+<p>(Windows版について) <strong><a href="http://www.chromium.org/administrators">Documentation for Administrators &#8211; The Chromium Projects</a></strong></p>
+
+<p>Chromum Projectの方に書かれてる</p>
+
+<ul>
+<li>  HTTP認証の動作</li>
+<li>  コンテンツの設定</li>
+<li>  検索プロバイダ</li>
+<li>  パスワードマネージャー</li>
+<li>  プロキシ</li>
+<li>  ホームページ</li>
+<li>  拡張機能</li>
+<li>  スタートアップページ</li>
+<li>  Google Chrome Frameの動作(無効にできる)</li>
+<li>  Google Updateの動作 
+
+<ul>
+<li>  Google製品の個別で自動アップデートの有無</li>
+</ul></li>
+<li>  Google Installerによるソフトウェアのインストールの設定</li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p>Chromeのmsiインストーラーもある(?msi=trueでダウンロード)</p>
+
+<ul>
+<li>  Active Directorで配布できる</li>
+<li>  特定のバージョン縛りができる</li>
+</ul>
+
+<p>グループポリシーのテンプレート(ADM,ADMX)が配布されているので、グループポリシーの追加ができる。<br>
+PolicyDefinitionsというフォルダーにコピーする事で入れることでも読み込める</p>
+
+<h4 id="q&amp;a-{#qa}">Q&amp;A {#qa}</h4>
+
+<ul>
+<li>  セキュリティアップデートも無効にできる</li>
+</ul>
+
+<h2 id="午後の部-:-テーマ-セッション-「ブラウザーと-web-が描く『夢』」-{#web}">午後の部 : テーマ セッション 「ブラウザーと Web が描く『夢』」 {#web}</h2>
+
+<h3 id="加藤-誠さん-(mozilla-japan) 「openness,-innovation,-and-opportunity」-{#mozillajapanopennessinnovationandopportunity}">加藤 誠さん (Mozilla Japan) 「Openness, Innovation, and Opportunity」 {#mozillajapanopennessinnovationandopportunity}</h3>
+
+<p>[<a href="http://www.ustream.tv/recorded/16764957">Ustream</a>] [<a href="http://www.slideshare.net/djraven/openness-innovation-and-opptunity">発表資料</a>]</p>
+
+<p>Mozillaのミッション「Openness, Innovation, and Opportunity」</p>
+
+<p>非営利法人が扱えるお金が制限されているので、Mozilla Corporationという株式会社ができた。</p>
+
+<p><strong>Mozilla Labsをメインに</strong></p>
+
+<ul>
+<li>  実装だけではなくて、モックなどでもあり</li>
+<li>  RUST 言語</li>
+<li><p>将来のFirefoxで取り入れられることも</p>
+
+<ul>
+<li>  FIrefox Syncなど</li>
+</ul></li>
+<li><p>UI/UX</p></li>
+<li><p>WEB API</p></li>
+</ul>
+
+<p>などがLabの範囲</p>
+
+<h4 id="design-challenge-{#designchallenge}">Design Challenge {#designchallenge}</h4>
+
+<ul>
+<li>  特定のテーマでデザインやモックでアイデアを募る</li>
+<li>  アイデア(デザイン)の発表する場所</li>
+<li>  実装ではなく、あくまでもアイデア</li>
+</ul>
+
+<h4 id="test-pilot-{#testpilot}">Test Pilot {#testpilot}</h4>
+
+<ul>
+<li>  ユーザーのブラウザ利用データーを取得して解析 
+
+<ul>
+<li>  収集用のアドオン</li>
+<li>  結果を公開</li>
+</ul></li>
+<li>  データが偏る傾向があるため、偏りを取る手法を使う</li>
+<li>  ユーザーのクリックするホットスポット調査とか</li>
+</ul>
+
+<p>&nbsp;</p>
+
+<h4 id="prospector-{#prospector}">Prospector {#prospector}</h4>
+
+<ul>
+<li>  ユーザーが目的のサイトにたどり着くためのUXの模索</li>
+<li>  Prospectorは実装ありきのアイデア</li>
+</ul>
+
+<p><strong>Firefox SHARE / F1</strong></p>
+
+<p>ソーシャルネットワークとの結合</p>
+
+<h4 id="q&amp;a-{#qa}">Q&amp;A {#qa}</h4>
+
+<p>アップデートスピードが早くなったのはなんで? * Webの流れが早くなってる</p>
+
+<p>UI/UXのアプローチ</p>
+
+<ul>
+<li>  目線の移動がおかしいとか</li>
+<li>  公開された議論してるので、おかしいとクレームがくる</li>
+</ul>
+
+<p>検索バーとURLバーの統合について</p>
+
+<ul>
+<li>  一応Firefoxとしてもそういう議論がある</li>
+<li>  ユーザーからのフィードバック次第になる。</li>
+</ul>
+
+<h3 id="daniel-davis-さん-(opera-japan) 「ブラウザの未来：html5の先には？」-{#danieldavisoperajapanhtml5}">Daniel Davis さん (Opera Japan) 「ブラウザの未来：HTML5の先には？」 {#danieldavisoperajapanhtml5}</h3>
+
+<p>[<a href="http://www.ustream.tv/recorded/16765907">Ustream</a>] [発表資料]</p>
+
+<p>1899年に書かれた未来2000年について。</p>
+
+<p>未来的なものを想像しても、洋服や建物が変化していない。</p>
+
+<h4 id="more-than-html5-{#morethanhtml5}">More than HTML5 {#morethanhtml5}</h4>
+
+<p><strong>Device APIs</strong></p>
+
+<ul>
+<li>  まだまだカメラでデータ取得は先だけど 。</li>
+<li>  Web APIとARを連動してやるなど(Tweetの取得など)</li>
+</ul>
+
+<p>逆にカメラにブラウザが乗ることもあり得る</p>
+
+<h4 id="more-like-a-platform-{#morelikeaplatform}">More like a platform {#morelikeaplatform}</h4>
+
+<p>Web on TV * ブラウザが載ってるTVも増えている * ブラウザはWebを見るためではなく、Appとして利用されてる * 多くのメーカーはSVGでUIを使ってる(レンダリングエンジンがブラウザ)</p>
+
+<ul>
+<li>  TVのUI(user input = リモコン)は最悪 
+
+<ul>
+<li>  これが改善されないとWeb on TVが流行らないかも</li>
+<li>  ジャイロリモコン</li>
+<li>  キーボードタイプ</li>
+</ul></li>
+</ul>
+
+<p>ブラウザの進化</p>
+
+<ul>
+<li>  ブラウザによりUIが静的から動的に</li>
+<li>  動的からインタラクティブへ 
+
+<ul>
+<li>  ペーパーレス = 静的なものがまだ多い =&gt; マルチメディア</li>
+</ul></li>
+</ul>
+
+<p>履歴書の事例 * 履歴書に動画を入れる * マルチメディアをもっと普通のドキュメントに使う</p>
+
+<p>再生だけではなく、作成もブラウザで? * contenteditable * 今はまだ非力</p>
+
+<h4 id="ネイティブよりウェブ?">ネイティブよりウェブ?</h4>
+
+<ul>
+<li>  JavaScriptは早く、パワフルになった</li>
+<li>  比較的に書きやすく勉強しやすい</li>
+<li>  100%オープン 
+
+<ul>
+<li>  ひとつの会社などにコントロールされてない</li>
+<li>  未来的にそれはいいこと</li>
+</ul></li>
+</ul>
+
+<h4 id="未来の予想は人によって違う">未来の予想は人によって違う</h4>
+
+<ul>
+<li>  ウェブはひとつの団体にコントロールされないのが重要</li>
+<li>  コントロールされないウェブは未来も一緒に作る</li>
+</ul>
+
+<h4 id="q&amp;a-{#qa}">Q&amp;A {#qa}</h4>
+
+<p>ブラウザがいろいろなものに乗った場合、それぞれに対して最適なUIは異なるが、それを上手くやる工夫</p>
+
+<ul>
+<li>  OSとブラウザは大きくは変わらない</li>
+<li>  ブラウザを一番下において、その上に何かをかぶせて作らせれば異なるものに対して拡張を作りやすい。</li>
+</ul>
+
+<h3 id="春日井-良隆さん-(日本マイクロソフト株式会社-uxエバンジェリスト) 「マイクロソフトにとってのwebって？」-{#uxweb}">春日井 良隆さん (日本マイクロソフト株式会社 UXエバンジェリスト) 「マイクロソフトにとってのWebって？」 {#uxweb}</h3>
+
+<p>[<a href="http://www.ustream.tv/recorded/16766640">Ustream</a>] [<a href="http://www.slideshare.net/ykasugai/web-8931345">発表資料</a>]</p>
+
+<p>MSとしてIE6のシェアを減らすのに取り組んでいる。 @mskkie の中の人 with ミゾグチさん</p>
+
+<p>管理者キット9(IEAK 9) * カスタマイズしたIEをパッケージ化、配布、管理するためのツール<br>
+なんとか版IEというのはIEAKでパッケージ化したものを使ってる</p>
+
+<p>The Internet Explorer 9 Blocker Toolkit<br>
+WindowsアップデートやMSアップデートを管理するツール</p>
+
+<p>HTML5 Native to WIndows</p>
+
+<ul>
+<li>  ウェブの技術をネイティブに持っていく</li>
+<li>  ウェブサイトをアプリケーションと同じように使う方向性</li>
+</ul>
+
+<p>タブレットPCは失敗した…</p>
+
+<p>HTML5+JavaScriptでアプリケーションを作る。</p>
+
+<p>MSは同じ表示をするという基本思念がある。</p>
+
+<p>Windowsはカーナビ専用のOSがある。</p>
+
+<p>Windows Phone はIE9ベースのブラウザ</p>
+
+<p>MSと携帯会社である程度端末の取り決めがある</p>
+
+<ul>
+<li>  ボタンは3つを付ける</li>
+<li>  性能についても取り決めがある</li>
+<li>  解像度は固定</li>
+</ul>
+
+<p>IE10は8-12週でリリースする。</p>
+
+<p><strong>MSはブラウザ固有の機能は付けない方向</strong></p>
+
+<p>IEの拡張性について</p>
+
+<ul>
+<li>  IEはカスマイズは上げて行く方向ではない感じ</li>
+<li>  拡張を簡単に作る仕組みはまだ見検討</li>
+</ul>
+
+<p>IE7について</p>
+
+<ul>
+<li>  IE7さんはわすられています。</li>
+<li>  まずはIE6からなくしていく。</li>
+</ul>
+
+<p>IDE, Expression について</p>
+
+<ul>
+<li>  Expressionはdevよりの作り</li>
+<li>  デザインはDWの方がいいかも</li>
+<li><p>ExpressionはそっけないVisual Studioな感じ</p></li>
+<li><p>IE10は今年はでない</p></li>
+<li><p>Windows 8 がタブレット</p></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-08-20-%E7%AC%AC%EF%BC%93%E5%9B%9E%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%83%BC%E5%8B%89%E5%BC%B7%E4%BC%9A-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["browser","chrome","Firefox","javascript","アウトライン","イベント","勉強会"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=browser">browser</a></li>
+                
+                <li><a href="/tags/?q=chrome">chrome</a></li>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=アウトライン">アウトライン</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+                <li><a href="/tags/?q=勉強会">勉強会</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

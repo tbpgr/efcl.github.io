@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        オブジェクト同士の比較と例外のテストをサポートしたpower-doctest 0.2.0リリース | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,Node.js,test,tools" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2013/1208/res3526/">
+    <h1 class="post-title">オブジェクト同士の比較と例外のテストをサポートしたpower-doctest 0.2.0リリース</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2013年12月08日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-12-08-%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E5%90%8C%E5%A3%AB%E3%81%AE%E6%AF%94%E8%BC%83%E3%81%A8%E4%BE%8B%E5%A4%96%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88%E3%82%92%E3%82%B5%E3%83%9D%E3%83%BC.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="power-doctestとは"><a href="https://github.com/azu/power-doctest" title="azu/power-doctest">power-doctest</a>とは</h1>
+
+<p><a href="https://github.com/azu/power-doctest" title="azu/power-doctest">power-doctest</a> は doctest風 にコードと評価結果のコメントを並べるとテストとして実行出来るツールです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">評価したい式; // =&gt; 期待する評価結果
+</code></pre></div>
+<p>詳細は以下で紹介しています。</p>
+
+<ul>
+<li>  <a href="http://efcl.info/2013/1201/res3494/" title="JavaScriptでdoctestを行う power-doctest を作った | Web scratch">JavaScriptでdoctestを行う power-doctest を作った | Web scratch</a></li>
+</ul>
+
+<h2 id="更新内容">更新内容</h2>
+
+<ul>
+<li>  <a href="https://github.com/azu/power-doctest/releases/tag/0.2.0" title="Release v0.2.0 · azu/power-doctest">Release v0.2.0 · azu/power-doctest</a></li>
+</ul>
+
+<p>にも書いてあります。</p>
+
+<h3 id="deepequal-support"><a href="https://github.com/azu/power-doctest/issues/1" title="deepEqual support">deepEqual support</a></h3>
+
+<p>assertするのに利用している<a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a>の方で、 <code>assert.deepEqual</code> 等がサポートされてたので、<br>
+それに伴ってpower-doctestの方でも<code>assert.deepEqual</code>を使ったテストに対応しました。</p>
+
+<ul>
+<li>  <a href="https://github.com/twada/espower/compare/v0.1.6...v0.2.0" title="Comparing v0.1.6...v0.2.0 · twada/espower">Comparing v0.1.6&#8230;v0.2.0 · twada/espower</a></li>
+</ul>
+
+<p>テスト書く側は特に何も意識しないで、以下みたいな配列やオブジェクトもテスト出来るようになったという話です。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">var ary = [&quot;test&quot;,&quot;is&quot;,&quot;array&quot;];
+ary; // =&gt; [&quot;test&quot;, &quot;was&quot;, &quot;array&quot;]
+</code></pre></div>
+<p>内部的にアサーション対象が両方共オブジェクトなら勝手に <code>assert.deepEqual</code> を使って比較します。</p>
+
+<p><img src="http://gyazo.com/ab0667e9cd2aed9e2ecbfc8b31a4740b.gif" alt="deepEqual-tes"></p>
+
+<h4 id="deepequalの注意点">deepEqualの注意点</h4>
+
+<p>この <code>deepEqual</code> は Node.jsの<a href="http://nodejs.org/api/assert.html#assert_assert_deepequal_actual_expected_message" title="assert.deepEqual">assert.deepEqual</a>のため、<br>
+オブジェクトの中身は <code>===</code> の strictな一致ではなく、 <code>==</code> の一致を見てることに注意です。<br>
+(strictなバージョンも欲しい気がする…)</p>
+
+<ul>
+<li>  <a href="http://qiita.com/ishisak@github/items/011a7cd4df8bdb15ccaa" title="Node.js - assert.deepEqual使用時の留意点 - Qiita [キータ]">Node.js &#8211; assert.deepEqual使用時の留意点 &#8211; Qiita [キータ]</a></li>
+</ul>
+
+<h3 id="exception-tests-support"><a href="https://github.com/azu/power-doctest/pull/2" title="exception tests support">exception tests support</a></h3>
+
+<p>もう一つは、例外おきるかどうかをテストする事が出来るようになりました。</p>
+
+<p>いわゆる<a href="http://nodejs.org/api/assert.html#assert_assert_throws_block_error_message" title="assert.throws">assert.throws</a>みたいな感じのやつです。</p>
+
+<p>こちらも特に文法とかは変わらずに、<code>// =&gt; Error</code> という <code>Error</code> と書かれたコメントなら例外を期待してるとしてテストします。</p>
+
+<p>以下みたいに書けば、<code>// =&gt; Error</code> の隣にある式などで例外が発生したら、テストがパスします。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">throw new Error(); // =&gt; Error
+
+var object = {};
+object.not.found;// =&gt; Error
+</code></pre></div>
+<p><img src="http://gyazo.com/0c2bbc62f796288e94ddb3344581eb63.gif" alt="error-test"></p>
+
+<p>内部的には、<code>assert.throws</code>を使わないで独自にtry-catchしてるので若干エラー表示が違いますが、 <code>assert.throws</code> を使ってやるほうがよいのかな?</p>
+
+<h3 id="テストが失敗した行の一致">テストが失敗した行の一致</h3>
+
+<p>初期バージョンだと、テストが失敗したエラーにでる行番号等が不一致だったりしましたが、<br>
+以下のようにコードと一致した行番号を表示できるようになりました。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/12/power-doctest-2013-12-08-20-32-54.jpg" alt="Power doctest 2013 12 08 20 32 54" title="power-doctest] 2013-12-08 20-32-54.jpg" border="0" width="600" height="232" /></p>
+
+<p>WebStormだと以下のような形式に該当するならリンクとなってクリックでジャンプできるので便利です。</p>
+
+<p>パースした結果のASTの<a href="http://esprima.org/doc/" title="loc">loc</a>オブジェクトを置換するときに埋め込むことで実現してます。</p>
+
+<h3 id="(内部)オプション">(内部)オプション</h3>
+
+<p>上記の変更のために、単純な <code>assert()</code> への変換ではなく、<a href="http://esprima.org/doc/" title="loc">loc</a>を埋め込んだり、try-catchとか色んな処理が挟まった置換になってます。。</p>
+
+<p><a href="https://github.com/azu/power-doctest" title="azu/power-doctest">power-doctest</a>をモジュールとして使う場合は、内部的に <code>astGenerator</code> , <code>astErrorGenerator</code> 等のオプションにASTを置換するnodeを作るモジュールを渡したり出来るようになってます。(何となく <code>=&gt; 式</code> と <code>=&gt; Error</code> で別々のルールを適応出来るようにしてます。)</p>
+
+<p>また、エラー表示は <code>reporter</code> オプションに表示方法を定義したモジュールを渡せば、表示方法を変更できるようになってます。</p>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>自分が欲しかった機能は大体追加できた感じがします。<br>
+便利なGrunt Taskとか誰かが作ってくれるといい気がします。</p>
+
+<p>IssueとかPull Request待ってます。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/power-doctest/issues?state=closed" title="Issues · azu/power-doctest">Issues · azu/power-doctest</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-12-08-%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E5%90%8C%E5%A3%AB%E3%81%AE%E6%AF%94%E8%BC%83%E3%81%A8%E4%BE%8B%E5%A4%96%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88%E3%82%92%E3%82%B5%E3%83%9D%E3%83%BC.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","Node.js","test","tools"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+                <li><a href="/tags/?q=test">test</a></li>
+                
+                <li><a href="/tags/?q=tools">tools</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

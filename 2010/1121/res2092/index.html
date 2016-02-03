@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Firefox Developers Conference 2010 アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Firefox,Jetpack,アドオン,ハードウェア,ブラウザ,拡張機能" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2010/1121/res2092/">
+    <h1 class="post-title">Firefox Developers Conference 2010 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2010年11月21日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-11-21-firefox-developers-conference-2010-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://efcl.info/2009/1108/res1424/">去年</a>に引き続きFirefox Developers Conferenceに参加してきました。<br>
+一応メモをとりながら聞いていたのでとても読みにくいですが公開。<br>
+内容がまとめきれないのは仕様です。</p>
+
+<p>公式に動画と各発表者の資料リンクをまとめたものが公開されました(2010/12/22)</p>
+
+<p><strong>Firefox Developers Conference 2010</strong>
+:   <a href="http://mozilla.jp/events/2010/fxdevcon/" title="Firefox Developers Conference 2010">http://mozilla.jp/events/2010/fxdevcon/</a></p>
+
+<p>Twitterのハッシュタグ<a href="http://search.twitter.com/search?q=%23fxdevcon">#fxdevcon</a>を保存しておいたもの。</p>
+
+<p><strong>Togetter &#8211; 「Firefox Developers Conference 2010」</strong>
+:   <a href="http://togetter.com/li/71239" title="Togetter - 「Firefox Developers Conference 2010」">http://togetter.com/li/71239</a></p>
+
+<p>@<a href="http://twitter.com/teramako">teramako</a>さんによる発表者の資料や参加者の感想などをまとめたブクマ</p>
+
+<p><strong>はてなブックマーク &#8211; 特別でないただのブックマーク &#8211; fxdevcon</strong>
+:   <a href="http://b.hatena.ne.jp/teramako/fxdevcon/" title="はてなブックマーク - 特別でないただのブックマーク - fxdevcon">http://b.hatena.ne.jp/teramako/fxdevcon/</a></p>
+
+<p>takanoさんによる動画(一部は著作権上の問題などがあるためない)</p>
+
+<p><strong>YouTube &#8211; fxdevcon2010</strong>
+:   <a href="http://www.youtube.com/results?search_query=fxdevcon2010&amp;search=tag" title="YouTube - fxdevcon2010">http://www.youtube.com/results?search_query=fxdevcon2010&amp;search=tag</a></p>
+
+<h3 id="キックオフ">キックオフ</h3>
+
+<p>瀧田さんによる挨拶から始まる</p>
+
+<h3 id="基調講演-browsing-without-borders">基調講演 Browsing Without Borders</h3>
+
+<pre>Jay Sullivan (ジェイ・サリバン、Mozilla Corporation 製品担当バイスプレジデント)
+
+Firefox1.0から6年が経った。
+Mozillaはユーザーの立場に立って努力できる。(他は企業なのでできることとできないことがある)
+6年か変化(4回)したFirefoxのロゴ
+インターネットの環境も大きく変わってきたので、Mozillaのロードマップも考えていく必要性。
+
+問題
+mobile
+    中立性をどう持つのか
+クラウド
+    コスト
+    個人情報を何も考えずに入れちゃう人が多い
+アプリ(apps)
+ソーシャル
+    法律とかが追いついてない
+    Mozillaはユーザーに立場に立って何が起きてるのかを考える。
+    共通基盤がないので、デベロッパーとしてはどうなのか。
+
+mobile
+    多種多様な端末が存在するので対応が大変。
+    HTML5はその中はネイティブアプリの80%はできる。
+クラウド
+    同期がまず第一歩
+    暗号化や安心などの点から選択が生まれる
+アプリ
+    mobileアプリはシンプル
+    HTML5のアプリケーションを作るのに問題点としてビジネスサイドの問題がある。
+    →app storeのような販売する場所が整ってない
+ソーシャル
+    ブラウザは立ち上げ台になるかも
+    シンプルなAPIが欲しいとこ
+
+ミッションに対する課題はインターネット環境の変化に伴って変化しているので
+Mozillaもそれに対応していかないといけない。
+その中心にブラウザはあるもの
+
+最も高性能なものとしてでるのは「ゲーム」がある。
+
+mobile
+    モバイルブラウザ
+    Android1.xにバックポートはしない
+    ユーザーはモバイルとPCで同じUXを求めてるのかは疑問的
+アプリ
+    モバイルと密接な関係
+    アプリは収益化のモデルが必要とされてる
+    Open Web Appsを開始した理由
+    まだ販売環境が整ってない感じなのでスタートアップしにくい。
+    これのアプローチを探るためにOpen Web Appsの着手。
+    現実世界の例をWebのapp storeに適応したらどうなるか?- 返品、競争 - apps store同士の競争
+クラウド
+    同期の重要性(Sync)
+    データはクラウドに格納してどこでもアクセスできるユキビタスになると思ってる。
+ソーシャル
+    F1は手順を考える必要を省く手軽さを求めた
+
+Love Hack!!
+
+質問
+幾度も繰り返された質問だけどiDeviceへのFirefoxの搭載について
+    appleは許してくれない
+    Firefox Syncとかの探り
+アプリストア
+    唯一のストアにはなるわけではない
+FirefoxをOSに昇華してみては?
+    市場出る必要があるので、投資が必要になる。
+    Google Chrome OSとアンドロイドの場合は市場がAndroidを選んだ。
+    市場をよく見る必要がある。
+    FirefoxPhoneを考えたことはあった。そこからHTML5の課題を学ぶことができた。
+</pre>
+
+<h3 id="john-resig-feat.-shibuya.js">John Resig feat. Shibuya.js</h3>
+
+<p>ライトニングトークいろいろ</p>
+
+<pre>ECMA4の話 - John Resig
+    クラス、継承など今まで全く違ったJavaScriptと別物だった。
+    →これは多すぎるんじゃないかという問題
+    Firefox、Adobeは賛成 　VS　ダグラス様、Google、MSは反対
+    ECMA4のほとんどを削ってEMCA5が誕生した。
+
+LLTiger報告 - gyuque
+
+JS Modulatoreの話
+    まだdevice要素がないので、送信しかできない
+
+iPhoneをアレコレする - ku
+    iEがない
+    だけどデバッガーがないので、デバッグしにくい
+    もっとデバッグを便利にしたい
+    →Peekというアプリの誕生
+    ソースコードの表示、インスペクト、
+
+http://github.com/ku/peek
+
+pixiv-tan - yksk
+    pixiv wonderlandの解決(自分もpixivの中、直したいです…)
+    prototype.jsとjQueryが混在してる
+    →jQueryにまとめる
+    まずグローバル関数の解決
+    テストが余り書かれてない
+    URL ディスパッチャー + LAB.js
+
+processing.js  -John Resig
+    exCanvasを使ったIE対応
+    マウスストロークを追うコードが3行で書ける
+    1.0ではWebGLもサポートしてる
+
+JavaScriptをテストするときに考える10のこと - t_wada
+    カスタムイベントでまとめることで、ロジックは同じものが使える
+    ブラウザなくてもテスト可能にする
+    テストの自動化
+    まだテストの決定的なものがないなり
+
+Chrome As A Server -kato kazuyoshi
+    ChromeでMozRepl
+    V8Debuggerを使ってる。
+    Emacs上からブレークポイントをうてる
+
+Node.jsにまつわる7つの誤解 - meso
+    サーバーサイドJS
+    イベント駆動I/Oのブロック問題はNode.js側が解決する。
+    Node.jsは個人管理を脱却した
+
+jQuery Mobile - John Resig
+    いろんなモバイルデバイスをサポートする
+    jQueryをモバイルに分けることはしたくなかったのでJQuery Coreを改良
+        TestSwarmというツールを使用
+    jQuery Mobieのフレームワークを作成
+        UI、デバイスの幅に対応して"機能する"ものを作る
+
+NetFront4のJavaScriptエンジンについて -ACESS
+
+http://ja.wikipedia.org/wiki/NetFront_Browser
+
+    レジスタベース(NO JIT)
+    Inline Cache
+    組み込みデバイスのスタックサイズの制限
+    エラーしても強制的に落ちないように
+    C言語で書かれていて、コンパイラによる違いを回避するため柔軟性持たせる
+    SpiderMonkey &#60; NetFront 4(No JIT) &#60; TraceMonkey(JIT)
+    時間かかかるしょりがあるとウォッチドックに引っかかるかもしれない
+    → VM Executorを介して実行させる
+
+Java MIP on HTML5 and Flash - yukoba
+     JavaのクラスファイルからJavaScriptとFlash
+    画面共有は命令だけを送って高速化
+
+ECMA5の実装 - Constellation
+    ECMA5の判断基準
+    iv / lv5 (C++)
+    仕様書に忠実なものを書きたい
+    Shellを書いた
+    ステートメントの区切りを管理して複数行継続が行える
+    Spidermonkeyは脱ぐとスゴイ(JITなしで比較するとすごく早い)
+</pre>
+
+<h3 id="firefox-4-&amp;-mobile">Firefox 4 &amp; Mobile</h3>
+
+<pre>加藤 誠 (Mozilla Japan テクニカルアドバイザ)
+
+Firefox4とスピード
+起動時間
+    汚いプロパティでボトルネックの調査(Talosテスト)
+    メインスレッドのI/Oを減らす
+     * 可能な限り非同期処理
+     * Omni JAR
+    StartUp Cache
+        利用するJavaScriptファイルをJARにまとめる
+WebGL
+    OpenGLサポート
+    Direct 3D 9
+GPUアクセラレーション
+    GPUアクセラレーションの利点は速度ではなく、CPUが空くことと電力効率の高さ
+DirectWriteのサポート
+    文字のジャギがきれいになる
+    DirectWriteはα値が入ってるので少し薄く見える
+Composition
+    ハードウェアアクセラレーション
+    Canvas
+    CSS Transition
+Video
+    色空間変換(YUV-&#62;RGB)をGPUで行う
+    動画はRGBではないので
+    ブラウザにシェーダーが入ってる
+JavaScript
+    TraceMonkey
+    jaegerMonkey
+        x86プロセッサではSSE2サポートが必須
+        Chrome上に対してはオフ
+    Krakenというベンチマークで比較
+Firefox 4 UI
+    タブの位置
+    Firefoxメニュー
+    リロードボタンはsafari風
+    ステータスバーが無くなってる。
+    →リンクはアドレスバーに移動した
+    →代わりにアドオンバーになった
+Firefox Syncはデフォルトに
+Panorama
+Addon Manger
+    アドオン管理画面の変更
+Networking
+    HTTP Strict Transport Secrity
+XSS
+    Content Security Policy
+バリデーション
+    ダウンロードしたコンテンツから悪意を防ぐ
+
+モバイルFennec
+    デスクトップと同じレンダリングエンジンを使用
+    UIはUXのために変更してる。
+    モバイルは画面サイズが違うのでPCそのままは残念なものになる
+    FennecはChromeとContentでプロセス分離してる。
+    →PCのFirefoxでもやるよ。
+</pre>
+
+<h3 id="firefox-panorama">Firefox Panorama</h3>
+
+<pre>mitcho (アーリーワイン・マイケル芳貴)
+
+タブの管理は面倒
+人は空間というメタファを記憶することができる
+    どこに何があるかを空間で把握してる
+AzaがいくつかのUI実験を繰り返して作ってみた。
+タブをグループ管理、Undo、Redo
+→何かの作業に集中できる
+
+Panoramaの開発
+    TabCandyアドオンの開発(jQuery使ってた)
+    jQueryをアドオン専用のiQというものにフォーク
+    TabViewという名前になって、Panoramaという名前に正式決定。
+    iframeのtabview.htmlが本体
+    つまりPanoramaの中身はDOM的なもの
+
+iQ
+    邪魔なものは排除、Firefox/Gecko向けに特化したライブラリ
+タブの整理の仕方
+    溝を作ってタブグループの吸着をよくする
+    場所が無くなったら縮小
+    ウィンドウを小さくするとグループを縮小して空間の間隔を維持する
+
+Jetpack SDKからrquire("panorama")
+    TabItemsとiQオブジェクトにアクセスできる
+</pre>
+
+<h3 id="jetpack-に乗っかれないロートルのための、再起動いらずなアドオンの作り方-～-bootstrapped-add-on-詳説-～">Jetpack に乗っかれないロートルのための、再起動いらずなアドオンの作り方 ～ Bootstrapped Add-on 詳説 ～</h3>
+
+<pre>再起動なしのアドオン作成の作り方
+Jetpack prototype
+    再起動の仕組みはGreasemonkeyと似てる
+Jetpack SDK
+    ライブラリ+ビルト環境+テスト環境
+    再起動なしの反映
+        Bootstrapped ExtensionsというFirefox4からの仕組み
+        3.6と4.xで再起動なしの仕組みが違う
+Bootstrapped Extensionsの話
+自分でinstallからuninstallまで管理しないといけない。
+関数の書き換え系は危険なのでDOM 0なイベントの書き方はアウト。
+
+loadOverlayはunloadできないのでJetpackでは使えない。
+要素の変更は順番で駄目だったりすることがある。
+=&#62;元に戻せるならOK、可逆的な変更のみ
+「完全には元に戻せない時の不整合が蓄積」=&#62;これまで問題では無かったところが問題になることがある。
+結論的にはJetpack SDKを使いましょう。
+</pre>
+
+<h3 id="トークセッション:-html5-時代の技術で-web-プラットフォームはどう変わるのか">トークセッション: HTML5 時代の技術で Web プラットフォームはどう変わるのか</h3>
+
+<pre>*矢倉 眞隆 (株式会社 ミツエーリンクス、W3C HTML5 Japanese Interest Group 議長)
+*村岡 正和 (HTML5-WEST.jp 共同設立者)
+*浅井 智也 (Mozilla Japan テクニカルマーケティング)
+
+"HTML5時代の技術" =&#62; HTML5の関連の技術という意味ではない。
+
+*矢倉
+TPAC 2010(W3Cの総会)についての話
+    CSS WG - レイアウトの話
+    HTML WG  - アクセシビリティ
+    WebApps WG - 多種多様活発
+        DOM 、Eventとかいろいろ
+        Web DOM Coreを現実的な仕様へ
+    DAP WG
+
+WebApps WGとDAP WGが面白い
+
+*村岡
+    関西で活動
+</pre>
+
+<h3 id="大ライトニングトーク">大ライトニングトーク</h3>
+
+<p>途中で電池切れました<br>
+メモできてないけど、<a href="http://d.hatena.ne.jp/mooz/20101121/p1">ES Hamony の Proxy について #fxdevcon で LT してきました &#8211; mooz deceives you </a>よかった。</p>
+
+<pre>*swdyh - クロスブラウザ拡張ライブラリ
+     * Chrome
+     * Firefox(Jetpack SDK)
+     * Safari
+     * Opera　それぞれに拡張機能ができた
+    それぞれブラウザでやり方が異なる。
+    →それを吸収するライブラリを作成する
+    Extension.js
+    ブラウザ拡張の互換性を吸収するライブラリ
+
+*齋藤幸士 - モダンブラウザによるWebサービス拡張
+    ソーシャルメディア時代
+    Webサービスをもっとリッチにする(Twitter)
+    オレオレ短縮URL
+
+*kawanet - 3D JavaScript
+    3次元の世界
+    CSS3で実装
+    トグルが実装されてた
+
+*Takesako - Firefox HTML Parserの歴史
+    ブラウザ毎に認識が違う
+    IMGタグの認識で振り分け
+
+*Gomita - Tab Scope 1.0 ~ CSS transition で魅せるXUL拡張機能 ~
+    Firefox4向けにTab Scope拡張
+...
+</pre>
+
+<p>メモ感想</p>
+
+<p>去年と比べると全くの聞いたことないようなものってはかなり少なくなった。<br>
+どこかで一度聞いた、誰か言ってた気がするみたいな浅いレベルの情報があった感じが多かった。<br>
+仕様書はあまり読んでなかったので、知らないことがあった。<br>
+NetFront4のJavaScriptエンジンの話は何か新鮮だったので、もっといろんな話が聞けたら良かったと思う。<br>
+John Resigさんに書いてる本がNinjaなのに表紙がSamuraiな件なのを聞くの忘れました。<br>
+ライトニングトークが多すぎる気がするので、もっと他の事に機会(時間)を与えた方がいい気がした。</p>
+
+<p><strong>はてなブックマーク &#8211; 特別でないただのブックマーク &#8211; fxdevcon</strong>
+:   <a href="http://b.hatena.ne.jp/teramako/fxdevcon/" title="はてなブックマーク - 特別でないただのブックマーク - fxdevcon">http://b.hatena.ne.jp/teramako/fxdevcon/</a></p>
+
+<p><strong>Togetter &#8211; 「Firefox Developers Conference 2010」</strong>
+:   <a href="http://togetter.com/li/71239" title="Togetter - 「Firefox Developers Conference 2010」">http://togetter.com/li/71239</a></p>
+
+<p><strong>Firefox Developers Conference 2010</strong>
+:   <a href="http://mozilla.jp/events/2010/fxdevcon/" title="Firefox Developers Conference 2010">http://mozilla.jp/events/2010/fxdevcon/</a></p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-11-21-firefox-developers-conference-2010-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Firefox","Jetpack","アドオン","ハードウェア","ブラウザ","拡張機能"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=Jetpack">Jetpack</a></li>
+                
+                <li><a href="/tags/?q=アドオン">アドオン</a></li>
+                
+                <li><a href="/tags/?q=ハードウェア">ハードウェア</a></li>
+                
+                <li><a href="/tags/?q=ブラウザ">ブラウザ</a></li>
+                
+                <li><a href="/tags/?q=拡張機能">拡張機能</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

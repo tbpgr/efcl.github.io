@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ニコニコ動画のランキング仕様変更のまとめと代用の方法 | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="まとめ,ニコニコ動画" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2008/0803/res294/">
+    <h1 class="post-title">ニコニコ動画のランキング仕様変更のまとめと代用の方法</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2008年08月03日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2008/2008-08-03-%E3%83%8B%E3%82%B3%E3%83%8B%E3%82%B3%E5%8B%95%E7%94%BB%E3%81%AE%E3%83%A9%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0%E4%BB%95%E6%A7%98%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A8%E4%BB%A3.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>8/1にニコニコ動画のランキング(デイリー/週間/月間)の集計方法が変更されました。<br>
+<a href="http://blog.nicovideo.jp/niconews/2008/08/001493.html">ニコニコニュース‐ランキングをリニューアル！</a>に詳しく書いてあります。</p>
+
+<p>簡単にまとめると、今までは一時間毎に更新していたランキングをデイリーは一日毎、週間は一週間毎、月間は一ヶ月毎に一回のみ更新するようにした。<br>
+例えば、デイリーならば 朝5時　～　翌日朝5時の24時間で集計されたランキングが掲載されます。<br>
+つまり、今日ランキングに乗っている動画は今日の朝までに投稿された動画から構成されています。</p>
+
+<p>今リアルタイムで人気がある動画を発見するのが難しいので、一個の動画が急激に伸びることが減ります。<br>
+→これを補うために<a href="http://www.nicovideo.jp/hotlist">ホットリスト</a>というのがありますが、これはランダムなとこや見づらいなどちょっと駄目な部分がある。<br>
+<a href="http://www.nicovideo.jp/recent">総合 新着コメント順</a>から一定以上の動画の集まりに見える。<br>
+→この改善でよくなる点は、便乗によるランキングを押し上げる動画(期間限定の祭り的な)が減るのではないかと思います。</p>
+
+<p>デイリーはこの方法でも大丈夫な気がしますが、週間が一週間とかはさすが「何やってるんだろ？」って感じがします。<br>
+多分、ニコニコ動画には擬似的なリアルタイムなとこがあってそれが魅力的なとこがあるので、今回の変更は駄目だしされると思います。<br>
+ニコニコでコメントもある意味擬似的なリアルタイムで、普通では考えられないほど閲覧者のレスポンスが発生してるので、自分の良いところをつぶしてる感じ。</p>
+
+<p>そもそもなんでこんな変更したのかというと<a href="http://d.hatena.ne.jp/rankingloid/20080801/1217587441">ニコニコ動画の新ランキングへの疑問について運営の代わりに答えてみる &#8211; 日刊VOCALOIDランキング研究所</a>を見るといいと思う。<br>
+キーワードは<strong>分散</strong></p>
+
+<p><span style="font-size: medium;"><strong>ここからは他の反応</strong></span></p>
+
+<p><strong>大御所職人たちの言葉、休止宣言</strong>
+:   <a href="http://d.hatena.ne.jp/LOM/20080802/1217693738">http://d.hatena.ne.jp/LOM/20080802/1217693738</a></p>
+
+<p><strong>デイリーランキングの代謝が悪すぎる件 &#8211; ニコニコ生活。</strong>
+:   <a href="http://d.hatena.ne.jp/Muchi/20080802/1217651702">http://d.hatena.ne.jp/Muchi/20080802/1217651702</a></p>
+
+<p><strong>ニコニコ動画新ランキングの分析</strong>
+:   <a href="http://d.hatena.ne.jp/sakoto00/20080802#p1">http://d.hatena.ne.jp/sakoto00/20080802#p1</a><br>
+    これは分かり易いまとめ</p>
+
+<p><span style="font-size: medium;"><strong>代用方法</strong></span><br>
+ニコニコ動画のリアルタイムで反映するランキングがないため、それを代替えするサービスの紹介</p>
+
+<ol>
+<li> <a href="http://www.nicovideo.jp/mylist/7816356">旧形式マイリストランキング</a><br>
+ボーカロイドランキングの人?</li>
+<li> <a href="http://www.nearch.jp/mylist/daily">マイリスト数 日速 &#8211; Nearch</a></li>
+<li> <a href="http://myrmecoleon.sytes.net/nico/hotlistall.php">ホットリスト全部。</a><br>
+重いの注意!</li>
+<li> <a href="http://b.hatena.ne.jp/nicovideoch/">はてなブックマーク &#8211; irc.2ch.net #ニコニコ動画</a><br>
+ニコニコ動画 ちゃんねるに貼った動画まとめ。</li>
+<li> <a href="http://search.twitter.com/search?q=nicovideo">nicovideo &#8211; Twitter Search</a><br>
+アイマス成分が多め</li>
+</ol>
+
+<p><a href="http://nicovideo.g.hatena.ne.jp/acqua_alta/20080802/ranking">新着ランキングの代わりになりそうなもの<br>
+</a>被ってますがきにしな～い<a href="http://nicovideo.g.hatena.ne.jp/acqua_alta/20080802/ranking"></a></p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2008/2008-08-03-%E3%83%8B%E3%82%B3%E3%83%8B%E3%82%B3%E5%8B%95%E7%94%BB%E3%81%AE%E3%83%A9%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0%E4%BB%95%E6%A7%98%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A8%E4%BB%A3.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["まとめ","ニコニコ動画"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=まとめ">まとめ</a></li>
+                
+                <li><a href="/tags/?q=ニコニコ動画">ニコニコ動画</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

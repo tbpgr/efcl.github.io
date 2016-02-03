@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Objective-C勉強会＠東京 で iOSのユニットテストについて話してきた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="iOS,TDD,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2013/0510/res3267/">
+    <h1 class="post-title">Objective-C勉強会＠東京 で iOSのユニットテストについて話してきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2013年05月10日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-05-10-objective-c%E5%8B%89%E5%BC%B7%E4%BC%9A%EF%BC%A0%E6%9D%B1%E4%BA%AC-%E3%81%A7-ios%E3%81%AE%E3%83%A6%E3%83%8B%E3%83%83%E3%83%88%E3%83%86%E3%82%B9%E3%83%88%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E8%A9%B1.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://partake.in/events/30064810-a41b-4de6-a49b-897b73a5890d" title="Objective-C勉強会＠東京 - PARTAKE">Objective-C勉強会＠東京 &#8211; PARTAKE</a> に参加して、iOSのユニットテストについて話をして来ました。</p>
+
+<div class="kwout" style="text-align: center;">
+  <a href="http://azu.github.io/slide/OCStudy/ios_unit_test.html#slide1"><img src="http://kwout.com/cutout/8/dm/jm/v7g_bor.jpg" alt="http://azu.github.io/slide/OCStudy/ios_unit_test.html#slide1" title="iOS Unit Test" width="600" height="473" style="border: none;" /></a> <p style="margin-top: 10px; text-align: center;">
+    <a href="http://azu.github.io/slide/OCStudy/ios_unit_test.html#slide1">iOS Unit Test</a>
+  </p>
+</div>
+
+<p>スライドは上記に置いてあります。</p>
+
+<p>そこまで、それぞれに詳しく扱ってない感じで、ロジックテストとアプリケーションテストの違いや、<br>
+どういうツールがあるのかやデータベースを使った時にテストの仕方等の紹介な感じです。</p>
+
+<p><a href="https://github.com/facebook/xctool" title="facebook/xctool · GitHub">xctool</a> はiOSのテストをCLIで実行するのにとても便利でよい感じなのでお勧めです。</p>
+
+<p>スライド内にひっそり(note)とCocoaPodsと <a href="https://github.com/facebook/xctool" title="facebook/xctool · GitHub">xctool</a> の相性がまだ良くないことが書かれていますが、<br>
+一度ビルドしないと、 <a href="https://github.com/facebook/xctool" title="facebook/xctool · GitHub">xctool</a> からテストを動かすとエラーになる現象があります。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">ld: library not found for -lPods
+</code></pre></div>
+<p>これは、&#8221;Find Implicit Dependencies&#8221;の挙動が上手く動いていないのが原因みたいで、手動でビルドの設定にCococPodsの静的ライブラリをビルドするTargetを追加すれば動作するようになります。</p>
+
+<ul>
+<li>  <a href="https://github.com/facebook/xctool/issues/16#issuecomment-17444311" title="ld: library not found for -lPods · Issue #16 · facebook/xctool">ld: library not found for -lPods · Issue #16 · facebook/xctool</a></li>
+</ul>
+
+<p>BuildのTargetを CocoaPods -&gt; Main -&gt; Test に並べてあげると解決します。<br>
+(そのうちxctool側で対応しそうな気がする)</p>
+
+<p>一度でもビルドしてあれば、上記のエラーはでなくなるので気づきにくいですが、Travis CIのように毎回クリーンな環境で実行される場合はエラーが出ます。<br>
+以下のプロジェクトではCocoaPods + xctool + Travis CIでテストを動かしています。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/AZDateBuilder" title="azu/AZDateBuilder · GitHub">azu/AZDateBuilder · GitHub</a></li>
+</ul>
+
+<hr>
+
+<p>以下メモ</p>
+
+<h1 id="objective-cの概要-&#8211;-@akuraru">Objective-Cの概要 &#8211; @<a href="https://twitter.com/akuraru" title="akuraru">akuraru</a></h1>
+
+<h2 id="objective-cとは">Objective-Cとは</h2>
+
+<ul>
+<li>  Cの完全上位互換</li>
+<li>  動的型付きオブジェクト指向</li>
+<li>  メッセージ式</li>
+</ul>
+
+<h2 id="他の言語との関わり">他の言語との関わり</h2>
+
+<ul>
+<li>  C言語</li>
+<li>  Smalltack のようにかけるC言語</li>
+</ul>
+
+<h3 id="特徴">特徴</h3>
+
+<ul>
+<li>  メッセージ式</li>
+<li>  ARC</li>
+<li>  C言語と同等の速度</li>
+<li>  カテゴリ </li>
+</ul>
+
+<h2 id="メッセージ式">メッセージ式</h2>
+
+<ul>
+<li>  <del>あるClassにxxというmethodがある</del></li>
+<li>  xxというmethodがあるClass</li>
+</ul>
+
+<p>同じメッセージ</p>
+
+<h2 id="arc">ARC</h2>
+
+<ul>
+<li>  C言語と同様にメモリ管理は手動で行わないといけなくなった</li>
+<li>  コンパイラが自動でメモリ管理に関するコードを追加する</li>
+<li>  ガーベッジコレクションじゃない</li>
+</ul>
+
+<h2 id="c言語と同等の速度">C言語と同等の速度</h2>
+
+<ul>
+<li>  ClassはC言語の機能のラップ</li>
+<li>  メソッドは過疎数の名前空間が分かれている(名前空間を分けている)</li>
+<li>  本来に速度が必要ならばC言語で実装すると高速</li>
+</ul>
+
+<h2 id="カテゴリ">カテゴリ</h2>
+
+<ul>
+<li>  実装を複数のファイルに分割する機能</li>
+<li>  NSObjectにも機能が追加できる</li>
+<li>  強力な分リスクがある機能</li>
+</ul>
+
+<h1 id="gdbでobjective-cの中身を見る">GDBでObjective-Cの中身を見る</h1>
+
+<ul>
+<li>  GDBでObjective-Cのアセンブラ</li>
+<li>  メッセージ式はobjc_msgを呼び出してる</li>
+<li>  Objective-C ではメソッドを呼ぶときに self, _cmd, パラメータ1,2…と渡される</li>
+<li>  NSStringはCFConstStringReference になってる</li>
+</ul>
+
+<h1 id="llvmでアセンブラ">LLVMでアセンブラ</h1>
+
+<ul>
+<li>  clang -emit-llvm -S でllvmアセンブリな形式で見られる 
+
+<ul>
+<li>  直接アセンブラを見るより楽</li>
+</ul></li>
+<li>  どういう引数を渡しているかがわかりやすい</li>
+</ul>
+
+<h1 id="おわり">おわり</h1>
+
+<ul>
+<li>  来月ぐらいにもう一度やるそうです。</li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-05-10-objective-c%E5%8B%89%E5%BC%B7%E4%BC%9A%EF%BC%A0%E6%9D%B1%E4%BA%AC-%E3%81%A7-ios%E3%81%AE%E3%83%A6%E3%83%8B%E3%83%83%E3%83%88%E3%83%86%E3%82%B9%E3%83%88%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E8%A9%B1.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["iOS","TDD","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=iOS">iOS</a></li>
+                
+                <li><a href="/tags/?q=TDD">TDD</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

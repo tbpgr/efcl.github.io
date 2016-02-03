@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        TwitterとJavaScriptな人々 | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,twitter" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2010/0304/res1584/">
+    <h1 class="post-title">TwitterとJavaScriptな人々</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2010年03月04日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-03-04-twitter%E3%81%A8javascript%E3%81%AA%E4%BA%BA%E3%80%85.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>自分のTLで見る感じのJavaScriptな人々<br>
+勝手な印象、主観なのでコメントを気にしたら負け。<br>
+Firefoxはデフォルト要素なので特に書いてません。</p>
+
+<table style="width: 483px; height: 1867px;" border="0">
+  <tr>
+    <td>
+      <a href="http://twitter.com/t_trace"><img src="http://img.tweetimag.es/i/t_trace_n" alt="" /></a>t_trace
+    </td>
+    
+    <td>
+      <p>
+        pbtweet、mbtweetの作者 <br /> CSS3が好きそうな人<br /> 実際にHTML5を使ったアプリケーションをつくったりしてる
+      </p>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/m_satyr"><img src="http://img.tweetimag.es/i/m_satyr_n" alt="" /></a>m_satyr
+    </td>
+    
+    <td>
+      Ubiquity<br /> 何かJavaScriptでも珍しい事をやってる気がする。
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/Griever2"><img src="http://img.tweetimag.es/i/Griever2_n" alt="" /></a>Griever2
+    </td>
+    
+    <td>
+      Opera、Firefox<br /> userChrome.jsとか弄ってる
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/miya2000"><img src="http://img.tweetimag.es/i/miya2000_n" alt="" /></a>miya2000
+    </td>
+    
+    <td>
+      Opera<br /> <a href="http://orera.g.hatena.ne.jp/miya2000/20091010/p0">wnp</a>の作者。<br /> テクい事をやってたりするような
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/snj14"><img src="http://img.tweetimag.es/i/snj14_n" alt="" /></a>snj14
+    </td>
+    
+    <td>
+      <a href="http://userscripts.org/scripts/show/11562">LDRize</a>とか<a href="http://userscripts.org/scripts/show/11759">Minibuffer</a>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/hell2u"><img src="http://img.tweetimag.es/i/hell2u_n" alt="" /></a>hell2u
+    </td>
+    
+    <td>
+      Emacs、CSSに詳しそう
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/teramako"><img src="http://img.tweetimag.es/i/teramako_n" alt="" /></a>teramako
+    </td>
+    
+    <td>
+      <p>
+        vimperator(<a href="http://twitter.com/teramako/vimperator">vimperator</a>となげくと監視されます)<br /> JScriptとかxpcshellとか<br /> Firefoxのあんなことやこんなことを知ってる印象
+      </p>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/monjudoh"><img src="http://img.tweetimag.es/i/monjudoh_n" alt="" /></a>monjudoh
+    </td>
+    
+    <td>
+      jQueryとかfirebugとかMercurial<br /> プログラミング関係のツールが好きそう。
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/nanto_vi"><img src="http://img.tweetimag.es/i/nanto_vi_n" alt="" /></a>nanto_vi
+    </td>
+    
+    <td>
+      JavaScriptやHTMLなど仕様に関して本当に詳しい<br /> nantoメソッド:誰かが記事にしたことに対して既に<a href="http://nanto.asablo.jp/blog/">Days on the Moon</a>で記事になっていたことがよくある。
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/ku"><img src="http://img.tweetimag.es/i/ku_n" alt="" /></a>ku
+    </td>
+    
+    <td>
+      iPhoneアプリとかGoogleChromeとか<br /> 新しいことを見つけ出したりしてる印象
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/stillpedant"><img src="http://img.tweetimag.es/i/stillpedant_n" alt="" /></a>stillpedant
+    </td>
+    
+    <td>
+      <a href="https://addons.mozilla.org/ja/firefox/addon/13118">KeySnail</a>の作者。<br /> 勉強家、出てきたことに対してちゃんと学ぼうとしてる感じ。
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/javascripter"><img src="http://img.tweetimag.es/i/javascripter_n" alt="" /></a>javascripter
+    </td>
+    
+    <td>
+      nightlyを追ってる気がする。<br /> あんまりTLじゃ見ないけど、一行コードを残していく。
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/amachang"><img src="http://img.tweetimag.es/i/amachang_n" alt="" /></a>amachang
+    </td>
+    
+    <td>
+      最近はJavaScriptな話題はあんまりみないけど。<br /> 高速化、新しいことには手が早い<br /> 昔のプレゼンの資料どこだろ？
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/ofk"><img src="http://img.tweetimag.es/i/ofk_n" alt="" /></a>ofk
+    </td>
+    
+    <td>
+      オレオレjQueryとか。<br /> JavaScriptの高速化について詳しい<br /> そういえばこれ書こうと思ったきっかけ → <a href="http://d.hatena.ne.jp/ofk/20091219/1261161288">日本のJavaScript界隈のブログを適当かつ詳細にまとめてみようと思って挫折したけど、もうちょっと頑張ってみた &#8211; ?D of K</a>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/uupaa"><img src="http://img.tweetimag.es/i/uupaa_n" alt="" /></a>uupaa
+    </td>
+    
+    <td>
+      uupaa.js(uupaa.jsはフレームワークではなくてライブラリ)の人<br /> JavaScriptの高速化について詳しい。<br /> 黒魔術の使い手。<br /> 他とは互換が効かないような人な気がする。
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/azu_re"><img src="http://img.tweetimag.es/i/azu_re_n" alt="" /></a>azu_re
+    </td>
+    
+    <td>
+      自分<br /> Greasemonkeyとかニコニコ
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/edvakf"><img src="http://img.tweetimag.es/i/edvakf_n" alt="" /></a>edvakf
+    </td>
+    
+    <td>
+      Opera、Google Chrome<br /> 英語圏の記事を読んでたり、新しい機能を弄ってたり、それをアウトプットしたりいくつかあるブログの更新頻度は高め<br /> 勉強家
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/33"><img src="http://img.tweetimag.es/i/33_n" alt="" /></a>33
+    </td>
+    
+    <td>
+      <a href="http://wiki.github.com/to/tombloo/">tombloo</a>作者<br /> kiva
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/swdyh"><img src="http://img.tweetimag.es/i/swdyh_n" alt="" /></a>swdyh
+    </td>
+    
+    <td>
+      <a href="http://autopagerize.net/">AutoPagerize</a>作者
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/os0x"><img src="http://img.tweetimag.es/i/os0x_n" alt="" /></a>os0x
+    </td>
+    
+    <td>
+      Opera、Google Chromeに深く関係<br /> 細かいところまで拾える人
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/cherenkov"><img src="http://img.tweetimag.es/i/cherenkov_n" alt="" /></a>cherenkov
+    </td>
+    
+    <td>
+      jetpack、Greasemonkey
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/hagino3000"><img src="http://img.tweetimag.es/i/hagino3000_n" alt="" /></a>hagino3000
+    </td>
+    
+    <td>
+      サーバーサイドJSとかExt JS
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/anekos"><img src="http://img.tweetimag.es/i/anekos_n" alt="" /></a>anekos
+    </td>
+    
+    <td>
+      猫、vimperator
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/xulapp"><img src="http://img.tweetimag.es/i/xulapp_n" alt="" /></a>xulapp
+    </td>
+    
+    <td>
+      まだつかみ切れてない。<br /> 結構お詳しそうな様子
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <a href="http://twitter.com/Constellation"><img src="http://img.tweetimag.es/i/Constellation_n" alt="" /></a>Constellation
+    </td>
+    
+    <td>
+      <a href="http://wiki.github.com/Constellation/taberareloo/">Taberareloo</a>作者、Greasemonkey<br /> ホントよくコードを書いてる気がする。<br /> 最近はGoogle chromeでいろいろ
+    </td>
+  </tr>
+</table>
+
+<p><strong>azu (azu_re) on Twitter</strong>
+:   <a href="http://twitter.com/azu_re" title="azu (azu_re) on Twitter">http://twitter.com/azu_re</a></p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-03-04-twitter%E3%81%A8javascript%E3%81%AA%E4%BA%BA%E3%80%85.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","twitter"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=twitter">twitter</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        MessageEventコンストラクタとpostMessageとWeb messagingについて | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,messaging" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2013/1215/res3535/">
+    <h1 class="post-title">MessageEventコンストラクタとpostMessageとWeb messagingについて</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2013年12月15日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-12-15-messageevent%E3%82%B3%E3%83%B3%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%82%BF%E3%81%A8postmessage%E3%81%A8web-messaging%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="messageeventって何?">MessageEventって何?</h2>
+
+<p><code>MessageEvent</code> というのは、server-sent events, Web sockets, cross-document messaging, channel messaging, broadcast channels などで使われてる、データをやり取りとりするときに使われてるEventの一種です。</p>
+
+<p>よく見かけるのだと、 <a href="https://developer.mozilla.org/ja/docs/DOM/window.postMessage" title="window.postMessage">window.postMessage</a> で渡されるeventは <code>MessageEvent</code> という型になってます。(WebWorkerとかとやりとりするときもこれですね)</p>
+
+<p><code>MessageEvent</code>型のオブジェクトは以下のようなプロパティを持ってます。</p>
+
+<pre>data
+        データ本体(仕様ではanyとなってるので配列とかも渡せます)
+    origin
+        データ送信元のオリジン(targetOriginで指定されたやつ)
+    lastEventId
+        このメッセージイベントの ID
+    source
+        データ送信元の window オブジェクト
+    ports
+        MessagePortオブジェクトの配列
+</pre>
+
+<p>DOMを介したりしないのでバブリングはしないですし、キャンセルはできない、又デフォルトアクションがない事が特徴です。</p>
+
+<blockquote>
+<p>また MessageEvent は DOM の Event interface を継承しているが、バブリングしない、キャンセルできない、デフォルトのアクションを持たないという特徴がある </p>
+</blockquote>
+
+<p>詳しくは <a href="http://please-sleep.cou929.nu/introduction-to-web-messaging.html" title="HTML5 Web Message のイントロダクション - Please Sleep">HTML5 Web Message のイントロダクション &#8211; Please Sleep</a> を見るといいです。(<a href="http://dev.opera.com/articles/view/window-postmessage-messagechannel/" title="An Introduction to HTML5 web messaging - Dev.Opera">An Introduction to HTML5 web messaging &#8211; Dev.Opera</a>)</p>
+
+<p>また、今回やろうとしてる事と関係ありますが、このEventはスクリプトで作ることができるので<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/infrastructure.html#dom-event-istrusted" title="isTrusted ">isTrusted</a>属性はfalseとなってます。</p>
+
+<p>そのままだと信用出来ないので、利用するときは、どこからデータが来たのか<em>オリジン</em>示す <code>origin</code> (postMessageの第二引数で指定するtargetOrigin)やデータ送信元の window オブジェクトを示す <code>source</code> 等をチェックして利用します。</p>
+
+<ul>
+<li>  <a href="http://webkledgeb.blogspot.jp/2013/09/dom-event-10-istrusted.html" title="DOM Event その10 - イベントがブラウザーによって作成されたイベントか、スクリプトによって作成されたイベントか調べる（isTrusted） - Web kledgeb">DOM Event その10 &#8211; イベントがブラウザーによって作成されたイベントか、スクリプトによって作成されたイベントか調べる（isTrusted） &#8211; Web kledgeb</a></li>
+<li>  <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html" title="9 Communication — HTML Standard">9 Communication — HTML Standard</a></li>
+</ul>
+
+<p>originとはなにかについては<a href="http://d.hatena.ne.jp/hasegawayosuke/20130330/p1" title="Same-Origin Policy とは何なのか。 - 葉っぱ日記">Same-Origin Policy とは何なのか。 &#8211; 葉っぱ日記</a>が詳しいです。</p>
+
+<p>postMessageに興味をもった場合は <a href="http://gihyo.jp/dev/serial/01/front-end_web/000302?page=1" title="第3回　localStorageとpostMessageの使いどころ（2）：フロントエンドWeb戦略室｜gihyo.jp … 技術評論社">第3回　localStorageとpostMessageの使いどころ（2）：フロントエンドWeb戦略室｜gihyo.jp … 技術評論社</a> 等を読むといいです。</p>
+
+<ul>
+<li>  <a href="http://gihyo.jp/tagList/postMessage" title="タグ一覧postMessage ｜gihyo.jp … 技術評論社">タグ一覧postMessage ｜gihyo.jp … 技術評論社</a></li>
+</ul>
+
+<p>逆に、DOMを関する <code>click</code> とかよく見るDOMのイベントを自分で作って発火させる場合は、<a href="https://developer.mozilla.org/ja/docs/Web/API/CustomEvent" title="CustomEvent">CustomEvent</a>というのが最近のブラウザではサポートされているのでこちらを利用できます。<br>
+(FYI: <a href="https://developer.mozilla.org/ja/docs/DOM/document.createEvent" title="document.createEvent">document.createEvent</a>)</p>
+
+<h2 id="messageeventコンストラクタ">MessageEventコンストラクタ</h2>
+
+<p>Firefox26では、 <code>MessageEvent</code> を直接作ろうとした時に</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">void initMessageEvent(in DOMString aTypeArg, in boolean aCanBubbleArg, in boolean aCancelableArg, in DOMString aDataArg, in DOMString aOriginArg, in nsISupports aSourceArg);
+</code></pre></div>
+<p>という内部仕様がそのまま外に出てしまった感じのひどいAPIではなく、オブジェクトを使ったEventコンストラクタの形式で <code>MessageEvent</code> を作れるようになっています。<br>
+(というかinitMessageEventは廃止されました)</p>
+
+<ul>
+<li>  <a href="https://developer.mozilla.org/ja/docs/XPCOM_Interface_Reference/NsIWorkerMessageEvent#initMessageEvent()" title="nsIWorkerMessageEvent - XPCOM インタフェースリファレンス | MDN">nsIWorkerMessageEvent &#8211; XPCOM インタフェースリファレンス | MDN</a></li>
+<li>  <a href="https://developer.mozilla.org/ja/docs/Mozilla/Firefox/Releases/26" title="Firefox 26 for developers - Mozilla | MDN">Firefox 26 for developers &#8211; Mozilla | MDN</a></li>
+</ul>
+
+<p>そのため、<code>MessageEvent</code> を作るときは、MessageEventコンストラクタから作ります。<br>
+MessageEventコンストラクタとは名前の通りコンストラクタ関数なので以下のように<code>new</code>したものを、<code>dispatchEvent</code> で発火させて使います。</p>
+
+<div class="highlight">
+  <pre><span class="kd">var</span> <span class="nx">messageEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MessageEvent</span><span class="p">(</span><span class="s2">"event-name"</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="s2">"data-data"</span><span class="p">,</span>
+    <span class="nx">origin</span><span class="o">:</span> <span class="s2">"watashi-wo-trust-me"</span>
+<span class="p">});</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">messageEvent</span><span class="p">);</span>
+</pre>
+</div>
+
+<p>普通のウェブサイトなら <code>postMessage</code> で大体必要な事は出来るはずなので、あえて <code>MessageEvent</code> コンストラクタで作って使うユースケースはイマイチ思いつかないですが、こういうことも出来る的な話として紹介です。</p>
+
+<h3 id="messageeventを作る">MessageEventを作る</h3>
+
+<p>今回使ったテストは以下に置いてあります。<br>
+(Firefox26以上、ChromeとWebkitも最近のはサポートされてるっぽいですがいつからかは調べてない)</p>
+
+<p><a href="http://azu.github.io/MessageEvent-testing/test/" title="Mocha Spec Runner">MessageEventテスト</a> にアクセスすれば実行出来ます。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/MessageEvent-testing" title="azu/MessageEvent-testing">azu/MessageEvent-testing</a></li>
+</ul>
+
+<p>もう使えない <code>initMessageEvent</code> を使ってMessageEventイベントを作る場合は以下のようになりますが、これをMessageEventコンストラクタで書きなおしてみます。</p>
+
+<div class="highlight">
+  <pre>
+// これはもう使えないです！
+<span class="kd">var</span> <span class="nx">messageEvent</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createEvent</span><span class="p">(</span><span class="s2">"MessageEvent"</span><span class="p">);</span>
+<span class="nx">messageEvent</span><span class="p">.</span><span class="nx">initMessageEvent</span><span class="p">(</span><span class="s2">"event-name"</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"data-data"</span><span class="p">,</span>
+        <span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span> <span class="o">+</span> <span class="s2">"//"</span> <span class="o">+</span> <span class="nx">location</span><span class="p">.</span><span class="nx">host</span><span class="p">,</span>
+        <span class="s2">""</span><span class="p">,</span> <span class="nb">window</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">messageEvent</span><span class="p">);</span>
+</pre>
+</div>
+
+<p>dipatchEventでの発火された結果を受ける側は普通に <code>addEventListener</code> で受け取る事ができます。</p>
+
+<div class="highlight">
+  <pre><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"event-name"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// event は MessageEvent型 </span>
+<span class="p">});</span>
+</pre>
+</div>
+
+<h4 id="messageeventコンストラクタ版">MessageEventコンストラクタ版</h4>
+
+<p>Eventコンストラクタを使うと以下のように書けます。</p>
+
+<div class="highlight">
+  <pre><span class="kd">var</span> <span class="nx">messageEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MessageEvent</span><span class="p">(</span><span class="s2">"event-name"</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="s2">"data-data"</span><span class="p">,</span>
+    <span class="nx">origin</span><span class="o">:</span> <span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span> <span class="o">+</span> <span class="s2">"//"</span> <span class="o">+</span> <span class="nx">location</span><span class="p">.</span><span class="nx">host</span><span class="p">,</span>
+    <span class="nx">source</span><span class="o">:</span> <span class="nb">window</span>
+<span class="p">});</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">messageEvent</span><span class="p">);</span>
+</pre>
+</div>
+
+<h4 id="postmessage版">postMessage版</h4>
+
+<p>postMessageを使った場合は以下が大体同様の内容になると思います。</p>
+
+<div class="highlight">
+  <pre><span class="nb">window</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s2">"data-data"</span><span class="p">,</span> <span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span> <span class="o">+</span> <span class="s2">"//"</span> <span class="o">+</span> <span class="nx">location</span><span class="p">.</span><span class="nx">host</span><span class="p">);</span>
+</pre>
+</div>
+
+<p>自分でMessageEventを作った場合と違って、イベントの名前は決まってるので以下のように受け取ることが出来ます。</p>
+
+<div class="highlight">
+  <pre><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"message"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// event は MessageEvent型 </span>
+<span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+</pre>
+</div>
+
+<h3 id="dispatcheventとpostmessageの違い">dispatchEventとpostMessageの違い</h3>
+
+<p>上記のMessageEventコンストラクタとpostMessageをみてもらうと殆ど違いがないように見えますが、テストコードである<a href="https://github.com/azu/MessageEvent-testing/blob/gh-pages/test/spec/messageevent.test.js" title="messageevent.test.js">messageevent.test.js</a>を見ると挙動が違う部分があることがわかります。</p>
+
+<p>大きな違いとしてはpostMessageは非同期で発火されるのに対して、MessageEventコンストラクタ+dispatchEventは同期的に発火される点が違います。</p>
+
+<p><code>postMessage</code> は非同期で発生する中でもかなり早く発火するので、<code>setImmediate</code> 的なpolyfillに使われてたりすることがあります。</p>
+
+<ul>
+<li>  <a href="http://javascript.g.hatena.ne.jp/edvakf/20100227/1267246371" title="非同期パフォーマンス - JavaScriptで遊ぶよ - g:javascript">非同期パフォーマンス &#8211; JavaScriptで遊ぶよ &#8211; g:javascript</a></li>
+<li>  <a href="http://javascripter.hatenablog.com/entry/2013/10/24/MutationObserver%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E9%AB%98%E9%80%9FsetImmediate/nextTick" title="MutationObserverを使った高速setImmediate/nextTick - 素人がプログラミングを勉強していたブログ">MutationObserverを使った高速setImmediate/nextTick &#8211; 素人がプログラミングを勉強していたブログ</a></li>
+<li>  <a href="https://github.com/NobleJS/setImmediate" title="NobleJS/setImmediate">NobleJS/setImmediate</a></li>
+</ul>
+
+<p>それに対して、 <code>dispatchEvent</code> は同期的に行われるという感じです。</p>
+
+<ul>
+<li>  <a href="http://lists.w3.org/Archives/Public/www-dom/2011JulSep/0230.html" title="[DOM4] EventTarget.dispatchEvent() is synchronous, right? from David Flanagan on 2011-09-19 (www-dom@w3.org from July to September 2011)">[DOM4] EventTarget.dispatchEvent() is synchronous, right? from David Flanagan on 2011-09-19 (www-dom@w3.org from July to September 2011)</a></li>
+<li>  <a href="http://dom.spec.whatwg.org/#dom-eventtarget-dispatchevent" title="dispatchEvent(event)">dispatchEvent(event)</a> (<a href="http://www.hcn.zaq.ne.jp/___/WEB/DOM4-ja.html#dom-EventTarget-dispatchEvent" title="dispatchEvent">dispatchEvent</a> 日本語)</li>
+<li>  <a href="http://tmlife.net/programming/javascript/javascript-tips-dispatchevent.html" title="JavaScript Tips – dispatchEvent を使いこなそう!! | TM Life">JavaScript Tips – dispatchEvent を使いこなそう!! | TM Life</a></li>
+<li>  <a href="https://developer.mozilla.org/ja/docs/Web/API/EventTarget.dispatchEvent" title="EventTarget.dispatchEvent - Web API リファレンス | MDN">EventTarget.dispatchEvent &#8211; Web API リファレンス | MDN</a></li>
+</ul>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>最近ではFirefox26でフラグ付きですが、WebWorker同士のデータのやり取りに使えるMessageChannelが(やっと)実装されたりしたので、postMessage等を使ったWeb messagingは色々と面白い使い方ができると思います。</p>
+
+<ul>
+<li>  <a href="http://javascript.g.hatena.ne.jp/edvakf/20100109/1263070731" title="MessageChannel - JavaScriptで遊ぶよ - g:javascript">MessageChannel &#8211; JavaScriptで遊ぶよ &#8211; g:javascript</a></li>
+<li>  <a href="http://uhyohyohyo.sakura.ne.jp/javascript/13_4.html" title="JavaScript初級者から中級者になろう：十三章第四回　HTML5 Web Messaging 2">JavaScript初級者から中級者になろう：十三章第四回　HTML5 Web Messaging 2</a></li>
+<li>  <a href="http://softwarechaos.wordpress.com/2013/03/10/html5-producer-consumer-problem-solved-with-webworkers/" title="HTML5 / Producer-consumer-problem solved with WebWorkers | softwarechaos">HTML5 / Producer-consumer-problem solved with WebWorkers | softwarechaos</a></li>
+<li>  <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=677638" title="677638 – (MessageChannel) Implement HTML5&#39;s channel messaging API">677638 – (MessageChannel) Implement HTML5&#39;s channel messaging API</a></li>
+</ul>
+
+<p>こういうイベントを使ったメッセージのやり取りはブラウザの拡張を書くときによく出てくる概念(特権とコンテンツのやり取り等)だったり、ウェブアプリでも疎結合なものを考えるとこうした仕組みがどこかにでてくるような気がします。</p>
+
+<p>こういうメッセージのやり取りは何かを監視して通知する用途も多そうですが、ES7で予定されてる <code>Object.observe()</code> とかと合わせると、今色んなライブラリで頑張ってやってるような事がもっとシンプルに出来るようになって面白い感じがします。</p>
+
+<ul>
+<li>  <a href="http://slid.es/rafaelweinstein/object-observe-sept2013" title="Object.observe-sept2013 by Rafael Weinstein">Object.observe-sept2013 by Rafael Weinstein</a></li>
+<li>  <a href="http://2013.jsconf.eu/speakers/addy-osmani-plight-of-the-butterfly-everything-you-wanted-to-know-about-objectobserve.html" title="Plight Of The Butterfly - Everything You Wanted To Know About Object.observe() – Addy Osmani [Video]">Plight Of The Butterfly &#8211; Everything You Wanted To Know About Object.observe() – Addy Osmani [Video]</a></li>
+</ul>
+
+<p>以上、長いですが <code>MessageEvent</code> についてでした。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-12-15-messageevent%E3%82%B3%E3%83%B3%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%82%BF%E3%81%A8postmessage%E3%81%A8web-messaging%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","messaging"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=messaging">messaging</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

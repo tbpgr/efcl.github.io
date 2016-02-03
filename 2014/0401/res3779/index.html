@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        寿司jsでPromisesの基礎について発表してきた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,Promises,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0401/res3779/">
+    <h1 class="post-title">寿司jsでPromisesの基礎について発表してきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年04月01日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-04-01-%E5%AF%BF%E5%8F%B8js%E3%81%A7promises%E3%81%AE%E5%9F%BA%E7%A4%8E%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E7%99%BA%E8%A1%A8%E3%81%97%E3%81%A6%E3%81%8D%E3%81%9F.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>寿司.js でPromisesのキホンについて発表してきました。</p>
+
+<ul>
+<li><a href="http://togetter.com/li/649498" title="#寿司js - Togetterまとめ">#寿司js &#8211; Togetterまとめ</a></li>
+</ul>
+
+<hr />
+
+<div class="kwout" style="text-align: center;"><a href="http://azu.github.io/slide/sushijs/"><img src="http://kwout.com/cutout/a/pt/sa/z8p.jpg" alt="http://azu.github.io/slide/sushijs/" title="Promises Starter" width="600" height="317" style="border: none;" /></a>
+<p style="margin-top: 10px; text-align: center;"><a href="http://azu.github.io/slide/sushijs/">Promises Starter</a></p>
+</div>
+
+<p><a href="http://azu.github.io/slide/sushijs/" title="Promises Starter">Promises Starter</a>ではPromiseの基本的な部分だけなので、<code>Pormise.all</code>等実際に使うと便利的な話は入れてないです。</p>
+
+<p>PromiseのAPIの概要、Promiseの状態の種類、基本的なresolve/rejectの流れ、XHRの例、エラーハンドリングについてがメインな感じです。</p>
+
+<p>続きはウェブで ということで、今<a href="https://github.com/azu/Promises-book" title="azu/promises-book">azu/promises-book</a>というものを書いているので、<br />
+ここが分かりにくいとかここが間違ってるとか、こういうこと書いたほうがいいとかあったらフィードバックお願いします。</p>
+
+<p>まだ全然書き途中なのですが、書いていく内容については<a href="https://github.com/azu/promises-book/pull/1" title="[WIP] この書籍で扱う内容について by azu · Pull Request #1 · azu/promises-book">[WIP] この書籍で扱う内容について by azu · Pull Request #1 · azu/promises-book</a>や<a href="https://gitter.im/azu/promises-book" title="azu/promises-book - Gitter">azu/promises-book &#8211; Gitter</a>等で議論できればなーと思います</p>
+
+<p><a href="https://gitter.im/azu/promises-book"><img src="https://badges.gitter.im/azu/promises-book.png" alt="Gitter chat" /></a></p>
+
+<p>Gitterにチャットルームもあるのでそちらに適当に書き殴っていってもいいと思います。</p>
+
+<hr />
+
+<p>戻って寿司.jsのアウトライン</p>
+
+<blockquote class="twitter-tweet" lang="en"><p>この雰囲気でLTするのか。。<a href="https://twitter.com/search?q=%23%E5%AF%BF%E5%8F%B8JS&amp;src=hash">#寿司JS</a> <a href="http://t.co/90D5DAx8JD">pic.twitter.com/90D5DAx8JD</a></p>
+<p>&mdash; Kazuhito Hokamura (@hokaccha) <a href="https://twitter.com/hokaccha/statuses/450573522016813056">March 31, 2014</a></p></blockquote>
+
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<h2><a href="http://azu.github.io/slide/sushijs/" title="Promises Starter">Promises Starter</a> &#8211; azu</h2>
+
+<blockquote>
+<p><a href="http://azu.github.io/slide/sushijs/" title="Promises Starter">Promises Starter</a>
+</p></blockquote>
+
+<p>最初に自分がPromiseについて発表しました</p>
+
+<blockquote class="twitter-tweet" lang="en"><p>これが寿司js <a href="https://twitter.com/search?q=%23%E5%AF%BF%E5%8F%B8js&amp;src=hash">#寿司js</a> <a href="http://t.co/9Go3dzMZvL">pic.twitter.com/9Go3dzMZvL</a></p>
+<p>&mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/statuses/450578369902436352">March 31, 2014</a></p></blockquote>
+
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<blockquote class="twitter-tweet" lang="en"><p>これが <a href="https://twitter.com/search?q=%23%E5%AF%BF%E5%8F%B8JS&amp;src=hash">#寿司JS</a> <a href="http://t.co/ciQbyxikB7">pic.twitter.com/ciQbyxikB7</a></p>
+<p>&mdash; Kazuhito Hokamura (@hokaccha) <a href="https://twitter.com/hokaccha/statuses/450578388973916161">March 31, 2014</a></p></blockquote>
+
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<hr />
+
+<h2>git pullした時にbowerとか変更があった時にどうする問題 &#8211; yosuke_furukawa</h2>
+
+<ul>
+<li><a href="http://yosuke-furukawa.hatenablog.com/entry/2014/03/31/125131" title="git pullでファイルに変更があったら特定のコマンドを実行する。 - from scratch">git pullでファイルに変更があったら特定のコマンドを実行する。 &#8211; from scratch</a>
+<ul>
+<li>特定のファイルに変更があったらinstallし直す</li>
+</ul>
+
+<p></li>
+<li>Rakeとかで何かする時は、とりあえずinstallしてからやってしまう方法
+<ul>
+<li>既にモジュールがあるなら何も置きないので、そこまで問題にならない</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>名古屋のLT &#8211; kyo_ago</h2>
+<ul>
+<li>時間制限が緩い
+<ul>
+<li>ドラがない</li>
+<li>続きは二次会でみたいな現象</li>
+</ul>
+</li>
+<li>Hue
+<ul>
+<li>WifiベースでAPIから操作出来るLED 電球</li>
+<li>サムスンが似たようなのだしてきた</li>
+<li>将来心配</li>
+</ul>
+</li>
+<li>Hadoop</li>
+<li>フレームワークの地域性
+<ul>
+<li>Knockoutは関西人気?</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>寿司で学ぶWebComponents &#8211; hokaccha</h2>
+<blockquote class="twitter-tweet" lang="en"><p>これが寿司js vol.2  <a href="https://twitter.com/search?q=%23%E5%AF%BF%E5%8F%B8js&amp;src=hash">#寿司js</a> <a href="http://t.co/DAJaJUS1wL">pic.twitter.com/DAJaJUS1wL</a></p>
+<p>&mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/statuses/450593104236519425">March 31, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<ul>
+<li>
+<p>Web Compoenentsを構成する4つの要素</p>
+<ul>
+<li>CustomElement</li>
+<li>Templete要素</li>
+<li>HTML Imports</li>
+<li>Shadow DOM</li>
+</ul>
+</li>
+<li><code>document.registerElement</code> で独自の要素を登録できる</p>
+</li>
+<li>CustomElement
+<ul>
+<li><code>document.createElement</code> した時にも定義が継承されるようにできる</li>
+</ul>
+</li>
+<li>Shadow DOMで要素が外からアクセスできないような子要素が作れる
+<ul>
+<li>外のCSSの影響を受けない要素を作れる　</li>
+</ul>
+</li>
+<li><code>&lt;x -sushi&gt;</code> のデモ</li>
+</ul>
+<h2><img src="http://efcl.info/wp-content/uploads/2014/04/d28b12afb435bf4eb8cac6ba0d104db1.png" alt="名称未設定 2014 04 01 00 21 01 2014 04 01 00 21 15" title="名称未設定 2014-04-01 00-21-01 2014-04-01 00-21-15.png" border="0" width="450" height="600" /></h2>
+<h2>Docker による Rails Application 開発環境の構築 &#8211; y_imaya</h2>
+<blockquote>
+<p><a href="http://www.hast.me/hast/nHHXeoKQsMQTBuQXB" title="Hast: live presentation">Docker による Rails Application 開発環境の構築</a></p>
+<p>  <a href="http://imaya.blog.jp/archives/7173473.html" title="#寿司js で Docker について雑に話してきました : document">#寿司js で Docker について雑に話してきました : document</a>
+</p></blockquote>
+<ul>
+<li>手元の環境を汚さずに開発環境を作りたい</li>
+<li>IDEとか動かせる環境</li>
+<li>データダウンロードの問題をデータコンテナを使って解決</li>
+<li>CentOSまわりのハマりどころ色々</li>
+</ul>
+<hr />
+<p>大体の流れは<a href="http://togetter.com/li/649498" title="#寿司js - Togetterまとめ">#寿司js &#8211; Togetterまとめ</a>に載っています。</x></p></p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-04-01-%E5%AF%BF%E5%8F%B8js%E3%81%A7promises%E3%81%AE%E5%9F%BA%E7%A4%8E%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E7%99%BA%E8%A1%A8%E3%81%97%E3%81%A6%E3%81%8D%E3%81%9F.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","Promises","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=Promises">Promises</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

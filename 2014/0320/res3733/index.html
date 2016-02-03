@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Sendagaya.js（仮）アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0320/res3733/">
+    <h1 class="post-title">Sendagaya.js（仮）アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年03月20日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-03-20-sendagaya-js%EF%BC%88%E4%BB%AE%EF%BC%89%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="sendagaya.js（仮）"><a href="http://www.zusaar.com/event/4207006" title="Sendagaya.js（仮）">Sendagaya.js（仮）</a></h1>
+
+<p><a href="http://www.zusaar.com/event/4207006" title="Sendagaya.js（仮）">Sendagaya.js（仮）</a> に参加してきたのでメモ</p>
+
+<ul>
+<li>  <a href="http://togetter.com/li/644395" title="Sendagaya.js（仮） - Togetterまとめ">Sendagaya.js（仮） &#8211; Togetterまとめ</a></li>
+</ul>
+
+<h2 id="超大量絵馬とはなんだったのか-&#8211;-@geta6">超大量絵馬とはなんだったのか &#8211; @geta6</h2>
+
+<blockquote>
+<p><a href="http://glide.so/geta6/9b10de0755161bf4ff02" title="geta6 / &lt;div align=&#39;center&#39;&gt;超大量絵馬とはなんだったのか&lt;/div&gt; - Glide">超大量絵馬とはなんだったのか &#8211; Glide</a> </p>
+</blockquote>
+
+<ul>
+<li>  glide</li>
+<li>  超大量絵馬企画の経緯</li>
+</ul>
+
+<p><a href="http://10000000.pixiv.net/">http://10000000.pixiv.net/</a> の企画。</p>
+
+<p>リアルタイムでお絵かきしたい要件</p>
+
+<blockquote>
+<p>node.js x socket.io </p>
+</blockquote>
+
+<ul>
+<li>  express</li>
+<li>  backbone.marionette</li>
+<li>  almond &#8211; require.js</li>
+<li>  coffeescriptで書いた</li>
+<li>  1278コミット</li>
+</ul>
+
+<h3 id="構成">構成</h3>
+
+<ul>
+<li>  ストロークをサーバに送る</li>
+<li>  Redis -&gt; node-canvas -&gt; 画像化</li>
+<li>  他の閲覧者に画像として表示</li>
+</ul>
+
+<h3 id="設計-ビューアー">設計-ビューアー</h3>
+
+<ul>
+<li>  ビューアーは1枚のcanvas</li>
+<li>  位置に合わせて表示するものを取得してCanvasに描画しなおす</li>
+<li>  <code>url.createObject</code> で blobimageを生成して使った</li>
+</ul>
+
+<h3 id="設計-&#8211;-座標系">設計 &#8211; 座標系</h3>
+
+<ul>
+<li>  五角形の絵馬、四角形のサムネイル、閲覧用のキャンバスのそれぞれ違う形式</li>
+<li>  座標の変換の実装が必要</li>
+<li>  サーバ/クライアントがJavaScriptなので座標計算のロジックをそのま共有できた。</li>
+</ul>
+
+<h3 id="実行">実行</h3>
+
+<ul>
+<li>  JavaScript書いてたの3人、最初はrequire.js入れてなかった</li>
+<li>  require.js, i18n, almond, grunt productionの設定</li>
+</ul>
+
+<h3 id="担当と役割">担当と役割</h3>
+
+<ul>
+<li>  機能毎にそれぞれのメンバーが独立開発</li>
+<li>  Model、ItemViewなど使用するコンポーネントをセットしたモジュールで実装単位を分けた</li>
+<li>  StateModelの変化をControllerが監視して、他のモジュールに通知</li>
+<li>  marionettoに乗れという方針でやった。</li>
+</ul>
+
+<h3 id="socket.io">Socket.io</h3>
+
+<ul>
+<li>  Socket.io の問題が色々</li>
+<li>  タイムアウトを自分で実装して、残留コネクションを殺したりしてた。</li>
+<li>  絵馬ごとにroomを作って、イベントの配信先を絞った 
+
+<ul>
+<li>  絵馬が更新されたかどうかをroomごとに分ける</li>
+<li>  引いた画面では更新回数を減らして、通知の大量発生を抑える</li>
+</ul></li>
+</ul>
+
+<h3 id="task">Task</h3>
+
+<ul>
+<li>  Gruntを採用</li>
+<li>  gulpを採用しなかった 
+
+<ul>
+<li>  周りがstreamベース慣れてた</li>
+<li>  documentが少ない気がする</li>
+</ul></li>
+</ul>
+
+<h3 id="運用">運用</h3>
+
+<ul>
+<li>  CPU負荷が高くなって張り付き</li>
+<li>  <code>pm2</code> を使ってたが、コマンドを受け付けなくなる kill -&gt; restart…</li>
+<li>  結局自分で書いた。</li>
+</ul>
+
+<h3 id="その他">その他</h3>
+
+<ul>
+<li>  <code>EventEmitter2</code> EventEmitterに食わべて負荷が軽減した。 
+
+<ul>
+<li>  名前空間が使えるのが便利</li>
+</ul></li>
+<li>  node-canvas</li>
+<li>  imagemagick-native</li>
+<li>  redis 
+
+<ul>
+<li>  ドキュメントよりテストコードを読みましょう</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="lt">LT</h2>
+
+<h2 id="@harukasan-『node-canvas』">@harukasan 『node-canvas』</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/harukasan/node-canvas" title="Node-canvas // Speaker Deck">Node-canvas // Speaker Deck</a> </p>
+</blockquote>
+
+<ul>
+<li>  絵馬の座標系の相互変換を計算を担当</li>
+</ul>
+
+<p>Node-Canvas</p>
+
+<ul>
+<li>  クライアントからストローク情報を送る</li>
+<li>  サーバ側でストロークをレンダリング</li>
+</ul>
+
+<p>クライアント側で生成</p>
+
+<ul>
+<li>  サーバ側で生成しなくてよい</li>
+<li>  描画の差が起きない</li>
+<li>  トラフィックが大きくなってしまう</li>
+<li>  クライアントの負荷がでかい</li>
+</ul>
+
+<p>✔サーバ側で生成</p>
+
+<ul>
+<li>  サーバ側で生成する差がでるかもしれない</li>
+<li>  クライアントの負荷は少ない</li>
+<li>  トラフィックが少なくて済む 
+
+<ul>
+<li>  POSTは小さくて済む</li>
+</ul></li>
+</ul>
+
+<p>node-canvas</p>
+
+<ul>
+<li>  context は 2dだけ</li>
+<li>  メソッドはブラウザのものと同じ</li>
+</ul>
+
+<h2 id="『atom.ioのpackageの作り方』-&#8211;-@yosuke_furukawa">『atom.ioのpackageの作り方』 &#8211; @yosuke_furukawa</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/yosuke_furukawa/howto-create-atom" title="howto_create_atom // Speaker Deck">howto_create_atom // Speaker Deck</a> </p>
+</blockquote>
+
+<ul>
+<li>  <a href="https://atom.io/" title="Atom">Atom</a></li>
+<li>  generator-packageでひな形が作れる</li>
+<li>  Chromiumなのでバッグも楽</li>
+</ul>
+
+<h2 id="『d3.js-crossfilter.js-dc.js』-&#8211;-@edvakf">『d3.js crossfilter.js dc.js』 &#8211; @edvakf</h2>
+
+<p>D3.js</p>
+
+<ul>
+<li>  DOMとデータを繋ぐライブラリ</li>
+</ul>
+
+<p><a href="http://square.github.io/crossfilter/" title="Crossfilter">Crossfilter</a></p>
+
+<ul>
+<li>  大量の多次元データを扱うライブラリ</li>
+<li>  多次元データのフィルタリング</li>
+</ul>
+
+<p>D3.js+Crossfilter =&gt; <a href="http://nickqizhu.github.io/dc.js/" title="dc.js - Dimensional Charting Javascript Library">dc.js</a> すごい</p>
+
+<h2 id="『clojurescript』-@halcat0x15a">『ClojureScript』 @halcat0x15a</h2>
+
+<ul>
+<li>  ClojureをJavaScriptにコンパイルするaltjs</li>
+<li>  名前空間、Collection,record,protocol(interface),macro, java interop</li>
+<li>  Google Closure</li>
+<li>  Leiningenを使ってClojureのライブラリの依存関係を使う</li>
+<li>  スライドもClojureScript+markdownで書かれてる</li>
+</ul>
+
+<h2 id="『いかにして我々はフロントエンドに秩序をもたらそうとしてきたか』-&#8211;-@mizchi">『いかにして我々はフロントエンドに秩序をもたらそうとしてきたか』 &#8211; @mizchi</h2>
+
+<blockquote>
+<p><a href="http://glide.so/mizchi/9635965" title="mizchi / いかにして我々はフロントエンドに秩序をもたらそうとしてきたか - Glide">mizchi / いかにして我々はフロントエンドに秩序をもたらそうとしてきたか &#8211; Glide</a> </p>
+</blockquote>
+
+<ul>
+<li>  prototype.js 
+
+<ul>
+<li>  <code>$(&quot;query&quot;)</code> だけが欲しかった</li>
+</ul></li>
+<li>  jQuery 
+
+<ul>
+<li>  スクレイパー</li>
+<li>  メンテしにくい</li>
+<li>  小さいうちはよかった</li>
+</ul></li>
+<li>  Backbone 
+
+<ul>
+<li>  1コのDOMと1コのViewと対応させようという発想</li>
+</ul></li>
+<li>  Knockout.js 
+
+<ul>
+<li>  データバインド</li>
+</ul></li>
+<li>  Angular.js 
+
+<ul>
+<li>  DOMにロジックを入れて、DIでかいけつ</li>
+<li>  DOMと密結合にしたほうがやりやすい現実</li>
+</ul></li>
+</ul>
+
+<p>気付き</p>
+
+<ul>
+<li>  テンプレートの再利用は難しい現実</li>
+</ul>
+
+<p>Angular.js</p>
+
+<ul>
+<li>  学習コストが高い</li>
+<li>  DSLが複雑</li>
+</ul>
+
+<p>Backbone.Modelの限界</p>
+
+<ul>
+<li>  ネストしたものに対応できない</li>
+</ul>
+
+<p>Vue.js</p>
+
+<ul>
+<li>  余計な学習コストがない</li>
+<li>  データバインディング、リアクティブ</li>
+</ul>
+
+<h2 id="『scala.js』-&#8211;-@tototoshi">『Scala.js』 &#8211; @tototoshi</h2>
+
+<blockquote>
+<p><a href="http://tototoshi.github.io/slides/sendagaya-js-scala-js/#1" title="Scala.js">Scala.js</a> </p>
+</blockquote>
+
+<ul>
+<li>  Scala.js 
+
+<ul>
+<li>  Scalaの言語機能が全て使える</li>
+</ul></li>
+<li>  JavaScriptは <code>global</code> を経由していく</li>
+<li>  sbtでコンパイル</li>
+<li>  どんどんサイズが小さくなって、コンパイル時間も短くなってる</li>
+<li>  jQueryの静的型つけ</li>
+</ul>
+
+<h2 id="『初心者向け、カウントアッププログラムで基礎勉強』--@asbyukobayashi">『初心者向け、カウントアッププログラムで基礎勉強』- @AsbyuKobayashi</h2>
+
+<blockquote>
+<p><a href="http://ticklecode.com/present/140319_sendagayajs_jsBeginner/#/" title="JavaScriptの基礎：カウントアッププログラムで学ぶ変数、イベント、DOM要素、即時関数、無名関数">JavaScriptの基礎：カウントアッププログラムで学ぶ変数、イベント、DOM要素、即時関数、無名関数</a> </p>
+</blockquote>
+
+<ul>
+<li>  Pure JavaScript</li>
+<li>  焼き鳥検索</li>
+<li>  普段使わないとDOM APIの名前とか忘れる</li>
+</ul>
+
+<h2 id="『googkitを始めよう』-&#8211;-@orga_chem">『googkitを始めよう』 &#8211; @orga_chem</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/orgachem/googkitwohazimeyou" title="googkitをはじめよう // Speaker Deck">googkitをはじめよう // Speaker Deck</a> </p>
+</blockquote>
+
+<ul>
+<li>  jQueryは再利用できない</li>
+<li>  Closure Libraryセットアップがだるい</li>
+<li>  一度使うとすごくいい</li>
+</ul>
+
+<p>googkit 簡単なコマンドでClosure Libraryが使える</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">googkit init
+googkit setup
+</code></pre></div>
+<p>だけでセットアップが出来る。</p>
+
+<hr>
+
+<p>メモ: Markdown Life</p>
+
+<p>懇談会はJavaScript AST、CSS JIT、JITコンパイラ、LLVM、header、Cマクロの話等をしていました。</p>
+
+<ul>
+<li>  <a href="https://groups.google.com/a/chromium.org/forum/#!topic/blink-dev/tL4LjQq8lNI/discussion" title="CSS JIT - Google グループ">CSS JIT &#8211; Google グループ</a></li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en">
+  <p>
+    CSSJITの図解です <a href="http://t.co/AqkePrQpsJ">pic.twitter.com/AqkePrQpsJ</a>
+  </p>
+  
+  <p>
+    &mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/statuses/446284705525022720">March 19, 2014</a>
+  </p>
+</blockquote>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-03-20-sendagaya-js%EF%BC%88%E4%BB%AE%EF%BC%89%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

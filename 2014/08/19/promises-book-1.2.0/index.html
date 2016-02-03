@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        JavaScript Promiseの本Ver1.2とAsciidoctor | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,books,Asciidoctor,asciidoc" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/08/19/promises-book-1.2.0/">
+    <h1 class="post-title">JavaScript Promiseの本Ver1.2とAsciidoctor</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年08月19日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-08-19-promises-book-1.2.0.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="promise本">Promise本</h2>
+
+<p>以前<a href="http://efcl.info/2014/0623/res3943/" title="JavaScript Promiseの本を書きました | Web Scratch">JavaScript Promiseの本を書きました | Web Scratch</a>でも書いていましたが、
+電子版である意味は常に書籍が更新できるという点が大きいです。</p>
+
+<p>そのため、<a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a> も
+semverな感じでアップデートしていっています。</p>
+
+<p>どのような変更があったかはGitHub Releaseにかかれているのでそちらを参考にして下さい。(RSSで購読も出来ます)</p>
+
+<ul>
+<li><a href="https://github.com/azu/promises-book/releases" title="Releases · azu/promises-book">Releases · azu/promises-book</a></li>
+</ul>
+
+<p>現在Promise本はver1.2ですが、<a href="https://github.com/azu/promises-book/compare/1.0.0...1.2.0" title="Comparing 1.0.0...1.2.0 · azu/promises-book">1.0.0...1.2.0</a>では以下のような変更が主なところです。</p>
+
+<hr>
+
+<h3 id="1.0.1-(2014-06-23)">1.0.1 (2014-06-23)</h3>
+
+<ul>
+<li>&quot;<a href="https://twitter.com/yuya_takeyama/status/480969917496176641">金を払えないという重大なバグ</a>&quot;を修正 (<a href="https://github.com/azu/promises-book/commit/790900504cdf4368e424e695c4cde39d7d015b94" title="7909005">7909005</a>)</li>
+</ul>
+
+<h3 id="1.1.0-(2014-06-25)">1.1.0 (2014-06-25)</h3>
+
+<p><a href="http://azu.github.io/promises-book/#promise-is-always-async" title="コラム: Promiseは常に非同期?">コラム: Promiseは常に非同期?</a> への加筆</p>
+
+<ul>
+<li><strong>column-promise-resolve:</strong>
+
+<ul>
+<li>同期と非同期の混在の問題についてを追加 (<a href="https://github.com/azu/promises-book/commit/de5f82082909484155d8aa94005b676a9f65c2e2">de5f8208</a>)</li>
+<li>非同期で実行されているコードの解説を追加 (<a href="https://github.com/azu/promises-book/commit/ea8ca5d6f38ae8fde5d9f1b4e4b7521c1b261e63">ea8ca5d6</a>)</li>
+</ul></li>
+</ul>
+
+<h3 id="1.1.3-(2014-07-31)">1.1.3 (2014-07-31)</h3>
+
+<p>HTML5 Rocksの記事を日本語版へと変更 (<a href="https://github.com/azu/promises-book/commit/1a98dabeb5f80ad7cea05a0e79da3e36c5cf8c3e" title="1a98dab">1a98dab</a> , closes #181)</p>
+
+<ul>
+<li><a href="http://www.html5rocks.com/ja/tutorials/es6/promises/" title="JavaScript Promises: There and back again - HTML5 Rocks">JavaScript Promises: There and back again - HTML5 Rocks</a></li>
+</ul>
+
+<h3 id="1.2.0-(2014-08-13)">1.2.0 (2014-08-13)</h3>
+
+<p><a href="http://asciidoctor.org/news/2014/08/12/asciidoctor-1-5-0-released/" title="Asciidoctor 1.5.0">Asciidoctor 1.5.0</a>に対応しました。テーマの表示の変更なども含まれています</p>
+
+<ul>
+<li><a href="https://github.com/azu/promises-book/issues/182" title="Asciidoctor 1.5.0対応 · Issue #182 · azu/promises-book">Asciidoctor 1.5.0対応 · Issue #182 · azu/promises-book</a></li>
+</ul>
+
+<hr>
+
+<p>という感じですが、1.2.0ではPromise本の生成に使ってる<a href="http://asciidoctor.org/" title="Asciidoctor">Asciidoctor</a>の1.5がリリースされたため、そちらに対応しました。</p>
+
+<h2 id="asciidoctor-1.5">Asciidoctor 1.5</h2>
+
+<ul>
+<li><a href="http://asciidoctor.org/news/2014/08/12/asciidoctor-1-5-0-released/" title="Asciidoctor 1.5.0 “Bleeding Heart” released! | Asciidoctor">Asciidoctor 1.5.0 “Bleeding Heart” released! | Asciidoctor</a></li>
+</ul>
+
+<p>AsciidoctorはAsciidocのruby実装ですが、1.5ではかなり大幅な変更が含まれています。</p>
+
+<p>主な所をみていくと以下のような感じです。</p>
+
+<ul>
+<li>Graphviz等のDiagramsの対応</li>
+<li>DocBook 5がデフォルトに(今までは4.5)</li>
+<li>デフォルトテーマの変更</li>
+<li><code>\b</code> のユニコード対応</li>
+<li>JavaやLaTex等の依存がないRubyだけでPDFやePubの生成が可能に
+
+<ul>
+<li>PDF <a href="https://github.com/asciidoctor/asciidoctor-pdf" title="asciidoctor/asciidoctor-pdf">asciidoctor/asciidoctor-pdf</a></li>
+<li>ePub <a href="https://github.com/asciidoctor/asciidoctor-epub3" title="asciidoctor/asciidoctor-epub3">asciidoctor/asciidoctor-epub3</a></li>
+</ul></li>
+<li>Opalを使ったAsciidoctorのJavaScript版である<a href="https://github.com/asciidoctor/asciidoctor.js" title="asciidoctor.js">asciidoctor.js</a>のリリース</li>
+</ul>
+
+<p>破壊的な変更もいくつかあってCompat modeを使うと一応維持できますが、移行方法について詳しく書かれています。</p>
+
+<ul>
+<li><a href="http://asciidoctor.org/docs/migration/" title="Migrating to Asciidoctor 1.5.0">Migrating to Asciidoctor 1.5.0</a></li>
+</ul>
+
+<p>Promise本も幾つか問題が起きていたので以下で対処しています</p>
+
+<ul>
+<li><a href="https://github.com/azu/promises-book/issues/182" title="Asciidoctor 1.5.0対応 · Issue #182 · azu/promises-book">Asciidoctor 1.5.0対応 · Issue #182 · azu/promises-book</a></li>
+</ul>
+
+<p>DocBook 5がデフォルトになった影響で <code>[[id]]</code> が誤認されて<a href="https://github.com/asciidoctor/asciidoctor-fopub" title="asciidoctor-fopub">asciidoctor-fopub</a>で<a href="https://github.com/azu/promises-book/commit/3e57e37f89af50cd01dca4c4ada30afc05c3c5df" title="PDFがビルドできない問題">PDFがビルドできない問題</a>や、テーマのrevert的な対処をしています。</p>
+
+<p>Asciidoctor 1.5のデフォルトテーマは<a href="https://github.com/asciidoctor/asciidoctor/issues/879" title="Use open source fonts in the default stylesheet · Issue #879 · asciidoctor/asciidoctor">Use open source fonts in the default stylesheet · Issue #879 · asciidoctor/asciidoctor</a>のIssueで上げられているようにオープンソースのCJKフォントをデフォルトに指定してきます。</p>
+
+<p>Noto Sans や Droid Sans Monoとか指定されて嬉しい人がいるのかよくわかりませんが、font-weightが全体的に細くなって読みにくい感じだったので、<a href="https://github.com/azu/promises-book/commit/3ca8267caa29e4937f84a4f2ec46bb62b980bbed" title="style(html): Asciidoctor 1.5.0のデフォルトテーマを変更 · 3ca8267 · azu/promises-book">フォントだけを変更したcssを別途読み込むように修正</a>してあります。</p>
+
+<p><code>font-family</code>を書き換えてるだけなので、別途CSSを<a href="http://asciidoctor.org/docs/user-manual/#docinfo-attributes-and-file-names" title="docinfo file">docinfo file</a>から読み込んで<code>!important</code>するだけでもいいかもしれません。</p>
+
+<p>最近GitHubのテーマも変わりましたが恐らくそれに合わせてる感じのテーマな感じがします。</p>
+
+<p>また、今まではMarkdownと同じように、バッククオートの前後にスペースをいれなくても問題ありませんでしたが(アスキー文字の場合は元から開けないといけない)、これが厳密に CJKV に対応したため表示が崩れることがあります。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">日本語では、このように`some_code()`と書くことがあります。
+</code></pre></div>
+<p>以下のように誤爆した感じになってしまう。</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/2227862/3387643/17fd2ab8-fc80-11e3-93a8-126e660fce4d.png" alt="img"></p>
+
+<p>開発者さんに聞いた所意図した動作で、 CJKV への対応のためという感じでした。
+これは単純にスペースを開ける方法や、別の書き方で回避できるとのことでした。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">日本語では、このように `some_code()` と書くことがあります。
+日本語では、このように##`some_code()`##と書くことがあります。
+日本語では、このように++pass:[some_code()]++と書くことがあります。
+日本語では、このように++some_code()++と書くことがあります。
+</code></pre></div>
+<p>Promise本ではスペースをあけて書くように書き換えてあります。</p>
+
+<ul>
+<li><a href="https://github.com/azu/promises-book/pull/173" title="Asciidoctorのinline literal passthroughの仕様の変更について by vzvu3k6k · Pull Request #173 · azu/promises-book">Asciidoctorのinline literal passthroughの仕様の変更について by vzvu3k6k · Pull Request #173 · azu/promises-book</a></li>
+<li><a href="https://github.com/asciidoctor/asciidoctor/issues/984#issuecomment-47624565" title="Breaking changes in inline code literal? · Issue #984 · asciidoctor/asciidoctor">Breaking changes in inline code literal? · Issue #984 · asciidoctor/asciidoctor</a></li>
+</ul>
+
+<p>最近のPromise本の変更点はこんな感じでした。</p>
+
+<ul>
+<li><a href="https://github.com/azu/promises-book" title="azu/promises-book">azu/promises-book</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-08-19-promises-book-1.2.0.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","books","Asciidoctor","asciidoc"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=books">books</a></li>
+                
+                <li><a href="/tags/?q=Asciidoctor">Asciidoctor</a></li>
+                
+                <li><a href="/tags/?q=asciidoc">asciidoc</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

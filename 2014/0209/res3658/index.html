@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        JavaScriptライブラリの気になる実装をどうやって見ていくか | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="CodeReading,javascript,library" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0209/res3658/">
+    <h1 class="post-title">JavaScriptライブラリの気になる実装をどうやって見ていくか</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年02月09日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-02-09-javascript%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E6%B0%97%E3%81%AB%E3%81%AA%E3%82%8B%E5%AE%9F%E8%A3%85%E3%82%92%E3%81%A9%E3%81%86%E3%82%84%E3%81%A3%E3%81%A6%E8%A6%8B%E3%81%A6%E3%81%84.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="はじめに">はじめに</h2>
+
+<p>毎日新しいJavaScriptライブラリが登場していると思いますが、それらがどういう実装になっているかを知ることはライブラリを使う以上に大事かもしれません。</p>
+
+<p>ソースを全部読めば分かるかもしれませんが、それをやるには時間が足りません。</p>
+
+<p>JavaScriptに限った話では無いですが、今回はJavaScriptを例に&#8221;特定の機能はどうやってるんだろ?&#8221;という事を調べる方法についてです。</p>
+
+<p>探す前にドキュメントに載ってないかを見るのが手間がなくて一番よいですが、書いてない場合は実装を見ます。</p>
+
+<h2 id="vue.js"><a href="http://vuejs.org/" title="Vue.js">Vue.js</a></h2>
+
+<p>今回は<a href="http://vuejs.org/" title="Vue.js">Vue.js</a>というAngularJSやKnockoutのようなViewとModelのデータバインディグを行うライブラリを例に、データバインディグはどうやっているのかを2つの方法で調べてみたいと思います。</p>
+
+<h2 id="コードをステップで見ていく">コードをステップで見ていく</h2>
+
+<p>これはよく見る方法で皆さんもやったことがあると思います。</p>
+
+<p>見たい挙動(今回はモデルへのバインディグ)のサンプルコードを書いて、<br>
+そこに対してブレークポイントを貼り step in しながら目的の実装を探すという単純な方法です。</p>
+
+<div class="kwout" style="text-align: center;">
+  <a href="http://vuejs.org/"><img src="http://kwout.com/cutout/f/ty/ei/feh.jpg" alt="http://vuejs.org/" title="vue.js" width="600" height="165" style="border: none;" /></a> <p style="margin-top: 10px; text-align: center;">
+    <a href="http://vuejs.org/">vue.js</a>
+  </p>
+</div>
+
+<p>トップページにあるサンプルコードを見ても分かるように、<code>new Vue({ /*モデル*/ })</code> となってるので、Vueコンストラクタの実装を見ていけばいいことがわかります。</p>
+
+<div class="highlight">
+  <pre><span class="kd">var</span> <span class="nx">demo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({// &lt; - breakpoint </span>
+    <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#demo&#39;</span><span class="p">,</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;Hello Vue.js!&#39;</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+&lt;/span></pre>
+</div>
+
+<!--<br />
+var demo = new Vue({<br />
+    el: '#demo',<br />
+    data: {<br />
+        message: 'Hello Vue.js!'<br />
+    }<br />
+})<br />
+-->
+
+<p>サンプルコードを書いて <code>new Vue</code>の部分にブレークポイントを貼るだけで準備完了です。</p>
+
+<p>後は、デバッガーのステップ実行しながら、怪しい関数等を見ていくだけです(今回ならObserveとかbindingとかの用語を見ていけば多分見つかるはずです)</p>
+
+<p>以下は実際に見ていった動画です</p>
+
+<h2 id="勘であてる">勘であてる</h2>
+
+<p>もう一つ短時間で探す方法として、その機能(今回はデータバインディグ)に使われそうなメソッドや名前で検索してしまう方法です。</p>
+
+<p>今回はデータバインディグがキーワードです。</p>
+
+<p>また、<a href="https://github.com/yyx990803/vue#browser-support" title=" Browser Support">Browser Support</a>を見るとES5サポートしている事が前提となってることがわかります。</p>
+
+<blockquote>
+<p>Vue.js supports most ECMAScript 5 compliant browsers, essentially IE9+. IE8 and below are not supported. </p>
+</blockquote>
+
+<p>ここで、ピンと来る人もいると思いますが他のところもチェックすると、サンプルコードを見ても<a href="http://knockoutjs.com/" title="knockout.js">knockout.js</a>のように値の変更を監視するためにラッパーをかぶせたりはしていないように見えます。</p>
+
+<p>knockoutの場合は監視したいプロパティに <code>ko.observable(value)</code> のようなラップが必要になります。</p>
+
+<ul>
+<li>  <a href="http://www.adobe.com/jp/devnet/html5/articles/getting-started-with-knockoutjs.html" title="ko.observable">ko.observable</a></li>
+<li>  <a href="http://qiita.com/tenntenn/items/55fd8fc98cf29b1e43e5" title="knockoutjs - 作って分かるJavaScriptでデータバインド - Qiita">knockoutjs &#8211; 作って分かるJavaScriptでデータバインド &#8211; Qiita</a></li>
+</ul>
+
+<p>この情報から推測するとJavaScriptネイティブのgetter/setterを使ってるんじゃないかと気付きます。<br>
+getter/setterを設定(他にも方法はありますが)する<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" title="Object.defineProperty">Object.defineProperty</a>はES5からサポートされているので、ES5をサポートしてないブラウザはサポート外になってるんじゃないかという感じですね。</p>
+
+<p>探すポイントは推測できたので実際に検索してみます。</p>
+
+<hr>
+
+<p>(こっから先、普通に文字列検索してもいいと思うので若干蛇足気味です)</p>
+
+<p>普通にgrep的な検索でもいいですが、JavaScriptを例にしたので<a href="http://graspjs.com/" title="grasp">grasp</a>を使ってみます。(多分このケースだと普通に文字列検索した方が楽です…)</p>
+
+<p><a href="http://graspjs.com/" title="grasp">grasp</a>は単純な文字列検索ではなくて、JavaScriptの構文を元に検索/置換が出来るコマンドラインツールです。</p>
+
+<p>以下でも軽く紹介してるので見てみるといいかもしれません。</p>
+
+<ul>
+<li>  <a href="http://jser.info/post/73202282881/grasp-javascript" title="Graspを使ったJavaScriptのリファクタリング | JSer.info">Graspを使ったJavaScriptのリファクタリング | JSer.info</a></li>
+</ul>
+
+<div class="highlight">
+  <pre><span class="nv">$ </span>npm install -g grasp
+</pre>
+</div>
+
+<!--<br />
+$ npm install -g grasp<br />
+-->
+
+<p>でインストールしておきます。</p>
+
+<h3 id="object.definepropertyを呼び出し箇所を検索">Object.definePropertyを呼び出し箇所を検索</h3>
+
+<p><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" title="Object.defineProperty">Object.defineProperty</a> は</p>
+
+<div class="highlight">
+  <pre><span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">prop</span><span class="p">,</span> <span class="nx">descriptor</span><span class="p">)</span>
+</pre>
+</div>
+
+<!--<br />
+Object.defineProperty(obj, prop, descriptor)<br />
+-->
+
+<p>のような構文なので、上記のように呼び出してる場所を検索したいと思います。</p>
+
+<p><code>Object.defineProperty(obj, prop, descriptor)</code>に該当するものを検索する場合、<br>
+graspでは以下のように書くことが出来ます。</p>
+
+<div class="highlight">
+  <pre>grasp -e <span class="s1">&#39;Object.defineProperty(__,__,__)&#39;</span> src/*
+</pre>
+</div>
+
+<!--<br />
+grasp -e 'Object.defineProperty(__,__,__)' src/*<br />
+-->
+
+<p>一つづつ見ていくと、</p>
+
+<ul>
+<li>  graspコマンドで <code>src/*</code> 以下のファイルを検索しています</li>
+<li>  <code>-e</code> は <a href="http://graspjs.com/docs/equery/" title="Example Query">Example Query</a>を使うというオプションです。 
+
+<ul>
+<li>  graspは<a href="http://graspjs.com/docs/equery/" title="Example Query">Example Query</a>と<a href="http://graspjs.com/docs/squery/" title="Selector Query">Selector Query</a>の2つの方法で検索が出来ます</li>
+<li>  ワイルドカード的なものとCSSセレクタ的なもので検索する方法です</li>
+</ul></li>
+<li>  <code>&#39;Object.defineProperty(__,__,__)&#39;</code> は検索したいコードです 
+
+<ul>
+<li>  <code>__</code> というのが引数の数(3つ)あることがわかります。</li>
+<li>  <code>__</code> はワイルドカードの事を示しています</li>
+<li>  正規表現なら <code>&#39;Object.defineProperty(.*?,.*?,.*?)&#39;</code> みたいな感じ?</li>
+<li>  正規表現と違って、ホワイトスペースや改行等余計な事を意識しなくても書くことが出来ます。</li>
+</ul></li>
+</ul>
+
+<p>その結果を見ると幾つか使ってる箇所がわかります。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/02/vue-zsh-2014-02-08-23-19-26.jpg" alt="Vue  zsh 2014 02 08 23 19 26" title="vue (zsh) 2014-02-08 23-19-26.jpg" border="0" width="600" height="495" /></p>
+
+<p>後は、見つけた場所を実際に見ていくといった感じです。</p>
+
+<h3 id="object.definepropertyのaliasを検索する">Object.definePropertyのaliasを検索する</h3>
+
+<p>今回は直接 <code>Object.defineProperty</code> を使っていたので問題無いですが、<br>
+<code>Object.defineProperty</code> は長いのでライブラリの内部では以下のようなエイリアスを貼って使っているかもしれません。</p>
+
+<div class="highlight">
+  <pre><span class="kd">var</span> <span class="nx">def</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">;</span>
+</pre>
+</div>
+
+<!--<br />
+var def = Object.defineProperty;<br />
+-->
+
+<p>&#8220;Object.defineProperty&#8221; という文字列を検索すれば、見つけることも出来ますが、graspではもっと具体的に、&#8221;varである変数に<code>Object.defineProperty</code>を代入している所&#8221; というのも検索出来ます。</p>
+
+<p>正規表現でも出来そうに見えますが、以下のようなコードだと結構難易度が上がります。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">var slice = Array.slice,
+    def =　// for getter/setter
+     Object.defineProperty;
+</code></pre></div>
+<p>graspだと、以下のようにして検索することが出来ます。</p>
+
+<div class="highlight">
+  <pre>grasp -e <span class="s1">&#39;__[init=Object.defineProperty]&#39;</span> test.js
+</pre>
+</div>
+
+<!--<br />
+grasp -e '__[init=Object.defineProperty]' test.js<br />
+-->
+
+<p>結果を見るとちゃんと該当する部分を検索出来てる事がわかります。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/02/vue-zsh-2014-02-08-23-34-49.jpg" alt="Vue  zsh 2014 02 08 23 34 49" title="vue (zsh) 2014-02-08 23-34-49.jpg" border="0" width="600" height="60" /></p>
+
+<p>検索できたので、どういう風に検索されているかを見ていきます(&#8211;debugオプションとかもあるのでそちらも見るといいかもしれないですね)</p>
+
+<ul>
+<li>  <code>-e</code> や <code>__</code> は先ほど同じ意味で、<a href="http://graspjs.com/docs/equery/" title="Example Query">Example Query</a>とワイルドカードです</li>
+</ul>
+
+<p><code>__[init=Object.defineProperty]</code> というのは、CSSセレクタをイメージすると分かりやすいです。</p>
+
+<p>要素は<code>__</code>なので何でもよいですが、ここでいう要素は<a href="http://graspjs.com/docs/syntax-js/" title="JavaScript Syntax | Grasp - JavaScript structural search, replace, and refactor">JavaScript Syntax | Grasp &#8211; JavaScript structural search, replace, and refactor</a>で説明されているJavaScript ASTの要素の事を言っています。</p>
+
+<p><code>var a;</code> のような変数宣言は、 <strong>VariableDeclarator</strong> という要素(var-dec)に該当します。(上記の例はワイルドカードがこれに該当してる)</p>
+
+<p>そして<strong>VariableDeclarator</strong>というのは <code>init</code> というプロパティ(属性)を持っていて、この <code>init</code>の値が <code>Object.defineProperty</code> にマッチするものを検索しています。</p>
+
+<p>(<code>init</code> の値というは簡単に言えば、 var a = 1; の 1の部分)</p>
+
+<p>この辺はコードをパースした結果を見比べて見るといいかもしれません。</p>
+
+<ul>
+<li>  <a href="http://esprima.org/demo/parse.html?code=var%20slice%20%3D%20Array.slice%2C%0A%20%20%20%20def%20%3D%E3%80%80%2F%2F%20for%20getter%2Fsetter%0A%20%20%20%20%20Object.defineProperty%3B" title="Esprima: Parser">Esprima: Parser</a></li>
+</ul>
+
+<p>graspは<a href="http://graspjs.com/docs/squery/" title="Selector Query">Selector Query</a>というCSSセレクタ的なものもあるので、こちらを使った場合は直感的では無いですが以下のように書くことが出来ます。</p>
+
+<div class="highlight">
+  <pre>grasp -s <span class="s1">&#39;var-dec[init=member[obj=#Object][prop=(#defineProperty)]]&#39;</span> test.js
+</pre>
+</div>
+
+<!--<br />
+grasp -s 'var-dec[init=member[obj=#Object][prop=(#defineProperty)]]' test.js<br />
+-->
+
+<hr>
+
+<p>今回はES5サポートというキーワードを元に安全で効率も良いgetter/setterを使ってると推測して検索しましたが、<br>
+キーワードが絞れない場合は実際にステップ実行を見ていったほうが楽だと思います。<br>
+古いIEをサポートしてるなら他の方法が幾つかありそうでキーワードから考えるのは中々難しい。</p>
+
+<p>例えば、<a href="http://www.ractivejs.org/" title="Ractive.js">Ractive.js</a>のように<a href="https://github.com/RactiveJS/Ractive/wiki/Array-modification#performance-and-ui-benefits" title="Array modification · RactiveJS/Ractive Wiki">Array modification · RactiveJS/Ractive Wiki</a>ハックを使ったり、AngularJSは<a href="http://projects.mariusgundersen.net/JSconf2013/#/angular-dirty" title="Dirty checking">Dirty checking</a>というやり方をしている等やり方的に幾つかでてくると思うので、<br>
+ステップ実行やドキュメントから探したりした方が効率が良さそうです。</p>
+
+<h3 id="その他">その他</h3>
+
+<p>今回紹介した方法以外にも、最近のライブラリならある程度モジュールでファイルが別れてるはずなので、ファイル名をヒントに探すとか、<br>
+GithubやStackOverFlowで検索するとかやり口はいくらでもあります。</p>
+
+<p>今回ターゲットにした<a href="http://vuejs.org/" title="Vue.js">Vue.js</a>もCommonnJSで書かれていて、<a href="https://github.com/component/component" title="component">component</a>を使ってファイルをビルド出来るようにしてました。<br>
+(ビルド環境も面白くて、Gruntを使っている感じでしたが、内部でgulp pluginである<a href="https://github.com/yyx990803/gulp-component" title="gulp-component">gulp-component</a>を使ったりしてた)</p>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>この記事では、JavaScriptのライブラリの実装を見ていく2つの方法について書きました。</p>
+
+<ul>
+<li>  デバッガーを使ってステップ実行をして中身を見ていく方法</li>
+<li>  <a href="http://graspjs.com/" title="grasp">grasp</a>を使ってキーワードから探していく方法</li>
+</ul>
+
+<p>JavaScriptでは公開されてるライブラリも含め、普通のウェブサイトでもソースコードが見られてので、実際に動いてるソースが探せば見つけやすい世界です。</p>
+
+<p>Webkit/Chrome/Firefox(<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=762761">27〜</a>)のDevToolsではJavaScriptの整形表示機能もあったりします。</p>
+
+<p>ソースコードから学べることも多いので、興味があるものは色々読んでみるといいかもしれません。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-02-09-javascript%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E6%B0%97%E3%81%AB%E3%81%AA%E3%82%8B%E5%AE%9F%E8%A3%85%E3%82%92%E3%81%A9%E3%81%86%E3%82%84%E3%81%A3%E3%81%A6%E8%A6%8B%E3%81%A6%E3%81%84.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["CodeReading","javascript","library"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=CodeReading">CodeReading</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=library">library</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

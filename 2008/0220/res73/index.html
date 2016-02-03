@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ピタゴラスイッチを楽しめるPhunの起動させ方(色化け、エラー) | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="ソフトウェア,ニコニコ動画" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2008/0220/res73/">
+    <h1 class="post-title">ピタゴラスイッチを楽しめるPhunの起動させ方(色化け、エラー)</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2008年02月20日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2008/2008-02-20-phun%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%95%E3%81%9B%E3%82%8B%E8%89%B2%E5%8C%96%E3%81%91%E3%80%81%E3%82%A8%E3%83%A9%E3%83%BC.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>#3/22　いじり方の追記</p>
+
+<p><a href="http://www.nicovideo.jp/watch/sm2364169">ピタゴラスイッチが楽しめるソフト　Phun ‐ニコニコ動画(RC2)<br />
+</a><a href="http://www.youtube.com/watch?v=0H5g9VS0ENM">YouTube &#8211; Phun &#8211; 2D physics sandbox</a><a href="http://www.nicovideo.jp/watch/sm2364169"><br />
+</a></p>
+
+<p>すこし気になったので調べてみた。</p>
+
+<p>ダウンロードはこちらから<br />
+<a href="http://www.acc.umu.se/%7Eemilk/downloads.html" target="_blank">http://www.acc.umu.se/~emilk/downloads.html</a></p>
+
+<p>自分はインストールが面倒だったので、zipの方をダウンロードしました。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2008/02/phun_080212_0001.png" title="phun_080212_0001.png"><img src="http://efcl.info/wp-content/uploads/2008/02/phun_080212_0001.thumbnail.png" alt="phun_080212_0001.png" /></a></p>
+
+<p>このソフトはphunという物理エンジンを使い物体を設置したりして、エミュレートして遊ぶものです。<br />
+使い方は結構シンプルな感じなのでいじってるうちに操作は理解できる。(どう動くは予想しづらいw)</p>
+
+<p>どんな感じなのかは下のサイトの方がイメージしやすいかも。</p>
+
+<p><a href="http://masafumi.cocolog-nifty.com/masafumis_diary/2008/02/post_715f.html">新 masafumi&#8217;s Diary: ダウンロードしてみた</a></p>
+
+<p><hr /> エラーが出るとか言われていたので少し調べて箇条書き。</p>
+<h4> 色化けを起こす</h4>
+<p>&gt;これは自分の環境でも起きたのですが、やはりというかディレクトリに日本語が入ってるとだめみたいです。<br />
+つまりディレクトリに日本語(2バイト文字)がないディレクトリに移動してから起動しましょう。<br />
+アカウントが日本語だとCドライブ直下か、プログラムフォルダーにインストールすれば大丈夫かな。</p>
+<p>→なんかフォルダーが移動できない。<br />
+Console IMEがプログラムを終了しても居座り続けているのが原因です。<br />
+タスクマネージャでConsole IMEを終了させるか、それがよくわからに人は再起動すればいいかと。</p>
+<h4> 起動すると「問題が発生したため～」のエラーで終了する(起動しない)</h4>
+<p>&gt;自分の環境ではとりあえず起動したので詳しくはいえないですが、C++のランタイムがインストールされいなと起動できません。<br />
+最近のパソコンなら大抵入ってる気がしますが、もしはいっていない場合はインストーラーに同梱されている<br />
+vcredist_x86.exeを実行してインストールする。（zip版には入っていません。）<br />
+もしくはここからダウンロード→<a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=32bc1bee-a3f9-4c13-9c99-220b62a191ee&amp;DisplayLang=ja">Microsoft Visual C++ 2005 再頒布可能パッケージ (x86)</a></p>
+<p>&gt;もう一つ考えられる原因としては、ビデオカードが駄目な場合があります。<br />
+結構なメモリを消費して演算するソフトなので、古いパソコンだと駄目な可能性があります。<br />
+もし、起動できなかった場合には下記を試してみるといいかも。</p>
+<blockquote><p>まず、config.cfgというファイルがあったら削除（無かったら無視してOK）。次に、autoexec.cfgをWindowsのメモ帳(テキストエディター)で開く。</p>
+<p>最終行に</p>
+<p>//Resources.shaders = false;</p>
+<p>というのが書いてありますが、<strong>//</strong>を削除して下さい。それから起動し直すとプログラマブルシェーダ非対応でも起動できると思います。<br />
+これでも起動できない場合、ビデオカード交換が必要になります。<br />
+<a href="http://masafumi.cocolog-nifty.com/masafumis_diary/2008/02/post_715f.html">新 masafumi&#8217;s Diary: ダウンロードしてみた</a></p>
+</blockquote>
+<p>自分のパソコンはオンボードのくせに普通に起動できたのでしていませんが、上の事をやらないで起動できたパソコン場合には特にする必要はないです。</p>
+<p>&gt;あとreadmeによると、画面の解像度を32bitにしないと駄目だと書いてあるのでしていない人は、<br />
+デスクトップで右クリック→グラフィックプロパティから画面解像度を32bitに変更してください。</p>
+<p>どんなにやっても起動しない環境もあるので、 素直にあきらめることも肝心。<br />
+まだbeta版なのでこれから改善していくとこもあると思うので、待ってみるのもありです。</p>
+<blockquote></blockquote>
+<h5></h5>
+<p>参考サイト</p>
+<p><a href="http://masafumi.cocolog-nifty.com/masafumis_diary/" accesskey="1">新 masafumi&#8217;s Diary</a></p>
+<p><strong>いじり方</strong></p>
+<p>いじり方というよりはPhun関係のサイトとツールの紹介。</p>
+<ul>
+<li><a href="http://www.geocities.jp/int_real_float/svg2phun/">SVG2Phun</a></li>
+</ul>
+<p>これはかなり可能性が広まるツールで、SVG(Adobe IllustratorやInkscapeなどのパスデータ)形式の<br />
+画像をPhunで利用できるように相互変換するツールです。<br />
+衝突判定や最適化などができて、素材を作成(変換)するのに役に立ちます。</p>
+<p>制作者→<a href="http://www.nicovideo.jp/mylist/4517160">マイリスト うpリスト‐ニコニコ動画(SP1)</a></p>
+<ul>
+<li><a href="http://www.phun.jp/">+Phun.jp+ Phun日本語解説サイト | トップ</a></li>
+</ul>
+<p>いつの間にか日本語サイトができていましたので、起動できない方や操作方法を詳しく知りたい方はココを見ると便利。</p>
+<p>ニコニコ動画でPhunタグで検索すると実例が見られていいかも。</p>
+<p>機能紹介動画だけどめんどくさいのでこれをもってPhunの紹介とします</p>
+<p><a href="http://www.nicovideo.jp/tag/phun" target="_blank"><a href="http://www.nicovideo.jp/tag/phun">http://www.nicovideo.jp/tag/phun</a></a></p>
+<p><a href="http://www.nicovideo.jp/watch/sm2388837" target="_blank">2分しか無い人のためのPhun機能紹介‐ニコニコ動画(RC2)</a></p>
+<p><a href="http://www.nicovideo.jp/watch/sm2415277" target="_blank">Phunの機能紹介‐ニコニコ動画(RC2)</a></p></p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2008/2008-02-20-phun%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%95%E3%81%9B%E3%82%8B%E8%89%B2%E5%8C%96%E3%81%91%E3%80%81%E3%82%A8%E3%83%A9%E3%83%BC.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["ソフトウェア","ニコニコ動画"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=ソフトウェア">ソフトウェア</a></li>
+                
+                <li><a href="/tags/?q=ニコニコ動画">ニコニコ動画</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

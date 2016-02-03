@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        JavaScriptエディタとしてのTitanium Studio | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="IDE,javascript,Titanium,WebStorm,エディタ" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0622/res2907/">
+    <h1 class="post-title">JavaScriptエディタとしてのTitanium Studio</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年06月22日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-06-22-javascript%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E3%81%A8%E3%81%97%E3%81%A6%E3%81%AEtitanium-studio.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <ul>
+<li>  <a href="http://developer.appcelerator.com/blog/2011/06/titanium-studio%E3%81%A8titanium-mobile-1-7%E3%82%92%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F.html?lang=ja">Titanium StudioとTitanium Mobile 1.7をリリースしました « Appcelerator Developer Center</a> </li>
+<li>  <a href="http://www.infoq.com/jp/news/2011/06/Appcelerator-Titanium-Studio">InfoQ: Appcelerator の Titanium Studio がデビュー</a> </li>
+</ul>
+
+<p>ちょっと触っただけの雑感です。本質としてとらえてはいけません。<br>
+Titanium (Mobile|Desktop)については全く触れていないため、そういうものについては参考にはならないと思います。<br>
+というか、Titanium (Mobile|Desktop)向けのものを書かないのに、Titamium Studioを選ぶ理由はない気がするので、タイトルのような事が目的ならばベースが同じ<a href="http://www.aptana.com/">Aptana Studio 3</a>を使った方が良いでしょう。</p>
+
+<!--more-->
+
+<h3 id="インストール">インストール</h3>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image16.png"><img style="border-right-width: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb16.png" width="320" height="251" /></a></p>
+
+<p>インストール先がProgram Filesじゃない</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image17.png"><img style="background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb17.png" width="320" height="251" /></a></p>
+
+<p>起動すると、ログインアカウントを求めてくる</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image18.png"><img style="background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb18.png" width="320" height="224" /></a></p>
+
+<p>起動して最初に開く画面</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image19.png"><img style="background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb19.png" width="320" height="195" /></a></p>
+
+<p>Aptanaで昔無かった気がする折り返しがあった</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image20.png"><img style="background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb20.png" width="300" height="251" /></a></p>
+
+<p>プレビューできるのはAptanaと同じ。<br>
+デフォルトIEだったけど、ApatanaのようにFirefoxもできるのかな。</p>
+
+<ul>
+<li>  <a href="http://d.hatena.ne.jp/yuchi78/20100515/1273944479">Aptana Studio 2.0.3－Firefoxプレビュータブ &#8211; ゆちの備忘録</a> </li>
+</ul>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image21.png"><img style="background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb21.png" width="320" height="121" /></a></p>
+
+<p>適当なJavaScriptファイルでコードを書いてみるけど、補完候補が何か特殊な感じする。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image22.png"><img style="background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb22.png" width="320" height="158" /></a></p>
+
+<p>2,3番目のFunctionはどちらもスニペットになっていて、2番目のFunctionは以下のような関数定義を展開する。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/2011-06-22-ss10.png"><img style="background-image: none; border-right-width: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="2011-06-22-ss10" border="0" alt="2011-06-22-ss10" src="http://efcl.info/wp-content/uploads/2011/06/2011-06-22-ss10_thumb.png" width="320" height="65" /></a></p>
+
+<div id="codeSnippetWrapper">
+  <pre id="codeSnippet" class="csharpcode"><span class="kwrd">function</span> function_name (argument) {<br /><br />}</pre>
+  
+  <p>
+    </div> <p>
+      3番目のNew Functionもスニペットで、以下のような無名関数を展開する。<a href="http://efcl.info/wp-content/uploads/2011/06/image23.png"><img style="background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb23.png" width="320" height="67" /></a>
+    </p>
+    
+    <div>
+      <pre id="codeSnippet" class="csharpcode"><span class="kwrd">function</span> (args) {<br /><br />}</pre>
+    </div>
+    
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;div&gt;
+  何か、癖が強い感じのする補完になってる気がする。&lt;br /&gt; &lt;br /&gt;出現する補完候補は以前のAptanaと違ってちゃんと構造を読んで出しているみたいだ。 &lt;/p&gt; &lt;p&gt;
+    毎度おなじみの&lt;a href=&quot;http://d.hatena.ne.jp/teramako/20090205/p1&quot;&gt;Komodo Edit が面白い &amp;#8211; hogehoge @teramako&lt;/a&gt;から&lt;/div&gt; &lt;div&gt;
+      &lt;pre id=&quot;codeSnippet&quot; class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;var&lt;/span&gt; container = {&lt;br /&gt;  init: &lt;span class=&quot;kwrd&quot;&gt;function&lt;/span&gt;() {},&lt;br /&gt;};&lt;br /&gt;container.obj = (&lt;span class=&quot;kwrd&quot;&gt;function&lt;/span&gt;(){&lt;br /&gt;  &lt;span class=&quot;kwrd&quot;&gt;var&lt;/span&gt; privateProp = &lt;span class=&quot;kwrd&quot;&gt;null&lt;/span&gt;;&lt;br /&gt;  &lt;span class=&quot;kwrd&quot;&gt;var&lt;/span&gt; namager = {&lt;br /&gt;    publicMethod: &lt;span class=&quot;kwrd&quot;&gt;function&lt;/span&gt;(){ },&lt;br /&gt;  };&lt;br /&gt;  &lt;span class=&quot;kwrd&quot;&gt;return&lt;/span&gt; namager;&lt;br /&gt;})();&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+      という風に書いて、container.obj.の時は&lt;code&gt;publicMethodまでちゃんと補完ができるようになっている。&amp;lt;br /&gt;
+&amp;lt;br /&gt;コードを解析して構造(アウトライン)を出してるので、構造から見た補完候補が出てくるのが良い(WebStormとかと同じ感じ、どこまで解析できてるかは調べてない)&lt;/code&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+      &lt;code&gt;&amp;lt;font face=&quot;Arial&quot;&gt;&amp;lt;/font&gt;&lt;/code&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+      &lt;a href=&quot;http://efcl.info/wp-content/uploads/2011/06/image24.png&quot;&gt;&lt;img style=&quot;background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px&quot; title=&quot;image&quot; border=&quot;0&quot; alt=&quot;image&quot; src=&quot;http://efcl.info/wp-content/uploads/2011/06/image_thumb24.png&quot; width=&quot;320&quot; height=&quot;213&quot; /&gt;&lt;/a&gt; &lt;/p&gt; &lt;p&gt;
+        デフォルトだとdocument.queryselectorが出てこなかったり、何か欠けている感じがするけど、下記を見る感じWebStormやアマテラスのようにjsファイルで補完候補を定義できそうな気がする。(でも、References Viewとやらが見つからないのでやり方よく分からない…)&lt;/div&gt; &lt;ul&gt;
+          &lt;li&gt;
+            &lt;a href=&quot;http://akabeko.sakura.ne.jp/blog/2010/11/titanium-aptana-mobile/&quot;&gt;Titanium と Aptana でモバイル開発 | アカベコマイリ&lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;a href=&quot;http://akabeko.sakura.ne.jp/blog/2011/04/titanium-studio-1-0-preview/&quot;&gt;Titanium Studio 1.0 Preview 版を入れてみた | アカベコマイリ&lt;/a&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;
+          &lt;a href=&quot;http://efcl.info/wp-content/uploads/2011/06/image30.png&quot;&gt;&lt;img style=&quot;background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px&quot; title=&quot;image&quot; border=&quot;0&quot; alt=&quot;image&quot; src=&quot;http://efcl.info/wp-content/uploads/2011/06/image_thumb30.png&quot; width=&quot;240&quot; height=&quot;155&quot; /&gt;&lt;/a&gt;
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          入力するごとにJSLint,，HTML Tidy，W3C などを使ってエラー検出ができる。&lt;br /&gt; &lt;br /&gt;デフォルトだとJSLintは無効になってたけど。
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          噂のバージョン管理システム(gitでの表示)
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          &lt;a href=&quot;http://efcl.info/wp-content/uploads/2011/06/image25.png&quot;&gt;&lt;img style=&quot;background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px&quot; title=&quot;image&quot; border=&quot;0&quot; alt=&quot;image&quot; src=&quot;http://efcl.info/wp-content/uploads/2011/06/image_thumb25.png&quot; width=&quot;320&quot; height=&quot;233&quot; /&gt;&lt;/a&gt;
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          ブランチを簡単に作れたり切り替えできるのは結構よさげ。
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          &lt;a href=&quot;http://efcl.info/wp-content/uploads/2011/06/image26.png&quot;&gt;&lt;img style=&quot;background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px&quot; title=&quot;image&quot; border=&quot;0&quot; alt=&quot;image&quot; src=&quot;http://efcl.info/wp-content/uploads/2011/06/image_thumb26.png&quot; width=&quot;320&quot; height=&quot;196&quot; /&gt;&lt;/a&gt;
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          コミット画面もステージへの移動とかさせながらコミットメッセージを書けるようになってる
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          &lt;a href=&quot;http://efcl.info/wp-content/uploads/2011/06/image27.png&quot;&gt;&lt;img style=&quot;background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px&quot; title=&quot;image&quot; border=&quot;0&quot; alt=&quot;image&quot; src=&quot;http://efcl.info/wp-content/uploads/2011/06/image_thumb27.png&quot; width=&quot;320&quot; height=&quot;195&quot; /&gt;&lt;/a&gt;
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          履歴もIDE内で表示できてDiffを見たりできる。
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          &lt;a href=&quot;http://efcl.info/wp-content/uploads/2011/06/image28.png&quot;&gt;&lt;img style=&quot;background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px&quot; title=&quot;image&quot; border=&quot;0&quot; alt=&quot;image&quot; src=&quot;http://efcl.info/wp-content/uploads/2011/06/image_thumb28.png&quot; width=&quot;295&quot; height=&quot;251&quot; /&gt;&lt;/a&gt;
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          メニューからできることは基本的な事だけっぽい感じ。&lt;br /&gt; &lt;br /&gt;この辺もWebStormとかの方ができが良いかもしれないけど、ブランチの切り替えとコミットやpushができるので、書いていく環境としては悪くないかもしれない。(マージとかその辺のやり方がよく分からない)
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          &lt;a href=&quot;http://efcl.info/wp-content/uploads/2011/06/image29.png&quot;&gt;&lt;img style=&quot;background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px&quot; title=&quot;image&quot; border=&quot;0&quot; alt=&quot;image&quot; src=&quot;http://efcl.info/wp-content/uploads/2011/06/image_thumb29.png&quot; width=&quot;313&quot; height=&quot;251&quot; /&gt;&lt;/a&gt;
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          ただ、Terminal機能が内蔵されているので直接コンソールからgitコマンドを叩けるので結構良い感じかもしれない。
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          使いこなすにはちょっと手間がかかりそうだけど、ちょっと触った感じだとそこまで悪くはない。 推測した用に補完候補をいじったりできるなら、結構良い感じにJavaScript IDEとして使えるようになるんじゃないかと思う。&lt;br /&gt; &lt;br /&gt;Aptana 2では時間とともに腐っていってたけど(長いソースでダメとか、どんどん重くなるとか)、そういうのがないことを祈りましょう。
+        &lt;/p&gt;
+
+        &lt;p&gt;
+          まあ、普通にJavaScriptを書くのが目的なら&lt;a href=&quot;http://www.aptana.com/&quot;&gt;Aptana Studio 3&lt;/a&gt;を使いましょう。ベースは同じなので、Titanium (Mobile|Desktop)向けのものを書かないのに、Titamium Studioを選ぶ理由はない気がする。
+        &lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;a href=&quot;http://bowz.info/2941&quot;&gt;[ Titanium Studio ] インストール・設定してみた | Bowz::Notebook&lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;a href=&quot;http://d.hatena.ne.jp/donayama/20110405/titanium_studio_preview&quot;&gt;Titanium Studio 1.0 Previewが出ました！ &amp;#8211; JP::HSJ::Junknews::HatenaSide&lt;/a&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+</code></pre></div>
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-06-22-javascript%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E3%81%A8%E3%81%97%E3%81%A6%E3%81%AEtitanium-studio.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["IDE","javascript","Titanium","WebStorm","エディタ"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=IDE">IDE</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=Titanium">Titanium</a></li>
+                
+                <li><a href="/tags/?q=WebStorm">WebStorm</a></li>
+                
+                <li><a href="/tags/?q=エディタ">エディタ</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

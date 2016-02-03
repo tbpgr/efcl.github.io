@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Node.js,JavaScript,lint,tools,textlint" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/12/30/textlint/">
+    <h1 class="post-title">JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年12月30日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-12-30-textlint.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="azu/textlint"><a href="https://github.com/azu/textlint" title="azu/textlint">azu/textlint</a></h1>
+
+<p><img src="http://monosnap.com/image/9FeIQr95kXjGPWFjZFRq6ZFG16YscF.png" alt="lint result"></p>
+
+<p><a href="https://github.com/azu/textlint" title="azu/textlint">textlint</a> というテキスト(plain textとMarkdown)の校正をするためのコマンドラインツールを書きました。textlintはNode.jsで書かれていて、Node.jsモジュールとしての利用することもできます。</p>
+
+<p>一番の特徴は校正するルールをJavaScriptで書くことで拡張可能な作りになっています。</p>
+
+<blockquote>
+<p>The pluggable linting tool for text(plain text and markdown).</p>
+</blockquote>
+
+<p>逆にデフォルトではルールはサンプル扱いの<code>no-todo</code>というTODOが含まれてることを検知するルールしか今のところ入れていません。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint/blob/master/docs/create-rules.md#example-creating-no-todo-rules" title="Example: creating no-todo rules.">Example: creating no-todo rules.</a></li>
+</ul>
+
+<p>デフォルトでルールが用意されていて、それの設定を変更することでLintする場合はRedPenなどがお勧めです。</p>
+
+<ul>
+<li><a href="http://redpen.cc/" title="RedPen: a document checker">RedPen: a document checker</a></li>
+<li><a href="http://gihyo.jp/lifestyle/serial/01/redpen" title="RedPenを使って技術文書を手軽に校正しよう：連載｜gihyo.jp … 技術評論社">RedPenを使って技術文書を手軽に校正しよう：連載｜gihyo.jp … 技術評論社</a></li>
+</ul>
+
+<h2 id="使い方">使い方</h2>
+
+<p>たとえば、自分が書いた技術用語のチェックをするルール(WEB+DB PRESS表記ルールベース)を使いたい場合は以下のようにして利用できます。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">npm install textlint -g
+npm install spellcheck-tech-word-textlint-rule --save-dev
+</code></pre></div>
+<p>という感じでtextlint本体とルールはnpmでも公開してるので、npmでいれて以下のように<code>--rulesdir</code>というオプションでルールファイルがあるディレクトリを指定すれば、そのルールファイルが読み込んで実行できます。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">textlint --rulesdir ./node_modules/spellcheck-tech-word-textlint-rule file.md
+</code></pre></div>
+<p><img src="http://efcl.info/wp-content/uploads/2014/12/30-1419923294.jpg" alt="rule指定での実行例"></p>
+
+<p><code>textlint --rulesdir A/ --rulesdir B/</code> という複数のディレクトリも指定可能です。</p>
+
+<p>細かいコマンドラインオプションは<code>-h</code>で確認出来ます。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>textlint -h
+textlint <span class="o">[</span>options<span class="o">]</span> file.md <span class="o">[</span>file.txt<span class="o">]</span> <span class="o">[</span>dir<span class="o">]</span>
+
+Options:
+  -h, --help                 Show help.
+  --rulesdir <span class="o">[</span>path::String<span class="o">]</span>  Set rules from this directory and <span class="nb">set </span>all default rules to off.
+  -f, --format String        Use a specific output format. - default: stylish
+  -v, --version              Outputs the version number.
+  --ext <span class="o">[</span>String<span class="o">]</span>             Specify text file extensions.
+  --no-color                 Enable color in piped output.
+  -o, --output-file path::String  Enable report to be written to a file.
+  --quiet                    Report errors only. - default: <span class="nb">false</span>
+  --stdin                    Lint code provided on &lt;STDIN&gt;. - default: <span class="nb">false</span>
+</code></pre></div>
+<h3 id="formatters">formatters</h3>
+
+<p>Lintした結果の出力方法はいろいろ用意してあって &quot;stylish&quot; (デフォルト), &quot;compact&quot;, &quot;checkstyle&quot;, &quot;jslint-xml&quot;, &quot;junit&quot;, &quot;tap&quot;, &quot;pretty-error&quot;が利用できます。(スクリーンショットとかは&quot;pretty-error&quot;ですが、 East Asian Widthの問題でまだイマイチ不安定…)</p>
+
+<p><code>-o</code> と合わせれば、ファイルとして出力できます。(<code>checkstyle</code>とかはWebStormがESLint連携で使ったりしてるっぽいです)</p>
+
+<p>これは<a href="http://eslint.org/" title="ESLint">ESLint</a>と互換性のあるformattersの実装になっているため、<a href="http://eslint.org/" title="ESLint">ESLint</a>で使われてるformattersをそのまま利用しました。</p>
+
+<p>また、pluggable linting toolでわかるかもしれませんが <a href="https://github.com/azu/textlint" title="azu/textlint">textlint</a> 自体が全体的にESLintを真似て作ってあります。(オプションとか一部意味が変わったり省いていますが)</p>
+
+<h2 id="ルールの作り方">ルールの作り方</h2>
+
+<p><a href="https://github.com/azu/textlint" title="azu/textlint">textlint</a> の最大の特徴であるルールをJavaScriptで書ける点についてです。</p>
+
+<p>正直、正確な校正ツールを求めるならば、自然言語をちゃんと解釈してMarkdownもサポートしてる<a href="http://redpen.cc/" title="RedPen: a document checker">RedPen</a>とかを利用したほうが質がいいと思います。
+textlintはあくまでも自分でルール作りが手軽に出来るようにするのが目的です。</p>
+
+<p>ルールの書き方も<a href="http://eslint.org/" title="ESLint">ESLint</a>と同じなので、ESLintのドキュメントも見てもらうといいかもしれません。</p>
+
+<ul>
+<li><a href="http://eslint.org/docs/developer-guide/working-with-rules.html" title="Working with Rules">ESLint - Working with Rules</a></li>
+<li><a href="https://www.paypal-engineering.com/2014/12/12/maintaining-javascript-code-quality-with-eslint/" title="Maintaining JavaScript Code Quality with ESLint | PayPal Engineering Blog">Maintaining JavaScript Code Quality with ESLint | PayPal Engineering Blog</a></li>
+<li><a href="http://ameblo.jp/principia-ca/entry-11837554210.html" title="コードのバグはコードで見つけよう！｜サイバーエージェント 公式エンジニアブログ">コードのバグはコードで見つけよう！｜サイバーエージェント 公式エンジニアブログ</a></li>
+</ul>
+
+<div class="kwout" style="text-align: center;"><img src="http://kwout.com/cutout/6/i2/yv/7gy_bor.jpg" alt="http://ameblo.jp/principia-ca/entry-11837554210.html" title="コードのバグはコードで見つけよう！｜サイバーエージェント 公式エンジニアブログ" width="600" height="464" style="border: none;" usemap="#map_6i2yv7gy" /><map id="map_6i2yv7gy" name="map_6i2yv7gy"><area coords="18,252,452,267" href="http://ameblo.jp/principia-ca/image-11837554210-12924937434.html" alt="" shape="rect" /><area coords="88,344,139,359" href="https://github.com/ariya/esprima" alt="" shape="rect" /><area coords="364,344,431,359" href="https://github.com/Constellation/estraverse" alt="" shape="rect" /></map><p style="margin-top: 10px; text-align: center;"><a href="http://ameblo.jp/principia-ca/entry-11837554210.html">コードのバグはコードで見つけよう！｜サイバーエージェント 公式エンジニアブログ</a> via <a href="http://kwout.com/quote/6i2yv7gy">kwout</a></p></div>
+
+<p>ESLintはJavaScriptをASTにしてLintをしますが、textlintはテキストやMarkdownをASTにしてLintをします。</p>
+
+<p>MarkdownのASTは<a href="https://github.com/jgm/CommonMark" title="CommonMark">CommonMark</a>を元にして正規化したものを、plain textのASTはそれっぽくパースして、両方共<a href="https://github.com/azu/textlint/blob/master/docs/txtnode.md" title="TxtNode interface">TxtNode interface</a>というものに則った形になります。(<code>type</code>の種類に差がありますが、文字列や改行などは共通しています)</p>
+
+<p>MarkdownのASTは安定したものはまだないので、<a href="https://github.com/wooorm/mdast" title="wooorm/mdast">wooorm/mdast</a>というプロジェクトが<a href="https://github.com/wooorm/mdast/issues/2" title="range/location">range/location</a>をサポートしてくれたらこっちに移行するかもしれません。
+ただし、その場合もできるだけルールの互換性はとるようにするつもりです。</p>
+
+<p>ルールの作成方法に話を戻すと、基本的な作り方については<a href="https://github.com/azu/textlint/blob/master/docs/create-rules.md" title="create-rules.md">create-rules.md</a>にかいてあります。</p>
+
+<h3 id="ルールの実装について">ルールの実装について</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/textlint/blob/master/docs/create-rules.md" title="create-rules.md">create-rules.md</a> に同様のことが書いてあります</p>
+</blockquote>
+
+<p>ルールとなるJavaScriptはひとつの関数を<code>exports</code>します。</p>
+
+<p>その関数にはutilsなど入った<code>RuleContext</code>というもとが渡されます。
+この<code>RuleContext</code>には、Nodeから元ファイルのテキストを取得する<code>context.getSource</code>などがあります。
+またNode自体は<a href="https://github.com/azu/textlint/blob/master/docs/txtnode.md" title="TxtNode interface">TxtNode interface</a>に沿った<code>type</code>や<code>loc</code>などの情報が入っています。
+(<del>まだparentなどが未完です</del> =&gt; 実装 <a href="http://efcl.info/2015/01/07/textlint1.4/" title="textlint 1.4 パーサの安定化、ルールの自由度の改善をして現実的に使えるLintツールへ | Web Scratch">textlint 1.4 パーサの安定化、ルールの自由度の改善をして現実的に使えるLintツールへ | Web Scratch</a>)</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="cm">/**</span>
+<span class="cm"> * @param {RuleContext} context</span>
+<span class="cm"> */</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">exports</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="c1">// root object</span>
+    <span class="nx">exports</span><span class="p">[</span><span class="nx">context</span><span class="p">.</span><span class="nx">Syntax</span><span class="p">.</span><span class="nx">Document</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">};</span>
+    <span class="nx">exports</span><span class="p">[</span><span class="nx">context</span><span class="p">.</span><span class="nx">Syntax</span><span class="p">.</span><span class="nx">Paragraph</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">};</span>
+    <span class="c1">// 文字列のNodeごとにこの関数がよばれる</span>
+    <span class="nx">exports</span><span class="p">[</span><span class="nx">context</span><span class="p">.</span><span class="nx">Syntax</span><span class="p">.</span><span class="nx">Str</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// そのNodeの文字列(内容)をみてよくないと思ったら`context.report`で報告する</span>
+        <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">getSource</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="sr">/found wrong use-case/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">text</span><span class="p">)){</span>
+            <span class="c1">// report error</span>
+            <span class="nx">context</span><span class="p">.</span><span class="nx">report</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="k">new</span> <span class="nx">context</span><span class="p">.</span><span class="nx">RuleError</span><span class="p">(</span><span class="s2">&quot;found wrong&quot;</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="nx">exports</span><span class="p">[</span><span class="nx">context</span><span class="p">.</span><span class="nx">Syntax</span><span class="p">.</span><span class="nx">Break</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="nx">exports</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>たとえば、<code>no-todo</code>というルールを作りたいときは<code>no-todo.js</code>というファイル名で以下のようにルールを書きます。(ファイル名 == ルールIDなので揃える)</p>
+
+<p>このルールは<code>- [ ]</code>や<code>todo:</code>のような文字列を見つけたらエラーにするということを目的にします。</p>
+
+<p><code>context.Syntax.Str</code> というのは普通の文字列がやってくるので(パラグラフやリストの中、ラベルなどのタイミング)、それを正規表現で<code>/todo:/i.test(text)</code>という感じでチェックするだけですね。</p>
+
+<p>また、Markdownは<code>- item</code>や<code>* item</code>といったリスト記法があるので、それらのリストアイテムが来た時に呼びたいチェック関数は<code>context.Syntax.ListItem</code>に定義しておけば問題ありません。</p>
+
+<p>Nodeにどのようなtypeがあるかは<a href="https://github.com/azu/textlint/blob/master/lib/parse/union-syntax.js" title="union-syntax.js">union-syntax.js</a>を参照して下さい。</p>
+
+<p>ただし、plain textには<code>ListItem</code>というタイプはないので、その場合は呼ばれることはありません。
+ファイル種類ごとにどのようなtypeがあるかは以下に書かれています。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint/blob/master/docs/txtnode.md#type" title="textlint/txtnode.md at master · azu/textlint">textlint/txtnode.md at master · azu/textlint</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s2">&quot;use strict&quot;</span>
+<span class="cm">/**</span>
+<span class="cm"> * @param {RuleContext} context</span>
+<span class="cm"> */</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">exports</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="c1">// When `node`&#39;s type is `Str` come, call this callback.</span>
+    <span class="cm">/*</span>
+<span class="cm">    e.g.)</span>
+<span class="cm">        # Header</span>
+
+<span class="cm">        this is Str.</span>
+
+<span class="cm">        Todo: quick fix this.</span>
+<span class="cm">    */</span>
+    <span class="c1">// `Str` is &quot;this is Str.&quot; and &quot;Todo: quick fix this.&quot;, so called this callback twice.</span>
+    <span class="nx">exports</span><span class="p">[</span><span class="nx">context</span><span class="p">.</span><span class="nx">Syntax</span><span class="p">.</span><span class="nx">Str</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// get text from node</span>
+        <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">getSource</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+        <span class="c1">// does text contain &quot;todo:&quot;?</span>
+        <span class="k">if</span> <span class="p">(</span><span class="sr">/todo:/i</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">text</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">context</span><span class="p">.</span><span class="nx">report</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="k">new</span> <span class="nx">context</span><span class="p">.</span><span class="nx">RuleError</span><span class="p">(</span><span class="s2">&quot;found Todo: &quot;</span> <span class="o">+</span> <span class="nx">text</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="c1">// When `node`&#39;s type is `ListItem` come, call this callback.</span>
+    <span class="cm">/*</span>
+<span class="cm">    e.g.)</span>
+<span class="cm">        # Header</span>
+
+<span class="cm">        - list 1</span>
+<span class="cm">        - [ ] todo</span>
+<span class="cm">    */</span>
+    <span class="c1">// `List` is &quot;- list 1&quot; and - [ ] todo&quot;, so called this callback twice.</span>
+    <span class="nx">exports</span><span class="p">[</span><span class="nx">context</span><span class="p">.</span><span class="nx">Syntax</span><span class="p">.</span><span class="nx">ListItem</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">getSource</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="sr">/\[\s*?\]\s/i</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">text</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">context</span><span class="p">.</span><span class="nx">report</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="k">new</span> <span class="nx">context</span><span class="p">.</span><span class="nx">RuleError</span><span class="p">(</span><span class="s2">&quot;found Todo: &quot;</span> <span class="o">+</span> <span class="nx">text</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="nx">exports</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>こうして作ったルールをnpmやGitHubなどに公開して、先ほど紹介した<code>--rulesdir</code>などで指定すればすぐに利用できます。</p>
+
+<p>公開するときに<code>textlint</code>というキーワードをつけておけば発見しやすいのでつけておくといいかもしれません。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint/blob/master/docs/create-rules.md#publish-info" title="Publish info">Publish info</a></li>
+</ul>
+
+<p>実際に作った技術用語のLint(このルールは<a href="http://efcl.info/2014/10/20/lint-tech-word/" title="WEB+DB PRESS用語統一ルール等を使った技術用語のLintをするCodeMirrorアドオンを書いた | Web Scratch">WEB+DB PRESS用語統一ルール等を使った技術用語のLintをするCodeMirrorアドオンを書いた | Web Scratch</a>と同じやつです)</p>
+
+<ul>
+<li><a href="https://github.com/azu/spellcheck-tech-word-textlint-rule" title="azu/spellcheck-tech-word-textlint-rule">azu/spellcheck-tech-word-textlint-rule</a></li>
+</ul>
+
+<h2 id="textlintのモチベーション">textlintのモチベーション</h2>
+
+<p><a href="https://github.com/azu/spellcheck-tech-word-textlint-rule" title="spellcheck-tech-word">spellcheck-tech-word</a>のようなルールでチェックするためのコマンドラインツールとNode.jsモジュールがなかったので作ったというのが始まりですが、
+実際にMarkdownなどのテキストやJSONの中にあるテキストをLintするためには、それ専用のものを書く必要があって不毛な感じがしました。(ルール自体に汎用性がない)</p>
+
+<p>なので、<a href="https://github.com/azu/textlint" title="azu/textlint">textlint</a>が特定のフォーマットをパースしたり面倒なところをやって、ルールはどのフォーマットが来るかをあまり気にしないで書けるようにするのが目的です。</p>
+
+<p>書いたあとに気づきましたが、<a href="http://scg.unibe.ch/research/textlint" title="SCG: TextLint">SCG: TextLint</a>というプロジェクトがやってることがとても似ていると思います。(名前も同じだった…)</p>
+
+<p><img src="http://monosnap.com/image/Gr9CGbkSjl1FXEL0LIWzNDAj3c24JT.png" alt="concept"></p>
+
+<p>via <a href="http://www.slideshare.net/renggli/text-lint" title="Natural Language Checking with Program Checking Tools">Natural Language Checking with Program Checking Tools</a></p>
+
+<p>まだ正確なルールを書くにはちょっと必要なプロパティがたりてないですが、正規表現でざっとエラーチェックするみたいなことがだいぶ簡単に書けるようになってると思います。</p>
+
+<p>Contributingも歓迎しています！</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint" title="azu/textlint">azu/textlint</a></li>
+</ul>
+
+<p>追記: <a href="http://efcl.info/2015/01/07/textlint1.4/" title="textlint 1.4 パーサの安定化、ルールの自由度の改善をして現実的に使えるLintツールへ | Web Scratch">textlint 1.4 パーサの安定化、ルールの自由度の改善をして現実的に使えるLintツールへ | Web Scratch</a></p>
+
+<hr>
+
+<p>基本的な思想やコードの一部を<a href="http://eslint.org/" title="ESLint">ESLint</a>プロジェクトのMITライセンスのものを利用しています。ESLintに感謝を</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-12-30-textlint.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Node.js","JavaScript","lint","tools","textlint"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=lint">lint</a></li>
+                
+                <li><a href="/tags/?q=tools">tools</a></li>
+                
+                <li><a href="/tags/?q=textlint">textlint</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

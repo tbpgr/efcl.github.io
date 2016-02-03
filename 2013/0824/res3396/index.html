@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        TypeScript初心者向け勉強会アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="TypeScript,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2013/0824/res3396/">
+    <h1 class="post-title">TypeScript初心者向け勉強会アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2013年08月24日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-08-24-typescript%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://atnd.org/events/42372" title="TypeScript初心者向け勉強会 : ATND">TypeScript初心者向け勉強会 : ATND</a> に参加してきたメモ</p>
+
+<h2 id="typescriptを使ったほうがいい場面、使わないほうがいい場面">TypeScriptを使ったほうがいい場面、使わないほうがいい場面</h2>
+
+<blockquote>
+<p><a href="http://kubosho.github.io/slides/tsbeginner/" title="TypeScriptを使う場面、使わない場面">TypeScriptを使う場面、使わない場面</a> </p>
+</blockquote>
+
+<p>型、クラス、モジュール、インターフェイス がある</p>
+
+<h3 id="型">型</h3>
+
+<ul>
+<li>  変数や引数などに型を指定できる</li>
+<li><p>なんでも示すany</p>
+
+<p>var name: string = &quot;hoge&quot;;</p>
+
+<p>// functionでも
+// 引数にstringを受けて -&gt; numberを返す
+function parseNumber(str: string) : number{
+}</p></li>
+</ul>
+
+<h3 id="クラス">クラス</h3>
+
+<ul>
+<li>  class syntax</li>
+</ul>
+
+<p>ES6のclass syntaxに型指定(ES6にはないので)を持ってくれば大体似たような感じになる</p>
+
+<h3 id="モジュール">モジュール</h3>
+
+<ul>
+<li>  .NETの名前空間に相当するもの</li>
+<li>  モジュール内のクラスや関数を <code>export</code> の有無で外部に公開するかを指定できる</li>
+</ul>
+
+<h3 id="インターフェイス">インターフェイス</h3>
+
+<ul>
+<li><p>クラスやオブジェクトにどういう実装を持つかを指定する(抽象)</p>
+
+<p>interface IPerson{
+    name: string;
+    birthday: Date;
+    hello: ()=&gt;void;
+}</p></li>
+</ul>
+
+<h3 id="型、クラス、モジュール、インターフェイスがあるメリット">型、クラス、モジュール、インターフェイスがあるメリット</h3>
+
+<ul>
+<li>  型があることでどんな値が入る事を想定できる</li>
+<li>  プログラムの設計がしやすい</li>
+<li>  =&gt; テストやデバッグがしやすくなる、再利用性がアップする</li>
+</ul>
+
+<h3 id="typescriptを使わない場合">TypeScriptを使わない場合</h3>
+
+<ul>
+<li>  モックのような本番じゃなくてとりあえず作る感じのもの</li>
+<li>  コードの行数が200行までに収まるようなライブラリ</li>
+</ul>
+
+<hr>
+
+<h2 id="いつtypescriptを始めるのか-&#8211;-kyo_ago">いつTypeScriptを始めるのか &#8211; kyo_ago</h2>
+
+<blockquote>
+<p><a href="http://0-9.sakura.ne.jp/pub/tsbeginner/start.html" title="いつTypeScriptを始めるのか">いつTypeScriptを始めるのか</a> </p>
+</blockquote>
+
+<ul>
+<li>  まだ結構変更がある</li>
+<li>  コマンドライン引数がなくなったり/増えたり</li>
+<li>  安定性が低いstableが出てくる(0.9.0)</li>
+<li>  更新頻度が結構高い</li>
+<li>  わりと重い</li>
+</ul>
+
+<p>今じゃない</p>
+
+<ul>
+<li>  ES6 simとしては中途半端</li>
+</ul>
+
+<p>「まだつかわないほうがいいのか?」</p>
+
+<p>条件次第</p>
+
+<h4 id="静的言語がベースの人">静的言語がベースの人</h4>
+
+<ul>
+<li>  静的言語の概念がそのまま使える 
+
+<ul>
+<li>  静的言語の概念がないと辛い</li>
+<li>  静的言語の概念が結構はいってるのでその辺の事前情報が必要</li>
+</ul></li>
+<li>  エディタのサポートが得られる 
+
+<ul>
+<li>  エディタのサポートがないとりっちなLintになってhしまう</li>
+</ul></li>
+<li>  既存言語の近い設計が自然にできる 
+
+<ul>
+<li>  JSっぽい設計は特殊</li>
+</ul></li>
+</ul>
+
+<h4 id="複数人での開発">複数人での開発</h4>
+
+<ul>
+<li>  ドキュメント書くよりは楽</li>
+<li>  コード間の整合性がとれているのか確認しやすい</li>
+<li>  メリットわかりやすいので型を書くモチベーションになる</li>
+</ul>
+
+<h4 id="大きなフレームワーク上での開発">大きなフレームワーク上での開発</h4>
+
+<ul>
+<li>  型情報もドキュメントなので、リファレンスを参照する回数が減る</li>
+<li>  静的言語の概念の上に構築されていれば理解しやすくなる</li>
+<li>  JavaScriptのフレームワークは独自概念が多いので、静的言語の上に作られたものなら共通概念に揃いやすい</li>
+</ul>
+
+<h4 id="長くメンテする可能性が高いコード">長くメンテする可能性が高いコード</h4>
+
+<ul>
+<li>  既存部分を変更しても全体の整合性が保たれる</li>
+<li>  IDEのリファクタリングサポートを得やすい</li>
+</ul>
+
+<h4 id="今後の位置づけの予想">今後の位置づけの予想</h4>
+
+<ul>
+<li>  これまでJavaScriptを書いてきた人に刺さる感じはあまりない</li>
+<li>  多言語からの呼び水としては非常にありそう</li>
+<li>  独自の言語圏になりそうな気がする</li>
+<li>  型情報を外してES6 simとしてだけ使うオプションも出るじゃないかな。</li>
+</ul>
+
+<hr>
+
+<h2 id="typescriptを使ってみたり-&#8211;-mayuki">TypeScriptを使ってみたり &#8211; mayuki</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/mayuki/typescriptwoshi-tutemitari" title="TypeScriptを使ってみたり // Speaker Deck">TypeScriptを使ってみたり // Speaker Deck</a> </p>
+</blockquote>
+
+<h3 id="typescriptの好きなとこ">TypeScriptの好きなとこ</h3>
+
+<ul>
+<li>  型があるので、IDEでの補完がしやすい</li>
+<li>  コンパイルすること</li>
+<li>  出力されるコードが読めるコードが出てくる</li>
+<li>  C# 使いがなじみやすい</li>
+<li>  ゆるやかな型、かたい型も使える</li>
+<li>  割りと日本語の記事も増えてる</li>
+<li>  煩わしいことから解放される</li>
+</ul>
+
+<h3 id="typescriptの開発環境">TypeScriptの開発環境</h3>
+
+<p>コンパイラ</p>
+
+<ul>
+<li>  Visual Studio 2012プラグイン</li>
+<li>  Node.js</li>
+</ul>
+
+<p>エディタ</p>
+
+<ul>
+<li>  Visual studio</li>
+<li>  IntelliJ IDEA / WebStorm</li>
+</ul>
+
+<p>Playground</p>
+
+<ul>
+<li>  オンライン上でコンパイルして動かせる</li>
+</ul>
+
+<h3 id="typescriptの楽な場面">TypeScriptの楽な場面</h3>
+
+<ul>
+<li>  IDEでの補完が協力に発動する</li>
+<li>  jQueryなどのライブラリも定義ファイルを利用できる</li>
+</ul>
+
+<h3 id="typescriptで困る場面">TypeScriptで困る場面</h3>
+
+<ul>
+<li>  jQueryを利用していて <code>$(this)</code> が動かないケース</li>
+<li><p>特定の型にキャストしたい</p>
+
+<p>(<any>nantokaObject).hauhau = 1;
+(<htmlcanvaselement>node).getContext(&#39;2d&#39;);</p></li>
+</ul>
+
+<h3 id="typescriptの事例">TypeScriptの事例</h3>
+
+<ul>
+<li>  とある教材的なWindowsアプリケーション</li>
+<li>  TypeScript0.8とKnockout.jsを採用 
+
+<ul>
+<li>  比較的読めるコードが出てくるので勢いで採用</li>
+</ul></li>
+</ul>
+
+<h4 id="利点">利点</h4>
+
+<ul>
+<li>  コンパイル時にエラーが気づけるとコード自体の記述量が減った</li>
+<li>  実装がみやすかった</li>
+</ul>
+
+<h4 id="欠点">欠点</h4>
+
+<ul>
+<li>  (この時は)ジェネリクスがなかったのでKnockoutが使いにくい</li>
+</ul>
+
+<h3 id="謎社のソーシャルゲーム">謎社のソーシャルゲーム</h3>
+
+<p>JavaScriptをTypeScriptに書き直した</p>
+
+<ul>
+<li>  基本皆C#erなのでVisual Studio使っている</li>
+<li>  JavaScriptよりC#になじみがあった</li>
+<li>  コードの見通しをあげるため</li>
+</ul>
+
+<h3 id="書き方の統一">書き方の統一</h3>
+
+<ul>
+<li>  module、class, =&gt; などあることによって書き方が統一される</li>
+<li>  そういう意味でも複数人で書くときに向いてる</li>
+</ul>
+
+<h4 id="よくなかったところ">よくなかったところ</h4>
+
+<ul>
+<li>  TypeScriptとJavaScriptの知識が両方必要になる</li>
+</ul>
+
+<hr>
+
+<h2 id="jser向けジェネリクス入門-&#8211;-kyo_ago">JSer向けジェネリクス入門 &#8211; kyo_ago</h2>
+
+<blockquote>
+<p><a href="http://0-9.sakura.ne.jp/pub/tsbeginner/generics.html" title="JSer向けジェネリクス入門">JSer向けジェネリクス入門</a> </p>
+</blockquote>
+
+<h3 id="ジェネリクスとは">ジェネリクスとは</h3>
+
+<p>型パラメータ</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">class Hoge &lt; この部分に書く&gt; {
+}
+</code></pre></div>
+<ul>
+<li>  型を外部から渡せるようにしたもの</li>
+<li>  動的言語には無縁</li>
+<li>  とりあえず無視してもOK</li>
+<li>  ちゃんと設計するなら必要</li>
+</ul>
+
+<p>なぜ分かりにくい</p>
+
+<ul>
+<li>  「TypeScript ジェネリクス」で検索して静的言語圏では当然の知識</li>
+<li>  型の恩恵を受けた後じゃないとわかりにくい</li>
+<li>  TypeScriptのサポートも最近</li>
+</ul>
+
+<p>どういう場合で使うのか</p>
+
+<ul>
+<li>  任意の型を受け取って返す場合</li>
+<li>  anyを使うと型情報が失われる</li>
+<li>  型変換は実行時エラーになってしまう</li>
+<li><ul>
+<li>  実行時エラーでいいなら型変換</li>
+</ul>
+
+<p>class Hoge <t> {
+        var value: T;
+        get (): T {
+            return this.value;
+        }
+        set (value: T){
+            this.value = value;
+        }
+}</p></li>
+<li><p><code>T</code> はなんでもいい、ただの変数名 </p></li>
+<li><p>Javaのジェネリクス解説を見る</p></li>
+</ul>
+
+<hr>
+
+<h2 id="typescriptで作成したツールについての解説と質疑応答">TypeScriptで作成したツールについての解説と質疑応答</h2>
+
+<blockquote>
+<p><a href="https://github.com/o2project/html5pawapo" title="o2project/html5pawapo">o2project/html5pawapo</a> </p>
+</blockquote>
+
+<ul>
+<li>  TypeScriptで書いたスライドライブラリの解説</t></htmlcanvaselement></any></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-08-24-typescript%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["TypeScript","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=TypeScript">TypeScript</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

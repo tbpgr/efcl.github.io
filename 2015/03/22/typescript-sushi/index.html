@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        #typescript_sushi でDecoratorsについて話してきた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,ECMAScript,TypeScript,FlowType" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/03/22/typescript-sushi/">
+    <h1 class="post-title">#typescript_sushi でDecoratorsについて話してきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年03月22日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-03-22-typescript-sushi.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="https://twitter.com/search?f=realtime&amp;q=%23typescript_sushi%20%20" title="#typescript_sushi">#typescript_sushi</a>に参加してきました。</p>
+
+<p>ログ: <a href="http://togetter.com/li/798364" title="#typescript_sushi - Togetterまとめ">#typescript_sushi - Togetterまとめ</a> </p>
+
+<ul>
+<li><a href="https://github.com/meta-sushi/guideline" title="meta-sushi/guideline">meta-sushi/guideline</a>に則ったイベントです。</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/typescript_sushi?src=hash">#typescript_sushi</a> <a href="http://t.co/vDgCTuoQWZ">pic.twitter.com/vDgCTuoQWZ</a></p>&mdash; 過激派 (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/579562291722465280">March 22, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+
+<h2 id="decorators進捗---azu"><a href="http://azu.github.io/slide/typescript-sushi/decorators.html" title="Decorators進捗">Decorators進捗</a> - azu</h2>
+
+<blockquote class="twitter-tweet" lang="en"><p>LTきた <a href="https://twitter.com/hashtag/typescript_sushi?src=hash">#typescript_sushi</a> <a href="http://t.co/GgwszUebUg">pic.twitter.com/GgwszUebUg</a></p>&mdash; armorik83 (@armorik83) <a href="https://twitter.com/armorik83/status/579567280423452673">March 22, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>TypeScript 1.5で実装予定、ECMAScript 7に提案される予定のそれぞれのDecoratorsについて発表してきました。</p>
+
+<p>行きの電車で書いたの資料なので、大分適当ですが基本的にはどちらも共通するところはあって、一種の糖衣構文的な扱いというところがありそうという話をしました。</p>
+
+<ul>
+<li>スライド: <a href="http://azu.github.io/slide/typescript-sushi/decorators.html" title="Decorators進捗">Decorators進捗</a></li>
+</ul>
+
+<p>また構文として<code>@</code>を使うのですが、それが<a href="https://github.com/zenparsing/es-private-fields" title="zenparsing/es-private-fields">zenparsing/es-private-fields</a>とかぶってる問題があって、それは今度のTC30 ミーティングで話されるという話などをしました。</p>
+
+<hr>
+
+<ul>
+<li>TypeScriptの内部モジュールの問題
+
+<ul>
+<li>出てきた当時は他がなかった</li>
+<li>現状、他のエコシステムと内部モジュールが相性よくない</li>
+<li>TypeScriptで完結するなら内部モジュールが良い</li>
+<li>今はES6 modulesなどを実装が進んでいる</li>
+<li>上手く移る道筋が欲しい</li>
+<li>このまま内部モジュールをずっと抱えるのはリスク</li>
+</ul></li>
+</ul>
+
+<h2 id="typescript-vs-flowtype---teppeis">TypeScript vs FlowType - teppeis</h2>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/typescript_sushi?src=hash">#typescript_sushi</a> tsとflowtypeの違い <a href="http://t.co/Yl94xKbdbI">pic.twitter.com/Yl94xKbdbI</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/579574073249787904">March 22, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>FlowTypeとTypeScriptの違い</li>
+<li><code>this</code>への型付けがFlowTypeだとできる</li>
+<li>TypeScriptとFlowTypeは型キャストの仕方が違う。 
+
+<ul>
+<li><code>&lt;type&gt;variable</code> と <code>(variable : type)</code></li>
+</ul></li>
+<li>互換性がある部分
+
+<ul>
+<li>d.ts、型の書き方、es6 modules</li>
+</ul></li>
+<li>d.tsは誰の資産なのかという話</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p>.d.tsは汎用的な規格になるのかTypeScript界のものなのか <a href="https://twitter.com/hashtag/typescript_sushi?src=hash">#typescript_sushi</a></p>&mdash; armorik83 (@armorik83) <a href="https://twitter.com/armorik83/status/579575850166685696">March 22, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>flowtypeはOcaml</li>
+<li>ビルドするのにも大変</li>
+</ul>
+
+<hr>
+
+<ul>
+<li>PhantomJSとE2Eテスト</li>
+<li>PhantomJSにハマりどころが多すぎるので安定するまで待つ派</li>
+<li>そもそもChrome+WebDriver APIで動かす派</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/typescript_sushi?src=hash">#typescript_sushi</a> 「PhantomJS2がちゃんとできるまで、E2Eテストしない」</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/579591165739061248">March 22, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>モジュールサイズの話
+
+<ul>
+<li><a href="http://qiita.com/mizchi/items/bf2da480b0a7f216ba78" title="npmにライブラリをアップロードするときに.npmignoreで生成物を公開/制限するパターン - Qiita">npmにライブラリをアップロードするときに.npmignoreで生成物を公開/制限するパターン - Qiita</a></li>
+<li><code>files</code> フィールドを使おう</li>
+</ul></li>
+<li>Atom-Shellアプリを配布する話
+
+<ul>
+<li>アプリ内では全部devDependencies</li>
+<li>配布するビルドにbrowserifyしたものを同梱する</li>
+</ul></li>
+</ul>
+
+<h3 id="async/await">async/await</h3>
+
+<ul>
+<li>async/await使いたいからBabelを使いたいという話
+
+<ul>
+<li><a href="http://qiita.com/mohayonao/items/435665065d997a4cc50c" title="JavaScript - ES7 の Async/Await を使ってみた - Qiita">JavaScript - ES7 の Async/Await を使ってみた - Qiita</a></li>
+<li>まだ仕様は安定ではない</li>
+<li><a href="https://github.com/jhusain/asyncgenerator">https://github.com/jhusain/asyncgenerator</a></li>
+<li><a href="https://github.com/voronianski/flux-comparison/tree/master/flummox" title="flux-comparison/flummox/">flux-comparison/flummox/</a>はこれを上手く使ったサンプル</li>
+</ul></li>
+<li>TypeScriptでも1.6で予定されてる
+
+<ul>
+<li>Babelはexperimentalフラグが必要</li>
+<li>TypeScriptは一度入れると仕様の追従が難しいからどうなのか?</li>
+<li>1.5でDecoratorsを入れるのはそういう意味で不安</li>
+</ul></li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/typescript_sushi?src=hash">#typescript_sushi</a> 1.6でasync/await  &quot;Roadmap · Microsoft/TypeScript Wiki&quot;  <a href="https://t.co/Zmc4iHQpDF">https://t.co/Zmc4iHQpDF</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/579594341280190464">March 22, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/typescript_sushi?src=hash">#typescript_sushi</a> Babelは実験的フラグなのでasyncの構文が変わったら追従して変わるけどTypeScriptはメジャーバージョンじゃないと後方互換性を変えれないので、変更できない。&#10;なのでTypeScriptにasync/awaitを1.xで入れるのは微妙</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/579595070657077248">March 22, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>ES6とTypeScriptの仕様</li>
+<li>TypeScriptはECMAScriptのsupersetを目指しているので、二重に同じ事を定義してないという話</li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/typescript_sushi?src=hash">#typescript_sushi</a> TypeScriptの仕様はES6の仕様に定義されてることは二重に定義してない。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/579595267403464704">March 22, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>TypeScriptの平和を守ってるテスト
+
+<ul>
+<li><a href="https://github.com/sheetalkamat" title="sheetalkamat">@sheetalkamat</a>が大量に書いている</li>
+</ul></li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/typescript_sushi?src=hash">#typescript_sushi</a> 噂の彼女のコミット  &quot;Commits · Microsoft/TypeScript&quot;  <a href="https://t.co/J23bzpHCMa">https://t.co/J23bzpHCMa</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/579598114119503872">March 22, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/typescript_sushi?src=hash">#typescript_sushi</a> package.jsonとかgulpfileを公開する文化が欲しい。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/579607674116972545">March 22, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>他の人のpackage.jsonとかをもっと見たい</li>
+<li>社内プロジェクトのGemfileを公開するみたいな感じのをnpmでもやったらどうか
+
+<ul>
+<li><a href="https://gist.github.com/kakutani/43b9f42197ab002fcdf8" title="Raw Gemfile on Idobata (master - 5adeddb)">Raw Gemfile on Idobata (master - 5adeddb)</a></li>
+</ul></li>
+<li>package.jsonやgulpfileを公開して記事にする</li>
+</ul>
+
+<hr>
+
+<ul>
+<li><a href="http://cowboy.github.io/state-of-grunt-fe-summit-2014-talk/#1" title="The State of Grunt">The State of Grunt</a>
+
+<ul>
+<li>GruntがgulpみたいなStreamサポートする話はどこいったのか</li>
+</ul></li>
+<li>GruntのAuthorのコミットが止まってる話
+
+<ul>
+<li><a href="https://github.com/gruntjs/grunt/commits/master" title="Commits · gruntjs/grunt">Commits · gruntjs/grunt</a></li>
+</ul></li>
+<li>gulpはstreamだから早いのではなくて、中間ファイルを吐かない(I/Oが最小限)ので早い。</li>
+<li><a href="https://github.com/wearefractal/vinyl-fs" title="wearefractal/vinyl-fs">wearefractal/vinyl-fs</a> というファイルの抽象レイヤーによる効力</li>
+</ul>
+
+<hr>
+
+<h2 id="その他">その他</h2>
+
+<blockquote class="twitter-tweet" lang="en"><p>「typescriptの利点は2年後でも同じ知識が流用できる点で、typescriptの欠点は2年後でも同じ知識で開発しなければならないこと」 <a href="https://twitter.com/hashtag/typescript_sushi?src=hash">#typescript_sushi</a></p>&mdash; 過激派 (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/579611182203457536">March 22, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>TypeScriptとエコシステム
+
+<ul>
+<li>AST、Node modules、内部モジュールの問題</li>
+</ul></li>
+<li>BabelとES6+
+
+<ul>
+<li>experimental、高速実装、sebmck氏</li>
+<li>Babelはsebmck氏が単一障害点になるかもしれないけど、超高速実装</li>
+</ul></li>
+<li>FlowType
+
+<ul>
+<li>Facebookユースケース、期待半分不安半分、Reactとの相乗</li>
+</ul></li>
+</ul>
+
+<p>のような話が中心でした。</p>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/typescript_sushi?src=hash">#typescript_sushi</a>  sebmckの正体 <a href="https://t.co/4XNPSICCEY">https://t.co/4XNPSICCEY</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/579571446483042304">March 22, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-03-22-typescript-sushi.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","ECMAScript","TypeScript","FlowType"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=ECMAScript">ECMAScript</a></li>
+                
+                <li><a href="/tags/?q=TypeScript">TypeScript</a></li>
+                
+                <li><a href="/tags/?q=FlowType">FlowType</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

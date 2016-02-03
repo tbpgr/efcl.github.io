@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Windowsでのコマンドライン環境はConsole2+nyaosで | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="console,Git,Windows,ソフトウェア,設定" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0501/res2717/">
+    <h1 class="post-title">Windowsでのコマンドライン環境はConsole2+nyaosで</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年05月01日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-05-01-windows%E3%81%A7%E3%81%AE%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E7%92%B0%E5%A2%83%E3%81%AFconsole2nyaos%E3%81%A7.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>この記事は主にConsole2の紹介とnyoasのLua拡張についての話です。</p>
+
+<p>Windowsのコマンドプロンプトはとても使いづらいので、コマンドプロンプト代替ツールとしてckwと拡張性が優れた<a href="http://www.nyaos.org/index.cgi?p=FrontPage.ja">NYAOS</a>(昔はnyacus)などのシェルを合わせて使ってる人もいると思います。<br>
+自分も少し前までは<a href="http://deflis.github.com/ckw-mod/">ckw-mod</a>+<a href="http://www.nyaos.org/index.cgi?p=FrontPage.ja">NYAOS</a>を使っていました。</p>
+
+<ul>
+<li>  <a href="http://narazaka.blog109.fc2.com/blog-entry-100.html">【DOS窓】NYAOS CKW+α【便利化】-奈良北部のなにか</a></li>
+</ul>
+
+<p>現在はタイトル通り<a href="http://sourceforge.net/projects/console/">Console2</a>+<a href="http://www.nyaos.org/index.cgi?p=FrontPage.ja">NYAOS</a>にしています。<br>
+ckwやConsole2はターミナルに該当するソフトウェアで、nyaosやgitbashなどはシェルに該当するソフトウェアです。</p>
+
+<ul>
+<li>  <a href="http://nyaos.org/d/index.cgi?p=%282010.11.04%29#p1">NYAOS はターミナルではない！シェル！</a></li>
+</ul>
+
+<p>Console2でnyaosを使うのは簡単で、Settings&gt;ConsoleのShell(またはタブ毎の設定)にnyoas.exeのパスを入れるだけで完了です。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/05/image.png"><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/05/image_thumb.png" border="0" alt="image" width="240" height="69" /></a></p>
+
+<h3 id="console2の機能紹介">Console2の機能紹介</h3>
+
+<h4 id="タブ">タブ</h4>
+
+<p>Console2の特徴しては<strong>タブ</strong>を持っていることがあげられると思います。<br>
+<a href="http://efcl.info/wp-content/uploads/2011/05/image1.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/05/image_thumb1.png" border="0" alt="image" width="240" height="196" /></a></p>
+
+<p>また、タブ毎に設定を行う事ができ、色や背景画像の設定やシェル(nyaosなど)に使うソフトウェアの指定をタブ毎に決定することができます。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/05/image2.png"><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/05/image_thumb2.png" border="0" alt="image" width="226" height="240" /></a></p>
+
+<h4 id="日本語表示">日本語表示</h4>
+
+<p>以前は日本語がダメだったようですが、現在ver2ではフォントを日本語のものにすれば、日本語の表示も問題なく行えます。(フォントによってはおかしくなるけど)</p>
+
+<ul>
+<li>  <a href="http://d.hatena.ne.jp/k_maru/20080412/1207985095">Console2 ! &#8211; k_maruの思うところ</a>(今はやらなくていい設定、Console2のフォントだけ設定すればOK)</li>
+<li>  <a href="http://d.hatena.ne.jp/owlcamp/20110305/1299319367">Console2とnayosの組み合わせが使いやすい &#8211; アウルキャンプ・ラボダイアリー</a> (設定方法)</li>
+</ul>
+
+<h4 id="ウィンドウの透過">ウィンドウの透過</h4>
+
+<p>ckwでよく紹介されてる機能としてウィンドウの透過機能があると思います。<br>
+Console2でもウィンドウの透過機能があります。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/05/image3.png"><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/05/image_thumb3.png" border="0" alt="image" width="240" height="150" /></a></p>
+
+<p>この透過機能はアクティブ、インアクティブの時それぞれの透明度を設定できるので、フォーカス外れているときだけ透過するなどもできます。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/05/image4.png"><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/05/image_thumb4.png" border="0" alt="image" width="240" height="182" /></a></p>
+
+<h4 id="マウスやホットキーの設定">マウスやホットキーの設定</h4>
+
+<p>Console2はホットキーだけではなくて、マウスの動作、左クリックや修飾キーとマウスの組み合わせなどの挙動も設定できるので、結構細かい動作を決められると思います。<br>
+WIndowsのデフォルトであるようなCtrl+Cでコピー、Ctrl+Vでペーストなどの設定もできるので便利です</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/05/image5.png"><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/05/image_thumb5.png" border="0" alt="image" width="235" height="240" /></a><a href="http://efcl.info/wp-content/uploads/2011/05/image6.png"><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/05/image_thumb6.png" border="0" alt="image" width="235" height="240" /></a></p>
+
+<p>これで簡単なConsole2の機能紹介は終わりです。設定はかなり豊富なので自分好みにできると思います。<br>
+まあタブがあるだけでもかなり魅力的なターミナルです。</p>
+
+<h3 id="nyoasの設定">nyoasの設定</h3>
+
+<p><a href="http://www.nyaos.org/index.cgi?p=FrontPage.ja">nyaos</a>はUNIXライクな日本語拡張コマンドラインシェルで、とても軽くて、作者さんは日本人(@<a href="http://twitter.com/zetamatta">zetamatta</a>)の方なので日本語の扱いも問題ありません。</p>
+
+<ul>
+<li>  <a href="http://childs.squares.net/program/nyaos/index.html">NYAOS を使おう！</a> (ちょっと内容古いけど)</li>
+</ul>
+
+<p>キーバインドやコマンドのエイリアスなどを設定して、入力履歴を残せるを保持できるようにするだけでも十分使い勝手がよくなります。</p>
+
+<ul>
+<li>  <a href="http://dangan-state.blogspot.com/2011/02/windowsnyaos_28.html">弾丸state: Windowsコマンドラインシェル「Nyaos」をもっと便利にする方法</a></li>
+</ul>
+
+<p>それに加えて、nyaos 3.xの特徴として<a href="http://www.lua.org/">Lua</a>言語でのカスタマイズ機能あります(シェルスクリプトが書ける)</p>
+
+<p>Lua拡張は_nyaのconfigファイルにもLua_eを使って書くこともできますが、拡張と設定は別ファイルに分けた方がいいと思います。(エスケープの問題とか面倒だし)</p>
+
+<p>自分の場合は<a href="https://gist.github.com/908117">_nya_git.lua</a>という感じで拡張毎のluaファイルを作成して、_nyaコンフィグファイルからsourceコマンドで読み込んで使っています。(拡張のテストするときもsourceで再度読み込めば適応されるのでデバッグしやすい)</p>
+
+<div>
+  <pre id="codeSnippet" class="csharpcode">source D:Softwarenyaos_nya_git.lua</pre>
+</div>
+
+<div>
+  <a href="https://gist.github.com/908117">_nya_git.lua</a>の内容は名前のようにgit関係のコマンドやgitコマンドの補完を作ったものを入れています。 <br />gitのサブモジュールの削除が一発でできるようにgit submodule rmというコマンドを勝手に足したり、<a href="http://d.hatena.ne.jp/wantora/20100612/1276302763">NYAOS 3000でいろんなコマンドのサブコマンドを補完する &#8211; メモ@wantora</a>にgitコマンドを追加したものなどが入っています。
+</div>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/05/image7.png"><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/05/image_thumb7.png" border="0" alt="image" width="240" height="149" /></a></p>
+
+<p>Lua自体はコンパクトな言語で、若干JavaScriptに似てる感じもあるので調べながらやればなんとか書けるものだと思います</p>
+
+<ul>
+<li>  <a href="http://www.mokehehe.com/assari/index.php?Lua">Lua &#8211; assari</a></li>
+<li>  <a href="http://handasse.blogspot.com/2010/02/lua.html">良いもの。悪いもの。: Lua基礎文法最速マスター</a>(最初これ見るといいかも)</li>
+<li>  <a href="http://efcl.info/adiary/096">WindowsでLuaの環境構築 &#8211; prog*sig</a></li>
+</ul>
+
+<p>nyaosのLua拡張の書き方は以下を参考にしました。</p>
+
+<ul>
+<li>  <strong>Readme.txt(</strong>nyaos_ja.txt)</li>
+<li>  <a href="http://nyaos.org/d/">MHI 3.1</a></li>
+<li>  <a href="http://d.hatena.ne.jp/wantora/searchdiary?word=%2A%5Bnyaos%5D">[nyaos] &#8211; メモ@wantora</a></li>
+</ul>
+
+<p>これで<a href="http://sourceforge.net/projects/console/">Console2</a>+<a href="http://www.nyaos.org/index.cgi?p=FrontPage.ja">NYAOS</a>の紹介は終わりです。</p>
+
+<p>Windowsのコマンドライン環境自体はこんな感じで比較的いい感じにできると思いますが、実行できるコマンドの方が貧弱なのでそっちでVMでLinuxを使うみたいな事もあるかもしれません…(まさに自分…<a href="http://efcl.info/2011/0420/res2588/">WindowsからVM上のLinuxをSSH経由で利用する開発環境の構築 | Web scratch</a>)</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-05-01-windows%E3%81%A7%E3%81%AE%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E7%92%B0%E5%A2%83%E3%81%AFconsole2nyaos%E3%81%A7.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["console","Git","Windows","ソフトウェア","設定"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=console">console</a></li>
+                
+                <li><a href="/tags/?q=Git">Git</a></li>
+                
+                <li><a href="/tags/?q=Windows">Windows</a></li>
+                
+                <li><a href="/tags/?q=ソフトウェア">ソフトウェア</a></li>
+                
+                <li><a href="/tags/?q=設定">設定</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

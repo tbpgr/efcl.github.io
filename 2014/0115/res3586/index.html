@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        第3回potatotipsでmogeneratorについて発表してきた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="CoreData,iOS,イベント,スライド" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0115/res3586/">
+    <h1 class="post-title">第3回potatotipsでmogeneratorについて発表してきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年01月15日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-01-15-%E7%AC%AC3%E5%9B%9Epotatotips%E3%81%A7mogenerator%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E7%99%BA%E8%A1%A8%E3%81%97%E3%81%A6%E3%81%8D%E3%81%9F.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="【第3回】potatotips">【第3回】potatotips</h1>
+
+<p><a href="http://connpass.com/event/4563/" title="【第3回】potatotips (iOS/Android開発Tips共有会) - connpass">【第3回】potatotips (iOS/Android開発Tips共有会) &#8211; connpass</a> で発表/参加してきたメモ。</p>
+
+<ul>
+<li>  <a href="https://github.com/potatotips/potatotips/wiki/Potatotips-3#%E7%99%BA%E8%A1%A8%E8%80%85%E4%B8%80%E8%A6%A7" title="Potatotips 3 · potatotips/potatotips Wiki">Potatotips 3 · potatotips/potatotips Wiki</a></li>
+</ul>
+
+<h2 id="自分が発表したスライド">自分が発表したスライド</h2>
+
+<div class="kwout" style="text-align: center;">
+  <a href="http://azu.github.io/slide/potatotips/mogenerator.html"><img src="http://kwout.com/cutout/c/ue/4k/nif.jpg" alt="http://azu.github.io/slide/potatotips/mogenerator.html" title="mogenerator - potate tips" width="600" height="335" style="border: none;" /></a> <p style="margin-top: 10px; text-align: center;">
+    <a href="http://azu.github.io/slide/potatotips/mogenerator.html">mogenerator &#8211; potate tips</a>
+  </p>
+</div>
+
+<p>CoreDataのモデルクラスを生成するmogeneratorについてのスライド</p>
+
+<hr>
+
+<h2 id="下位互換コード隠蔽のストイシズム">下位互換コード隠蔽のストイシズム</h2>
+
+<ul>
+<li>  バージョン判定をしないとiOS6/7の対応しにくい</li>
+<li>  Controllerに書くとごちゃつく。</li>
+<li>  カテゴリで分岐処理をしたメソッドを定義する 
+
+<ul>
+<li>  <code>iOS6_</code> とかできるのが微妙</li>
+</ul></li>
+<li>  ControllerのサブクラスでiOS6/7を分ける 
+
+<ul>
+<li>  必ず分岐処理をしたControllerを継承しないといけない</li>
+</ul></li>
+<li>  アプリ本体からはそういう分岐が見えないようにする。 
+
+<ul>
+<li>  カテゴリ + 動的拡張</li>
+<li>  method swizzle で互換の実装をiOS6でも動くように付ける</li>
+</ul></li>
+<li>  <code>class_addMethod()</code> は既存の実装がある場合は何もしない</li>
+<li>  <code>load()</code> でswizzleをかます</li>
+</ul>
+
+<hr>
+
+<h2 id="アプリの評価を良くするための工夫">アプリの評価を良くするための工夫</h2>
+
+<ul>
+<li>  いいレビュー</li>
+<li>  評価ダイアログ 
+
+<ul>
+<li>  <a href="https://github.com/arashpayan/appirater" title="arashpayan/appirater">arashpayan/appirater</a></li>
+<li>  表示条件を色々指定して出す</li>
+</ul></li>
+<li>  評価ダイアログが邪魔臭い</li>
+<li>  いいレビューとはなにか?</li>
+<li>  いいレビューは書かれないけど、悪いレビューは書きやすい 
+
+<ul>
+<li>  悪いレビューをへす。</li>
+<li>  長中期に悪いレビューを減らすには、バグ報告はバグ報告で分けて報告できるように誘導する</li>
+</ul></li>
+<li>  小手先のテクニックよりアプリの品質をあげよう</li>
+</ul>
+
+<hr>
+
+<h2 id="便利なsyntax">便利なSyntax</h2>
+
+<ul>
+<li>  CGRectの省略 
+
+<ul>
+<li>  構造体なので、構造体風に書ける</li>
+</ul></li>
+<li>  戻り値を返すを返すコードブロック 
+
+<ul>
+<li>  <a href="http://cocoa-dom.tumblr.com/post/56517731293/new-thing-i-do-in-code" title="cocoa-dom - New thing I do in code">cocoa-dom &#8211; New thing I do in code</a></li>
+</ul></li>
+<li>  Unicodeを使ってアイコンを表示する 
+
+<ul>
+<li>  コードポイントで絵文字を表示する</li>
+<li>  Macの文字ビューアから探す</li>
+</ul></li>
+<li>  三項演算子の2項目を省略する</li>
+</ul>
+
+<hr>
+
+<h2 id="アプリでもオブジェクト指向エクササイズ">アプリでもオブジェクト指向エクササイズ</h2>
+
+<ul>
+<li>  ThoughtWorksアンソロジー</li>
+<li>  かなりきびしいコーディング規約</li>
+</ul>
+
+<hr>
+
+<h2 id="provisioning-porfileファイルを活用してみる">Provisioning Porfileファイルを活用してみる</h2>
+
+<ul>
+<li>  アプリをビルド&amp;リリースル時に必須</li>
+<li>  Apple Devloper Center上でCetrificationから生成されるバイナリファイル</li>
+<li>  CMDで暗号化されたプロパティリスト(plist)</li>
+<li>  復号化するとエディタでも開ける</li>
+<li>  <code>security cms -D -i file</code> で復号化できる</p> </li>
+<li>  含まれてるデータを利用してビルドの自動化できる</li>
+</ul>
+
+<hr>
+
+<h2 id="fitting-解像度対応β">Fitting 解像度対応β</h2>
+
+<ul>
+<li>  Androidは解像度多種多様</li>
+<li>  DP という解像度がある 
+
+<ul>
+<li>  電話系はこれで合うがタブレットではおかしい</li>
+</ul></li>
+<li>  それを上手くやる仕組み突いて 
+
+<ul>
+<li>  createScaleBitmap を用いるスケール</li>
+</ul></li>
+<li>  正方形を元に考えてやる。(4:3とかの端末もある)</li>
+</ul>
+
+<hr>
+
+<h2 id="ios-7-なmessage-appの作り方">iOS 7 なMessage Appの作り方</h2>
+
+<ul>
+<li>  iOS7のメッセージアプリ</li>
+<li>  もにょもにょ動く 
+
+<ul>
+<li>  UICollectionView + UIDymicsで作れる</li>
+<li>  UICollectionViewFlowLayoutでやれる</li>
+</ul></li>
+<li>  吹き出しにグラデーションがついて 
+
+<ul>
+<li>  UICollectionViewLayoutAttributesのサブクラスを作る</li>
+<li>  UICollectionViewCellのサブkルアスを作る</li>
+<li>  UICollectionViewFlowLayoutのサブクラスで色をセットする 
+
+<ul>
+<li>  Cellのpositionに合わせた色を付ける</li>
+</ul></li>
+<li>  =&gt; グラデーションっぽいの</li>
+</ul></li>
+<li>  キーボードが下スワイプで隠す 
+
+<ul>
+<li>  iOS7からそれ用のAPIがついた</li>
+<li>  DAkeyboardControlを使うともっと柔軟性が効く</li>
+</ul></li>
+<li>  <a href="https://github.com/akira108/AIiOS7MessageSample" title="akira108/AIiOS7MessageSample">akira108/AIiOS7MessageSample</a> にまとめたサンプル</li>
+</ul>
+
+<hr>
+
+<h2 id="ちょっと優しい入力項目">ちょっと優しい入力項目</h2>
+
+<hr>
+
+<h2 id="やはりお前らのios7対応は間違っている">やはりお前らのiOS7対応は間違っている</h2>
+
+<ul>
+<li>  UINavigationBarにself.viewが潜り込む</li>
+<li><p><code>edgesForExtededLayout=UIRectEdgeNon</code> にする対応はよくない</p></li>
+<li><p>パターン別に対応方法のパターンがある</p>
+
+<ul>
+<li>  iOS7向けに配置してdeltaでiOS6をあわせる</li>
+</ul></li>
+<li><p>Interface Builderのオプション解説</p></li>
+<li><p>すりガラス表現が失われるじゃなくて、真っ黒の背景が写ってるだけ</p></li>
+<li><p>iOS7を対応してからiOS6に対応するような感じで考える</p></li>
+</ul>
+
+<p>ーーー</p>
+
+<h2 id="reflectionを使おう、というお話">Reflectionを使おう、というお話</h2>
+
+<ul>
+<li>  実行時にプログラム自身を読み取ったり書き換えたりする</li>
+<li>  JDK1.1 からある</li>
+</ul>
+
+<p>Reflectionを使う慰留</p>
+
+<ul>
+<li>  Android 1.6救済のために</li>
+</ul>
+
+<h3 id="デメリット">デメリット</h3>
+
+<ul>
+<li>  読みづらい</li>
+<li>  ビルド時に型チェックがはいらない</li>
+<li>  Android1.6をサポートあんまりもう意味ない</li>
+</ul>
+
+<h3 id="セキュリティのために潰された機能を使う">セキュリティのために潰された機能を使う</h3>
+
+<p>開発時に通信先を変更する</p>
+
+<ul>
+<li>  hostsを設定する</li>
+<li>  DNSを設定する</li>
+</ul>
+
+<p>Android 2.3までは普通にできたが、セキュリティ的な問題なのでAndroid3.0で潰れた</p>
+
+<ul>
+<li>  内部のstatic値を書き換えれば同じような事ができる</li>
+<li>  @hide で隠されててもつつける</li>
+<li>  セキュリティホールっぽい</li>
+</ul>
+
+<p>ーーー</p>
+
+<h2 id="secrets-of-launch-arguments-(ios)-//-speaker-deck"><a href="https://speakerdeck.com/kishikawakatsumi/secrets-of-launch-arguments-ios" title="Secrets of launch arguments (iOS) // Speaker Deck">Secrets of launch arguments (iOS) // Speaker Deck</a></h2>
+
+<ul>
+<li>  コマンドライン引数について</li>
+<li>  mainのargvに入るものを見ていく</li>
+<li>  <code>NSProcessInfo</code> の <code>arguments</code> で撮れる</li>
+</ul>
+
+<h3 id="引数とnsuserdefaults">引数とNSUserDefaults</h3>
+
+<ul>
+<li>  規則にしたがって書くとNSuserDefaultsにそれが入る</li>
+<li>  Booleanっぽいの値を渡したり、配列を渡せたりする</li>
+<li>  <code>-dictArg={}</code> plistの書き方をすれば何でも入る</li>
+<li>  XMLのplistを書けたりする</li>
+<li>  <code>-AppleLanguages (es)</code> はNSuserDefaultsにそれが書き込まれて言語が変わる</li>
+</ul>
+
+<hr>
+
+<h2 id="tddでアプリ開発。カバレッジ100%を目指せ！？">TDDでアプリ開発。カバレッジ100%を目指せ！？</h2>
+
+<ul>
+<li>  Androidアプリの開発のつらい</li>
+<li>  アーキテクチャの違い</li>
+<li>  テストを書こう!!</li>
+<li>  ローカルでテストしていいのは中学生まで</li>
+<li>  CloudBees を使ってやる(300ビルドまで無料で使える)</li>
+</ul>
+
+<hr>
+
+<h2 id="xctestコマンドを飼いならしてやったよ">xctestコマンドを飼いならしてやったよ</h2>
+
+<p><a href="https://github.com/tokorom/xctest-runner" title="tokorom/xctest-runner">tokorom/xctest-runner</a></p>
+
+<ul>
+<li>  <code>xctest</code> コマンド</li>
+<li>  Xcode5からXcodebuildがよくなった</li>
+<li>  CLIから特定のテスト実行する方法がない</li>
+<li>  <code>-XCtest</code> でやれそう =&gt; かなりむずかしい 
+
+<ul>
+<li>  NSProcessInfo で起動引数をみて探すとできなくない</li>
+</ul></li>
+</ul>
+
+<p>ーー</p>
+
+<h2 id="kotlinでandroidアプリ開発！(後編)">KotlinでAndroidアプリ開発！(後編)</h2>
+
+<h3 id="kotlin">Kotlin</h3>
+
+<ul>
+<li>  JetBrainsが作ってるJVM言語 
+
+<ul>
+<li>  GroovyやScalaから影響をうけてる静的言語</li>
+</ul></li>
+<li>  IntelliJで自然に支える</li>
+<li>  軽量で手軽</li>
+</ul>
+
+<h3 id="機能紹介">機能紹介</h3>
+
+<ul>
+<li>  拡張関数 
+
+<ul>
+<li>  カテゴリみたいな仕組み</li>
+</ul></li>
+<li>  RoboGuiceとかも普通にアノテーションを書いて使える</li>
+<li>  関数リテラル</li>
+</ul>
+
+<hr>
+
+<h2 id="死んだオブジェクトの生まれ故郷を探す">死んだオブジェクトの生まれ故郷を探す</h2>
+
+<p><code>EXC_BAT_ACCESS</code> について</p>
+
+<ul>
+<li>  クラッシュした時にどこでオブジェクトが解放されたかを調べる</li>
+<li>  MallocStackLogging のオプションでmalloc/freeのログが残る</li>
+<li>  Zombieを使うとInstrumentsでできる</li>
+</ul>
+
+<hr>
+
+<h2 id="gradleの共通ルーチンをテストする（後編）">Gradleの共通ルーチンをテストする（後編）</h2>
+
+<hr>
+
+<h2 id="javaのhttpインターフェース">JavaのHTTPインターフェース</h2>
+
+<h3 id="retrofit">Retrofit</h3>
+
+<ul>
+<li>  APIがキチンとRestfulならキレイに名書ける</li>
+<li>  キューイング等は隠蔽</li>
+<li>  かっこいいインターフェイス</li>
+</ul>
+
+<h3 id="voley">Voley</h3>
+
+<ul>
+<li>  Google製ネットワーク</li>
+<li>  リクエスト+キューの素朴な作り</li>
+<li>  画像のハンドリングも出来る 
+
+<ul>
+<li>  固定のタイムアウト… </li>
+<li>  1つのライブラリで画像ロードもできるので気持ちいい</li>
+</ul></li>
+</ul>
+
+<h3 id="andoid-async-http">andoid-async-http</h3>
+
+<ul>
+<li>  昔からあるシンプルなやつ</li>
+<li>  キューは隠蔽されると</li>
+</ul>
+
+<hr>
+
+<h3 id="その他">その他</h3>
+
+<p><a href="https://twitter.com/hoshi_gaki" title="@hoshi_gaki">@hoshi_gaki</a>、<a href="https://twitter.com/k_katsumi" title="@k_katsumi">@k_katsumi</a>、<a href="https://twitter.com/anton0825" title="@anton0825">@anton0825</a>、<a href="https://twitter.com/ninjinkun" title="@ninjinkun">@ninjinkun</a> で食べてから帰った。</p>
+
+<hr>
+
+<p>メモ</p>
+
+<ul>
+<li>  <a href="http://pad.haroopress.com/" title=" Haroo Pad "> Haroo Pad </a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-01-15-%E7%AC%AC3%E5%9B%9Epotatotips%E3%81%A7mogenerator%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E7%99%BA%E8%A1%A8%E3%81%97%E3%81%A6%E3%81%8D%E3%81%9F.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["CoreData","iOS","イベント","スライド"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=CoreData">CoreData</a></li>
+                
+                <li><a href="/tags/?q=iOS">iOS</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+                <li><a href="/tags/?q=スライド">スライド</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

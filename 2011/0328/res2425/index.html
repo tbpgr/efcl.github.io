@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        オライリージャパンのebook(PDF)でコピペする、ファイル名のリネームをする方法 | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Amazon,pdf,オライリー,セキュリティ,電子書籍" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0328/res2425/">
+    <h1 class="post-title">オライリージャパンのebook(PDF)でコピペする、ファイル名のリネームをする方法</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年03月28日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-03-28-%E3%82%AA%E3%83%A9%E3%82%A4%E3%83%AA%E3%83%BC%E3%82%B8%E3%83%A3%E3%83%91%E3%83%B3%E3%81%AEebookpdf%E3%81%A7%E3%82%B3%E3%83%94%E3%83%9A%E3%81%99%E3%82%8B%E3%80%81%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://jser.info/post/4025509933">O’Reilly(Japanも)が全ての電子書籍を半額で&amp;売上を日本赤十字社に寄付 | JSer.info</a>でオライリージャパンも半額電子書籍を販売していたので、オライリージャパンのpdfにはDRMなどの制限があることを知らないで購入した人もいるかもしれません。</p>
+
+<div>
+  <blockquote title="O'Reilly Japan Ebook Store : 購入規約" cite="http://www.oreilly.co.jp/ebook/explain.html">
+    <p>
+      販売されるEbookは、印刷、テキストのコピー、ページの抽出、内容の変更を行うことができません。決済時に入力いただいたご購入者のメールアドレスが挿入されます
+    </p>
+    
+    <p>
+      <cite><a href="http://www.oreilly.co.jp/ebook/explain.html">O’Reilly Japan Ebook Store : 購入規約</a></cite>
+    </p>
+  </blockquote>
+</div>
+
+<p><a href="../2010/1126/res2111/">英語が読めない人向け、英語技術書の読み方</a>でも言っていましたが、印刷はまだしもコピペができないのは電子書籍として致命的なので、そのDRMの回避方法と、オライリージャパンからダウンロードしたpdfは<em><16進数の羅列>-&lt;書籍のISBN&gt;.pdf</em>という扱いにくいファイル名なのでそれを手軽にリネームする方法の紹介です。</p>
+
+<h3 id="pdfファイルのリネーム">pdfファイルのリネーム</h3>
+
+<p>まずはpdfファイルのリネームです。<br>
+オライリー公式でも扱いにくいと言ってて、ISBNからJSONで書籍情報を取得できるAPIを提供しています。<br>
+これを使ったリネームスクリプト(Python)が<a href="http://www.oreilly.co.jp/community/blog/2010/11/bibliographical-info-in-json.html">JSON形式による書誌情報の提供をはじめました &#8211; O&#8217;Reilly Japan Community Blog</a>で公開されているので、これを使うのも良いでしょう。</p>
+
+<p>もうひとつは電子書籍ソフト関係で有名な&gt;&gt;722さんが<a href="http://no722.cocolog-nifty.com/blog/isbn_titler/index.html">ISBN Titler</a>というISBNなどからAmazonで検索してファイルのリネームをするソフトウェアを公開しています。使い方は単純で、PDFをソフトウェアにD&amp;Dするだけでリネームをしてくれます。(<a href="http://sourceforge.jp/projects/sfnet_itextsharp/">iTextSharp</a>を使えばpdfのプロパティも書き込んでくれるらしいですが、オライリーのpdfだとDRMの影響かもしれませんがうまくいきませんでした。)<br>
+設定からリネームの書式設定や置換の設定などもできるので、自由がきくリネームソフトになっています。<br>
+<a href="http://efcl.info/wp-content/uploads/2011/03/ss-2011-03-28-1.png"><img class="alignnone size-medium wp-image-2426" title="ss-2011-03-28-1" src="http://efcl.info/wp-content/uploads/2011/03/ss-2011-03-28-1-300x176.png" alt="" width="300" height="176" /></a></p>
+
+<h3 id="drmについて">DRMについて</h3>
+
+<p>追記: オライリージャパンの電子書籍もDRMフリーになるそうです。<br>
+<a href="http://www.oreilly.co.jp/editors/archives/2011/05/ann-ebook-drm-free.html">O&#8217;Reilly Village／オラの村 &#8211; オライリー・ジャパンのEbookがDRM Freeになります</a></p>
+
+<p>先ほど述べたようにオライリージャパンには印刷、テキストのコピー、ページの抽出、内容の変更ができないなどの制限やメールアドレスをウォーターマーク的に埋め込み(遅延の原因っぽい)があります。<br>
+O&#8217;Reilly Mediaにはこの制限はありませんし、PDF以外にもepubなどでダウンロードできますし、アップデートも保証してくれます。<br>
+なぜ本家ではそのようなDRMを付けてないかは<a href="http://www.forbes.com/forbes/2011/0411/focus-tim-oreilly-media-e-book-antipiracy-steal-this.html">Steal This E-Book &#8211; Forbes.com</a>(訳 <a href="http://fladdict.net/blog/2011/03/steal-this-ebook.html">fladdict » 電子書籍を盗め！</a>）を読むといいです。</p>
+
+<p>&nbsp;<figure id="attachment_2427" style="width: 270px;" class="wp-caption alignnone"></p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/03/oreillly-pdf-drm.png"><img class="size-medium wp-image-2427" title="oreillly-pdf-drm" src="http://efcl.info/wp-content/uploads/2011/03/oreillly-pdf-drm-270x300.png" alt="" width="270" height="300" /></a><figcaption class="wp-caption-text">制限の一覧</figcaption></figure> 
+&nbsp;</p>
+
+<p>このオライリージャパンにある制限は<a href="http://www.forest.impress.co.jp/lib/offc/document/pdf/pdfxchange.html">PDF-XChange Viewer</a>というPDFビューアーを利用する事で外すことができます。<br>
+ファイルメニュー&gt;ドキュメントのプロパティ&gt;セキュリティタブ で&#8221;セキュリティの設定&#8221;を&#8221;なし&#8221;にしてからpdfファイルを保存するとコピーなどの制限がなくなります。(メールアドレスのウォーターマークは消えないけど)<figure id="attachment_2428" style="width: 273px;" class="wp-caption alignnone"></p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/03/oreillly-pdf-no-drm.png"><img class="size-medium wp-image-2428" title="oreillly-pdf-no-drm" src="http://efcl.info/wp-content/uploads/2011/03/oreillly-pdf-no-drm-273x300.png" alt="" width="273" height="300" /></a><figcaption class="wp-caption-text">なしに変更した場合</figcaption></figure> 
+&nbsp;</p>
+
+<p>これで書籍の外観を乱すウォーターマーク以外は通常の電子書籍としてオライリー本を読むことが可能になりました。<br>
+(多分、セキュリティ変更に対するパスワードがかかってないためAcrobatなどの他のソフトでもセキュリティ設定の変更を行う事ができると思います)</p>
+
+<p>&nbsp;</p>
+
+<p>何でこんな記事を書いたかというと、<strong>コピペも印刷もできない</strong>というDRMがかかってるのはさすがに電子書籍として論外だと思ったからだ。<br>
+コピペができないとその場でコードを実行して確かめにくい(サンプルコードをわざわざ見に行くのかい?)と思うし、検索も行いくくなって電子書籍である利点がなくなってしまっていると思う。また、PC(電子書籍端末)じゃ読みにくいから印刷する、大事な部分は<a href="http://twitter.com/edvakf/status/39751641079099392">印刷して読みたい</a>という需要が存在してるはずだ。そうしたDRMを設定することにどこまで意味があるのかもやや疑問的でもあり、オライリージャパンの立場的にそうしたものを付けないと物事がスムーズに進まないと言った事情もあるのでしょうが、やはりコンテンツの価値を下げてしまってるこのDRMは不要だと思う。</p>
+
+<ul>
+<li>  <a href="http://www.dotbook.jp/magazine-k/2010/05/17/dispute_about_drm_for_ebook/">電子書籍にDRMは本当に有効か？ « マガジン航[kɔː]</a></li>
+</ul>
+
+<p>また、オライリージャパンのpdfには各ページの末尾に購入したメールアドレスが埋め込まれるという<a href="http://d.hatena.ne.jp/yomoyomo/20100722/socialdrm">ソーシャルDRM</a>的なものが存在している。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/03/ss-2011-03-28-3.png"><img class="alignnone size-medium wp-image-2434" title="ss-2011-03-28-3" src="http://efcl.info/wp-content/uploads/2011/03/ss-2011-03-28-3-300x68.png" alt="" width="300" height="68" /></a></p>
+
+<p>これも、末尾に毎回あるだけでも外観を乱しているのに、PDFリーダーがメールアドレスをリンク(設定で変えられるが)して余計気が散ったりして電子書籍を読みにくくしている。<a href="http://d.hatena.ne.jp/yomoyomo/20100722/socialdrm">ソーシャルDRM</a>は不正コピーに効果的かもしれないが、これが<a href="http://twitter.com/jingbay/status/50547180452327424">嫌で購入を避ける人</a>もいるだろう。</p>
+
+<p>&nbsp;</p>
+
+<p>この記事を出すかは少し迷ったが、いつまでもこのままでは不便きわまりないため書くことにした。<br>
+これを書くのに他の国ではどうなっているのかも少し調べてて、オライリーにはUS(UK) 、 ドイツ 、 日本 、 中国、台湾とあり、中国、台湾はオライリーショップがない?(他のショッピングサイトを経由してた)<br>
+ドイツは <a href="http://www.oreilly.de/ebooks/faqs.html" title="F&amp;Q">http://www.oreilly.de/ebooks/faqs.html</a>にebookのDRMについて記述されているがドイツ語が読めなかったのでよく分からなかった(pdfとepubで販売してて、ウォーターマークありで印刷はできてcut&amp;pasteはできないって読めたけど確証はない、cut&amp;pasteと言うのがよく分からないし、コピペはできるけど加工はできないという意味なのかな?)<br>
+本家であるUS(UK)はご存じの通り、マルチフォーマットでDRMなしで、日本の12時間以内にダウンロードしないと無効になるなんて事はなく、書籍のアップデートも保証されている。(後、ラフカット版やsafari onlineの存在は大きい)<br>
+もしドイツもDRMがあるようなら翻訳関係でDRMが付けられているのかもしれないが、先の震災により電子書籍を扱うところが増えて動きが活発になってきている<a href="http://sho.tdiary.net/20110328.html#p02">このご時世に</a>、何かオライリージャパンとしての動きがあることを願っています。</p>
+
+<p><strong>参考</strong></p>
+
+<ul>
+<li>  <a href="http://sho.tdiary.net/20110325.html#p01">オライリーのebookが今日いっぱい「半額」(ただし入手まで数十時間待ち) &#8211; ただのにっき(2011-03-25)</a></li>
+<li>  <a href="http://d.hatena.ne.jp/yomoyomo/20110328/oreillydrm">オライリー・ジャパンの被災者支援キャンペーンとティム・オライリーが語る「オライリーメディアがDRMを使わない理由」 &#8211; YAMDAS現更新履歴</a></li>
+</ul>
+
+<p><strong>使用したソフトウェア</strong></p>
+
+<p><strong>ISBN Titler</strong>
+:   <a href="http://no722.cocolog-nifty.com/blog/isbn_titler/index.html" title="ISBN Titler">http://no722.cocolog-nifty.com/blog/isbn_titler/index.html</a></p>
+
+<p><strong>PDF-XChange</strong>
+:   <a href="http://www.tracker-software.com/" title="PDF-XChange">http://www.tracker-software.com/</a></p>
+
+<div id="_mcePaste" class="mcePaste" style="position: absolute; left: -10000px; top: 1797px; width: 1px; height: 1px; overflow: hidden;">
+  http://www.oreilly.de/ebooks/faqs.html
+</div>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-03-28-%E3%82%AA%E3%83%A9%E3%82%A4%E3%83%AA%E3%83%BC%E3%82%B8%E3%83%A3%E3%83%91%E3%83%B3%E3%81%AEebookpdf%E3%81%A7%E3%82%B3%E3%83%94%E3%83%9A%E3%81%99%E3%82%8B%E3%80%81%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Amazon","pdf","オライリー","セキュリティ","電子書籍"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Amazon">Amazon</a></li>
+                
+                <li><a href="/tags/?q=pdf">pdf</a></li>
+                
+                <li><a href="/tags/?q=オライリー">オライリー</a></li>
+                
+                <li><a href="/tags/?q=セキュリティ">セキュリティ</a></li>
+                
+                <li><a href="/tags/?q=電子書籍">電子書籍</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        最強のJavaScript IDE 「WebStorm」を使ってみた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Editor,Firefox,IDE,javascript,WebStorm,バージョン管理" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2010/1027/res2023/">
+    <h1 class="post-title">最強のJavaScript IDE 「WebStorm」を使ってみた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2010年10月27日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-10-27-%E6%9C%80%E5%BC%B7%E3%81%AEjavascript-ide-%E3%80%8Cwebstorm%E3%80%8D%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://efcl.info/2010/0920/res1952/">JavaScript対応のIDEをまとめてみた</a>の続きのようなもので、その中で紹介していた<a href="http://www.jetbrains.com/webstorm/">WebStorm</a>が素晴らしいので別途紹介。<a href="http://www.jetbrains.com/webstorm/"><br>
+WebStorm</a>はHTML(5)+CSS+JavaScriptに対応してるIDEで、Windows, Mac OS、Linux上で動作します。<br>
+有料のソフトウェアですが、<a href="http://www.jetbrains.com/webstorm/buy/buy.jsp#opensource_">オープンソースライセンス</a>があったり体験版は45日間使えるのでとりあえず試してみましょう。</p>
+
+<ul>
+<li>  <strong><a href="http://efcl.info/2012/0909/res3111/" title="改めて最強のJavaScript IDE 「WebStorm」についてまとめてみた(改訂版)">この記事の続編(アップデート版)を書きました</a></strong></li>
+</ul>
+
+<h3 id="特徴">特徴</h3>
+
+<p>とにかく膨大な機能が載ってるので全てを紹介するのは無理があるため、凄いと思ったところを掻い摘んで紹介。<br>
+主にJavaScriptを書くエディタとして使っていますが、CSSやHTMLも普通のIDEより書きやすいです。<br>
+基本的に<a href="http://www.jetbrains.com/webstorm/">WebStorm</a>で日本語に関する問題は少なめです。一部IMEの変換候補が出てくる場所がずれたり、プラグインで日本語がダメだったりするものがありますが、殆ど問題ではない程度です。文字コードはShift_JIS(windowsだとwindows-31j)も対応しているので問題にはならないと思います。</p>
+
+<h4 id="優秀なコード補完機能">優秀なコード補完機能</h4>
+
+<p>WebStormはソースコードを自動的にコ－ド解析(静的解析?)してるようで、JavaScriptの構造を認識してコード補完を行えます。<br>
+例えば@teramakoさんが<a href="http://d.hatena.ne.jp/teramako/20090205/p1">Komodo Edit が面白い</a>で言っていたような</p>
+
+<pre class="brush:javascript;">var container = {
+  init: function() {},
+};
+container.obj = (function(){
+  var privateProp = null;
+  var namager = {
+    publicMethod: function(){ },
+  };
+  return namager;
+})();</pre>
+
+<p>というコードの場合<code>container.obj.pu と書くと</code><code>ちゃんとpublicMethodも補完候補に表示されます。&lt;br /&gt; さらに</code><code>publicMethodはメソッドなので</code><code>container.obj.</code><code>publicMethod()</code>という形で補完されて、今は仮引数がないのでカーソルの位置は)の→になります。仮引数があると()の中にカーソルが置かれます。<br>
+<code>&lt;a href=&quot;http://efcl.info/wp-content/uploads/2010/10/ss-2010-10-27-4.png&quot;&gt;&lt;img class=&quot;alignnone size-medium wp-image-2025&quot; title=&quot;ss-2010-10-27-4&quot; src=&quot;http://efcl.info/wp-content/uploads/2010/10/ss-2010-10-27-4-300x193.png&quot; alt=&quot;&quot; width=&quot;300&quot; height=&quot;193&quot; /&gt;&lt;/a&gt;</code></p>
+
+<p>ネイティブの補完候補もHTML5,ECMA,DOMCoreや結構細かいものも対応していて補完でアレが出てこないって事はかなり少ないです(ブラウザ拡張開発用とかは除いて)<br>
+補完候補は開いているディレクトリ以下のファイルを全部解析して表示してくれるので、ファイルをまたいだメソッドなども候補に表示されます。<br>
+今まで触ったJavaScriptエディタ、IDEで補完は最も素晴らしいと感じました。</p>
+
+<p>JavaScript以外のHTMLタグやCSSも補完を行え、1つのファイルにHTML、JavaScriptなどが混在していた場合も正しく認識して補完が行える。<a href="http://www.jetbrains.com/webstorm/features/">HTML, CSS, JavaScript editing in an intelligent environment :: WebStorm Features</a>で特徴がいろいろ紹介されています。</p>
+
+<h4 id="コ－ド解析による良さ">コ－ド解析による良さ</h4>
+
+<p>&nbsp;<figure id="attachment_2028" style="width: 300px;" class="wp-caption alignnone"></p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/10/ss-2010-10-27-7.png"><img class="size-medium wp-image-2028" title="ss-2010-10-27-7" src="http://efcl.info/wp-content/uploads/2010/10/ss-2010-10-27-7-300x146.png" alt="右サイドに警告レベル毎の表示" width="300" height="146" /></a><figcaption class="wp-caption-text">右サイドに警告レベル毎の表示</figcaption></figure> 
+&nbsp;</p>
+
+<p>上でコ－ド解析してるのでインテリセンスみたいな事が凄くできるよと書きましたが、<br>
+他にもCtrl+クリックで関数宣言にジャンプ(Tipsで設定の変更方法が記載してあります)する機能や、リファクタリングで特定の変数名や関数名をリネームする機能(その名前を使ってるもの全部を変えてくれる)、Structureパネルでコードのアウトラインを表示できたりします。<br>
+<a href="http://efcl.info/wp-content/uploads/2010/10/ss-2010-10-27-6.png"><img class="alignnone size-medium wp-image-2027" title="ss-2010-10-27-6" src="http://efcl.info/wp-content/uploads/2010/10/ss-2010-10-27-6-204x300.png" alt="" width="204" height="300" /></a><br>
+後、文法が間違ってる場合などは警告なども表示できその設定も警告レベルから決められてかなり細かな指定が行えます。(JSLintみたいなもの?)</p>
+
+<h4 id="自動整形機能">自動整形機能</h4>
+
+<p>個人的にIDEと言ったらコードの自動整形機能です。CodeメニューのReformat codeから実行できます。(ショートカットからもできる)<br>
+自動整形のルールはOptionのCode Styleからかなり細かく設定できるので、自分ルールに合わせて整形させる事ができます。</p>
+
+<p>&nbsp;<figure id="attachment_2026" style="width: 300px;" class="wp-caption alignnone"></p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/10/ss-2010-10-27-5.png"><img class="size-medium wp-image-2026" title="ss-2010-10-27-5" src="http://efcl.info/wp-content/uploads/2010/10/ss-2010-10-27-5-300x160.png" alt="他にもページがあるぐらい多い" width="300" height="160" /></a><figcaption class="wp-caption-text">他にもページがあるぐらい多い</figcaption></figure> 
+&nbsp;</p>
+
+<p>ショートカットキーはkeymap&gt;Reformat codeで変更できます</p>
+
+<p>&nbsp;</p>
+
+<h4 id="e4x対応">E4X対応</h4>
+
+<p>Firefoxユーザー向けですが、構文解析がE4Xの記法に対応しています。<br>
+普通なら上記の自動整形でE4Xが混じってると崩れてしまって残念になりますが、E4Xもちゃんと扱えるので崩れません。<br>
+Firefox向けのコード、Greasemonkeyなどを書く人に使ってもらいたいところ。<br>
+(分割代入の記法にはまだ対応してなかったのはちょっぴり残念)</p>
+
+<h4 id="標準でバージョン管理機能がある">標準でバージョン管理機能がある</h4>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;<figure id="attachment_2045" style="width: 248px;" class="wp-caption alignnone"></p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/10/ss-2010-10-28-1.png"><img class="size-medium wp-image-2045" title="ss-2010-10-28-1" src="http://efcl.info/wp-content/uploads/2010/10/ss-2010-10-28-1-248x300.png" alt="Gitのメニュー" width="248" height="300" /></a><figcaption class="wp-caption-text">Gitのメニュー</figcaption></figure> 
+&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>Vision Contorolメニューを有効にすると標準でローカルなバージョン管理が行えます。<br>
+デフォルトだと差分やrevertがができるLocal Historyが機能しますが、外部のバージョン管理ソフトと連携してSVN、Gitが使用できます。(Mercurialは標準ではなく<a href="http://plugins.intellij.net/plugin/?webide&amp;id=4624">hg4idea-luciad</a>プラグインによって使用できます)<br>
+コミットやpushなどはIDE上からその場でできて、マージや差分表示などもできるので結構便利です。</p>
+
+<h4 id="javascriptデバッガー">JavaScriptデバッガー</h4>
+
+<p><a href="http://www.jetbrains.com/webstorm/documentation/index.html">Local JavaScript debugging</a>で紹介されてるようにFirefoxアドオンと連携したIDE上で動くデバッガが付いています。<br>
+他にもFirebugと連携して機能するプラグインなどもあったりしてFirefoxとの親和性は少し高め。</p>
+
+<h3 id="使い勝手">使い勝手</h3>
+
+<p>他の機能紹介は<a href="http://www.jetbrains.com/webstorm/features/">WebStorm Features</a>やヘルプなどを見てもらうとして、使った感覚としてはそこまで重くは無いです。<br>
+起動はIDEらしくちょっとかかりますが(コード解析もあったりするので)、太ったEmacsの起動を我慢できるなら問題ない。<br>
+Aptanaみたいに長いコードだと極端に重くなるとかはないので、大規模なものでも扱えると思います(構造もみやすいし)<br>
+ショートカットはEclipse、NetBeans、Emacs、Visual Studio、Mac、GNOME、KDEなどの設定が最初から用意されていて、殆どの操作をカスタマイズできるので、自分好みにする事もできると思います。<br>
+Vimのキーバインドは標準ではなくプラグインの<a href="http://plugins.intellij.net/plugin/?webide&amp;id=164">IdeaVIM</a>によって使えます。(<a href="http://www.jetbrains.com/ab_index.html">JetBrains</a>のIDEなら大体対応してる)<br>
+メモリは数十MB～多くても200MBいかないぐらいなので(ステータスバーにメモリ量が表示される)、少し古いPCでも動かせるぐらいです。自分のノートであるCore Duo T2300（1.66GHz）、512MBのPCでも使えるぐらいなので、最近のPCなら問題ないと思います。</p>
+
+<p>UIが完全に英語ですが、設定は検索機能が優秀なので適当な単語からたどり着けることが多いし、表示している項目には全部ヘルプや説明が付いてるぐらいなので、オプションが豊富すぎるぐらいでそこまでつっかかりはないと思います。<br>
+(何ができないのかというのが少し分かりにくい感じではある)</p>
+
+<h3 lang="en-US">
+  Tips
+</h3>
+
+<p>メモみたいな</p>
+
+<ul>
+<li>  <a href="http://www.jetbrains.com/idea/documentation/tips/index.html#demos">Productivity Tips</a> 動画<br>
+他のソフトだけど大体一緒なので参考になる。主にコード補完系</li>
+<li>  ショートカットキーはkeymapで変更できて、キーだけではなくてマウスクリックなどのショートカットもあります。</li>
+<li>  Ctrl+クリックで関数宣言にジャンプするのは keymap &gt; Go to &gt; declaration で設定変更できる。(デフォルトだとCtrl+B)</li>
+<li>  Find Action (Ctrl+Shift+A)でコマンド検索できる</li>
+<li>  ショートカット一覧(デフォルト)はPDFで配布もしてる <a href="http://www.jetbrains.com/webstorm/documentation/index.html">WebStorm Resources</a></li>
+<li>  keymapでcomplete current statement(ctrl+shift+enter)が便利。最後の;が無かったら;を入れてくれて、あったら次の行へ。<br>
+今の行のステートメントを自動的に補完してくれる感じ</li>
+<li>  Editor &gt; Code Folding でコメントがデフォルトでたたまれるのを防止できる<br>
+(Greasemonkeyとかデフォルトだとたたまれちゃうので)</li>
+<li>  File Templeteで${NAME}でファイル名が取れる(大文字区別する)<br>
+適当な変数${test}を書くとファイル作成ダイアログでそれを入力して指定できる。<br>
+例えばGreasemonkeyっぽいテンプレートを書くなら <a href="http://gist.github.com/648943">gist: 648943 &#8211; WebStormのFile Templete- GitHub</a>みたいな感じ。</li>
+<li>  Editor &gt; Editor Tabsでタブ位置を上下左右に変えられるので、縦置きタブバーも可能</li>
+<li>  JavaScript IntentionPowerPack。if-elseを||にするとか!から始まるifをflipして逆にするとか、リファクタリング関係のものが詰まってる。</li>
+<li>  変数に下線とかの装飾はEditor &gt; Color &amp; Fonts &gt; JavaScriptあたりから変更できます。</li>
+<li>  文字コードの変更は画面下にある所をクリックでも変更できる</li>
+<li>  <a href="http://www.jetbrains.com/ab_index.html">JetBrains</a>のIDEは大体形が同じ(扱える言語が違う)なので、他の種類のIDEのノウハウが使えることもある。</li>
+</ul>
+
+<h3 id="プラグイン">プラグイン</h3>
+
+<ul>
+<li>  <a href="http://plugins.intellij.net/?webide">JetBrains Plugin Repository</a></li>
+<li>  <a href="http://plugins.intellij.net/?webide">JetBrains PhpStorm/WebStorm Plugin Repository</a></li>
+</ul>
+
+<p>から探せる(他にもあると思う)<br>
+手動インストール方法は<a href="http://confluence.jetbrains.net/display/TCD3/IntelliJ+IDEA+Plugin">IntelliJ IDEA Plugin &#8211; TeamCity 3.x Documentation &#8211; Confluence</a>に書いてあるように、指定のpluginsフォルダにjarとかプラグインファイルをおいて、設定のpluginsから有効にすればいいみたい。<br>
+けど、他のソフトを対象に書かれたプラグインは動作しない気がする。</p>
+
+<ul>
+<li>  <a href="http://plugins.intellij.net/plugin/?webide&amp;id=4269">eSnippet Pro plugin</a><br>
+スニペットプラグイン。Ctrl+Alt+Spaceで補完のようにスニペットを追加できる。<br>
+スニペットをオンラインに登録して、検索できる</li>
+<li>  <a href="http://plugins.intellij.net/plugin/?webide&amp;id=5348">CSS-X-Fire</a><br>
+FirebugのCSSパネルのようにCSSを編集できるプラグイン</li>
+<li>  <a href="http://plugins.intellij.net/plugin/?webide&amp;id=4624">hg4idea-luciad</a><br>
+Mercurial統合のプラグイン<br>
+他のバージョン管理はデフォルトで大体ある。</li>
+<li>  デフォルトで入ってるスペルチェッカーは日本語に反応してうるさいので無効にした。</li>
+</ul>
+
+<h3 id="よく分かってないこと">よく分かってないこと</h3>
+
+<p>やり方があったら教えて欲しいです。</p>
+
+<ul>
+<li>  <span style="text-decoration: line-through;">いつでも参照できる補完候補の追加方法</span>→実装された<a href="http://efcl.info/2010/1203/res2152/">WebStormのコード補完に新しく候補を追加する方法</a></li>
+<li>  <span style="text-decoration: line-through;">WebStormを開いてる状態で、もう一回WebStormを開くと複数のウィンドウになるのをタブにまとめる方法</span>→WebStorm-EAP-98.458でタブで開くようになった</li>
+<li>  分割代入が整形機能で崩れる</li>
+<li>  配列の最後に,がある時に警告がでるのを消す方法</li>
+<li>  他の<a href="http://www.jetbrains.com/ab_index.html">JetBrains</a>IDEのプラグインの入れ方がよく分からない(対応してないだけ?)</li>
+</ul>
+
+<h3 id="感想">感想</h3>
+
+<p>とにかく機能が多くて、まだまだ使いきれない感じでさらにもうすぐ2.0がリリースされるので成長も早いIDEだと思います。<br>
+<a href="http://www.jetbrains.com/webstorm/download/index.html">体験版</a>が45日間と長いと思ったけど、1ヶ月使ってもまだ底が見えないので妥当な日数だと分かった。<br>
+珍しくタイトルが誇大っぽいけど、(現時点では)最強のJavaScript IDEは「WebStorm」だと言い切れるぐらい圧倒的できの良さ。<br>
+周りのJavaScript対応IDEと差がかなり大きいと思うので、後1-2年は追いつけるレベルのものが出てこない予感。<br>
+日本でのユーザ数がとっても少ない感じがするので、使ってどんどんブログなどに情報を書いてくれるともっと発展できるソフトウェアだと思うよ。</p>
+
+<p><strong>The best HTML, CSS and JavaScript Editor for Web development :: JetBrains WebStorm</strong>
+:   <a href="http://www.jetbrains.com/webstorm/" title="The best HTML, CSS and JavaScript Editor for Web development :: JetBrains WebStorm">http://www.jetbrains.com/webstorm/</a></p>
+
+<p><strong>HTML, CSS, JavaScript editing in an intelligent environment :: WebStorm Features</strong>
+:   <a href="http://www.jetbrains.com/webstorm/features/" title="HTML, CSS, JavaScript editing in an intelligent environment :: WebStorm Features">http://www.jetbrains.com/webstorm/features/</a></p>
+
+<div id="_mcePaste" style="position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;">
+  <a href="http://www.jetbrains.com/webstorm/">WebStorm</a>
+</div>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-10-27-%E6%9C%80%E5%BC%B7%E3%81%AEjavascript-ide-%E3%80%8Cwebstorm%E3%80%8D%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Editor","Firefox","IDE","javascript","WebStorm","バージョン管理"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Editor">Editor</a></li>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=IDE">IDE</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=WebStorm">WebStorm</a></li>
+                
+                <li><a href="/tags/?q=バージョン管理">バージョン管理</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

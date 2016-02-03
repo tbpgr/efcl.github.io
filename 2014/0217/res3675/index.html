@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ドットインストールをオフラインで見るiPadアプリを作った | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="iOS,programing,動画" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0217/res3675/">
+    <h1 class="post-title">ドットインストールをオフラインで見るiPadアプリを作った</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年02月17日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-02-17-%E3%83%89%E3%83%83%E3%83%88%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%82%92%E3%82%AA%E3%83%95%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%A7%E8%A6%8B%E3%82%8Bipad%E3%82%A2%E3%83%97%E3%83%AA.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="はじめに">はじめに</h2>
+
+<p><a href="http://dotinstall.com/" title="ドットインストール">ドットインストール</a> はひとつの動画短くて移動時間とか見るのに便利そうなのですが、オフラインで見る方法が用意されてないので、レッスンの動画をまとめてキャッシュしてオフラインでも見られるiPadアプリを書きました。(AppStoreとかに出すことはないので、各自ビルド)</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/DotChairsPlayer" title="azu/DotChairsPlayer">azu/DotChairsPlayer</a></li>
+</ul>
+
+<p><img src="http://gyazo.com/fd02bba6529711b6a8638674f5716345.gif" alt="gif"></p>
+
+<h3 id="機能">機能</h3>
+
+<ul>
+<li>  WebViewでドットインストールを開く機能</li>
+<li>  レッスン一覧ページで右上のボタンを押すと、そのレッスンの動画をまとめてキャッシュする(一瞬固まったようにみえるのは手抜きのため)</li>
+<li>  キャッシュした動画をiOSのプレイヤーで開く機能</li>
+</ul>
+
+<p>ぐらいの機能しかありません。</p>
+
+<h3 id="バグ">バグ</h3>
+
+<p>Youtubeの動画本体のURLを取得するのに<a href="https://github.com/hellozimi/HCYoutubeParser" title="hellozimi/HCYoutubeParser">hellozimi/HCYoutubeParser</a>を利用しているのですが、<br>
+何故かこれ経由で取得した動画が縦半分に別れて二重に表示されたりすることがあります。<del>(ストリーミングだと大丈夫な気がするので、その辺の問題なのかな?)</del></p>
+
+<blockquote class="twitter-tweet" width="474">
+  <p>
+    Youtubeの動画MPMoviePlayerViewControllerで再生すると何か2重になるんだけどどういう事? <a href="http://t.co/uFq9pQPI0j">pic.twitter.com/uFq9pQPI0j</a>
+  </p>
+  
+  <p>
+    &mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/statuses/435004674848989184">February 16, 2014</a>
+  </p>
+</blockquote>
+
+<del>プレイヤーのせいというよりは動画自体に何か問題がでてる感じがするので、心当たりがある人は教えて下さい。</del>
+
+<p><strong>追記</strong></p>
+
+<blockquote class="twitter-tweet" lang="en">
+  <p>
+    <a href="https://twitter.com/azu_re">@azu_re</a> 気になったので調べてみたんですけど、たぶんHCYoutubeParserの問題で。解析時に一旦正常な動画URL取得したのを分割されちゃう不明なURLに上書きしてる。直そうかと思ってフォークしたら最新版では修正されていたのでアップデートすればうまくいくかもしれません
+  </p>
+  
+  <p>
+    &mdash; laiso(レイソー) (@laiso) <a href="https://twitter.com/laiso/statuses/435687571255857152">February 18, 2014</a>
+  </p>
+</blockquote>
+
+<p>との事で、最新のもの(<code>:head</code>)を使うようにしたら問題なくなりました。</p>
+
+<p>後、一部そのままだとビルドできない感じがしたので修正しました。</p>
+
+<h2 id="仕組み">仕組み</h2>
+
+<h3 id="javascript">JavaScript</h3>
+
+<p><a href="https://github.com/azu/DotChairsPlayer" title="azu/DotChairsPlayer">azu/DotChairsPlayer</a> はiOSアプリなのでObjective-Cで書かれていますが、<br>
+レッスン一覧の動画URL(実際は動画のID)を取得する部分はWebViewでJavaScriptを実行して取得しています。<br>
+(ドットインストールにAPIがあるわけじゃないので)</p>
+
+<p>Objective-C ＜ー＞ JavaScript のやり取りにはよくあるブリッジには<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" title="WebViewJavascriptBridge">WebViewJavascriptBridge</a>を使っています。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/02/bridge.png" alt="Bridge" title="bridge.png" border="0" width="600" height="456" /></p>
+
+<p>レッスン一覧画面にJavaScriptをインジェクションして、各レッスン画面へXHRして動画のIDを取ってくる感じです。</p>
+
+<p>インジェクションするJavaScriptは以下に置いてあります。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/dotdownloader.js" title="azu/dotdownloader.js">azu/dotdownloader.js</a></li>
+</ul>
+
+<p>こういうブックマークレット的なJavaScriptは適当に書いてしまう事が多いですが、<br>
+<a href="https://github.com/substack/node-browserify" title=" browserify">browserify</a>を使うことでnodeモジュールの利用や、モジュール管理もしやすくなるので、browserifyを使ってビルドしたものを使っています。</p>
+
+<p><a href="https://github.com/azu/jser.info/pull/17">最近はPromisesについて色々調べてる</a>ので、<a href="https://github.com/petkaantonov/bluebird" title="Bluebird">Bluebird</a>を使ってpromiseでラップしたXHRで書かれています。</p>
+
+<p>レッスン個別ページにXHRを発行する必要があるので、数十のXHRを叩きますがそれをpromiseでラップすると、それぞれの通信(+加工)が一つのpromiseオブジェクトに落とせます。</p>
+
+<p>全てのpromiseオブジェクトが解決したら(全ての通信が終わったら)というのは <code>promise.all</code> を使うことで簡単に書けるようになります。</p>
+
+<div class="highlight">
+  <pre> <span class="c1">// promiseオブジェクトの配列</span>
+<span class="kd">var</span> <span class="nx">promises</span> <span class="o">=</span> <span class="nx">urlObject</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">xhr</span><span class="p">(</span><span class="nx">object</span><span class="p">[</span><span class="s2">"url"</span><span class="p">]).</span><span class="nx">then</span><span class="p">(</span><span class="nx">getYoutubeID</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">promises</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">objects</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 全てのpromiseが解決(通信が終わった)</span>
+<span class="p">});</span>
+</pre>
+</div>
+
+<h3 id="iosアプリ">iOSアプリ</h3>
+
+<h4 id="storyboard">storyboard</h4>
+
+<p>タブUIのアプリにしちゃったので、<a href="https://github.com/azu/DotChairsPlayer/tree/master/DotChairsPlayer/Storyboard" title="Storyboard">Storyboard</a>のファイルはタブごとに分割しています。</p>
+
+<p>Storyboardの各タブのインスタンス(NavigationController)は、<a href="http://pilky.me/view/37" title="Pilky.me - Using Storyboards">Pilky.me &#8211; Using Storyboards</a>で書かれているようなfactory経由でインスタンス化して使っています。</p>
+
+<p><a href="https://github.com/azu/DotChairsPlayer/blob/master/DotChairsPlayer/App/GodObject/AppEntryFactory.h" title="AppEntryFactory">AppEntryFactory</a>は単にViewControllerのインスタンスを作るだけのクラスで、<br>
+それを管理するCEO Object(アプリではAppFactoryAdmin)があります。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/DotChairsPlayer/tree/master/DotChairsPlayer/App/GodObject" title="DotChairsPlayer/DotChairsPlayer/App/GodObject at master · azu/DotChairsPlayer">DotChairsPlayer/DotChairsPlayer/App/GodObject at master · azu/DotChairsPlayer</a></li>
+</ul>
+
+<p>storyboardを分割している場合、<code>self.storyboard</code> から別のタブにある画面を参照することが出来ませんが、ViewControllerへのアクセスを <code>AppFactoryAdmin</code> を経由させることであまり意識しないで別のタブの画面を使うことなどができるような感じです。</p>
+
+<p>別タブの画面等コンテキストが違うものを参照したいViewControllerはCEO Objectへの参照を持つようになっています。</p>
+
+<p>また、<a href="https://github.com/azu/DotChairsPlayer/blob/1759107db6a8a2682960b5b2b3e92ffd4029664e/DotChairsPlayer/AppDelegate.m#L21" title="AppDelegate">AppDelegate</a>が結構スッキリさせているので、アプリケーションテスト時に柔軟にいじれたりできるんじゃないかなと期待しています。</p>
+
+<p>まだこのパターンを掴みきってないのでそこまでいいのかはわかってないですが、<br>
+とりあえずタブUIの時はタブごとにstoryboardを分割するとInterface Builderがそこまで重くならなかったり、マージもし易いのでオススメです。</p>
+
+<ul>
+<li>  <a href="http://qiita.com/hedjirog/items/1c074069e56157a4e54b" title="iOS - タブごとにStoryboardを分割する - Qiita">iOS &#8211; タブごとにStoryboardを分割する &#8211; Qiita</a></li>
+</ul>
+
+<p>factoryで画面のインスタンスを作るパターンを適応すると、xibの画面とstoryboardが混ざったような(レガシーから移行中の)アプリとかにも結構柔軟に画面を追加できたりするのでそういう所でも役だつかもしれません。</p>
+
+<h3 id="その他">その他</h3>
+
+<p>3時間ぐらいでガッと作ったアプリなので、storyboardの管理とか結構勘でやってる部分が多くあんまり参考になるかは怪しいですがそんな感じです。</p>
+
+<del>動画が半分に分裂するやつだけどうにかしたいです…（原因がわからない…）</del>
+
+<h2 id="ソースコード">ソースコード</h2>
+
+<ul>
+<li>  <a href="https://github.com/azu/DotChairsPlayer" title="azu/DotChairsPlayer">azu/DotChairsPlayer</a></li>
+<li>  <a href="https://github.com/azu/dotdownloader.js" title="azu/dotdownloader.js">azu/dotdownloader.js</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-02-17-%E3%83%89%E3%83%83%E3%83%88%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%82%92%E3%82%AA%E3%83%95%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%A7%E8%A6%8B%E3%82%8Bipad%E3%82%A2%E3%83%97%E3%83%AA.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["iOS","programing","動画"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=iOS">iOS</a></li>
+                
+                <li><a href="/tags/?q=programing">programing</a></li>
+                
+                <li><a href="/tags/?q=動画">動画</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

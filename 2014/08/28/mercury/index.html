@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Virtual DOMを持つMV*ライブラリのmercuryについて | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,MVC,library,関数型プログラミング,データバインディング" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/08/28/mercury/">
+    <h1 class="post-title">Virtual DOMを持つMV*ライブラリのmercuryについて</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年08月28日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-08-28-mercury.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>最近node-webkitアプリを書く時、何かしらのMV*やデータバインディングライブラリと言われるものを試しているのですが、<a href="https://github.com/azu/floating-memo" title="floating-memo.app">floating-memo.app</a>では<a href="https://github.com/Raynos/mercury" title="Raynos/mercury">Raynos/mercury</a>を使いました。</p>
+
+<p><a href="https://github.com/Raynos/mercury" title="Raynos/mercury">mercury</a> は小さなモジュールを組み合わせたライブラリとも言えますが色々特徴的です。</p>
+
+<ul>
+<li>完全にモジューラーな実装</li>
+<li>Virtual DOM</li>
+<li>FRP</li>
+<li>ファイルサイズが小さめ</li>
+</ul>
+
+<p>モジューラーな実装とは何かというとmercuryの<a href="https://github.com/Raynos/mercury/blob/master/index.js" title="index.js">index.js</a>を見ると面白い事が書かれています。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="cm">/*</span>
+<span class="cm">Pro tip: Don&#39;t require `mercury` itself.</span>
+<span class="cm">require and depend on all these modules directly!</span>
+<span class="cm">*/</span>
+</code></pre></div>
+<p><code>require(&quot;mercury&quot;)</code> しないで、直接それぞれのモジュールを読み込んで使えるという事が書かれています。
+(これの意味する所は必要なモジュールだけrequireすればビルドも小さく出来るという所かもしれません)</p>
+
+<p>また、index.jsはモジュールへのエイリアスとメインループの補助関数が定義してあるだけです。</p>
+
+<p>まだまだmercuryについて把握できてないことも多いのですが、触っていて他のMV*的なライブラリとは違う感覚があって面白かったので中心となる仕組みについて紹介します。</p>
+
+<h4 id="virtual-dom">Virtual DOM</h4>
+
+<p>MercuryではViewのレンダリングにVirtual DOMを使用することができます。Virtual DOMの実装ライブラリとして<a href="https://github.com/Matt-Esch/virtual-dom" title="Matt-Esch/virtual-dom">Matt-Esch/virtual-dom</a>を使っています。</p>
+
+<p>Virtual DOMは名前の通り仮想的なDOMを扱うライブラリで、何が良いかというとDOMの差分更新が効率的にできるという点があります。
+本物のDOMを操作しながら高速な差分更新を実現するのは、現在のレンダリングの仕組み上かなり難しいです。</p>
+
+<p><strong>追記:</strong> 一応、補足しておきますがShadow DOMとは何も関係ありません。</p>
+
+<ul>
+<li><a href="http://elm-lang.org/blog/Blazing-Fast-Html.elm" title="Blazing Fast HTML">Blazing Fast HTML</a>
+
+<ul>
+<li><a href="http://postd.cc/blazing-fast-html-virtual-dom-in-elm/" title="【翻訳】爆速HTML – Elmでの仮想DOM | POSTD">【翻訳】爆速HTML – Elmでの仮想DOM | POSTD</a></li>
+<li>mercuryをベースとしている実装で、Virtual DOM仕組みついて等書かれています。</li>
+</ul></li>
+<li><a href="http://stackoverflow.com/questions/21109361/why-is-reacts-concept-of-virtual-dom-said-to-be-more-performant-than-dirty-mode" title="javascript - Why is React&amp;#39;s concept of Virtual DOM said to be more performant than dirty model checking? - Stack Overflow">javascript - Why is React&#39;s concept of Virtual DOM said to be more performant than dirty model checking? - Stack Overflow</a>
+
+<ul>
+<li><a href="https://github.com/Matt-Esch/virtual-dom" title="Matt-Esch/virtual-dom">Matt-Esch/virtual-dom</a>の作者さんが回答してますね</li>
+</ul></li>
+</ul>
+
+<p>Virtual DOMを持つライブラリといえば、Facebookの<a href="http://facebook.github.io/react/" title="React">React</a>が有名ですね。
+(＊Virtual DOMというのは概念的なものなので、APIや実装に標準的なものがあるというわけではありません。なので相互に使えるとかではない)</p>
+
+<ul>
+<li><a href="http://javascripter.hatenablog.com/entry/2014/08/23/180338" title="FacebookのReactで綺麗で高速なDOMのView操作 - 素人がプログラミングを勉強していたブログ">FacebookのReactで綺麗で高速なDOMのView操作 - 素人がプログラミングを勉強していたブログ</a></li>
+</ul>
+
+<p>実際にどのようにDOMを組み立てるかを見ていきます。</p>
+
+<p><a href="https://github.com/Matt-Esch/virtual-dom" title="Matt-Esch/virtual-dom">Matt-Esch/virtual-dom</a>を使って以下のようなHTMLを作りたい場合、それに対応するVirtual DOMをコードで組み立てる必要があります。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;greeting&quot;</span><span class="nt">&gt;</span>Hello Bob!<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+<p>この場合は、以下のようなDSLを使ってVirtual DOMを組み立てる感じですね。
+(mercuryではこれをもう少し簡単にする<a href="https://github.com/Raynos/virtual-hyperscript" title="Raynos/virtual-hyperscript">Raynos/virtual-hyperscript</a>というのを持っています)</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">new</span> <span class="nx">VNode</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">className</span><span class="o">:</span> <span class="s2">&quot;greeting&quot;</span>
+    <span class="p">},</span> <span class="p">[</span>
+        <span class="k">new</span> <span class="nx">VText</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;!&quot;</span><span class="p">);</span>
+    <span class="p">]);</span>
+</code></pre></div>
+<p>これによって組み立ててたVirtual DOMは前回のstateとの差分をみてから本物のDOMを組み立てるので、実際のDOMの変更が最小になるためレンダリングのコストがかなり削減出来ます。</p>
+
+<p><a href="http://facebook.github.io/react/" title="React">React</a>ではこのようなDSLの代わりに<a href="http://facebook.github.io/react/docs/displaying-data.html" title="JSX">JSX</a>というXMLシンタックスでHTMLを直接書いて、それをコードに変換するコンパイラを持つことで面倒なDSLでの組み立てをなくしています。</p>
+
+<p><a href="https://github.com/Matt-Esch/virtual-dom" title="Matt-Esch/virtual-dom">Matt-Esch/virtual-dom</a> はmercuryが使っているだけであるので、単独で使うことも出来ます。これをベースにしたテンプレートエンジンとかあると結構面白いのかもしれません。</p>
+
+<h4 id="state">State</h4>
+
+<p>先ほどのVirtual DOMはViewのレイヤーでしたね。</p>
+
+<p>mercuryでのモデルのレイヤーは先程もちょろと出てきましたが、<a href="https://github.com/Raynos/mercury#state-modules-the-model-layer" title="State modules (The model layer)">State modules</a>と言われるもので表現されています。</p>
+
+<p>Stateはいわゆる監視できる値と考えればいいので、文字列や数値、オブジェクトを包んだラッパーオブジェクトみたいなものになっています。</p>
+
+<p>このStateを作る or 更新は、Knockout等知られるようなラッパーオブジェクト経由で更新メソッドを叩くタイプの手法ですね。</p>
+
+<ul>
+<li><a href="http://tech.nitoyon.com/ja/blog/2014/07/18/data-binding/" title="JavaScript フレームワークがデータバインディングを実現する４通りの手法 - てっく煮ブログ">JavaScript フレームワークがデータバインディングを実現する４通りの手法 - てっく煮ブログ</a></li>
+</ul>
+
+<p>プリミティブな値は<a href="https://github.com/Raynos/observ" title="Raynos/observ">Raynos/observ</a>、オブジェクトは<a href="https://github.com/Raynos/observ-struct" title="Raynos/observ-struct">Raynos/observ-struct</a>、配列は<a href="https://github.com/Raynos/observ-array" title="Raynos/observ-array">Raynos/observ-array</a>とよくある感じのStateが用意されています。</p>
+
+<p>observ等のサンプルをみてもらうとわかりますが、observは関数を返す関数となっていることがわかると思います。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">Observable</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;observ&quot;</span><span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">v</span> <span class="o">=</span> <span class="nx">Observable</span><span class="p">(</span><span class="s2">&quot;initial value&quot;</span><span class="p">)</span>
+<span class="nx">v</span><span class="p">(</span><span class="kd">function</span> <span class="nx">onchange</span><span class="p">(</span><span class="nx">newValue</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">newValue</span><span class="p">,</span> <span class="s2">&quot;new value&quot;</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="nx">v</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;new value&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>モジュールを組み合わせたり、immutableなデータを扱ったり、関数型的なスタイルが色々な場面でみられるのもこのmercuryの特徴だと思います。</p>
+
+<p>JavaScriptで関数型プログラミングは<a href="http://www.oreilly.co.jp/books/9784873116600/" title="O&amp;#39;Reilly Japan - JavaScriptで学ぶ関数型プログラミング">O&amp;Reilly Japan - JavaScriptで学ぶ関数型プログラミング</a>が面白いのでオススメです。</p>
+
+<h4 id="controller">Controller</h4>
+
+<p>コントローラーはイベントを受け取って処理したりやStateを更新する役割です。</p>
+
+<p>mercuryでは簡易EventEmitter的なイベントのデータ構造を提供する<a href="https://github.com/Raynos/geval" title="Raynos/geval">Raynos/geval</a>、<code>click</code>や<code>keydown</code>等のDOMイベントを管理する<a href="https://github.com/Raynos/dom-delegator" title="Raynos/dom-delegator">Raynos/dom-delegator</a>や<a href="https://github.com/Raynos/value-event" title="Raynos/value-event">Raynos/value-event</a>等が用意されています。</p>
+
+<p><a href="https://github.com/Raynos/geval" title="Raynos/geval">Raynos/geval</a>はEventEmitterと違って1つのイベントを表すものですが、
+他にも幾つか違いがあります。(というか用途が違う気がする)</p>
+
+<p>EventEmitterはイベント名に文字列ベースで処理したいイベント名を設定していきます。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">EventEmitter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;events&#39;</span><span class="p">).</span><span class="nx">EventEmitter</span>
+
+<span class="kd">var</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="p">()</span>
+
+<span class="nx">stream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nx">onData</span><span class="p">)</span>
+<span class="nx">stream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="nx">onEnd</span><span class="p">)</span>
+<span class="nx">stream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;close&#39;</span><span class="p">,</span> <span class="nx">onClose</span><span class="p">)</span>
+</code></pre></div>
+<p>これに対して、gevalでは高階関数(関数を受け取る関数 | 関数を返す関数)となっているため、以下のように文字列によるキーの指定がなくなったり、それぞれのイベントが分離されています。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">Event</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;geval&#39;</span><span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">stream</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">ondata</span><span class="o">:</span> <span class="nx">Event</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}),</span>
+  <span class="nx">onend</span><span class="o">:</span> <span class="nx">Event</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}),</span>
+  <span class="nx">onclose</span><span class="o">:</span> <span class="nx">Event</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="nx">stream</span><span class="p">.</span><span class="nx">ondata</span><span class="p">(</span><span class="nx">onData</span><span class="p">)</span>
+<span class="nx">stream</span><span class="p">.</span><span class="nx">onend</span><span class="p">(</span><span class="nx">onEnd</span><span class="p">)</span>
+<span class="nx">stream</span><span class="p">.</span><span class="nx">onclose</span><span class="p">(</span><span class="nx">onClose</span><span class="p">)</span>
+</code></pre></div>
+<p>使い方自体はStateで紹介していた<a href="https://github.com/Raynos/observ" title="Raynos/observ">Raynos/observ</a>とかと似ていますが、<code>geval</code>は状態(state)を持ってないですね。</p>
+
+<p>この辺のモジュールもmercuryと分離されているため、単独で使うこともできるので面白いかもしれません。</p>
+
+<h4 id="メインループ">メインループ</h4>
+
+<p>ここまで見ると、mercuryでデータバインディングをやる方法が何となく見えてきたかもしれません。</p>
+
+<ul>
+<li>View = Virtual DOMを組み立てる
+
+<ul>
+<li>Virtual DOMはStateを受け取る</li>
+</ul></li>
+<li>Model = State</li>
+<li>Constroller = DOMイベントの管理</li>
+</ul>
+
+<p>つまり、Stateが変更されたらViewにStateを渡す仕組みがあれば一方向なデータバインディングができますね。</p>
+
+<p>これをどのようにおこなうかというと<a href="https://github.com/Raynos/main-loop" title="Raynos/main-loop">Raynos/main-loop</a>というモジュールを使うと行えます。</p>
+
+<p>stateとrender関数(Virtual DOMを組み立てる関数)を受け取って、その結果できたDOMオブジェクトを取得したり、stateを渡して更新することが出来ます。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">mainLoop</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;main-loop&quot;</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">loop</span> <span class="o">=</span> <span class="nx">mainLoop</span><span class="p">(</span><span class="nx">initState</span><span class="p">,</span> <span class="nx">render</span><span class="p">)</span>
+<span class="c1">// stateによる作ったDOMオブジェクトがloop.targetに入る</span>
+<span class="c1">// それを一度つっこむ</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">loop</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span>
+
+<span class="c1">// Stateで更新するとloop.targetも更新される</span>
+<span class="nx">loop</span><span class="p">.</span><span class="nx">update</span><span class="p">({</span>
+    <span class="nx">fruits</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;cherry&quot;</span><span class="p">],</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Steve&quot;</span>
+<span class="p">})</span>
+</code></pre></div>
+<p>上記の例では手動でappendChildしてますが、そこを含めた小さなラッパが<code>marcury.app</code>というメソッドで定義されているので、</p>
+
+<blockquote>
+<p>document.bodyにrenderの結果を追加して、stateが変化したらレンダリングも更新される</p>
+</blockquote>
+
+<p>というよくある感じのは以下のように書くことが出来ます。</p>
+
+<p><code>mercury.app(document.body, state, render)</code></p>
+
+<p><a href="https://github.com/Raynos/main-loop" title="Raynos/main-loop">Raynos/main-loop</a>は別に必須ではなく、stateとviewを組み立てる関数(redner)を組み合わせて上手く回すことができるモジュールというだけなので、ここを別の実装で行うことができるのも面白い。</p>
+
+<h3 id="まとめ">まとめ</h3>
+
+<p>Virtual DOM、State、Event、main-loop等について書きましたが、色々と面倒な構造に見えるかもしれません。</p>
+
+<p>しかし、考えてみるとmercuryではいわゆるデータバインディング的な事をするのに本物のDOMが直接は絡んで来ないのもあって、
+殆どのエラーがJavaScriptに落ちてきたり、テストが書きやすかったりします。
+(何が言いたいのかよく分からなくなってますが、ブラウザ内部処理のような見えにくい処理が少ない事やモジュール化によって見通しがいいですねという話)</p>
+
+<p>Vue.jsやAngularやKnockoutなどのHTMLの属性にそのまま宣言的に書いていくタイプは便利なのですが、バインディングが失敗した時や記述を間違えた時のエラーがおきると、何が原因なのかがものすごく分かりにくいという問題があります。(DOM APIがまざるとさらに…)</p>
+
+<p>この辺のDOMとJSの粗密なのはどっちがいいか(<a href="http://blog.agektmr.com/2014/05/web-components.html" title="Tender Surrender: なぜ Web Components はウェブ開発に革命を起こすのか">宣言的と命令的</a>とか)という問題は<a href="http://mizchi.hatenablog.com/entry/2014/02/18/163721" title="データバインディングについてVue.jsと Backbone.stickitを比較する - mizchi&amp;#39;s blog">色々あると思います</a>が、mercuryは意外と動いてて面白いという感想です。</p>
+
+<p>また、それぞれのモジュールに直接的な依存があるケースの方が少ないので、他のモジュールと組み合わせたり等がし易い作りになってると思います。</p>
+
+<p>ただ、JavaScriptではメインストリームの手法という感じではないと思うので、習熟度の差とかうんぬんとかいう話は別の誰かが書いてくれるといいですね。(mercuryで登場するモジュールは全体的に小さいのでソースコードそのまま読んでも理解できると思います)</p>
+
+<p>最近の自分のテーマとしてはデータバインディングでどうやったら分かりやすいエラーを表示できるかなので、その点でVirtual DOMや関数型プログラミングのアプローチを使う<a href="https://github.com/Raynos/mercury" title="Raynos/mercury">mercury</a>は興味深いのでもう少し試してみたいと思います。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-08-28-mercury.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","MVC","library","関数型プログラミング","データバインディング"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=MVC">MVC</a></li>
+                
+                <li><a href="/tags/?q=library">library</a></li>
+                
+                <li><a href="/tags/?q=関数型プログラミング">関数型プログラミング</a></li>
+                
+                <li><a href="/tags/?q=データバインディング">データバインディング</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

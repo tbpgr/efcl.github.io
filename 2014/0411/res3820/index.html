@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        power-assertでJavaScriptのテストをする ブラウザ編 | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="browser,javascript,library,test" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0411/res3820/">
+    <h1 class="post-title">power-assertでJavaScriptのテストをする ブラウザ編</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年04月11日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-04-11-power-assert%E3%82%92%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%97%E3%81%A6%E3%83%86%E3%82%B9%E3%83%88%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="power-assert"><a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a></h1>
+
+<p><a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a>という単純なアサーションでも、テストが失敗した時に分かりやすい情報を出せるテストライブラリ/ツールについての記事です。</p>
+
+<p>前回、<a href="http://efcl.info/2014/0406/res3809/" title="power-assertの使い方 Node.js編 | Web scratch">power-assertの使い方 Node.js編 | Web scratch</a>ではpower-assertの動作やNode.jsプロジェクトでの簡単な導入方法について解説しました。</p>
+
+<p>前回の<a href="http://efcl.info/2014/0406/res3809/" title="power-assert + gulp">power-assert + gulp</a>で紹介したプロジェクトをそのまま使っていくので、見ていない場合はそちらから見ていたほうがいいかと思います。</p>
+
+<p>今回は、<strong>ブラウザ</strong>でのpower-assertの動かし方とデバッグについて書いていきたいと思います。</p>
+
+<p>今回扱う実行環境</p>
+
+<ul>
+<li>  <a href="http://efcl.info/2014/0406/res3809/" title="power-assertの使い方 Node.js編 | Web scratch">Node.js</a> ＜＝ 前回</li>
+<li>  <strong>ブラウザ</strong></li>
+<li>  <strong>Browserify</strong></li>
+</ul>
+
+<h2 id="前回やったこと">前回やったこと</h2>
+
+<p>まずは前回紹介したgulp + power-assertのプロジェクトを元にやっていきます。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/power-assert-testem-seed/tree/0.0.3" title="azu/power-assert-testem-seed at 0.0.3">azu/power-assert-testem-seed at 0.0.3</a></li>
+</ul>
+
+<p>どんな事をやったかを簡単にまとめてみます。</p>
+
+<p>必要なモジュールのインストール</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ npm install --save-dev power-assert gulp gulp-espower
+$ npm install -g gulp
+</code></pre></div>
+<p>テストコードをpower-assert化、mochaでテストを実行する<a href="https://github.com/azu/power-assert-testem-seed/blob/0.0.3/gulpfile.js" title="gulpfile.js">gulpfile.js</a>のタスクを書きました。</p>
+
+<p>そして、<code>gulp test</code>とするとNode.jsでのテストが動くところまでやりました。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ gulp test
+</code></pre></div>
+<p>今回は、これに<a href="https://github.com/airportyh/testem" title="airportyh/testem">testem</a>を使ってブラウザでも同じpower-assertを使ったテストが動くようにしたいと思います。</p>
+
+<h2 id="testemを使ったブラウザ対応"><a name="testem">Testemを使ったブラウザ対応</a></h2>
+
+<p>ブラウザでpower-assertを実行するには、次のようなものが必要です。</p>
+
+<ul>
+<li>  power-assert化したテストコード(これは既にありますね)</li>
+<li>  test runnerとなるHTMLページ</li>
+<li>  HTMLページで読み込むブラウザ向けの<code>power-assert</code>の関連ライブラリ 
+
+<ul>
+<li>  Node.jsの場合は<code>require(&quot;power-assert&quot;);</code>で済みますがブラウザは自分で依存関係を解決する必要があります。</li>
+</ul></li>
+</ul>
+
+<p>素でHTMLページを作り、変換したコード等を読み込んで実行するのでもよいのですが、<br>
+その辺は<a href="https://github.com/karma-runner/karma" title="Karma">Karma</a>や<a href="https://github.com/airportyh/testem" title=" testem">testem</a>等を使って出来ると思うので、今回は<a href="https://github.com/airportyh/testem" title=" testem">testem</a>を使ってやってみたいと思います。</p>
+
+<p>そのため、方針としては次のようになります。</p>
+
+<ol>
+<li> <del>ブラウザ向けの<code>power-assert</code>ライブラリを<code>bower install</code></del>
+<a href="https://github.com/twada/power-assert/releases/tag/v0.10.2" title="0.10.2">0.10.2</a>でnpmにもブラウザ向けのファイルが含まれるようになったのでBowerは不要です</li>
+<li> <code>testem.json</code> でブラウザでmocha + power-assertで実行出来る環境を作る</li>
+</ol>
+
+<p><strong>完成したサンプルプロジェクト</strong>は以下に置いてあります。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/power-assert-testem-seed" title="azu/power-assert-testem-seed">azu/power-assert-testem-seed</a></li>
+</ul>
+
+<p>追記: <a href="https://github.com/twada/power-assert/releases/tag/v0.10.2" title="0.10.2">0.10.2</a>からはnpmのみで完結するのでBowerは不要になりました。</p>
+
+<ul>
+<li><a href="https://github.com/efcl/efcl.github.io/commit/8d8d229300a8da095082b3cd1227c0327a6af151" title="Bowerの手順を削除 · efcl/efcl.github.io@8d8d229">Bowerの手順を削除 · efcl/efcl.github.io@8d8d229</a></li>
+</ul>
+
+<p>次にTestemをインストールしてない場合はインストールしておきましょう</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install testem -g
+</code></pre></div>
+<p>Test runnerとなるHTMLページは、<a href="https://github.com/airportyh/testem" title=" testem">testem</a>が内蔵しているため気にする必要はありません。</p>
+
+<p>しかし、<code>&lt;script&gt;</code>タグで必要なアサーションライブラリや<code>power-asssert</code>等を読み込む必要があります。(<code>require(&quot;power-assert&quot;);</code>の代わりですね)</p>
+
+<p>その読み込みを、testemの設定ファイルである<code>testem.json</code>に定義します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">{
+    &quot;framework&quot;: &quot;mocha&quot;,
+    &quot;before_tests&quot;: &quot;gulp power-assert&quot;,
+    &quot;on_exit&quot;: &quot;rm -rf ./powered-test/&quot;,
+    &quot;src_files&quot;: [
+        &quot;./test/*.js&quot;
+    ],
+    &quot;serve_files&quot;: [
+        &quot;./node_modules/power-assert/build/power-assert.js&quot;,
+        &quot;./powered-test/*.js&quot;
+    ]
+}
+</code></pre></div>
+<p>設定ファイルの内容を簡単に紹介します。</p>
+
+<ul>
+<li>  <code>&quot;src_files&quot;</code>は監視対象のファイルです 
+
+<ul>
+<li>  ファイルが変更されたらテストが実行されます</li>
+</ul></li>
+<li>  <code>&quot;before_tests&quot;</code> はテスト実行前に行う処理です 
+
+<ul>
+<li>  <code>gulp power-assert</code>でpower-assert化しています</li>
+</ul></li>
+<li>  <code>&quot;on_exit&quot;</code> はtestemが終了した時のクリーンアップ処理です</li>
+<li>  <code>&quot;serve_files&quot;</code> はHTMLページで読み込むファイルです 
+
+<ul>
+<li>  ブラウザで読み込まれるファイルはここに記述します</li>
+</ul></li>
+</ul>
+
+<p>ブラウザで読み込むべきpower-assertのライブラリ関係は<a href="https://github.com/twada/power-assert#using-grunt-espower" title="using grunt-espower">using grunt-espower</a>の部分にも書いてあります。</p>
+
+<p><strong>追記</strong> : <a href="https://twitter.com/t_wada/status/466863515576180736">power-assert 0.7.2</a>から、依存するライブラリをまとめた<code>build/power-assert.js</code>を読み込むだけでよくなりました。</p>
+
+<p>これに加えて、power-assert化したテストファイル(<code>&quot;./powered-test/*.js&quot;</code>)を読み込みます。</p>
+
+<p>これでブラウザでのテスト準備は完了です。</p>
+
+<h3 id="testemの実行">Testemの実行</h3>
+
+<p>設定が面倒くさい分実行は簡単で<code>testem</code>とすると、ブラウザを受付状態になるので、後はテストしたいブラウザでアクセスするだけです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ testem
+</code></pre></div>
+<p>以下のような感じでテストが出来ます。</p>
+
+<p>Testemの中ではmochaでテストが実行されてるので、基本はあまり変わらないと思います。</p>
+
+<p>power-assert化したコードは<a href="https://github.com/twada/espower-source" title="espower-source">sourcemapに対応</a>しているため、<br>
+デバッガー等を使ってデバッグも普通に行えます。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/power-assert-testem-seed" title="azu/power-assert-testem-seed">azu/power-assert-testem-seed</a></li>
+<li>  <a href="http://efcl.info/2013/0405/res3256/" title="testemで任意のHTMLでテストを動かす方法とJavaScriptデバッガ連携 | Web scratch">testemで任意のHTMLでテストを動かす方法とJavaScriptデバッガ連携 | Web scratch</a> 
+
+<ul>
+<li>  Testem + WebStormのデバッグの参考</li>
+</ul></li>
+</ul>
+
+<h3 id="ハイブリッドテスト">ハイブリッドテスト</h3>
+
+<p>最初に書いたテストコードでは<code>require</code>を使ってpower-assertを読み込んでいたので、そのままでは実行時エラーになります。</p>
+
+<p>Node.js環境なら読み込むようにして、ブラウザでは既にglobalで読み込まれているので読み込まないようにすることが出来ます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">if (typeof require == &quot;function&quot; &amp;&amp; typeof module == &quot;object&quot;) {
+    var assert = require(&quot;power-assert&quot;);
+}
+</code></pre></div>
+<p>これで、Node.js と ブラウザ どちらでも動くテストが書けるようになりました。</p>
+
+<p><a href="https://github.com/azu/power-assert-testem-seed" title="azu/power-assert-testem-seed">先ほどのプロジェクト</a>もNode.jsとブラウザを同時にテスト出来るようにしています。</p>
+
+<p><strong>注記</strong>: ブラウザだけがテスト対象なら、上記の<code>require</code>そのものを削除しても問題ありません。(というか削除すべき)</p>
+
+<p>また、<code>global.assert = require(&quot;power-assert&quot;);</code>と定義したものを別のhelperファイルで読み込む等もありでしょう。</p>
+
+<hr>
+
+<p>Task Runner + Test Runner を使って何とかブラウザでも実行出来るようになりましたが、<br>
+上のハイブリッドテストを見て「Nodeで書いたコードをBrowserifyで変換してブラウザで実行すればいいのでは?」と思った方もいると思います。</p>
+
+<p>そういう需要にもpower-assertは対応していて、<a href="https://github.com/twada/espowerify" title="espowerify">espowerify</a>を使うことで出来ます。</p>
+
+<p><a href="https://github.com/twada/espowerify" title="espowerify">espowerify</a>はその名前の通り、<a href="https://github.com/substack/node-browserify" title="browserify">browserify</a>の変換時にpower-assert化を行えるbrowserifyの変換モジュールです。</p>
+
+<p><a href="https://github.com/substack/node-browserify" title="browserify">browserify</a>とはNode.jsのコードをブラウザで実行出来るように変換するツールで詳しくは下記を参照して下さい</p>
+
+<ul>
+<li>  <a href="http://efcl.info/2014/0120/res3605/" title="npmとbrowserifyを使ったクライアントサイドのウェブアプリ開発 | Web scratch">npmとbrowserifyを使ったクライアントサイドのウェブアプリ開発 | Web scratch</a></li>
+</ul>
+
+<h2 id="browserify">Browserify</h2>
+
+<p><a href="https://github.com/twada/espowerify" title="espowerify">espowerify</a>はBroserifyの変換モジュールとして扱います。</p>
+
+<p>使い方は単純で <code>browserify -t espowerify</code> のように変換モジュールとして指定するだけで、<br>
+browserifyによるnode.jsのコードの変換 + power-assert化を行ってくれます。</p>
+
+<p>この方法のメリットは</p>
+
+<ul>
+<li>  Node.jsとブラウザで同じテストコードが共有できる</li>
+<li>  一つのファイルにまとまるため、読み込むファイルの順番などを気にしなくてよい</li>
+<li>  power-asert化も行えるので、他のビルドツール(gulpとか)などは必要としない</li>
+<li>  ソースマップも対応してるのでデバッグできる</li>
+</ul>
+
+<p>デメリットとして、browserifyの変換も入るため変換にかかる時間が増える事があげられます。</p>
+
+<p>先ほどのプロジェクトでやったような依存するライブラリの読み込み等は、<br>
+変換して1つになったJavaScriptをtest runnerとなるHTMLページで読み込むだけで良くなるので単純です。</p>
+
+<p>今度は<a href="https://github.com/karma-runner/karma" title="Karma">Karma</a>を使ってブラウザテストしてみましょう。</p>
+
+<h3 id="karma-+-browserify"><a name="karma-browserify"></a><a href="https://github.com/karma-runner/karma" title="Karma">Karma</a> + Browserify</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/power-assert-karma-seed" title="azu/power-assert-karma-seed">azu/power-assert-karma-seed</a> </p>
+</blockquote>
+
+<p>Testemでも出来なくはないですが、karmaにはプリプロセッサという機能があります。<br>
+この機能ではプラグインを追加することで、テストを行う前に処理をすることが出来ます。(testemの<code>&quot;before_tests&quot;</code>をより柔軟にできる感じですね)</p>
+
+<p><a href="https://github.com/karma-runner/karma-coffee-preprocessor" title="karma-coffee-preprocessor">karma-coffee-preprocessor</a>でcoffeescriptをコンパイルする等色々とプラグインがあります。</p>
+
+<p>そのプリプロセッサで先ほどのbrowserifyによる変換も行う事が出来ます。(これがKarmaを選んだ理由です)</p>
+
+<p>Browserifyを扱う事が出来るプリプロセッサのプラグインとして<a href="https://github.com/cjohansen/karma-browserifast" title="karma-browserifast">karma-browserifast</a>を使います。</p>
+
+<ul>
+<li>  <a href="https://github.com/cjohansen/karma-browserifast" title="karma-browserifast">karma-browserifast</a></li>
+</ul>
+
+<h4 id="karmaを使ったプロジェクト設定">Karmaを使ったプロジェクト設定</h4>
+
+<p>まずは必要なものをインストールします(数が多いので<a href="https://github.com/azu/power-assert-karma-seed/blob/master/package.json" title="package.json">package.json</a>を見るといいです)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -g karma-cli
+npm install --save-dev espowerify karma karma-browserifast browserify mocha
+</code></pre></div>
+<p>必要なモジュールをインストールしたら、Karmaのセットアップを行います。</p>
+
+<p>詳しいKarmaの使い方は<a href="http://karma-runner.github.io/0.12/intro/configuration.html" title="Karma - Configuration">Karma &#8211; Configuration</a>等を見ましょう。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">karma init # mochaを選択する、後は自由に
+</code></pre></div>
+<p>次に、browserifyの設定を行います。</p>
+
+<p>詳しくは設定方法<a href="https://github.com/cjohansen/karma-browserifast" title="karma-browserifast">karma-browserifast</a>の説明を見ると良いです。</p>
+
+<p>実際のkarma.confの設定は<a href="https://github.com/azu/power-assert-karma-seed" title="azu/power-assert-karma-seed">azu/power-assert-karma-seed</a>を参照して下さい</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">frameworks: [&quot;mocha&quot;, &quot;browserify&quot;],
+files: [
+],
+browserify: {
+    debug: true,
+    files: [
+        &quot;test/**/*.js&quot;
+    ],
+    transform: [
+        &quot;espowerify&quot;
+    ]
+},
+preprocessors: {
+    &quot;/**/*.browserify&quot;: &quot;browserify&quot;
+},
+</code></pre></div>
+<p>本来は<code>files</code>でテスト時に読み込むファイルを指定しますが、今回テストしたいファイルはプリプロセッサでbrowserifyしたファイルになります。</p>
+
+<p>そのため、<code>files</code> は空でよくて、代わりに<code>browserify</code>というプロパティの<code>files</code>にテストしたいファイルを指定しています。</p>
+
+<ul>
+<li>  <code>&quot;frameworks&quot;</code> に <code>&quot;browserify&quot;</code> を入れる</li>
+<li>  <code>browserify</code> の設定をする 
+
+<ul>
+<li>  <code>browserify</code> の <code>&quot;transform&quot;</code> に <code>&quot;espowerify&quot;</code> を指定する</li>
+</ul></li>
+<li>  <code>preprocessors</code> を設定する(これは常に同じ) </li>
+</ul>
+
+<p>という感じでKarmaの設定は終わりです。</p>
+
+<p>この状態で、<code>karma start</code> + ブラウザでキャプチャ または <code>karma start --browsers Chrome --single-run&quot;</code>という感じでテストを実行すると以下のような事をしてくれます。</p>
+
+<ul>
+<li>  <code>test/**/*.js</code> 以下のファイルをそれぞれ power-assert化 + browserify化</li>
+<li>  キャプチャしてるブラウザで変換されたテストファイルを読み込んでテストを実行</li>
+</ul>
+
+<p>Karmaのテストサイクルの中で変換、テストの実行をしてくれるので、<br>
+見た目的には一時ファイルが必要なくなったり、<a href="https://github.com/azu/power-assert-karma-seed/blob/master/karma.conf.js" title="karma.conf.js">karma.conf.js</a>という設定ファイル一つだけ良くなるのがメリットかもしれません。</p>
+
+<p><img src="http://gyazo.com/4daa1c15931e4de407a382c8fd895339.gif" alt="karma+browserify"></p>
+
+<p>こちらもsourcemapに対応してるので、ブレークポイントを貼ったデバッグも可能です。</p>
+
+<p>上記でやってるのは、<code>karma start</code>でサーバを立ち上げて、ブレークポイントを貼って、<code>http://localhost:9876/debug.html</code> に対してChromeでアクセスしてデバッグという感じです。(KarmaのConfigurationをDebug実行だと上手くできない?)</p>
+
+<p>(WebStormでの)Karmaのデバッグ実行は少し特殊な感じなので下記を参照して下さい。</p>
+
+<ul>
+<li>  <a href="http://blog.jetbrains.com/jp/2013/10/04/223" title="WebStorm 7を使いJavaScript テストをKarmaで動かす | JetBrains ブログ">WebStorm 7を使いJavaScript テストをKarmaで動かす | JetBrains ブログ</a></li>
+<li>  <a href="http://d.hatena.ne.jp/Kazzz/20130524/p1" title="Karma ユニットテストをWebStormでデバッグする - Kazzzの日記">Karma ユニットテストをWebStormでデバッグする &#8211; Kazzzの日記</a></li>
+</ul>
+
+<hr>
+
+<h2 id="デバッグ">デバッグ</h2>
+
+<p>さきほどからsourcemapによるデバッグが可能 ということが書いてありますが、<br>
+sourcemapとは何かが気になる人は下記などを見るといいでしょう。</p>
+
+<ul>
+<li>  <a href="http://page.mixi.jp/run_page_apps.pl?page_id=287564&amp;module_id=1630003" title="Source Mapについて | mixiページ">Source Mapについて | mixiページ</a></li>
+<li>  <a href="https://developers.google.com/chrome-developer-tools/docs/javascript-debugging?hl=ja" title="Debugging JavaScript - Chrome DevTools — Google Developers">Debugging JavaScript &#8211; Chrome DevTools — Google Developers</a> 
+
+<ul>
+<li>  Chrome DevToolsでの利用法</li>
+</ul></li>
+<li>  <a href="https://developer.mozilla.org/ja/docs/Tools/Debugger" title="デバッガ - 開発ツール | MDN">デバッガ &#8211; 開発ツール | MDN</a> 
+
+<ul>
+<li>  Firefox DevToolsでの利用法</li>
+</ul></li>
+<li>  <a href="http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/" title="Introduction to JavaScript Source Maps - HTML5 Rocks">Introduction to JavaScript Source Maps &#8211; HTML5 Rocks</a> 
+
+<ul>
+<li>  開発者ツールでの利用法、内部構造</li>
+</ul></li>
+<li>  <a href="http://imaya.blog.jp/archives/7169783.html" title="#JSオジサンで Source Map について話してきました : document">#JSオジサンで Source Map について話してきました : document</a> 
+
+<ul>
+<li>  sourcemapファイルの構造について。</li>
+<li>  どちらかというとツールを作る人向け</li>
+</ul></li>
+</ul>
+
+<p>簡単に言うと変換したコード(power-assert化したテストコード)と元のコードの関係をマッピングしたファイルがあることにより、通常のJavaScriptのようにデバッグが可能になる感じです。</p>
+
+<p>現在のブラウザに載ってる開発者ツールやWebStorm等のIDEやエディタでも対応してるものが多いため、デバッグ時にかなり有用になると思います。</p>
+
+<p>こうしたsourcemapの対応が比較的に簡単にできるのもJavaScript ASTをベースとしたツールの特徴でもあるかもしれません。</p>
+
+<hr>
+
+<h2 id="まとめ">まとめ</h2>
+
+<p>この記事では、以下の事について解説しました。</p>
+
+<ul>
+<li>  power-assertをブラウザで動かすのに必要なもの</li>
+<li>  <a href="#testem">Testem</a> + gulp でのブラウザテスト対応</li>
+<li>  <a href="#karma-browserify">Karma</a> + <a href="https://github.com/substack/node-browserify" title="browserify">browserify</a>でのブラウザテスト</li>
+</ul>
+
+<p><a href="http://efcl.info/2014/0406/res3809/" title="power-assertの使い方 Node.js編">power-assertの使い方 Node.js編</a>に比べると、Mocha以外にもtest runnerが必要だったり(両方共内部的にMochaを利用してます)、設定が必要だったりしますが、<br>
+power-assert化したテストファイルも問題なくブラウザで動かすことができました。</p>
+
+<p>また、sourcemapにも対応しているのでデバッグも問題なくできることがわかりました。</p>
+
+<p>どんなテストライブラリ(アサーション)を使うか迷ってる人は、一度 <a href="https://github.com/twada/power-assert" title="twada/power-assert">power-assert</a> を試してみるのも楽しいと思います。</p>
+
+<p>より良きJavaScriptテストを!</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-04-11-power-assert%E3%82%92%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%97%E3%81%A6%E3%83%86%E3%82%B9%E3%83%88%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["browser","javascript","library","test"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=browser">browser</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=library">library</a></li>
+                
+                <li><a href="/tags/?q=test">test</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

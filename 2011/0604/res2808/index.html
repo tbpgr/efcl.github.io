@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ローカルの英辞郎検索やGoogle翻訳も使える翻訳ソフトウェア | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="NILScript,software,Windows,翻訳" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0604/res2808/">
+    <h1 class="post-title">ローカルの英辞郎検索やGoogle翻訳も使える翻訳ソフトウェア</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年06月04日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-06-04-%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%AE%E8%8B%B1%E8%BE%9E%E9%83%8E%E6%A4%9C%E7%B4%A2%E3%82%84google%E7%BF%BB%E8%A8%B3%E3%82%82%E4%BD%BF%E3%81%88%E3%82%8B%E7%BF%BB%E8%A8%B3%E3%82%BD%E3%83%95.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><span style="color: #141414;">簡単に言</span>えば<a href="http://www.lingoes.net/">Lingoes</a>や<a href="http://www.kingsoft.jp/dictionary/">キングソフト辞書</a>のようなソフトウェアで、文字列を選択した状態でショートカットか文字列をコピーすると翻訳を行える<a href="http://lukewarm.s151.xrea.com/nilscript.html">NILScript</a>で書かれたソフトウェアです。</p>
+
+<p>元々は<a href="http://efcl.info/2010/1126/res2111/">英語が読めない人向け、英語技術書の読み方 | Web scratch</a>で書いてたように<a href="http://www.lingoes.net/">Lingoes</a>を使っていたましたが、自分向けにもっとあった感じのものがほしかったので作成しました。<br>
+機能はハイライト翻訳に絞ってるので、単語帳のようなものなどは特にないですが、シンプルで動作も軽いと思います。<br>
+翻訳には単語翻訳(辞書機能)と翻訳サービスを利用した長文の翻訳機能の二つがあります(単語数で自動的にどちらの方法をとるかを決めています)</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/NILScript/tree/master/NILtranslator">NILtranslator at master from azu/NILScript &#8211; GitHub</a></li>
+</ul>
+
+<p>動作のスクリーンショット</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb.png" border="0" alt="image" width="240" height="96" /></a><a href="http://efcl.info/wp-content/uploads/2011/06/image1.png"><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb1.png" border="0" alt="image" width="240" height="154" /></a><a href="http://efcl.info/wp-content/uploads/2011/06/image2.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb2.png" border="0" alt="image" width="240" height="224" /></a><a href="http://efcl.info/wp-content/uploads/2011/06/image3.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb3.png" border="0" alt="image" width="240" height="183" /></a></p>
+
+<h3 id="niltranslatorの導入"><a href="https://github.com/azu/NILScript/tree/master/NILtranslator">NILtranslator</a>の導入</h3>
+
+<p><a href="http://lukewarm.s151.xrea.com/nilscript.html">NILScript</a>で実行するソフトウェアなので、<a href="http://lukewarm.s151.xrea.com/nilscript.html">NILScript</a>が必要です。(Autohotkeyみたいな形式だと思ってもらえば)<br>
+Githubに置いてあるので、<a href="https://github.com/azu/NILScript/archives/master">Secure source code hosting and collaborative development &#8211; GitHub</a>から<a href="https://github.com/azu/NILScript/zipball/master">zipファイル</a>でレポジトリごとダウンロードするのが単純です。<br>
+もちろんgithubなのでgit cloneしてダウンロードするのもありです。(なにかあったらプルリクエストしてもいいですし)</p>
+
+<pre id="codeSnippet" class="csharpcode">$ git clone git://github.com/azu/NILScript.git</pre>
+
+<p>ダウンロードして展開したフォルダに<strong>NILtranslator</strong>があり、NILtranslatorに関係するファイルは全部そこに入っています。(他のものは自分が書いたNILScriptがいろいろと入っています)</p>
+
+<p><a href="http://efcl.info/2010/0816/res1888/">NILScriptの使い方と書き方 | Web scratch</a>やNILScriptのreadmeを読んで<strong>NILtranslator.ng</strong>をNILScriptで実行すれば、ソフトウェアが起動できます。</p>
+
+<p>&nbsp;</p>
+
+<h3 id="使い方と設定">使い方と設定</h3>
+
+<p>翻訳は翻訳したい文字列を選択した状態で、クリップボードへのコピーか任意のショートカットで行う事ができます。</p>
+
+<p><strong>NILtranslator</strong>が起動するとタスクバーにアイコンが出るので、右クリックから設定を行う事ができます。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image4.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb4.png" border="0" alt="image" width="240" height="137" /></a></p>
+
+<h4 id="動作設定">動作設定</h4>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image5.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb5.png" border="0" alt="image" width="240" height="183" /></a></p>
+
+<p>動作設定では、選択した文字列を翻訳するのにどのショートカットキーを使うかや、翻訳するサービスなどを選択できます。</p>
+
+<p>*テキストコピーで翻訳 はそのままの意味でクリップボードにコピーした場合に翻訳する化を決定できます。<br>
+*ショートカットキー はNILScriptのHotstrokesユニットで使えるショートカットを指定できます。</p>
+
+<p>デフォルトはShift*2でShiftを二回連続で押すことで翻訳を行えます。</p>
+
+<p>詳細はNILScriptの方に入ってる* nildocHotstrokes.txt* や<em>nilsampleHotstrokes.ng</em>などを見るのがいいと思います。</p>
+
+<p>簡単にショートカットの例を挙げてみると</p>
+
+<div id="codeSnippetWrapper">
+  <pre id="codeSnippet" class="csharpcode"><span class="str">"Win"</span> : Winキーを押した時(タップ) 
+<span class="str">"Shift+A"</span>: Shiftを押しながらAを押す 
+<span class="str">"Shift*2"</span>: Shiftを二回押す 
+<span class="str">"Ctrl+[1] [2]"</span>: Ctrl+1 Ctrl+2と順番に押す 
+<span class="str">"RButton+WheelDown"</span>: 右クリックを押しながらホイールダウン</pre>
+  
+  <p>
+    &nbsp;
+  </p>
+</div>
+
+<p>このようにキーボードだけでなく、マウスも使ったいろいろなショートカットの指定が可能です。<br>
+(設定ファイルを書き換えて、mapに指定するオブジェクトを作ればもっと自由にもできたりする予定)</p>
+
+<p>指定するキーの名前を知りたい場合は<em>nilsamplekeyboard_hook.ng</em>を実行して見るといいでしょう。</p>
+
+<p>*がついてるものはソフトウェアを再起動後に反映されることに注意</p>
+
+<h4 id="辞書について">辞書について</h4>
+
+<p>辞書はそれぞれ設定できますが、英辞郎はローカルに英辞郎のデータベースファイルを用意する必要があります。<br>
+辞書は以下から選択できます。</p>
+
+<h4 id="対応辞書サービス">対応辞書サービス</h4>
+
+<ul>
+<li>  <a href="http://www.kingsoft.jp/dictionary/">KingSoft辞書</a></li>
+<li>  英辞郎辞書ローカル検索(ご自分で英辞郎辞書を用意する必要があります)</li>
+</ul>
+
+<p><strong>英辞郎辞書は同梱していません</strong>のでご自分で購入する必要があります。 <a href="http://www.eijiro.jp/">http://www.eijiro.jp/</a></p>
+
+<h4 id="対応翻訳サービス">対応翻訳サービス</h4>
+
+<ul>
+<li>  <a href="http://translate.google.co.jp/">Google翻訳</a></li>
+<li>  <a href="http://www.excite.co.jp/world/">Excite翻訳</a></li>
+</ul>
+
+<h4 id="英辞郎辞書の導入">英辞郎辞書の導入</h4>
+
+<p>ローカルの英辞郎辞書を使うためには、英辞郎辞書をデータベース形式に変換する必要があります。<br>
+辞書の変換形式は<a href="https://github.com/edvakf/EijiroX">EijiroX</a>と全く同じものを使用しています。そのため<a href="http://d.hatena.ne.jp/edvakf/20101122/1290423802">EijiroXの利用方法</a>をよく読み、databaseというファイル名のデータベースファイルを生成してください。</p>
+
+<p>手順を簡単に<a href="http://d.hatena.ne.jp/edvakf/20101122/1290423802">EijiroXの利用方法</a>からまとめると</p>
+
+<ol>
+<li> makedatabase.zip(Windows 用と書かれてるやつ)</li>
+<li> zipを展開してできたフォルダに英辞郎から取り出した英辞郎 (EIJI-*\<em>\</em>.TXT)、和英辞郎 (WAEI-***.TXT)、例辞郎 (REIJI-***.TXT)、略語郎 (RYAKU-***.TXT) の4つのtxtを入れる。</li>
+<li> makedatabase.exeを実行(一時間以上かかる)</li>
+<li> databaseとdatabase.sqlができる。</li>
+<li> database.sqlは削除しても問題ない。databaseをdatabase.dbなど拡張子がdbとなるようにリネームする</li>
+</ol>
+
+<p>データベースファイルはできれば database → database.db(eijiro.dbなど)の拡張子を.dbにリネームした方がよいです(内部処理的に)</p>
+
+<p>設定画面からdatabase.dbを設定し、辞書サービスとして英辞郎を選択すれば利用できるようになります。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image6.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb6.png" border="0" alt="image" width="240" height="183" /></a></p>
+
+<p>ポップアップの消滅時間はミリ秒で指定し、翻訳パネルの非表示になるまでの時間を決定できます。</p>
+
+<h4 id="パネルの設定">パネルの設定</h4>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image7.png"><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb7.png" border="0" alt="image" width="226" height="222" /></a></p>
+
+<p>翻訳パネルの配置やサイズなどは、アイコンの右メニュー→パネルの設定から行えます。<br>
+数値でも指定できますが、パネルの設定自体がパネルサイズになるようにしています。(動画を参照)</p>
+
+<p>パネルの透明度はアルファ値で指定できます。</p>
+
+<h4 id="一時的に無効にする">一時的に無効にする</h4>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image4.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb4.png" border="0" alt="image" width="240" height="137" /></a></p>
+
+<p>アイコンの右クリックから→無効を選択すると一時的にショートカットやクリップボードへのコピーで翻訳パネルを出さないようにします。</p>
+
+<h4 id="翻訳パネルの表示を変更">翻訳パネルの表示を変更</h4>
+
+<p><span style="color: #0c111d;">パネルはIEエンジン(triden)で動いていて、divにサイトごとのIDが入るのでCSSで調整することができます。 <br />CSSファイルとSassファイルも同梱されているので、CSSを変更すれば、背景色や文字サイズなども変更できます。</span></p>
+
+<p><span style="color: #0c111d;">パネルの内部HTMLは以下のようになっています。</span></p>
+
+<div>
+  <pre id="codeSnippet" class="csharpcode"><span class="kwrd">&lt;</span><span class="html">html</span><span class="kwrd">&gt;</span>
+    <span class="kwrd">&lt;</span><span class="html">head</span><span class="kwrd">&gt;</span>
+        <span class="kwrd">&lt;</span><span class="html">style</span> <span class="attr">type</span><span class="kwrd">="text/css"</span><span class="kwrd">&gt;</span>
+        %style%
+        <span class="kwrd">&lt;/</span><span class="html">style</span><span class="kwrd">&gt;</span>
+    <span class="kwrd">&lt;/</span><span class="html">head</span><span class="kwrd">&gt;</span>
+    <span class="kwrd">&lt;</span><span class="html">body</span><span class="kwrd">&gt;</span>
+        <span class="kwrd">&lt;</span><span class="html">div</span> <span class="attr">id</span><span class="kwrd">="%siteID%"</span> <span class="attr">calss</span><span class="kwrd">="main"</span><span class="kwrd">&gt;</span>
+        %text% この部分に翻訳内容が入る
+        <span class="kwrd">&lt;/</span><span class="html">div</span><span class="kwrd">&gt;</span>
+    <span class="kwrd">&lt;/</span><span class="html">body</span><span class="kwrd">&gt;</span>
+<span class="kwrd">&lt;/</span><span class="html">html</span><span class="kwrd">&gt;</span></pre>
+</div>
+
+<div id="codeSnippetWrapper">
+  %siteID%はそれぞれ、実行時にサービスにあったものに置換されるため、以下のようにCSSでサービス別に記述する子が可能です。
+</div>
+
+<div>
+  <pre id="codeSnippet" class="csharpcode"><span class="rem">/* kingsoft */</span>
+#kingsoft {
+
+}
+<span class="rem">/* 英辞郎 */</span>
+#eijiro{
+
+}
+<span class="rem">/* Excite */</span>
+#Excite{
+
+}
+<span class="rem">/* Google翻訳*/</span>
+#googleTranslator{
+
+}</pre>
+</div>
+
+<p>これで説明は終わりです。</p>
+
+<h3 id="おわりに">おわりに</h3>
+
+<p>このソフトウェアは<a href="http://lukewarm.s151.xrea.com/nilscript.html">NILScript</a>で書かれていますが、UI部分でコードが少し増えましたが1000行程度でこのぐらいのものが作れてしまいます。</p>
+
+<p>内部から外部APIを読んで翻訳を行ったりしていますが、調子がいいときはローカルで動いてるのと区別がつかないぐらい早く結果が返ってきます。</p>
+
+<p>このように<a href="http://lukewarm.s151.xrea.com/nilscript.html">NILScript</a>やTitanium DesktopやWebOSや<a href="http://www.publickey1.jp/blog/11/windows_8html5javascriptwindows.html">Windows 8</a>などWeb技術(HTML+CSS+JavaScriptなど)といったものでデスクトップアプリケーションが作れるようになるのはとてもおもしろいです。またWebとデスクトップの距離は短くなっていると思います。</p>
+
+<p>謝辞</p>
+
+<p>JavaScriptベースのすばらしいスクリプト実行環境であるNILScriptがないと動きません。</p>
+
+<ul>
+<li>  <a href="http://lukewarm.s151.xrea.com/nilscript.html">NILScript</a></li>
+</ul>
+
+<p>ローカル英辞郎の検索部分はEijiroX を元に作成しました。<br>
+@edvakfさんに感謝を</p>
+
+<ul>
+<li>  <a href="http://d.hatena.ne.jp/edvakf/20101122/1290423802">ブラウザで英辞郎を検索する EijiroX &#8211; by edvakf in hatena</a></li>
+<li>  <a href="https://github.com/edvakf/EijiroX">edvakf/EijiroX &#8211; GitHub</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-06-04-%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%AE%E8%8B%B1%E8%BE%9E%E9%83%8E%E6%A4%9C%E7%B4%A2%E3%82%84google%E7%BF%BB%E8%A8%B3%E3%82%82%E4%BD%BF%E3%81%88%E3%82%8B%E7%BF%BB%E8%A8%B3%E3%82%BD%E3%83%95.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["NILScript","software","Windows","翻訳"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=NILScript">NILScript</a></li>
+                
+                <li><a href="/tags/?q=software">software</a></li>
+                
+                <li><a href="/tags/?q=Windows">Windows</a></li>
+                
+                <li><a href="/tags/?q=翻訳">翻訳</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

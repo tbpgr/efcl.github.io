@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        JSer.info 5周年記念イベント アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,JSer,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/01/17/jserinfo-5years/">
+    <h1 class="post-title">JSer.info 5周年記念イベント アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年01月17日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2016/2016-01-17-jserinfo-5years.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://jser.connpass.com/event/24202/" title="JSer.info 5周年記念イベント">JSer.info 5周年記念イベント</a>を開催&amp;参加してきたのでメモ。</p>
+
+<p>スライドとかの概要は以下にも書いてあります。</p>
+
+<ul>
+<li><a href="http://jser.info/2016/01/16/jser-5years/">JSer.info 5周年記念イベントを開催しました - JSer.info</a></li>
+<li><a href="http://togetter.com/li/926573">JSer.info 5周年記念イベント - Togetterまとめ</a></li>
+</ul>
+
+<p>以下メモ書きです。</p>
+
+<h2 id="jser.info-5周年---@azu_re"><a href="http://azu.github.io/slide/2016/jser5years/jser.info.html" title="JSer.info 5周年">JSer.info 5周年</a> - @azu_re</h2>
+
+<p>5年間での総計は以下のような感じになりました。</p>
+
+<ul>
+<li>投稿記事数: 261</li>
+<li>毎週1回投稿: (261*7) / 365 ≒ 5(年)</li>
+<li>合計紹介URL数: 6312</li>
+</ul>
+
+<h2 id="javascript情報って何だっけ?---@azu_re"><a href="http://azu.github.io/slide/2016/jser5years/javascript-information.html">JavaScript情報って何だっけ?</a> - @azu_re</h2>
+
+<p>そもそもなんでJavaScriptについて知りたいのという話。
+後で別記事書くかも</p>
+
+<h2 id="angularの5年とこれから---@armorik83"><a href="https://speakerdeck.com/armorik83/angularfalse5nian-tokorekara" title="Angularの5年とこれから">Angularの5年とこれから</a> - @armorik83</h2>
+
+<ul>
+<li>Angularも変化が大きい</li>
+<li>フロントエンドの歴史とバインディングの歴史</li>
+<li>Ajax + jQueryを始めとすると技術</li>
+<li>Backbone.js MV*architectureの提案</li>
+<li>AngularJS双方向データバインディング
+
+<ul>
+<li>DI</li>
+<li>双方向データバインディング</li>
+</ul></li>
+<li>AngularJSの弱点の顕在化
+
+<ul>
+<li>冗長なDirty Checkingが問題視される</li>
+<li>React 仮想DOM</li>
+</ul></li>
+<li>Angular beta 0リリース
+
+<ul>
+<li><code>@input</code>、<code>@output</code>というAPI</li>
+<li>Component間のデータ、イベントバンディングを整合化</li>
+<li>下から来た情報をバブリングじゃなくて<code>output</code>という属性にいれて</li>
+</ul></li>
+<li>TypeScript前提、
+
+<ul>
+<li>型情報、型アノテーション</li>
+</ul></li>
+<li>Change Detection
+
+<ul>
+<li><a href="http://qiita.com/laco0416/items/78edd53f5da8ead02e75" title="Angular2のChange Detectionについて - Qiita">Angular2のChange Detectionについて - Qiita</a></li>
+</ul></li>
+<li><code>ngAnimate</code>
+
+<ul>
+<li>引き続きサポート</li>
+<li>スコープをコンポーネント内に限定出来る<code>Style</code></li>
+</ul></li>
+<li>AngularJSの互換性
+
+<ul>
+<li>ngUpdate
+
+<ul>
+<li>プロセスの名前</li>
+<li>Misko Hveryによるもの</li>
+</ul></li>
+<li>1.xのなかで2を使う方法</li>
+</ul></li>
+<li>Offline Compiled Template
+
+<ul>
+<li>独特なHTMLで表記できるAngular</li>
+</ul></li>
+<li>Angular Universal
+
+<ul>
+<li>ブラウザとNode.jsの両方で動くJS</li>
+<li>サーバサイドレンダリングをDOMRendererとServerDOMRendererの切り替えで出来る</li>
+<li>SEO対応とかも</li>
+</ul></li>
+<li>Web Workers
+
+<ul>
+<li>Angular 2のほぼ全てのコードをWeb Workers上で実行する仕組み</li>
+</ul></li>
+<li>AngularDart
+
+<ul>
+<li>Dartの資産</li>
+<li>Angular 2のマイクロタスクキュー Zone.js</li>
+<li>TypeScriptで利用可能になった Decorators構文</li>
+</ul></li>
+<li>情報源
+
+<ul>
+<li><a href="http://ng2-info.github.io/" title="Angular2 Info">Angular2 Info</a></li>
+</ul></li>
+<li>Angular 1のメンテンス期間
+
+<ul>
+<li>みんなが使わなくなるまでメンテする</li>
+</ul></li>
+</ul>
+
+<h2 id="webidlを見てみる---@takenspc"><a href="http://www.slideshare.net/takenspc/webidl" title="WebIDLを見てみる">WebIDLを見てみる</a>  - @Takenspc</h2>
+
+<ul>
+<li>ブラウザに実装されてるWeb IDLを見てみる</li>
+<li>ブラウザで使えるAPI: 沢山ある
+
+<ul>
+<li>新たなAPIが生まれる</li>
+<li>途中でAPIが変わる</li>
+</ul></li>
+<li>実際に使えるAPIは何なのか、知りたい</li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">URL</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">param</span> <span class="nx">of</span> <span class="nx">url</span><span class="p">.</span><span class="nx">searchParams</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">param</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">param</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>ブラウザの実装とドキュメントが分離されてる
+
+<ul>
+<li>別々にメンテナンスされてる</li>
+</ul></li>
+<li>自分が欲しいと思っている粒度なのか頻度は別になってる</li>
+<li>ブラウザの実装ってだけが書いているのか?
+
+<ul>
+<li>誰かが何かを元に書いている</li>
+</ul></li>
+<li>各種ブラウザはWebIDLからインタフェースを機械生成している</li>
+<li>WebIDLがブラウザと仕様を結ぶもの。</li>
+<li>ブラウザと仕様での共通言語の1つ
+
+<ul>
+<li>共通言語なので比較が出来る</li>
+</ul></li>
+<li>WebIDLを比較して見てみるという話</li>
+<li>FirefoxでChromeでIDLの使い方が違う</li>
+<li>WebIDLを比較するには
+
+<ul>
+<li>継承や<code>[</code>　Extended attributes <code>]</code> をなどがある</li>
+<li>これらを正規化する必要がある</li>
+</ul></li>
+<li>まとめ
+
+<ul>
+<li>WebIDLはしようとブラウザーの共通言語の1つ</li>
+</ul></li>
+</ul>
+
+<h2 id="[ie8枠]-ぼくたちの愛したie8---@hasegawayosuke">[IE8枠] ぼくたちの愛したIE8 - @hasegawayosuke</h2>
+
+<ul>
+<li>XSSでalert出すためにJavaScriptを覚えた</li>
+<li>IE8のすごい機能</li>
+<li>XSSフィルター
+
+<ul>
+<li>リクエストとレスポンスを比較 スクリプトがあったら実行を阻止</li>
+<li>保守的なのに大胆な機能</li>
+<li>XSSフィルターを使ってXSS</li>
+</ul></li>
+<li>XDomainRequest
+
+<ul>
+<li>クロスオリジンで使えるXHRモドキ</li>
+</ul></li>
+<li>toStaticHTML
+
+<ul>
+<li>いい感じに安全なHTMLにしてくれる</li>
+<li>HTMLメールとかMarkdownなどで使える</li>
+<li>細かい指定ができない</li>
+<li>他のブラウザでは簡単な代替方法がない
+
+<ul>
+<li>DOMPurifyなど</li>
+<li>HTML5 iframe sandbox</li>
+</ul></li>
+<li>標準化もされていないのであんまり使われない</li>
+</ul></li>
+<li>X-Content-Type-Options
+
+<ul>
+<li>Content-Typeに従うようになる</li>
+<li>普通の挙動</li>
+</ul></li>
+<li>X-Frame-Options
+
+<ul>
+<li>クリックジャッキングへの対応</li>
+</ul></li>
+</ul>
+
+<h2 id="[ie8枠]-active-scripting---@makoto_kato">[IE8枠] <a href="http://www.slideshare.net/djraven/active-scripting" title="Active scripting">Active scripting</a> - @makoto_kato</h2>
+
+<ul>
+<li>IE4-8のアーキテクチャ
+
+<ul>
+<li>COM API</li>
+<li>Browser Helper Object(BHO) API for ブラウザ拡張</li>
+<li>プラガブルなプロトコル</li>
+</ul></li>
+<li>Active Scription
+
+<ul>
+<li>COM I/Fバインディングエンジン</li>
+<li>For Engine API</li>
+<li>For Host API - サードパーティでも使える</li>
+<li>IE3-8</li>
+<li>WSH</li>
+<li>IIS</li>
+<li>Office</li>
+</ul></li>
+<li>バックエンドも色々
+
+<ul>
+<li>MS
+
+<ul>
+<li>JScript</li>
+<li>VBScript</li>
+</ul></li>
+<li>3Party
+
+<ul>
+<li>Ruby</li>
+<li>Python</li>
+<li>Perl</li>
+<li>PHP</li>
+<li>etc..</li>
+</ul></li>
+<li>サードパーティアプリでIEのセキュリティホールを作れる</li>
+</ul></li>
+<li>COM Interfaces
+
+<ul>
+<li>IE IDispatchEx</li>
+</ul></li>
+</ul>
+
+<h2 id="非同期イベントがんばるぞい---@saneyuki_s">非同期イベントがんばるぞい - @saneyuki_s</h2>
+
+<ul>
+<li>イベント
+
+<ul>
+<li>Data</li>
+<li>Domain</li>
+<li>File I/O</li>
+<li>Net work I/O</li>
+<li>等色々イベントがある</li>
+</ul></li>
+<li>イベントの依存関係の管理が面倒問題</li>
+<li>FRP</li>
+<li>何でイベントを待ち受けられないの?</li>
+<li>Duality
+
+<ul>
+<li>PullとPush型</li>
+</ul></li>
+<li>イベントは何で<code>Observable&lt;T&gt;</code>にするのか
+
+<ul>
+<li>一回しか来ないイベント</li>
+<li>複数回来るイベント</li>
+</ul></li>
+<li>Promiseは基本的に1回のイベント(使い捨て)</li>
+<li>複数回のイベントに対応するためにObservableという考え方の話</li>
+<li>FRPとは?
+
+<ul>
+<li>FRPとRxは別の動物であるという話</li>
+<li>似たような仕組みだけど違うもの</li>
+</ul></li>
+<li>Jafar Husain
+
+<ul>
+<li>.NetのものをJSにもってきた</li>
+</ul></li>
+<li>イベント文字列を機械的に考えられるようになった
+
+<ul>
+<li>パースしてASTで処理出来るようなイベントの流れ</li>
+<li>イベントのgotoみたいなものじゃなくてもっと宣言的な流れ</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<ul>
+<li>How abstract RPC call
+
+<ul>
+<li>イベントをRPCのようなものだと考える</li>
+</ul></li>
+<li>RPCのコンセプト
+
+<ul>
+<li>Address どこへ</li>
+<li>Protocol どうやって</li>
+<li>Data type どういう値を渡して、どういう値を返すか</li>
+</ul></li>
+<li>根本的な哲学は再利用が可能である
+
+<ul>
+<li>ABC(Address &amp; Protocol &amp; Data typeと同じ)</li>
+</ul></li>
+<li>これはFlux
+
+<ul>
+<li>ActionとDispatcherと似た感じ</li>
+<li>Actionはイベントをオブジェクトとして名前を付けた感じ</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="react-on-現場---@mizchi">React on 現場 - @mizchi</h2>
+
+<ul>
+<li>あるいはModern JavaScript on Rails</li>
+</ul>
+
+<p>モダンJSとは</p>
+
+<ol>
+<li>npm/Browserify</li>
+<li>Babel/ES2015</li>
+<li>React/Fux</li>
+<li>Testable</li>
+<li>No more jQuery plugins</li>
+</ol>
+
+<p>という構成</p>
+
+<ul>
+<li>使われてないものを捨てるのは簡単</li>
+<li>でも使われてると書き換えないと行けないので辛い</li>
+</ul>
+
+<p>何か良くしてくれ - 方針</p>
+
+<ul>
+<li>再利用できるものと再利用出来るものを分ける</li>
+<li>エディタの書き換えへの挑戦
+
+<ul>
+<li>コード量が多い</li>
+<li>Kobitoとかやってたのでノウハウ活かせるかも</li>
+</ul></li>
+<li>破綻
+
+<ul>
+<li>分量</li>
+<li>ドメイン知識が色々必要</li>
+</ul></li>
+<li>教訓
+
+<ul>
+<li>仕様を理解してないものはコード書けない</li>
+<li>モジュールの境界面が明示されてないものは分解できない</li>
+</ul></li>
+<li>ゴールの設定
+
+<ul>
+<li>新規モジュールを負債を引き継ぐことなく受け入れられる環境</li>
+<li>Turbolinksが導入可能な初期化フロー
+
+<ul>
+<li>Turbolinkは初期化フローの制御ができてないと行けない</li>
+</ul></li>
+</ul></li>
+<li>やったこと
+
+<ul>
+<li>npmに依存ライブラリを集約
+
+<ul>
+<li>ライブラリごとに異なるCDNを参照</li>
+<li>オーバーヘッドが大きい</li>
+<li>どのライブラリを使ってるか分からない</li>
+</ul></li>
+<li>npmとbowerでライブラリの依存を解決
+
+<ul>
+<li>npmを優先的に使う</li>
+</ul></li>
+<li>Browserify導入
+
+<ul>
+<li>Sprocketsを捨てる</li>
+<li>Rails上のデファクトモジュールシステム</li>
+</ul></li>
+<li>Sprocketsの問題
+
+<ul>
+<li>ファイルスコープで返り値を持てない</li>
+<li>Nodeで動かない</li>
+<li>RubyとJSの問題切り分けられない</li>
+<li>JavaScriptのエコシステムに乗れない</li>
+<li>Sprocketsで動くJS系のgemメンテされない</li>
+</ul></li>
+<li>書き換える
+
+<ul>
+<li>分量が多い</li>
+<li>平行して開発している機能が沢山あってコンフリクトする</li>
+<li>スクリプトを書いて一発</li>
+<li>全てのモジュールをCommonJS形式に書き換えた</li>
+</ul></li>
+<li>Browserifyによって変わったこと
+
+<ul>
+<li>依存がそれぞれのファイルで完結した状態になる</li>
+<li>単体テスト可能な閉じた参照の提供</li>
+<li>名前空間の初期化順に左右されない</li>
+</ul></li>
+<li>gulp
+
+<ul>
+<li>browserify-rails
+
+<ul>
+<li>中ではbrowserify-incrementalを使ってる</li>
+</ul></li>
+</ul></li>
+<li>Babel
+
+<ul>
+<li>Babelのロード時間が長い</li>
+<li>プロセスを毎回立てると、毎回読み込みが起きてしまう</li>
+</ul></li>
+<li>テスト
+
+<ul>
+<li><code>require.cache</code></li>
+</ul></li>
+<li>React化
+
+<ul>
+<li>Qiitaのヘッダー</li>
+<li>Fluxの選定が面倒だったのでベタ書き</li>
+<li><a href="http://qiita.com/mizchi/items/79673c4d406cc85b44aa" title="redux への 不満を解消する為に, flumptというFlux実装を作った - Qiita">redux への 不満を解消する為に, flumptというFlux実装を作った - Qiita</a></li>
+<li>FluxはアプリケーションRootを管理するものが多いので、小さくPub/Subしたい</li>
+</ul></li>
+<li>react-unit
+
+<ul>
+<li>ReactのshaddlowRenderのラッパー</li>
+</ul></li>
+</ul></li>
+<li>まとめ
+
+<ul>
+<li>必要なのは「仕様理解」と「勇気」</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="javascript-discussion">JavaScript Discussion</h2>
+
+<p><a href="https://app.sli.do/event/0egbwyxz/ask"><img src="https://monosnap.com/file/z2VC0MmCQKox5DjQXlvOpNaYQjVhum.png" alt="discussion"></a></p>
+
+<ul>
+<li><a href="https://app.sli.do/event/0egbwyxz/ask" title="[JSer.info] JavaScript Discussion(JavaScriptの良い所/悪い所/気になる事)">[JSer.info] JavaScript Discussion(JavaScriptの良い所/悪い所/気になる事)</a></li>
+</ul>
+
+<p>を元に議論</p>
+
+<blockquote>
+<p>JSはいつ無くなるのか。</p>
+</blockquote>
+
+<p>ウェブが死ぬまで?</p>
+
+<blockquote>
+<p>モダンなJSの構成で開発したらこんなに良いことがありました！儲かりました！みたいな話が、もっと世の中に出回ると良いと思っています。</p>
+</blockquote>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">modern JavaScript に変えてサーバーの転送量が減った <a href="https://twitter.com/hashtag/jserinfo?src=hash">#jserinfo</a></p>&mdash; kiyoshi nomo (@kysnm) <a href="https://twitter.com/kysnm/status/688287820717281280">January 16, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote>
+<p>WebGLって流行るの？</p>
+</blockquote>
+
+<p>WebGLは使われるようになる。(WebGL自体というよりはそれを利用したものが使われてる)</p>
+
+<p>WebGL流行る = SVG流行る</p>
+
+<blockquote>
+<p>IE6,7,8 のサポートはもう切ってもいいですか……?</p>
+</blockquote>
+
+<ul>
+<li>プロダクトはプロダクト次第</li>
+<li>ライブラリは切る+shim入れれば動くという形にする例
+
+<ul>
+<li>サポート切るのはmajorアップデートなのか(コードは変化してないが)</li>
+</ul></li>
+</ul>
+
+<blockquote>
+<p>O.o とは何だったのか</p>
+</blockquote>
+
+<p>顔文字</p>
+
+<blockquote>
+<p>jQueryって皆使ってるの？バージョンは？</p>
+</blockquote>
+
+<p>jQuery自体を使ってる人が全体の半分以下ぐらい。</p>
+
+<p>バージョン</p>
+
+<ul>
+<li>9割が1.x系。</li>
+<li>1割が2.x/3.x系</li>
+</ul>
+
+<blockquote>
+<p>JavaScriptがコンパイル言語っぽくなってるのはどうやったら解決するのかな?</p>
+</blockquote>
+
+<p>ECMAScriptの新しい機能を試すのにビルドツールとかが必要みたいな話。
+いろんなところでビルドツールが必要になる。</p>
+
+<p>言語にマクロのような機能がないので、こういったTranspilerは仕様と実装の緩衝材となるため重要という話。</p>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">使用したフィードバックを渡せるので開発者と使用者の溝を埋めれる。だから現在のbabelによるトランスパイルが重要という考えすごい <a href="https://twitter.com/hashtag/jserinfo?src=hash">#jserinfo</a></p>&mdash; rChaser53 (@rChaser53) <a href="https://twitter.com/rChaser53/status/688299229157011457">January 16, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote>
+<p>hasegawayusuke さんへ electron XSS の怖いところを伝えて下さい</p>
+</blockquote>
+
+<p>ElectronでXSSが起きると、任意のコード実行ができてしまう問題について</p>
+
+<blockquote>
+<p>いつになったらFlashを超えられるのか。足りないものは何か？</p>
+</blockquote>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">JSがFlashを超えるのに足りないものはなにか？&#10;→GUIエディタがない&#10;それっぽいのはたまにぽつぽつでてくるけど大きくならない <a href="https://twitter.com/hashtag/jserinfo?src=hash">#jserinfo</a></p>&mdash; よしこ (@yoshiko_pg) <a href="https://twitter.com/yoshiko_pg/status/688299239495999488">January 16, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="chrome-api-#jserinfo---kyo_ago"><a href="http://0-9.sakura.ne.jp/pub/lt/JSerInfo20160116/start.html" title="Chrome API #jserinfo">Chrome API #jserinfo</a> - kyo_ago</h2>
+
+<ul>
+<li>Chrome Extension/OSのAPIについて</li>
+</ul>
+
+<h2 id="railsのrailから解放される始めの一歩---joe-re"><a href="http://www.slideshare.net/masatonoguchi169/railsrails-57123076" title="RailsのRailから解放される始めの一歩">RailsのRailから解放される始めの一歩</a> - joe-re</h2>
+
+<ul>
+<li><a href="http://qiita.com/joe-re/items/1d5e1d0527cc439e03ef" title="Rails - フロントエンド開発における革命とビルドプロセスについて - Qiita">Rails - フロントエンド開発における革命とビルドプロセスについて - Qiita</a></li>
+<li>Sprockets捨てたい理由</li>
+<li>Railsのfingerprintの解決が難しい</li>
+<li>まだ app/asset に成果物を吐いてる</li>
+<li>Reduxはロックイン感があるので、<a href="https://facebook.github.io/flux/docs/flux-utils.html" title="Flux Utils">Flux Utils</a>を使うという話</li>
+</ul>
+
+<p><a href="http://joe-re.hatenablog.com/entry/2016/01/17/151923" title="JSer.info 5周年記念イベントに行ってきた(LTもした) #jserinfo - Please Drive Faster">JSer.info 5周年記念イベントに行ってきた(LTもした) #jserinfo - Please Drive Faster</a></p>
+
+<hr>
+
+<h2 id="node-eps---@yosuke_furukawa"><a href="https://speakerdeck.com/yosuke_furukawa/nodeeps" title="nodeeps // Speaker Deck">node-eps</a> - @yosuke_furukawa</h2>
+
+<ul>
+<li><a href="https://github.com/nodejs/node-eps" title="Node.js Enhancement Proposals">Node.js Enhancement Proposals</a>について</li>
+<li>C++ Streams</li>
+<li>ES6 Modules interop
+
+<ul>
+<li><a href="https://docs.google.com/presentation/d/1tXziuBheum53jk-FgtFkEUGKNVTdHzbpzhJLk7FatGc/present#slide=id.p" title="ES6/WhatWG Loader &amp;amp; Node - Google スライド">ES6/WhatWG Loader &amp; Node - Google スライド</a></li>
+<li>Node/ES6 どっちからも読めるようにするという</li>
+<li>JSのレイヤーじゃなくて、C++のレイヤーでfallbackさせてtryする</li>
+</ul></li>
+</ul>
+
+<h2 id="sc22-ecmascript-ad-hoc委員会---@azu_re"><a href="http://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.html" title="SC22 ECMAScript Ad hoc委員会">SC22 ECMAScript Ad hoc委員会</a> - @azu_re</h2>
+
+<p>ISO/IEC 16262であるECMASCript仕様の策定プロセスやどういう活動をしてるかという話。</p>
+
+<p><a href="http://azu.github.io/slide-what-is-ecmascript/" title="Introduction | ECMAScriptとは何か？">Introduction | ECMAScriptとは何か？</a>とはまた違う話です。</p>
+
+<h2 id="ava---@t_wada">AVA - @t_wada</h2>
+
+<ul>
+<li><a href="https://github.com/sindresorhus/ava" title="sindresorhus/ava: Futuristic test runner">sindresorhus/ava: Futuristic test runner</a>について</li>
+<li>sindresorhusのオピニオンが強い話</li>
+<li>後発のTest Runnerは独自性を求められる</li>
+<li>テストケースのネストはnon support</li>
+<li>代わりに並列性</li>
+<li>ネストではなくファイルを分けろという方針</li>
+<li>power-assertがビルトイン</li>
+</ul>
+
+<h2 id="ortcの話---jxck">ORTCの話 - jxck</h2>
+
+<ul>
+<li><a href="https://github.com/openpeer/ortc" title="openpeer/ortc">openpeer/ortc</a>のHTMLを修正してる話</li>
+<li>Bookflashの人がメイン
+
+<ul>
+<li>IETF系のプロトコルギークの人</li>
+<li>JavaScriptよくわからない</li>
+</ul></li>
+<li>PRしまくる日々
+
+<ul>
+<li>PRしまくってたら「お前の方が上手く(Example)書けると思うけど?」</li>
+</ul></li>
+<li>Exampleをどう書いていくのか
+
+<ul>
+<li>標準仕様なのでどう書けばいいのか</li>
+</ul></li>
+<li>将来的にWebRTCにマージ WebRTC NVになるかも</li>
+<li>Promiseも部分的に入ってる</li>
+<li>そもそもExampleの目的
+
+<ul>
+<li>APIの呼び出し方を例示する</li>
+<li>呼び出し順序を例示する</li>
+</ul></li>
+<li>参照される可能性が高い
+
+<ul>
+<li>本質はわかりやすく</li>
+<li>新しい機能を使うと記述が少なくて見やすい</li>
+<li>逆に「俺の知っているJSと違う」問題</li>
+</ul></li>
+<li>どれくらいのレベルで書くのか?
+
+<ul>
+<li>仕様をどれくらいのJavaScriptで書くのか</li>
+<li>仕様書を読む人のレベル想定</li>
+<li>ExampleはMSEdgeで動くレベルのAPIで書くか</li>
+<li>let、Arrow Function、module、async await</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<p>お疲れ様でした。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2016/2016-01-17-jserinfo-5years.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","JSer","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=JSer">JSer</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

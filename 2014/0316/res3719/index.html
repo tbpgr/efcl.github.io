@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Node.jsのrequireをインライン化、無駄なuse strictを取り除くモジュールを書いた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="AST,gulp,javascript,library,Node.js" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0316/res3719/">
+    <h1 class="post-title">Node.jsのrequireをインライン化、無駄なuse strictを取り除くモジュールを書いた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年03月16日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-03-16-node%E3%81%AErequire%E3%82%92%E3%82%A4%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E5%8C%96%E3%80%81%E7%84%A1%E9%A7%84%E3%81%AAuse-strict%E3%82%92%E5%8F%96%E3%82%8A%E9%99%A4%E3%81%8F%E3%83%A2%E3%82%B8.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="はじめに">はじめに</h1>
+
+<p><a href="https://github.com/azu/promises-book" title="Promises Book">Promises Book</a>という薄い本を書いているのですが、書籍中に出てくるサンプルコードはテストが必須であるという原則があります。</p>
+
+<blockquote title="promises-book/CONTRIBUTE.md at master · azu/promises-book" cite="https://github.com/azu/promises-book/blob/master/CONTRIBUTE.md">
+  <p>
+    サンプルコードは必ずテストコードが必要となる。(読者がコピペして実行するようなコードをテストを書くべきである)<br /> <cite> <a href="https://github.com/azu/promises-book/blob/master/CONTRIBUTE.md">promises-book/CONTRIBUTE.md at master · azu/promises-book</a> </cite>
+  </p>
+</blockquote>
+
+<p>サンプルコードとテストはNode(といってもほぼCommonJSというだけ)で書いています。</p>
+
+<p>ECMAScript6 Promisesについての内容なので、ブラウザ/Node.js どちらの実行環境でもいいのですが、閲覧するのはブラウザが基本になると思うのでブラウザ向けのコードを表示したいという感じになると思います。</p>
+
+<p>CommonJS -&gt; ブラウザ用のJS といえば、<a href="https://github.com/substack/node-browserify" title="browserify">browserify</a>や<a href="https://github.com/michaelficarra/commonjs-everywhere" title=" CommonJS Everywhere">CommonJS Everywhere</a>等がありますが、<br>
+これらは書き方次第で実行できないような状況ができてしまうと困るので、<code>module.export</code> や <code>require</code> 等をエミュレートするコードを入れることで解決しています。</p>
+
+<p>そのため、元のコードが小さくても、元コード + エミュレートする関数等が入って表示用としてはあまりキレイではありません。</p>
+
+<div class="kwout" style="text-align: center;">
+  <img src="http://kwout.com/cutout/u/i8/cs/2uk.jpg" alt="http://efcl.info/2014/0120/res3605/" title="npmとbrowserifyを使ったクライアントサイドのウェブアプリ開発 | Web scratch" width="600" height="299" style="border: none;" usemap="#map_ui8cs2uk" /><br /> <map id="map_ui8cs2uk" name="map_ui8cs2uk">
+    <area coords="69,257,124,270" href="https://github.com/azu/browserify-example/blob/master/simple/bundle.js" alt="" shape="rect" />
+  </map>
+  
+  <p style="margin-top: 10px; text-align: center;">
+    <a href="http://efcl.info/2014/0120/res3605/">npmとbrowserifyを使ったクライアントサイドのウェブアプリ開発 | Web scratch</a>
+  </p>
+</div>
+
+<p>複雑な<code>reuqire</code>による依存の解決等を捨てて、書き方にある程度制約を持てば単純に<code>require</code>をインライン化したり、不要な <code>export</code>を削除して結合しただけのコードでもそのまま動くように出来るはず という感じで表題にある事をするNodeモジュールを書きました</p>
+
+<h2 id="inlining-node-require">inlining-node-require</h2>
+
+<p><a href="https://github.com/azu/inlining-node-require" title="azu/inlining-node-require">azu/inlining-node-require</a>は先ほども述べたように、 <code>require(&quot;./add&quot;);</code> というようにモジュールを読み込んでいた場合は、<code>add.js</code> をその場に展開して単一のファイルにするという感じのモジュールです。</p>
+
+<p>下記のような、<code>var add</code> と <code>module.exports = add</code> といいうように、識別子が一致してる場合はその辺を丸ごと削ったりしてより短くなるようにしてます。</p>
+
+<p><strong>add.js</strong></p>
+
+<div class="highlight">
+  <pre><span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">add</span><span class="p">;</span>
+</pre>
+</div>
+
+<p><strong>index.js</strong></p>
+
+<div class="highlight">
+  <pre><span class="kd">var</span> <span class="nx">add</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"./add"</span><span class="p">);</span>
+<span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</pre>
+</div>
+
+<p><code>index.js</code> をエントリーポイントに指定して、そこを中心にrequire先をインライン化していきます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ inlining-node-require index.js
+</code></pre></div>
+<p>出力結果は以下のようになります。</p>
+
+<div class="highlight">
+  <pre><span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</pre>
+</div>
+
+<h2 id="remove-use-strict">remove-use-strict</h2>
+
+<p><a href="https://github.com/azu/remove-use-strict" title="azu/remove-use-strict">azu/remove-use-strict</a> は不必要な <code>&quot;use strict&quot;;</code>という宣言となるリテラルを取り除くNodeモジュールです。</p>
+
+<p>上記の　<a href="https://github.com/azu/inlining-node-require" title="azu/inlining-node-require">azu/inlining-node-require</a> は簡単にいればただのconcatです。<br>
+一般的に <code>&quot;use strict&quot;;</code> は各モジュールに宣言して使うと思うので、結合すると無意味な <code>&quot;use strict&quot;;</code>が出来てしまうかもしれません。</p>
+
+<p>無意味な <code>&quot;use strict&quot;;</code>というのは、そもそも <code>&quot;use strict&quot;;</code>というのはディレクティブプロローグという関数やプログラムbodyの先頭に書かないと行けないので、それ以外の位置に出てきてたらおかしいという感じで消すようにしてます。</p>
+
+<p>ディレクティブプロローグやstrict modeについては下記を読むといいです。</p>
+
+<ul>
+<li>  <a href="http://blog.niw.at/post/26687866336" title="&quot;use strict&quot; - blog.niw.at">&quot;use strict&quot; &#8211; blog.niw.at</a></li>
+</ul>
+
+<p>実際に以下のように、ディレクティブプロローグ以外の <code>&quot;use strict&quot;;</code> を削除してくれます。(オプションで全ての <code>&quot;use strict&quot;;</code> を削除するモードもあります)</p>
+
+<div class="highlight">
+  <pre><span class="kd">var</span> <span class="nx">removeUst</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"remove-use-strict"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">code</span> <span class="o">=</span> <span class="s1">&#39;var a = 1;&#39;</span> <span class="o">+</span>
+    <span class="s1">&#39;"use strict";&#39;</span><span class="p">;</span><span class="c1">// unnecessary use strict...</span>
+<span class="nx">removeUst</span><span class="p">(</span><span class="nx">code</span><span class="p">);</span> <span class="c1">// =&gt; &#39;var a = 1;&#39;</span>
+</pre>
+</div>
+
+<p><a href="https://github.com/azu/inlining-node-require" title="azu/inlining-node-require">azu/inlining-node-require</a> にこの機能を含めてしまうのでも良かったのですが、それぞれ単体のモジュールで用意したほうが柔軟性があるので単機能モジュールとして分けてます。</p>
+
+<h2 id="ユースケース">ユースケース</h2>
+
+<p>どちらも<a href="https://github.com/azu/Promises-book" title="Promises Book">Promises Book</a>という電子書籍的なものを書いてて欲しくなったので書きました。</p>
+
+<p>先ほど書いたように <a href="https://github.com/azu/Promises-book" title="Promises Book">Promises Book</a> では基本的にコードはNodeで書かれていて(ただしブラウザで動くようにpolyfillを使う)、またサンプルコードはテストするべきであるという方針を持っています。</p>
+
+<p>また、文章は<a href="http://asciidoctor.org/" title="Asciidoctor">Asciidoctor</a>で書かれてるので、ソースコードはそのまま<a href="http://asciidoctor.org/docs/user-manual/#include-directive" title="Include Directive">Include Directive</a>を使って埋め込めます。</p>
+
+<p>例えば、<code>Promise.all</code> とXHRを使ったサンプルコードのソースは以下のようになってます。</p>
+
+<p><strong><a href="https://github.com/azu/promises-book/blob/master/Ch2_HowToWrite/src/promise-all-xhr.js" title="promise-all-xhr.js">promise-all-xhr.js</a></strong></p>
+
+<div class="highlight">
+  <pre><span class="s2">"use strict"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">getURL</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"../../Ch1_WhatsPromises/src/xhr-promise"</span><span class="p">).</span><span class="nx">getURL</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">comment</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">getComment</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">getURL</span><span class="p">(</span><span class="s1">&#39;http://azu.github.io/promises-book/json/comment.json&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">people</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">getPeople</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">getURL</span><span class="p">(</span><span class="s1">&#39;http://azu.github.io/promises-book/json/people.json&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="kd">function</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">([</span><span class="nx">request</span><span class="p">.</span><span class="nx">comment</span><span class="p">(),</span> <span class="nx">request</span><span class="p">.</span><span class="nx">people</span><span class="p">()]);</span>
+<span class="p">}</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">main</span> <span class="o">=</span> <span class="nx">main</span><span class="p">;</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">request</span> <span class="o">=</span> <span class="nx">request</span><span class="p">;</span>
+</pre>
+</div>
+
+<p><a href="https://github.com/azu/promises-book/blob/master/Ch2_HowToWrite/test/promise-all-xhr-test.js" title="promise-all-xhr-test.js">テストするpromise-all-xhr-test.js用</a>に関数等をexportsしてあったり、以前書いたコードを再利用したいので <code>require</code> などもしています。</p>
+
+<p>上記のようなコードはサンプルコードとして表示するには、他のコードに依存してたり(<code>require</code>)、無意味な <code>exports</code> があったりするので向いてないです(またコピペで動かない…)</p>
+
+<p>これをブラウザで見るように、<a href="https://github.com/azu/inlining-node-require" title="azu/inlining-node-require">azu/inlining-node-require</a>と<a href="https://github.com/azu/remove-use-strict" title="azu/remove-use-strict">azu/remove-use-strict</a>を使って変換すると以下のようになります。</p>
+
+<p><strong><a href="https://github.com/azu/promises-book/blob/gh-pages/Ch2_HowToWrite/embed/embed-promise-all-xhr.js" title="embed-promise-all-xhr.js">embed-promise-all-xhr.js</a></strong></p>
+
+<div class="highlight">
+  <pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">getURL</span><span class="p">(</span><span class="nx">URL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="nx">URL</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">resolve</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">response</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">statusText</span><span class="p">));</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">statusText</span><span class="p">));</span>
+        <span class="p">};</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">comment</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">getComment</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">getURL</span><span class="p">(</span><span class="s1">&#39;http://azu.github.io/promises-book/json/comment.json&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="nx">people</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">getPeople</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">getURL</span><span class="p">(</span><span class="s1">&#39;http://azu.github.io/promises-book/json/people.json&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+<span class="kd">function</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">([</span><span class="nx">request</span><span class="p">.</span><span class="nx">comment</span><span class="p">(),</span> <span class="nx">request</span><span class="p">.</span><span class="nx">people</span><span class="p">()]);</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+<p>こうすることで、書く時はテストしやすいようにして、表示するときは表示用に結合/無駄な部分を削ったものを使うようにして、サンプルコードもテストしやすい状況を作っています。<br>
+(まだ、表示用のコードの動作をどう担保するかは考え中)</p>
+
+<p>変換はどちらも<a href="http://gulpjs.com/" title="gulp">gulp</a>を書いたのでそれを使って変換してます。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/promises-book/blob/master/gulpfile.js" title="promises-book/gulpfile.js at master · azu/promises-book">promises-book/gulpfile.js at master · azu/promises-book</a></li>
+<li>  <a href="https://github.com/azu/gulp-inlining-node-require" title="azu/gulp-inlining-node-require">azu/gulp-inlining-node-require</a></li>
+<li>  <a href="https://github.com/azu/gulp-remove-use-strict" title="azu/gulp-remove-use-strict">azu/gulp-remove-use-strict</a></li>
+</ul>
+
+<p>gulp pluginは<a href="https://github.com/sindresorhus/generator-gulp-plugin-boilerplate" title="sindresorhus/generator-gulp-plugin-boilerplate">sindresorhus/generator-gulp-plugin-boilerplate</a>や<a href="https://github.com/hparra/generator-gulp-plugin" title="hparra/generator-gulp-plugin">hparra/generator-gulp-plugin</a>なんかを使うと5分ぐらいで書けます。</p>
+
+<p>物理本ではないので、紙面のサイズはそこまで気にしなくていいのでこういう方針にしてますが、<br>
+世の中の書籍はどうやってサンプルコードを管理してるんだろ?</p>
+
+<h2 id="仕組み">仕組み</h2>
+
+<p>ここまで読んだ人は気づいてるかもしれませんが、これらのモジュールはJavaScript ASTを変換する事で行っています。</p>
+
+<p>例えば、<a href="https://github.com/azu/remove-use-strict" title="azu/remove-use-strict">azu/remove-use-strict</a>では以下のような <strong>ディレクティブプロローグの文字列</strong> と <strong>変数に代入してる文字列</strong> の区別が付けられるようにしているため、誤爆して削除されません。(この場合は削除対象がないですね)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&quot;use strict&quot;;
+function a(){
+    &quot;use strict&quot;;
+    var a = &quot;use strict&quot;;
+}
+</code></pre></div>
+<p>ただ、JavaScript ASTはただの木構造のオブジェクトと言っても書き換えは色々手順が必要なので面倒な部分が多いです。</p>
+
+<p>そこで、<a href="https://github.com/azu/inlining-node-require" title="azu/inlining-node-require">azu/inlining-node-require</a>ではコード表現を直に使って書き換えを行えられる <a href="https://github.com/substack/node-falafel" title="falafel">falafel</a> というモジュールを使っています。<br>
+falafelはtraverse関数も持ってるので、ASTのTreeを走査しながら、<code>require</code> 関数のノードを見つけたら、指定ファイルの中身を取ってきてfalafelを使って埋め込むように書き換えるということを繰り返しています。</p>
+
+<p>これにより、ASTの書き換えに必要なコード量はかなり減ります。</p>
+
+<p><a href="https://github.com/substack/node-falafel" title="falafel">falafel</a> はASTをrangeを持つマッピングデータとしてだけ扱ってて、実際に書き換えるのは文字列(chunk)にしておいたソースコードなため、直感的に置換する文字列のソースをそのまま書き換えに指定出来ます。</p>
+
+<p>一方、コードを書き換える という事をASTでやろうとすると、書き換え後のコードをASTとして作り、<br>
+その作成したASTを書き換えたい所へ置換したり追加したりする必要があります。</p>
+
+<p><a href="https://github.com/azu/remove-use-strict" title="azu/remove-use-strict">azu/remove-use-strict</a> の方では、特定のnodeを削除したいだけだったので、直接ASTからnodeを削除していく感じにしてます。</p>
+
+<p>そのnode(StringのLiteral)がディレクティブプロローグであるかどうかを知る必要があるので、<br>
+<a href="https://github.com/azu/remove-use-strict/blob/35cb45cc3c9be3364c4f7d26c9edcc4b3214bcd2/lib/remove-use-strict.js#L124">関数のスコープごとにスタックを積んでいく感じのよくある実装</a>をしています。</p>
+
+<p>走査に使ってる<a href="https://github.com/Constellation/estraverse" title="Estraverse">Estraverse</a>では、rootノードから子ノードを見ていく <code>enter</code> と 逆に葉ノードから親ノードをたどっていく <code>leave</code> が一緒に書けるので、こういうスコープを分けて考える書き方がやりやすいです。</p>
+
+<ul>
+<li>  <a href="http://ja.wikipedia.org/wiki/%E6%9C%A8%E6%A7%8B%E9%80%A0_(%E3%83%87%E3%83%BC%E3%82%BF%E6%A7%8B%E9%80%A0)" title="木構造 (データ構造) - Wikipedia">木構造 (データ構造) &#8211; Wikipedia</a></li>
+</ul>
+
+<p>単純にスコープを知るだけなら、<a href="https://github.com/Constellation/escope" title="escope">escope</a>や<a href="https://github.com/nkzawa/ast-scope" title="ast-scope">ast-scope</a> を使ったほうが楽かもしれません。</p>
+
+<hr>
+
+<p>仕組みの話が何かごちゃつきましたが、JavaScript ASTについては <a href="http://atnd.org/events/48368" title="JSオジサン">JSオジサン</a> というイベントで少し話すことになってるので、それまでに何かもう少し整理したいですね。</p>
+
+<p>LTなのでそこまで色々話せるわけじゃないですが。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/slide/issues/1" title="JSオジサンのスライド作成 · Issue #1 · azu/slide">JSオジサンのスライド作成 · Issue #1 · azu/slide</a></li>
+</ul>
+
+<p>browserifyみたいに大きなものとかじゃなくて、ちょっとしたものならJavaScript ASTを使って書くというのは、ものすごく難しいというレベルではないので(基本的に木構造のオブジェクトを見ていくという話なので)、何か作ってみるといいかもしれません。</p>
+
+<p>初めてJavaScript ASTを触る時は<a href="http://eslint.org/" title="ESLint">ESLint</a>のプラグインを書いてあたりからやってみるのをオススメします。</p>
+
+<ul>
+<li>  <a href="http://efcl.info/2013/1104/res3465/" title="ESLint 0.1.0がリリースされたので、JSHintとの違いやプラグインの書き方について | Web scratch">ESLint 0.1.0がリリースされたので、JSHintとの違いやプラグインの書き方について | Web scratch</a></li>
+<li>  <a href="https://github.com/eslint/eslint-tester" title="eslint-tester">eslint-tester</a>というのがでてるのでテストの書き方が少し変わってます</li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-03-16-node%E3%81%AErequire%E3%82%92%E3%82%A4%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E5%8C%96%E3%80%81%E7%84%A1%E9%A7%84%E3%81%AAuse-strict%E3%82%92%E5%8F%96%E3%82%8A%E9%99%A4%E3%81%8F%E3%83%A2%E3%82%B8.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["AST","gulp","javascript","library","Node.js"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=AST">AST</a></li>
+                
+                <li><a href="/tags/?q=gulp">gulp</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=library">library</a></li>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

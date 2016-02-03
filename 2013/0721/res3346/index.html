@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Addon-SDKでFirefoxのアドオンを書くための開発環境を作る | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="AddonSDK,Firefox,Jetpack,WebStorm" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2013/0721/res3346/">
+    <h1 class="post-title">Addon-SDKでFirefoxのアドオンを書くための開発環境を作る</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2013年07月21日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-07-21-addon-sdk%E3%81%A7firefox%E3%81%AE%E3%82%A2%E3%83%89%E3%82%AA%E3%83%B3%E3%82%92%E6%9B%B8%E3%81%8F%E3%81%9F%E3%82%81%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E4%BD%9C%E3%82%8B.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="はじめに">はじめに</h1>
+
+<p>久しぶりに、<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/" title="Add-on SDK">Add-on SDK</a>を触ってFirefoxのアドオンを作成したのでその時の環境作りについてメモです。</p>
+
+<p>内容は以下のような感じ</p>
+
+<ul>
+<li>  Addon SDKの概要</li>
+<li>  Addon SDK APIのモジュールについて</li>
+<li>  WebStorm</li>
+<li>  Addon SDK APIの補完について</li>
+<li>  XPCOM APIのインターフェイスについて</li>
+<li>  アドオンのデバッグ(デバッガ)</li>
+</ul>
+
+<h1 id="addon-sdk">Addon SDK</h1>
+
+<p>Firefoxのアドオン開発をするには、<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/" title="Add-on SDK">Add-on SDK</a>を使うのが比較的入りやすいです。</p>
+
+<ul>
+<li>  一応<a href="https://dev.mozilla.jp/addon-sdk-docs/" title="Add-on SDK"> 日本語 のページ </a> もありますが古いので、リファレンスは<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/" title="Add-on SDK Documentation">本家</a>を見た方がいいです。もしくは <code>cfx docs</code> を叩く</li>
+<li>  <a href="http://www.asukaze.net/etc/jetpack/" title="Add-on SDK (Jetpack SDK) - あすかぜ・ねっと">Add-on SDK (Jetpack SDK) &#8211; あすかぜ・ねっと</a></li>
+</ul>
+
+<p>Firefox 21からAddon SDKのAPIがFirefoxに取り込まれているので、Addon SDKでビルドしたアドオン以外でもAddon SDKのAPIが利用できるようになっています。</p>
+
+<ul>
+<li>  <a href="http://work.erikvold.com/jetpack/2013/07/12/jetpack-stripping.html" title="Jetpack Stripping!">Jetpack Stripping!</a></li>
+<li>  <a href="http://www.oxymoronical.com/blog/2013/02/The-Add-on-SDK-is-now-in-Firefox" title="The Add-on SDK is now in Firefox | Oxymoronical">The Add-on SDK is now in Firefox | Oxymoronical</a></li>
+</ul>
+
+<p><a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/high-level-apis.html" title="High-Level APIs">High-Level APIs</a>と書かれてるモジュール(モジュール自体もJavaScriptで書かれてるので中見ると便利です)で、基本的な事はできるようになってます。</p>
+
+<p>タブの操作、クリップボード操作、コンテキストメニュー、<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/modules/sdk/hotkeys.html" title="hotkeys">hotkeys</a>でのショートカット設定、<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/packages/addon-kit/panel.html" title="panel">panel</a>というポップアップのUI作成、<br>
+Greasemonkey的なURLのマッチングをしてスクリプトを動かす<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/packages/addon-kit/page-mod.html" title="page-mod">page-mod</a>、特定のURLを読み込ませてその中で動くスクリプトを送り込んで値などを取ってくる<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/packages/addon-kit/page-worker.html" title="page-worker">page-worker</a>、<br>
+通知を行う<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/modules/sdk/notifications.html" title="notifications">notifications</a>等があります。</p>
+
+<p>データの保存は、jsonでシンプルにオブジェクトを保存する<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/modules/sdk/simple-storage.html" title="simple-storage">simple-storage</a>やpackage.jsonに記録したい項目と入力の種類を書いておけば設定画面も一緒に作ってくれる<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/modules/sdk/simple-prefs.html" title="simple-prefs">simple-prefs</a>、使いづらいことに定評のあるIndexedDB APIをラップした<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/modules/sdk/indexed-db.html" title="indexed-db">indexed-db</a><br>
+等があります。</p>
+
+<p>また、<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/tutorials/unit-testing.html" title="Unit Testing">Unit Testing</a>というモジュールが最初からあり、<code>cfx init</code>でデフォルトテンプレートした段階で <code>cfx test</code>でテストを書ける環境が揃ってます。<br>
+<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/modules/sdk/test/httpd.html" title="test/httpd">test/httpd</a> を使うとローカルサーバを立てられたりするので便利です。<br>
+(もう少しテストの書式が一般的だといい気がするけど。。)</p>
+
+<p>また、AddonSDKでの実行は<a href="https://dev.mozilla.jp/2011/08/add-on-sdk-panel-widget-knagato/" title="local.json">local.json</a>や<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/cfx-tool.html#cfx-test" title="cfx test">cfx test</a>の引数で指定したプロファイルをコピーして実行されるので、テストでプロファイルを壊しても、毎回キレイな状態から始まる(*要出典)のでテストしやすい環境があると思います。<br>
+Travis CIとかと似たような感じ?</p>
+
+<p>Firefoxの機能自体に関係ないものだと、<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/packages/api-utils/promise.html" title="promise">promise</a>や<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/packages/api-utils/uuid.html" title="uuid">uuid</a>、set的な使い方をする<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/packages/api-utils/collection.html" title="collection">collection</a>等もあったりします。</p>
+
+<p>足りない機能は、通常のFirefoxアドオンと同じように<a href="https://developer.mozilla.org/ja/docs/XPCOM" title="XPCOM">XPCOM</a>を叩けば使えるモジュールを使える)ので、Addon SDKだからできないという事は大分少ないと思います。</p>
+
+<p>XPCOMを叩くときは<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/packages/api-utils/xpcom.html" title="xpcom">xpcom</a>モジュールや、通常のアドオンと同じように<code>Components.classes</code> などを使う、<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/Firefox-22/dev-guide/tutorials/chrome.html" title="Chrome Authority">Chrome Authority</a>が使えます。</p>
+
+<p>以下みたいにAddonSDKのモジュールを公開してる人(中の人ですが)もいます。<br>
+モジュールは<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/package-spec.html" title="package.json">package.json</a>の <code>dependencies</code> に書くことでアドオンから利用できるようになっています。</p>
+
+<p>(この辺のモジュールをnpmとかcocoapodsみたいに共有する仕組みが欲しい…)</p>
+
+<ul>
+<li>  <a href="https://github.com/erikvold/addon-pathfinder" title="erikvold/addon-pathfinder">erikvold/addon-pathfinder</a></li>
+</ul>
+
+<p>補足:</p>
+
+<ul>
+<li>  <a href="https://blog.mozilla.org/addons/2013/06/25/add-on-sdk-update-for-firefox-22-and-23-and-24/" title="Add-on SDK update for Firefox 22 (and 23, and 24) | Mozilla Add-ons Blog">Add-on SDK update for Firefox 22 (and 23, and 24) | Mozilla Add-ons Blog</a></li>
+<li>  <a href="http://onozaty.hatenablog.com/entry/2013/07/14/025618" title="Firefox 23 にて、Add-on SDKでもChrome URLを登録できる(XULなWindowsが使える)ようになる - Enjoy*Study">Firefox 23 にて、Add-on SDKでもChrome URLを登録できる(XULなWindowsが使える)ようになる &#8211; Enjoy*Study</a></li>
+</ul>
+
+<h2 id="開発環境">開発環境</h2>
+
+<p>公式ドキュメントはまあまあ充実していますが、他のブログ等のリソースが少ない問題があります。(これはJetpackがたどってきた歴史やMozillaにも問題がある気がしますが)</p>
+
+<p>ドキュメントは前述したように <code>org</code> ドメインの方を見ましょう</p>
+
+<ul>
+<li>  <a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/" title="Add-on SDK Documentation">Add-on SDK Documentation</a></li>
+</ul>
+
+<p>以下は、<a href="http://www.jetbrains.com/webstorm/" title="WebStorm">WebStorm</a>を少し前提に書きますが、扱う内容自体は一般的な内容なので他のエディタ次第でも似たような事ができるはずです。</p>
+
+<h3 id="webstorm">Webstorm</h3>
+
+<p>Addon SDKのモジュール郡では、分割代入やlet,constなどECMAScript 6の内容や、Mozilla JavaScript固有の書き方等が頻繁に使われています。</p>
+
+<p>WebStormでは、利用するJavaScriptのバージョンを <code>Setting -&gt; JavaScript</code> から選択できるので、<a href="http://azu.github.io/slide/webstorm/webstorm.html#slide36" title="ECMAScript 6 (Harmony)">ECMAScript 6 (Harmony)</a> を選択しておくと大体問題ないです。<br>
+(一部、for eachとかアレですが、基本的にビルドインモジュールは編集しないので問題ないです)</p>
+
+<p>毎回CLIから <code>cfx run</code> と叩いて起動するのは面倒なので、以下の様なシェルスクリプトを作って、それをExternal Toolsに設定して呼び出して起動させています。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/addonsdk_cfx_wrapper" title="azu/addonsdk_cfx_wrapper">azu/addonsdk_cfx_wrapper</a></li>
+</ul>
+
+<p><code>Setting -&gt; External Tools</code> に以下のように登録</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Program : /path/to/cfx-wrapper.sh
+Parameters : -a &quot;path/to/addon-sdk/&quot; -w &quot;$ProjectFileDir$&quot;
+</code></pre></div>
+<p>WebStormのコンソールに結果が表示される(Console APIの内容も)ので、CLIを叩かなくても、runを繰り返せます。</p>
+
+<h3 id="addon-sdk-apiの補完">Addon SDK APIの補完</h3>
+
+<p>AddonSDKのソースコードを見るとわかります、<a href="https://github.com/mozilla/addon-sdk/tree/master/lib/sdk" title="addon-sdk / lib / sdk /">addon-sdk / lib / sdk /</a> にSDKで使えるモジュールが定義されています。</p>
+
+<ul>
+<li>  <a href="https://github.com/mozilla/addon-sdk" title="mozilla/addon-sdk">mozilla/addon-sdk</a></li>
+</ul>
+
+<p>見るとわかりますが、殆どJavaScriptで書かれているため、JavaScriptを静的解析できるエディタなら、モジュールの補完に利用できます。</p>
+
+<p>WebStormの場合、 <code>Setting -&gt; JavaScript -&gt; Libraries</code> から <code>addon-sdk/lib/sdk/</code> のディレクトリを登録する事で先ほどのJavaScriptを解析した結果を補完に利用できます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/07/Edit-Library-2013-07-18-23-34-22.jpg" alt="Edit Library 2013 07 18 23 34 22" title="Edit Library 2013-07-18 23-34-22.jpg" border="0" width="600" height="212" /></p>
+
+<ul>
+<li>  <a href="http://d.hatena.ne.jp/yuichi_katahira/20120329/1333029233" title="WebStorm:追加した独自のコード補完候補をプロジェクトで使用可能にする - 仙台 Ruby Vim JavaScript社長">WebStorm:追加した独自のコード補完候補をプロジェクトで使用可能にする &#8211; 仙台 Ruby Vim JavaScript社長</a></li>
+</ul>
+
+<p><code>Setting -&gt; Direcotories</code> に 先ほどの <code>addon-sdk/lib/sdk/</code> のディレクトリを追加することでも同じようにAddonSDK APIの補完が効きます(Librariesに追加するほうが汎用性がありますが)</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/07/Preferences-2013-07-18-23-32-35.jpg" alt="Preferences 2013 07 18 23 32 35" title="Preferences 2013-07-18 23-32-35.jpg" border="0" width="600" height="100" /></p>
+
+<p>JavaScriptで書かれているので、モジュールが実際にどういう処理をしているのかも簡単に確認できるのは利点です。</p>
+
+<ul>
+<li>  <a href="http://azu.github.io/slide/webstorm/webstorm.html#slide16" title="WebStorm指南書">WebStorm指南書</a></li>
+</ul>
+
+<h3 id="jsdoc">JSDoc</h3>
+
+<p>AddonSDK APIは比較的問題なく(<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/guides/two-types-of-scripts.html">Chrome Script &lt; -&gt; Content Script</a>は理解するまで分かりにくいですが…)、馴染めると思います。</p>
+
+<p>しかし、ビルドインモジュールで足りない場合はXPCOMを叩く必要があります。<br>
+例えば、ファイルのダウンロードをするモジュールは今のところないので、自分で <code>nsIWebBrowserPersist::saveURI</code> などを使ってやる必要があります。</p>
+
+<ul>
+<li>  <a href="https://dev.mozilla.jp/2009/12/downloading-files-with-download-manager/" title="ダウンロードマネージャに進捗状況を表示させつつダウンロードする | Mozilla Developer Street (modest)">ダウンロードマネージャに進捗状況を表示させつつダウンロードする | Mozilla Developer Street (modest)</a> <code>dlMgr.addDownload</code>とかにprivacyの引数が増えてるのでそのままでは動かないです…</li>
+</ul>
+
+<p>これらのAPIを叩く場合は、<a href="https://developer.mozilla.org/en-US/docs/XPCOM_Interface_Reference" title="XPCOM Interface">XPCOM Interface</a>に載っているようなインタフェースを知る必要が出てきます。</p>
+
+<p>当然、受け取る引数もAddonSDK APIとは違い、<a href="https://developer.mozilla.org/en-US/docs/XPCOM_Interface_Reference/nsIURL" title="nsIURL">nsIURL</a>や<a href="https://developer.mozilla.org/en-US/docs/XPCOM_Interface_Reference/nsIFile" title="nsIFile">nsIFile</a>など、<a href="https://developer.mozilla.org/en-US/docs/XPCOM_Interface_Reference" title="XPCOM Interface">XPCOM Interface</a>のものを扱う必要がでてきて一気に難易度が上がります。</p>
+
+<ul>
+<li>  <a href="http://d.hatena.ne.jp/cou929_la/20100221/1266735791" title="XPCOMについてざっと調べたこと - フリーフォーム フリークアウト">XPCOMについてざっと調べたこと &#8211; フリーフォーム フリークアウト</a></li>
+</ul>
+
+<p>表題に戻って、これらのXPCOM InterfaceをJSDoc(ver3)に変換して少しでもエディタが解釈できる形に落としこみたいと思います。</p>
+
+<p>XPCOMは<a href="https://developer.mozilla.org/en-US/docs/XPIDL" title="XPIDL">XPIDL</a>という言語で書かれたインターフェイスファイルが公開されていて、そこにAPIのインターフェイスがのっているのでそれを利用します。</p>
+
+<p>公式に、<a href="https://developer.mozilla.org/en-US/docs/XPIDL/pyxpidl" title="pyxpidl">pyxpidl</a>というものが公開されていて、これはXPIDLの内容をC++とJavaのインターフェイスファイルを生成してくれます。(何でJSDocないの…)</p>
+
+<p>これを改造してXPIDL -&gt; JSDocに変換できるようにした<a href="https://github.com/azu/XPIDL-JSDOC" title="azu/XPIDL-JSDOC">azu/XPIDL-JSDOC</a>というものを適当に作りました。<br>
+(汚いというレベルじゃないので、誰かちゃんと作って欲しい…)</p>
+
+<ul>
+<li>  <a href="https://developer.mozilla.org/ja/docs/Gecko_SDK" title="Gecko/XULRunner SDK">Gecko/XULRunner SDK</a> をダウンロードしてxulrunner-sdk/sdk/binに上書きしたら適当に動きます。</li>
+</ul>
+
+<p>こういう感じのJSDocを書き出します。<br>
+(propertyの型もちゃんと設定したかったけど、Pythonわからなくて諦めた)</p>
+
+<div class="highlight">
+  <pre><span class="cm">/** </span>
+<span class="cm"> * nsIURL IDL</span>
+<span class="cm"> * @typedef {Object} nsIURL</span>
+<span class="cm"> * @property filePath attribute AUTF8String filePath;</span>
+<span class="cm"> * @property query attribute AUTF8String query;</span>
+<span class="cm"> * @property directory attribute AUTF8String directory;</span>
+<span class="cm"> * @property fileName attribute AUTF8String fileName;</span>
+<span class="cm"> * @property fileBaseName attribute AUTF8String fileBaseName;</span>
+<span class="cm"> * @property fileExtension attribute AUTF8String fileExtension;</span>
+<span class="cm"> * @property GetCommonBaseSpec AUTF8String getCommonBaseSpec (in nsIURI aURIToCompare);</span>
+<span class="cm"> * @property GetRelativeSpec AUTF8String getRelativeSpec (in nsIURI aURIToCompare);</span>
+<span class="cm">*/</span>
+<span class="kd">var</span> <span class="nx">nsIURL</span> <span class="o">=</span> <span class="p">{};</span>
+</pre>
+</div>
+
+<p>WebStorm7EAP以降なら、<a href="http://usejsdoc.org/tags-typedef.html" title="@typedef">@typedef</a>に対応してるみたいですがこの書き方が正解なのかよく分からない…</p>
+
+<p>例えば、先ほどのファイル保存する機能を持ったモジュールを作ろうとした時に、ファイル保存するXPCOMのAPIは <code>nsIURL</code> を引数に取るので以下のように、引数に <code>nsIURL</code> の型を取るといった定義を書けるようになります。<br>
+(正直APIの補完にはあんまり使えないと思います。)</p>
+
+<ul>
+<li>  <a href="https://gist.github.com/azu/6030124" title="io.js">io.js</a> 実際につくったやつ</li>
+</ul>
+
+<div class="highlight">
+  <pre><span class="cm">/**</span>
+<span class="cm"> * ``saveURL`` Util</span>
+<span class="cm"> * @param {Window} window</span>
+<span class="cm"> * @param {nsIURL} sourceURI</span>
+<span class="cm"> * @param {nsIURL} fileURI</span>
+<span class="cm"> * @param {string} filename</span>
+<span class="cm"> * @return {promise} promise</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">saveFile</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="nx">sourceURI</span><span class="p">,</span> <span class="nx">fileURI</span><span class="p">,</span> <span class="nx">filename</span><span class="p">){</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+<p>ちなみに、<a href="https://gist.github.com/azu/6030124" title="io.js">io.js</a>の方を見るとわかりますが返り値はAddonSDKの<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/packages/api-utils/promise.html" title="promise">promise</a>を返してます。</p>
+
+<p>少なくてもエディタが何らかの補助をしてくれるなら、事故率は減るのでやっぱりキチンとしたXPCOMのJSDocが欲しいです。。</p>
+
+<h2 id="デバッグ">デバッグ</h2>
+
+<p>Addon SDKで作成したアドオンのデバッグは、Firefox buildinのデバッガを使って行う事ができます。<br>
+また、 <code>console.log()</code>等のConsole APIを使ったprintデバッグもできます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/07/2013-07-21-at-14.35.png" alt="2013 07 21 at 14 35" title="2013-07-21 at 14.35.png" border="0" width="600" height="499" /></p>
+
+<p>FirefoxにもChromeのようにネイティブのデバッグツールが色々増えていて、名前がややこしいですが以下の様な使い分けです。</p>
+
+<ol>
+<li> ウェブページのデバッグ(Content) -&gt; Browser Console</li>
+<li> アドオンのデバッグ(Chrome) -&gt; Browser Debugger</li>
+</ol>
+
+<p>アドオンのデバッグにはChrome権限で動いてるスクリプトが見られる <code>Browser Debugger</code> の方を使います。</p>
+
+<p><a href="https://developer.mozilla.org/ja/docs/Tools/Debugger" title="デバッガ">デバッガ</a> の使い方は以下を見るといいかもしれません。</p>
+
+<ul>
+<li>  <a href="http://www.crystal-creation.com/web-appli/technical-information/browser/firefox/add-on/develop/introduction/tool/" title="開発ツール - Firefoxアドオンの開発手法">開発ツール &#8211; Firefoxアドオンの開発手法</a></li>
+<li>  <a href="http://www.crystal-creation.com/web-appli/technical-information/browser/firefox/add-on/develop/introduction/tool/#browser-debugger" title="ブラウザデバッガ (Browser Debugger)">ブラウザデバッガ (Browser Debugger)</a></li>
+<li>  <a href="https://developer.mozilla.org/ja/docs/Tools/Debugger" title="デバッガ - Tools | MDN">デバッガ &#8211; Tools | MDN</a> デバッガーツールの画面説明</li>
+</ul>
+
+<h2 id="おわり">おわり</h2>
+
+<p>久々に、Addon SDKを触ってアドオンを作りましたが、デバッガやテスト環境、ある程度使い方がわかりやすいモジュールが揃っているので、アドオンを作る敷居は以前に比べれば低くなってきたかなと思います。<br>
+(デバッガー周りはまだ挙動不審なことが事がありますが)</p>
+
+<p>今回、Addon SDKを触りだした理由はGreasemonkey以上(具体的にはDownload APIが欲しかった)のことをやろうとして、<br>
+最初はKeySnail上でささっと作りましたが、簡単なツールバーボタンのようなUIや <em>Content(ウェブページ) &lt; -&gt; Chrome(アドオン)</em> を行き来するようなものを必要になって、<br>
+userChrome.jsのようなスクリプトだと逆に面倒になりそうだったので、<a href="https://addons.mozilla.org/ja/developers/builder" title="Add-on SDK">Add-on SDK</a>でアドオンとして作りました。</p>
+
+<p>Greasemonkeyライクな事は<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/packages/addon-kit/page-mod.html" title="page-mod">page-mod</a>や<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/packages/addon-kit/page-worker.html" title="page-worker">page-worker</a>を使えばできますし、<br>
+<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/packages/addon-kit/panel.html" title="panel">panel</a>や<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/modules/sdk/widget.html" title="widget">widget</a>を使えば簡単なUIは作れるので、Greasemonkey以上の事を簡単にやりたいときに触ってみるといいんじゃないかなーと思います。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-07-21-addon-sdk%E3%81%A7firefox%E3%81%AE%E3%82%A2%E3%83%89%E3%82%AA%E3%83%B3%E3%82%92%E6%9B%B8%E3%81%8F%E3%81%9F%E3%82%81%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E4%BD%9C%E3%82%8B.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["AddonSDK","Firefox","Jetpack","WebStorm"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=AddonSDK">AddonSDK</a></li>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=Jetpack">Jetpack</a></li>
+                
+                <li><a href="/tags/?q=WebStorm">WebStorm</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

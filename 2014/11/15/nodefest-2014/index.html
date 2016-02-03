@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        東京Node学園祭2014 アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,Node.js,イベント,スライド" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/11/15/nodefest-2014/">
+    <h1 class="post-title">東京Node学園祭2014 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年11月15日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-11-15-nodefest-2014.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="東京node学園祭2014">東京Node学園祭2014</h1>
+
+<p><a href="http://nodefest.jp/2014/" title="東京Node学園祭2014">東京Node学園祭2014</a> に参加してきたのでその時のメモ</p>
+
+<hr>
+
+<h1 id="企業javascript飯">企業JavaScript飯</h1>
+
+<p><a href="https://twitter.com/hashtag/%E4%BC%81%E6%A5%ADJavaScript%E9%A3%AF?src=hash" title="#企業JavaScript飯">#企業JavaScript飯</a>というご飯イベントをNode学園祭のお昼に(勝手に)やってました。</p>
+
+<p>@teppeis、@ahomu、@kyosuke、Layzie (敬称略)で企業内でのJavaScript状況ですかという感じの話をしてきました。</p>
+
+<p><a href="https://github.com/azu/slide/raw/gh-pages/nodefest2014/lunch.pdf"><img src="http://monosnap.com/image/Lrk1yFzRaaiIBIqdCMoapmvQkfiwb3.png" alt="img"></a></p>
+
+<p>質問テーマのスライド: <a href="https://github.com/azu/slide/raw/gh-pages/nodefest2014/lunch.pdf">https://github.com/azu/slide/raw/gh-pages/nodefest2014/lunch.pdf</a></p>
+
+<p>という感じのテーマを元に話をしてきました。</p>
+
+<p>参加していただいた皆さん興味深いお話ありがとうございました。</p>
+
+<p>最近企業のJavaScript(er)ってどんな感じになってて、どういうものを求めているのかに興味を持ってるので、面白い話があったらお話きかせて下さい。(to @azu_re にmention)</p>
+
+<ul>
+<li><a href="https://github.com/jser/jser.info/issues/1#issuecomment-61197530" title="どうやったらおもしろ求人情報が集まるか · Issue #1 · jser/jser.info">どうやったらおもしろ求人情報が集まるか · Issue #1 · jser/jser.info</a></li>
+</ul>
+
+<hr>
+
+<h1 id="基調講演">基調講演</h1>
+
+<ul>
+<li>Socket.io</li>
+<li>FTP
+
+<ul>
+<li>テキストには圧縮が効くがバイナリには圧縮が効いてない</li>
+<li>同じ事ができないのでオーバヘッドができてた(スイッチングコスト)</li>
+</ul></li>
+<li>HTTP
+
+<ul>
+<li>HTTPは段々良くなってきた modifier</li>
+<li>ただ、回線では良くなってるけどウェブだとイマイチ</li>
+<li>一番大切だと思ってるのでファイルトランスファー</li>
+<li>一度途中で止まると、もう一度再開するのは手動</li>
+<li>また並列にダウンロードとかできない(回線が早くなったのでよかった)</li>
+<li>ダウンロードでは圧縮が効くけど、アップロードの時は効かない</li>
+</ul></li>
+<li>XHR Lv2 
+
+<ul>
+<li>バイナリサポートをしている</li>
+<li>Progressのイベントもある</li>
+<li>File APIを使ってアップロードする前にファイルを書き換えできる</li>
+<li>Blob#slice をつかう</li>
+</ul></li>
+<li>Party
+
+<ul>
+<li>アップロードの機能に限定されたフレームワーク</li>
+<li>BitTorrentに似てる(一つのfile streamじゃなくて)</li>
+<li>S3に保存することもできる</li>
+<li>細かいメタ情報がある</li>
+<li>早くてシンプルなものを作りたい</li>
+</ul></li>
+<li><a href="http://party.rauchg.com/">http://party.rauchg.com/</a>
+
+<ul>
+<li>テスト用のオプションを分けて</li>
+<li>サーバの機能によってどれを使うかを選べる</li>
+<li>早くするためにファイルをパーツに分けている</li>
+<li>TCPをできるだけ使い切るようにしてる</li>
+<li>圧縮は開発中 - ChromeではWebSocketでDeflateをサポートしてる</li>
+<li>zlibを作ってるので、他のでも早くなるかもしれない</li>
+<li>party側がやってくれるので細かい事を考えなくてもいい</li>
+<li>通信が切れた時の再接続とか</li>
+</ul></li>
+<li>ライブラリ <a href="https://github.com/automattic" title="Automattic">Automattic</a> に公開予定</li>
+</ul>
+
+<hr>
+
+<h1 id="front-end-with-node.js-for-beginners---@ahomu">Front-end with Node.js for Beginners - @ahomu</h1>
+
+<p>スライド </p>
+
+<ul>
+<li><a href="https://gist.github.com/ahomu/3d4a5e57bb7c936d8cab" title="Frontend with Node.js @ahomu - Node学園祭 2014">Frontend with Node.js @ahomu - Node学園祭 2014</a></li>
+<li><a href="https://speakerdeck.com/ahomu/front-end-with-node-dot-js-tools" title="Front-end with Node.js Tools // Speaker Deck">Front-end with Node.js Tools // Speaker Deck</a></li>
+</ul>
+
+<p>メモ</p>
+
+<ul>
+<li>属人化から自動化 - Node.js製のツールがでてきた</li>
+<li>パッケージマネージャー
+
+<ul>
+<li>Before
+
+<ul>
+<li>配布サイトからダウンロード</li>
+<li>コピー</li>
+</ul></li>
+<li>After
+
+<ul>
+<li>コマンド叩いてインストール</li>
+<li>アップデートも一発</li>
+<li>依存関係も解決してくれる</li>
+</ul></li>
+</ul></li>
+<li>Node / ブラウザ でパッケージ管理</li>
+<li>npm
+
+<ul>
+<li>Nodeの標準パッケージマネージャー</li>
+</ul></li>
+<li>Bower
+
+<ul>
+<li>npmでインストールしてブラウザ向けのJSを管理</li>
+</ul></li>
+<li>2つのリポジトリと設定ファイルを管理してるプロジェクトが多い
+
+<ul>
+<li>2つのまとめたい =&gt; npm にまとめる??</li>
+<li>まだブラウザ向けの情報がnpmのpackage.jsonには入ってない</li>
+<li>なのでNodeのエコシステムがそのままブラウザに持ってこれるのかは未定</li>
+</ul></li>
+<li>Tips
+
+<ul>
+<li>npm i</li>
+<li>npm rm</li>
+<li>とか短縮オプションがある</li>
+<li><code>npm-shrinkwrap</code> 現在のnode_modules内のバージョンを記録して固定する</li>
+</ul></li>
+<li>Bower
+
+<ul>
+<li>バージョンの競合が依存解決できないとき</li>
+<li><code>resolutions</code>フィールドでデフォルトでどれを使うとかを指定できる</li>
+</ul></li>
+<li>Task Runner
+
+<ul>
+<li> Before
+
+<ul>
+<li>手動で実行</li>
+</ul></li>
+<li>After
+
+<ul>
+<li>まとめて自動で実行できる</li>
+</ul></li>
+</ul></li>
+<li>多彩なタスクを実行してくれる</li>
+<li>GulpとGrunt
+
+<ul>
+<li>両方とも多くのタスクがある</li>
+<li>pluginの数に差はあるけど大体あるので同じ</li>
+</ul></li>
+<li>Grunt
+
+<ul>
+<li>JSONを書いていくだけの宣言的な設定を書く</li>
+<li>Gruntはtmpにファイルを吐き出して変換を繰り返す</li>
+<li>変換を繰り返すような設定は冗長な感じ</li>
+</ul></li>
+<li>Gulp
+
+<ul>
+<li>JavaScriptのコードで設定を書く</li>
+<li>taskでタスクの定義、src,pipeで繋いでdestで出力</li>
+</ul></li>
+<li>Tips: Grunt
+
+<ul>
+<li>Gruntに思う所がプラグインがされている</li>
+</ul></li>
+<li><code>npm run &lt;command&gt;</code>
+
+<ul>
+<li>npm 2.0.0で引数の受け渡しも出来る</li>
+<li>原始的なコマンド実行を行える</li>
+<li>単純なタスクならnpm runでも十分にできる</li>
+</ul></li>
+<li>モジュールシステム
+
+<ul>
+<li>レガシーコードをどうにかする仕組み</li>
+<li>Before
+
+<ul>
+<li>大きなファイルが普通にあった</li>
+</ul></li>
+<li>After
+
+<ul>
+<li>FluxとかMVとかファイルを分ける = モジュール</li>
+<li>モジュールを管理する出来る</li>
+</ul></li>
+</ul></li>
+<li>Browserify
+
+<ul>
+<li>CommonJSをブラウザで実行出来るようにビルドする</li>
+<li>基本的には設定があまりなくてもいい</li>
+<li>細かい設定はpackage.jsonにメタフィールドを追加する</li>
+</ul></li>
+<li>Require.js
+
+<ul>
+<li>AMDと呼ばれる一連の仕組み</li>
+<li>ランタイムとモジュールの仕組み</li>
+<li>設定をちゃんと書かないと解決しにくい</li>
+</ul></li>
+<li>webpack
+
+<ul>
+<li>CommonJS、AMD両方対応</li>
+<li>Browserifyはひとつのファイル出力がデフォルト</li>
+<li>webpackは複数のファイル出力に対応してる</li>
+<li>非同期ロード用にchunkデータとして吐き出せる</li>
+<li>設定はやや複雑な</li>
+</ul></li>
+<li>Duo
+
+<ul>
+<li>GitHubからモジュールを取得、ビルドまでをやってくれる</li>
+<li>GitHubのリポジトリをそのままコードに依存を記述出来る</li>
+<li><a href="http://ameblo.jp/principia-ca/entry-11932522962.html" title="かんたんパッケージマネージャDuo｜サイバーエージェント 公式エンジニアブログ">かんたんパッケージマネージャDuo｜サイバーエージェント 公式エンジニアブログ</a></li>
+</ul></li>
+<li>まとめ
+
+<ul>
+<li>Browserify
+
+<ul>
+<li>導入が簡単で入門にはいい</li>
+</ul></li>
+<li>RequreJS
+
+<ul>
+<li>非同期がデフォルト。モバイルだと通信が多いので相性微妙?</li>
+<li>r.jsでまとめられるけど、それならBrowserifyでもいいんじゃないか</li>
+</ul></li>
+<li>webpack
+
+<ul>
+<li>Browserifyからの移行もできる。小さいプロジェクトだと適応しにくいかも</li>
+</ul></li>
+<li>Duo
+
+<ul>
+<li>流行ったら考えよう</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h1 id="すべてのノードトランスパイラーがひどい！ならば、ノードトランスパイラーをいかに改善できるか。---@leichtgewicht">すべてのノードトランスパイラーがひどい！ならば、ノードトランスパイラーをいかに改善できるか。 - @leichtgewicht</h1>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/leichtgewicht/nodefest2014-transpiler" title="NodeFest2014 - Transpiler">NodeFest2014 - Transpiler</a></p>
+</blockquote>
+
+<ul>
+<li>Transpiler
+
+<ul>
+<li>コンパイラの種類の一つ</li>
+<li>Source -&gt; Source のコンパイラ</li>
+<li>JavaScript、CSS、HTML</li>
+</ul></li>
+<li>JavaScriptのContextでは一杯ある
+
+<ul>
+<li>BrowserifyとかもひとつのTranspiler</li>
+</ul></li>
+<li>Transpilerの問題</li>
+<li>Transpilerパフォーマンス
+
+<ul>
+<li>Static Site Generatorの待つ時間が長い</li>
+<li>殆どのTranspilerは同期
+
+<ul>
+<li>JavaScript、HTMLは殆ど同期</li>
+</ul></li>
+<li>並列にコンパイルできないのでパフォーマンスが問題になる
+
+<ul>
+<li>CSSはAsyncでできるやつがなぜか多い</li>
+</ul></li>
+<li>起動するだけでも時間がかかるやつが多い
+
+<ul>
+<li>200msぐらいかかるものがある…</li>
+</ul></li>
+<li>import caching
+
+<ul>
+<li>インポートのキャッシュが重要</li>
+<li>jadeはimport cachingしてる</li>
+</ul></li>
+</ul></li>
+<li>Transpiler設定体系
+
+<ul>
+<li>source-map</li>
+<li>targe-encoding</li>
+<li>pre/post processing</li>
+<li>output path</li>
+<li>input path
+
+<ul>
+<li>I/O piping</li>
+</ul></li>
+<li>import</li>
+<li>設定入力システム
+
+<ul>
+<li>似たような設定なはずなのに、オプションとかバラバラ。</li>
+</ul></li>
+<li>設定の保存
+
+<ul>
+<li><code>jade --out hoge.jade --save save.config</code> みたいな感じで設定ファイルを保存できると便利そう(提案)</li>
+</ul></li>
+</ul></li>
+<li>Transpiler 依存関係
+
+<ul>
+<li>Watch : Stage 1
+
+<ul>
+<li>そのファイルそのものだけを監視</li>
+</ul></li>
+<li>Watch : Stage 2
+
+<ul>
+<li>そのファイルが依存してるものも監視</li>
+</ul></li>
+<li>Watch : Stage 3
+
+<ul>
+<li>インポートパターンの対応</li>
+</ul></li>
+<li>Watch : Stage 4
+
+<ul>
+<li>別の言語依存も監視してコンパイル</li>
+</ul></li>
+<li>Watch : Stage 5
+
+<ul>
+<li>Configファイルが変わったらもう一度コンパイル</li>
+</ul></li>
+<li>Watch : Stage 6
+
+<ul>
+<li>パイプライン</li>
+</ul></li>
+</ul></li>
+<li>TranspilerのCLIごっちゃごちゃ
+
+<ul>
+<li>デフォルトが圧縮するしない?</li>
+<li>引数なしの場合の挙動が違う</li>
+<li>それぞれのCLIで挙動が違うと気持ち悪い</li>
+<li>エラーコードやformatting
+
+<ul>
+<li>Syntax Error</li>
+<li>Config Error</li>
+<li>どのようにエラーを出すのかの標準がないから辛い</li>
+</ul></li>
+</ul></li>
+<li>Transpiler 合成
+
+<ul>
+<li>一つのHTMLでインラインに書いてそれぞれTranspileをしたい時</li>
+<li>合成システムがTranspilerにはない</li>
+</ul></li>
+<li>エコシステム
+
+<ul>
+<li>Transpilerがよくなれば、エコシステムがよくなる</li>
+<li>ドキュメントが簡単になるので初心者に優しい</li>
+</ul></li>
+<li>みんなTranspilerを使ってる
+
+<ul>
+<li>もっと良くするためには話しあおう</li>
+<li><a href="https://github.com/better-compiler" title="better-compiler">better-compiler</a></li>
+</ul></li>
+</ul>
+
+<p>FAQ</p>
+
+<ul>
+<li>アプローチに上にレイヤーをつくる or それぞれお願いする
+
+<ul>
+<li>レイヤーを作る方向で検討してる</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h1 id="テスト用ライブラリ-power-assert,-その開発で学んだ-npm-モジュール設計の勘所---@t_wada">テスト用ライブラリ power-assert, その開発で学んだ npm モジュール設計の勘所 - @t_wada</h1>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/t_wada/power-assert-nodefest-2014" title="power-assert, mechanism and philosophy">power-assert, mechanism and philosophy</a></p>
+</blockquote>
+
+<p>アジェンダ</p>
+
+<ul>
+<li>power-assertの紹介</li>
+<li>仕組み</li>
+<li>設計思想</li>
+</ul>
+
+<p>JavaScriptのつと</p>
+
+<ul>
+<li>JavaScriptにはテストのデファクトスタンダートがない</li>
+<li>アサーションライブラリもメソッド数が多い</li>
+<li>Nodeの<code>assert</code>モジュールが十分な情報を吐いてくれるなら問題ないのでは</li>
+</ul>
+
+<p>DEMO</p>
+
+<ul>
+<li>Chaiのコードをassertに書き方に変える</li>
+<li>This is power-assert</li>
+<li>シンプルで十分な情報が出せればいい =&gt; power-assert</li>
+</ul>
+
+<h2 id="power-assert">power-assert</h2>
+
+<ul>
+<li>成功してる時は静かに</li>
+<li>失敗する時はうるさく伝える</li>
+<li>assertionメソッドが3つぐらいで十分になる</li>
+</ul>
+
+<h2 id="power-assertの仕組み">power-assertの仕組み</h2>
+
+<ul>
+<li>実行時にコードを変換して実行するようにしてる</li>
+<li>その変換時にエラーに必要な情報を埋め込む</li>
+<li>ASTを変換して、埋め込んでいる</li>
+</ul>
+
+<p>DEMO :  ASTを変換して -&gt; コードに戻す(Generator)</p>
+
+<ul>
+<li>コードを標準入力で受け取る</li>
+<li>esprimaでコードをASTにパースする</li>
+<li>estraverseでASTを変更する</li>
+<li>escodegenでASTをコードに出力し直す</li>
+</ul>
+
+<h3 id="substack-pattern">substack pattern</h3>
+
+<ul>
+<li>モジュールから外部に公開する関数はひとつだけにする</li>
+<li>複数返したくなったらもう一個モジュールを作る</li>
+</ul>
+
+<p>DEMO2: 先ほどのデモのAST変換の部分をモジュール化する</p>
+
+<ul>
+<li>AST変換部分のコールバックを関数化</li>
+<li>関数を別のファイルに分けてモジュール化</li>
+<li>substackパターンで関数を公開する</li>
+<li>requireでモジュールを読み込んで使う</li>
+</ul>
+
+<p>DEMO3: パースして、変換、生成の3つなので、それぞれモジュールを分ける</p>
+
+<ul>
+<li>コードを受け取り、ASTを返す</li>
+<li>変換はASTを受け取り、変換、ASTを返すとする</li>
+<li>ASTを受け取りコードを出力</li>
+</ul>
+
+<p>これはpower-assertでやってることと同じ</p>
+
+<ul>
+<li>ASTを受け取り、変換、ASTを返す = espower</li>
+</ul>
+
+<h4 id="設計思想">設計思想</h4>
+
+<ul>
+<li>Easy is not simple</li>
+<li>SimpleとEasyは別である</li>
+<li>それぞれモジュールに分ける</li>
+<li>それぞれのコンテキストにあわせたEasyを提供する
+
+<ul>
+<li>Grunt</li>
+<li>Gulp</li>
+<li>Node</li>
+<li>etc...</li>
+</ul></li>
+<li>Simpleが本質的な所
+
+<ul>
+<li>どういう処理をするかという話</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h1 id="ギャルでもゎかる-node-webkit---@upgrade_ayp">ギャルでもゎかる node-webkit - @upgrade_ayp</h1>
+
+<ul>
+<li>ユーザ側の話</li>
+<li>node-webkitってなに
+
+<ul>
+<li>デスクトップGUIアプリが作れる
+
+<ul>
+<li>GUI(HTML/JS/CSS)</li>
+<li>Same originとかも突破出来るので楽</li>
+</ul></li>
+</ul></li>
+<li>プロジェクト1 : 事務仕事で使うnode-webkit製のアプリ
+
+<ul>
+<li>色や画像を差し込んだりが簡単</li>
+<li>UIはBackbone.stickit
+
+<ul>
+<li>Backbone</li>
+</ul></li>
+<li>RemoteDebuggingProtocol
+
+<ul>
+<li>サーバ側のエラーもちゃんと取るために使ってる</li>
+</ul></li>
+<li><a href="http://www.slideshare.net/HatanoAya/js1-32817077" title="node-webkit &amp;amp; chrome-remote-interfaceでブラウザオートメーション">node-webkit &amp; chrome-remote-interfaceでブラウザオートメーション</a></li>
+<li>タスク1週に1-2時間ぐらいかかる</li>
+</ul></li>
+<li>Contextの問題
+
+<ul>
+<li><a href="https://github.com/rogerwang/node-webkit/wiki/Differences-of-JavaScript-contexts" title="Differences of JavaScript contexts · rogerwang/node-webkit Wiki">Differences of JavaScript contexts · rogerwang/node-webkit Wiki</a></li>
+<li>node-webkit特有の問題</li>
+<li>Node側に寄せて書いた</li>
+</ul></li>
+<li>node-webkit vs atom-shell
+
+<ul>
+<li>node-webkitは両方のcontextを普通に扱える</li>
+<li>atom-shellのserverから見た時
+
+<ul>
+<li>atom-shellはブラウザContextで実行しようとするときeval的なものが必要</li>
+<li>Firefox/Chromeの拡張と大体同じ</li>
+<li><a href="https://twitter.com/mizchi/status/533522161659416576">https://twitter.com/mizchi/status/533522161659416576</a></li>
+</ul></li>
+</ul></li>
+<li>ユニットテスト
+
+<ul>
+<li>Karmaにオプションあるけど使えなかった</li>
+<li>mochaのWikiにやり方あった</li>
+<li>node-webkit特有の問題
+
+<ul>
+<li>console.logが潰されてた </li>
+</ul></li>
+<li><a href="https://github.com/mochajs/mocha/wiki/Using-mocha-with-node-webkit" title="Using mocha with node webkit · mochajs/mocha Wiki">Using mocha with node webkit · mochajs/mocha Wiki</a></li>
+</ul></li>
+<li>E2Eテスト
+
+<ul>
+<li>Nightwatch.js</li>
+<li>SeleniumのChromeDriverで動く</li>
+<li><code>remote-debugging-port</code>を指定して起動する起動できない問題</li>
+</ul></li>
+<li>ソースコードプロテクション
+
+<ul>
+<li>node-webkitはビルドするけどソースコードがそのまま見える</li>
+<li>Developer Tools 開くボタンを失くす</li>
+<li>Remote Debugger Port
+
+<ul>
+<li>メインウィンドウのinspect権を先に奪う</li>
+</ul></li>
+<li>ユーザーのローカルTMP_DIR
+
+<ul>
+<li>暗号化で対処</li>
+<li>ビルド前に暗号化</li>
+<li>gulpとかでjsを暗号化してnwビルド</li>
+<li><code>require</code>時に復元する(読み込むときに拡張子別でhookして複合する</li>
+</ul></li>
+</ul></li>
+<li>プロジェクト2
+
+<ul>
+<li>リモートにデータベース置いてmongooseで接続</li>
+<li>Socket.ioで繋ぐ</li>
+<li>D3のチューニングが大切</li>
+<li>常時起動してるのでメモリリークのチェック必要</li>
+</ul></li>
+<li>デスクトップNode.jsの世界
+
+<ul>
+<li>JavaScriptで全部書けるのは楽</li>
+<li>Node、npmライブラリが使えるのが楽</li>
+<li>node始める時にウェブサービスじゃなくてアプリを作ることから始められる</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h1 id="lt">LT</h1>
+
+<h2 id="新しい並行計算ライブラリjs-cspをご紹介---@niryuu">新しい並行計算ライブラリjs-cspをご紹介 - @niryuu</h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/niryuu/jscsp-41585681" title="新しい並行計算ライブラリ js-csp のご紹介">新しい並行計算ライブラリ js-csp のご紹介</a></p>
+</blockquote>
+
+<ul>
+<li>node.jsで非同期プログラミングを繋いでいく問題</li>
+<li>Promise/Generatorベースになってきた</li>
+<li>新しい書き方がでてきてるが、ちゃんと動いてるのかの検証が難しい</li>
+<li>非同期処理の検証の問題
+
+<ul>
+<li>繋いで行く時に失敗する事がある</li>
+</ul></li>
+<li>非同期に向いた計算モデルが必要 =&gt; CSP</li>
+</ul>
+
+<h2 id="ド初心者が5000qpsの広告配信apiをnode.jsで構築したおはな死---@zuqqhi2,-@jimisky">ド初心者が5000QPSの広告配信APIをNode.jsで構築したおはな死 - @zuqqhi2, @Jimisky</h2>
+
+<ul>
+<li>改善前の広告が色々やってた
+
+<ul>
+<li>複数のリクエスト</li>
+<li>CSSやJavaScriptが大量</li>
+</ul></li>
+<li>改善: Node.js
+
+<ul>
+<li>複数のリクエストをNode側にまとめる</li>
+<li>APIオーケストレーション</li>
+</ul></li>
+<li>Tips1 :<code>child_process.exec</code> は使わない</li>
+<li>Tips2 : ライブラリ
+
+<ul>
+<li>CやC++のネイティブ処理を使う</li>
+</ul></li>
+<li>Tips3: ローカルオンメモリ
+
+<ul>
+<li>ヒット率が8-9が高かったのでメモリキャッシュする</li>
+</ul></li>
+<li>Tips4: <a href="https://github.com/gwicke/nodegrind" title="gwicke/nodegrind">gwicke/nodegrind</a>
+
+<ul>
+<li>指定した期間内にCPUの状態をダンプする</li>
+<li>Chrome Dev Toolsで確認出来る</li>
+<li>Heapダンプ を <a href="https://github.com/bnoordhuis/node-heapdump" title="bnoordhuis/node-heapdump">bnoordhuis/node-heapdump</a> でした</li>
+</ul></li>
+</ul>
+
+<h2 id="node.js-+-socket.io-+-mongodb-で本格風リアルタイムwebサイトを作ってみた---@ozatty96">node.js + socket.io + mongoDB で本格風リアルタイムWEBサイトを作ってみた - @ozatty96</h2>
+
+<ul>
+<li>ファイル数が多いと詰まってしまう</li>
+<li>SEOの問題
+
+<ul>
+<li>Google botはsocket.ioの通信を解釈してくれない</li>
+<li>自分でPhantomJSみたいな仕組みを作った</li>
+</ul></li>
+<li>これからリアルタイムウェブになるのではないのか</li>
+</ul>
+
+<h2 id="node.jsでビッグデータを処理する---@neo6120">node.jsでビッグデータを処理する - @neo6120</h2>
+
+<ul>
+<li>ビッグデータのプリプロセス</li>
+<li>ログ解析
+
+<ul>
+<li>大量のログ解析をする話</li>
+<li>SQL</li>
+</ul></li>
+<li>解析担当者
+
+<ul>
+<li>iPythonでやってるんだけど、多くて上手く行かない</li>
+</ul></li>
+<li>解析のプロプロセス
+
+<ul>
+<li>データの分割結合</li>
+<li>バイナリ化</li>
+<li>フォーマット変換</li>
+</ul></li>
+<li>NodeはシンプルプロセスなのでCPU一つだけの処理だとCPUを使い切れない</li>
+<li>child_processで分割
+
+<ul>
+<li>コアを使い切る</li>
+<li>キューが溢れてしまう事があった</li>
+<li>dripped dataがきて更にあふれたことがあった</li>
+<li>さらにキューが小さく…</li>
+</ul></li>
+<li>FAQ: clusterをなぜ使わなかったの?
+
+<ul>
+<li>ドキュメントが良くわからなかった</li>
+<li><a href="https://twitter.com/leader22/status/533536546574454784">https://twitter.com/leader22/status/533536546574454784</a></li>
+</ul></li>
+</ul>
+
+<h2 id="a-profiling-and-monitoring-method-for-nodejs-applications---@setogit">A Profiling and Monitoring Method for Nodejs Applications - @setogit</h2>
+
+<ul>
+<li><a href="https://github.com/Concurix/cx-helloworld-readme-ja" title="Concurix profiling and monitoring solution">Concurix profiling and monitoring solution</a></li>
+<li><a href="http://concurix.com/" title="Concurix | Trial Offer">Concurix | Trial Offer</a></li>
+<li>Nodeアプリのプロファイリング出来るライブラリ</li>
+</ul>
+
+<hr>
+
+<h2 id="その他">その他</h2>
+
+<p>メモ: FoldingText</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-11-15-nodefest-2014.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","Node.js","イベント","スライド"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+                <li><a href="/tags/?q=スライド">スライド</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

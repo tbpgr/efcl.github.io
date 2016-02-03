@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Gitを始めるまでにやったことのまとめ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Git,Greasemonkey,エクスプローラ,日本語,設定" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2009/0919/res1311/">
+    <h1 class="post-title">Gitを始めるまでにやったことのまとめ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2009年09月19日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2009/2009-09-19-git%E3%82%92%E5%A7%8B%E3%82%81%E3%82%8B.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>Gitをというよりバージョン管理システム自体をちゃんとやった事がなかったのでGitを導入してみることにした。<br>
+Gitは分散型バージョン管理システムで最近流行っているそうだ。</p>
+
+<!--more-->
+
+<p><strong>WindowsでのGit環境構築とその注意点 &#8211; SourceForge.JP Magazine</strong>
+:   <a href="http://sourceforge.jp/magazine/09/02/12/0530242" title="WindowsでのGit環境構築とその注意点 - SourceForge.JP Magazine">http://sourceforge.jp/magazine/09/02/12/0530242</a></p>
+
+<p>上を参考にmsysgitをインストールした。<br>
+git-guiは正直微妙なので、下を参考にTortoiseGitをインストールした。</p>
+
+<p><strong>実用レベルに達したWindows向けGitクライアント「TortoiseGit」でGitを始めよう &#8211; SourceForge.JP Magazine</strong>
+:   <a href="http://sourceforge.jp/magazine/09/06/19/0340248" title="実用レベルに達したWindows向けGitクライアント「TortoiseGit」でGitを始めよう - SourceForge.JP Magazine">http://sourceforge.jp/magazine/09/06/19/0340248</a></p>
+
+<p>もう基本的な機能はそろってる感じで、フォントを変えれば日本語も表示はできる。<br>
+日本語ファイル名は異なる環境が参照する場合はまだ問題があるらしい。</p>
+
+<p><strong>Gitの基礎練習</strong>
+:   <a href="http://hyuki.com/techinfo/gitinit.html" title="Gitの基礎練習">http://hyuki.com/techinfo/gitinit.html</a></p>
+
+<p>上はgitコマンドの練習。gitの流れでローカルまでの範囲をわかりやすく書かれている</p>
+
+<pre>git init //初期化
+  git add README //ファイルをgitの管理下に加える
+  git commit -m 'first commit' // 変更点をコミットする
+ここまではまだローカルの範囲
+ここからはgithub.comなど外部と連携する
+  git remote add origin git@github.com:azu/test.git //どこのレポジトリと連携するかを設定
+  git push origin master // ローカルの状態をサーバにpush(反映させる)する
+pushして初めてサーバに反映するので、commitしただけはローカルにしか反映はしてない。
+</pre>
+
+<h3 id="次にgithubにpushする方法を学ぶ">次にGitHubにpushする方法を学ぶ</h3>
+
+<p><a href="http://gist.github.com/">GitHub</a>でアカウントを作って、<a href="http://github.com/repositories/new">Create a New Repository</a>からレポジトリを作成する。<br>
+作成してそのレポジトリにアクセスするとGlobal setup: … Next steps:のように実行する事が書いてあるのでGit Bashを立ち上げる。<br>
+<a href="http://code.google.com/p/msysgit/">mysgit</a>をインストールしたときに</p>
+
+<div class="quote">
+  <blockquote title="WindowsでのGit環境構築とその注意点 - SourceForge.JP Magazine" cite="http://sourceforge.jp/magazine/09/02/12/0530242/2">
+    <p>
+      Run Git and included Unix tools from the Windows Command Prompt
+    </p>
+  </blockquote>
+  
+  <p>
+    <cite><a href="http://sourceforge.jp/magazine/09/02/12/0530242/2">WindowsでのGit環境構築とその注意点 &#8211; SourceForge.JP Magazine</a></cite></div> <p>
+      を選択してるなら、コマンドプロンプトでもgitコマンドが打てるようになっているので、その場合はコマンドプロンプトや<br /> <a href="http://nyaos.org/index.cgi?p=FrontPage.ja">NYAOS</a>などのコマンドラインシェルでもいいはず。(コマンドプロンプトのコマンドと競合するらしいがパスを変えることで<a href="http://twitter.com/hell2u/statuses/4041333625">大丈夫になる</a>とか)
+    </p>
+    
+    <p>
+      setupなどをする前にgitHubにアクセスできるようにするため、gitHubにパブリックキーの登録をしないといけません
+    </p>
+    
+    <dl>
+      <dt>
+        <strong>Using Git and Github for the Windows for newbies &#8211; Guides &#8211; GitHub</strong>
+      </dt>
+      
+      <dd>
+        <a title="Using Git and Github for the Windows for newbies - Guides - GitHub" href="http://github.com/guides/using-git-and-github-for-the-windows-for-newbies">http://github.com/guides/using-git-and-github-for-the-windows-for-newbies</a>
+      </dd>
+    </dl>
+    
+    <dl>
+      <dt>
+        <strong>windowsでgit用にSSH鍵を作る手順 &#8211; Guyon Diary</strong>
+      </dt>
+      
+      <dd>
+        <a title="windowsでgit用にSSH鍵を作る手順 - Guyon Diary" href="http://d.hatena.ne.jp/guyon/20081021/1224683687">http://d.hatena.ne.jp/guyon/20081021/1224683687</a>
+      </dd>
+    </dl>
+    
+    <dl>
+      <dt>
+        <strong>Big Sky :: SSHポートが通らなくてもgithub.comにpushする方法</strong>
+      </dt>
+      
+      <dd>
+        <a title="Big Sky :: SSHポートが通らなくてもgithub.comにpushする方法" href="http://mattn.kaoriya.net/software/20081029172540.htm">http://mattn.kaoriya.net/software/20081029172540.htm</a> <br /> これがわかりやすい
+      </dd>
+    </dl>
+    
+    <p>
+      上の二つを参考にssh-keygenを実行すると、以下の場所にid_rsa.pubが生成されるので、それの中身を<a href="https://github.com/account">Your Account &#8211; GitHub</a>のSSH Public Keysに登録する。(タイトルは適当でいい)
+    </p><figure id="attachment_1329" style="width: 300px;" class="wp-caption alignnone">
+    
+    <a href="http://efcl.info/wp-content/uploads/2009/09/sshot-2009-09-18-23-19-34.png"><img class="size-medium wp-image-1329" title="sshot-2009-09-18-[23-19-34]" src="http://efcl.info/wp-content/uploads/2009/09/sshot-2009-09-18-23-19-34-300x71.png" alt="SSH Public Keysに登録" width="300" height="71" /></a><figcaption class="wp-caption-text">SSH Public Keysに登録</figcaption></figure> <p>
+      <code>Xp : C:Documents and SettingsYourNameHere.ssh</code><br /> <code>Vista : C:UsersYourNameHere.ssh</code>
+    </p>
+    
+    <h3>
+      実際にgitHubにpushする
+    </h3>
+    
+    <p>
+      では実際にレポジトリを作ったときに表示されているコマンドを上からやっていくと、自分の環境では<a href="http://www.twitlonger.com/show/h6s4">git pushするとエラー</a>になってしまった。<br /> これは先ほどの<a href="http://mattn.kaoriya.net/software/20081029172540.htm">Big Sky :: SSHポートが通らなくてもgithub.comにpushする方法</a>を参考にgithub.comへのssh接続にすることで解決できました。<br /> <a href="http://www.google.co.jp/search?q=git+site%3Amattn.kaoriya.net&ie=utf-8&oe=utf-8&aq=t&rls=org.mozilla:ja:official&client=firefox-a">Big Sky</a>さんのブログは結構躓くところの解決法が多くあるので読んでおくといいかも。
+    </p>
+    
+    <p>
+      .sshフォルダのconfigファイルは以下のように設定しました。(次の事を考えて<span class="Constant"><span class="ColorResultsClass">gist</span>.github.comも入れてあります。)</span>
+    </p>
+    
+    <pre>Host github.com
+    User git
+    Hostname ssh.github.com
+    Port 443
+    IdentityFile ~/.ssh/id_rsa
+Host gist.github.com
+    User git
+    Hostname ssh.github.com
+    Port 443
+    IdentityFile ~/.ssh/id_rsa
+    TCPKeepAlive yes
+    IdentitiesOnly yes
+</pre>
+    
+    <p>
+      これでやっとgit remoteしてgit pushするというサーバとの連携ができるようになりました。<br /> gitコマンドはかなり数があるので、そのうち勉強する。
+    </p>
+    
+    <p>
+      <a href="http://sheephead.homelinux.org/2009/07/21/1431/">gitやめてmercurialとtortoiseHGをインストール</a> にある種Gitの特徴が書かれてる。
+    </p>
+    
+    <h3>
+      gist.github.comでコードペーストしたものをローカルにダウンロードする方法
+    </h3>
+    
+    <p>
+      <a href="http://gist.github.com/">Gist &#8211; GitHub</a> は使い捨てのコードを公開したりすることができGreasemonkeyなども相性がよいため、よく利用してる。<br /> 今まで、貼り付けたものをまとめてローカルに保存するにはgistyというrubyでできたコマンドを使う事でできる。<br /> gistyはgist(コードペーストサービスの事)を便利に使うためのツール
+    </p>
+    
+    <dl>
+      <dt>
+        <strong>gistコマンドよりちょっと便利なgisty &#8211; SWDYH</strong>
+      </dt>
+      
+      <dd>
+        <a title="gistコマンドよりちょっと便利なgisty - SWDYH" href="http://d.hatena.ne.jp/swdyh/20081207/1228655198">http://d.hatena.ne.jp/swdyh/20081207/1228655198</a>
+      </dd>
+    </dl>
+    
+    <p>
+      gistyを使うにはActive Rubyでもいいので入れておいてから、管理者権限でコマンドプロンプト(or git bash)を起動して必要なものをインストールする。
+    </p>
+    
+    <pre>gem sources -a http://gems.github.com
+gem install nokogiri
+gem install swdyh-gisty
+</pre>
+    
+    <p>
+      windowsで
+    </p>
+    
+    <pre>export GISTY_DIR="$HOME/dev/gists"</pre>
+    
+    <p>
+      をやってもなぜか記憶されなかったので、C:Program FilesGitetcのprofileというファイルの最後に<br /> export GISTY_DIR=/d/gists という感じでデータフォルダを入れる。
+    </p>
+    
+    <div class="quote">
+      <div>
+        <blockquote title="WindowsでのGit環境構築とその注意点 - SourceForge.JP Magazine" cite="http://sourceforge.jp/magazine/09/02/12/0530242/3">
+          <p>
+            このとき、テキストエディタのパス中の「」は「/」に、「C:」は「/c」に置き換えて指定する。たとえば「C:Program Filesxyzzy/xyzzy.exe」というエディタを使用したい場合は次のように指定する。
+          </p>
+        </blockquote>
+        
+        <p>
+          <cite><a href="http://sourceforge.jp/magazine/09/02/12/0530242/3">WindowsでのGit環境構築とその注意点 &#8211; SourceForge.JP Magazine</a></cite>
+        </p>
+      </div>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;/div&gt;
+
+&lt;p&gt;
+  を参考にした
+&lt;/p&gt;
+
+&lt;pre&gt;git config --global github.user your_id
+</code></pre></div>
+<p>git config --global github.token your_token</pre></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;p&gt;
+  上を各自のものに変えて実行してトークンを登録する。C:Usersユーザー名.gitconfigに記録される。
+&lt;/p&gt;
+
+&lt;h3&gt;
+  実際にgist.github.comからpullする
+&lt;/h3&gt;
+
+&lt;p&gt;
+  上の環境設定が済んでるならば、Gist bash上で
+&lt;/p&gt;
+
+&lt;pre&gt;gisty
+</code></pre></div>
+<p></pre></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;p&gt;
+  と打てば、使えるコマンドが表示されると思います。&lt;br /&gt; gist.github.comから自分がコードペーストしたものをローカルに持ってくるには、&lt;br /&gt; gisty pull_all か gisty sync をすれば自動的にすべてpullしてきてくれます。&lt;br /&gt; しかし、この時ひとつpullする毎にパスフレーズを要求されてしまったので、&lt;strong&gt;ssh-agent&lt;/strong&gt;を使ってパスワード認証をなしにしてからpull_allをする。
+&lt;/p&gt;
+
+&lt;pre&gt;$ eval `ssh-agent`
+</code></pre></div>
+<p>$ ssh-add ~/.ssh/id_rsa
+</pre></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;dl&gt;
+  &lt;dt&gt;
+    &lt;strong&gt;パスワードなしで pull/push&lt;/strong&gt;
+  &lt;/dt&gt;
+
+  &lt;dd&gt;
+    &lt;a title=&quot;パスワードなしで pull/push&quot; href=&quot;http://www.pshared.net/diary/20090418.html&quot;&gt;http://www.pshared.net/diary/20090418.html&lt;/a&gt;
+  &lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;pre&gt;&lt;/pre&gt;
+
+&lt;h3&gt;
+  オマケ
+&lt;/h3&gt;
+
+&lt;p&gt;
+  gisty postするときにmacはブラウザで開いてくれるわけではないので、クリップボードにポストしたgistのURLを取得するようにしてみた。 C:Rubylibrubygems1.8gemsswdyh-gisty-0.0.14libgisty.rb とからへんにあるの置き換える。
+&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;a href=&quot;http://gist.github.com/188278&quot;&gt;gisty.rb&lt;/a&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+  windowsAPIを使ってるみたいなのでwindowsだけ対応で、
+&lt;/p&gt;
+
+&lt;pre&gt;gem install win32-clipboard
+</code></pre></div>
+<p></pre></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;p&gt;
+  をインストールする必要がある。
+&lt;/p&gt;
+
+&lt;h3&gt;
+  感想
+&lt;/h3&gt;
+
+&lt;p&gt;
+  ホントに導入が面倒。&lt;br /&gt; 情報が思ったようにでてこない(特にWindows系)ので大変。&lt;br /&gt; エクスプローラプラグインなどを持っているエディタからはTortoiseGitが使えるので大変便利。&lt;br /&gt; ショートカット(.lnk)からgistyでpostしたいけど、やり方がよく分からなかった。&lt;br /&gt; Emeditorから編集してるファイルをgistyでポストしたかった。
+&lt;/p&gt;
+
+&lt;p&gt;
+  以下、参考したところ&lt;br class=&quot;spacer_&quot; /&gt;
+&lt;/p&gt;
+
+&lt;ul id=&quot;list&quot;&gt;
+  &lt;li id=&quot;id_4607881&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://mattn.kaoriya.net/software/20090106180947.htm&quot; target=&quot;_blank&quot;&gt;Big Sky :: Windowsでもssh-askpassを使う&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_18639302&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://mattn.kaoriya.net/software/20081106192615.htm&quot; target=&quot;_blank&quot;&gt;Big Sky :: Windowsでもssh-agentとssh-addを使ってパスフレーズ入力を省略する。&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_15718544&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://www.atmarkit.co.jp/flinux/rensai/linuxtips/447nonpassh.html&quot; target=&quot;_blank&quot;&gt;＠IT：sshでパスワードなしにログインするには&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_18628535&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://www.pshared.net/diary/20090418.html&quot; target=&quot;_blank&quot;&gt;指定したディレクトリ以下にだけあるディレクトリ一覧のパスを取得する, パスワードなしで pull/push &amp;#8211; Ussy Diary(2009-04-&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_18628367&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://d.hatena.ne.jp/LukeSilvia/20090418/p1&quot; target=&quot;_blank&quot;&gt;git 環境のセットアップと簡単なチュートリアル &amp;#8211; Slow Dance&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_18628133&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://bw28.blog5.fc2.com/?tag=git&quot; target=&quot;_blank&quot;&gt;オレのメモ&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_18628083&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://www.clear-code.com/blog/2009/7/8.html&quot; target=&quot;_blank&quot;&gt;TortoiseGitでOpenSSHの鍵を使う &amp;#8211; ククログ(2009-07-08)&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_18595686&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://ok-lab.org/blog/archives/522&quot; target=&quot;_blank&quot;&gt;oklablog &amp;#8211; TortoiseGit で plink.exe を使ってリモートリポジトリにpushする&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;
+      &lt;small&gt; &lt;a id=&quot;m18627871&quot; class=&quot;check&quot;&gt;&lt;/a&gt;&lt;/small&gt;
+    &lt;/p&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_12001842&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://sourceforge.jp/magazine/09/02/12/0530242/3&quot; target=&quot;_blank&quot;&gt;WindowsでのGit環境構築とその注意点 &amp;#8211; SourceForge.JP Magazine&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_18612908&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://d.hatena.ne.jp/Seasons/20090329/1238340961&quot; target=&quot;_blank&quot;&gt;GitとDYNAの連携で幸せになるショートカット &amp;#8211; Seasons.NET&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_16904299&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://www.hyuki.com/techinfo/gitinit.html&quot; target=&quot;_blank&quot;&gt;Gitの基礎練習&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_18607925&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://blog.digital-squad.net/article/109547754.html&quot; target=&quot;_blank&quot;&gt;git (msysgit)をWindowsにインストール｜WEBデザイン Tips&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_3404034&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://d.hatena.ne.jp/swdyh/20081207/1228655198&quot; target=&quot;_blank&quot;&gt;gistコマンドよりちょっと便利なgisty &amp;#8211; SWDYH&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_18580154&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://mattn.kaoriya.net/software/20081029172540.htm&quot; target=&quot;_blank&quot;&gt;Big Sky :: SSHポートが通らなくてもgithub.comにpushする方法&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_6494823&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://sourceforge.jp/magazine/09/02/12/0530242&quot; target=&quot;_blank&quot;&gt;WindowsでのGit環境構築とその注意点 &amp;#8211; SourceForge.JP Magazine&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_6111342&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://sourceforge.jp/magazine/09/02/02/0655246&quot; target=&quot;_blank&quot;&gt;分散バージョン管理システムGit入門 &amp;#8211; SourceForge.JP Magazine&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_18542789&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://drewblas.com/2008/06/27/setting-up-git-and-github-on-windows/&quot; target=&quot;_blank&quot;&gt;Setting up Git and Github on Windows « Drew Blas – The life and code of a p&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_18538117&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://d.hatena.ne.jp/stellaqua/searchdiary?word=%2a%5bGit%5d&quot; target=&quot;_blank&quot;&gt;[Git] &amp;#8211; Stellaqua &amp;#8211; ＴＯＭの技術日記&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;
+      &lt;small&gt; &lt;em class=&quot;domain&quot;&gt; &lt;/em&gt;&lt;/small&gt;
+    &lt;/p&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_18537953&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://d.hatena.ne.jp/stellaqua/20081110/1226298802&quot; target=&quot;_blank&quot;&gt;Gitを触ってみるよ その2「WindowsでGitを使いやすくする」 &amp;#8211; Stellaqua &amp;#8211; ＴＯＭの技術日記&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_12001463&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://yakinikunotare.boo.jp/orebase/index.php?Git%2F%B0%EC%BF%CD%A4%C7%BB%C8%A4%C3%A4%C6%A4%DF%A4%EB%A1%CAmsysgit%CA%D4%A1%CB&quot; target=&quot;_blank&quot;&gt;Git/一人で使ってみる（msysgit編） &amp;#8211; 俺の基地&lt;/a&gt; &lt;/strong&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+
+  &lt;li id=&quot;id_18525733&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;p&gt;
+        &lt;strong&gt; &lt;a class=&quot;item&quot; href=&quot;http://wp.graphact.com/2008/08/09/382&quot; target=&quot;_blank&quot;&gt;github を Windows で使ってみる | Numb.&lt;/a&gt;&lt;/strong&gt;
+      &lt;/p&gt;
+
+      &lt;p&gt;
+        &lt;strong&gt; &lt;/strong&gt;&lt;/div&gt; &lt;p&gt;
+          &lt;small&gt; &lt;em class=&quot;domain&quot;&gt; &lt;/em&gt;&lt;/small&gt;&lt;/li&gt; &lt;/ul&gt; &lt;div id=&quot;_mcePaste&quot; style=&quot;overflow: hidden; position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px;&quot;&gt;
+            &lt;ul id=&amp;#8221;list&amp;#8221;&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_4607881&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://mattn.kaoriya.net/software/20090106180947.htm&amp;#8221; target=&amp;#8221;_blank&amp;#8221;&gt;Big Sky :: Windowsでもssh-askpassを使う&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;&lt;/p&gt; &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_18639302&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://mattn.kaoriya.net/software/20081106192615.htm&amp;#8221; target=&amp;#8221;_blank&amp;#8221;&gt;Big Sky :: Windowsでもssh-agentとssh-addを使ってパスフレーズ入力を省略する。&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_15718544&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://www.atmarkit.co.jp/flinux/rensai/linuxtips/447nonpassh.html&amp;#8221; target=&amp;#8221;_blank&amp;#8221;&gt;＠IT：sshでパスワードなしにログインするには&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_18628535&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://www.pshared.net/diary/20090418.html&amp;#8221; target=&amp;#8221;_blank&amp;#8221;&gt;指定したディレクトリ以下にだけあるディレクトリ一覧のパスを取得する, パスワードなしで pull/push &amp;#8211; Ussy Diary(2009-04-&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_18628367&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://d.hatena.ne.jp/LukeSilvia/20090418/p1&amp;#8243; target=&amp;#8221;_blank&amp;#8221;&gt;git 環境のセットアップと簡単なチュートリアル &amp;#8211; Slow Dance&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_18628133&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://bw28.blog5.fc2.com/?tag=git&amp;#8221; target=&amp;#8221;_blank&amp;#8221;&gt;オレのメモ&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_18628083&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://www.clear-code.com/blog/2009/7/8.html&amp;#8221; target=&amp;#8221;_blank&amp;#8221;&gt;TortoiseGitでOpenSSHの鍵を使う &amp;#8211; ククログ(2009-07-08)&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_18595686&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://ok-lab.org/blog/archives/522&amp;#8243; target=&amp;#8221;_blank&amp;#8221;&gt;oklablog &amp;#8211; TortoiseGit で plink.exe を使ってリモートリポジトリにpushする&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;&lt;br /&gt; &lt;small&gt; &lt;em class=&amp;#8221;domain&amp;#8221;&gt; &lt;a href=&amp;#8221;http://ok-lab.org/&amp;#8221;&gt;ok-lab.org&lt;/a&gt; &lt;/em&gt; | &lt;/span&gt; &lt;a class=&amp;#8221;text&amp;#8221; href=&amp;#8221;http://readitlaterlist.com/text/18627871/?t=unread&amp;p=1&amp;#8243;&gt;Text View&lt;/a&gt; | &lt;/span&gt;&lt;a id=&amp;#8221;m18627871&amp;#8243; class=&amp;#8221;check&amp;#8221;&gt;Mark as Read&lt;/a&gt;&lt;/small&gt;&lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_12001842&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://sourceforge.jp/magazine/09/02/12/0530242/3&amp;#8243; target=&amp;#8221;_blank&amp;#8221;&gt;WindowsでのGit環境構築とその注意点 &amp;#8211; SourceForge.JP Magazine&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_18612908&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://d.hatena.ne.jp/Seasons/20090329/1238340961&amp;#8243; target=&amp;#8221;_blank&amp;#8221;&gt;GitとDYNAの連携で幸せになるショートカット &amp;#8211; Seasons.NET&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_16904299&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://www.hyuki.com/techinfo/gitinit.html&amp;#8221; target=&amp;#8221;_blank&amp;#8221;&gt;Gitの基礎練習&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_18607925&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://blog.digital-squad.net/article/109547754.html&amp;#8221; target=&amp;#8221;_blank&amp;#8221;&gt;git (msysgit)をWindowsにインストール｜WEBデザイン Tips&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_3404034&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://d.hatena.ne.jp/swdyh/20081207/1228655198&amp;#8243; target=&amp;#8221;_blank&amp;#8221;&gt;gistコマンドよりちょっと便利なgisty &amp;#8211; SWDYH&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_18580154&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://mattn.kaoriya.net/software/20081029172540.htm&amp;#8221; target=&amp;#8221;_blank&amp;#8221;&gt;Big Sky :: SSHポートが通らなくてもgithub.comにpushする方法&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_6494823&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://sourceforge.jp/magazine/09/02/12/0530242&amp;#8243; target=&amp;#8221;_blank&amp;#8221;&gt;WindowsでのGit環境構築とその注意点 &amp;#8211; SourceForge.JP Magazine&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_6111342&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://sourceforge.jp/magazine/09/02/02/0655246&amp;#8243; target=&amp;#8221;_blank&amp;#8221;&gt;分散バージョン管理システムGit入門 &amp;#8211; SourceForge.JP Magazine&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_18542789&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://drewblas.com/2008/06/27/setting-up-git-and-github-on-windows/&amp;#8221; target=&amp;#8221;_blank&amp;#8221;&gt;Setting up Git and Github on Windows « Drew Blas – The life and code of a p&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_18538117&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://d.hatena.ne.jp/stellaqua/searchdiary?word=%2a%5bGit%5d&amp;#8221; target=&amp;#8221;_blank&amp;#8221;&gt;[Git] &amp;#8211; Stellaqua &amp;#8211; ＴＯＭの技術日記&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;&lt;br /&gt; &lt;small&gt; &lt;em class=&amp;#8221;domain&amp;#8221;&gt; &lt;a href=&amp;#8221;http://d.hatena.ne.jp/&amp;#8221;&gt;d.hatena.ne.jp&lt;/a&gt; &lt;/em&gt;&lt;/small&gt;&lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_18537953&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://d.hatena.ne.jp/stellaqua/20081110/1226298802&amp;#8243; target=&amp;#8221;_blank&amp;#8221;&gt;Gitを触ってみるよ その2「WindowsでGitを使いやすくする」 &amp;#8211; Stellaqua &amp;#8211; ＴＯＭの技術日記&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_12001463&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://yakinikunotare.boo.jp/orebase/index.php?Git%2F%B0%EC%BF%CD%A4%C7%BB%C8%A4%C3%A4%C6%A4%DF%A4%EB%A1%CAmsysgit%CA%D4%A1%CB&amp;#8221; target=&amp;#8221;_blank&amp;#8221;&gt;Git/一人で使ってみる（msysgit編） &amp;#8211; 俺の基地&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;li id=&amp;#8221;id_18525733&amp;#8243;&gt;&lt;br /&gt; &lt;div class=&amp;#8221;title&amp;#8221;&gt;&lt;strong&gt; &lt;a class=&amp;#8221;item&amp;#8221; href=&amp;#8221;http://wp.graphact.com/2008/08/09/382&amp;#8243; target=&amp;#8221;_blank&amp;#8221;&gt;github を Windows で使ってみる | Numb.&lt;/a&gt; &lt;/strong&gt;&lt;/div&gt;&lt;br /&gt; &lt;small&gt; &lt;em class=&amp;#8221;domain&amp;#8221;&gt; &lt;a href=&amp;#8221;http://wp.graphact.com/&amp;#8221;&gt;wp.graphact.com&lt;/a&gt; &lt;/em&gt;&lt;/small&gt;&lt;/li&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;
+              &lt;/li&gt;&lt;br /&gt; &lt;/ul&gt;&lt;/div&gt;
+</code></pre></div>
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2009/2009-09-19-git%E3%82%92%E5%A7%8B%E3%82%81%E3%82%8B.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Git","Greasemonkey","エクスプローラ","日本語","設定"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Git">Git</a></li>
+                
+                <li><a href="/tags/?q=Greasemonkey">Greasemonkey</a></li>
+                
+                <li><a href="/tags/?q=エクスプローラ">エクスプローラ</a></li>
+                
+                <li><a href="/tags/?q=日本語">日本語</a></li>
+                
+                <li><a href="/tags/?q=設定">設定</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

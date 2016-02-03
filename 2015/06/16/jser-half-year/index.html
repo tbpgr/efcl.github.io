@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        2015年前半のJavaScriptを振り返る | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,まとめ,React,WebComponents,Angular,TypeScript" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/06/16/jser-half-year/">
+    <h1 class="post-title">2015年前半のJavaScriptを振り返る</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年06月16日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-06-16-jser-half-year.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <style>
+.post-content img{
+    background-color: white;
+}
+</style>
+
+<p><a href="http://jser.info/">JSer.info</a>というサイトを4年半ぐらいやってるのですが、2015年1月から半年ぐらい経ったので軽く振り返りをしてみました。</p>
+
+<p>途中で出てくるグラフとか数値は<a href="http://jser.info/">JSer.info</a>での言及数を元にしていて、これは<a href="https://github.com/jser/stat-js" title="jser/stat-js">jser/stat-js</a>を使って出したものです。
+なので自分の主観的な数値に過ぎないので、一般的とは値とは異なる可能性があることは覚えておいてください。</p>
+
+<p>言及数: タグ、タイトル、紹介文にキーワードが含まれると+1</p>
+
+<h3 id="2015-01-06のjs:-eslint-0.11.0、browserifyとwebpack、typescriptの本---jser.info"><a href="http://jser.info/2015/01/06/eslint0.11-browserify-webpack-typescript/" title="2015-01-06のJS: ESLint 0.11.0、Browserifyとwebpack、TypeScriptの本 - JSer.info">2015-01-06のJS: ESLint 0.11.0、Browserifyとwebpack、TypeScriptの本 - JSer.info</a></h3>
+
+<ul>
+<li>browserify vs webpack</li>
+<li>新たなWeeklyサイトがでてきた</li>
+</ul>
+
+<h3 id="2015-01-13のjs:-6to5、es6とjspm、リファクタリングjavascript---jser.info"><a href="http://jser.info/2015/01/13/6to5-jspm-refactoring-javascript/" title="2015-01-13のJS: 6to5、ES6とjspm、リファクタリングJavaScript - JSer.info">2015-01-13のJS: 6to5、ES6とjspm、リファクタリングJavaScript - JSer.info</a></h3>
+
+<ul>
+<li>6to5 2.0リリース 認知されてきた</li>
+</ul>
+
+<h3 id="jser.info-4周年---jser.info"><a href="http://jser.info/2015/01/16/4-years/" title="JSer.info 4周年 - JSer.info">JSer.info 4周年 - JSer.info</a></h3>
+
+<ul>
+<li>4年経った</li>
+</ul>
+
+<h3 id="2015-01-20のjs:-typescript-1.4、io.js-1.0、bluebird-2.7のglobal-rejection-events---jser.info"><a href="http://jser.info/2015/01/20/typescript1.4-iojs-bluebird2.7/" title="2015-01-20のJS: TypeScript 1.4、io.js 1.0、bluebird 2.7のglobal rejection events - JSer.info">2015-01-20のJS: TypeScript 1.4、io.js 1.0、bluebird 2.7のglobal rejection events - JSer.info</a></h3>
+
+<ul>
+<li>TypeScritp 1.4リリース</li>
+<li>Angularチームと協力しているなど色々布石があった</li>
+</ul>
+
+<h2 id="--node.jsのforkであるio.js-1.0.0がリリース">- Node.jsのforkである<a href="https://iojs.org/en/index.html" title="io.js">io.js</a> 1.0.0がリリース</h2>
+
+<h3 id="2015-01-28のjs:-vivaldi、lodash-3.0.0、javascriptテスト概要---jser.info"><a href="http://jser.info/2015/01/28/vivaldi-lodash3-js-tests/" title="2015-01-28のJS: Vivaldi、lodash 3.0.0、JavaScriptテスト概要 - JSer.info">2015-01-28のJS: Vivaldi、lodash 3.0.0、JavaScriptテスト概要 - JSer.info</a></h3>
+
+<ul>
+<li><a href="https://vivaldi.com/" title="A New Browser for Our Friends ◦ Vivaldi">Vivaldi</a>リリース</li>
+<li><a href="http://updates.html5rocks.com/2015/01/virtual-viewport" title="What the Virtual Viewport?">What the Virtual Viewport?</a>
+
+<ul>
+<li>Viewportの変更が結構印象的</li>
+</ul></li>
+</ul>
+
+<h3 id="2015-02-02のjs:-6to5-ver3.0、coffeescript-1.9.0、phantomjs-2.0---jser.info"><a href="http://jser.info/2015/02/02/6to5-coffeescript-phantomjs/" title="2015-02-02のJS: 6to5 Ver3.0、CoffeeScript 1.9.0、PhantomJS 2.0 - JSer.info">2015-02-02のJS: 6to5 Ver3.0、CoffeeScript 1.9.0、PhantomJS 2.0 - JSer.info</a></h3>
+
+<ul>
+<li>PhantomJS 2.0はリリースされたはずなのに、未だに安定してない</li>
+<li>ASTの話がごちゃごちゃしてたのもこの頃</li>
+<li><a href="http://azu.github.io/slide/crosushi/shift-ast.html" title="最近のASTパーサの動き">最近のASTパーサの動き</a></li>
+</ul>
+
+<h3 id="2015-02-09のjs:-node-v0.12.0、esprima-2.0、css-reference---jser.info"><a href="http://jser.info/2015/02/09/nodejs-0.12-esprima2.0-css-reference/" title="2015-02-09のJS: Node v0.12.0、Esprima 2.0、CSS Reference - JSer.info">2015-02-09のJS: Node v0.12.0、Esprima 2.0、CSS Reference - JSer.info</a></h3>
+
+<ul>
+<li>ずっとでるでる言われていた<a href="http://blog.nodejs.org/2015/02/06/node-v0-12-0-stable/" title="Node v0.12.0">Node v0.12.0</a>がリリース</li>
+<li>ASTパーサの代表格であるESprimaがjQuery Foundationに移管</li>
+</ul>
+
+<h3 id="2015-02-17のjs:-babel(6to5)、browsersync-2.0、flux実装比較---jser.info"><a href="http://jser.info/2015/02/17/6to5-to-babel-browsersync-flux/" title="2015-02-17のJS: Babel(6to5)、BrowserSync 2.0、Flux実装比較 - JSer.info">2015-02-17のJS: Babel(6to5)、BrowserSync 2.0、Flux実装比較 - JSer.info</a></h3>
+
+<ul>
+<li>ESTreeというAST策定のコミュニティ仕様ができてASTは一段落</li>
+<li><a href="http://efcl.info/2015/02/26/recent-js-ast/" title="[2015-02] 最近のJavaScript AST標準化の動き | Web Scratch">[2015-02] 最近のJavaScript AST標準化の動き | Web Scratch</a></li>
+<li>React CanvasがでてきてReactがいろんな層でみかけるようになってきた</li>
+<li>Extensible Web!</li>
+</ul>
+
+<h3 id="2015-02-23のjs:-underscore.js-1.8.0、codemirror-5.0、web-audio入門---jser.info"><a href="http://jser.info/2015/02/23/underscore1.8-codemirror5.0-web-audio-api/" title="2015-02-23のJS: Underscore.js 1.8.0、CodeMirror 5.0、Web Audio入門 - JSer.info">2015-02-23のJS: Underscore.js 1.8.0、CodeMirror 5.0、Web Audio入門 - JSer.info</a></h3>
+
+<ul>
+<li>Underscore 1.8.0リリース騒動</li>
+<li>underlodash立ち上げの起点となった</li>
+<li><a href="https://github.com/jashkenas/underscore/issues/2182" title="The Big Kahuna: Underscore + Lodash Merge Thread · Issue #2182 · jashkenas/underscore">The Big Kahuna: Underscore + Lodash Merge Thread · Issue #2182 · jashkenas/underscore</a></li>
+<li>個人的にWeb Audioが流行ってた</li>
+<li>イベントでReactについての発表が増えてた</li>
+</ul>
+
+<h3 id="2015-03-02のjs:-firefox-36.0、astのコミュニティ標準、service-worker---jser.info"><a href="http://jser.info/2015/03/02/firefox36-ast-serviceworker/" title="2015-03-02のJS: Firefox 36.0、ASTのコミュニティ標準、Service Worker - JSer.info">2015-03-02のJS: Firefox 36.0、ASTのコミュニティ標準、Service Worker - JSer.info</a></h3>
+
+<ul>
+<li>Service WorkerがChromeに実装された</li>
+<li>今までのAPIとは少しレイヤーが違うという感じで盛り上がってた</li>
+</ul>
+
+<h3 id="2015-03-09のjs:-eslint-0.16.0、atscript-is-typescript---jser.info"><a href="http://jser.info/2015/03/09/eslint0.16-atscript-is-typescript/" title="2015-03-09のJS: ESLint 0.16.0、AtScript is TypeScript - JSer.info">2015-03-09のJS: ESLint 0.16.0、AtScript is TypeScript - JSer.info</a></h3>
+
+<ul>
+<li>AtScriptはなかったことになった</li>
+<li>Angular 2ではTypeScriptを使うことになって、MSと協力関係がアピールされた</li>
+<li>Angular 2が多少方向転換した</li>
+<li><a href="https://gist.github.com/azu/df63f08e2aa82cb81b5e" title="Angular2 周り">Angular2 周り</a></li>
+</ul>
+
+<h3 id="2015-03-16のjs:-react-v0.13、chrome-42β、モダンjavascriptの歴史---jser.info"><a href="http://jser.info/2015/03/16/react0.13-chrome42beta-modern-js-hisotory/" title="2015-03-16のJS: React v0.13、Chrome 42β、モダンJavaScriptの歴史 - JSer.info">2015-03-16のJS: React v0.13、Chrome 42β、モダンJavaScriptの歴史 - JSer.info</a></h3>
+
+<ul>
+<li>GoogleのStrong Mode(SaneScript)とSoundScript</li>
+<li>React v0.13がリリースされた</li>
+</ul>
+
+<h3 id="2015-03-23のjs:-ieのアップデート、rxjs入門、chrome-devtoolsの新機能と計測の仕方---jser.info"><a href="http://jser.info/2015/03/23/ie-rxjs-chrome-devtools/" title="2015-03-23のJS: IEのアップデート、RxJS入門、Chrome DevToolsの新機能と計測の仕方 - JSer.info">2015-03-23のJS: IEのアップデート、RxJS入門、Chrome DevToolsの新機能と計測の仕方 - JSer.info</a></h3>
+
+<ul>
+<li>コアな層以外でRxについての話をポツポツみかけるようになってきた</li>
+</ul>
+
+<p><img src="http://efcl.info/wp-content/uploads/2015/06/16-1434380739.png" alt="rx"></p>
+
+<p>RxJSそのものについての話もちょっと見かけるようになって来た感じですが、関連してECMAScriptにobservableを入れようというプロポーサル周りもこの関連して言及が増えた感じがします。
+(まあ、大体Netflix)</p>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=a8W5VVGO-jA">Asynchronous JavaScript at Netflix by Matthew Podwysowski at JSConf Budapest 2015 - YouTube</a></li>
+<li><a href="https://docs.google.com/file/d/1uEVcOgJIMsHjN1vypKKyfmDRg_bz5cKXpo0v4Nc0q8NfqKolBeSDHIj8z9GS8A4EiMpZ8QQ3l87Q_wF3/edit">Observable.pdf - Google ドライブ</a></li>
+<li><a href="https://github.com/zenparsing/es-observable">zenparsing/es-observable</a></li>
+</ul>
+
+<p><a href="https://egghead.io/series/mastering-asynchronous-programming-the-end-of-the-loop" title="Asynchronous Programming: The End of The Loop - Video Tutorial Series @eggheadio">Asynchronous Programming: The End of The Loop - Video Tutorial Series @eggheadio</a>というスクリーンキャストは分かりやすいのでオススメです。</p>
+
+<h3 id="2015-03-31のjs:-dart-to-js、es6-generator、reactでシングルページアプリケーション作成---jser.info"><a href="http://jser.info/2015/03/31/dart-generator-react-tutorial/" title="2015-03-31のJS: Dart to JS、ES6 Generator、Reactでシングルページアプリケーション作成 - JSer.info">2015-03-31のJS: Dart to JS、ES6 Generator、Reactでシングルページアプリケーション作成 - JSer.info</a></h3>
+
+<ul>
+<li>DartVM終了のお知らせ </li>
+</ul>
+
+<h3 id="2015-04-06のjs:-babel-5.0.0と次期ecmascript、bower-1.4.0、jscsと自動整形---jser.info"><a href="http://jser.info/2015/04/06/babel5-bower-jscs/" title="2015-04-06のJS: Babel 5.0.0と次期ECMAScript、Bower 1.4.0、JSCSと自動整形 - JSer.info">2015-04-06のJS: Babel 5.0.0と次期ECMAScript、Bower 1.4.0、JSCSと自動整形 - JSer.info</a></h3>
+
+<ul>
+<li>BabelがTC39プロポーサルを意識したオプションを導入</li>
+<li>一般的な開発ユーザーと仕様との接点ができた</li>
+<li>Bower v1.4.0でloginとかunregisterとかが入ったけど、いまさら感があって反応が薄い</li>
+</ul>
+
+<p><img src="http://efcl.info/wp-content/uploads/2015/06/16-1434419368.png" alt="bower-npm"></p>
+
+<p>自分があまりBowerを使ってないというのもありますが、Bowerとnpmを言及数を比較してみると結構差がある感じです。</p>
+
+<p>npmの言及数が多いのは、<a href="http://azu.github.io/slide/cto/changelog.html" title="われわれは、いかにして変更点を追うか">われわれは、いかにして変更点を追うか</a>でも書かれたようなわかりやすいChangeLogや<a href="http://blog.npmjs.org/" title="The npm Blog">The npm Blog</a>にて情報の発信を積極的に行ってるのが要因の一つでもあります。</p>
+
+<h3 id="2015-04-14のjs:-初代jqueryをコードリーディング、npmのエコシステムとプロトタイピング---jser.info"><a href="http://jser.info/2015/04/14/jQuery-origin/" title="2015-04-14のJS: 初代jQueryをコードリーディング、npmのエコシステムとプロトタイピング - JSer.info">2015-04-14のJS: 初代jQueryをコードリーディング、npmのエコシステムとプロトタイピング - JSer.info</a></h3>
+
+<ul>
+<li>jQueryの歴史発掘</li>
+<li><a href="http://blog.npmjs.org/post/116379479775/npm-private-modules-are-here" title="npm private modules">npm private modules</a>が公開</li>
+<li>実は<a href="http://efcl.info/2015/04/30/npm-namespace/">publicなら無料</a>で公開できるので、scoped moduleで公開してる事例が増えてきた</li>
+</ul>
+
+<h3 id="2015-04-20のjs:-ecmascript6最終ドラフト、javascriptトレーニング---jser.info"><a href="http://jser.info/2015/04/20/es6-final-draft-js-traning/" title="2015-04-20のJS: ECMAScript6最終ドラフト、JavaScriptトレーニング - JSer.info">2015-04-20のJS: ECMAScript6最終ドラフト、JavaScriptトレーニング - JSer.info</a></h3>
+
+<ul>
+<li>ES6の最終ドラフトがリリースされた</li>
+<li>AtomShellがElectronにリネーム</li>
+</ul>
+
+<h3 id="2015-04-29のjs:-globalize-1.0、flux実装、code-smellsの検出---jser.info"><a href="http://jser.info/2015/04/29/globalize-flux-code-smells/" title="2015-04-29のJS: Globalize 1.0、Flux実装、Code Smellsの検出 - JSer.info">2015-04-29のJS: Globalize 1.0、Flux実装、Code Smellsの検出 - JSer.info</a></h3>
+
+<ul>
+<li>React.js meetupとかでReeactの日本語記事が色々増えた。</li>
+<li>日本でもReactが普通の選択肢として使われてくるようになってきた</li>
+<li><a href="http://shaunlebron.github.io/solar-system-of-js/#0" title="Solar System of JS">Solar System of JS</a>がすごい</li>
+</ul>
+
+<h3 id="2015-05-06のjs:-io.js-2.0.0、microsoft-edge、isomorphic---jser.info"><a href="http://jser.info/2015/05/06/iojs2.0.0-msedge-isomorphic/" title="2015-05-06のJS: io.js 2.0.0、Microsoft Edge、Isomorphic - JSer.info">2015-05-06のJS: io.js 2.0.0、Microsoft Edge、Isomorphic - JSer.info</a></h3>
+
+<ul>
+<li>io.jsがメジャーアップデート...が殆ど破壊的な変更がなかった</li>
+<li>MSの新しいブラウザ「Microsoft Edge」の開発者サイトが公開された</li>
+<li>近年のMSっぽく最初からとてもオープンな雰囲気で公開</li>
+</ul>
+
+<h3 id="2015-05-12のjs:-ecmascript-2015(es6)入門、最近のnpmの変更点を見る---jser.info"><a href="http://jser.info/2015/05/12/ecmascript2015-npm/" title="2015-05-12のJS: ECMAScript 2015(ES6)入門、最近のnpmの変更点を見る - JSer.info">2015-05-12のJS: ECMAScript 2015(ES6)入門、最近のnpmの変更点を見る - JSer.info</a></h3>
+
+<ul>
+<li>Babelを使ったES6を学ぶ記事とかが増えてきた感じ</li>
+<li>Traceurはほぼ聞かなくなり、ES6の変換はBabelを使うのがデファクトっぽくなった</li>
+</ul>
+
+<p><img src="http://efcl.info/wp-content/uploads/2015/06/16-1434418123.png" alt="traceur-babel"></p>
+
+<p>ES6+をTranspileするツールである<a href="https://github.com/google/traceur-compiler" title="Traceur">Traceur</a>についての言及が、<a href="http://babeljs.io/" title="Babel">Babel</a>が広まってからは殆どなくなった感じがします。</p>
+
+<h3 id="2015-05-19のjs:-firefox-38、backbone.js-1.2.0、マイクロベンチマークの問題---jser.info"><a href="http://jser.info/2015/05/19/firefox38-babel-bench/" title="2015-05-19のJS: Firefox 38、Backbone.js 1.2.0、マイクロベンチマークの問題 - JSer.info">2015-05-19のJS: Firefox 38、Backbone.js 1.2.0、マイクロベンチマークの問題 - JSer.info</a></h3>
+
+<ul>
+<li>Polymer 0.9リリースされて、色々変更があったがそこまで触ってる人はいなかった(1.0待ち)</li>
+<li><a href="http://mrale.ph/talks/goto2015/#/" title="Do not Measure the Weather">Do not Measure the Weather</a></li>
+<li>JavaScriptエンジンの中身まで入った最適化の話は貴重</li>
+<li><a href="http://babeljs.io/blog/2015/05/14/function-bind/" title="Function Bind Syntax · Babel">Function Bind Syntax · Babel</a></li>
+<li>BabelのES.nextのプロポーサルサポートの一つとして<code>::</code></li>
+<li>このプロポーサルについての<a href="http://blog.jeremyfairbank.com/javascript/javascript-es7-function-bind-syntax/">記事</a>や<a href="https://github.com/jussi-kalliokoski/trine">前提としたライブラリ</a>なども登場している</li>
+<li>Babel以前は一部の人しかこの段階では興味を持たなかったのが、結構前倒しで反応がでてきていい流れに見える</li>
+</ul>
+
+<h3 id="2015-05-27のjs:-promiseのありがちな間違い、angularjs-2に向けて、plain-js---jser.info"><a href="http://jser.info/2015/05/27/promise-angular2/" title="2015-05-27のJS: Promiseのありがちな間違い、AngularJS 2に向けて、Plain JS - JSer.info">2015-05-27のJS: Promiseのありがちな間違い、AngularJS 2に向けて、Plain JS - JSer.info</a></h3>
+
+<ul>
+<li>CoffeeScriptやES5と比較したES6の書き方という記事が多かった</li>
+<li>段階を経て移行していく雰囲気を感じた</li>
+</ul>
+
+<p><img src="http://efcl.info/wp-content/uploads/2015/06/16-1434414830.png" alt="coffee-typscript"></p>
+
+<p>CoffeeScriptとTypeScriptの言及数の変化を見るとCoffeeScriptは言及は少なくて、あっても<a href="https://robots.thoughtbot.com/replace-coffeescript-with-es6" title="Replace CoffeeScript with ES6">Replace CoffeeScript with ES6</a>のような記事だったりしてCoffeeScript自体についての話は本体のアップデートと<a href="https://pragprog.com/book/tbcoffee2/coffeescript" title="The Pragmatic Bookshelf | CoffeeScript">The Pragmatic Bookshelf | CoffeeScript</a>ぐらいな感じがします。</p>
+
+<h3 id="2015-06-02のjs:-angularjs-1.4.0、polymer-1.0リリース、今後のjsの流れ---jser.info"><a href="http://jser.info/2015/06/02/Angular1.4.0-Polymer1.0/" title="2015-06-02のJS: AngularJS 1.4.0、Polymer 1.0リリース、今後のJSの流れ - JSer.info">2015-06-02のJS: AngularJS 1.4.0、Polymer 1.0リリース、今後のJSの流れ - JSer.info</a></h3>
+
+<ul>
+<li>Polymer 1.0がリリースされた。</li>
+<li>PolymerやWeb Componentsへの言及は一定で、ちょっと盛り上がりに欠けている</li>
+<li><a href="https://twitter.com/codylindley/status/609006418620862464">Web ComponentsはES4のように感じる日がくるかもしれない</a>というのもその空気感</li>
+</ul>
+
+<p><img src="http://efcl.info/wp-content/uploads/2015/06/16-1434418601.png" alt="polymer-angular-react"></p>
+
+<p>WebComponents(Polymer含む)とReactとAngularJSのJSer.info内での言及数を表したものです。</p>
+
+<p>Reactは2014年末あたりから伸びて(Advent Calender系)、2-3月ぐらいにスライド(発表)が増えてるのは年末の記事読んでReact触った人が増えたからかなーとか見方もできます。
+4-6月もまあ安定して言及されてた気がします。</p>
+
+<p>AngularJSもライブラリとかのくくりだとよく言及されるタイプだと思うので並べて見ると、ちょっと下降傾向に見えます。
+これはJSer.infoというサイトの特性がでてて、基本的に新しいものを取り上げる性質があります。</p>
+
+<p>なので、どこかで見たような...となる感じのだったり、ある機能のこの問題といったようなコンテキストが狭すぎるものはあんまり取り上げなかったりします。</p>
+
+<p>2014年の10月でAngularが伸びてるのは、<a href="https://angular.io/" title="Angular is a development platform for building mobile and desktop web applications - Angular">Angular 2</a>が発表されたからですね。</p>
+
+<ul>
+<li><a href="http://jser.info/2014/10/27/webstorm9-eslint-atscript/" title="2014-10-27のJS: WebStorm 9、ESLint 0.9.0、AngularJS 2.0とAtScript - JSer.info">2014-10-27のJS: WebStorm 9、ESLint 0.9.0、AngularJS 2.0とAtScript - JSer.info</a></li>
+</ul>
+
+<p>それ以降はポツポツという感じで、Angularにおける新しいもの(=Angular2とか1.xの更新)はポツポツとしたので下降気味になってるという解釈ができそうですね。
+3月でちょっとだけ伸び出るのはAtScriptがどっかいくことになったからですね。</p>
+
+<ul>
+<li><a href="http://jser.info/2015/03/09/eslint0.16-atscript-is-typescript/" title="2015-03-09のJS: ESLint 0.16.0、AtScript is TypeScript - JSer.info">2015-03-09のJS: ESLint 0.16.0、AtScript is TypeScript - JSer.info</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">╒═════════╤═══════════════╤═══════╤═══════════╕
+│         │ WebComponents │ React │ AngularJS │
+╞═════════╪═══════════════╪═══════╪═══════════╡
+│ 2014-1  │ 0             │ 1     │ 5         │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2014-2  │ 0             │ 4     │ 10        │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2014-3  │ 0             │ 2     │ 6         │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2014-4  │ 1             │ 1     │ 3         │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2014-5  │ 6             │ 2     │ 4         │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2014-6  │ 9             │ 2     │ 6         │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2014-7  │ 11            │ 3     │ 12        │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2014-8  │ 4             │ 1     │ 7         │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2014-9  │ 2             │ 10    │ 7         │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2014-10 │ 9             │ 27    │ 24        │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2014-11 │ 3             │ 19    │ 6         │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2014-12 │ 4             │ 6     │ 2         │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2015-1  │ 2             │ 7     │ 3         │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2015-2  │ 0             │ 24    │ 7         │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2015-3  │ 1             │ 25    │ 9         │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2015-4  │ 0             │ 16    │ 2         │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2015-5  │ 5             │ 8     │ 6         │
+├─────────┼───────────────┼───────┼───────────┤
+│ 2015-6  │ 2             │ 10    │ 0         │
+╘═════════╧═══════════════╧═══════╧═══════════╛
+</code></pre></div>
+<p>一方、WebComponents(Polymer含む)は爆発的に言及数が増えたタイミングが少ない感じです。</p>
+
+<p>Polymer 1.0がでたので、ちょうど今がタイミングなのでここ数ヶ月でどういう変化があるかが大事な気がします。</p>
+
+<blockquote>
+<p>本当に Polymer のエコシステムが受け入れられるのか、そもそも Web Components 自体がどうなるのか予測できませんが、Polymer にとっても Web Components にとっても、いよいよ重要な時期に入ったのではないでしょうか。
+-- <a href="http://havelog.ayumusato.com/develop/webcomponents/e673-polymer_elements_catalog.html" title="Google I/O で v1.0 が発表された Polymer の Elements Catalog が面白い ::ハブろぐ">Google I/O で v1.0 が発表された Polymer の Elements Catalog が面白い ::ハブろぐ</a></p>
+</blockquote>
+
+<h3 id="2015-06-10のjs:-ブラウザとes6の状況、web-audio-apiチュートリアル---jser.info"><a href="http://jser.info/2015/06/10/es6-status-webaudio/" title="2015-06-10のJS: ブラウザとES6の状況、Web Audio APIチュートリアル - JSer.info">2015-06-10のJS: ブラウザとES6の状況、Web Audio APIチュートリアル - JSer.info</a></h3>
+
+<ul>
+<li>JSer.infoがi18n対応した(韓国語訳)</li>
+</ul>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>2015年1月から2015年6月15日までに紹介した記事についてるタグ率</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">           Key|Ct  (Pct)    Histogram
+    JavaScript|340 (23.40%) ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+       library|138  (9.50%) ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ReleaseNote|117  (8.05%) ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+         Tools| 69  (4.75%) ▬▬▬▬▬▬▬▬▬▬▬
+    ECMAScript| 59  (4.06%) ▬▬▬▬▬▬▬▬▬
+       node.js| 39  (2.68%) ▬▬▬▬▬▬
+  presentation| 37  (2.55%) ▬▬▬▬▬▬
+         React| 35  (2.41%) ▬▬▬▬▬▬
+       testing| 33  (2.27%) ▬▬▬▬▬
+           CSS| 30  (2.06%) ▬▬▬▬▬
+       browser| 28  (1.93%) ▬▬▬▬▬
+       Summary| 25  (1.72%) ▬▬▬▬
+          book| 19  (1.31%) ▬▬▬
+      tutorial| 18  (1.24%) ▬▬▬
+         movie| 16  (1.10%) ▬▬▬
+           DOM| 14  (0.96%) ▬▬▬
+     AngularJS| 14  (0.96%) ▬▬▬
+           npm| 14  (0.96%) ▬▬▬
+   performance| 13  (0.89%) ▬▬
+          Flux| 13  (0.89%) ▬▬
+        Chrome| 12  (0.83%) ▬▬
+    TypeScript| 11  (0.76%) ▬▬
+           AST| 11  (0.76%) ▬▬
+          spec| 11  (0.76%) ▬▬
+         debug| 11  (0.76%) ▬▬
+            IE| 10  (0.69%) ▬▬
+          HTML|  9  (0.62%) ▬▬
+      Promises|  8  (0.55%) ▬▬
+        jQuery|  7  (0.48%) ▬▬
+       firefox|  7  (0.48%) ▬▬
+WebPlatformAPI|  7  (0.48%) ▬▬
+      flowtype|  7  (0.48%) ▬▬
+        Events|  7  (0.48%) ▬▬
+  CoffeeScript|  7  (0.48%) ▬▬
+   translation|  7  (0.48%) ▬▬
+</code></pre></div>
+<p>月ごとの紹介した記事数(2014年1月から2015年6月)を見ると全体的に2015年5月が少ない</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2015/06/16-1434412905.png" alt="紹介記事数"></p>
+
+<h2 id="調べ方">調べ方</h2>
+
+<p>JSer.infoに投稿した記事(posts.json)、紹介したサイト(items.json)はJSONデータとして取得できるようにしてあります。</p>
+
+<ul>
+<li><a href="https://github.com/jser/jser.info/issues/45" title="JSer.info is data · Issue #45 · jser/jser.info">JSer.info is data · Issue #45 · jser/jser.info</a></li>
+</ul>
+
+<p>そのままのJSONだと扱いにくいので、今回<a href="https://github.com/jser/stat-js" title="jser/stat-js">jser/stat-js</a>というライブラリを作って調べました。</p>
+
+<p><a href="https://github.com/jser/stat-js" title="jser/stat-js">jser/stat-js</a>はposts.jsonとitems.jsonをラップしたもので、JSer.infoの周期(<code>JSerWeek</code>)とJSer.infoに投稿した記事(<code>JSerPost</code>)とその記事で紹介したサイト(<code>JSerItem</code>)を関連付けて取れるようになってます。</p>
+
+<p>例えば、2015年1月から6月までに紹介したサイトのタグ一覧出したい場合は、以下のようなスクリプトを書けば、1行1タグの出力ができます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">JSerStat</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;jser-stat&quot;</span><span class="p">).</span><span class="nx">JSerStat</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">countByGroup</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;jser-stat&quot;</span><span class="p">).</span><span class="nx">compute</span><span class="p">.</span><span class="nx">countByGroup</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">stat</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JSerStat</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">beginDate</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">endDate</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">weeks</span> <span class="o">=</span> <span class="nx">stat</span><span class="p">.</span><span class="nx">getJSerWeeksBetWeen</span><span class="p">(</span><span class="nx">beginDate</span><span class="p">,</span> <span class="nx">endDate</span><span class="p">);</span>
+<span class="nx">weeks</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">week</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">week</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">item</span><span class="p">.</span><span class="nx">tags</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">tag</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tag</span><span class="p">);</span>
+        <span class="p">})</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>これと<a href="https://github.com/philovivero/distribution" title="philovivero/distribution">philovivero/distribution</a>を合わせれば、以下のようなタグの割合などが簡単に出せました。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2015/06/16-1434415741.png" alt="keywords"></p>
+
+<p>今回調査に使ったスクリプトは<a href="https://github.com/azu/jser-keyword-count" title="azu/jser-keyword-count">azu/jser-keyword-count</a>においてあります。
+(これをNumberなどに食わせてグラフを作ってます)</p>
+
+<p>今回スクリプトを書いて自分で貯めてたデータと自分の意見を照らしあわせてみると、「これはちょっと下火な感じ」という感覚的に思ってたことが数値としても現れてて面白かったです(あくまで主観なので、一般にそうではない可能性もある)</p>
+
+<p>はてブなどを使っても同じようなデータが出せたりすると思います(JSer.infoのは、はてブにも同じデータあって、そこからもう少し厳選されたデータという位置づけ)</p>
+
+<p>JSer.infoのデータは誰でも使えるので(あんまり正確性は保証しないですが)、<a href="https://github.com/jser/stat-js" title="jser/stat-js">jser/stat-js</a>など使って遊んで見るといいかもしれません。</p>
+
+<p>もう少し潜在的なデータの出し方が見えてくると面白そうなきがします。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-06-16-jser-half-year.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","まとめ","React","WebComponents","Angular","TypeScript"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=まとめ">まとめ</a></li>
+                
+                <li><a href="/tags/?q=React">React</a></li>
+                
+                <li><a href="/tags/?q=WebComponents">WebComponents</a></li>
+                
+                <li><a href="/tags/?q=Angular">Angular</a></li>
+                
+                <li><a href="/tags/?q=TypeScript">TypeScript</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

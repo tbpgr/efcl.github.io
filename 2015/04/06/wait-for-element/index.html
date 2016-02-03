@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ある要素が表示されるまで待つJSライブラリを書いた(MutationObserver) | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,library,MutationObserver" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/04/06/wait-for-element/">
+    <h1 class="post-title">ある要素が表示されるまで待つJSライブラリを書いた(MutationObserver)</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年04月06日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-04-06-wait-for-element.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="wait-for-element.js"><a href="https://github.com/azu/wait-for-element.js" title="wait-for-element.js">wait-for-element.js</a></h1>
+
+<p><a href="https://github.com/azu/wait-for-element.js" title="wait-for-element.js">wait-for-element.js</a> という関数一個だけのライブラリを書きました。</p>
+
+<p>以下のような感じで、セレクタにマッチする要素が出現するまで待つというシンプルな関数です。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">waitForElement</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;wait-for-element&quot;</span><span class="p">);</span>
+<span class="nx">waitForElement</span><span class="p">(</span><span class="s2">&quot;#js-element&quot;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Found #js-element&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">console</span><span class="p">));</span>
+</code></pre></div>
+<h2 id="インストール">インストール</h2>
+
+<p>npm からインストールできます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install wait-for-element.js
+</code></pre></div>
+<h3 id="使い方">使い方</h3>
+
+<p><code>waitForElement(selector, [timeout])</code> という感じで使います。
+<code>waitForElement()</code>はPromiseを返すので、見つかった<code>then</code>で登録したコールバックが呼ばれて、見つからなかったら<code>catch</code>が呼ばれるという感じです。</p>
+
+<p>Promiseについて詳しくは<a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a>を見てください</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="cm">/**</span>
+<span class="cm"> * Wait until an element that is matched the selector is visible.</span>
+<span class="cm"> * @param {string} selector the css selector</span>
+<span class="cm"> * @param {number} timeout the timeout is millisecond. default:2000ms</span>
+<span class="cm"> * @returns {Promise}</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">waitForElement</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;wait-for-element&quot;</span><span class="p">);</span>
+<span class="nx">waitForElement</span><span class="p">(</span><span class="s2">&quot;#js-element&quot;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Found #js-element&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">console</span><span class="p">));</span>
+</code></pre></div>
+<p><a href="https://github.com/azu/wait-for-element.js/tree/master/example" title="Example of wait-for-element.js">Example of wait-for-element.js</a> か以下にブラウザで動かせるサンプルがあるので試してみるとわかりやすいです。</p>
+
+<p><a href="http://requirebin.com/?gist=ed965c96630535f6ed96"><img src="http://requirebin.com/badge.png" alt="view on requirebin"></a></p>
+
+<h3 id="依存">依存</h3>
+
+<ul>
+<li>Promise API</li>
+</ul>
+
+<p>Promiseがある前提のライブラリになってるので、Promiseない環境では先に<a href="https://github.com/jakearchibald/es6-promise" title="ES6-Promise">ES6-Promise</a>などを入れるといいと思います。</p>
+
+<p>実際に<a href="https://github.com/azu/wait-for-element.js/blob/36829cfdfdc7012884f7c12b754df5d51047f8e8/test/wait-by-observer-test.js#L4">テストコード</a>ではPhantomJSなどでも動かしてるのでpolyfillを入れています。</p>
+
+<ul>
+<li>MutationObserver or SetTimeout polling </li>
+</ul>
+
+<p><a href="https://github.com/azu/wait-for-element.js" title="wait-for-element.js">wait-for-element.js</a>は<a href="https://developer.mozilla.org/ja/docs/Web/API/MutationObserver" title="MutationObserver">MutationObserver</a>とsetTimeoutによるポーリングの2つの実装を持っています。</p>
+
+<p>feature detectionをして、MutationObserverが使えるならこっちを使うようになってます。</p>
+
+<ul>
+<li>Element.matches</li>
+</ul>
+
+<p>ある要素があるセレクタにマッチするかは<a href="https://developer.mozilla.org/en/docs/Web/API/Element/matches" title="Element.matches()">Element.matches()</a>を使っています。</p>
+
+<p>古いブラウザだと名前が違ったりするのでaliasを貼るかpolyfillを使う必要があるかもしれません。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">if</span> <span class="p">(</span><span class="nx">Element</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">Element</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">matches</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">proto</span> <span class="o">=</span> <span class="nx">Element</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
+    <span class="nx">proto</span><span class="p">.</span><span class="nx">matches</span> <span class="o">=</span> <span class="nx">proto</span><span class="p">.</span><span class="nx">matchesSelector</span> <span class="o">||</span>
+    <span class="nx">proto</span><span class="p">.</span><span class="nx">mozMatchesSelector</span> <span class="o">||</span> <span class="nx">proto</span><span class="p">.</span><span class="nx">msMatchesSelector</span> <span class="o">||</span>
+    <span class="nx">proto</span><span class="p">.</span><span class="nx">oMatchesSelector</span> <span class="o">||</span> <span class="nx">proto</span><span class="p">.</span><span class="nx">webkitMatchesSelector</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>何か色々新しめのAPIを使ってる感じがしますが、実際のwait-for-element.jsの使いドコロとしてはGreasemonkeyやブラウザ拡張などだと思うので、基本的にpolyfillなくても良い場合が多そうな気がします。</p>
+
+<h2 id="テスト">テスト</h2>
+
+<p>テストは以下のように実行できますが、Test Runnerには<a href="https://github.com/airportyh/testem">testem</a>を使っています。(最近メンテナが増えたのでリリースが増えた)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm test
+</code></pre></div>
+<p><a href="https://github.com/azu/wait-for-element.js/blob/master/testem.json" title="testem.json">testem.json</a>を見てみるとわかりますが、<a href="https://github.com/twada/power-assert">power-assert</a>と<a href="https://github.com/substack/node-browserify">Browserify</a>と<a href="http://mochajs.org/">Mocha</a>を組み合わせて使っていますが、設定はそこまで複雑じゃないと思います。</p>
+
+<p>以前紹介したgulp+testemの方法も、ちょっと変更があってBowerなしでも可能になったので以下の記事は更新してあります。</p>
+
+<ul>
+<li><a href="http://efcl.info/2014/0411/res3820/" title="power-assertでJavaScriptのテストをする ブラウザ編 | Web Scratch">power-assertでJavaScriptのテストをする ブラウザ編 | Web Scratch</a></li>
+</ul>
+
+<p>今回やったのは上記の記事Karmaでやってた部分をTestemに変えただけで、Browserifyでテストコード(power-assertを使ってる)をビルドしたファイルを作って、それをTestemに読み込ませて、Mochaでブラウザ上でテストするという感じです。</p>
+
+<p>Travis CIでは簡単に動かせるFirefoxとPhantomJSだけのテストになってます。 (Chromeはsandboxの都合で何か面倒)</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">sudo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+<span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">node_js</span>
+<span class="l-Scalar-Plain">node_js</span><span class="p-Indicator">:</span>
+<span class="p-Indicator">-</span> <span class="s">&#39;0.12&#39;</span>
+<span class="l-Scalar-Plain">before_script</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">export DISPLAY=:99.0</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sh -e /etc/init.d/xvfb start</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sleep 5</span>
+<span class="l-Scalar-Plain">script</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">npm test -- -l phantomjs,firefox</span>
+</code></pre></div>
+<p><a href="https://travis-ci.org/azu/wait-for-element.js"><img src="https://travis-ci.org/azu/wait-for-element.js.svg?branch=master" alt="Build Status"></a></p>
+
+<ul>
+<li><a href="http://efcl.info/2013/0321/res3234/" title="CI as a Service ブラウザを使ったJavaScriptのテストをCIサービスで動かす方法のまとめ | Web Scratch">CI as a Service ブラウザを使ったJavaScriptのテストをCIサービスで動かす方法のまとめ | Web Scratch</a></li>
+</ul>
+
+<p><a href="https://github.com/defunctzombie/zuul">zuul</a>を使おうとしたけど、MochaがPromiseテスト対応していないバージョンだったり面倒になったので諦めました。(SauceLabsでIEのテストしたかった…)</p>
+
+<p>テストはNode.jsだけで動くようにするととてもシンプルになるのでできるだけそうした方が楽ですが、今回みたいに結構DOM API使ってるとブラウザで動かしたほうがいいかなーという感じがします。けど、もっと簡単に(設定ファイルなしで)ブラウザでもテストができるといいなーという感じがしました。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-04-06-wait-for-element.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","library","MutationObserver"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=library">library</a></li>
+                
+                <li><a href="/tags/?q=MutationObserver">MutationObserver</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

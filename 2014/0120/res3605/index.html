@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        npmとbrowserifyを使ったクライアントサイドのウェブアプリ開発 | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="browserify,javascript,Node.js,npm" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0120/res3605/">
+    <h1 class="post-title">npmとbrowserifyを使ったクライアントサイドのウェブアプリ開発</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年01月20日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-01-20-npm%E3%81%A8browserify%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%82%B5%E3%82%A4%E3%83%89%E3%81%AE%E3%82%A6%E3%82%A7%E3%83%96%E3%82%A2%E3%83%97.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://efcl.info/2014/0119/res3594/" title="YoutubeとVimeoの検索結果のRSSをまとめてOPMLで取得できるサイトを作った | Web scratch">YoutubeとVimeoの検索結果のRSSをまとめてOPMLで取得できるサイトを作った | Web scratch</a> で公開した<br>
+<a href="http://azu.github.io/tech-video-rss-searcher/" title="Tech Video RSS Searcher">Tech Video RSS Searcher</a> はbrowserifyを使って作ったので、その辺の開発フローについての記事です。</p>
+
+<h2 id="browserify-って何?"><a href="https://github.com/substack/node-browserify" title="substack/node-browserify">browserify</a> って何?</h2>
+
+<p><a href="http://browserify.org/"><img src="http://efcl.info/wp-content/uploads/2014/01/687474703a2f2f737562737461636b2e6e65742f696d616765732f62726f777365726966795f6c6f676f2e706e67.png" alt="687474703a2f2f737562737461636b2e6e65742f696d616765732f62726f777365726966795f6c6f676f2e706e67" title="687474703a2f2f737562737461636b2e6e65742f696d616765732f62726f777365726966795f6c6f676f2e706e67.png" border="0" width="499" height="222" /></a></p>
+
+<p><a href="https://github.com/substack/node-browserify" title="substack/node-browserify">browserify</a> はNode.jsスタイルで書かれたモジュール(CommonJS)を<br>
+ブラウザで利用できるように変換するコマンドラインツール(Nodeモジュール)となっています。</p>
+
+<p>又、node.jsの<a href="http://nodejs.org/api/modules.html#modules_core_modules" title="Core Modules#">Core Modules</a>のshimが用意されていて、<br>
+npmで公開されているnode.js向けのモジュールも一緒に変換してブラウザで動かすことが出来るようになっています。(普通に <code>require</code> で読みこめば勝手に変換されます)</p>
+
+<p>原理的に無理だったり全てのモジュールが動くわけじゃないですが、<br>
+その辺の互換レイヤーについては以下を見るといいかと思います。</p>
+
+<ul>
+<li>  <a href="https://github.com/substack/node-browserify#compatibility" title="compatibility">compatibility</a></li>
+<li>  <a href="http://substack.net/browserify_v3_0_changelog" title="browserify v3.0 changelog">browserify v3.0 changelog</a></li>
+</ul>
+
+<p><a href="http://sanami-mikio.tumblr.com/post/13668811926/browserify" title="むしろ駄菓子屋さんで | browserify概説">むしろ駄菓子屋さんで | browserify概説</a> で紹介されてるようなv1の頃のアーキテクチャとは<a href="https://gist.github.com/substack/5012401#cut-features">違う部分も多い</a>ので、昔見たことある人は別物だと思って見るといいかもしれません。</p>
+
+<ul>
+<li>  <a href="https://gist.github.com/substack/5012401" title="announcing browserify v2">announcing browserify v2</a> v2の時の変更</li>
+</ul>
+
+<p><strong>追記</strong>:</p>
+
+<p>Browserify作者による<a href="https://github.com/substack/browserify-handbook" title="substack/browserify-handbook">substack/browserify-handbook</a>というハンドブックが公開されています。</p>
+
+<p>より体系的な内容がまとまっているため読むことをオススメします。</p>
+
+<hr>
+
+<p>例えば、以下のようなシンプルなCommonJSで書かれたものを見てみます。</p>
+
+<blockquote>
+<p><a href="https://github.com/azu/browserify-example/blob/master/simple/index.js" title="index.js">index.js</a> </p>
+</blockquote>
+
+<div class="highlight">
+  <pre><span class="kd">var</span> <span class="nx">add</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"./add"</span><span class="p">);</span>
+<span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// =&gt; 3</span>
+</pre>
+</div>
+
+<blockquote>
+<p><a href="https://github.com/azu/browserify-example/blob/master/simple/add.js" title="add.js">add.js</a> </p>
+</blockquote>
+
+<div class="highlight">
+  <pre><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">};</span>
+</pre>
+</div>
+
+<p>これをbrowserifyでビルドしてみると以下のように変換されてます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">browserify simple/index.js -o simple/bundle.js
+</code></pre></div>
+<blockquote>
+<p><a href="https://github.com/azu/browserify-example/blob/master/simple/bundle.js" title="bundle.js">bundle.js</a> </p>
+</blockquote>
+
+<div class="highlight">
+  <pre><span class="p">(</span><span class="kd">function</span> <span class="nx">e</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="nx">n</span><span class="p">,</span><span class="nx">r</span><span class="p">){</span><span class="kd">function</span> <span class="nx">s</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span><span class="nx">u</span><span class="p">){</span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">n</span><span class="p">[</span><span class="nx">o</span><span class="p">]){</span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">t</span><span class="p">[</span><span class="nx">o</span><span class="p">]){</span><span class="kd">var</span> <span class="nx">a</span><span class="o">=</span><span class="k">typeof</span> <span class="nx">require</span><span class="o">==</span><span class="s2">"function"</span><span class="o">&&</span><span class="nx">require</span><span class="p">;</span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">u</span><span class="o">&&</span><span class="nx">a</span><span class="p">)</span><span class="k">return</span> <span class="nx">a</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span><span class="o">!</span><span class="mi"></span><span class="p">);</span><span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="k">return</span> <span class="nx">i</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span><span class="o">!</span><span class="mi"></span><span class="p">);</span><span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">"Cannot find module &#39;"</span><span class="o">+</span><span class="nx">o</span><span class="o">+</span><span class="s2">"&#39;"</span><span class="p">)}</span><span class="kd">var</span> <span class="nx">f</span><span class="o">=</span><span class="nx">n</span><span class="p">[</span><span class="nx">o</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="nx">exports</span><span class="o">:</span><span class="p">{}};</span><span class="nx">t</span><span class="p">[</span><span class="nx">o</span><span class="p">][</span><span class="mi"></span><span class="p">].</span><span class="nx">call</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">exports</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span><span class="kd">var</span> <span class="nx">n</span><span class="o">=</span><span class="nx">t</span><span class="p">[</span><span class="nx">o</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="nx">e</span><span class="p">];</span><span class="k">return</span> <span class="nx">s</span><span class="p">(</span><span class="nx">n</span><span class="o">?</span><span class="nx">n</span><span class="o">:</span><span class="nx">e</span><span class="p">)},</span><span class="nx">f</span><span class="p">,</span><span class="nx">f</span><span class="p">.</span><span class="nx">exports</span><span class="p">,</span><span class="nx">e</span><span class="p">,</span><span class="nx">t</span><span class="p">,</span><span class="nx">n</span><span class="p">,</span><span class="nx">r</span><span class="p">)}</span><span class="k">return</span> <span class="nx">n</span><span class="p">[</span><span class="nx">o</span><span class="p">].</span><span class="nx">exports</span><span class="p">}</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="k">typeof</span> <span class="nx">require</span><span class="o">==</span><span class="s2">"function"</span><span class="o">&&</span><span class="nx">require</span><span class="p">;</span><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">o</span><span class="o">=</span><span class="mi"></span><span class="p">;</span><span class="nx">o</span><span class="o">&lt;</span><span class="nx">r</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">o</span><span class="o">++</span><span class="p">)</span><span class="nx">s</span><span class="p">(</span><span class="nx">r</span><span class="p">[</span><span class="nx">o</span><span class="p">]);</span><span class="k">return</span> <span class="nx">s</span><span class="p">})({</span><span class="mi">1</span><span class="o">:</span><span class="p">[</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span><span class="nx">module</span><span class="p">,</span><span class="nx">exports</span><span class="p">){</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="p">},{}],</span><span class="mi">2</span><span class="o">:</span><span class="p">[</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span><span class="nx">module</span><span class="p">,</span><span class="nx">exports</span><span class="p">){</span>
+<span class="kd">var</span> <span class="nx">add</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"./add"</span><span class="p">);</span>
+<span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// =&gt; 3</span>
+<span class="p">},{</span><span class="s2">"./add"</span><span class="o">:</span><span class="mi">1</span><span class="p">}]},{},[</span><span class="mi">2</span><span class="p">])</span>
+</pre>
+</div>
+
+<p>変換した<a href="https://github.com/azu/browserify-example/blob/master/simple/bundle.js" title="bundle.js">bundle.js</a>は、他にローダライブラリ等に依存はしてないのでそのまま読み込むだけで扱えます。</p>
+
+<p><a href="https://github.com/substack/node-browserify" title="substack/node-browserify">browserify</a> について興味をもった人は以下の記事を読んでみるといいかもしれません。</p>
+
+<ul>
+<li>  <a href="http://blakeembrey.com/articles/introduction-to-browserify/" title="Introduction to Browserify • Blake Embrey">Introduction to Browserify • Blake Embrey</a> 
+
+<ul>
+<li>  browserifyの入門的な記事ですが、<code>-t</code> の変換レイヤーやオプションについても書かれていてまとまっています</li>
+</ul></li>
+<li>  <a href="http://procbits.com/2013/06/17/client-side-javascript-management-browserify-vs-component" title="Client-Side JavaScript Management, Browserify vs Component">Client-Side JavaScript Management, Browserify vs Component</a> 
+
+<ul>
+<li>  ちょっと古めですが、同じCommonJSを扱う<a href="https://github.com/component/component" title="component">component</a>との比較について書かれています。</li>
+</ul></li>
+<li>  <a href="http://www.slideshare.net/johannilsson/dependencies-modules-browserify" title="JavaScript Dependencies, Modules &amp; Browserify">JavaScript Dependencies, Modules &amp; Browserify</a> 
+
+<ul>
+<li>  JavaScriptの色々なモジュールの書き方とbrowserifyについて書かれています。</li>
+<li>  他のモジュールから変換して扱う方法(P52)などよくまとまってます。</li>
+</ul></li>
+<li>  <a href="http://requirebin.com/" title="RequireBin">RequireBin</a> 
+
+<ul>
+<li>  JSFiddleみたいにbrowserifyを使ったコードを試せるサービス</li>
+</ul></li>
+</ul>
+
+<p>この記事はモジュール管理の比較記事ではないので、以下のような内容について書いていきます。</p>
+
+<ul>
+<li>  bowerでインストールしたものをbrowserifyで使う</li>
+<li>  npmで公開したものをbrowserifyで使う</li>
+<li>  browserifyでのビルドサイクル(beefy or gulp)</li>
+<li>  browserifyでビルドしたもののデバッグ</li>
+</ul>
+
+<h1 id="browserifyでのクライアントサイド開発">browserifyでのクライアントサイド開発</h1>
+
+<p>実際に作ったものは <a href="https://github.com/azu/tech-video-rss-searcher/" title="azu/tech-video-rss-searcher">azu/tech-video-rss-searcher</a> に公開してあります。</p>
+
+<h2 id="commonjs以外のモジュールをbrowserifyで使う">CommonJS以外のモジュールをbrowserifyで使う</h2>
+
+<p>今回、npm以外のモジュールとしてはbower経由で<a href="http://www.ractivejs.org/" title="Ractive.js">Ractive.js</a>を使っただけでしたが、そのままでは<code>&lt;script&gt;</code>で読み込んで使うことを想定した作りになっているため、nodeスタイルで書いたコードから使いにくいです。(<code>require(&quot;ractive&quot;)</code>で使えない)</p>
+
+<p>そこで、browserifyでは <code>-t</code> オプションでnodeスタイルで書かれたコードを変換する際に、別の変換を組み合わせられる<a href="https://github.com/substack/node-browserify#list-of-source-transforms" title="transforms">transforms</a>という仕組みが用意されています。</p>
+
+<p>今回はbowerでインストールしたものを変換したかったので<a href="https://github.com/eugeneware/debowerify" title="debowerify">debowerify</a>という変換モジュールを使います。</p>
+
+<p>browserifyで変換するときに、<code>-t debowerify</code> と指定する事でnodeスタイルから扱えるように変換されてbundle.jsにまとめられます。</p>
+
+<div class="highlight">
+  <pre>$ browserify -t debowerify app/app.js -o public/budle.js
+</pre>
+</div>
+
+<h3 id="例">例</h3>
+
+<p>リポジトリの<a href="https://github.com/azu/tech-video-rss-searcher/blob/gh-pages/bower.json#L16" title="bower.json">bower.json</a>を見ると <code>ractive</code> をインストールしています。</p>
+
+<p>これをモジュールとして扱う場合は、以下のようにbower.jsonのパッケージ名に合わせたものを <code>require</code> することで扱えます。</p>
+
+<div class="highlight">
+  <pre><span class="kd">var</span> <span class="nx">Ractive</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"ractive"</span><span class="p">);</span>
+</pre>
+</div>
+
+<p><a href="https://github.com/eugeneware/debowerify" title="debowerify">debowerify</a>によって、bowerでインストールしたものがCommonJSから扱えるように変換されbundleに含まれます。</p>
+
+<p>bower以外にもAMDを変換する<a href="https://github.com/jaredhanson/deamdify" title=" deamdify">deamdify</a>や、ES6モジュールを変換する<a href="https://github.com/thlorenz/es6ify" title="es6ify">es6ify</a>、ブラウザ向けに書かれた <code>window.</code> に対して名前空間を持つようなライブラリを変換する<a href="https://github.com/eugeneware/deglobalify" title="deglobalify">deglobalify</a> / <a href="https://github.com/thlorenz/browserify-shim" title="browserify-shim">browserify-shim</a> 等があります。</p>
+
+<p><a href="https://github.com/substack/node-browserify#list-of-source-transforms" title=" list of source transforms">list of source transforms</a> に変換モジュールがまとめられています、意外と充実しているためブラウザ向けに公開されている大体のライブラリはbrowserifyに持ってきて使う仕組みがあると思います。</p>
+
+<p>また、これらの<a href="https://github.com/substack/module-deps#transforms" title="transforms">変換モジュール</a>は、基本的にJavaScript ASTを変更することで行われるため、<br>
+後述するデバッグで使うSourcemapを破壊せずに変換出来ます。</p>
+
+<p>簡単にいうと、browserifyで変換 + 変換モジュールでの変換 をしても元のライブラリソースとのマッピングは壊れないので、変換したものが普通にデバッグ出来るということです。</p>
+
+<p>最近は<a href="http://blog.jquery.com/2014/01/16/jquery-1-11-0-rc1-and-2-1-0-rc1-released/" title="jQuery">jQuery</a>等もnpmでインストールできますが、ブラウザ向けのライブラリがnpmでも公開されてるものはそこまで多くないので、ライブラリを使おうと思ったら恐らくこういう変換モジュールをかませる必要がでてくると思います。</p>
+
+<h2 id="npmで公開してるものをbrowserifyで使う">npmで公開してるものをbrowserifyで使う</h2>
+
+<p>次はbrowserifyの機能としてよく紹介されてると思いますが、<br>
+npm経由でインストールしたnode向けに書かれたモジュールもbrowserifyでは変換することができます。</p>
+
+<p>ブラウザに存在しない機能(OSのファイルシステムや外部プロセスを呼ぶ等)や<a href="https://github.com/substack/node-browserify#compatibility" title="shim">shim</a>がないモジュールは扱うことが出来ませんが、他は大体動作すると思います。</p>
+
+<p><a href="http://slid.es/azer/npm" title="NPM Everywhere by Azer Koçulu">NPM Everywhere by Azer Koçulu</a>等でも書かれていますが、npmという既にあるエコシステムに乗れる事がbrowserifyの利点の一つだと思います。</p>
+
+<p>既に公開されてるnodeモジュールを使うこともそうですが、<br>
+npmに関するツールは充実しているので、作ってるウェブアプリのロジックをライブラリとして切り出してnpmで公開して使うような事がやりやすいです。</p>
+
+<h3 id="例">例</h3>
+
+<p>今回のアプリでは、<a href="http://ja.wikipedia.org/wiki/Outline_Processor_Markup_Language" title="OPML">OPML</a>形式で出力したかったので、<br>
+そのOPML形式に変換する部分だけを<a href="https://github.com/azu/opml-generator" title=" opml-generator.js">opml-generator.js</a>というnodeモジュールを作って使っています。</p>
+
+<p><a href="https://github.com/azu/opml-generator" title=" opml-generator.js">opml-generator.js</a>はただのNode.jsで動く文字列処理をするようなライブラリなので、他のNodeプロジェクトでも使えますし、今回のアプリも<a href="https://github.com/azu/tech-video-rss-searcher/blob/db4b6f5a03186985d668ec8b150ff0ca00b6e786/package.json#L7" title="dependencies">dependencies</a>として読み込みbrowserifyで変換して利用しています。</p>
+
+<h2 id="browserifyでのビルドサイクル(beefy-or-gulp)">browserifyでのビルドサイクル(beefy or gulp)</h2>
+
+<p>browserifyのデメリット?としてブラウザで実行するにはビルドが必要です。</p>
+
+<p><code>browserify</code> コマンドで変更する度に手動で変換するのは面倒なので、Gruntやgulp等のビルドツールを利用すると思います。<br>
+(単純にファイル監視+ビルドだけなら<a href="https://github.com/substack/watchify" title="watchify">watchify</a>も利用できます)</p>
+
+<p>今回は、<a href="https://github.com/chrisdickinson/beefy" title="beefy">beefy</a>を使った方法とビルドツールの<a href="http://gulpjs.com/" title="gulp">gulp</a>を使った方法の両方を使えるようにしてみました(どっちがいいのかわからなかったので両方出来るようにしたという話)</p>
+
+<h3 id="beefy"><a href="https://github.com/chrisdickinson/beefy" title=" beefy">beefy</a></h3>
+
+<p>beefy は ファイルの変更監視 + browserifyのビルド + ローカルサーバ (+ LiveReload) を行うコマンドラインツールです。</p>
+
+<p>例えば、browserifyコマンドで以下のようにビルドする時、</p>
+
+<div class="highlight">
+  <pre>browserify -t debowerify app/app.js -o public/app.js
+</pre>
+</div>
+
+<p>これをbeefyで自動化するには、以下のようにコマンドを実行します。</p>
+
+<div class="highlight">
+  <pre>beefy app/app.js:public/app.js 8989 -- -t debowerify
+</pre>
+</div>
+
+<p>ポート8989でローカルサーバが立つので、 <code>http://localhost:8989/</code> にアクセスする事で自動でビルドされるようになります。</p>
+
+<p>ローカルサーバを立てると後述するデバッグにも役立つので、その点beefyはローカルサーバの部分も自動でできるのでお手軽です。(そもそもXHRとかはhttpじゃないと上手く動かない場合があるので、こうした方がいい)</p>
+
+<h3 id="gulp"><a href="http://gulpjs.com/" title="gulp">gulp</a></h3>
+
+<p><strong>追記</strong>: gulpでBrowserifyを使う場合は次の記事を参照して下さい。</p>
+
+<ul>
+<li>  <a href="http://viget.com/extend/gulp-browserify-starter-faq" title="Gulp + Browserify: The Everything Post | Viget">Gulp + Browserify: The Everything Post | Viget</a></li>
+<li>  <a href="https://github.com/gulpjs/gulp/blob/master/docs/recipes/fast-browserify-builds-with-watchify.md" title="gulp/docs/recipes/fast-browserify-builds-with-watchify.md at master · gulpjs/gulp">gulp/docs/recipes/fast-browserify-builds-with-watchify.md at master · gulpjs/gulp</a></li>
+</ul>
+
+<p>Browserifyは元々streamに対応しているため、gulp pluginを別途用意する必要がなく、<code>browserify</code>をモジュールとしてそのまま利用できます。</p>
+
+<p>以下のやり方は非推奨です。</p>
+
+<hr>
+
+<p>gulpからbrowserifyを使うpluginとして<a href="https://github.com/deepak1556/gulp-browserify" title=" gulp-browserify">gulp-browserify</a>があるので、これを利用します。</p>
+
+<p>詳細は<a href="https://github.com/azu/tech-video-rss-searcher/blob/db4b6f5a03186985d668ec8b150ff0ca00b6e786/gulpfile.js" title="gulpfile.js">gulpfile.js</a>をみてもらうとわかりますが、 <code>connect</code> を使ったローカルサーバとgulpを使ったファイル監視をして <code>gulp-browserify</code> でビルドという感じです。</p>
+
+<p>気をつける点としてはgulp-browserifyで変換する際にストリームで変換されるので、そのままでsourcemapのファイル名がfake-hogeのようになってデバッグできなくなります。</p>
+
+<del><a href="https://github.com/azu/tech-video-rss-searcher/blob/db4b6f5a03186985d668ec8b150ff0ca00b6e786/gulpfile.js#L7" title="standalone: &#34;app.js&#34;">standalone: "app.js"</a> というオプションでbrowserifyのentry-point(mainとなるファイル)を渡すことで正しくマッピングされると思います。</del>
+
+<blockquote class="twitter-tweet" lang="en">
+  <p>
+    <a href="https://twitter.com/7to3">@7to3</a> あ、ほんとですね。{ read: false } の場合standalone無くても大丈夫ですね。&#10;ありがとうございます。&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/statuses/425470718902407168">January 21, 2014</a>
+  </p>
+</blockquote>
+
+<p>追記: gulp.srcに <code>{ read: false }</code> を指定している場合は <code>standalone</code> オプション必要ありませんでした。</p>
+
+<p>(<a href="https://github.com/hughsk/vinyl-source-stream" title="hughsk/vinyl-source-stream">hughsk/vinyl-source-stream</a>というpluginを組み合わせた方が<del><code>standalone</code> という謎オプションを使わなくていいので</del>スマートかもしれません)</p>
+
+<p>これでbeefyと大体似たようなファイル監視+ローカルサーバ+ビルドができると思います。</p>
+
+<hr>
+
+<h2 id="browserifyでビルドしたもののデバッグ">browserifyでビルドしたもののデバッグ</h2>
+
+<p>先ほどから何回か出てきていますが、browserifyでは <code>--debug -d</code> オプションを付けることでsource mapも一緒に吐き出してくれます。(beefy、gulp-browserifyにもそれぞれオプションで指定出来ます)</p>
+
+<p>これを使えば、browserifyでビルドしたものもデバッグすることが出来ます。</p>
+
+<blockquote class="twitter-tweet" lang="en">
+  <p>
+    おー、beefyでローカルサーバ立ててWebStormでそのlocalhostに対してデバッグ実行させれば、&#10;browserify + debowerify に対してもWebStormからブレークポイント貼って見られる <a href="http://t.co/ZxdnAWuLHw">pic.twitter.com/ZxdnAWuLHw</a>
+  </p>
+</blockquote>
+
+<p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/statuses/424233337545166850">January 17, 2014</a></p>
+
+<h3 id="source-map">source map</h3>
+
+<p>source mapに対応してるFirefoxやChromeのようなブラウザなら、browserifyでデバッグビルドしたものを表示した場合、<br>
+以下のように元となるNode.jsのshimや変換元のモジュールのソース等が見られブレークポイント等も使えるので普通にデバッグが行えます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/01/Tech-Video-RSS-Searcher-2014-01-20-21-20-18.jpg" alt="Tech Video RSS Searcher 2014 01 20 21 20 18" title="Tech Video RSS Searcher 2014-01-20 21-20-18.jpg" border="0" width="600" height="411" /></p>
+
+<p>WebStormでも同じようにJavaScriptデバッガーを使ってデバッグする事が出来ます。</p>
+
+<p>Run ConfigurationからJavaScript Debugで先ほど立てたローカルサーバへアクセスするようにするだけです。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/01/Debug-Configurations-2014-01-20-21-25-12.jpg" alt="Debug Configurations 2014 01 20 21 25 12" title="Debug Configurations 2014-01-20 21-25-12.jpg" border="0" width="600" height="427" /></p>
+
+<p>これにより、普通にJavaScriptを書く時と殆ど感じでデバッグが出来ます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/01/tech-video-rss-searcher-2014-01-20-21-24-05.jpg" alt="Tech video rss searcher 2014 01 20 21 24 05" title="tech-video-rss-searcher] 2014-01-20 21-24-05.jpg" border="0" width="600" height="409" /></p>
+
+<p><a href="http://azu.github.io/tech-video-rss-searcher/" title="Tech Video RSS Searcher">Tech Video RSS Searcher</a> ではbeefyを使って、上記のようにWebStormからデバッグしていましたが、特に問題なくブレークポイントを貼ってチェックしたりできて変換フェーズがあるといってもそこまで問題はない感じでした。</p>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>この記事では <a href="https://github.com/substack/node-browserify" title="substack/node-browserify">browserify</a> をつかったウェブアプリの開発フローについて書きました。</p>
+
+<p>browserifyのドキュメントはあんまり充実してない感じ(ドキュメントというよりはチュートリアル的な方向)がするので、少し手を出しにくいかもしれませんが、Nodeの資産やツールも適応しやすく意外と現実的に開発できるような環境だと思います。</p>
+
+<p>ブラウザでのモジュールといえば<a href="http://www.2ality.com/2013/11/es6-modules-browsers.html" title="ECMAScript 6 modules">ECMAScript 6 modules</a>ですが、こちらも<a href="https://github.com/square/es6-module-transpiler" title="ES6 Module Transpiler">ES6 Module Transpiler</a>などを使っていますぐ使うことも出来ます。</p>
+
+<p>実際に<a href="https://github.com/webpro/jquery-evergreen" title=" jQuery Evergreen">jQuery Evergreen</a>や<a href="https://github.com/lodash/lodash-es6" title="lodash-es6">lodash-es6</a>、<a href="https://github.com/ebryn/backburner.js" title="backburner.js">backburner.js</a>などES6 modulesを実際に使って書かれてるライブラリ等もあります。(プロダクトはさすがに見たこと無い)</p>
+
+<ul>
+<li>  <a href="http://guybedford.com/es6-modules-today" title="Using ES6 Modules Today">Using ES6 Modules Today</a></li>
+<li>  <a href="http://www.2ality.com/2013/07/es6-modules.html" title="ECMAScript 6 modules: the future is now">ECMAScript 6 modules: the future is now</a></li>
+</ul>
+
+<p>ES6 modulesも現状ではビルドして使う感じになるという点では同じですが、browserifyの場合は既にNode.jsで使われてるCommonJSというスタイルを使うので、エディタやツールのサポートがあるという状態になってるのはいいことだと思います。</p>
+
+<p>ES6 modulesで増える構文はcontextual keywordsだったと思いますが、その構文にちゃんと対応してるエディタはまだなかったと思います。(<a href="http://confluence.jetbrains.com/display/WI/Roadmap+for+WebStorm+8" title="WebStorm 8">WebStorm 8</a>で入るかもしれないですが)</p>
+
+<p>また今回は全然触れてませんがプロダクション的な用途を考えるならファイルサイズも気になる場合があるかもしれません。</p>
+
+<p>shim は利用した機能の分だけが自動でビルド時に含まれてるようになってるので、素で書いた場合に比べて(デバッグビルドをしなければ)大幅に増えるという感じではないですが、npm経由で入れたモジュールの依存モジュールも引っ張って変換されるので、下手にnpmで入れるといきなりファイルサイズが増える場合があるかもしれません。</p>
+
+<p>ビルドにかかる時間の省略やキャッシュ的にも、依存する外部ライブラリは開発するソースとは別々のbundle.jsとして生成するなどの方法(<code>--noparse</code> というオプションもある)を取れるかもしれません。(その辺についてはやった人が書くといいよ!)</p>
+
+<h2 id="今度こそおわりに">今度こそおわりに</h2>
+
+<p><a href="https://github.com/substack/node-browserify" title="substack/node-browserify">browserify</a> はとっつきにくいイメージがありますが、触ると楽しいです。</p>
+
+<p>以上です。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-01-20-npm%E3%81%A8browserify%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E3%82%B5%E3%82%A4%E3%83%89%E3%81%AE%E3%82%A6%E3%82%A7%E3%83%96%E3%82%A2%E3%83%97.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["browserify","javascript","Node.js","npm"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=browserify">browserify</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+                <li><a href="/tags/?q=npm">npm</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

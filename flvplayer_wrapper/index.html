@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ニコニコ動画とflvplayer_wrapperの履歴 | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="page">
+  <h1 class="page-title">ニコニコ動画とflvplayer_wrapperの履歴</h1>
+  <p>以前、書いたものをちょっと修正しただけのものなので、意味がおかしい文が混じっている可能性があるので注意</p>
+
+<hr>
+
+<h1 id="flvplayer_wrapper"><code>flvplayer_wrapper</code></h1>
+
+<ul>
+<li><a href="https://github.com/azu/flvplayer-wrapper-mod/" title="azu/flvplayer-wrapper-mod">azu/flvplayer-wrapper-mod</a></li>
+</ul>
+
+<h2 id="使用用途と方法">使用用途と方法</h2>
+
+<p>使用用途と方法が特殊なため簡単に説明。</p>
+
+<p><code>flvplayer_wrapper</code>はニコニコ動画の旧プレイヤーをオーバーライドして、旧プレイヤーに新しい機能を追加
+することを目的としたソフトウェアです。
+ニコニコ動画の旧プレイヤーは2009年4月に開発終了の宣言が出て、
+新プレイヤーに切り替わったため現在は動作する標準的な方法はありません。</p>
+
+<ul>
+<li><a href="http://blog.nicovideo.jp/niconews/2010/04/007075.html" title="4/30　旧動画プレーヤー提供終了‐ニコニコインフォ">4/30　旧動画プレーヤー提供終了‐ニコニコインフォ</a></li>
+</ul>
+
+<p>使用方法はニコニコ動画のプレイヤーの代わりに<code>flvplayer_wrapper</code>をブラウザ上で呼び出さないといけないため、
+ プロキシソフトである<a href="http://site.halfmoon.jp/movielist/29.html" title="Proxomitron">Proxomitron</a>(オミトロン)や <a href="http://www58.atwiki.jp/nicocache/" title="NicoCache_nl">NicoCache_nl</a>いったWebページを書き換えるソフトが必要となります。
+ 具体的な使用方法は<a href="https://wrapper.wiki.zoho.com/" title="ニコニコ動画用flvplayer_wrapper">ニコニコ動画用flvplayer_wrapper wiki</a>readme.txtにまとめてあるため割愛します。</p>
+
+<p>既に設定をしてある状態で配布している Proxomitronであるいわゆる<a href="http://site.halfmoon.jp/movielist/90.html">設定済flvplayer_wrapper</a>を使用しているユーザが数千人程度いました。</p>
+
+<h2 id="作成したきっかけ">作成したきっかけ</h2>
+
+<p><code>flvplayer_wrapper mod</code>とは、<code>flvplayer_wrapper</code>という原型となったソフトがあります。</p>
+
+<p><code>flvplayer_wrapper</code>は2ちゃんねるで開発が始まり、その公開されていた<code>flvplayer_wrapper</code>を元に現在の原型の大部分を完成させた<code>flvplayer_wrapper custom</code>がありました。</p>
+
+<p>2ちゃんねるで<code>flvplayer_wrapper custom</code>の制作者が開発を終了を宣言し、同時期に2ちゃんえるのNicoCacheのスレにおいて
+簡単な<code>flvplayer_wrapper custom</code>の改変方法が記載されていたのが、<code>flvplayer_wrapper mod</code>を開発しようとしたきっかけです。</p>
+
+<p>つまり、<code>flvplayer_wrapper mod</code>は<code>flvplayer_wrapper custom</code>の公開されていたソースコードが元となっています。</p>
+
+<blockquote>
+<p><code>flvplayer_wrapper</code> =&gt; <code>flvplayer_wrapper custom</code> =&gt; <code>flvplayer_wrapper mod</code></p>
+</blockquote>
+
+<p><code>flvplayer_wrapper</code>は何人かの制作者によって勝手に受け継がれて作られているので、総称して<code>flvplayer_wrapper</code>と呼ばれています。</p>
+
+<p><code>flvplayer_wrapper</code>は<a href="http://php.net/manual/ja/book.ming.php" title="Ming">Ming</a>というFLASHを生成するためのPHPライブラリが使われており、中身の大部分はActionScript2になっています。</p>
+
+<p>2008年7月11日に初めて<code>flvplayer_wrapper</code>をさわり始めた当初は、プログラミングもほとんどやったことがなかったので、
+少しだけかじっていたJavaScriptの知識を元に手探りで改変とニコニコ動画の仕様変更へと対応していました。</p>
+
+<p>そのため、2ちゃんねるの掲示板上での動作報告やアドバイスなどがなかったら、保持していくことはなかったと思います。</p>
+
+<h2 id="苦労した話">苦労した話</h2>
+
+<p><code>flvplayer_wrapper</code>はニコニコ動画のプレイヤーにオーバーライドするという仕様上、
+ニコニコ動画のプレイヤーの変更に影響を受けやすい作りになっていました。
+そのため、頻繁に行われていた仕様変更に対応することに多くの時間を費やしました。</p>
+
+<p>ニコニコ動画のプレイヤーをデコンパイルした結果を比較しながら、どこが変更したかを確認しながら、
+その変更点を<code>flvplayer_wrapper</code>に落とす作業が多く、その中で新しく便利な追加機能を加えていきました。</p>
+
+<p>特にニコニコ動画でユーザーニコ割が導入された際はかなり大きな変更があり、なおかつ当時はプログラミング知識もあまりなかったため、かなり苦戦してユーザーニコ割へ対応した覚えがあります。</p>
+
+<p>また、<code>flvplayer_wrapper</code>は機能の多さと画面の広さを維持したいという思いがあったため、
+UIに<a href="https://wrapper.wiki.zoho.com/mod%E7%89%88%E3%81%AE%E8%A8%AD%E5%AE%9A.html#CM%E3%81%A7%E3%83%9E%E3%83%BC%E3%82%AD%E3%83%BC%E3%82%92%E8%87%AA%E5%8B%95%E8%A1%A8%E7%A4%BA" title="mod版の設定">いくつかのパターン</a>を用意したり、プレイヤーを最大化した上でのユーザーニコ割の表示に動画自体の邪魔にならないように表示する設定等も作成しました。</p>
+
+<p>ここでも、2ちゃんねるのオミトロンスレでのUIイメージの提供などの協力があったためできたと思います。</p>
+
+<p><code>flvplayer_wrapper</code>は自分単独で作成したものではありませんが、2008年7月11日から旧プレイヤーの保持が終了されているまでに渡って1年以上継続的にアップデートをし続けたソフトウェアでした。</p>
+
+<hr>
+
+<p>-- azu</p>
+
+</div>
+
+    </div>
+</article>
+</body>
+</html>

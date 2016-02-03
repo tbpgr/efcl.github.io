@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        JavaScriptのコードを分解してよく使われてる機能を分析する | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="ECMAScript,Tool,ES6,JavaScript" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/01/22/es-usage-rate/">
+    <h1 class="post-title">JavaScriptのコードを分解してよく使われてる機能を分析する</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年01月22日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2016/2016-01-22-es-usage-rate.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://efcl.info/2015/12/31/oss-in-2015/" title="今年のOSS活動振り返り @ 2015 | Web Scratch">今年のOSS活動振り返り @ 2015 | Web Scratch</a>で</p>
+
+<blockquote>
+<ul>
+<li>JavaScript/ECMAScriptを改めてどう学べばいいのか考える
+
+<ul>
+<li><a href="https://github.com/azu/how-to-learn-es6" title="azu/how-to-learn-es6">azu/how-to-learn-es6</a>とか<a href="https://twitter.com/hashtag/thinking_in_es6?src=hash" title="#thinking_in_es6">#thinking_in_es6</a>で考えてるやつ</li>
+</ul></li>
+</ul>
+</blockquote>
+
+<p>というのを今年考える事としてあげていました。
+それを考えるために、既存のコードがどうなってるかを見てみるという話です。</p>
+
+<p>具体的には既存のコードを見て、そこでどういう機能/構文が多く使われているのかが分かれば、どこを中心的に学ぶと結果が出やすくなるのではという感じです。</p>
+
+<p>それを分析するために<a href="https://github.com/azu/es-usage-rate" title="azu/es-usage-rate">azu/es-usage-rate</a>というツールを書いた。</p>
+
+<h3 id="installation">Installation</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -g es-usage-rate
+</code></pre></div>
+<h3 id="使い方">使い方</h3>
+
+<p>例えば、<code>es-usage-rate</code>自体がどういう構文を使って書かれてるかを見てみてます。</p>
+
+<p><code>es-usage-rate</code>は他のCLIと組み合わせて使う事を前提としてるので、
+デフォルトでは指定したコードをパースして、それらのAST Node typeを出力するだけです。</p>
+
+<p>AST Node typeは以下を参照すると分かりますが、ECMAScriptの構文の名前が入ってる感じです。
+(Generatorとかはtypeとしてはないので独自に出してます。</p>
+
+<ul>
+<li><a href="https://github.com/estree/estree" title="estree/estree: The ESTree Spec">estree/estree: The ESTree Spec</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>es-usage-rate <span class="s2">&quot;es-usage-rate/src/**/*.js&quot;</span>
+ImportDeclaration
+AssignmentExpression
+Identifier
+CallExpression
+Identifier
+Identifier
+CatchClause
+....
+</code></pre></div>
+<p>注意点としては、AST Node typeというのは基本的には構文にしか<code>type</code>がついてません。
+例えば、<code>Promise</code>とか構文としては新しいものではなくただのオブジェクトなので、<code>type</code>だけでは区別できないと思います。
+(名前などを見れば判定はできますが面倒なのでやってないです)</p>
+
+<p><code>es-usage-rate</code>を使えば標準出力には<code>type</code>が出現した回数だけ出力されるので、これを<a href="https://github.com/philovivero/distribution" title="philovivero/distribution">distribution</a>で集計して見たりするのが簡単な使い方です。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>git clone https://github.com/azu/es-usage-rate.git
+<span class="nv">$ </span>es-usage-rate <span class="s2">&quot;es-usage-rate/src/**/*.js&quot;</span> <span class="p">|</span> distribution --char<span class="o">=</span>ba --height<span class="o">=</span>50
+                      Key<span class="p">|</span>Ct  <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+               Identifier<span class="p">|</span><span class="m">334</span> <span class="o">(</span>37.70%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+            StringLiteral<span class="p">|</span> <span class="m">84</span>  <span class="o">(</span>9.48%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬
+           CallExpression<span class="p">|</span> <span class="m">61</span>  <span class="o">(</span>6.88%<span class="o">)</span> ▬▬▬▬▬▬▬▬
+         MemberExpression<span class="p">|</span> <span class="m">55</span>  <span class="o">(</span>6.21%<span class="o">)</span> ▬▬▬▬▬▬▬
+           BlockStatement<span class="p">|</span> <span class="m">38</span>  <span class="o">(</span>4.29%<span class="o">)</span> ▬▬▬▬▬
+       VariableDeclarator<span class="p">|</span> <span class="m">34</span>  <span class="o">(</span>3.84%<span class="o">)</span> ▬▬▬▬▬
+          ReturnStatement<span class="p">|</span> <span class="m">26</span>  <span class="o">(</span>2.93%<span class="o">)</span> ▬▬▬▬
+VariableDeclaration:const<span class="p">|</span> <span class="m">25</span>  <span class="o">(</span>2.82%<span class="o">)</span> ▬▬▬
+      FunctionDeclaration<span class="p">|</span> <span class="m">18</span>  <span class="o">(</span>2.03%<span class="o">)</span> ▬▬▬
+        ImportDeclaration<span class="p">|</span> <span class="m">17</span>  <span class="o">(</span>1.92%<span class="o">)</span> ▬▬▬
+      ExpressionStatement<span class="p">|</span> <span class="m">15</span>  <span class="o">(</span>1.69%<span class="o">)</span> ▬▬
+           ObjectProperty<span class="p">|</span> <span class="m">15</span>  <span class="o">(</span>1.69%<span class="o">)</span> ▬▬
+                Directive<span class="p">|</span> <span class="m">14</span>  <span class="o">(</span>1.58%<span class="o">)</span> ▬▬
+                  Program<span class="p">|</span> <span class="m">14</span>  <span class="o">(</span>1.58%<span class="o">)</span> ▬▬
+         DirectiveLiteral<span class="p">|</span> <span class="m">14</span>  <span class="o">(</span>1.58%<span class="o">)</span> ▬▬
+  ArrowFunctionExpression<span class="p">|</span> <span class="m">12</span>  <span class="o">(</span>1.35%<span class="o">)</span> ▬▬
+         ObjectExpression<span class="p">|</span> <span class="m">12</span>  <span class="o">(</span>1.35%<span class="o">)</span> ▬▬
+     AssignmentExpression<span class="p">|</span> <span class="m">10</span>  <span class="o">(</span>1.13%<span class="o">)</span> ▬▬
+   ExportNamedDeclaration<span class="p">|</span>  <span class="m">9</span>  <span class="o">(</span>1.02%<span class="o">)</span> ▬▬
+          ImportSpecifier<span class="p">|</span>  <span class="m">9</span>  <span class="o">(</span>1.02%<span class="o">)</span> ▬▬
+   ImportDefaultSpecifier<span class="p">|</span>  <span class="m">8</span>  <span class="o">(</span>0.90%<span class="o">)</span> ▬
+ ExportDefaultDeclaration<span class="p">|</span>  <span class="m">7</span>  <span class="o">(</span>0.79%<span class="o">)</span> ▬
+         BinaryExpression<span class="p">|</span>  <span class="m">7</span>  <span class="o">(</span>0.79%<span class="o">)</span> ▬
+              IfStatement<span class="p">|</span>  <span class="m">6</span>  <span class="o">(</span>0.68%<span class="o">)</span> ▬
+  VariableDeclaration:let<span class="p">|</span>  <span class="m">5</span>  <span class="o">(</span>0.56%<span class="o">)</span> ▬
+           NumericLiteral<span class="p">|</span>  <span class="m">4</span>  <span class="o">(</span>0.45%<span class="o">)</span> ▬
+          ArrayExpression<span class="p">|</span>  <span class="m">4</span>  <span class="o">(</span>0.45%<span class="o">)</span> ▬
+  VariableDeclaration:var<span class="p">|</span>  <span class="m">4</span>  <span class="o">(</span>0.45%<span class="o">)</span> ▬
+          TemplateElement<span class="p">|</span>  <span class="m">3</span>  <span class="o">(</span>0.34%<span class="o">)</span> ▬
+            ObjectPattern<span class="p">|</span>  <span class="m">3</span>  <span class="o">(</span>0.34%<span class="o">)</span> ▬
+           BreakStatement<span class="p">|</span>  <span class="m">2</span>  <span class="o">(</span>0.23%<span class="o">)</span> ▬
+        AssignmentPattern<span class="p">|</span>  <span class="m">2</span>  <span class="o">(</span>0.23%<span class="o">)</span> ▬
+               SwitchCase<span class="p">|</span>  <span class="m">2</span>  <span class="o">(</span>0.23%<span class="o">)</span> ▬
+         UpdateExpression<span class="p">|</span>  <span class="m">1</span>  <span class="o">(</span>0.11%<span class="o">)</span> ▬
+          UnaryExpression<span class="p">|</span>  <span class="m">1</span>  <span class="o">(</span>0.11%<span class="o">)</span> ▬
+             ObjectMethod<span class="p">|</span>  <span class="m">1</span>  <span class="o">(</span>0.11%<span class="o">)</span> ▬
+            RegExpLiteral<span class="p">|</span>  <span class="m">1</span>  <span class="o">(</span>0.11%<span class="o">)</span> ▬
+          SwitchStatement<span class="p">|</span>  <span class="m">1</span>  <span class="o">(</span>0.11%<span class="o">)</span> ▬
+              CatchClause<span class="p">|</span>  <span class="m">1</span>  <span class="o">(</span>0.11%<span class="o">)</span> ▬
+             ForStatement<span class="p">|</span>  <span class="m">1</span>  <span class="o">(</span>0.11%<span class="o">)</span> ▬
+           BooleanLiteral<span class="p">|</span>  <span class="m">1</span>  <span class="o">(</span>0.11%<span class="o">)</span> ▬
+             TryStatement<span class="p">|</span>  <span class="m">1</span>  <span class="o">(</span>0.11%<span class="o">)</span> ▬
+           ThrowStatement<span class="p">|</span>  <span class="m">1</span>  <span class="o">(</span>0.11%<span class="o">)</span> ▬
+            NewExpression<span class="p">|</span>  <span class="m">1</span>  <span class="o">(</span>0.11%<span class="o">)</span> ▬
+ ImportNamespaceSpecifier<span class="p">|</span>  <span class="m">1</span>  <span class="o">(</span>0.11%<span class="o">)</span> ▬
+          TemplateLiteral<span class="p">|</span>  <span class="m">1</span>  <span class="o">(</span>0.11%<span class="o">)</span> ▬
+</code></pre></div>
+<p>ターミナルでのグラフ表示に<a href="https://github.com/philovivero/distribution" title="philovivero/distribution">philovivero/distribution</a>を使うと便利です。</p>
+
+<p>全部を出すとちょっと多いので、ES6の構文だけに絞ってみます。
+<code>es-usage-rate</code>は<code>--reducer</code>で任意のフィルターファイル処理を指定できるので、ビルトインしてある<code>es6</code>を指定します。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>es-usage-rate --reducer es6  <span class="s2">&quot;es-usage-rate/src/**/*.js&quot;</span> <span class="p">|</span> distribution --char<span class="o">=</span>ba
+                      Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+VariableDeclaration:const<span class="p">|</span><span class="m">25</span> <span class="o">(</span>24.51%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        ImportDeclaration<span class="p">|</span><span class="m">17</span> <span class="o">(</span>16.67%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+  ArrowFunctionExpression<span class="p">|</span><span class="m">12</span> <span class="o">(</span>11.76%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+          ImportSpecifier<span class="p">|</span> <span class="m">9</span>  <span class="o">(</span>8.82%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ExportNamedDeclaration<span class="p">|</span> <span class="m">9</span>  <span class="o">(</span>8.82%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ImportDefaultSpecifier<span class="p">|</span> <span class="m">8</span>  <span class="o">(</span>7.84%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+ ExportDefaultDeclaration<span class="p">|</span> <span class="m">7</span>  <span class="o">(</span>6.86%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬
+  VariableDeclaration:let<span class="p">|</span> <span class="m">5</span>  <span class="o">(</span>4.90%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬
+            ObjectPattern<span class="p">|</span> <span class="m">3</span>  <span class="o">(</span>2.94%<span class="o">)</span> ▬▬▬▬▬
+          TemplateElement<span class="p">|</span> <span class="m">3</span>  <span class="o">(</span>2.94%<span class="o">)</span> ▬▬▬▬▬
+        AssignmentPattern<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>1.96%<span class="o">)</span> ▬▬▬▬
+ ImportNamespaceSpecifier<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>0.98%<span class="o">)</span> ▬▬
+          TemplateLiteral<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>0.98%<span class="o">)</span> ▬▬
+</code></pre></div>
+<p>ES6のうち、<code>import</code>と<code>export</code>のみを比較してみたいなら、<code>distribution</code>に渡す前にgrepすることでできます。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">es-usage-rate --reducer es6  <span class="s2">&quot;es-usage-rate/src/**/*.js&quot;</span> <span class="p">|</span> grep -e <span class="s2">&quot;Import&quot;</span> -e <span class="s2">&quot;Export&quot;</span> <span class="p">|</span> distribution --char<span class="o">=</span>ba
+                     Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+       ImportDeclaration<span class="p">|</span><span class="m">17</span> <span class="o">(</span>33.33%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+         ImportSpecifier<span class="p">|</span> <span class="m">9</span> <span class="o">(</span>17.65%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+  ExportNamedDeclaration<span class="p">|</span> <span class="m">9</span> <span class="o">(</span>17.65%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+  ImportDefaultSpecifier<span class="p">|</span> <span class="m">8</span> <span class="o">(</span>15.69%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+ExportDefaultDeclaration<span class="p">|</span> <span class="m">7</span> <span class="o">(</span>13.73%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+ImportNamespaceSpecifier<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>1.96%<span class="o">)</span> ▬▬▬
+</code></pre></div>
+<p>当たり前な感じはしますが、<code>import</code>の方が<code>export</code>より使われているという結果が見えました。</p>
+
+<p><code>es-usage-rate</code>は大した処理をしてなくて、<code>--formatter</code>、<code>--reducer</code>、<code>--mapper</code>の引数で指定したスクリプトを組み合わせて欲しい形で、コードをパースした結果を吐くためのツールです。
+(<code>reduce</code>のシグネチャがイマイチなので変えるかも)</p>
+
+<ol>
+<li>parse(Code) =&gt; AST</li>
+<li>map(AST) =&gt; Nodes</li>
+<li>reduce(Nodes) =&gt; Nodes</li>
+<li>format(Nodes) =&gt; result!</li>
+</ol>
+
+<h2 id="使われているes6の構文を見ていく">使われているES6の構文を見ていく</h2>
+
+<p>あるコードで、どれくらいES6の構文が使われているのか、またどういう構文の使用率が高いのか、
+ということを調べたくて<a href="https://github.com/azu/es-usage-rate" title="azu/es-usage-rate">es-usage-rate</a>を書きました。</p>
+
+<p>なので、実際に調べて行ってみます。</p>
+
+<p>ES6で書かれていて、いろんな人が同じものを書いてるサンプルとして以下のFlux実装比較を使ってみます。</p>
+
+<ul>
+<li><a href="https://github.com/staltz/flux-challenge" title="flux-challenge">flux-challenge</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">git clone https://github.com/staltz/flux-challenge.git
+<span class="nb">cd </span>flux-challeng/submissions
+<span class="c"># 人別に見ていく</span>
+find . ! -path . -type d -maxdepth <span class="m">1</span> <span class="p">|</span> xargs -I <span class="o">{}</span>  ksh -c <span class="s1">&#39;echo {}; es-usage-rate &quot;{}/**/*.js&quot; --reducer es6 2&gt; /dev/null  | distribution --char=ba&#39;</span>
+./abaran
+                     Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+         ImportSpecifier<span class="p">|</span><span class="m">15</span> <span class="o">(</span>18.99%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+  ExportNamedDeclaration<span class="p">|</span><span class="m">12</span> <span class="o">(</span>15.19%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+       ImportDeclaration<span class="p">|</span><span class="m">11</span> <span class="o">(</span>13.92%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+ ArrowFunctionExpression<span class="p">|</span><span class="m">10</span> <span class="o">(</span>12.66%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        ClassDeclaration<span class="p">|</span><span class="m">10</span> <span class="o">(</span>12.66%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+               ClassBody<span class="p">|</span><span class="m">10</span> <span class="o">(</span>12.66%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+           ObjectPattern<span class="p">|</span> <span class="m">5</span>  <span class="o">(</span>6.33%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+       AssignmentPattern<span class="p">|</span> <span class="m">5</span>  <span class="o">(</span>6.33%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+ImportNamespaceSpecifier<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>1.27%<span class="o">)</span> ▬▬▬
+./arqex
+                     Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+       ImportDeclaration<span class="p">|</span><span class="m">15</span> <span class="o">(</span>33.33%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+  ImportDefaultSpecifier<span class="p">|</span><span class="m">14</span> <span class="o">(</span>31.11%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+ExportDefaultDeclaration<span class="p">|</span> <span class="m">5</span> <span class="o">(</span>11.11%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        ClassDeclaration<span class="p">|</span> <span class="m">4</span>  <span class="o">(</span>8.89%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬
+               ClassBody<span class="p">|</span> <span class="m">4</span>  <span class="o">(</span>8.89%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬
+ ArrowFunctionExpression<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>4.44%<span class="o">)</span> ▬▬▬▬▬▬
+         ImportSpecifier<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>2.22%<span class="o">)</span> ▬▬▬
+./ds300
+                      Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+VariableDeclaration:const<span class="p">|</span><span class="m">8</span> <span class="o">(</span>57.14%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+  ArrowFunctionExpression<span class="p">|</span><span class="m">5</span> <span class="o">(</span>35.71%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+  VariableDeclaration:let<span class="p">|</span><span class="m">1</span>  <span class="o">(</span>7.14%<span class="o">)</span> ▬▬▬▬▬▬
+./fab1an
+                      Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+  ArrowFunctionExpression<span class="p">|</span><span class="m">12</span> <span class="o">(</span>66.67%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+VariableDeclaration:const<span class="p">|</span> <span class="m">2</span> <span class="o">(</span>11.11%<span class="o">)</span> ▬▬▬▬▬▬▬
+  VariableDeclaration:let<span class="p">|</span> <span class="m">2</span> <span class="o">(</span>11.11%<span class="o">)</span> ▬▬▬▬▬▬▬
+            ObjectPattern<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>5.56%<span class="o">)</span> ▬▬▬▬
+   ExportNamedDeclaration<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>5.56%<span class="o">)</span> ▬▬▬▬
+./garbles
+                      Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+  ArrowFunctionExpression<span class="p">|</span><span class="m">34</span> <span class="o">(</span>33.33%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+VariableDeclaration:const<span class="p">|</span><span class="m">28</span> <span class="o">(</span>27.45%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+          TemplateElement<span class="p">|</span><span class="m">18</span> <span class="o">(</span>17.65%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+          TemplateLiteral<span class="p">|</span><span class="m">18</span> <span class="o">(</span>17.65%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+            ObjectPattern<span class="p">|</span> <span class="m">4</span>  <span class="o">(</span>3.92%<span class="o">)</span> ▬▬▬▬▬
+./hyperturtle
+./jas-chen
+                      Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+VariableDeclaration:const<span class="p">|</span><span class="m">75</span> <span class="o">(</span>35.89%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        ImportDeclaration<span class="p">|</span><span class="m">27</span> <span class="o">(</span>12.92%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+          ImportSpecifier<span class="p">|</span><span class="m">27</span> <span class="o">(</span>12.92%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+  ArrowFunctionExpression<span class="p">|</span><span class="m">26</span> <span class="o">(</span>12.44%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ExportNamedDeclaration<span class="p">|</span><span class="m">13</span>  <span class="o">(</span>6.22%<span class="o">)</span> ▬▬▬▬▬▬▬▬
+            ObjectPattern<span class="p">|</span><span class="m">11</span>  <span class="o">(</span>5.26%<span class="o">)</span> ▬▬▬▬▬▬▬
+   ImportDefaultSpecifier<span class="p">|</span><span class="m">11</span>  <span class="o">(</span>5.26%<span class="o">)</span> ▬▬▬▬▬▬▬
+ ExportDefaultDeclaration<span class="p">|</span> <span class="m">6</span>  <span class="o">(</span>2.87%<span class="o">)</span> ▬▬▬▬
+  VariableDeclaration:let<span class="p">|</span> <span class="m">6</span>  <span class="o">(</span>2.87%<span class="o">)</span> ▬▬▬▬
+        AssignmentPattern<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>0.96%<span class="o">)</span> ▬▬
+         ClassDeclaration<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>0.96%<span class="o">)</span> ▬▬
+                ClassBody<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>0.96%<span class="o">)</span> ▬▬
+ ImportNamespaceSpecifier<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>0.48%<span class="o">)</span> ▬
+./jelz
+./jollytoad
+                      Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+  ArrowFunctionExpression<span class="p">|</span><span class="m">66</span> <span class="o">(</span>37.29%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+VariableDeclaration:const<span class="p">|</span><span class="m">53</span> <span class="o">(</span>29.94%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+            ObjectPattern<span class="p">|</span><span class="m">33</span> <span class="o">(</span>18.64%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        ImportDeclaration<span class="p">|</span> <span class="m">7</span>  <span class="o">(</span>3.95%<span class="o">)</span> ▬▬▬▬▬
+          ImportSpecifier<span class="p">|</span> <span class="m">6</span>  <span class="o">(</span>3.39%<span class="o">)</span> ▬▬▬▬
+              RestElement<span class="p">|</span> <span class="m">5</span>  <span class="o">(</span>2.82%<span class="o">)</span> ▬▬▬▬
+   ImportDefaultSpecifier<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>1.13%<span class="o">)</span> ▬▬
+   ExportNamedDeclaration<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>1.13%<span class="o">)</span> ▬▬
+          TemplateElement<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>1.13%<span class="o">)</span> ▬▬
+          TemplateLiteral<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>0.56%<span class="o">)</span> ▬
+./josepot
+                      Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+VariableDeclaration:const<span class="p">|</span><span class="m">54</span> <span class="o">(</span>21.09%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        ImportDeclaration<span class="p">|</span><span class="m">40</span> <span class="o">(</span>15.62%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+          ImportSpecifier<span class="p">|</span><span class="m">39</span> <span class="o">(</span>15.23%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+  ArrowFunctionExpression<span class="p">|</span><span class="m">27</span> <span class="o">(</span>10.55%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ImportDefaultSpecifier<span class="p">|</span><span class="m">23</span>  <span class="o">(</span>8.98%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ExportNamedDeclaration<span class="p">|</span><span class="m">18</span>  <span class="o">(</span>7.03%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+          TemplateElement<span class="p">|</span><span class="m">14</span>  <span class="o">(</span>5.47%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬
+ ExportDefaultDeclaration<span class="p">|</span> <span class="m">9</span>  <span class="o">(</span>3.52%<span class="o">)</span> ▬▬▬▬▬▬▬
+            ObjectPattern<span class="p">|</span> <span class="m">8</span>  <span class="o">(</span>3.12%<span class="o">)</span> ▬▬▬▬▬▬▬
+  VariableDeclaration:let<span class="p">|</span> <span class="m">7</span>  <span class="o">(</span>2.73%<span class="o">)</span> ▬▬▬▬▬▬
+          TemplateLiteral<span class="p">|</span> <span class="m">6</span>  <span class="o">(</span>2.34%<span class="o">)</span> ▬▬▬▬▬
+         ClassDeclaration<span class="p">|</span> <span class="m">4</span>  <span class="o">(</span>1.56%<span class="o">)</span> ▬▬▬▬
+                ClassBody<span class="p">|</span> <span class="m">4</span>  <span class="o">(</span>1.56%<span class="o">)</span> ▬▬▬▬
+        AssignmentPattern<span class="p">|</span> <span class="m">3</span>  <span class="o">(</span>1.17%<span class="o">)</span> ▬▬▬
+./kyldvs
+                      Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+        ImportDeclaration<span class="p">|</span><span class="m">31</span> <span class="o">(</span>23.31%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+VariableDeclaration:const<span class="p">|</span><span class="m">28</span> <span class="o">(</span>21.05%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ImportDefaultSpecifier<span class="p">|</span><span class="m">24</span> <span class="o">(</span>18.05%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+  ArrowFunctionExpression<span class="p">|</span><span class="m">18</span> <span class="o">(</span>13.53%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+ ExportDefaultDeclaration<span class="p">|</span> <span class="m">8</span>  <span class="o">(</span>6.02%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬
+          ImportSpecifier<span class="p">|</span> <span class="m">8</span>  <span class="o">(</span>6.02%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬
+            ObjectPattern<span class="p">|</span> <span class="m">5</span>  <span class="o">(</span>3.76%<span class="o">)</span> ▬▬▬▬▬▬▬
+         ClassDeclaration<span class="p">|</span> <span class="m">4</span>  <span class="o">(</span>3.01%<span class="o">)</span> ▬▬▬▬▬▬
+                ClassBody<span class="p">|</span> <span class="m">4</span>  <span class="o">(</span>3.01%<span class="o">)</span> ▬▬▬▬▬▬
+  VariableDeclaration:let<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>1.50%<span class="o">)</span> ▬▬▬
+   ExportNamedDeclaration<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>0.75%<span class="o">)</span> ▬▬
+./leoasis
+                      Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+VariableDeclaration:const<span class="p">|</span><span class="m">20</span> <span class="o">(</span>19.80%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        ImportDeclaration<span class="p">|</span><span class="m">18</span> <span class="o">(</span>17.82%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+  ArrowFunctionExpression<span class="p">|</span><span class="m">17</span> <span class="o">(</span>16.83%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ImportDefaultSpecifier<span class="p">|</span><span class="m">12</span> <span class="o">(</span>11.88%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+          ImportSpecifier<span class="p">|</span> <span class="m">9</span>  <span class="o">(</span>8.91%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+ ExportDefaultDeclaration<span class="p">|</span> <span class="m">6</span>  <span class="o">(</span>5.94%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬
+          TemplateElement<span class="p">|</span> <span class="m">4</span>  <span class="o">(</span>3.96%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬
+   ExportNamedDeclaration<span class="p">|</span> <span class="m">3</span>  <span class="o">(</span>2.97%<span class="o">)</span> ▬▬▬▬▬▬▬
+         ClassDeclaration<span class="p">|</span> <span class="m">3</span>  <span class="o">(</span>2.97%<span class="o">)</span> ▬▬▬▬▬▬▬
+                ClassBody<span class="p">|</span> <span class="m">3</span>  <span class="o">(</span>2.97%<span class="o">)</span> ▬▬▬▬▬▬▬
+            ObjectPattern<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>1.98%<span class="o">)</span> ▬▬▬▬▬
+        AssignmentPattern<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>1.98%<span class="o">)</span> ▬▬▬▬▬
+          TemplateLiteral<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>1.98%<span class="o">)</span> ▬▬▬▬▬
+./masiulis
+./mattjbray
+./milankinen
+                      Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+  ArrowFunctionExpression<span class="p">|</span><span class="m">23</span> <span class="o">(</span>34.33%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+VariableDeclaration:const<span class="p">|</span><span class="m">17</span> <span class="o">(</span>25.37%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+          ImportSpecifier<span class="p">|</span><span class="m">10</span> <span class="o">(</span>14.93%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+            ObjectPattern<span class="p">|</span> <span class="m">8</span> <span class="o">(</span>11.94%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        ImportDeclaration<span class="p">|</span> <span class="m">6</span>  <span class="o">(</span>8.96%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬
+   ImportDefaultSpecifier<span class="p">|</span> <span class="m">3</span>  <span class="o">(</span>4.48%<span class="o">)</span> ▬▬▬▬▬▬
+./mweststrate
+./mynomoto
+./pasieronen
+                      Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+VariableDeclaration:const<span class="p">|</span><span class="m">20</span> <span class="o">(</span>26.67%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+  ArrowFunctionExpression<span class="p">|</span><span class="m">16</span> <span class="o">(</span>21.33%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        ImportDeclaration<span class="p">|</span><span class="m">13</span> <span class="o">(</span>17.33%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ImportDefaultSpecifier<span class="p">|</span> <span class="m">8</span> <span class="o">(</span>10.67%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ExportNamedDeclaration<span class="p">|</span> <span class="m">6</span>  <span class="o">(</span>8.00%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬
+ ImportNamespaceSpecifier<span class="p">|</span> <span class="m">5</span>  <span class="o">(</span>6.67%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬
+ ExportDefaultDeclaration<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>2.67%<span class="o">)</span> ▬▬▬▬▬
+  VariableDeclaration:let<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>2.67%<span class="o">)</span> ▬▬▬▬▬
+              RestElement<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>1.33%<span class="o">)</span> ▬▬▬
+             ArrayPattern<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>1.33%<span class="o">)</span> ▬▬▬
+          ExportSpecifier<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>1.33%<span class="o">)</span> ▬▬▬
+./pindia
+./retozi
+./salsita
+                      Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+  ArrowFunctionExpression<span class="p">|</span><span class="m">99</span> <span class="o">(</span>30.09%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+VariableDeclaration:const<span class="p">|</span><span class="m">83</span> <span class="o">(</span>25.23%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ExportNamedDeclaration<span class="p">|</span><span class="m">54</span> <span class="o">(</span>16.41%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        ImportDeclaration<span class="p">|</span><span class="m">38</span> <span class="o">(</span>11.55%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+ ImportNamespaceSpecifier<span class="p">|</span><span class="m">22</span>  <span class="o">(</span>6.69%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬
+          ImportSpecifier<span class="p">|</span><span class="m">11</span>  <span class="o">(</span>3.34%<span class="o">)</span> ▬▬▬▬▬
+          TemplateElement<span class="p">|</span> <span class="m">7</span>  <span class="o">(</span>2.13%<span class="o">)</span> ▬▬▬
+   ImportDefaultSpecifier<span class="p">|</span> <span class="m">6</span>  <span class="o">(</span>1.82%<span class="o">)</span> ▬▬▬
+ ExportDefaultDeclaration<span class="p">|</span> <span class="m">4</span>  <span class="o">(</span>1.22%<span class="o">)</span> ▬▬
+          TemplateLiteral<span class="p">|</span> <span class="m">3</span>  <span class="o">(</span>0.91%<span class="o">)</span> ▬▬
+            ObjectPattern<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>0.30%<span class="o">)</span> ▬
+  VariableDeclaration:let<span class="p">|</span> <span class="m">1</span>  <span class="o">(</span>0.30%<span class="o">)</span> ▬
+./staltz
+                      Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+  ArrowFunctionExpression<span class="p">|</span><span class="m">40</span> <span class="o">(</span>29.85%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+VariableDeclaration:const<span class="p">|</span><span class="m">35</span> <span class="o">(</span>26.12%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        ImportDeclaration<span class="p">|</span><span class="m">19</span> <span class="o">(</span>14.18%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+          ImportSpecifier<span class="p">|</span><span class="m">15</span> <span class="o">(</span>11.19%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ImportDefaultSpecifier<span class="p">|</span> <span class="m">8</span>  <span class="o">(</span>5.97%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬
+ ExportDefaultDeclaration<span class="p">|</span> <span class="m">6</span>  <span class="o">(</span>4.48%<span class="o">)</span> ▬▬▬▬▬▬▬
+          TemplateElement<span class="p">|</span> <span class="m">6</span>  <span class="o">(</span>4.48%<span class="o">)</span> ▬▬▬▬▬▬▬
+          TemplateLiteral<span class="p">|</span> <span class="m">3</span>  <span class="o">(</span>2.24%<span class="o">)</span> ▬▬▬▬
+            ObjectPattern<span class="p">|</span> <span class="m">2</span>  <span class="o">(</span>1.49%<span class="o">)</span> ▬▬▬
+./stinson7
+./winstonewert
+                      Key<span class="p">|</span>Ct <span class="o">(</span>Pct<span class="o">)</span>    Histogram
+  ArrowFunctionExpression<span class="p">|</span><span class="m">7</span> <span class="o">(</span>24.14%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        ImportDeclaration<span class="p">|</span><span class="m">6</span> <span class="o">(</span>20.69%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ImportDefaultSpecifier<span class="p">|</span><span class="m">4</span> <span class="o">(</span>13.79%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+ ExportDefaultDeclaration<span class="p">|</span><span class="m">2</span>  <span class="o">(</span>6.90%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬
+          ImportSpecifier<span class="p">|</span><span class="m">2</span>  <span class="o">(</span>6.90%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ExportNamedDeclaration<span class="p">|</span><span class="m">2</span>  <span class="o">(</span>6.90%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬
+        AssignmentPattern<span class="p">|</span><span class="m">2</span>  <span class="o">(</span>6.90%<span class="o">)</span> ▬▬▬▬▬▬▬▬▬▬▬▬▬
+           ForOfStatement<span class="p">|</span><span class="m">1</span>  <span class="o">(</span>3.45%<span class="o">)</span> ▬▬▬▬▬▬▬
+VariableDeclaration:const<span class="p">|</span><span class="m">1</span>  <span class="o">(</span>3.45%<span class="o">)</span> ▬▬▬▬▬▬▬
+         ClassDeclaration<span class="p">|</span><span class="m">1</span>  <span class="o">(</span>3.45%<span class="o">)</span> ▬▬▬▬▬▬▬
+                ClassBody<span class="p">|</span><span class="m">1</span>  <span class="o">(</span>3.45%<span class="o">)</span> ▬▬▬▬▬▬▬
+</code></pre></div>
+<p>注意点としては、<code>if</code>とか<code>var</code>などの方が<code>class</code>などより出現率が高いのは当たり前なので、
+単純にランキングとして見ると少し観点としてズレがある気がします。</p>
+
+<p>人別の結果を重ねて見たいので、ちょっと縦長だと見えにくい気がします。</p>
+
+<p>とりあえず<a href="https://github.com/azu/es-usage-rate/blob/master/src/formatters/json-by-all.js" title="json-by-all">json-by-all</a>というformatterを書いたので、これを元にCSV化してみてNumbersでグラフにしてみます。
+(Rとかそういうので処理したかったけど、簡単な方法が欲しい…)</p>
+
+<p>標準入力の文字列を既存のJSON配列に追記していく<a href="https://github.com/azu/json-append" title="json-append">json-append</a>というも書いたので、以下のようにすれば、それぞれの人(ディレクトリ)ごとの集計結果を得られます。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">find . ! -path . -type d -maxdepth <span class="m">1</span> <span class="p">|</span> xargs -I <span class="o">{}</span>  ksh -c <span class="s1">&#39;echo {}; es-usage-rate &quot;{}/**/*.js&quot; --reducer es6 --formatter json-by-all  | json-append results.json&#39;</span>
+</code></pre></div>
+<p>これでJSONとして集計結果が手に入ったので、これをCSVにしてExcelとかで読み込ませてみます。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./abaran/src/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDeclaration&quot;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="nt">&quot;ImportSpecifier&quot;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="nt">&quot;ClassDeclaration&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nt">&quot;ClassBody&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nt">&quot;ObjectPattern&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nt">&quot;ExportNamedDeclaration&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="nt">&quot;AssignmentPattern&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="nt">&quot;ImportNamespaceSpecifier&quot;</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./arqex/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDeclaration&quot;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDefaultSpecifier&quot;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="nt">&quot;ExportDefaultDeclaration&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="nt">&quot;ClassDeclaration&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&quot;ClassBody&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&quot;ImportSpecifier&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">2</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./ds300/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:const&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:let&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">5</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./fab1an/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ExportNamedDeclaration&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:const&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="nt">&quot;ObjectPattern&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:let&quot;</span><span class="p">:</span> <span class="mi">2</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./garbles/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:const&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+    <span class="nt">&quot;TemplateLiteral&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="nt">&quot;TemplateElement&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">34</span><span class="p">,</span>
+    <span class="nt">&quot;ObjectPattern&quot;</span><span class="p">:</span> <span class="mi">4</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./jas-chen/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ExportNamedDeclaration&quot;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:const&quot;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDeclaration&quot;</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDefaultSpecifier&quot;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="nt">&quot;ImportSpecifier&quot;</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
+    <span class="nt">&quot;ObjectPattern&quot;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:let&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">26</span><span class="p">,</span>
+    <span class="nt">&quot;ExportDefaultDeclaration&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="nt">&quot;ClassDeclaration&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;ClassBody&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;ImportNamespaceSpecifier&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;AssignmentPattern&quot;</span><span class="p">:</span> <span class="mi">2</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./jelz/resources/public/js/app.js&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./jollytoad/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDeclaration&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDefaultSpecifier&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;ImportSpecifier&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="nt">&quot;ExportNamedDeclaration&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:const&quot;</span><span class="p">:</span> <span class="mi">53</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">66</span><span class="p">,</span>
+    <span class="nt">&quot;ObjectPattern&quot;</span><span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
+    <span class="nt">&quot;RestElement&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="nt">&quot;TemplateLiteral&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;TemplateElement&quot;</span><span class="p">:</span> <span class="mi">2</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./josepot/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDeclaration&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+    <span class="nt">&quot;ImportSpecifier&quot;</span><span class="p">:</span> <span class="mi">39</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDefaultSpecifier&quot;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span>
+    <span class="nt">&quot;ExportNamedDeclaration&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:const&quot;</span><span class="p">:</span> <span class="mi">54</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:let&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
+    <span class="nt">&quot;TemplateLiteral&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="nt">&quot;TemplateElement&quot;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="nt">&quot;ObjectPattern&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="nt">&quot;ExportDefaultDeclaration&quot;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="nt">&quot;ClassDeclaration&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&quot;ClassBody&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&quot;AssignmentPattern&quot;</span><span class="p">:</span> <span class="mi">3</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./kyldvs/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:const&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="nt">&quot;ObjectPattern&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDeclaration&quot;</span><span class="p">:</span> <span class="mi">31</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDefaultSpecifier&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+    <span class="nt">&quot;ExportNamedDeclaration&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;ImportSpecifier&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="nt">&quot;ClassDeclaration&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&quot;ClassBody&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&quot;ExportDefaultDeclaration&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:let&quot;</span><span class="p">:</span> <span class="mi">2</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./leoasis/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDeclaration&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDefaultSpecifier&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="nt">&quot;ImportSpecifier&quot;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="nt">&quot;ClassDeclaration&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nt">&quot;ClassBody&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:const&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="nt">&quot;ObjectPattern&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;TemplateLiteral&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;TemplateElement&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+    <span class="nt">&quot;ExportDefaultDeclaration&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="nt">&quot;ExportNamedDeclaration&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nt">&quot;AssignmentPattern&quot;</span><span class="p">:</span> <span class="mi">2</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./mattjbray/dist/app.js&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./milankinen/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDeclaration&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDefaultSpecifier&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nt">&quot;ImportSpecifier&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:const&quot;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span>
+    <span class="nt">&quot;ObjectPattern&quot;</span><span class="p">:</span> <span class="mi">8</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./mweststrate/dist/bundle.js&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./mynomoto/index.html.js&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./pasieronen/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDeclaration&quot;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDefaultSpecifier&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="nt">&quot;ImportNamespaceSpecifier&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:const&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="nt">&quot;RestElement&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;ExportDefaultDeclaration&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;ExportNamedDeclaration&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="nt">&quot;ArrayPattern&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;ExportSpecifier&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:let&quot;</span><span class="p">:</span> <span class="mi">2</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./pindia/reflux.min.js&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./retozi/&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./salsita/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDeclaration&quot;</span><span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDefaultSpecifier&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="nt">&quot;ImportNamespaceSpecifier&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+    <span class="nt">&quot;ExportNamedDeclaration&quot;</span><span class="p">:</span> <span class="mi">54</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:const&quot;</span><span class="p">:</span> <span class="mi">83</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">99</span><span class="p">,</span>
+    <span class="nt">&quot;ImportSpecifier&quot;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="nt">&quot;TemplateLiteral&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nt">&quot;TemplateElement&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="nt">&quot;ExportDefaultDeclaration&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&quot;ObjectPattern&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:let&quot;</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./staltz/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDeclaration&quot;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
+    <span class="nt">&quot;ImportSpecifier&quot;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:const&quot;</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span>
+    <span class="nt">&quot;ExportDefaultDeclaration&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="nt">&quot;TemplateLiteral&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nt">&quot;TemplateElement&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDefaultSpecifier&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="nt">&quot;ObjectPattern&quot;</span><span class="p">:</span> <span class="mi">2</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;@file&quot;</span><span class="p">:</span> <span class="s2">&quot;./winstonewert/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDeclaration&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="nt">&quot;ImportDefaultSpecifier&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&quot;ExportNamedDeclaration&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="nt">&quot;ImportSpecifier&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;VariableDeclaration:const&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;AssignmentPattern&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;ExportDefaultDeclaration&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;ClassDeclaration&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;ClassBody&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;ForOfStatement&quot;</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>JSON to CSVをするには</p>
+
+<ul>
+<li><a href="https://github.com/zemirco/json2csv#command-line-interface" title="json2csv">json2csv</a></li>
+<li><a href="http://konklone.io/json/" title="JSON to CSV">JSON to CSV</a></li>
+</ul>
+
+<p>などが使えます。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">json2csv -i results.json -o results.csv
+<span class="c"># 何か要素が消える気がする… </span>
+</code></pre></div>
+<p>Numbersで読み込んで積み重ね棒グラフにしてみました。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2016/01/22-1453435236.png"><img src="http://efcl.info/wp-content/uploads/2016/01/22-1453435236.png" alt="graph"></a></p>
+
+<p>先ほども書いたように 数が多い ≠ 使われる頻度が高い なので、
+大して意味のないグラフです。(どういうグラフ使うのがいいんだろ?)</p>
+
+<p>カラフル具合から<code>ArrowFunctionExpression</code> (Arrow Function)や<code>const</code>はやっぱり使われてるなーとか、
+<code>require</code>でもいいはずだけど<code>import</code>を使ってる人も多いなどがわかった気がします。</p>
+
+<p>この辺は題材によるので、色々なものを見てみると面白い発見があるかもしれません。</p>
+
+<h2 id="まとめ">まとめ</h2>
+
+<ul>
+<li>コードを分解して解析する<a href="https://github.com/azu/es-usage-rate" title="azu/es-usage-rate">azu/es-usage-rate</a>を作った</li>
+<li>ES6のサンプルコードとして<a href="https://github.com/staltz/flux-challenge" title="staltz/flux-challenge: A frontend challenge to test UI architectures and solutions">staltz/flux-challenge: A frontend challenge to test UI architectures and solutions</a>を見た</li>
+<li>人/ライブラリによって使う機能が結構違うことがわかった</li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2016/2016-01-22-es-usage-rate.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["ECMAScript","Tool","ES6","JavaScript"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=ECMAScript">ECMAScript</a></li>
+                
+                <li><a href="/tags/?q=Tool">Tool</a></li>
+                
+                <li><a href="/tags/?q=ES6">ES6</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

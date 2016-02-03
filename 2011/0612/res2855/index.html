@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Firebugを使ったページロード解析(Net panelの読み方) | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Firebug,Firefox" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0612/res2855/">
+    <h1 class="post-title">Firebugを使ったページロード解析(Net panelの読み方)</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年06月12日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-06-12-firebug%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%AD%E3%83%BC%E3%83%89%E8%A7%A3%E6%9E%90net-panel%E3%81%AE%E8%AA%AD%E3%81%BF%E6%96%B9.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://www.softwareishard.com/blog/firebug/page-load-analysis-using-firebug/">Software is hard | Page load analysis using Firebug</a> の記事を元に書いています。<br>
+January 18th, 2010に書かれた時点での例を使用しているため、現在のブラウザでは若干挙動が違うかもしれません。<br>
+また、著者の<a href="http://www.softwareishard.com/blog/about/">Jan Odvarko</a>さんに翻訳許可は頂いていますが、翻訳というより意訳や自分の理解のために書いていたので、いろいろ書き加えたりしています。<br>
+Net panel(ネットパネル)について理解したいと思って書いたので、Net Panel自体の解説記事<a href="http://www.softwareishard.com/blog/firebug/introduction-to-firebug-net-panel/">Software is hard | Introduction to Firebug: Net Panel</a>も一緒に読むといいかもしれません。</p>
+
+<p>翻訳許可のメールをわずか15分で返してくれた著者の<em>Jan Odvarko</em>さんに感謝を。<br>
+Thnak you, <em>Jan Odvarko.</em></p>
+
+<!--more-->
+
+<hr>
+
+<p>原文: <a href="http://www.softwareishard.com/blog/firebug/page-load-analysis-using-firebug/">Software is hard | Page load analysis using Firebug</a></p>
+
+<p>ページ読み込みパフォーマンスはWeb開発者にとって重要なトピックです。<br>
+各ページロードの例において、FirebugのNet panelから得たデータをどのように解析するかを見ていきます。</p>
+
+<p>このテストにおける例は<a href="http://www.mozilla.com/en-US/firefox/all-beta.html">Firefox 3.6</a> + <a href="http://getfirebug.com/releases/firebug/1.5X/">Firebug 1.5</a> + <a href="http://www.softwareishard.com/blog/netexport/">NetExport 0.7</a>においてのNet Panelの結果をNetExportにより<a href="http://groups.google.com/group/firebug-working-group/web/http-tracing---export-format">HAR</a>形式で出力したものをオンラインで表示しています。<br>
+(<a href="http://groups.google.com/group/firebug-working-group/web/http-tracing---export-format">HAR</a>形式はChromeのWeb Inspectorからも出力できます。)</p>
+
+<ul>
+<li>  <a href="http://www.janodvarko.cz/har/viewer/">HTTP Archive Viewer 2.0.10</a>(オンラインビューアー) </li>
+</ul>
+
+<h4 id="example-1:-simple-page-load">Example 1: Simple Page Load</h4>
+
+<p>ここでは2つのリクエストが表示されています。<br>
+1つめのリクエストではページは16msで取得できていて、load event (赤いライン)は58msで発生している事がわかります。ログ上にマウスオーバーさせると詳細な表示がされます。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image11.png"><img style="background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb11.png" width="300" height="249" /></a></p>
+
+<ul>
+<li>  青の縦線であるDOM Loaded はDOMContentLoaded event </li>
+<li>  赤の縦線であるPage Loaded はLoad event </li>
+<li>  灰色のReceiving がページの取得にかかった時間 </li>
+</ul>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image12.png"><img style="background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb12.png" width="158" height="77" /></a></p>
+
+<p>同じように2つ目のリクエストを見てみると、5msでXHRが実行されています。<br>
+そして合計経過時間は408msであることもわかります。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image13.png"><img style="background-image: none; border-right-width: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb13.png" width="307" height="250" /></a></p>
+
+<p>2つ目のリクエスト(XHR)上でもマウスオーバーで詳細な情報が表示されています。<br>
+こちらでもload event を表していますが、こちらはXHRのリクエストからの相対値が表示されています。XHRが発生(Started)したのは403msなので 403 &#8211; 357 = 58msでload event が発生したことがわかります。(load eventはページの取得を見た方がわかりやすいからこう見る必要はない気がするけど)</p>
+
+<h4 id="example-2:-connection-limit">Example 2: Connection Limit</h4>
+
+<p>各ブラウザは一つのページをダウンロードするのに同時接続制限あります。もし、同時接続の制限に達したとき、他のリソースは接続してるリソースが解放されるまでブラウザ内部のキューで待機させられます。<br>
+次の2つのページログを見ると、同時接続制限数の違いで8つの画像をロードするのにどれぐらいの違いがでるかがわかります。</p>
+
+<div class="harPreviewBox">
+</div>
+
+<p><strong>#1 Cuzillion (同時接続制限 == 6)</strong></p>
+
+<ul>
+<li>  Firefox 3.6の同時接続制限のデフォルト値は6で、最初の6つの画像をダウンロード開始した時点でドキュメントは利用可能(DOMContentLoaded event が発生する) </li>
+<li>  他の2つの画像はコネクションが空くまで待っている(light-brown 色の部分がblocking部分) </li>
+<li>  他の2つの画像がダウンロードされたときは緑色のconnectionフェーズ無いのは、最初の6つの画像をダウンロードに使用したconnectionを再利用しているためです。 </li>
+</ul>
+
+<p><strong>#2 Cuzillion (同時接続制限 == 2)</strong></p>
+
+<p>このテストだと、各画像ごとに2～3秒の時間がかかり、合計経過時間やload eventが発生時間に#1の2倍弱近くかかっていることがわかります。<br>
+同時接続制限が2なのはIE7以下のものやモバイル向けのブラウザなどがあります。<br>
+各ブラウザの同時接続数は<a href="http://www.browserscope.org/?category=network">Home &#8211; Browserscope</a>を見るといいでしょう。<br>
+Firefoxではabout:configのnetwork.http.max-persistent-connections-per-serverの設定から変更可能です。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image14.png"><img style="background-image: none; border-right-width: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb14.png" width="514" height="240" /></a></p>
+
+<p>同じように#2のポップアップされる詳細のログを見てみると、Blocking(light-brown 色)はページを取得(DOM Loaded)した時から4.63s待たされていて、リソースの取得は2.22sかかり、6.85sで完了している事がわかります。</p>
+
+<h4 id="example-3:-pipelining">Example 3: Pipelining</h4>
+
+<h1 id="2と同じページを使い、ブラウザのパイプライン処理がonとなっている場合を見てみる。">2と同じページを使い、ブラウザの<a href="https://developer.mozilla.org/ja/HTTP_Pipelining_FAQ">パイプライン処理</a>がONとなっている場合を見てみる。</h1>
+
+<div class="harPreviewBox">
+</div>
+
+<p>Firefox(3.6)でパイプライン処理が有効(network.http.pipelining == true)になっている場合を比べてみると、実際にはload eventが発生するまでにかかる時間が増えていることがわかります。<br>
+1から6の画像はそれぞれ異なる接続を利用していますが、7から8の画像は共有接続を利用してダウンロードしています。実際にどれと接続を共有しているかは明らかではありませんが(Firebugからそれを知るAPIはないため)、最後の2つの画像は接続を共有して合計時間を増加させているのは明らかです。</p>
+
+<h4 id="example-4:-persistent-connections">Example 4: Persistent Connections</h4>
+
+<p>このテストはHTTP <em>Connection</em>ヘッダーの効果を現しています。このヘッダーは既存の接続が閉じられているか将来のリクエストのために保持されているのかをサーバーに教えるために使われます。<br>
+それぞれ<em>Keep-Alive</em> (default in HTTP/1.1) or <em>Close</em>でどのような違いが出るかを見てみましょう。</p>
+
+<div class="harPreviewBox">
+</div>
+
+<p>それぞれのログで、最初のページと3つのリクエストとで合計4つが表示されています。<br>
+<em>Connection</em>ヘッダーは3つ(file1.php, file2.php, file3.php)のリクエスト時に要求されます。</p>
+
+<p><strong>#1 Test page (Connection: Keep-Alive)</strong></p>
+
+<ul>
+<li>  一つ目のページのログでは、ページダウンロードのための一つの接続しか作られていないことがわかります。緑色のConnectionフェーズが一つだけになっていて接続が再利用されている事がわかります。 </li>
+</ul>
+
+<p><strong>#2 Test page (Connection: close)</strong></p>
+
+<ul>
+<li>  二つ目のログでは、ページダウンロードと<em>file1.php</em>のリクエストで接続が再利用されている事がわかります。しかし、他の接続ではConnection: closeなため、また接続を作り直す必要があります。 </li>
+</ul>
+
+<h4 id="example-5:-inline-scripts-block">Example 5: Inline Scripts Block</h4>
+
+<p>インラインスクリプトがページのダウンロードをブロックすることはよく知られていますが、ネットワークの観点から見るとどのように見えるかを調べてしましょう。</p>
+
+<div class="harPreviewBox">
+</div>
+
+<p><strong>#1 Cuzillion</strong></p>
+
+<p>3番目と4番目のリクエストの間に隙間ができています。これは5秒間のインラインスクリプトの実行によりブロッキング発生しています。 (*ここで言うインラインスクリプトとは<script>/*実行スクリプト*/</script>という感じで<script>タグ内で実行しているものを言う)<br>
+<a href="http://stevesouders.com/cuzillion/?ex=10100&amp;title=Inline+Scripts+Block">Inline Scripts Block</a>のページにて試すことができます。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2011/06/image15.png"><img style="background-image: none; border-right-width: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" border="0" alt="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb15.png" width="320" height="141" /></a><br>
+Firefox5に試すとちょっと挙動が異なるけど、インラインスクリプトで隙間ができるのは同じ。<br>
+どちらかというとChromeがログに近い動きをしていた。<br>
+Firefox4からインラインスクリプトの実行タイミングが変わったのも関係するかもしれない。<br>
+詳細は<a href="http://www.softwareishard.com/blog/firebug/script-execution-analysis-in-firefox-4/">Software is hard | Script Execution Analysis in Firefox 4</a>に。</p>
+
+<p><strong>#2 Cuzillion</strong></p>
+
+<p>こちらはインラインスクリプトをページの底(</body>前かな?)に置いた場合のログです。<br>
+リクエストの合計時間は減っていますが、load eventは#1と同じくインラインスクリプトにより遅れていることがわかります。<br>
+こちらは<a href="http://stevesouders.com/cuzillion/?c0=bi1hfff1_0_f&amp;c1=bi1hfff1_0_f&amp;c2=bb0hfff0_5_f&amp;t=1307854749986">Cuzillion</a>のようなイメージだと思います。</p>
+
+<p>特にこれをどうとらえるべきかについては元記事に記述はありませんでしたが、この例はリソースのダウンロード時間よりもload eventなどへブロックが発生している事が重要な気がします。<br>
+負荷が大きいインラインスクリプトやdocument.writeなどのブロッキングを誘発するものがある場合loadやDOMContentLoadedイベントの発生を遅くしてしまいます。そのためdocument.writeそのものを避けることや、load eventなどイベントリスナーにして実行させるなどした方がページの表示は速くなるかと思います。</p>
+
+<h4 id="example-6:-redirects">Example 6: Redirects</h4>
+
+<p>これはネットパネルにて、リダイレクトがどのように見えるかを表示した例。</p>
+
+<div class="harPreviewBox">
+  <div class="harPreviewResizer">
+  </div></p>
+</div>
+
+<p><strong>#1 Final Page (one redirect)</strong></p>
+
+<p>サーバーによって301リダイレクトが行われて、URLの末尾に/がついたことがわかります。</p>
+
+<p><strong>#2 Final Page (infinite redirection)</strong></p>
+
+<p>無限ループしているリダイレクトの例<br>
+自分自身にリダイレクトしているのでいつまでもループしてしまいますが、Firefoxではデフォルトで20回で停止しています(<em>network.http.redirection-limit</em> の設定値)</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-06-12-firebug%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%AD%E3%83%BC%E3%83%89%E8%A7%A3%E6%9E%90net-panel%E3%81%AE%E8%AA%AD%E3%81%BF%E6%96%B9.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Firebug","Firefox"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Firebug">Firebug</a></li>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

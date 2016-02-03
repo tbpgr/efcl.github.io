@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Firefoxのツールバーや検索窓をいじるアドオン | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Firefox,アドオン,拡張機能" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2008/0322/res113/">
+    <h1 class="post-title">Firefoxのツールバーや検索窓をいじるアドオン</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2008年03月22日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2008/2008-03-22-firefox%E3%81%A7%E5%9C%B0%E5%91%B3%E3%81%AB%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%A2%E3%83%89%E3%82%AA%E3%83%B3.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>普段から目に見えている箇所を強化させるアドオンの紹介です。<br>
+ステータスバーやツールバーなどを便利にすると意外と気持ちいい。</p>
+
+<p><strong><a href="http://code.google.com/p/asdf-jkl/">asdf-jkl<br>
+</a></strong></p>
+
+<p>『<span class="highlight">asdf</span>-jkl』はツールバーのショートカットキーをその場所にマウスを乗せるとポップアップ表示してくれるアドオン。<br>
+よく検索バーのショートカットは何だっけ？とか忘れるので地味に便利。(正解はCtrl+K)</p>
+
+<ul>
+<li>  <a href="http://www.moongift.jp/2007/04/asdf-jkl/">MOONGIFT: » キーボードショートカット習得支援「asdf-jkl」</a></li>
+</ul>
+
+<p><strong><a href="https://addons.mozilla.org/ja/firefox/addon/2025?application=firefox&amp;category=Navigation&amp;numpg=10&amp;id=2025">Active Stop Button</a></strong></p>
+
+<p><a href="https://addons.mozilla.org/ja/firefox/addon/2025?application=firefox&amp;category=Navigation&amp;numpg=10&amp;id=2025">Active Stop Button</a>は 中止ボタンを強化する感じで中止ボタンの代わりに置き換えられます。<br>
+中止ボタンを読み込み時以外にも押せるようになります。ページ内のGIFを押すと停止しします。<br>
+一番いいところはボタンを右クリックすると他のタブも読み込みを中止することができます。</p>
+
+<p><strong><a href="http://homepage3.nifty.com/georgei/extension/ftt.html">Find Toolbar Tweaks</a></strong></p>
+
+<p>ページ内検索バーの挙動をいろいろ便利するアドオンです。<br>
+safariのような？スーパー強調モード(周りも変化する)や検索し終えた後に検索バーを閉じるのが楽になったり検索履歴を残すこともできます。<br>
+ページ内検索をよく使う人は入れても損はない。</p>
+
+<ul>
+<li>  <a href="http://fxwiki.blog63.fc2.com/blog-entry-27.html">[New] Find Toolbar Tweaks &#8211; Firefox拡張機能 &#8211; Firefox更新情報Wikiブログ</a> **<br>
+**</li>
+</ul>
+
+<p><strong><a href="http://searchbarautosizer.mozdev.org/">Searchbar Autosizer</a></strong></p>
+
+<p><a href="https://addons.mozilla.org/ja/firefox/addon/1172">Searchbar Autosizer</a>は上に付いてるグーグルなどの検索窓を便利にするアドオンで、検索バーの長さを入力に合わせて変化させたり、検索した後に検索窓を空にしたりと、かなり便利です。</p>
+
+<ul>
+<li>  <a href="http://level.s69.xrea.com/mozilla/index.cgi?id=20060909_Autosizer">検索窓を自動リサイズする Searchbar Autosizer &#8211; えむもじら</a></li>
+<li>  <a href="http://www.ikimono.org/soft/searchbar-autosizer/">拡張：Searchbar Autosizer &#8211; Online soft</a></li>
+</ul>
+
+<p><strong><a href="https://addons.mozilla.org/ja/firefox/addon/2995">Splash!</a></strong></p>
+
+<p><a href="https://addons.mozilla.org/ja/firefox/addon/2995">Splash!</a>はそのままですが、立ち上がりが遅いFirefoxに対してのイライラするのを軽減できるかも。<br>
+起動時にスプラッシュ(画像)を表示することができます。画像は自分で用意しますが基本的に細かな設定をしなくてもいいので簡単に扱えます。(デザインを細かくも設定できます)<br>
+起動が少し楽しく感じていい感じです。(起動時間自体はそこまで変化してないと思う。)</p>
+
+<ul>
+<li>  <a href="http://banpe-yu.seesaa.net/article/31519134.html">Splash -Firefox拡張機能- &#8211; banpe-yu♪ &#8220;Firefox拡張機能 紹介&#8221;</a></li>
+<li>  <a href="http://mozilla-remix.seesaa.net/article/39825225.html">Mozilla Re-Mix: Firefox起動時に任意のスプラッシュスクリーンを表示する「Splash!」</a></li>
+</ul>
+
+<p><strong><a href="https://addons.mozilla.org/ja/firefox/addon/1934">巻き戻し/早送りボタン</a></strong></p>
+
+<p>これは知ってる方が多い思いますが、ドメイン毎の戻るや進むができる便利なボタンを追加することができます。</p>
+
+<p>** <a href="http://caspar.regis.free.fr/ahs/">autoHideStatusbar</a>**</p>
+
+<p><a href="http://caspar.regis.free.fr/ahs/">autoHideStatusbar</a>はステータスバー(画面下のバーです。)を条件を指定して非表示にする事ができるアドオンです。<br>
+普段非表示にしておけば少し画面を広く扱えるので便利です。<br>
+またリンク上なら表示、画面した何pxにマウスが来たら表示など表示する条件も指定できるので非表示にしても不便にならずにすみます。</p>
+
+<ul>
+<li>  <a href="http://oboegaki.nobody.jp/extensions/autohidestatusbar.html">autoHideStatusbar &#8211; 拡張機能のおぼえがき -</a></li>
+<li>  <a href="http://www.popxpop.com/archives/2007/06/firefoxautohidestatusbar.html">ステータスバーを要らないときは非表示にしてくれるFirefox拡張『autoHideStatusBar』 | POP*POP</a></li>
+</ul>
+
+<p>今回はこんな感じで、普段から目に見えているとこを改善していくと他のアドオンの印象も変わったりするので初めにいじっておきたい項目な気もします。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2008/2008-03-22-firefox%E3%81%A7%E5%9C%B0%E5%91%B3%E3%81%AB%E4%BE%BF%E5%88%A9%E3%81%AA%E3%82%A2%E3%83%89%E3%82%AA%E3%83%B3.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Firefox","アドオン","拡張機能"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=アドオン">アドオン</a></li>
+                
+                <li><a href="/tags/?q=拡張機能">拡張機能</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

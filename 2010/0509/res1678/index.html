@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        メディアマーカーで楽しく読書管理する | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Evernote,Greasemonkey,iPhone,クリップボード,ソフトウェア,小説,画像" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2010/0509/res1678/">
+    <h1 class="post-title">メディアマーカーで楽しく読書管理する</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2010年05月09日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-05-09-%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%83%9E%E3%83%BC%E3%82%AB%E3%83%BC%E3%81%A7%E6%A5%BD%E3%81%97%E3%81%8F%E8%AA%AD%E6%9B%B8%E7%AE%A1%E7%90%86%E3%81%99%E3%82%8B.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://mediamarker.net/">メディアマーカー</a>は読書管理を行えるWebサービスで、基本的な読書管理のシステムも優れていながら、Twitterへの連携や<a href="http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=323530721&amp;mt=8">iPhoneアプリ</a>もあるので、とても使い勝手がよいサービスです。<br>
+今回は自分がどのようにメディアマーカーを使っているか、自分流の読書管理方法について書いてみる。</p>
+
+<p>まず、読書管理について自分で心がけているのは</p>
+
+<ol>
+<li> どんな本だったかが直ぐ分かること</li>
+<li> 読書した本の登録が面倒くさくならないこと</li>
+<li> 読書管理を楽しめること</li>
+</ol>
+
+<p>これを目標にしていろいろな読書管理方法を試してきました。<br>
+1のように後から見返したときにどんな本だったかを知るために読書した本を管理しているところが大きいので、以前はどんな内容だったかをレビュー形式で書いたりしていました。<br>
+しかし、本のレビューみたいに詳しく 書いていくと面倒臭さが増し2や3を破ってしまう事になり、あまり長くは続きませんでした。<br>
+(レビュー書く事が全く苦ではない人はブログや<a href="http://www.forest.impress.co.jp/lib/home/house/hobby/shihonkanrip.html">私本管理Plus</a>を使って書きためるのもいいかもしれません)</p>
+
+<p>後から見たときに本の内容を簡単に思い出す方法を考えていて思いついたのが、<strong>本の内容を貼り付けてしまえばいい</strong>と考えました。<br>
+つまり、本を読んでいるときに小説なら気になったフレーズ、漫画なら気になったコマをそのまま貼り付けてしまえばいい！<br>
+それを実現するためにとった方法は、本をカメラで撮影して画像にしてしまうという方法。<br>
+漫画などはこの方法で気になった部分を画像にできるし、小説はちょっとカメラに精度が必要となってしまうので、できなかった場合はiPhoneで気になったフレーズを書き写して、メディアマーカーiPhoneアプリで先に登録しておくといい。<br>
+最近流行ってる書籍の電子化で、既に電子化したものをビューアーで読んでいる場合はスクリーンショット機能を使って気になった部分を画像として保存しておく。<br>
+そうしてできた画像をDropboxのPublicフォルダに入れておいて外部からも参照できるようにしておく。<br>
+後は、メディアマーカーに数行のレビュー(レビューとはいえないレベル)とDropboxにある画像を貼り付けて画像を表示すれば、後から見たときに直ぐ内容が分かって便利になる。</p>
+
+<p>この気になった部分を画像にして貼り付けるのは意外と楽しくて、かつ撮影してそこで直ぐ完結するので手間があまりかからない。特に電子化している場合はスクリーンショットを取るだけなので一瞬で終わる。<br>
+また画像を貼り付けるときに、Dropboxに一つの書籍について複数の画像がある場合、エクスプローラの&#8221;Copy Public Link&#8221;だと一個づつしかURLをコピーできないし、Imgタグで囲うのが面倒なのでコマンドラインで動くバッチのようなものを作る。</p>
+
+<ul>
+<li>  <a href="http://gist.github.com/raw/395018/259d0871121ff326e0bba042ef228afa4d60bce4/Program.cs">Program.cs</a></li>
+</ul>
+
+<p>このProgram.csのdropboxPath部分を自分のDropbox環境に合わせてからコンパイルする。<br>
+csc.exeで以下のよう に指定するとコンパイルできる。(csc.exeの場所は.NETのどっかにあるかと、もしくはVisual Studio使うとか)</p>
+
+<pre>&#62;C:WindowsMicrosoft.NETFrameworkv3.5csc.exe Program.cs
+</pre>
+
+<p>コ ンパイルしてできたexeファイルにD&amp;Dや送るからファイルを渡すと渡したファイルのURLをimgタグにしたものがクリップボードにコピーさ れるので、それをメディアマーカーに貼り付けるだけでよくなる。</p>
+
+<p>さらにメディアマーカーは書籍登録時にタグをつけることができ、後から見返すときにそれらの情報をつけておくと分かりやすくなるため、タグ付けを補助するGreasemonkeyを導入する。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/05/sshot-2010-05-09-1.png"><img title="sshot-2010-05-09-1" src="http://efcl.info/wp-content/uploads/2010/05/sshot-2010-05-09-1-300x48.png" alt="" width="300" height="48" /></a></p>
+
+<ul>
+<li>  <a href="http://userscripts.org/scripts/show/67298" title="MediaMaker  with Amazon tags">MediaMaker with Amazon tags</a></li>
+<li>  <a href="http://userscripts.org/scripts/show/76273" title="MediaMaker  with booklog tags">MediaMaker with booklog tags</a></li>
+</ul>
+
+<p>それぞれ、登録時にAmazonとbooklogにつけられている書籍のタグを表示してくれるので、クリックするだけで書籍に関係あるタグを追加できる。</p>
+
+<p>補助ツールを使うことで書籍の登録の面倒臭さも低減されるし、何よりも書籍の内容を画像で表示するのは思っている以上に楽しい事だと思う。</p>
+
+<p>evernote+iPhoneで似ている事をやっている人もいます。<br>
+やっぱりカメラで写真を撮るのと書き出すのは圧倒的に手間が違うし、いつも持ち歩いてるiPhoneでもカメラは何とかなることが多いので面倒な手間が結構減ります。</p>
+
+<p><strong>Blog Forest: 読書メモの作成にevernoteを使う</strong>
+:   <a href="http://morimorishop.com/2009/03/evernote_2.html" title="Blog  Forest: 読書メモの作成にevernoteを使う">http://morimorishop.com/2009/03/evernote_2.html</a></p>
+
+<p>evernoteなら画像のOCR機能があるので検索できるという淡い期待もありますが、 Amazonから情報を引っ張れたり他とは関係の情報を切り離して見られるメディアマーカーのようなサービスで書籍を管理した方が自分にとっては便利かなーと思う。<br>
+後から見返したときに楽しいというのも大きな点。<br>
+あくまでevernte+写真はメモにして、そこから文字を書き出すというのも一つの手であると思います。</p>
+
+<p>以上。</p>
+
+<p>おまけ、Dropboxの画像をPublic経由で表示してるので少し重たくなってしまう。<br>
+表示する画像をローカルのものと差し替えるGreasemonkey</p>
+
+<pre>@include
+originSrc
+newSrc
+の三カ所を書き換える必要がある。
+</pre>
+
+<ul>
+<li>  <a href="http://gist.github.com/395040">Mediamaker img local replace.user.js</a></li>
+</ul>
+
+<p>セキュリティの理由からpref.jsに以下を追加してメディアマーカーからローカルの画像を表示できるようにしておかないと機能しない。</p>
+
+<pre>user_pref("capability.policy.localfilelinks.checkloaduri.enabled", "allAccess");
+user_pref("capability.policy.localfilelinks.sites", "http://mediamarker.net");
+user_pref("capability.policy.policynames", "localfilelinks");
+</pre>
+
+<p><strong>Muses Factory » Firefoxでcheckloaduri.enabledの設定が反映されない</strong>
+:   <a href="http://reva.s28.xrea.com/archives/38.html" title="Muses Factory » Firefoxでcheckloaduri.enabledの設定が反映されない">http://reva.s28.xrea.com/archives/38.html</a></p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-05-09-%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%83%9E%E3%83%BC%E3%82%AB%E3%83%BC%E3%81%A7%E6%A5%BD%E3%81%97%E3%81%8F%E8%AA%AD%E6%9B%B8%E7%AE%A1%E7%90%86%E3%81%99%E3%82%8B.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Evernote","Greasemonkey","iPhone","クリップボード","ソフトウェア","小説","画像"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Evernote">Evernote</a></li>
+                
+                <li><a href="/tags/?q=Greasemonkey">Greasemonkey</a></li>
+                
+                <li><a href="/tags/?q=iPhone">iPhone</a></li>
+                
+                <li><a href="/tags/?q=クリップボード">クリップボード</a></li>
+                
+                <li><a href="/tags/?q=ソフトウェア">ソフトウェア</a></li>
+                
+                <li><a href="/tags/?q=小説">小説</a></li>
+                
+                <li><a href="/tags/?q=画像">画像</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

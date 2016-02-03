@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        【第8回】potatotipsでPromiseについて発表してきた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="イベント,iOS,Android,promise" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/08/20/potatotips/">
+    <h1 class="post-title">【第8回】potatotipsでPromiseについて発表してきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年08月20日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-08-20-potatotips.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="【第8回】potatotips">【第8回】potatotips</h1>
+
+<p><a href="http://connpass.com/event/7729/" title="【第8回】potatotips (iOS/Android開発Tips共有会) - connpass">【第8回】potatotips (iOS/Android開発Tips共有会) - connpass</a> に
+参加してきました。</p>
+
+<p>自分は<a href="http://azu.github.io/slide/potatotips/promisekit.html" title="Objective-CでのPromiseと非同期処理">Objective-CでのPromiseと非同期処理</a>について発表しました。</p>
+
+<hr>
+
+<h2 id="xcode-で-gulp-を使うお話---saku2saku">Xcode で gulp を使うお話 - saku2saku</h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/ganbit1021/xcode-gulp" title="Xcode で gulp を使うお話">Xcode で gulp を使うお話</a></p>
+</blockquote>
+
+<ul>
+<li>gulpを使った話
+
+<ul>
+<li>RettyはWebViewを使ったハイブリッドで利用</li>
+</ul></li>
+<li>ターミナルから毎回コマンド打つのが面倒</li>
+<li>Xcode で gulp を実行
+
+<ul>
+<li>ビルドフェーズに実行する</li>
+<li>入れてない人に向けにちゃんと分岐するべき</li>
+<li>マルチバイトが上手くいかない</li>
+<li>ちゃんと環境変数の内容がターミナルと違う</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="account-manager-and-sync-adapter---shungho-arai">Account Manager and Sync Adapter - Shungho Arai</h2>
+
+<ul>
+<li>Account Managerとは
+
+<ul>
+<li>アプリのアカウントの総合窓口</li>
+<li>一度Googleアカウントでログインすると共通して使える</li>
+<li>他のアプリからトークンだけで利用できるようになる</li>
+</ul></li>
+<li>Sync Adapterが利用することができる
+
+<ul>
+<li>アプリとは別のプロセスで同期ができる</li>
+<li>バックグランドで定期的にデータの同期</li>
+<li>Sync AdapterでFull Syncとか差分同期とかは自分で書く感じ</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="swiftのライブラリの作成/利用しよう---tokorom">Swiftのライブラリの作成/利用しよう - tokorom</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/tokorom/li-yong-siyou" title="potatotips#8 Swiftのライブラリを作成/利用しよう // Speaker Deck">potatotips#8 Swiftのライブラリを作成/利用しよう // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>Swiftで書かれたライブラリを使う方法
+
+<ul>
+<li>Quick - BDDテストフレームワーク
+<a href="https://github.com/Quick/Quick" title="Quick/Quick">Quick/Quick</a></li>
+<li>xcodeprojファイルを自分のプロジェクトに追加してLinkの設定</li>
+<li>Link Binary With librariesに追加する</li>
+</ul></li>
+<li>CocoaPodsが使えない
+
+<ul>
+<li>今のところgit submoduleでcloneして持ってくる</li>
+<li>更新可用性</li>
+</ul></li>
+<li>Swiftのライブラリを作ってみる
+
+<ul>
+<li>プロジェクトを作るときにCocoaTouchFrameworkを選ぶ</li>
+<li>ライブラリ名.h ができるのでそこに入れる</li>
+<li>ビルドに依存してるものをPublicにする必要がある</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="†黒魔術†---kaiinui">†黒魔術† - kaiinui</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/kaiinui/black-magic-in-java" title="Black Magic in Java // Speaker Deck">Black Magic in Java // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>Javaの黒魔術 : Annotation
+
+<ul>
+<li>宣言的</li>
+<li>コードと宣言を分離出来る</li>
+<li>コードが短くなったり</li>
+</ul></li>
+<li>色々なライブラリがAnnotationを使ってる</li>
+<li>自作Annotation
+
+<ul>
+<li>AspectJ</li>
+<li>java.lang.anottaion</li>
+</ul></li>
+<li>Hugo
+
+<ul>
+<li>Annotationをつけるだけでログを出すことができる</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="モバイルアプリ開発者のためのmitmproxy入門--hydrakecat">モバイルアプリ開発者のためのmitmproxy入門- hydrakecat</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/hkurokawa/mobairuapurikai-fa-zhe-falsetamefalse-mitmproxy-ru-men" title="モバイルアプリ開発者のための mitmproxy 入門 // Speaker Deck">モバイルアプリ開発者のための mitmproxy 入門 // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>mitmproxy
+
+<ul>
+<li>MITM型のプロキシ</li>
+<li>SSHをサポートしてる</li>
+</ul></li>
+<li>セットアップは簡単
+
+<ul>
+<li>pip install mitmproxy</li>
+</ul></li>
+<li>mitmproxyでできること
+
+<ul>
+<li>通信のキャプチャ</li>
+<li>端末で行ってる通信全部見られる</li>
+<li>通信の改ざん</li>
+<li>クライアントサイドリプレイ</li>
+<li>スクリプト
+
+<ul>
+<li>Pythonで書いたスクリプトが動く</li>
+<li>不安定なネットワークの再現</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="today-extension-tips---kishikawa-katsumi">Today Extension Tips - kishikawa katsumi</h2>
+
+<ul>
+<li>番組表を通知センターに出すExtension</li>
+<li>Extensionは単体だと配布できなくてコンテナアプリが必要</li>
+<li>Data Sharing
+
+<ul>
+<li>UIPasteBoard - 基本的に1つしか保存できない</li>
+<li>NSuserDefaults
+
+<ul>
+<li>App groupをONするとApp Groupで共有できる</li>
+<li>initWithSuiteName:で共有用のUserDefaultを保存出来る</li>
+</ul></li>
+<li>KeyChain
+
+<ul>
+<li>トークンとかを保存するのに</li>
+</ul></li>
+</ul></li>
+<li>できない/できること
+
+<ul>
+<li>スクロールができない</li>
+<li>Touch Eventは取れる</li>
+<li>幅は固定、高さは端末固有</li>
+<li>カスタムフォント</li>
+<li>WebViewもいける</li>
+<li>MapViewは強制終了</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="googleplay-developer-apiを使ってみた---sakebook">GooglePlay Developer APIを使ってみた - sakebook</h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/sakebook/google-play-developer-api" title="Google Play Developer APIを使ってみた">Google Play Developer APIを使ってみた</a></p>
+</blockquote>
+
+<ul>
+<li>Publishing APIを試す
+
+<ul>
+<li>OAuth2.0認証</li>
+<li>APKのアップロードができる</li>
+</ul></li>
+<li>Edits
+
+<ul>
+<li>APKのアップロードや説明文の変更等大体の事ができる</li>
+<li>動画とタイトルを含めた説明文の編集</li>
+<li>スクリプトで公開まででできる</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="yapdatabase---keisuke-kimura">YapDataBase - Keisuke Kimura</h2>
+
+<ul>
+<li>SQLiteベースのデータベース</li>
+<li><a href="https://github.com/yaptv/YapDatabase" title="yaptv/YapDatabase · GitHub">yaptv/YapDatabase · GitHub</a></li>
+<li>Concurrety</li>
+<li>KVS</li>
+<li>init</li>
+<li>connect</li>
+<li>read</li>
+<li>write</li>
+</ul>
+
+<hr>
+
+<h2 id="アプリのリリースしてますか---gfx">アプリのリリースしてますか - <strong>gfx</strong></h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/gfx/androidapurifalseririsusitemasuka-number-potatotips" title="Androidアプリのリリースしてますか #potatotips // Speaker Deck">Androidアプリのリリースしてますか #potatotips // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>リリースエンジニアリングのタスクは複雑
+
+<ul>
+<li>やることが多くて大変</li>
+<li>限定公開リリースをするともっと増える</li>
+</ul></li>
+<li>タスクを分解してみる</li>
+<li>署名の問題
+
+<ul>
+<li>署名の設定をbuild.gradleに書くのが面倒</li>
+<li>プロジェクト毎に書かないといけない</li>
+</ul></li>
+<li>Google Playへのアップロード
+
+<ul>
+<li>Jenkinsのビルド結果からapkファイルを取得</li>
+<li>取得したapkをアップロード</li>
+</ul></li>
+<li>自動化
+
+<ul>
+<li>バージョニングの問題
+
+<ul>
+<li>バージョニングはJenkinsにやらせる</li>
+</ul></li>
+<li>署名の問題
+
+<ul>
+<li>build.gradleいじりたくない</li>
+<li>jarsignerで署名を付けられる</li>
+</ul></li>
+<li>アップロードの問題
+
+<ul>
+<li>Google play Developer APIを使う</li>
+<li>公開設定とかもリポジトリに入れる</li>
+<li>リポジトリにスクリーンショットや説明を管理できる</li>
+<li>pull request出来る世界</li>
+<li>gradle plugin等がある</li>
+</ul></li>
+</ul></li>
+<li>ちょっとずつ自動化できている</li>
+</ul>
+
+<hr>
+
+<h2 id="sqliteで高速全文検索-〜日本語編〜---shoby">SQLiteで高速全文検索 〜日本語編〜 - shoby</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/shoby/sqlitedegao-su-quan-wen-jian-suo-ri-ben-yu-bian" title="SQLiteで高速全文検索〜日本語編〜 // Speaker Deck">SQLiteで高速全文検索〜日本語編〜 // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>iOSアプリで日本語を全文検索</li>
+<li>SQLiteの全文検索拡張
+
+<ul>
+<li>iOS6から普通に使える</li>
+<li>FTS4テーブル</li>
+<li>term
+
+<ul>
+<li>termに対してマッチするものを取得出来る</li>
+</ul></li>
+<li>phrase match
+
+<ul>
+<li>語句が連続でフレーズとなってるものにマッチ</li>
+</ul></li>
+<li>特殊なQuery
+
+<ul>
+<li>特定のカラムに</li>
+</ul></li>
+<li>日本語はトークン分割ができなくて対応してない…</li>
+</ul></li>
+<li>日本語のトークン分割
+
+<ul>
+<li>FTSのテーブルには半角スペースでトークンを区切る</li>
+<li>その形式に沿って日本語のトークンデータを追加する</li>
+<li>CFStringTokenizer(MeCab)でトークンに分割する</li>
+</ul></li>
+<li>マッチ度が高い順に拾いたい
+
+<ul>
+<li>独自のSQL関数を作れる</li>
+<li><code>match_info()</code> からマッチスコアを返す関数を作る</li>
+<li>C言語で拡張を書く</li>
+<li><a href="https://github.com/rads/sqlite-okapi-bm25" title="rads/sqlite-okapi-bm25">rads/sqlite-okapi-bm25</a></li>
+</ul></li>
+<li>Likeは小さいものだといける</li>
+</ul>
+
+<hr>
+
+<h2 id="picassoを半年使ってみた---ninjinkun">Picassoを半年使ってみた - ninjinkun</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/ninjinkun/picassowoban-nian-shi-tutemita" title="Picassoを半年使ってみた // Speaker Deck">Picassoを半年使ってみた // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>AndroidのWeb画像ローダー
+
+<ul>
+<li>Volley
+
+<ul>
+<li>小さめで、独自の機能を追加するのが面倒</li>
+</ul></li>
+<li>Universal Image Loader
+
+<ul>
+<li>多機能</li>
+</ul></li>
+<li>Picasso
+
+<ul>
+<li>安心のSquare社</li>
+</ul></li>
+</ul></li>
+<li>Picasso
+
+<ul>
+<li>メソッドチェーンの流れるインターフェース</li>
+<li>キャッシュデフォルト値
+
+<ul>
+<li>アプリの15%のメモリキャッシュ</li>
+</ul></li>
+<li>Resize機能
+
+<ul>
+<li>縮小して読み込みを自動でやってくれる</li>
+</ul></li>
+<li>素のImageViewが使える
+
+<ul>
+<li>ImageViewを継承してないので、後から突っ込める</li>
+</ul></li>
+<li>読み込み時のフェード
+
+<ul>
+<li>デフォルトでフェードが対応してる</li>
+</ul></li>
+<li>ローカルの画像も取得できる
+
+<ul>
+<li>Androidはいろんなところから画像が来るのでPicassoに投げられる</li>
+</ul></li>
+</ul></li>
+<li>ハマりどころ
+
+<ul>
+<li>okhttpを入れないと微妙</li>
+<li>ネットワーク回線によってスレッドプールのサイズを変更してる</li>
+</ul></li>
+<li>まとめ
+
+<ul>
+<li>picassoは手軽で使いやすい</li>
+<li>okhttpは一緒に使いましょう</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="run-script-tips---hosokawa">Run Script Tips - hosokawa</h2>
+
+<blockquote>
+<p><a href="http://hosokawa0825.github.io/slides/RunScriptTips/#/" title="Run Script Tips">Run Script Tips</a></p>
+</blockquote>
+
+<ul>
+<li>XcodeのRun Scriptをレビューしやすくする
+
+<ul>
+<li>そのまま入れるとpbxprojに一行で入る</li>
+<li>独立したスクリプトファイルを作って、intermmediatesフォルダにいれる</li>
+</ul></li>
+<li>Todoをビルド警告にする
+
+<ul>
+<li>RunScriptでWarningに書き換えればビルド警告に出来る</li>
+</ul></li>
+<li>Archieveビルドした時にできる。xcarchive等のパスを知る
+
+<ul>
+<li>どこから取ってくるのが面倒臭い</li>
+<li>環境変数に<code>ARCHIEVE_PATH</code>等が入ってる</li>
+<li>post-actionでファイルに書き出して、別途スクリプトで読み込んで使うのが楽</li>
+</ul></li>
+<li>Icon Versioning
+
+<ul>
+<li>アイコンに任意の文字列を文字列を合成する</li>
+<li>ImageMagicとか使って画像を合成</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="誰もしたがらない話をしたい-翻訳リソース編---__chocomelon">誰もしたがらない話をしたい 翻訳リソース編 - __chocomelon</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/chocomelonchan/shui-mohua-tagaranaihua-wositai-fan-yi-risosubian" title="誰も話たがらない話をしたい 翻訳リソース編 // Speaker Deck">誰も話たがらない話をしたい 翻訳リソース編 // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>pixivは海外ユーザーが多い
+
+<ul>
+<li>新規登録の半分ぐらいは海外ユーザー</li>
+</ul></li>
+<li>pixivの翻訳フローの改善
+
+<ul>
+<li>今まではそれぞれの言語のシートがあった</li>
+</ul></li>
+<li>解決方法
+
+<ul>
+<li>翻訳者がコミット</li>
+<li>一元のスプレットシート管理</li>
+<li>外部に丸投げ</li>
+</ul></li>
+<li>一元管理のシートを作成
+
+<ul>
+<li>rubyでパースして利用</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="objective-cでのpromiseと非同期処理---azu">Objective-CでのPromiseと非同期処理 - azu</h2>
+
+<blockquote>
+<p><a href="http://azu.github.io/slide/potatotips/promisekit.html" title="Objective-CでのPromiseと非同期処理">Objective-CでのPromiseと非同期処理</a></p>
+</blockquote>
+
+<ul>
+<li>PromiseKitとPromiseについて</li>
+<li>Boltsは中でロックをしていて、Promiseは基本的にロックしない</li>
+<li>PromiseKitはJavaScriptのPromises A/+を参照してる</li>
+<li>何でもPromiseは難しいので適材適所でやろう</li>
+</ul>
+
+<hr>
+
+<h2 id="offlineのススメ---dagezi">Offlineのススメ - dagezi</h2>
+
+<ul>
+<li>オフラインアプリ</li>
+<li>素早い起動</li>
+<li>低消費電力</li>
+<li>電話がなくても使いたい</li>
+<li>技術要素
+
+<ul>
+<li>データベースに貯めこむ</li>
+<li>SyncAdpterは使ってない</li>
+<li>ユーザーにSync動作させる
+
+<ul>
+<li>バックグランドで勝手に同期してると気づかないかも</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="introducing-cloudkit---nakajijapan">Introducing CloudKit - nakajijapan</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/nakajijapan/introducing-cloudkit" title="Introducing CloudKit // Speaker Deck">Introducing CloudKit // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>CloudKit
+
+<ul>
+<li>iCloud serverへのデータ転送を管理</li>
+<li>iCloud アカウント</li>
+<li>Mac OSとiOSのサポート</li>
+<li>PublicとPrivat</li>
+</ul></li>
+<li>CloudKit objects
+
+<ul>
+<li>データベース、レコード、レコード同士の関連性、アセット</li>
+</ul></li>
+<li>Records
+
+<ul>
+<li>作成
+
+<ul>
+<li>CKDatabaseで作成 + completeHandler</li>
+</ul></li>
+<li>削除
+
+<ul>
+<li>CKDatabaseで削除(delete) + completeHandler</li>
+</ul></li>
+<li>更新
+
+<ul>
+<li>Fetch + Update</li>
+</ul></li>
+<li>読み込み
+
+<ul>
+<li>NSPredicate、NSSortDescriptorsを指定</li>
+<li><code>performQuery</code>で指定する</li>
+</ul></li>
+</ul></li>
+<li>問題
+
+<ul>
+<li>ページングの仕方</li>
+<li>litmitやoffsetがない</li>
+<li>CKQueryCursorで取得してきた位置を決める</li>
+<li>CKQueryCursorでページングできそう</li>
+</ul></li>
+<li>まとめ
+
+<ul>
+<li>ソーシャル系サービスには向いてない?</li>
+<li>バックアップ機能がない</li>
+<li>構築は簡単</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="handoff動かない---sonson">Handoff動かない - sonson</h2>
+
+<ul>
+<li>yosemite beta6 にしたらhandoffが動かなくなった</li>
+<li>OS XとiOSで作業を引き継いだりできる機能</li>
+<li>バッドノウハウ</li>
+<li>動かなくなったら
+
+<ul>
+<li>iCloudをすべてのデバイスをサインアウト</li>
+<li>FaceTime, iMessageのサインアウト</li>
+</ul></li>
+<li>サインイン
+
+<ul>
+<li>Macからサインインする</li>
+<li>iCloud -&gt; FaceTime -&gt; iMessageの順でサインインする</li>
+<li>iOSの方もiCloudにサインインする</li>
+</ul></li>
+<li>独自アプリ
+
+<ul>
+<li>独自アプリ間はAppStore用の署名しないと動かない</li>
+<li>ブラウザからのhandoffにはSSLの証明書が必要</li>
+<li>フォアグランドのアプリじゃないと通信しない</li>
+<li>iOS同士は比較的楽</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="メモ">メモ</h2>
+
+<ul>
+<li>OmniOutliner</li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-08-20-potatotips.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["イベント","iOS","Android","promise"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+                <li><a href="/tags/?q=iOS">iOS</a></li>
+                
+                <li><a href="/tags/?q=Android">Android</a></li>
+                
+                <li><a href="/tags/?q=promise">promise</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

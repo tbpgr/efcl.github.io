@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        NW.js/ElectronアプリをGitHub Releaseで公開する[自動デプロイ] | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="NW.js,electron,node-webkit,github,release,アプリ" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/07/28/nwjs-electron-github-release/">
+    <h1 class="post-title">NW.js/ElectronアプリをGitHub Releaseで公開する[自動デプロイ]</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年07月28日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-07-28-nwjs-electron-github-release.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>以前書いた<a href="http://efcl.info/2014/09/05/node-webkit-binary-release/" title="node-webkitアプリをTravis CI経由でGitHub Releaseにバイナリ登録する | Web Scratch">node-webkitアプリをTravis CI経由でGitHub Releaseにバイナリ登録する | Web Scratch</a>の更新版的な記事です。</p>
+
+<p>この記事は<a href="http://nwjs.io/">NW.js</a>と<a href="http://electron.atom.io/">Electron</a>で書いたアプリをGitHub Releaseで公開するまでの流れやツールの紹介です。</p>
+
+<p>この記事の目標としては&quot;Travis CIからGitHub Releaseへ自動的にパッケージしたアプリをアップロードする&quot;を目標にしてます。</p>
+
+<p>つまり、git tagを付けてgit pushすれば、自動的にアプリのバイナリができあがるという感じです。</p>
+
+<h2 id="github-release向けのzip">GitHub Release向けのzip</h2>
+
+<p>GitHub Releaseにアップロードできるファイルの種類は決まっているので、
+NW.js/Electronアプリのパッケージング(.exeや.appなど)をしたものをzipとしてまとめる必要があります。</p>
+
+<p>NW.js/Electronアプリのパッケージングはそれぞれメジャーなツールがあります。</p>
+
+<ul>
+<li><a href="https://github.com/nwjs/nw-builder">nwjs/nw-builder</a></li>
+<li><a href="https://github.com/maxogden/electron-packager">maxogden/electron-packager</a></li>
+</ul>
+
+<p>これらでパッケージングはできますがzipファイルにしてくれるオプションが今のところありません。</p>
+
+<p>そのため、パッケージング-&gt;zipということをやってくれるラッパのツールをそれぞれ書きました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/nw-zip-builder">azu/nw-zip-builder</a></li>
+<li><a href="https://github.com/azu/electron-zip-packager">azu/electron-zip-packager</a></li>
+</ul>
+
+<p>例えばElectronなら</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ electron-packager ./sample sample --platform=darwin,win32 --arch=x64 --version=0.30.0
+</code></pre></div>
+<p>という感じで<a href="https://github.com/maxogden/electron-packager">maxogden/electron-packager</a>を使ってパッケージングを行えます。</p>
+
+<p>これのラッパーである<a href="https://github.com/azu/electron-zip-packager">azu/electron-zip-packager</a>を使えば、同じオプションを渡せばzipとして出力してくれます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ electron-zip-packager ./sample sample --platform=darwin,win32 --arch=x64 --version=0.30.0
+# それぞれzipファイルができあがる 
+#  sample-darwin-x64.zip
+#  sample-win32-x64.zip
+</code></pre></div>
+<p>内部的にそれぞれのパッケージングツールを使ってるので受け取れるオプションは全く同じで、パッケージング+zipを作ってくれるだけの機能です。</p>
+
+<p>参考: <a href="http://qiita.com/nyanchu/items/15d514d9b9f87e5c0a29" title="30分で出来る、JavaScript (Electron) でデスクトップアプリを作って配布するまで - Qiita">30分で出来る、JavaScript (Electron) でデスクトップアプリを作って配布するまで - Qiita</a></p>
+
+<h2 id="githubへアップロード">GitHubへアップロード</h2>
+
+<p>ここまでで、パッケージングしたzipファイルが各OS毎にできあがりました。</p>
+
+<p>これをTravis CIからGitHub Releaseへアップロードするのですが、これは以前書いた<a href="http://efcl.info/2014/09/05/node-webkit-binary-release/" title="node-webkitアプリをTravis CI経由でGitHub Releaseにバイナリ登録する | Web Scratch">node-webkitアプリをTravis CI経由でGitHub Releaseにバイナリ登録する | Web Scratch</a>と全く同じですが、合わせて紹介。</p>
+
+<p><a href="https://github.com/travis-ci/travis.rb" title="travis-ci/travis.rb">travis-ci/travis.rb</a>を使うと、Travis CIからGitHub Releaseの連携がインタラクティブに行えます</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">gem install travis
+travis setup releases
+</code></pre></div>
+<p>ユーザ名やパスワードを入れていくと、自動でGitHub Releaseできる設定の入った<code>.travis.yml</code>ができあがります。</p>
+
+<p>具体的がないとちょっとわかりにくいので<a href="https://github.com/azu/video-transcript-note" title="azu/video-transcript-note">azu/video-transcript-note</a>を例とします。</p>
+
+<p>このアプリでは、<code>npm run dist</code>をすると先ほどのツールを使ってzipファイルをそれぞれ作成刷るように設定しています。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"> &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;electron .&quot;,
+    &quot;dist&quot;: &quot;electron-zip-packager ./ video-transcript-note --platform=darwin,win32 --arch=x64 --version=0.30.0 --ignore videos&quot;
+  },
+</code></pre></div>
+<p>これに加えて<code>travis setup releases</code>をして作って少し手を加えた<a href="https://github.com/azu/video-transcript-note/blob/master/.travis.yml" title="video-transcript-note/.travis.yml">video-transcript-note/.travis.yml</a>を見てみます。</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">sudo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+<span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">node_js</span>
+<span class="l-Scalar-Plain">node_js</span><span class="p-Indicator">:</span>
+<span class="p-Indicator">-</span> <span class="s">&#39;0.12&#39;</span>
+<span class="l-Scalar-Plain">after_success</span><span class="p-Indicator">:</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">test ${TRAVIS_TAG} &amp;&amp; npm run dist</span>
+<span class="l-Scalar-Plain">cache</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">directories</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">node_modules</span>
+<span class="l-Scalar-Plain">deploy</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">releases</span>
+  <span class="l-Scalar-Plain">api_key</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">secure</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">spDpSqaquXX3wgxjnB8gySH1ydtHFcqxgyErDjYd1kCHZlsxiiihe9+SqTXocVrkSm0x4D6G5i3Ia2N8Pscrv+4heSVsZ1koXJIaN5tzWkn5py5iYy14DKLEf9N8LqQ3Yenr0gGnweymErmLsdIZVeFaXNmGCdl7oyyvQkFcAyaiQXVAtlMwhhAUkqcmzQ8pZOhCQtzPX1zAjzousPCnKJwSGbrP8iNHumhbu9RoxHTn+JbpW9IlCQnwMqeN/2qN51cGU3YT/G3qLhw3RiJMVGUtthPfym3OYGqCE5LPFjuan5z13ruD49K5LhKzFwRPojhZCtNymQ1KfezXk+Ynm2R0JYPCSBH2f1w9f9GvzJ3RYwinr19zTCzmsAIf5FP8qiayz875jIalo53/fWA05//le1NxrpR5la5OTnGpymQ9VOEo7C4qVKdDs9WYSIV4ywJFG8xYEHRqKfZ2lzH6MZZEob0h343rrBO7PKjiXVhUQESyJBTO27RWbcdpqBIYkNwc18aLU/48xgi8NKmHX9S3+bB2BelPI9K24FOSRRRBf942ZeLIOeIKFje6q0A9Cz0z9EkVE9osampJv2RRL14bAiDGrtIWx9tG/ET8hhr+xqSGEApHPJLah7q/jlFgKrq7Yg6bzz7e1mtIo0I09pVKieojMUPxkHARge8mrmw=</span>
+  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">video-transcript-note-darwin-x64.zip</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">video-transcript-note-win32-x64.zip</span>
+  <span class="l-Scalar-Plain">on</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">repo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">azu/video-transcript-note</span>
+    <span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>設定を簡単に見てみます。</p>
+
+<p>Travis CIでテストが通ったら、git tagがついてる時だけ<code>npm run dist</code>します。(GitHub Releaseはタグがいいので)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">after_success:
+- test ${TRAVIS_TAG} &amp;&amp; npm run dist
+</code></pre></div>
+<p>合わせてアップロードするzipファイルのパスを指定しています。
+(ワーキングディレクトリにzipを作るので、単純にファイル名だけで良い)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">  file:
+  - video-transcript-note-darwin-x64.zip
+  - video-transcript-note-win32-x64.zip
+</code></pre></div>
+<p>最後にgit tagの時のみreleaseしたいので</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">tags: true
+</code></pre></div>
+<p>を加えています。(何故か自動では入ってなかった)</p>
+
+<p>これだけで、git tagして、<code>git push --tags</code>をするとTravis CIから<a href="https://github.com/azu/video-transcript-note/releases">GitHub Releaseへアプリをアップロード</a>してくれます。</p>
+
+<p>NW.jsの場合は</p>
+
+<ul>
+<li><a href="https://github.com/azu/pdf-markdown-annotator" title="azu/pdf-markdown-annotator">azu/pdf-markdown-annotator</a></li>
+<li><a href="https://github.com/azu/github-issue-teev" title="azu/github-issue-teev">azu/github-issue-teev</a></li>
+</ul>
+
+<p>などを見てみて下さい(基本的にパスが違うぐらいで同じです)</p>
+
+<h2 id="おわりに">おわりに</h2>
+
+<ul>
+<li><a href="https://github.com/azu/nw-zip-builder">azu/nw-zip-builder</a></li>
+<li><a href="https://github.com/azu/electron-zip-packager">azu/electron-zip-packager</a></li>
+</ul>
+
+<p>を使ったNW.js/ElectronアプリのGitHub Releaseでの公開方法について書きました。
+余計な設定は大分削ってやビルドスクリプトなどなしにできるようになったので、結構気軽に使えるような気がします。</p>
+
+<p>上記のパッケージングラッパーはいまいちアップデートへの追従的な問題はどうやって確保するのか、peerDependenciesとしたほうがいいのかいまいち分かってないのでIssueやPull Requestくれると嬉しいです。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-07-28-nwjs-electron-github-release.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["NW.js","electron","node-webkit","github","release","アプリ"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=NW.js">NW.js</a></li>
+                
+                <li><a href="/tags/?q=electron">electron</a></li>
+                
+                <li><a href="/tags/?q=node-webkit">node-webkit</a></li>
+                
+                <li><a href="/tags/?q=github">github</a></li>
+                
+                <li><a href="/tags/?q=release">release</a></li>
+                
+                <li><a href="/tags/?q=アプリ">アプリ</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

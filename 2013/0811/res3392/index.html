@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        [Mac] Asciidocを書くエディタとプレビューの設定 | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="asciidoc,Editor" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2013/0811/res3392/">
+    <h1 class="post-title">[Mac] Asciidocを書くエディタとプレビューの設定</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2013年08月11日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-08-11-mac-asciidoc%E3%82%92%E6%9B%B8%E3%81%8F%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E3%81%A8%E3%83%97%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E3%81%AE%E8%A8%AD%E5%AE%9A.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="はじめに">はじめに</h1>
+
+<p><a href="http://www.slideshare.net/mhidaka/review-25116838" title="書籍制作でReVIEWを使う実践ワークフロー">書籍制作でReVIEWを使う実践ワークフロー</a><br>
+をみて、Oreillyとかで使われてる<a href="http://www.methods.co.nz/asciidoc/" title="AsciiDoc">AsciiDoc</a>はどうなんだろと思って、</p>
+
+<p>とりあえず書ける環境を作ってみたのでメモ。</p>
+
+<h2 id="asciidoc">AsciiDoc</h2>
+
+<p><a href="http://www.methods.co.nz/asciidoc/" title="AsciiDoc">AsciiDoc</a> はMarkdownとかと同じようにテキストベースで書いて、<br>
+HTMLやDocBook(ここからepubとかPDFとか大抵のフォーマット)に変換できるフォーマットのことです。</p>
+
+<ul>
+<li>  <a href="http://d.hatena.ne.jp/travelershouse/20130224/1361711279" title="AsciiDocは技術的な記事やマニュアル、本を書く際に必要なすべての構造的要素をサポートする - 不悔必省">AsciiDocは技術的な記事やマニュアル、本を書く際に必要なすべての構造的要素をサポートする &#8211; 不悔必省</a></li>
+<li>  <a href="http://d.hatena.ne.jp/travelershouse/20130311/1363012055" title="AsciiDoc その2 - 不悔必省">AsciiDoc その2 &#8211; 不悔必省</a></li>
+</ul>
+
+<p>Oreilly <a href="http://atlas.labs.oreilly.com/" title="Atlas">Atlas</a> でも、AsciiDocは使われていて、ウェブエディタもあったりします。</p>
+
+<p>AsciiDocのプロセッサーの実装は、本家<a href="http://www.methods.co.nz/asciidoc/userguide.html" title="AsciiDoc">AsciiDoc</a> と Rubyで書かれた<a href="http://asciidoctor.org/" title="Asciidoctor">Asciidoctor</a>があります。</p>
+
+<p>今回は<a href="http://asciidoctor.org/" title="Asciidoctor">Asciidoctor</a>の方を使っていきます。</p>
+
+<h2 id="エディタ">エディタ</h2>
+
+<p>専用のエディタやサポートしてるエディタがあまり多くない感じだったので、<br>
+Sublime Text2 の <a href="https://github.com/SublimeText/AsciiDoc" title="SublimeText/AsciiDoc">SublimeText/AsciiDoc</a> を使用します。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/08/README.asciidoc-2013-08-11-14-56-55.jpg" alt="README asciidoc 2013 08 11 14 56 55" title="README.asciidoc 2013-08-11 14-56-55.jpg" border="0" width="489" height="600" /></p>
+
+<p>シンタックスハイライトとスニペットとキーボードショートカットが入ってる感じです。</p>
+
+<h2 id="プレビュー">プレビュー</h2>
+
+<p>プレビュー用のアプリは特に見つからなかったので、<a href="http://markedapp.com/" title="Marked">Marked</a>を使います。</p>
+
+<p><a href="http://markedapp.com/" title="Marked">Marked</a> はMarkdown用のプレビューアプリですが、プロセッサーを任意のものに変更できます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/08/Behavior-2013-08-11-14-59-50.jpg" alt="Behavior 2013 08 11 14 59 50" title="Behavior 2013-08-11 14-59-50.jpg" border="0" width="537" height="402" /></p>
+
+<p>まずは、プロセッサーが必要なので、</p>
+
+<blockquote>
+<p>gem install asciidoctor </p>
+</blockquote>
+
+<p><a href="http://asciidoctor.org/" title="Asciidoctor">Asciidoctor</a>をインストールしておき、<br>
+<code>Custom Markdown Processor</code> にチェックを入れて</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Path: /path/to/asciidoctor
+Args: --backend html5 -
+</code></pre></div>
+<p>と入れておきます。</p>
+
+<p>こうすれば、任意の <code>asciidoc</code> ファイルを開けばプレビューできます。</p>
+
+<p>(Markedってプロセッサーの設定切り替えとかないのかな…)</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2013/08/README.asciidoc-2013-08-11-15-02-29.jpg" alt="README asciidoc 2013 08 11 15 02 29" title="README.asciidoc 2013-08-11 15-02-29.jpg" border="0" width="600" height="357" /></p>
+
+<p>参考 :</p>
+
+<ul>
+<li>  <a href="http://blog.f13.jp/post/21638378100/marked-restructuredtext" title="MarkedでreStructuredTextをリアルタイムプレビューする - F13">MarkedでreStructuredTextをリアルタイムプレビューする &#8211; F13</a></li>
+</ul>
+
+<h2 id="書き心地">書き心地</h2>
+
+<p><a href="http://www.methods.co.nz/asciidoc/userguide.html" title="AsciiDoc">AsciiDoc</a> の記法自体についてですが、<br>
+Markdownと似てる感じの部分が多く馴染みやすいと思います。</p>
+
+<p>Markdownよりは表現できることは多くて、imgのwidthやaの_blankの属性のサポートやifdefのマクロ等普通に書いてて必要になる部分は大体揃ってる気がします。</p>
+
+<p>記法については公式より、 <a href="http://asciidoctor.org/docs/asciidoc-writers-guide/" title="AsciiDoc Writer’s Guide | Asciidoctor">AsciiDoc Writer’s Guide | Asciidoctor</a> の方が読みやすいと思います。</p>
+
+<p><a href="http://d.hatena.ne.jp/travelershouse/20130311/1363012055" title="AsciiDoc その2 - 不悔必省">AsciiDoc その2 &#8211; 不悔必省</a>でも書かれていましたが、<br>
+リスト系の記法が充実していて、ネストのサポートやリスト同士の間に改行がある場合につなげる方法等よく出来てると思います。</p>
+
+<p><a href="http://asciidoctor.org/docs/asciidoc-writers-guide/#admonition-blocks" title="Admonition blocks">Admonition blocks</a> の等の<a href="http://asciidoctor.org/docs/asciidoc-writers-guide/#building-blocks-in-asciidoc" title="blocks">blocks</a>記法で<br>
+ソースコードやコメント、生のHTML埋め込み等ができるようになってます。</p>
+
+<p>ちょっと面白いなと思ったのはTable記法で、テキストで無理やりテーブルを表現するのではなく、カラムごとにわけてけるのは見た目的に整理しやすくていいなーと思いました。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">[options=&quot;header&quot;]
+|===
+|Name |Group |Description
+
+|Firefox
+|Web Browser
+|Mozilla Firefox is an open-source web browser
+
+|Ruby
+|Programming Language
+|A programmer&#39;s best friend.
+
+|===
+</code></pre></div>
+<p>=&gt;</p>
+
+<table class="tableblock frame-all grid-all" style="width:100%; ">
+  <colgroup> <col style="width:33%;"/> <col style="width:33%;"/> <col style="width:33%;"/> </colgroup> <tr>
+    <th class="tableblock halign-left valign-top">
+      Name
+    </th>
+    
+    <th class="tableblock halign-left valign-top">
+      Group
+    </th>
+    
+    <th class="tableblock halign-left valign-top">
+      Description
+    </th>
+  </tr>
+  
+  <tr>
+    <td class="tableblock halign-left valign-top">
+      <p class="tableblock">
+        Firefox
+      </p>
+    </td>
+    
+    <td class="tableblock halign-left valign-top">
+      <p class="tableblock">
+        Web Browser
+      </p>
+    </td>
+    
+    <td class="tableblock halign-left valign-top">
+      <p class="tableblock">
+        Mozilla Firefox is an open-source web browser
+      </p>
+    </td>
+  </tr>
+  
+  <tr>
+    <td class="tableblock halign-left valign-top">
+      <p class="tableblock">
+        Ruby
+      </p>
+    </td>
+    
+    <td class="tableblock halign-left valign-top">
+      <p class="tableblock">
+        Programming Language
+      </p>
+    </td>
+    
+    <td class="tableblock halign-left valign-top">
+      <p class="tableblock">
+        A programmer&#8217;s best friend.
+      </p>
+    </td>
+  </tr>
+</table>
+
+<p>軽く触った感じでは、Sphinxほど記法が重くないので良い感じだなーと思いました。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2013/2013-08-11-mac-asciidoc%E3%82%92%E6%9B%B8%E3%81%8F%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E3%81%A8%E3%83%97%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E3%81%AE%E8%A8%AD%E5%AE%9A.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["asciidoc","Editor"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=asciidoc">asciidoc</a></li>
+                
+                <li><a href="/tags/?q=Editor">Editor</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

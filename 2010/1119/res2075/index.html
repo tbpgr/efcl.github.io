@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Firebugを拡張するアドオンをまとめてみた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Firefox,Greasemonkey,アドオン,ソフトウェア" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2010/1119/res2075/">
+    <h1 class="post-title">Firebugを拡張するアドオンをまとめてみた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2010年11月19日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-11-19-firebug%E3%82%A2%E3%83%89%E3%82%AA%E3%83%B3%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%BF%E3%81%9F.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>Firebugを拡張するアドオンを紹介</p>
+
+<h3 id="firecookie"><a href="https://addons.mozilla.org/en-US/firefox/addon/6683/">Firecookie</a></h3>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/11/scr-overview.png"><img class="alignnone size-medium wp-image-2089" title="scr-overview" src="http://efcl.info/wp-content/uploads/2010/11/scr-overview-300x103.png" alt="" width="300" height="103" /></a></p>
+
+<p>クッキーの編集や削除をする<br>
+クッキーの変更に反応してログを吐いてくれる</p>
+
+<p><a href="http://www.softwareishard.com/blog/firecookie/">Software is hard | Firecookie</a></p>
+
+<h3 id="netexport"><a href="http://www.softwareishard.com/blog/netexport/">NetExport</a></h3>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/11/ss-2010-11-19-3.png"><img class="alignnone size-medium wp-image-2086" title="ss-2010-11-19-3" src="http://efcl.info/wp-content/uploads/2010/11/ss-2010-11-19-3-300x148.png" alt="" width="300" height="148" /></a></p>
+
+<p>通信タブの記録を<a href="http://groups.google.com/group/firebug-working-group/web/http-tracing---export-format">HTTP Archive 1.1 (HAR)</a>形式で保存<br>
+通信タブの表示を画像としてクリップボードにコピー</p>
+
+<h3 id="firebug-autocompleter"><a href="https://addons.mozilla.org/ja/firefox/addon/203494/">Firebug Autocompleter</a></h3>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/11/47579.png"></a><a href="http://efcl.info/wp-content/uploads/2010/11/47577.png"><img class="alignnone size-medium wp-image-2149" title="47577" src="http://efcl.info/wp-content/uploads/2010/11/47577-300x279.png" alt="" width="300" height="279" /></a></p>
+
+<p>FirebugのCommand EditorにJavaScriptのコード補完機能をつける。<br>
+(Firebugにもデフォルトで補完機能はあるが、一行Command Lineにしか反応しない)</p>
+
+<h3 id="firescroll-for-firebug"><a href="https://addons.mozilla.org/ja/firefox/addon/239380/">Firescroll for Firebug</a></h3>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/11/ss-2010-11-19-1.png"><img class="alignnone size-medium wp-image-2077" title="ss-2010-11-19-1" src="http://efcl.info/wp-content/uploads/2010/11/ss-2010-11-19-1-300x86.png" alt="" width="300" height="86" /></a></p>
+
+<p>&#8220;Auto-Scroll&#8221; 自動でFirebugのログをスクロール<br>
+&#8220;Log to top&#8221; Firebugのログで上が最新になるようにするTweak</p>
+
+<h3 id="widerbug"><a href="http://www.command-tab.com/2008/01/19/widerbug-widescreen-firebug/">Widerbug</a></h3>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/11/widerbug_preview.jpg"><img class="alignnone size-medium wp-image-2083" title="widerbug_preview" src="http://efcl.info/wp-content/uploads/2010/11/widerbug_preview-300x183.jpg" alt="" width="300" height="183" /></a></p>
+
+<p>Firebugを縦置きにするTweak</p>
+
+<h3 id="firebugmonkey"><a href="https://addons.mozilla.org/ja/firefox/addon/13623/">Firebugmonkey</a></h3>
+
+<p>Greasemonkeyをスクリプトタブでデバッグする<br>
+<a href="http://www.clear-code.com/software/uxu/">UxU（うず）</a>のように内部でGreasemonkey APIのエミュレートをしてる<br>
+Greasemonkeyはスクリプトタブに表示されずブレークポイントをうつなどのデバッガーを使ったデバッグが行えない<br>
+デバッガーでデバッグできない理由はevalInSandboxで実行されていて、evalInSandboxはC++実装だから。(多分Firebugでも同じ)<br>
+<a href="http://experiment.blog.so-net.ne.jp/2009-02-21">Greasemonkey のユーザスクリプトは Venkman the JavaScript debugger でデバッグできない：experiment：So-net blog</a></p>
+
+<h3 id="javascript-deminifier"><a href="https://addons.mozilla.org/ja/firefox/addon/247565/">JavaScript Deminifier</a></h3>
+
+<p>Firebugのスクリプトタブで表示するJavaScriptを整形表示する<br>
+整形表示した状態でブレークポイントを打てるので圧縮されたファイルでもブレークできる<br>
+<a href="http://twitter.com/mskkie/status/29048235725">IE9 PP6 F12 開発者ツール</a>のJavaScript整形みたいな機能<br>
+整形は<a href="https://github.com/einars/js-beautify">js-beautify</a>を使用、FireRainbowと競合する</p>
+
+<h3 id="firerainbow"><a href="http://firerainbow.binaryage.com/">FireRainbow</a></h3>
+
+<p>FirebugのスクリプトタブでJavaScriptのシンタックスハイライト表示を行う<br>
+HTML、CSSも一応対応</p>
+
+<h3 id="eventbug"><a href="http://getfirebug.com/releases/eventbug/">Eventbug</a></h3>
+
+<p>要素に適当されているイベントハンドラを表示する<br>
+clickしたらどの関数が実行されるかなどが分かる<br>
+(バージョンで動かない事が多い)</p>
+
+<h3 id="firequery"><a href="http://firequery.binaryage.com/">FireQuery</a></h3>
+
+<p>jQuery言語の表現をFirebugでも認識できるようにする<br>
+jQueryがないページでもCommand LineからjQueryを使える要にする<br>
+<a href="http://github.com/jamespadolsey/jQuery-Lint">jQuery Lint</a>の有効化</p>
+
+<h3 id="yslow"><a href="https://addons.mozilla.org/ja/firefox/addon/5369/">YSlow</a></h3>
+
+<p>ページ表示にかかる時間を計測<br>
+ページのボトルネックを調査</p>
+
+<h3 id="firepicker"><a href="http://thedarkone.github.com/firepicker/">Firepicker</a></h3>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/11/firepicker-screen1.png"><img class="alignnone size-medium wp-image-2078" title="firepicker-screen1" src="http://efcl.info/wp-content/uploads/2010/11/firepicker-screen1-300x122.png" alt="" width="300" height="122" /></a></p>
+
+<p>FirebugのCSSタブでカラーピッカーを使えるようにする</p>
+
+<h3 id="firexpath"><a href="https://addons.mozilla.org/fr/firefox/addon/11900/">FireXPath</a></h3>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/11/32322.png"><img class="alignnone size-medium wp-image-2079" title="32322" src="http://efcl.info/wp-content/uploads/2010/11/32322-300x163.png" alt="" width="300" height="163" /></a></p>
+
+<p>FirebugにXPathとCSSセレクタの確認ができるタブを追加する</p>
+
+<h3 id="firequark"><a href="http://www.quarkruby.com/2007/9/5/firequark-quick-html-screen-scraping">Firequark</a></h3>
+
+<p>Firebugに選択要素のCSSセレクタをコピーできるようにするアドオン<br>
+(デフォルトはXPathしかないのでね)</p>
+
+<h3 id="codeburner"><a href="http://tools.sitepoint.com/codeburner/">CodeBurner</a></h3>
+
+<p>FirebugにHTML+CSSのリファレンスを追加する<br>
+他のソフトウェア向けにも出している</p>
+
+<h3 id="adobe-browserlab-for-firebug"><a href="https://addons.mozilla.org/ja/firefox/addon/231196/">Adobe BrowserLab for Firebug</a></h3>
+
+<p>Firebugで加えた一時的な変更をAdobe BrowserLabを使ってプレビューする。<br>
+ページを変更してスクリーンショットで各ブラウザ表示を確認できる。</p>
+
+<h3 id="pixel-perfect"><a href="http://www.pixelperfectplugin.com/">Pixel Perfect</a></h3>
+
+<p>指定した画像をFirefox上に重ねて表示してデザインがずれてないかを確認する</p>
+
+<h3 id="arboreal"><a href="https://addons.mozilla.org/ja/firefox/addon/228373/">Arboreal</a></h3>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/11/ss-2010-11-19-4.png"><img class="alignnone size-medium wp-image-2087" title="ss-2010-11-19-4" src="http://efcl.info/wp-content/uploads/2010/11/ss-2010-11-19-4-300x140.png" alt="" width="300" height="140" /></a></p>
+
+<p>DOMツリーを視覚化して表示する<br>
+似たようなものとしては<a href="https://addons.mozilla.org/ja/firefox/addon/655/">View Source Chart</a></p>
+
+<h3 id="illumination-for-developers"><a href="https://addons.mozilla.org/en-US/firefox/addon/247486/">Illumination for Developers</a></h3>
+
+<p>ExtJSやjQuery UIなどのコンポーネントやデータの状態を表示する<br>
+現在はExt JSとSencha Touchに対応してて、有料で正式リリースする<br>
+<a href="http://www.illumination-for-developers.com/">Illumination for Developers</a> によるとクロスプラットフォームを目指している</p>
+
+<h3 id="xrefresh"><a href="http://xrefresh.binaryage.com/">XRefresh</a></h3>
+
+<p>ファイルを監視してエディタで編集されたらブラウザをリロードする<br>
+クロスプラットフォーム対応</p>
+
+<h3 id="css-usage"><a href="https://addons.mozilla.org/en-US/firefox/addon/10704/">CSS Usage</a></h3>
+
+<p>読み込んだCSSで、それぞれのstyleが閲覧ページ内で本当に適用されているかどうか確認する<br>
+使われてないstyleを見つける</p>
+
+<h3 id="firefocus"><a href="http://www.incaseofstairs.com/firefocus/">Firefocus</a></h3>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/11/firefocus.png"><img class="alignnone size-medium wp-image-2080" title="firefocus" src="http://efcl.info/wp-content/uploads/2010/11/firefocus-300x133.png" alt="" width="300" height="133" /></a></p>
+
+<p>閲覧ページのどの要素にフォーカスがあるのかをHTMLタブに表示する</p>
+
+<h3 id="firefile"><a href="https://addons.mozilla.org/ja/firefox/addon/52365/?collection_uuid=38e04bf2-accc-dcbb-37b8-b30a96dc0fa1">FireFile</a></h3>
+
+<p>サーバーサイドにスクリプトを用意(<a href="http://www.strebitzer.at/projects/firefile/docs/index.php?path=01_Basic/01_Introduction">FireFile Instructions</a>)することで、Firebugで変更した内容を反映させる事ができる。<br>
+また、Firebugで変更を反映したファイルをダウンロードすることができる。</p>
+
+<h3 id="fireunit"><a href="http://fireunit.org/">FireUnit</a></h3>
+
+<p>Firebugで使えるユニットテスト<br>
+何か放置されてるような気がする</p>
+
+<h3 id="log-to-netpanel"><a href="http://code.google.com/p/log-to-net-panel/">Log to Netpanel</a></h3>
+
+<p>JavaScriptから通信タブにマーカーを挿入可能になる<br>
+<a href="http://blog.teuntostring.net/2009/07/announcing-log-to-netpanel.html">Teun.ToString(): Announcing Log to Netpanel &#8211; by Teun Duynstee</a></p>
+
+<h3 id="omnibug"><a href="http://www.rosssimpson.com/dev/omnibug.html">Omnibug</a></h3>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/11/ss-2010-11-19-2.png"><img class="alignnone size-medium wp-image-2082" title="ss-2010-11-19-2" src="http://efcl.info/wp-content/uploads/2010/11/ss-2010-11-19-2-300x185.png" alt="" width="300" height="185" /></a></p>
+
+<p>Omniture、WebTrends、Google Analytics、Urchin、Moniforceなどの計測データを確認。<br>
+utm_*などのアクセス解析のログを見やすく表示する</p>
+
+<h3 id="firelogger"><a href="http://firelogger.binaryage.com/#firefox">FireLogger</a></h3>
+
+<p>Python、PHP、RubyからFirebugへログを吐く</p>
+
+<h3 id="flashbug"><a href="https://addons.mozilla.org/ja/firefox/addon/14465/">Flashbug</a></h3>
+
+<p>FlashのログをFirebugに表示することができる。<br>
+1.6からAMF dataにも対応</p>
+
+<h3 id="flashfirebug"><a href="https://addons.mozilla.org/ja/firefox/addon/161670/">FlashFirebug</a></h3>
+
+<p>AS側に<a href="http://www.o-minds.com/#products/flashfirebug">O-Minds</a>を仕込んでおくことでFirebugを使ったデバッグをできるようにする</p>
+
+<p><br class="spacer_" /></p>
+
+<p>書いてる途中でWikiがあるのを思い出して、大体被ってた気がしたけど問題ない。</p>
+
+<p><strong>Firebug Extensions &#8211; FirebugWiki</strong>
+:   <a href="http://getfirebug.com/wiki/index.php/Firebug_Extensions" title="Firebug Extensions - FirebugWiki">http://getfirebug.com/wiki/index.php/Firebug_Extensions</a></p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-11-19-firebug%E3%82%A2%E3%83%89%E3%82%AA%E3%83%B3%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%BF%E3%81%9F.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Firefox","Greasemonkey","アドオン","ソフトウェア"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=Greasemonkey">Greasemonkey</a></li>
+                
+                <li><a href="/tags/?q=アドオン">アドオン</a></li>
+                
+                <li><a href="/tags/?q=ソフトウェア">ソフトウェア</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

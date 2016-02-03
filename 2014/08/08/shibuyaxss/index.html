@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Shibuya.XSS テクニカルトーク #5 アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="XSS,イベント,Browser,JavaScript" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/08/08/shibuyaxss/">
+    <h1 class="post-title">Shibuya.XSS テクニカルトーク #5 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年08月08日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-08-08-shibuyaxss.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="shibuya.xss-テクニカルトーク-#5-:-atnd"><a href="https://atnd.org/events/54101" title="Shibuya.XSS テクニカルトーク #5 : ATND">Shibuya.XSS テクニカルトーク #5 : ATND</a></h2>
+
+<p>Shibuya.XSSに参加してきたのでメモです。</p>
+
+<p>体調がイマイチだったので朦朧としたメモです。
+後、オフレコなものがあったので、その部分はオフレコとしてあります。</p>
+
+<p>公開していけない箇所があったら<a href="https://github.com/efcl/efcl.github.io/issues" title="Issues · efcl/efcl.github.io">Issues</a>など立ててください。</p>
+
+<hr>
+
+<h2 id="私の見つけたxss---yousukezan">私の見つけたXSS - yousukezan</h2>
+
+<ul>
+<li>JVNのXSS
+
+<ul>
+<li>FlashのXSS</li>
+</ul></li>
+<li>PaypalのXSS($100ぐらい)
+
+<ul>
+<li>paypalの中国のサイト</li>
+<li>paypal-wujinggou.com</li>
+<li>All in ONE SEOプラグインのXSS (Wordpress)</li>
+<li><code>s=\\x22\x3e</code> みたいな感じでXSS</li>
+<li>Wordpressのプラグイン
+
+<ul>
+<li>XSSが日々大量に見つかるので要チェック</li>
+</ul></li>
+</ul></li>
+<li>Yahoo!のXSS
+
+<ul>
+<li>去年バウンティプログラムが始まって大量の脆弱性が報告されている</li>
+<li>Yahoo!mail の Self-XSS
+
+<ul>
+<li><code>&quot;&gt;&lt;script&gt;</code> をコピペするとできるXSS</li>
+</ul></li>
+<li>FlickrのXSS</li>
+<li>Yahoo!mailの電話帳のXSS
+
+<ul>
+<li>アドレス帳のWebURL欄にjavascript:alert(0)//</li>
+<li>//がないとURLとして認識してくれなかった</li>
+<li>クリックでXSS</li>
+</ul></li>
+<li>Yahoo!7のXSS
+
+<ul>
+<li>特定のメールタイトルがTOP画面にスクリプト実行される</li>
+<li>ユーザー個人の新着メールのヘッドラインが変</li>
+</ul></li>
+<li>Yahoo!台湾のXSS</li>
+<li>Yahoo!動画検索のXSS
+
+<ul>
+<li><code>&lt;&quot;&gt;&lt;svg onload=....&gt;</code> だとなぜか通る</li>
+<li>サニタイズフィルターをスルーしてしまう</li>
+</ul></li>
+<li>Yahoo!の広告表示のXSS($5000)
+
+<ul>
+<li><code>window.name</code>を使ってiframeのクロスドメインの広告を吐き出すHTMLにXSSがあった</li>
+<li>元のドメインが yahoo.com というURLに一致ならまだ通ってた</li>
+<li>xssyahoo.com というドメインを取ってXSSが再度通った</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="blob-uri-scheme---やぎはしゅ">Blob URI Scheme - やぎはしゅ</h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/yagihashoo/blob-uri-scheme" title="Blob URI Schemeの素敵なお話">Blob URI Schemeの素敵なお話</a></p>
+</blockquote>
+
+<ul>
+<li>CTF、カメラ、XSS</li>
+<li>Blob URI について</li>
+<li><code>blob:http://doma.in/xxxx</code></li>
+<li>data:に似てるけどちょっと違うやつ
+
+<ul>
+<li>一時的なデータにURLがつけるために使う</li>
+<li>アップロードされたローカルコンテンツへの参照</li>
+</ul></li>
+<li>Blob URLの作り方
+
+<ul>
+<li>BlobオブジェクトにFileオブジェクトを渡して、<code>URL.createObjectURL()</code>でblob URLを生成</li>
+<li>ブラウザから直接参照した場合は<code>text/plain</code>になる</li>
+<li>画像だとContent sniffing的な挙動</li>
+</ul></li>
+<li>ユースケース
+
+<ul>
+<li>ユーザアップロードのコンテンツに対して一時的にクライアントサイドで参照を持ちたい</li>
+</ul></li>
+<li>前提
+
+<ul>
+<li>ユーザー指定のローカルコンテンツへの参照
+
+<ul>
+<li><code>input[type=file]</code> で画像を選択して取る</li>
+</ul></li>
+<li>通常のユースケースではXSSになりにくい</li>
+</ul></li>
+<li>むりやりXSSと結びつける
+
+<ul>
+<li>本来の用途とはかけ離れているページ</li>
+<li>通常の用途ではなく、無理やりXSSが起きそうなページを作る</li>
+<li>location.searchからBlob URLを作ってiframeのsrcに埋め込むサイト</li>
+<li>location.search -&gt; Blob URL -&gt; iframe.src
+
+<ul>
+<li>実行されるblobのoriginはiframeの参照元のコンテキストで動く</li>
+<li><code>parent.document.cookie</code> の参照が可能</li>
+</ul></li>
+</ul></li>
+<li>まとめ
+
+<ul>
+<li>Blob URLをData URLとはやっぱり違う</li>
+<li>Content-typeの扱いが面白い気がする</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="bug-bounty-program---nishimunea">Bug Bounty Program - nishimunea</h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/muneakinishimura/welcome-to-the-black-hole-of-bug-bounty-program-rebooted" title="Welcome to the Black Hole of Bug Bounty Program Rebooted">Welcome to the Black Hole of Bug Bounty Program Rebooted</a></p>
+</blockquote>
+
+<ul>
+<li><a href="https://www.mozilla.org/security/bug-bounty.html" title="Mozilla Security Bug Bounty Program">Mozilla Security Bug Bounty Program</a> について</li>
+<li>重要なセキュリティバグ発見した人にMozillaが報償金
+
+<ul>
+<li>1件3000$</li>
+</ul></li>
+<li>どこを探したらバグの見つける戦略が必要
+
+<ul>
+<li>Web Workers弱そう
+
+<ul>
+<li>hasegawaさんが報告してた</li>
+</ul></li>
+<li>1件見つかった - CSPをバイパスするバグがあった</li>
+<li>すでにkinugawaさんが発見、報告したバグだった</li>
+<li>既知のバグを見つけた場合 =&gt; 類似Bugへのアクセス権を付与してくれる</li>
+</ul></li>
+<li>諦めかけていたそんな時
+
+<ul>
+<li>DeviceStorage APIのディレクトリトラバーサルの脆弱性が報告されていた</li>
+</ul></li>
+<li>Firefox OSは未開の地(フロンティア)
+
+<ul>
+<li>Browser API(WebView)を探索</li>
+<li>CSPヘッダが完全に無視される
+
+<ul>
+<li>CSPの実装が古いだけ</li>
+<li>CSPの実装がまだされてなかっただけ</li>
+<li>実装が間に合ってないだけだった</li>
+</ul></li>
+<li>X-Frame-Optionsヘッダ無視される
+
+<ul>
+<li>フレームじゃなくてブラウザAPIなので仕様なんだ!</li>
+</ul></li>
+<li>未開の地ならではの苦労
+
+<ul>
+<li>実装されてない機能がまだ多い</li>
+<li>バグなのか仕様なのか手探り</li>
+</ul></li>
+</ul></li>
+<li>Mozilla Foundation Security アドバイザリー
+
+<ul>
+<li>過去の脆弱性を発表してるページ</li>
+<li>過去の脆弱性から弱そうな機能を抽出</li>
+<li>それらを組み合わせて生まれる脆弱性があるかもしれない</li>
+<li>CSP x appcache x WebSocket でバグ
+
+<ul>
+<li>CSPの違法レポートが機能しないバグ</li>
+<li>だれも困らないバグ =&gt; セキュリティbugzillaだけど公開された</li>
+</ul></li>
+</ul></li>
+<li>機能が増えれば攻撃方法も増える(組み合わせが増える)
+
+<ul>
+<li>無限にBug Bounty Programを楽しめる</li>
+<li>Bug Bounty Programは中毒性が高い</li>
+<li>一日中バグを考えるようになる</li>
+<li>FirefoxOSの本を出す</li>
+<li><a href="https://techbooster.booth.pm/items/29835" title="【C86限定予約】Firefox OSウヱブアプリ開発読本 - TechBooster">【C86限定予約】Firefox OSウヱブアプリ開発読本 - TechBooster</a></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="ブラウザとwebサーバの話---はるぷ">ブラウザとWebサーバの話 - はるぷ</h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/harupu/shibuyaxss-37764307" title="ブラウザとWebサーバの話@Shibuya.xss">ブラウザとWebサーバの話@Shibuya.xss</a></p>
+</blockquote>
+
+<ul>
+<li>XSSの仕方いろいろ
+
+<ul>
+<li>スクリプトタグ</li>
+<li>イベントハンドラ</li>
+<li><code>href=javascript:</code> &lt;= 今日の主役</li>
+</ul></li>
+<li>302 Foundの画面
+
+<ul>
+<li>Locationヘッダの中身によって302画面が出るブラウザとでないブラウザがある</li>
+<li>ChromeとFirefoxは<code>about:blank</code>へは飛ぶ</li>
+<li><code>javascript:</code>と入れた場合
+
+<ul>
+<li>Operaは動く!</li>
+<li>Apacheに報告したけど脆弱性じゃないといわれた</li>
+<li>ISP 「このオブジェクトはここ」</li>
+<li>Opera独自エンジン presto</li>
+<li>Firefox5.0も同じように意外と動く</li>
+</ul></li>
+</ul></li>
+<li>正攻法でXSS
+
+<ul>
+<li>Chrome 普通にXSSいれても動かない</li>
+<li>ヘッダでX-XSS-Protectionを無効にしてXSSを起こす</li>
+<li>レスポンスヘッダを組み合わせると動くケースが出てくる</li>
+<li>今どきレスポンスヘッダインジェクションできないのでは?</li>
+</ul></li>
+<li>JSP の面白いレスポンスヘッダインジェクション
+
+<ul>
+<li>CentOS6 Apache 2.2.x とかちょっと古い組み合わせで</li>
+<li>ヘッダで改行ができてインジェクションできてしまう</li>
+</ul></li>
+<li>Set-Cookie
+
+<ul>
+<li>大量のクッキーを押し付けるとBad Requestになるケース</li>
+<li>リロードしてもBad Requestが続く</li>
+<li>クッキーをけすのも大変(位置が分からない)</li>
+<li>大量のクッキー押し付ける攻撃</li>
+</ul></li>
+<li>まとめ
+
+<ul>
+<li>古くからある変な挙動も面白い</li>
+<li>新しいものを作るときに意外と再熱する</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="karupanerura">karupanerura</h2>
+
+<ul>
+<li>チート行為 - 2つの目的がある
+
+<ul>
+<li>自分自身が有利になる
+
+<ul>
+<li>偽の情報を送り付ける</li>
+</ul></li>
+<li>ユーザーへ不利益を与えるもの</li>
+</ul></li>
+<li>サーバに送信するデータを偽装する</li>
+<li>防ぎたいチート行為
+
+<ul>
+<li>ただでもできる</li>
+<li>簡単にできる</li>
+<li>ほかのユーザーに影響を与えられる</li>
+</ul></li>
+<li>ヤバいやつ
+
+<ul>
+<li>ブックマークレットで出来るチート行為
+
+<ul>
+<li>XHRでAPIにデータ送信</li>
+<li>フロントに処理を置くケースが増えてきている</li>
+</ul></li>
+<li>位置情報を使ったゲームの偽装
+
+<ul>
+<li>デバイスデータの偽装は対応しにくい</li>
+</ul></li>
+</ul></li>
+<li>目指したいレベル
+
+<ul>
+<li>だれでもチートできる 状況を避ける
+
+<ul>
+<li>少数なら手動でBANする</li>
+</ul></li>
+<li>ブックマークレットなどでできないようにする</li>
+</ul></li>
+<li>Same Origin Policy
+
+<ul>
+<li>同一Originに対してのみ権限を与える</li>
+<li><a href="http://d.hatena.ne.jp/hasegawayosuke/20130330/p1" title="Same-Origin Policy とは何なのか。 - 葉っぱ日記">Same-Origin Policy とは何なのか。 - 葉っぱ日記</a></li>
+</ul></li>
+<li>オフレコーオフレコー
+
+<ul>
+<li>チート対策を完璧にやるのは難しいので、簡単には出来なくさせるにはどうするかという話</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="直ってないgoogleの脆弱性---ma.la">直ってないGoogleの脆弱性 - ma.la</h2>
+
+<ul>
+<li>複数バグ報告したけど、片方のみ修正されてない</li>
+<li>オフレコーオフレコーデモーデモー</li>
+<li>まとめられなかった</li>
+</ul>
+
+<hr>
+
+<h2 id="うわさのあれをゆるくmitmしてみた--ockeghem">うわさのあれをゆるくMITMしてみた- ockeghem</h2>
+
+<p>うわさのアレはオフレコ???</p>
+
+<!--
+- LINEの通信をMITMする話(キャプチャ)
+- LINE独自のデータ形式が気になる(独自形式?)
+- MITMしたらどうなる
+    - Burp Suiteでやりたい
+    - [Burp Suite](http://portswigger.net/burp/ "Burp Suite")
+- 検証環境
+    - 偽AP環境を作っておく
+    - 検証用の端末
+    - Burp Suite は 8080ポートで透過プロキシでキャプチャしてみる
+    - そのままだとログインできない
+- プロキシ切ってログイン後 -> プロキシつないでメッセージを送信
+    - 送信できた
+    - 同じメッセージを送っても`X-LCS`ヘッダというBase64とBodyが毎回違う
+    - `X-LCS`ヘッダの中身をデコードすると2048byteになる
+    - RSA-2048?
+    - Bodyも1-7byteは144、8byteごとに大きさが変わる(128ビット単位)
+- 画像を送信
+    - 画像はHTTPSで送信されていた
+    - 端末の方を改造して、SSLも無視して行けるようにしてるのでキャプチャできてる
+- その他
+    - 2014年2月のキャプチャではX-LCSは128bitだった
+    - RSA-1024 からRSA-2048になった?
+-->
+
+<hr>
+
+<h2 id="犯人を追いつめろ!---takesako">犯人を追いつめろ! - TAKESAKO</h2>
+
+<ul>
+<li>SECCON 2014年の夏予選</li>
+<li>CTFオンライン予選
+
+<ul>
+<li>LINEの乗っ取りチャットっぽい問題</li>
+<li>ソーシャルハックするCTF</li>
+<li>相手は人口無能</li>
+<li>画像をダウンロードさせる</li>
+<li>UAとかIPとかからVPSにアクセスできるヒントをくれる</li>
+<li>細かいギミックがある人口無能</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="文字列からhtmlを組み立てる話---hasegawa">文字列からHTMLを組み立てる話 - hasegawa</h2>
+
+<blockquote>
+<p><a href="http://utf-8.jp/public/20140807/shibuyaxss.pdf" title="shibuyaxss.pdf">shibuyaxss.pdf</a></p>
+</blockquote>
+
+<ul>
+<li>DOM based XSS</li>
+<li>文字列のサニタイズ
+
+<ul>
+<li>IEであれば、<code>toStaticHTML</code>が使える</li>
+<li>JavaScriptなどを削除したものを返してくれる</li>
+<li>IE以外はどうするのか
+
+<ul>
+<li>toStaticHTMLもどいきを作る?</li>
+<li>作るな!安全なものを探せ!</li>
+<li>Google Caja</li>
+</ul></li>
+<li>Google Caja
+
+<ul>
+<li>文字列をパースして安全なHTML文字列を組み立て</li>
+<li>遅い</li>
+</ul></li>
+</ul></li>
+<li>ブラウザ互換のパーサ
+
+<ul>
+<li>ブラウザ内蔵のパーサAPIを使う
+
+<ul>
+<li>DOMParser</li>
+<li>createHTMLDocument</li>
+</ul></li>
+<li><code>createHTMLDocument</code>によるパースとDOMノードの構築</li>
+<li>文字列をパースしてDOMノードを構築可能</li>
+<li>DOMノートから必要な要素、属性だけをホワイトリストで取得する</li>
+<li>DOMParserとcreateHTMLDocumentは現在表示してるdocumentに影響を与えない</li>
+</ul></li>
+<li>許可する要素、属性を列挙する?
+
+<ul>
+<li>JSONで許可リストを指定して処理するサニタイズのデモ</li>
+<li>許可したノードだけで構成されたノードを取得できる</li>
+</ul></li>
+<li>パースしたものを文字列に変換してはいけない
+
+<ul>
+<li>文字列 -&gt; Element -&gt; 文字列は 危険な可能性がある</li>
+<li>HTMLElementから文字列の変換は<strong>mXSS</strong>を引き起こす可能性がある</li>
+<li><code>&lt;listing&gt;&amp;lt;img....</code> というをDOMParserでパースして、それのinnerHTMLするとなぜか<code>&lt;img</code>になってしまう</li>
+<li>toStaticHTMLと分岐して文字列を返すような関数を作ったりするとやりがち</li>
+<li>返すときはElementのまま返して使おう</li>
+<li><a href="https://cure53.de/fp170.pdf" title="fp170.pdf">fp170.pdf</a></li>
+<li><a href="http://d.hatena.ne.jp/hasegawayosuke/20140508/p1" title="mXSS - Mutation-based Cross-Site-Scripting のはなし - 葉っぱ日記">mXSS - Mutation-based Cross-Site-Scripting のはなし - 葉っぱ日記</a></li>
+</ul></li>
+<li>バグがあっても平気なようにする
+
+<ul>
+<li>HTML5 sandbox iframeを使う</li>
+<li>sandbox属性によりJavaScriptを禁止する</li>
+<li>seamless属性により親のCSSを継承</li>
+<li>見かけ上は普通のコンテンツだけど、実行されても安全な場所が作れる</li>
+</ul></li>
+<li>まとめ
+
+<ul>
+<li>toStaticHTML便利(IE)</li>
+<li>DOMParser、createHTMLDocumentでHTML文字列をパースしてElement</li>
+<li>文字列 -&gt; Element -&gt; 文字列は 危険 mXSSの可能性</li>
+<li>sandbox iframeを使おう</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="その他">その他</h2>
+
+<p>メモ: <a href="http://www.omnigroup.com/omnioutliner" title="OmniOutliner">OmniOutliner</a></p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-08-08-shibuyaxss.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["XSS","イベント","Browser","JavaScript"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=XSS">XSS</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+                <li><a href="/tags/?q=Browser">Browser</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

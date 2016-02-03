@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        [pdf.js] テキスト選択出来るスライド表示ライブラリを書いた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,PDF,スライド" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/12/07/pdf.js-controller/">
+    <h1 class="post-title">[pdf.js] テキスト選択出来るスライド表示ライブラリを書いた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年12月07日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-12-07-pdf.js-controller.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="https://github.com/azu/pdf.js-controller" title="azu/pdf.js-controller">pdf.js-controller</a>というライブラリを書きました。</p>
+
+<p>名前の通り<a href="https://github.com/mozilla/pdf.js" title="mozilla/pdf.js">mozilla/pdf.js</a>を扱うものです。
+PDFをスライドのようなページめくりをするものを作るときに簡単に作れるようにする目的で作成しています。</p>
+
+<p>実際に以下のスライドはこのライブラリを使って動作しています。</p>
+
+<iframe src="http://azu.github.io/slide-pdf.js/?slide=http://azu.github.io/slide/2015/year-end/pdf.js.pdf" scrolling="no" style="border:0; background-color:white;" height="700" width="100%">
+</iframe>
+
+<blockquote>
+<p><a href="http://azu.github.io/slide/2015/year-end/pdf.js.html">http://azu.github.io/slide/2015/year-end/pdf.js.html</a></p>
+</blockquote>
+
+<h2 id="使い方">使い方</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install pdf.js-controller
+</code></pre></div>
+<p>インストールして、以下のように書くだけでとりあえずpdfを表示できます。
+普通にpdf.jsを扱うと文字列の選択ができない、日本語が文字化けする、リンクがクリック出来ないなどハマりどころがたくさんあります。</p>
+
+<p>このライブラリでは<a href="https://www.npmjs.com/package/pdfjs-dist" title="pdfjs-dist">pdfjs-dist</a>のディレクトリを<code>pdfDistDir</code>で指定する以外はあまり意識しなくても自動的にやってくれます。
+(<a href="https://www.npmjs.com/package/pdfjs-dist" title="pdfjs-dist">pdfjs-dist</a>はdependenciesとして入ってるので自動的に入ります)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// container element</span>
+<span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;pdf-container&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">PDFController</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;pdf.js-controller&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">controller</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDFController</span><span class="p">({</span>
+    <span class="nx">container</span><span class="o">:</span> <span class="nx">container</span><span class="p">,</span>
+    <span class="c1">// path to dir of pdfjs-dist</span>
+    <span class="nx">pdfDistDir</span><span class="o">:</span> <span class="nx">__dirname</span> <span class="o">+</span> <span class="s2">&quot;/node_modules/pdfjs-dist/&quot;</span>
+<span class="p">});</span>
+<span class="c1">// path to URL of pdf.</span>
+<span class="c1">// Apply CORS to this path. It means that the URL should be same origin.</span>
+<span class="kd">var</span> <span class="nx">PDFURL</span> <span class="o">=</span> <span class="s2">&quot;./example.pdf&quot;</span><span class="p">;</span>
+<span class="nx">controller</span><span class="p">.</span><span class="nx">loadDocument</span><span class="p">(</span><span class="nx">PDFURL</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">initializedEvent</span><span class="p">)</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">container</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">PDFController</span><span class="p">.</span><span class="nx">Events</span><span class="p">.</span><span class="nx">before_pdf_rendering</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// before render</span>
+<span class="p">});</span>
+<span class="nx">container</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">PDFController</span><span class="p">.</span><span class="nx">Events</span><span class="p">.</span><span class="nx">after_pdf_rendering</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+     <span class="c1">// after render</span>
+<span class="p">});</span>
+
+<span class="kd">function</span> <span class="nx">initializedEvent</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;resize&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">controller</span><span class="p">.</span><span class="nx">fitItSize</span><span class="p">();</span>
+    <span class="p">});</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">onkeydown</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">kc</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">shiftKey</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">ctrlKey</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">metaKey</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">kc</span> <span class="o">===</span> <span class="mi">37</span> <span class="o">||</span> <span class="nx">kc</span> <span class="o">===</span> <span class="mi">40</span> <span class="o">||</span> <span class="nx">kc</span> <span class="o">===</span> <span class="mi">75</span> <span class="o">||</span> <span class="nx">kc</span> <span class="o">===</span> <span class="mi">65</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// left, down, K, A</span>
+            <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+            <span class="nx">controller</span><span class="p">.</span><span class="nx">prevPage</span><span class="p">();</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">kc</span> <span class="o">===</span> <span class="mi">38</span> <span class="o">||</span> <span class="nx">kc</span> <span class="o">===</span> <span class="mi">39</span> <span class="o">||</span> <span class="nx">kc</span> <span class="o">===</span> <span class="mi">74</span> <span class="o">||</span> <span class="nx">kc</span> <span class="o">===</span> <span class="mi">83</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// up, right, J, S</span>
+            <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+            <span class="nx">controller</span><span class="p">.</span><span class="nx">nextPage</span><span class="p">();</span>
+        <span class="p">}</span>
+
+    <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><a href="https://www.npmjs.com/package/pdfjs-dist" title="pdfjs-dist">pdfjs-dist</a>には言語別の情報が入った<code>cmaps</code>というデータやWebWorkerのスクリプトが含まれています。
+そのため、ウェブに上げるときはpdfDistDirのディレクトリも参照出来る場所に必要です。</p>
+
+<h2 id="仕組み">仕組み</h2>
+
+<p>以下の画像をみてもらうと分かりますが、pdf.jsはCanvasとテキスト、アノテーションの3つのレイヤーを使って描画しています。</p>
+
+<p>Canvasにはそもそも文字列選択機能が存在しないため、このような作りになっています。
+つまりCanvasの描画の上に透明なdivにテキストを流しこんだり、クリック出来るようにリンクを置いたりしています。</p>
+
+<p>Firefoxの3D Viewで見てみるとそれぞれがレイヤーになっていることが分かりやすいです。</p>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Tools/3D_View" title="3D view - Firefox Developer Tools | MDN">3D view - Firefox Developer Tools | MDN</a></li>
+</ul>
+
+<p>全体像3D</p>
+
+<p><img src="https://monosnap.com/file/IowSnMYNqvBbU3sGCCd3o3U2DlVYnA.png" alt="3D View"></p>
+
+<p>CanvasはPDFの内容を描画しています。</p>
+
+<p><img src="https://monosnap.com/file/NjFOff5GhvGbB4I1XQKftvznz0bzD1.png" alt="Canvas Layer"></p>
+
+<p>テキストレイヤーにはテキストが流し込まれています。</p>
+
+<p><img src="https://monosnap.com/file/3rjEGpf4jm9phrC3R3oyj9ohjNoSEG.png" alt="Text Layer"></p>
+
+<p>アノテーションコンテナにはリンクなどのPDFにおけるアノテーション情報が入っています。</p>
+
+<p><img src="https://monosnap.com/file/BUFO9rYHuw0gK7UbhooUZ5tNRo7WCd.png" alt="Annotation Layer"></p>
+
+<p>デフォルトではCanvasのレイヤーしかないため、テキストやアノテーションは自分で行う必要があります。
+そこを作るのが複雑なので、今回はその辺を隠蔽した<a href="https://github.com/azu/pdf.js-controller" title="azu/pdf.js-controller">pdf.js-controller</a>を作りました。</p>
+
+<p>元々、<a href="https://github.com/azu/slide-pdf.js" title="azu/slide-pdf.js">azu/slide-pdf.js</a>で実装してありましたが、ライブラリとして切り離した感じです。</p>
+
+<ul>
+<li><a href="http://efcl.info/2014/10/07/pdf-presentation/" title="pdf.jsを使いブラウザで見られるPDFスライド表示ツールを作った | Web Scratch">pdf.jsを使いブラウザで見られるPDFスライド表示ツールを作った | Web Scratch</a></li>
+</ul>
+
+<p>FirefoxのビルトインのpdfビューアライクのUIを利用したいだけの場合は、<a href="https://github.com/mozilla/pdf.js/blob/master/web/viewer.html" title="pdf.js/viewer.html at master · mozilla/pdf.js">pdf.js/viewer.html at master · mozilla/pdf.js</a>あたりを見るといいです。(iframeで表示するとかできます)</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/05/04/pdf-annotation-markdown/" title="PDFを見ながらMarkdownでメモを取れるアプリを書いた | Web Scratch">PDFを見ながらMarkdownでメモを取れるアプリを書いた | Web Scratch</a></li>
+</ul>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p><a href="http://blog.onk.ninja/2015/12/02/release-sharedoc" title="スライド共有サービス sharedoc を作りました - onk.ninja">スライド共有サービス sharedoc を作りました - onk.ninja</a>を見ていて、未だにpdf.jsの扱いがとっても面倒そうだったのでライブラリとして切り出しました。</p>
+
+<p>pdf.jsは意外と動いて面白いのと、<a href="http://speakerdeck.com/">技術的</a>な<a href="http://niconare.nicovideo.jp/">スライドサービス</a>でリンクがクリック出来ないのは辛いので何か頑張って欲しいと思いました。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-12-07-pdf.js-controller.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","PDF","スライド"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=PDF">PDF</a></li>
+                
+                <li><a href="/tags/?q=スライド">スライド</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ES6 moduleのtop levelにある`this`の値は何になるのか? | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="ECMAScript,JavaScript,module" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/05/06/this-is-es6-module/">
+    <h1 class="post-title">ES6 moduleのtop levelにある`this`の値は何になるのか?</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年05月06日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-05-06-this-is-es6-module.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="知りたい事">知りたい事</h2>
+
+<ul>
+<li>ES6 moduleのtop levelにある<code>this</code>の値は何になるのか?</li>
+<li><a href="http://lealog.hateblo.jp/entry/2015/04/27/203147" title="Babelで top level this が undefinedになって困った件 - console.lealog();">Babelで top level this が undefinedになって困った件 - console.lealog();</a>
+
+<ul>
+<li><a href="https://babeljs.io/repl/#?experimental=true&amp;evaluate=true&amp;loose=false&amp;spec=false&amp;playground=false&amp;code=var%20that%20%3D%20this%3B">demo</a></li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// module.js
+console.log(this);// ???
+</code></pre></div>
+<hr>
+
+<h2 id="babel-前提">Babel 前提</h2>
+
+<ul>
+<li>Babelは入力されたコードをES6 moduleとして扱う</li>
+</ul>
+
+<blockquote>
+<p>Babel assumes that all input code is an ES6 module</p>
+</blockquote>
+
+<ul>
+<li><a href="https://babeljs.io/docs/faq/#why-is-this-being-remapped-to-undefined-" title="FAQ · Babel">FAQ · Babel</a></li>
+</ul>
+
+<p>(結論的には<code>--blacklist strict</code>でこの挙動は無効化できる)</p>
+
+<h2 id="es6-moduleの前提知識">ES6 moduleの前提知識</h2>
+
+<ul>
+<li>Environment Recordというのはそのスコープと変数を関連付けたりするような環境情報的なものを入れる場所
+
+<ul>
+<li>関数とかモジュールとかwith用みたいな何種類かある</li>
+</ul></li>
+<li>Moduleは<a href="http://people.mozilla.org/%7Ejorendorff/es6-draft.html#sec-module-environment-records" title="Module Environment Records">Module Environment Records</a>のを作ってそこに情報を記録する</li>
+<li><a href="http://people.mozilla.org/%7Ejorendorff/es6-draft.html#sec-module-environment-records" title="Module Environment Records">Module Environment Records</a>はdeclarative Environment Recordの一種で、加えてModule専用の記録領域がある(importのbindingのための場所)</li>
+<li>基本的な仕組みはdeclarative Environment Recordと同じ</li>
+</ul>
+
+<p>(Recordの所は実装してみないとイマイチピンと来ないので大分ぼやかしてます。
+Javaの実装見るとModuleEnvironmentRecordはDeclarativeEnvironmentRecordを継承するみたいなイメージでも良さそう)</p>
+
+<ul>
+<li><a href="https://github.com/anba/es6draft/blob/master/src/main/java/com/github/anba/es6draft/runtime/ModuleEnvironmentRecord.java" title="es6draft/ModuleEnvironmentRecord.java at master · anba/es6draft">es6draft/ModuleEnvironmentRecord.java at master · anba/es6draft</a></li>
+</ul>
+
+<h2 id="es6-thisの前提知識">ES6 <code>this</code>の前提知識</h2>
+
+<p><code>this</code>という値がどう解決されるか</p>
+
+<ul>
+<li><a href="http://people.mozilla.org/%7Ejorendorff/es6-draft.html#sec-resolvethisbinding" title="8.3.3 ResolveThisBinding ( )">8.3.3 ResolveThisBinding ( )</a></li>
+<li><a href="http://people.mozilla.org/%7Ejorendorff/es6-draft.html#sec-getthisenvironment" title="8.3.2 GetThisEnvironment ( )">8.3.2 GetThisEnvironment ( )</a></li>
+</ul>
+
+<p>のアルゴリズムによって決定される。</p>
+
+<p>2つをまぜると以下のような感じの構造</p>
+
+<ol>
+<li>Let envRec be GetThisEnvironment( ).
+
+<ol>
+<li>Let lex be the running execution context’s LexicalEnvironment. // &lt;= 今いるEnvironment(スコープみたいなもの)と取り出す</li>
+<li>Repeat
+
+<ol>
+<li>Let envRec be lex’s EnvironmentRecord.</li>
+<li>Let exists be envRec.HasThisBinding().// &lt;= そのEnvironment RecordsのHasThisBinding()を見る</li>
+<li>If exists is true, return envRec. // &lt;= trueを返してきたら＊へ</li>
+<li>Let outer be the value of lex’s outer environment reference.</li>
+<li>Let lex be outer.(Repeatへ戻る)</li>
+</ol></li>
+</ol></li>
+<li>Return envRec.GetThisBinding(). // ＊&lt;= そのEnvironment RecordsのGetThisBinding()が<code>this</code>の値になる</li>
+</ol>
+
+<p>擬似コード</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">GetThisEnvironment</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">lex</span> <span class="o">=</span> <span class="nx">currentLexicalEnvironment</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">envRec</span> <span class="o">=</span> <span class="nx">lex</span><span class="p">.</span><span class="nx">EnvironmentRecord</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">envRec</span><span class="p">.</span><span class="nx">HasThisBinding</span><span class="p">()){</span>
+            <span class="k">return</span> <span class="nx">envRec</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">lex</span> <span class="o">=</span> <span class="nx">envRec</span><span class="p">.</span><span class="nx">outer</span><span class="p">;</span>
+        <span class="c1">// 最後はglobalがlexに入る</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">envRec</span> <span class="o">=</span> <span class="nx">GetThisEnvironment</span><span class="p">();</span>
+<span class="nx">envRec</span><span class="p">.</span><span class="nx">GetThisBinding</span><span class="p">();</span> <span class="c1">// thisの値</span>
+</code></pre></div>
+<p>簡単にいえば、そのスコープが<code>HasThisBinding()</code>でtrueを返すなら<code>GetThisBinding();</code>の返り値が<code>this</code>の値になる。</p>
+
+<ul>
+<li><a href="https://github.com/anba/es6draft/blob/03cc13e31f686584072bcf8ca1a7cebb88edda37/src/main/java/com/github/anba/es6draft/runtime/ExecutionContext.java#L491" title="es6draft/ExecutionContext.java at 03cc13e31f686584072bcf8ca1a7cebb88edda37 · anba/es6draft">es6draft/ExecutionContext.java at 03cc13e31f686584072bcf8ca1a7cebb88edda37 · anba/es6draft</a></li>
+</ul>
+
+<hr>
+
+<h2 id="moduleのthis">Moduleのthis</h2>
+
+<p>Moduleはどこで作られるかというのは<a href="http://people.mozilla.org/%7Ejorendorff/es6-draft.html#sec-newmoduleenvironment" title="8.1.2.6 NewModuleEnvironment (E)">8.1.2.6 NewModuleEnvironment (E)</a>で定義されている。</p>
+
+<p>この内部メソッドを呼び出してるのは、<a href="http://people.mozilla.org/%7Ejorendorff/es6-draft.html#sec-moduledeclarationinstantiation" title="15.2.1.16.4 ModuleDeclarationInstantiation( ) Concrete Method">15.2.1.16.4 ModuleDeclarationInstantiation( ) Concrete Method</a>しかないので、</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">NewModuleEnvironment(realm.[[globalEnv]])
+</code></pre></div>
+<p>先ほどのmodule Environment Recordの<code>outer</code>にはglobal enviromentが入る。(prototypeチェーンみたいな話)</p>
+
+<h2 id="moduleのgetthisenvironment">ModuleのGetThisEnvironment</h2>
+
+<p>先ほど書いたように、<code>this</code>の値は、そのEnvironment(スコープ)の<code>env.GetThisBinding()</code>と<code>env.HasThisBinding()</code>で決まる。</p>
+
+<p>moduleのtop levelのコードから直近のEnvironmentはmodule Environmentなので、module Environmentの定義をみる。</p>
+
+<p><code>moduleEnvRecord.HasThisBinding()</code>がtrueを返すなら、<code>moduleEnvRecord.GetThisBinding()</code>が<code>this</code>の値になると言える。</p>
+
+<p>8.1.1.5 Module Environment Recordsで</p>
+
+<ul>
+<li><a href="http://people.mozilla.org/%7Ejorendorff/es6-draft.html#sec-module-environment-records-hasthisbinding" title="8.1.1.5.3 HasThisBinding ()">8.1.1.5.3 HasThisBinding ()</a></li>
+<li><a href="http://people.mozilla.org/%7Ejorendorff/es6-draft.html#sec-module-environment-records-getthisbinding" title="8.1.1.5.4 GetThisBinding ()">8.1.1.5.4 GetThisBinding ()</a></li>
+</ul>
+
+<p>に書いてあるように、moduleEnvRecordの<code>HasThisBinding()</code>はtrueを返す。
+つまり、moduleEnvRecordの<code>GetThisBinding()</code>が<code>this</code>の値になるので、moduleの<code>this</code>はundefeinedになる。
+という結論</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">8.1.1.5.3 HasThisBinding ()
+
+Module Environment Records provide a this binding.
+
+    Return true.
+
+8.1.1.5.4 GetThisBinding ()
+
+    Return undefined.
+</code></pre></div>
+<hr>
+
+<h2 id="結論">結論</h2>
+
+<p>BabelがコードをES6 moduleとして扱うなら、top levelの<code>this</code>がundefinedになるのは仕様。</p>
+
+<p>Babelにissueを立てるならば、なぜ全てをES6 moduleとして扱うのか?が焦点。</p>
+
+<p>また、この挙動は<code>--blacklist strict</code>で無効化するオプションが用意されている。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ babel --blacklist strict script.js
+</code></pre></div>
+<ul>
+<li><a href="https://babeljs.io/docs/faq/#why-is-this-being-remapped-to-undefined-" title="Why is this being remapped to undefined?">Why is this being remapped to undefined?</a></li>
+</ul>
+
+<p>であってると思うのだけれど、間違っているなら修正したいので<a href="https://github.com/efcl/efcl.github.io/issues" title="Issues · efcl/efcl.github.io">Issues</a>か<a href="https://github.com/efcl/efcl.github.io/pulls" title="Pull Requests · efcl/efcl.github.io">Pull Requests</a>お願いします。</p>
+
+<h3 id="おまけ">おまけ</h3>
+
+<p>ES6 DraftはRev 38もあるぐらい結構更新されてFinal Draftが今でてる感じです。
+Moduleは特に色々変更があったと思うので、diffからこれが何時入ったのか見てみます。</p>
+
+<h3 id="答え合わせ">答え合わせ</h3>
+
+<p><blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">ES6 final tweaks #6: at the top level of a module, the this binding evaluates to undefined.</p>&mdash; Allen Wirfs-Brock (@awbjs) <a href="https://twitter.com/awbjs/status/535920492486483968">November 21, 2014</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<blockquote>
+<p>The this binding at the top level of a module has the value undefined.</p>
+</blockquote>
+
+<p><a href="http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts#december_6_2014_draft_rev_29" title="December 6, 2014 Draft Rev 29">December 6, 2014 Draft Rev 29</a>の変更点</p>
+
+<p>diffがハイライトされたpdf with rev29 change markupで確認できる。</p>
+
+<p><img src="http://monosnap.com/image/anxlOI4AHisPwLgNbAZjQ89XCzKfmD.png" alt="img"></p>
+
+<h3 id="テキストdiffを確認">テキストDiffを確認</h3>
+
+<p>テキストベースでES6 Draftの各Rev毎をGitのコミットにして検索できる仕組みを作りました。</p>
+
+<ul>
+<li><a href="https://github.com/efcl/efcl.github.io/issues/82" title="ECMAScript 6 diff検索の仕組み · Issue #82 · efcl/efcl.github.io">ECMAScript 6 diff検索の仕組み · Issue #82 · efcl/efcl.github.io</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">git clone https://github.com/meta-ecmascript/es6-draft-revision.git
+<span class="nb">cd </span>es6-draft-revision
+git show rev29 <span class="p">|</span> grep <span class="s2">&quot;return undefined&quot;</span> -i -C <span class="m">10</span> <span class="p">|</span> grep <span class="s2">&quot;CreateImportBinding&quot;</span> -B 14
+</code></pre></div>
+<p>output: </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">--
+--
+ deletable.
+
++HasThisBinding ()
++
++Module Environment Records provide a THIS binding.
++
++1.  Return TRUE.
++
++GetThisBinding ()
++
++1.  Return UNDEFINED.
++
+ CreateImportBinding (N, M, N2)
+--
+
+ The concrete Environment Record method CreateImportBinding for module
+</code></pre></div>
+<h3 id="git-logから検索">git logから検索</h3>
+
+<p>コミットの差分から検索したかったけど、何か上手くマッチしない…</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">git log --perl-regexp -i -G &quot;GetThisBinding(.|\n)*?Return UNDEFINED&quot;
+</code></pre></div>
+<p><code>--perl-regexp</code>でperlの正規表現使えた方がいいので、gitを入れるときに<code>brew install git --with-pcre</code>で入れてる。</p>
+
+<ul>
+<li><a href="http://d.hatena.ne.jp/idesaku/20111001/1317483481" title="git-grepでPerlの正規表現が使える…ぞ？ Part.2 - idesaku blog">git-grepでPerlの正規表現が使える…ぞ？ Part.2 - idesaku blog</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-05-06-this-is-es6-module.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["ECMAScript","JavaScript","module"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=ECMAScript">ECMAScript</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=module">module</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

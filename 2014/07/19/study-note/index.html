@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        勉強会でのメモの取り方について | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="イベント,Markdown,アウトラインメモ" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/07/19/study-note/">
+    <h1 class="post-title">勉強会でのメモの取り方について</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年07月19日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-07-19-study-note.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>この記事では自分なりの勉強会でのメモの取り方についてメモしたものです。</p>
+
+<p>今までに参加してきた<a href="http://efcl.info/categories/#%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88" title="イベント">イベント</a>では、
+大体メモを取っていて&quot;〜アウトラインメモ&quot;とかいうタイトルで公開してあります。</p>
+
+<h2 id="書くツール">書くツール</h2>
+
+<p>メモを取るにはエディタとかツールが結構大事で、書くのに集中し過ぎると話をちゃんと聞けないし、
+話に集中してるとメモを書かなくなったりします。</p>
+
+<p>なので、画面を見なくても入力できるような手に馴染む感じのツールを見つけて使うのがいいと思います。</p>
+
+<p>以下が使ってきたツールの変遷ですが、出力は常にMarkdownにしていたので、
+基本的にはMarkdownエディタが中心となってます。</p>
+
+<ul>
+<li><a href="http://www.inkcode.net/qute" title="Qute for PC/Mac">Qute for PC/Mac</a></li>
+<li><a href="http://mouapp.com/" title="Mou">Mou</a> なんだかんだ一番使ってた</li>
+<li><a href="https://itunes.apple.com/jp/app/markdown-life/id594391345?mt=12" title="Markdown Life">Markdown Life</a></li>
+<li><a href="http://pad.haroopress.com/" title=" Haroo Pad ">Haroo Pad</a></li>
+<li><a href="http://www.texts.io/" title="Texts — Markdown Word Processor for Mac OS X and Windows">Texts</a></li>
+<li><a href="http://www.omnigroup.com/omnioutliner" title="OmniOutliner">OmniOutliner</a></li>
+</ul>
+
+<p>アウトライン的に使う場合、Markdownエディタだと<a href="http://mouapp.com/" title="Mou">Mou</a>が安定して使いやすい方だと思います。</p>
+
+<p>今だとMouの後継を目指して開発してる<a href="http://macdown.uranusjr.com/" title="MacDown">MacDown</a>とか面白いと思います。</p>
+
+<p>基本的にリストで書いていくので、<code>-</code>が自動で入るとか、Tabを押した時にリストもインデントしてくれるかが、
+入力のテンポの大きく関わってくるのでエディタは馴染むものを選ぶといいかと思います。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">- リスト
+    - 書いていく
+    - と思うので
+- リストマークの自動入力が大事
+</code></pre></div>
+<p>上に載せてないですが、<a href="http://dayoneapp.com/" title="Day One">Day One</a>とかがこのリスト周りの動きの出来がいいと思います。
+(iOS版もアウトラインに絞ると中々いい感じ)</p>
+
+<p><img src="http://i.gyazo.com/465772eac81687cb97b9882b95a5af58.gif" alt="dayone"></p>
+
+<p>後、最初の頃は<a href="http://www.inkcode.net/qute" title="Qute for PC/Mac">Qute for PC/Mac</a>というのを使っていて、
+このアプリは幻の<a href="https://mozillalabs.com/en-US/chromeless/" title="Chromeless Browser">Chromeless Browser</a>を使ったHTML/CSS/JSのアプリです。</p>
+
+<p>普通のエディタとちょっと違って改行でそれぞれブロックが別れる感じになっていて、
+カチッとハマると見た目もキレイで結構良かった記憶があります。(ものすごく癖があるので使いやすくはない)</p>
+
+<p><img src="https://skitch-img.s3.amazonaws.com/20111227-cm4qpnpk4f9fcnh7j6ieh76csx.png" alt="Qute"></p>
+
+<p>この辺は慣れてる/好きなエディタを使えばいいと思います。(普通にAtomとかVimとかの方が何だかんだ自由度高い)</p>
+
+<p>最近になって、そもそもアウトライン的に書いてるんだからアウトライナーを使って書けばいいじゃんという事に気づいて、
+<a href="http://www.omnigroup.com/omnioutliner" title="OmniOutliner">OmniOutliner</a> を使い始めました。</p>
+
+<h3 id="omnioutliner">OmniOutliner</h3>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/07/2014-07-18_20-02-33.jpg" alt="omnioutliner"></p>
+
+<p>OmniOutlinerはアウトライナーなので当たり前ですが、タブでインデントレベルの変更ができることや、
+<strong>CONTENTS</strong>に表示する部分をフィルターしたり、入力は結構快適です。</p>
+
+<p><img src="http://gyazo.com/8b401092165dcb4dbb7681dcbcc56b02.gif" alt="gif"></p>
+
+<h4 id="欠点">欠点</h4>
+
+<p><a href="http://www.omnigroup.com/omnioutliner" title="OmniOutliner">OmniOutliner</a>は、
+Markdownに対応してない以外は使いやすいですが、そもそもMarkdownのエクスポートに対応していません。</p>
+
+<p><a href="https://github.com/fletcher/Markdown.ooxsl" title="fletcher/Markdown.ooxsl">fletcher/Markdown.ooxsl</a>
+というプラグインが一応あるのですが、ちゃんと動いてな気がします。</p>
+
+<p>HTMLやtxtやwordなどエクスポートできるのですが、機械に優しいフォーマットがOPMLしかないため、
+OPMLとしてエクスポートしてそれをMarkdownに変換して使っています。
+(一応OmniOutlinerのファイル自体がXMLなのでそれを見るという手段もある)</p>
+
+<p>OPMLをパースして(JSONにしてから)、Markdownに変換するNodeで書いたコマンドラインツールを使っています。</p>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">opml-to-markdown -e file.opml --require lib/build-markdown.js # markdownに変換される</span>
+</code></pre></div>
+<ul>
+<li><a href="https://github.com/azu/opml-to-markdown" title="azu/opml-to-markdown">azu/opml-to-markdown</a></li>
+</ul>
+
+<p>これを使って作ったMarkdownファイルで<a href="https://github.com/jdan/cleaver" title="Cleaver">Cleaver</a>のスライドを作ったりもします。</p>
+
+<p>生成したMarkdownを直接整えてブログとして公開するため、OmniOutlinerのファイル自体は使い捨てです。</p>
+
+<p>ツールの話はこの辺で終わりにして、まとめると好きなモノを使いましょうということです。</p>
+
+<h2 id="なぜメモるか">なぜメモるか</h2>
+
+<p>自分の場合は、大体スライドのページと喋ってるテーマに合わせてアウトラインでメモしています。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">- ページタイトル
+    - ページについていってること
+    - リンクとか
+    - 喋ってることとか
+    - 次のページに行ってもテーマが同じなら続ける
+        - 更にネストすることもある
+- 次の次のページのタイトル/テーマ
+    - ほげほげ
+- まとめ
+    - ページ/テーマを塊としてアウトラインを作る
+    - テーマで塊をつくるので、書く場所が前後することある
+    - ネストの深さはあんまり気にしない!
+</code></pre></div>
+<p>なので、発表聞きながらスライドを書いてるような気分になれます!
+(後述しますが、どれだけ手を抜くかが大切だと思います)</p>
+
+<p>そもそも何でメモしているかというと、自分の場合は3日経つと忘れるので、
+忘れないためにメモるというのがあると思います。</p>
+
+<p>聞きながらメモって手を動かした方が感覚的に覚えていられる気がするし、後から見られるのが便利です。</p>
+
+<h3 id="twitterとメモ">Twitterとメモ</h3>
+
+<p>一言にメモといっても、上記のようにアウトラインで書くのが一応メインですが、
+発表中にハッシュタグをつけてTwitterに投げるのもメモの一つだと思います。</p>
+
+<p>エディタで書くのと違ってTwitterに書いた場合は、時間と前後のTweetsからコンテキストが補完されるので、
+普通にメモするよりも情報量的に優れてる場合もあります。</p>
+
+<p>また、エディタにメモを書きながら、必要ならそれをコピペしてTwitterにも投げると、
+メモに時間軸の情報がつくので便利な事があります。</p>
+
+<h2 id="どこに集中するか">どこに集中するか</h2>
+
+<p>最初にも書いてましたが、書く事と聞く事のバランスを考えるのは結構大変ですが、
+基本的に慣れというしか無い気がします。</p>
+
+<p>自分的な考えだと、&quot;聞く&quot;はしゃべる人のペースがあるので、こちら側で調整出来ませんが、
+&quot;書く&quot;は自分でペースや量を変えられるので、&quot;聞く&quot;に合わせて書いていくのがいいと思います。</p>
+
+<p>例えば、多くの勉強会は後でスライド(大きめだとUstも)が公開されるので、
+スライドに書かれている内容は別に細かくメモしなくてもいいですね。</p>
+
+<p>他にも色々書く手間は削る事ができると思います。</p>
+
+<ul>
+<li>Twitterのハッシュタグを見て、誰かが分かりやすい事いってたらURLでメモする</li>
+<li>イベントのスケジュールと発表内容は公開されてるので、事前にアウトラインに発表タイトルを並べておく</li>
+<li>スライドが事前に公開されてるなら、そっからコピペする</li>
+</ul>
+
+<p>スライドに合わせてメモすると、スライドをめくるペースが早い人(mizchiさんとか)がメモ的に辛いので、
+そういう時は気になる部分だけを書くとか諦めが肝心です。</p>
+
+<p>デモが中心だとあんまりメモる事がなくなりますが、
+写真とか動画とかとっておくと便利なのかもしれないですね(あんまりしないですが、やっぱり後から見ると情報量が違う)。</p>
+
+<h2 id="記憶からのメモ">記憶からのメモ</h2>
+
+<p>勉強会だとPCを開いているので普通にメモればいいですが、
+飲み会とか懇談会的なものは皆PC閉じてる事が多いためメモしてないです。</p>
+
+<p>自分が <a href="http://efcl.info/2014/0415/res3844/" title="テストとセキュリティの葉桜JSに参加してきた | Web Scratch">飲み会</a>とか
+<a href="http://efcl.info/2014/0401/res3779/" title="寿司jsでPromisesの基礎について発表してきた | Web Scratch">食事</a>とかに
+<a href="http://efcl.info/2014/0528/res3914/" title="#うどんJS でnode-webkitと一人で使うGithub Issueについて発表してきた | Web Scratch">参加</a>すると
+なぜか<a href="http://efcl.info/2014/0403/res3793/" title="桜JSでご飯を食べながらLT大会をした | Web Scratch">LT大会</a>が始まるため、
+メモっておきたいことが良くあります。</p>
+
+<p>そういう時は、Twitterに適当に書いておくということをよくやります。
+それを元に後からメモを構成し直すという事をやってました(大体帰りのうちにやっておかないと記憶が飛ぶのが難点)</p>
+
+<p>まあ、普通に疲れるので正直これはそういう意識でやらないと辛い。</p>
+
+<p>でも、先程も書いたようにTwitterになげるだけて情報量が付加されるのは便利で、
+意外と飛び飛びでかいても後から記憶と合わせて補完できたりするので、記憶は不思議な感じです。</p>
+
+<p>勉強会の方も含めてTwitterに書くときに意識的にやってるのが、
+話の区切りが変わったら書くということを良くしている気がします。</p>
+
+<p>勉強会なら、「発表テーマ - @アカウント」みたいな<a href="https://twitter.com/azu_re/status/488216087092142080">発表者区切りでTweet</a>したり、
+飲み会的なものだと「〜のはなし」みたいな<a href="https://twitter.com/azu_re/status/451323593104707584">区切りのTweet</a>を書いたりしてる事が多いです。</p>
+
+<p>こういう目印的な区切りがあると後から整理しやすいと思います。</p>
+
+<h2 id="なぜ公開するのか">なぜ公開するのか</h2>
+
+<p>基本的に非公開なイベントじゃなければ、公開しない理由は特にないので公開してる感じです。</p>
+
+<p>勢いでメモを書いて、大して整理しないで公開するので大量の誤字/脱字とか間違いもありますが、
+公開して間違いの指摘がきたら直せばいいと思います。
+(そこまで間違って深刻になる内容について勉強会だと話さないと思うので)</p>
+
+<p>typoについては正直諦めていて、アウトライン的なメモだとそこまでしっかり読む人もいないと思うので、
+まあ気にしないほうがいいのではないかと考えています。</p>
+
+<p>またこのブログだと、GitHubから <a class="btn edit-on-github"
+   href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-07-19-study-note.md"><span
+        class="edit-on-github-label">修正リクエスト</span></a>
+を送れるので細かいことはやる気がある人が修正を送ってくれるかもしれません。</p>
+
+<p>後、メモを公開すると参加者や発表者がメモに対して補足等してくれることがあります。
+そういうのが得られるのはメモを公開する利点といえると思います。</p>
+
+<p>レポートとかそういう写真がいっぱいでキレイな感じの内容は<a href="http://gihyo.jp/news/report" title="レポート">本職の人</a>に任せればいいので、
+雑なメモでも公開する意味はあるんじゃないかと思います。</p>
+
+<p>ブログ書くまでが勉強会なのでもっとメモを積極的に公開していくといいですね。</p>
+
+<p>以上でメモ終了です。</p>
+
+<ul>
+<li>メモ
+
+<ul>
+<li>WebStorm</li>
+</ul></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-07-19-study-note.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["イベント","Markdown","アウトラインメモ"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+                <li><a href="/tags/?q=Markdown">Markdown</a></li>
+                
+                <li><a href="/tags/?q=アウトラインメモ">アウトラインメモ</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

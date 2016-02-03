@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        material-fluxというFluxライブラリをREADME駆動で開発した | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,Flux,library,ES6" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/03/17/material-flux/">
+    <h1 class="post-title">material-fluxというFluxライブラリをREADME駆動で開発した</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年03月17日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-03-17-material-flux.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="flux">Flux</h1>
+
+<p><a href="https://github.com/azu/material-flux" title="azu/material-flux">material-flux</a>というFluxアーキテクチャの実装ライブラリを書きました。</p>
+
+<p><a href="http://facebook.github.io/flux/" title="Flux">Flux</a>って何?と思う人は以下などを見ると良さそうな気がします。</p>
+
+<ul>
+<li><a href="https://egghead.io/series/react-flux-architecture" title="React: Flux Architecture - Video Tutorial Series @eggheadio">React: Flux Architecture - Video Tutorial Series @eggheadio</a></li>
+<li><a href="http://saneyukis.hatenablog.com/entry/2014/12/24/014421">Fluxとはなんだったのか + misc at 2014 - snyk_s log</a></li>
+<li><a href="http://saneyukis.hatenablog.com/entry/2014/09/26/174750">Fluxアーキテクチャの覚え書きを書いた - snyk_s log</a></li>
+<li><a href="http://www.jackcallister.com/2015/02/26/the-flux-quick-start-guide.html">The Flux Quick Start Guide</a></li>
+<li><a href="https://scotch.io/tutorials/getting-to-know-flux-the-react-js-architecture">Getting To Know Flux, the React.js Architecture ♥ Scotch</a></li>
+<li><a href="http://jaysoo.ca/2015/02/06/what-the-flux/" title="What the Flux? (On Flux, DDD, and CQRS) — Jack Hsu">What the Flux? (On Flux, DDD, and CQRS) — Jack Hsu</a></li>
+</ul>
+
+<h2 id="なぜ作ったか">なぜ作ったか</h2>
+
+<p>IDE readable(machine readable)なライブラリが欲しかったのがひとつの理由です。(d.tsなどを書けばだいたい問題ないですが、特殊なハックはしないという制限が欲しかった)</p>
+
+<p>Fluxライブラリの実装比較をしてる<a href="https://github.com/voronianski/flux-comparison" title="voronianski/flux-comparison">voronianski/flux-comparison</a>や<a href="https://reactjsnews.com/the-state-of-flux/" title="The State of Flux">The State of Flux</a>などを出てくるライブラリなどを試しましたが、殆どのライブラリは</p>
+
+<ul>
+<li>オブジェクトを渡したら、それに合わせたメソッドの生成
+
+<ul>
+<li><code>createActions</code>や<code>createStore</code>のような仕組みでStoreなどを作る</li>
+<li>d.tsでカバーできるけど。。。</li>
+<li>=&gt; ユーザが触るのは普通に定義した関数に直接呼ぶ形にしたかった</li>
+</ul></li>
+<li>動的なメソッドの上書き
+
+<ul>
+<li>Proxy的なことをやってる</li>
+<li>=&gt; ES6 Proxyがあればありかもしれないけど、現状だとただのメソッドの上書き</li>
+<li>Shapeが壊れる可能性がありそう</li>
+</ul></li>
+<li>Dispatcherがシングルトンになってる
+
+<ul>
+<li>たいていはシングルトンで問題なさそう</li>
+<li>実装もシングルトンだと簡単になる</li>
+<li>けど何か気持ち悪さがある</li>
+</ul></li>
+</ul>
+
+<p>のようなちょっとしたハックをした実装があったので、勉強も兼ねて<a href="https://github.com/azu/material-flux" title="azu/material-flux">material-flux</a>を書きました。</p>
+
+<h2 id="material-fluxの使い方"><a href="https://github.com/azu/material-flux" title="azu/material-flux">material-flux</a>の使い方</h2>
+
+<p>material-fluxはES6 classを前提としたAPIを組み立てていたので、<a href="https://babeljs.io/" title="Babel · The transpiler for writing next generation JavaScript">Babel</a> などと共に使うような想定になっています。
+<a href="https://github.com/acdlite/flummox" title="Flummox">Flummox</a>などとかなり近い(実際に参考にした)形になっています。</p>
+
+<h3 id="action">Action</h3>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span><span class="nx">Action</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;material-flux&quot;</span>
+<span class="c1">// ただの定数なので、任意の文字列であればいいです。</span>
+<span class="c1">// {&quot;dosome&quot; : Symbol(&quot;key&quot;)} とかでも問題ない</span>
+<span class="c1">// export var doSomeKey = &quot;unique value&quot;; を並べる感じでも良い</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">keys</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;doSomething&quot;</span><span class="o">:</span> <span class="s2">&quot;unique value&quot;</span>
+<span class="p">};</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">UserAction</span> <span class="kr">extends</span> <span class="nx">Action</span> <span class="p">{</span>
+    <span class="c1">// UserAction#doSomething</span>
+    <span class="nx">doSomething</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+        <span class="c1">// pass the `data` to Store&#39;s `onHandler`</span>
+        <span class="c1">// call `onHandler(data);`</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">doSomething</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="store">Store</h3>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span><span class="nx">keys</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;./UserAction.js&quot;</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">Store</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;material-flux&quot;</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">UserStore</span> <span class="kr">extends</span> <span class="nx">Store</span> <span class="p">{</span>
+   <span class="nx">constructor</span><span class="p">(</span><span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+       <span class="kr">super</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+           <span class="nx">userData</span><span class="o">:</span> <span class="kc">null</span>
+       <span class="p">};</span>
+       <span class="c1">// keys文字列を使ってActionとHandlerを結ぶ</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">doSomething</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onHandler</span><span class="p">);</span>
+   <span class="p">}</span>
+
+   <span class="c1">// data is come from Action</span>
+   <span class="nx">onHandler</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+           <span class="nx">userData</span><span class="o">:</span> <span class="nx">data</span>
+       <span class="p">});</span>
+   <span class="p">}</span>
+
+   <span class="c1">// ただのgetする関数</span>
+   <span class="nx">getUserData</span><span class="p">()</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">userData</span><span class="p">;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="context">Context</h3>
+
+<p>ActionとStoreを結ぶための中間者。
+Dispatcherはここでインスタンス化されて、一つのContextが一つのDispatcherを持っている。</p>
+
+<p>Actionに対しては<code>dipatch</code>というDispatcherを呼ぶ関数を与えて、Storeに対しては<code>dispatch</code>された時にどのHandlerがよばれるかを登録する<code>register</code>という関数を渡す。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="nx">UserAction</span> <span class="nx">from</span> <span class="s2">&quot;./UserAction.js&quot;</span>
+<span class="kr">import</span> <span class="nx">UserStore</span> <span class="nx">from</span> <span class="s2">&quot;./UserStore.js&quot;</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">Context</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;material-flux&#39;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">UserContext</span> <span class="kr">extends</span> <span class="nx">Context</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">userAction</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UserAction</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">userStore</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UserStore</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>使うときは単純なES6 classなので、</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">userContext</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UserContext</span><span class="p">();</span>
+<span class="nx">userContext</span><span class="p">.</span><span class="nx">userAction</span><span class="p">.</span><span class="nx">doSomething</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p>という形でActionを呼ぶことができるようになる。</p>
+
+<h3 id="view(component)">View(Component)</h3>
+
+<p>実際に使うときは、ReactなどのViewを担当するものへ<code>Context</code>のインスタンスを渡して使ってもらう。
+ReactもES6 classで書けるので例では<code>React.Component</code>を継承しているけど、<code>this</code>のバインドの問題などあるので、<code>createClass</code>の方が使いやすいかもしれない。</p>
+
+<p>ReactのAPIは<code>componentDidMount</code>というメソッドを定義したらあるタイミングでよばれるというような一種の宣言的なAPIで、外から呼ばれるという訳でもないのでES6 classでない<code>createClass</code>を使うデメリットは少ない。(そとから呼び出すための補完がしにくくてもそこまで問題起きない)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">UserContext</span> <span class="nx">from</span> <span class="s1">&#39;./UserContext.js&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">App</span> <span class="nx">from</span> <span class="s1">&#39;./AppComponent.jsx&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UserContext</span><span class="p">();</span>
+<span class="nx">React</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">App</span><span class="p">,</span> <span class="p">{</span> <span class="nx">context</span> <span class="p">}),</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>AppComponent:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">userStore</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">userStore</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">userData</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">userStore</span><span class="p">.</span><span class="nx">getUserData</span><span class="p">()</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="nx">_onChange</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+            <span class="nx">userData</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">userStore</span><span class="p">.</span><span class="nx">getUserData</span><span class="p">()</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">userStore</span><span class="p">.</span><span class="nx">onChange</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_onChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="nx">componentWillUnmount</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">userStore</span><span class="p">.</span><span class="nx">removeAllChangeListeners</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="nx">onClick</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="p">{</span> <span class="nx">context</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+        <span class="nx">context</span><span class="p">.</span><span class="nx">userAction</span><span class="p">.</span><span class="nx">doSomething</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onClick</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="o">&gt;</span>
+                <span class="nx">userData</span><span class="o">:</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">userData</span><span class="p">}</span>
+            <span class="o">&lt;</span><span class="err">/div&gt;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><a href="https://github.com/azu/material-flux/tree/master/examples" title="examples">examples</a>やflux-comparisonの<a href="https://github.com/voronianski/flux-comparison/tree/master/material-flux" title="azu/flux-comparison at material-flux">material-flux実装バージョン</a>があるのでそちらも見てもらえるといいかもしれません。</p>
+
+<ul>
+<li><a href="https://github.com/voronianski/flux-comparison/tree/master/material-flux" title="flux-comparison/material-flux at master · voronianski/flux-comparison">flux-comparison/material-flux at master · voronianski/flux-comparison</a></li>
+</ul>
+
+<h2 id="readme駆動開発">README駆動開発</h2>
+
+<p><a href="https://github.com/azu/material-flux" title="azu/material-flux">material-flux</a>は最初に上げた他のFluxライブラリの懸念点を回避するために、READMEを最初に書いてから実装を始めるREADME駆動開発をしました。</p>
+
+<ul>
+<li>---- APIの定義 - ドキュメントのみ ---- </li>
+<li><a href="https://github.com/azu/material-flux/pull/1">Imagine Store by azu · Pull Request #1 · azu/material-flux</a></li>
+<li><a href="https://github.com/azu/material-flux/pull/2">Imagine Action by azu · Pull Request #2 · azu/material-flux</a></li>
+<li><a href="https://github.com/azu/material-flux/pull/3">add Flux section by azu · Pull Request #3 · azu/material-flux</a></li>
+<li>--- 動かないサンプルコード ----</li>
+<li><a href="https://github.com/azu/material-flux/pull/5">add examples by azu · Pull Request #5 · azu/material-flux</a></li>
+<li>--- ここから実装 ----</li>
+<li><a href="https://github.com/azu/material-flux/pull/7" title="implementation material-flux by azu · Pull Request #7 · azu/material-flux">implementation material-flux by azu · Pull Request #7 · azu/material-flux</a></li>
+</ul>
+
+<p>で、実際にやってみてなかなか難しかった感じはしました。</p>
+
+<p>README的にはAPIのことだけを考えて書いていたので、それが本当に実現できるか細かいところまで検証してなかったので、最初に考えていた案はボツになったりしています。</p>
+
+<p>README駆動をするときは表面的なAPIだけじゃなくて、擬似コードか、テストファーストな感じなど内部的な動作の定義も何かしらのアプローチが必要な感じがしました。</p>
+
+<p>よかった点としては、ハックをなくすという最初に考えていた目標はちゃんと維持して実現できたのは良かったと思います。</p>
+
+<ul>
+<li><a href="https://efcl.wordpress.com/2014/12/31/%E5%AE%9F%E8%B7%B5%E7%9A%84%E3%81%AAreadme%E9%A7%86%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">実践的なREADME駆動について | GH Issue Note</a></li>
+<li><a href="https://oncletom.io/talks/2014/okfestival/#/">README Driven Development</a></li>
+</ul>
+
+<h2 id="学び">学び</h2>
+
+<p>学習目的で作り始めましたが、基本的にはFacebookのFluxと殆ど同じような感じで素に近い感覚の書き方ができるようなものができたと思います。</p>
+
+<p>今までDispatcherが隠されてるライブラリだと、どこでそれを渡してたりするのかが実装して明確に分かったのが良かった気がします。</p>
+
+<p>また<a href="https://github.com/azu/material-flux" title="azu/material-flux">material-flux</a>はES6 Classを使いまくるという趣旨だったので、使っていますが良いところと悪いところがあります。</p>
+
+<p>いいところは<code>constructor()</code>というイニシャライズする場所が決まってるので覚えやすい事、悪い所は<code>super()</code>周りに気を配る必要がある継承的な問題など。</p>
+
+<ul>
+<li><a href="http://www.2ality.com/2015/02/es6-classes-final.html#super-constructor_calls" title="Classes in ECMAScript 6 (final semantics)"><code>super()</code>の呼び忘れ</a>はネイティブだと<code>ReferenceError</code>になるが、Babel等のTranspilerでは<a href="http://tinyurl.com/lcqddxy">カバーできてない</a>こと</li>
+<li><code>super(args)</code> のように引数を渡すパターンだとユーザーは何を渡すか意識する必要があること
+
+<ul>
+<li>ライブラリ側(親クラス側)で<code>assert</code>等を使って条件を制限する実装が必要そう</li>
+</ul></li>
+<li><code>super(args)</code> と <code>callWithArgs(args)</code> のような関数呼び出しを比較すると情報量がやっぱり違うこと
+
+<ul>
+<li>ユーザーが親クラスを意識する必要があるのはちょっと大変な気がする</li>
+<li>意識させる実装が悪いというのもあるが、使いにくさの主な原因はこれな気がする</li>
+</ul></li>
+</ul>
+
+<p>などが書いていて思った感想で、この辺も今後考えていく必要がありそうです。</p>
+
+<p>しかし、下手な独自のインスタンス化する手法よりも、やり方がある程度一定になるので覚えることが少なくていいのはメリットだと思います。</p>
+
+<p>他には<code>React.Component</code>ではES6 classを使って書くと<code>this</code>が自動的にバインドされないため書きにくくなる感じはしました。</p>
+
+<p>これは以下のIssueでも議論されています。</p>
+
+<ul>
+<li><a href="https://github.com/facebook/react/issues/613#issuecomment-76588054">Use ES6 Classes to create React components. · Issue #613 · facebook/react</a></li>
+<li><a href="https://github.com/facebook/react/issues/3400">Components as ES6 classes · Issue #3400 · facebook/react</a></li>
+</ul>
+
+<p>クラスの継承の問題は古来より伝わるものらしいので詳しい人に任せますが、JavaScriptにもいわゆる<code>class</code>っぽいものがきたので、これからのライブラリAPIをどうするかはちょっと考えていかないといけなさそうな感じはしました。</p>
+
+<ul>
+<li><a href="http://joostdevblog.blogspot.jp/2014/07/why-composition-is-often-better-than.html" title="Joost&amp;#39;s Dev Blog: Why composition is often better than inheritance">Joost&#39;s Dev Blog: Why composition is often better than inheritance</a></li>
+<li><a href="http://postd.cc/why-composition-is-often-better-than-inheritance/" title="【翻訳】クラスの「継承」より「合成」がよい理由とは？ゲーム開発におけるコードのフレキシビリティと可読性の向上 | POSTD">【翻訳】クラスの「継承」より「合成」がよい理由とは？ゲーム開発におけるコードのフレキシビリティと可読性の向上 | POSTD</a></li>
+</ul>
+
+<p>ECMAScript 6の<code>class</code>は単なるシンタックスシュガーではなく、<code>Error</code>や<code>Array</code>、<code>Promise</code>といったネイティブオブジェクトを正しく継承するためにも必要です。</p>
+
+<p>ただし<code>class</code>構文じゃないとできないという訳ではなくて<code>Reflect.construct</code>などを使えば、同じようなことが書ける気がします?</p>
+
+<ul>
+<li><a href="http://www.2ality.com/2015/02/es6-classes-final.html" title="Classes in ECMAScript 6 (final semantics)">Classes in ECMAScript 6 (final semantics)</a></li>
+</ul>
+
+<p>ぐだぐだ書いてしまったので結論はありませんが、合成や継承にどんな手法を使うにしても、ヒューマンリーダブルかつマシンリーダブルな書き方というのは<a href="https://github.com/azu/material-flux/pull/8" title="Thought on functional by azu · Pull Request #8 · azu/material-flux">考えていく</a>必要がありそうです。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-03-17-material-flux.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","Flux","library","ES6"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=Flux">Flux</a></li>
+                
+                <li><a href="/tags/?q=library">library</a></li>
+                
+                <li><a href="/tags/?q=ES6">ES6</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

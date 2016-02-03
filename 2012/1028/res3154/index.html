@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        WebStormからtestacularでテストとデバッグをする方法 | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,test,WebStorm" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2012/1028/res3154/">
+    <h1 class="post-title">WebStormからtestacularでテストとデバッグをする方法</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2012年10月28日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2012/2012-10-28-webstorm%E3%81%8B%E3%82%89testacular%E3%81%A7%E3%83%86%E3%82%B9%E3%83%88%E3%81%A8%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%82%92%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://angularjs.org/">AngularJS</a>で使われてる<a href="http://vojtajina.github.com/testacular/">Testacular</a>では<a href="http://www.jetbrains.com/webstorm/">WebStorm</a>からテストを実行してデバッグする事を想定した作りになっています。<br>
+(AngularJS自体も<a href="http://plugins.intellij.net/plugin/?webide&amp;pluginId=6971">JetBrains Plugin Repository :: AngularJS</a>プラグインがあります)</p>
+
+<ul>
+<li>  <a href="http://vojtajina.github.com/testacular/">Testacular &#8211; Spectacular Test Runner for JavaScript</a></li>
+<li>  <a href="http://www.jetbrains.com/webstorm/">WebStorm</a> </li>
+<li>  <a href="http://testacular.readthedocs.org/en/latest/">Testacular Documentation — Testacular 0.2.1 documentation</a></li>
+</ul>
+
+<p>公式のデモ動画(<a href="http://www.youtube.com/watch?v=MVw8N3hTfCI">Testacular &#8211; JavaScript Test Runner &#8211; YouTube</a>)でもWebStorm Integrationが紹介されていますが、<br>
+ちょっと古くて設定が変わってる(一応キャプションで補足入ってる)のと分かりにくいので、その部分だけ抜き出して紹介します。</p>
+
+<p>この動画の大まかな流れ(文字潰れてるので画質HDにするといいです)</p>
+
+<p><a href="https://github.com/azu/testacular-webstorm">azu/testacular-webstorm · GitHub</a></p>
+
+<ol>
+<li> testacular.conf.jsの作成 </li>
+<li> testacular serverの起動(ブラウザ起動+キャプチャも自動で行われる)</li>
+<li> testicular runの実行</li>
+<li> テストケースの失敗とエラースタックトレース</li>
+<li> DOMを使ったテスト</li>
+<li> ブレークポイントを使ったデバッグ</li>
+<li> dump関数を使ったデバッグ</li>
+</ol>
+
+<p>という感じの流れです。</p>
+
+<p>サンプルのプロジェクトは以下に置いてあります。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/testacular-webstorm">azu/testacular-webstorm · GitHub</a></li>
+</ul>
+
+<p><img title="testacular-init.png" src="http://efcl.info/wp-content/uploads/2012/10/testacular-init.png" border="0" alt="Testacular init" width="548" height="344" /></p>
+
+<p>まずはtestacular initで設定ファイルを作成します。<br>
+対話式で作成できますが、直接testacular.conf.js等の設定ファイルを作っても問題ないです。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/testacular-webstorm/blob/master/testacular.conf.js">testacular-webstorm/testacular.conf.js at master · azu/testacular-webstorm · GitHub</a></li>
+</ul>
+
+<p>今回はJasmineとChromeを使うようにしています。</p>
+
+<p><img title="testacular.conf.js.png" src="http://efcl.info/wp-content/uploads/2012/10/testacular.conf_.js.png" border="0" alt="Testacular conf js" width="600" height="266" /></p>
+
+<p> </p>
+
+<p><a href="https://github.com/azu/testacular-webstorm/blob/master/testacular.conf.js">testacular.conf.js</a> を少し編集して、basePathを現在のディレクトリにして、</p>
+
+<p> </p>
+
+<pre>// web server port 
+port = 8989;
+// cli runner port 
+runnerPort = 9898; </pre>
+
+ 
+
+というように、被らなそうなポートに変更しています。(これは後でWebStormのConfigurationと合わせる必要があるので注意)
+
+次に、WebStormでtestacular serverのConfigurationを作成します。
+
+<img title="NewImage.png" src="http://efcl.info/wp-content/uploads/2012/10/NewImage1.png" border="0" alt="testacular server" width="600" height="363" />
+
+<pre>Type: Node.js
+Name: testacular server
+Path to Node App JS file: /path/to/testacular testacularバイナリへのパス
+Application parameters: start testacular.conf.js
+testacular.conf.jsは設定ファイル名</pre>
+
+これで作成した、testacular serverを実行すると http://localhost:8989 のローカルサーバが立ち上がって、Chromeがキャプチャされます。
+
+次に、testicular runのConfigurationを作成します。
+
+<img title="testacular-run.png" src="http://efcl.info/wp-content/uploads/2012/10/testacular-run.png" border="0" alt="Testacular run" width="600" height="476" />
+
+<pre>Type: Node.js
+Name: testacular run
+Path to Node App JS file: /path/to/testacular testacularバイナリへのパス
+Application parameters: run --runner-port 9898
+--runner-port 9898は設定ファイルのrunnerPortに合わせる</pre>
+
+で作成したら、testicular runでテストが実行できます。
+
+後は、テストファイルを書く度にrunしていけば確認できます。  
+<img title="error-test-1.png" src="http://efcl.info/wp-content/uploads/2012/10/error-test-1.png" border="0" alt="Error test 1" width="600" height="337" />
+
+testacularでは、テストが失敗した時に出るスタックトレースがWebStormに最適化されていて、  
+失敗したテストの行番号がリンクになるような形式で出力されます。
+
+
+
+スタックトレースはブラウザ間で出力形式が違うので、その辺を整えてくれてる感じです。
+
+*   [strawman:error_stack [ES Wiki]][9]
+
+次に、ブレークポイントを貼ってテストケースをステップ実行してデバッグする方法についてです。
+
+まずはWebStormからJavaScript Debug実行できるようにConfigurationを作成します。
+
+<img title="Run_Debug chrome.png" src="http://efcl.info/wp-content/uploads/2012/10/Run_Debug-chrome.png" border="0" alt="Run Debug chrome" width="600" height="254" />
+
+<pre>Type: JavaScript Debug
+Name: Chrome
+URL to open: http://localhost:8989/debug.html
+// ポートは設定ファイルのportに合わせます(debug.htmlは固定っぽい?)
+Remote URL : http://localhost:8989/base
+// 設定のbasePathのディレクトリのRemote URLに指定
+</pre>
+
+<p>という感じの設定ファイルを指定します。</p>
+
+<p>このConfigurationを<strong>Debug実行</strong>するとBrowserが起動します。<br>
+この時、testacular serverも<strong>Debug実行</strong>にしておいたほうが、Debugタブに統一できるので見やすくなる気がします。</p>
+
+<p><img title="chrome-debug-2.png" src="http://efcl.info/wp-content/uploads/2012/10/chrome-debug-2.png" border="0" alt="Chrome debug 2" width="589" height="600" /></p>
+
+<p>WebStormで任意の位置にブレークポイントを貼って、&#8221;Chrome Configuration&#8221;を実行すれば、<br>
+JavaScriptデバッガーでステップ実行や値のインスペクト等をWebStorm上で出来ます。</p>
+
+<p>最後は<a href="https://github.com/vojtajina/testacular/blob/stable/adapter/jasmine.wrapper#L7">window.dump</a>でのコンソール出力について</p>
+
+<p><img title="dump-1.png" src="http://efcl.info/wp-content/uploads/2012/10/dump-1.png" border="0" alt="Dump 1" width="600" height="412" /></p>
+
+<p>console.logを普通に書いても、ブラウザ側のコンソールに出力されて、testacular run側には表示されないようになっています。<br>
+今のところ、<a href="https://github.com/vojtajina/testacular/blob/stable/adapter/jasmine.wrapper#L7">jasmine.wrapper</a>と<a href="https://github.com/vojtajina/testacular/blob/stable/adapter/mocha.wrapper">mocha.wrapper</a>がありますが、両方共window.dumpというのが生えていて、<br>
+これを利用すると、 testacular run側のコンソールに出力されるみたいです。</p>
+
+<p>これで、<a href="http://vojtajina.github.com/testacular/">Testacular</a>と<a href="http://www.jetbrains.com/webstorm/">WebStorm</a>を使ったテスト実行については終わりです。<br>
+WebStormのJavaScriptデバッガーを使ったテストのデバッグ実行自体は、URLをキャプチャするような仕組みを持ったものなら大抵出来るはずなので (Buster.JSとかYetiとか)、<br>
+このような仕組みを使えば、テスト内にブレークポイントを貼って実行できると、特定のメソッドの動作確認もしやすいため便利です。</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/testacular-webstorm">azu/testacular-webstorm · GitHub</a></li>
+<li>  <a href="http://www.youtube.com/watch?v=YsHR4XBcO-4&amp;hd=1">testacular with WebStorm Integration &#8211; YouTube</a></li>
+</ul>
+
+<p>余談</p>
+
+<p>Nodeのバージョン管理に<a href="https://github.com/hokaccha/nodebrew">nodebrew</a>を使えば、Nodeへのパスを指定する際に現在のバージョンを示す、currentというエイリアスを指定できるので、<br>
+Nodeをアップデートしても同一のパスが使えるので便利だと思います。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2012/2012-10-28-webstorm%E3%81%8B%E3%82%89testacular%E3%81%A7%E3%83%86%E3%82%B9%E3%83%88%E3%81%A8%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%82%92%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","test","WebStorm"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=test">test</a></li>
+                
+                <li><a href="/tags/?q=WebStorm">WebStorm</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

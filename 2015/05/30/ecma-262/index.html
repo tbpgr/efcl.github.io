@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ECMA262読書会・1周年記念会でES6ドラフトのバージョン管理について発表してきた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="ECMAScript,JavaScript,Git" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/05/30/ecma-262/">
+    <h1 class="post-title">ECMA262読書会・1周年記念会でES6ドラフトのバージョン管理について発表してきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年05月30日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-05-30-ecma-262.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="https://ecma262reading.doorkeeper.jp/events/25174" title="ECMAScript6策定目前！ ECMA262読書会・1周年記念会 - ECMA262-Edition5.1読書会 | Doorkeeper">ECMAScript6策定目前！ ECMA262読書会・1周年記念会 - ECMA262-Edition5.1読書会 | Doorkeeper</a>に参加してきたのメモ</p>
+
+<hr>
+
+<h1 id="ecmascript6で何が変わるのか---竹迫良範">ECMAScript6で何が変わるのか - 竹迫良範</h1>
+
+<ul>
+<li><a href="http://ecma262.info/" title="【完全日本語訳＋解説】ECMA-262 Edition 5.1を読む">【完全日本語訳＋解説】ECMA-262 Edition 5.1を読む</a></li>
+<li>絶版になった</li>
+<li><a href="https://leanpub.com/understandinges6" title="Understanding… by Nicholas C. Zakas [Leanpub PDF/iPad/Kindle]">Understanding… by Nicholas C. Zakas [Leanpub PDF/iPad/Kindle]</a></li>
+<li>ES6だと新しいモノが色々入ってる
+
+<ul>
+<li><a href="https://github.com/lukehoban/es6features" title="lukehoban/es6features">lukehoban/es6features</a> に機能がまとまってる</li>
+</ul></li>
+<li>ISOのバージョンとかとややこしいのECMAScript 2015という名前に</li>
+<li>ES6の新しい機能</li>
+<li>Arrow Functions
+
+<ul>
+<li><code>=&gt;</code> </li>
+</ul></li>
+<li>Classes
+
+<ul>
+<li>クラス構文</li>
+</ul></li>
+<li>Enhanced Object Literal
+
+<ul>
+<li>methodのショートハンド</li>
+<li>Computed propety name</li>
+</ul></li>
+<li>Temlplate Strings
+
+<ul>
+<li>バッククオートで書ける</li>
+</ul></li>
+<li>Destructuring</li>
+<li>Default + Rest + Spread
+
+<ul>
+<li>引数のデフォルト値</li>
+</ul></li>
+<li>let + const</li>
+<li>iterators</li>
+<li>Unicode
+
+<ul>
+<li>吉野家 みたいなサロゲートペアを扱うことができるように</li>
+<li><code>//u</code>や<code>\u</code>、codePointAt</li>
+</ul></li>
+<li>Modules</li>
+<li>Module loaders</li>
+<li>WeakMap/WeakSet</li>
+<li>Proxy</li>
+<li>Symbol</li>
+<li>Math + Number + String API</li>
+<li><code>0b</code>や<code>0o</code> 2進数や8進数のリテラル表現</li>
+</ul>
+
+<p>などなど詳細は<a href="https://github.com/lukehoban/es6features" title="lukehoban/es6features">lukehoban/es6features</a>で</p>
+
+<hr>
+
+<h2 id="ecma262-edition-5.1読書会-ここまでのおさらい---@furandon_pig">ECMA262 Edition 5.1読書会 ここまでのおさらい - @furandon_pig</h2>
+
+<p><a href="http://www.slideshare.net/KitsuneTsuyusato/altes6-introduction" title="AltES6 Introduction">AltES6 Introduction</a></p>
+
+<ul>
+<li>ECMAScript 読書会</li>
+<li>ECMAScriptの仕様書をみんなで読み進める読書会</li>
+<li><a href="https://ecma262reading.doorkeeper.jp/" title="ECMA262-Edition5.1読書会 | Doorkeeper">ECMA262-Edition5.1読書会 | Doorkeeper</a></li>
+<li>ES5.1 仕様書の内容に沿って読み進めてる
+
+<ul>
+<li>第１２条まで読み進めてた</li>
+</ul></li>
+<li>第4条概要
+
+<ul>
+<li>ECMAScriptの概要</li>
+<li>言語仕様にとらわれない概要</li>
+<li>外部データや出力先は規定せず</li>
+<li>計算環境自体がホストオブジェクト</li>
+</ul></li>
+<li>ECMAScriptはオブジェクトベース
+
+<ul>
+<li>オブジェクトとはプロパティのコレクション</li>
+</ul></li>
+<li>プロパティとは
+
+<ul>
+<li>プリミティブ値と関数を格納するコンテナ</li>
+<li>プリミティブ値は最も低いレベルで扱うデータ
+
+<ul>
+<li>string</li>
+<li>number</li>
+<li>nullなど</li>
+</ul></li>
+</ul></li>
+<li>オブジェクトとメソッド</li>
+<li>&gt; ECMAScript does not use classes such as those in C++, Smalltalk, or Java.</li>
+<li><a href="http://people.mozilla.org/%7Ejorendorff/es6-draft.html#sec-objects">http://people.mozilla.org/~jorendorff/es6-draft.html#sec-objects</a></li>
+<li>クラス自体を持ってる訳ではなく、それを表現するためにオブジェクトなどを使うという話</li>
+<li>オブジェクトはプロパティのコレクション</li>
+<li>プロパティは以下の3種類が定義されてる
+
+<ul>
+<li>名前付きデータプロパティ</li>
+<li>名前付きアクセサプロパティ</li>
+<li>内部プロパティ
+
+<ul>
+<li>内部プロパティはユーザからは見えない、内部的な処理</li>
+<li><code>[[hoge]]</code>という感じで表現される</li>
+</ul></li>
+</ul></li>
+<li>JavaScriptでの継承</li>
+<li>データ型
+
+<ul>
+<li>プリミティブ型</li>
+<li>仕様書型
+
+<ul>
+<li>Referrence</li>
+<li>Completion</li>
+<li>など</li>
+</ul></li>
+<li>がES5.1dで規定されてる
+
+<ul>
+<li>仕様書型は最初に押さえてないと、仕様書を読むのが難しくなる</li>
+</ul></li>
+</ul></li>
+<li>Referrence仕様書型
+
+<ul>
+<li>JavaScriptで変数で値が入ってない時undefinedとなるような、</li>
+<li>そのReferenceの仕組みを定義してる型</li>
+<li>変数と値をバインディングする型</li>
+</ul></li>
+<li>Completion仕様書型
+
+<ul>
+<li>breakやreturnなどのふるまいを説明するための方</li>
+<li><code>([[type]], [[value]], [[target]])</code>のタプル値</li>
+<li>中途完了 = typeがnormal以外の値</li>
+</ul></li>
+<li>PropertyDescriptor型
+
+<ul>
+<li>データプロパティ記述子
+
+<ul>
+<li><code>[[Value]]</code>など</li>
+<li>データプロパティはプロパティの今の値を取ってくるだけ</li>
+</ul></li>
+<li>アクセサプロパティ記述子
+
+<ul>
+<li><code>[[Get]</code> 、<code>[[Set]]</code> という名のフィールド</li>
+</ul></li>
+<li><code>Object.defineProperty()</code> などで触れる場所</li>
+</ul></li>
+<li>オブジェクトの内部メソッドのアルゴリズム
+
+<ul>
+<li>擬似言語的にアルゴリズムが定義されてる</li>
+</ul></li>
+<li>Lexical Enviroment
+
+<ul>
+<li>レキシカル環境</li>
+<li>レキシカル環境とEnvironment Recordsは仕様書の中で出てくる表現なので、実装を使ったそれをプログラムから参照できるわけではない</li>
+</ul></li>
+<li>オブジェクトの内部メソッドのアルゴリズム</li>
+</ul>
+
+<p>FAQ</p>
+
+<ul>
+<li>for...inの順番
+
+<ul>
+<li>ES5は未定義、ES6は定義</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">3</span><span class="p">];</span>
+<span class="nx">a</span><span class="p">.</span><span class="nx">propertyIsEnumerable</span><span class="p">();</span><span class="c1">// falseなのはなんで?</span>
+</code></pre></div>
+<p>以下のように使うのが正解</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">3</span><span class="p">];</span>
+<span class="nx">a</span><span class="p">.</span><span class="nx">propertyIsEnumerable</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="c1">// false</span>
+</code></pre></div>
+<p>MDN</p>
+
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/propertyIsEnumerable" title="propertyIsEnumerable">propertyIsEnumerable</a></li>
+</ul>
+
+<p>FAQ. Completion型とかはあくまで仕様。V8とかはそれ自体はコストがでかいので実装してない。
+外から見える動作をテストしている。</p>
+
+<p>新しい仕様も最初はナイーブな実装型から初めて、テストで固めてやっていく。
+ESDiscussも実装者が多いので、まずい仕様はそこまで来ない。</p>
+
+<hr>
+
+<h1 id="altes6-introduction---@make_now_just">AltES6 Introduction - @make_now_just</h1>
+
+<ul>
+<li>AltES6
+
+<ul>
+<li>Alt言語からES6へ変換される言語</li>
+</ul></li>
+<li>ES6にコンパイルされる
+
+<ul>
+<li>重いランタイムなどは要らないのでシンプル</li>
+</ul></li>
+<li>AltJSの言語例
+
+<ul>
+<li>Spider</li>
+<li><a href="http://spiderlang.org/" title="Getting Started | Spider">Getting Started | Spider</a></li>
+<li>ES5,6へ変換できるAltJS</li>
+<li>go言語のようなchannel</li>
+<li>ES6っぽいSyntaxを</li>
+</ul></li>
+<li><a href="http://breuleux.github.io/earl-grey/" title="Earl Grey">Earl Grey</a>
+
+<ul>
+<li>実行にはruntimeが必要</li>
+<li>Pythonっぽい構文だけど、何でも入ってる</li>
+</ul></li>
+<li>SpiderとEarl Grey
+
+<ul>
+<li>ES5とES6どちらに変換するかを選べる</li>
+<li>ES6のASTを作った後にescodegenで変換</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h1 id="まんがタイム-webkit-のドキドキ☆ビジュアル-es---@constellation">まんがタイム WebKit のドキドキ☆ビジュアル ES - @Constellation</h1>
+
+<ul>
+<li>Webkit</li>
+<li>ES6の進捗がV8みたいな感じに見える</li>
+<li>WebkitのJSCは55%ぐらいES6実装されてる</li>
+<li><a href="http://www.webkit.org/status.html" title="The WebKit Open Source Project - Web Platform Status">The WebKit Open Source Project - Web Platform Status</a>
+
+<ul>
+<li>実装状況がステータスが乗ってる</li>
+</ul></li>
+<li>乗ってる実装
+
+<ul>
+<li>ES6 Classes
+
+<ul>
+<li>letやconstがまだなので乗ってないためTDZがダメ</li>
+</ul></li>
+<li>Symbols
+
+<ul>
+<li>Symbol実装される</li>
+</ul></li>
+<li>Template Strings
+
+<ul>
+<li>Tempalte Litral</li>
+<li>Tagged Template</li>
+</ul></li>
+<li>for-of
+
+<ul>
+<li>throwでreturnも対応してる</li>
+</ul></li>
+</ul></li>
+<li><a href="http://nightly.webkit.org/" title="WebKit Nightly Builds">WebKit Nightly Builds</a> で試せる</li>
+</ul>
+
+<p>Macだとナイトリーでも簡単にビルドできる</p>
+
+<hr>
+
+<h2 id="ecmascript-6-draft-hisotry-repo---azu"><a href="http://azu.github.io/slide/ecma262reading/es6-draft.html" title="ECMAScript 6 Draft Hisotry Repo">ECMAScript 6 Draft Hisotry Repo</a> - azu</h2>
+
+<p>スライド: <a href="http://azu.github.io/slide/ecma262reading/es6-draft.html" title="ECMAScript 6 Draft Hisotry Repo">ECMAScript 6 Draft Hisotry Repo</a></p>
+
+<p>以前書いた<a href="http://efcl.info/2015/05/07/es6-draft-search/" title="ECMAScript 6ドラフトのDiff検索用リポジトリを作った | Web Scratch">ECMAScript 6ドラフトのDiff検索用リポジトリを作った | Web Scratch</a>についての発表。</p>
+
+<p>ES6のドラフトの文章を管理するGitリポジトリを作った話で、tigなどを使って検索する手段などについての話。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-05-30-ecma-262.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["ECMAScript","JavaScript","Git"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=ECMAScript">ECMAScript</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=Git">Git</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

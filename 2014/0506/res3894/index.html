@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Promiseのテストを補助するライブラリを書いた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="javascript,Promises,test" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0506/res3894/">
+    <h1 class="post-title">Promiseのテストを補助するライブラリを書いた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年05月06日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-05-06-promise%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88%E3%82%92%E8%A3%9C%E5%8A%A9%E3%81%99%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%82%92%E6%9B%B8%E3%81%84%E3%81%9F.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="promise-test-helper"><a href="https://github.com/azu/promise-test-helper" title="azu/promise-test-helper">promise-test-helper</a></h1>
+
+<p><a href="https://github.com/azu/promise-test-helper" title="azu/promise-test-helper">azu/promise-test-helper</a> という名前そのままですが、<br>
+Mocha等でPromiseのテストを書くときに見落としを減らすための補助ライブラリを書きました。</p>
+
+<p>MochaのPromiseテストというのは、下記のようにpromiseオブジェクトを返すとそれをPromiseのテストと認識してやってくれる機構の事を言っています。</p>
+
+<pre><code class="javascript">it("should support by mocha", function () {
+    return getSuccessPromise().then(function (value) {
+        assert(value);
+    });
+});
+</code></pre>
+
+<p>詳しくは下記を見て下さい。</p>
+
+<ul>
+<li>  <a href="http://efcl.info/2014/0314/res3708/" title="MochaがPromisesのテストをサポートしました | Web scratch">MochaがPromisesのテストをサポートしました | Web scratch</a></li>
+</ul>
+
+<h2 id="promiseのテストの難しさ">Promiseのテストの難しさ</h2>
+
+<p>Promiseのテストについては<a href="https://github.com/azu/Promises-book" title="azu/promises-book">azu/promises-book</a>の<a href="http://azu.github.io/promises-book/#_chapter_3_promises" title="Chapter.3 - Promisesのテスト">Chapter.3 &#8211; Promisesのテスト</a>で詳しく書いているので、こちらを読んで欲しいのですが簡単にハマりどころを紹介します。<br>
+(間違いがあったりもっといい方法があったら<a href="https://github.com/azu/Promises-book/issues?state=open" title="Issues · azu/promises-book">Issues · azu/promises-book</a>にissue下さい)</p>
+
+<h3 id="必ず通ってしまうテスト">必ず通ってしまうテスト</h3>
+
+<p>例えば、次のようなpromiseオブジェクトがRejectedされた時の結果をテストしたい場合、<br>
+必要最小限だと以下のように書いてしまうと思います。</p>
+
+<pre><code class="js">function mayBeRejected(){
+    return Promise.resolve();
+}
+it("is bad pattern", function () {
+    return mayBeRejected().catch(function (error) {
+        assert(error instanceof Error);
+    });
+});
+</code></pre>
+
+<p>しかし、このテストは<code>mayBeRejected()</code>がFulfilledされてしまうと、そもそも<code>catch</code>が呼ばれなくなるので<em>必ず</em>テストがパスしてしまいます。</p>
+
+<p>これを防止するためには、promiseオブジェクトがfulfilledされた時は、<br>
+テストが失敗するということを明示する必要があります。</p>
+
+<pre><code class="js">function failTest() { 
+    throw new Error("Expected promise to be rejected but it was fulfilled");
+}
+function mayBeRejected(){
+    return Promise.resolve();
+}
+it("thenで落ちる条件を明示する", function () {
+    return mayBeRejected().then(failTest, function (error) {
+        assert(error instanceof Error);
+    });
+});
+</code></pre>
+
+<p>こうすることでfulfilledされた時は<code>failTest</code>が呼ばれるのでテストが意図したように落ちます。<br>
+(<a href="http://azu.github.io/promises-book/#mocha_support_promise" title="3.2. MochaのPromisesサポート">3.2. MochaのPromisesサポート</a>で詳しく解説してます)</p>
+
+<h3 id="promise-test-helperで書く"><a href="https://github.com/azu/promise-test-helper" title="promise-test-helper">promise-test-helper</a>で書く</h3>
+
+<p><a href="https://github.com/azu/promise-test-helper" title="promise-test-helper">promise-test-helper</a>ではpromiseオブジェクトがどちらの状態になるのかを明示するためのヘルパー関数を提供しています。</p>
+
+<pre><code class="js">var shouldFulfilled = require("promise-test-helper").shouldFulfilled;
+var shouldRejected = require("promise-test-helper").shouldRejected;
+</code></pre>
+
+<p>という2つです。</p>
+
+<p>これを使うと先ほどのテストは以下のように書けます。</p>
+
+<pre><code class="js">var shouldRejected = require("promise-test-helper").shouldRejected;
+function mayBeRejected(){
+    return Promise.resolve();
+}
+it("should be failed", function () {
+    return shouldRejected(mayBeRejected()).catch(function (error) {
+        assert(error instanceof Error);
+    });
+});
+</code></pre>
+
+<p>この場合は、fulfilledされた時点で自動でテストが落ちるようになるので、自動てテストが通ってしまうミスが減ると思います。<br>
+(一番の罠は<code>return</code>忘れですが…)</p>
+
+<h2 id="他のやり方">他のやり方</h2>
+
+<p><a href="http://azu.github.io/promises-book/#control_tests" title="3.3. 意図したテストを書くには">3.3. 意図したテストを書くには</a>のまとめでも簡単に触れていますが、<br>
+PromiseのテストでもMochaの<code>done</code>を使った方法も使えるので、そちらでもPromiseのテストが行えます。</p>
+
+<p>Promise(又は非同期)のテストの難しさには3つのものがあると思います。</p>
+
+<ul>
+<li>  意図してない状態(onFulfilledかonRejected)になった時にどうするかを明示する必要性 
+
+<ul>
+<li>  意図してない状態になった時にテストが自動で通ってしまう</li>
+</ul></li>
+<li>  <a href="http://efcl.info/2014/0314/res3708/" title=" MochaがPromisesのテストをサポート">MochaのPromisesサポート</a>を利用した際に<code>return</code>をし忘れる</li>
+<li>  <code>done</code>を使ったテストをするときに、仮引数に<code>done</code>を書き忘れる</li>
+</ul>
+
+<p>というのが主なものだと思います。</p>
+
+<p>この辺はPromiseの仕様書く人たちでも<a href="https://github.com/domenic/promises-unwrapping/commit/09476de93315bfac77d5f7c257c4faa193a217df#diff-a9ce3c1e8e8ddb57ef230231632c00baR37" title="Fix #102: one of the race tests was broken. · 09476de · domenic/promises-unwrapping">うっかり</a>することがあるので、<br>
+Promise(又は非同期)のテストでは、&#8221;最初に落ちるテストを書く&#8221;というのがより重要になるなーと思いました。</p>
+
+<p>他の解決方法として、<a href="https://qunitjs.com/" title="QUnit">QUnit</a>の<a href="http://api.qunitjs.com/expect/" title="expect()">expect()</a>のようにassertが呼ばれる個数を明示することで、<br>
+ミスして自動でパスしてしまうテストを減らす事ができます。<br>
+(逆にテストをリファクタリングするときに面倒になる可能性も持っていますが)</p>
+
+<hr>
+
+<p>今回紹介した<a href="https://github.com/azu/promise-test-helper" title="promise-test-helper">promise-test-helper</a>は<a href="https://github.com/azu/promises-book" title="azu/promises-book">azu/promises-book</a>で使ってるので、サンプル的なものはリポジトリにあるテストを参照するといいかもしれません。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-05-06-promise%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88%E3%82%92%E8%A3%9C%E5%8A%A9%E3%81%99%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%82%92%E6%9B%B8%E3%81%84%E3%81%9F.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["javascript","Promises","test"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=Promises">Promises</a></li>
+                
+                <li><a href="/tags/?q=test">test</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

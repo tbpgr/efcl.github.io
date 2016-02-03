@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        スタートアップiOS勉強会 #3 アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="iOS,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0329/res3769/">
+    <h1 class="post-title">スタートアップiOS勉強会 #3 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年03月29日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-03-29-%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%E3%82%A2%E3%83%83%E3%83%97ios%E5%8B%89%E5%BC%B7%E4%BC%9A-3-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="スタートアップios勉強会-#3">スタートアップiOS勉強会 #3</h1>
+
+<p><a href="http://www.zusaar.com/event/4557003" title="スタートアップiOS勉強会 #3 #startup_ios on Zusaar">スタートアップiOS勉強会 #3 #startup_ios on Zusaar</a> に参加してきたのでメモ。</p>
+
+<hr>
+
+<h2 id="「スタートアップの人材獲得戦略」@laisoさん">「スタートアップの人材獲得戦略」@laisoさん</h2>
+
+<blockquote>
+<p><a href="http://laiso.hatenablog.com/entry/2014/03/27/%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E3%81%AE%E4%BA%BA%E6%9D%90%E7%8D%B2%E5%BE%97%E6%88%A6%E7%95%A5%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B" title="スタートアップの人材獲得戦略とは何か - laiso">スタートアップの人材獲得戦略とは何か &#8211; laiso</a> </p>
+</blockquote>
+
+<ul>
+<li>  ユビレジ</li>
+<li>  スタートアップ</li>
+<li>  リソースが足りない</li>
+</ul>
+
+<h3 id="基本戦略">基本戦略</h3>
+
+<ul>
+<li>  大企業だとできない方法取る必要がある</li>
+<li>  エンジニアが採用に関わる</li>
+<li>  小さいチームで進めていく</li>
+</ul>
+
+<h3 id="優秀なエンジニア">優秀なエンジニア</h3>
+
+<ul>
+<li>  自分よりエンジニアを探す</li>
+<li>  知り合いから探す(縁故採用)</li>
+</ul>
+
+<h3 id="wantedly">WANTEDLY</h3>
+
+<ul>
+<li>  スタートアップ向けという思想でできてる</li>
+</ul>
+
+<h3 id="コミュニティ">コミュニティ</h3>
+
+<ul>
+<li>  勉強会を開く</li>
+<li>  勉強会で発表する</li>
+<li>  非エンジニアはイベントの運営を手伝う 
+
+<ul>
+<li>  会場の貸出をするとか</li>
+</ul></li>
+<li>  注意 : コミュニティの現場で採用活動目的だと嫌がられる</li>
+</ul>
+
+<h3 id="自分たちからアプローチする">自分たちからアプローチする</h3>
+
+<ul>
+<li>  自分たちから誘わないと誰もコない</li>
+<li>  気になる人に声を直接書ける</li>
+<li>  ポジションとかで募集じゃなくて、個人を指定して募集する</li>
+<li>  クックパッドの連鎖パターン</li>
+</ul>
+
+<p>柔軟に参加出来るようにする</p>
+
+<ul>
+<li>  リモートワーク 
+
+<ul>
+<li>  クラスメソッド事例</li>
+</ul></li>
+</ul>
+
+<h3 id="まとめ">まとめ</h3>
+
+<ul>
+<li>  自分よりすごい人を紹介してもらう</li>
+<li>  コミュニティへ貢献して良い人元関係を作る</li>
+<li>  来て欲しい人に自分たちからアプローチする</li>
+<li>  スタートアップiOS勉強会みたいなイベントを開く</li>
+</ul>
+
+<hr>
+
+<h2 id="「appleのテンプレートは有害と考えられる：uitableviewcontrollerとsrpについて」@modocacheさん">「Appleのテンプレートは有害と考えられる：UITableViewControllerとSRPについて」@modocacheさん</h2>
+
+<blockquote>
+<p><a href="http://modocache.svbtle.com/apple-templates-considered-harmful" title="Apple Templates Considered Harmful">Apple Templates Considered Harmful</a> </p>
+</blockquote>
+
+<h3 id="単一責任原則(srp)">単一責任原則(SRP)</h3>
+
+<ul>
+<li>  クラスを変更する理由はひとつ以上存在してはならない</li>
+<li>  Clean Codeの著者</li>
+</ul>
+
+<h3 id="uitableviewcontroller">UITableViewController</h3>
+
+<ul>
+<li>  ViewController</li>
+<li>  TableDataSource</li>
+<li>  TableDelegate</li>
+</ul>
+
+<p>の3つすべて入ってる</p>
+
+<h3 id="githubviewer(サンプルアプリ)">GithubViewer(サンプルアプリ)</h3>
+
+<p>TableViewController -&gt; ViewController(Detail)<br>
+なアプリ</p>
+
+<p>バットパターン</p>
+
+<ol>
+<li> reloadData</li>
+<li> インジケータの表示</li>
+<li> APIClientでデータを取得する</li>
+</ol>
+
+<p>ViewControllerにデータを持ってるのが問題</p>
+
+<ul>
+<li>  <code>UITableViewDataSource</code> で使うものもControllerにあってあんまり美味しくない</li>
+</ul>
+
+<p>ViewControllerが持ってしまってる責任が3つもある</p>
+
+<ul>
+<li>  ViewControllerの責任</li>
+<li>  UITableViewDataSourceの責任</li>
+<li>  UITableViewDelegateの責任</li>
+</ul>
+
+<p>責任の分割</p>
+
+<ul>
+<li>  ViewControllerの責任</li>
+<li>  UITableViewDelegateの責任</li>
+</ul>
+
+<p>モデル部分は別に分けてしまって、DataSourceは外に出す</p>
+
+<h3 id="特にひどいmasterdetailapplication">特にひどいMasterDetailApplication</h3>
+
+<ul>
+<li>  MasterDetailApplicationはやばい</li>
+<li>  CoreDataは難しいのに、AppDelegateが責任持ちまくり</li>
+<li>  エラーハンドリングをちゃんとやってない</li>
+</ul>
+
+<h3 id="opengl-application">OpenGL Application</h3>
+
+<ul>
+<li>  400行以上ある</li>
+</ul>
+
+<h3 id="ましになったテンプレート">ましになったテンプレート</h3>
+
+<ul>
+<li>  Page-Based Application</li>
+<li>  Sprite-Kit</li>
+</ul>
+
+<p>最近作られたものはまともなテンプレートになってる</p>
+
+<h3 id="ファイル数が増えるデメリット">ファイル数が増えるデメリット</h3>
+
+<ul>
+<li>  SRPだとクラスが増える</li>
+<li>  クラスエクプローション</li>
+<li>  あんまりない</li>
+</ul>
+
+<hr>
+
+<h2 id="「ohhttpsutbsを使って進めるiosアプリ開発」@yimajoさん">「OHHTTPSutbsを使って進めるiOSアプリ開発」@yimajoさん</h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/YoshinoriImajo/ohhttpstubsi-os" title="OHHTTPStubsを使ったiOSアプリ開発">OHHTTPStubsを使ったiOSアプリ開発</a> </p>
+</blockquote>
+
+<ul>
+<li>  通信をフックしてレスポンスのstubを行うライブラリ</li>
+<li>  レスポンスのステータスコードも決められる</li>
+</ul>
+
+<h3 id="apiがまだ出来てなくてもテストを書いていける">APIがまだ出来てなくてもテストを書いていける</h3>
+
+<ul>
+<li>  APIの仕様を決めて実装を進められる</li>
+<li>  サーバ側がまだ実装されてなくても、アプリ側の実装を進められる</p> </li>
+<li><p>リリースビルドに含めないようにする</p></li>
+<li><p>リジェクトされる</p></li>
+</ul>
+
+<h3 id="まとめ">まとめ</h3>
+
+<ul>
+<li>  API開発者にスタブ用のデータは作ってもらおう</li>
+<li>  スタブはあくまで単体テストのためだったり無駄なコミュニケーションの時間を減らす</li>
+<li>  WebViewも同じようにレスポンスのstubできる?</li>
+</ul>
+
+<hr>
+
+<h2 id="「地方零細スタートアップの失敗ノウハウ」masayasu-shigeokaさん">「地方零細スタートアップの失敗ノウハウ」Masayasu Shigeokaさん</h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/shigeokama/in-ios-3" title="「地方零細スタートアップの失敗ノウハウ」in iOSスタートアップ勉強会 #3">「地方零細スタートアップの失敗ノウハウ」in iOSスタートアップ勉強会 #3</a> </p>
+</blockquote>
+
+<ul>
+<li>  福岡でiOSアプリのセミナー</li>
+</ul>
+
+<h3 id="ビジネス担当としての失敗事例について">ビジネス担当としての失敗事例について</h3>
+
+<h3 id="何でもできます!">何でもできます!</h3>
+
+<ul>
+<li>  何でもできるというと、何を注文していいのか分からない</li>
+<li>  お客から見て専門的な事に絞る</li>
+</ul>
+
+<h3 id="お金のコンプレックス">お金のコンプレックス</h3>
+
+<ul>
+<li>  1000万の札束メモを使ったお金の苦手の意識を解決</li>
+</ul>
+
+<h3 id="やらないことを決める">やらないことを決める</h3>
+
+<ul>
+<li>  やらないをきめて、他に集中する</li>
+</ul>
+
+<h3 id="受託サービス嫌い">受託サービス嫌い</h3>
+
+<ul>
+<li>  立ち上げ労力がかかる</li>
+<li>  スタッフの給料とかの問題</li>
+<li>  受け入れると安定して資金ができるので経営が楽</li>
+</ul>
+
+<h3 id="過剰なサービス提供">過剰なサービス提供</h3>
+
+<ul>
+<li>  お客が求める需要よりも大きすぎる提供</li>
+<li>  営業のバランスがわるくなった。</li>
+<li>  バランスをちゃんと決めて提供する</li>
+<li>  他の企業への経営に入ってバランスを学ぶ</li>
+</ul>
+
+<h3 id="体のメンテナンス">体のメンテナンス</h3>
+
+<ul>
+<li>  体壊れた</li>
+<li>  体のメンテナンスを定期的に行う</li>
+</ul>
+
+<h3 id="起業前">起業前</h3>
+
+<ul>
+<li>  起業時の計画は上手くいかない</li>
+<li>  ビジネスをやればやるほど「なんか違う」</li>
+<li>  ポジショニングだけ変えて再スタート 
+
+<ul>
+<li>  ITエンジニアを大事にする企業をサポートしていく</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="「iosでの計測とカイゼン」gunosy-@y_matsuwitterさん">「iOSでの計測とカイゼン」Gunosy @y_matsuwitterさん</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/ymatsuwitter/iosfalsejian-zheng-togai-shan" title="iOSの検証と改善 // Speaker Deck">iOSの検証と改善 // Speaker Deck</a> </p>
+</blockquote>
+
+<ul>
+<li>  最近GoLangを書いてる</li>
+<li>  数字は紙より正しい</li>
+</ul>
+
+<h3 id="改善-&gt;-開発">改善 &gt; 開発</h3>
+
+<ul>
+<li>  リリースより、改善の方が大事</li>
+<li>  1つの改善の効果を見るのに大体3週間かかる</li>
+<li>  時間がない</li>
+</ul>
+
+<h3 id="無駄なく改善したい">無駄なく改善したい</h3>
+
+<ul>
+<li>  仮説の精度 
+
+<ul>
+<li>  目的をしっかり決める</li>
+<li>  各画面の遷移などから明確に定義していく</li>
+<li>  会社内に仮説のナレージをためる</li>
+</ul></li>
+<li>  検証の精度 
+
+<ul>
+<li>  外部の計測ツールについて</li>
+<li>  なんとなくスクリーンビューとかが見える 
+
+<ul>
+<li>  数値が何となくしかでてこない</li>
+<li>  セッション単位で何をしたかぐらいな感じ</li>
+</ul></li>
+<li>  検証をする上であんまり使いやすくない</li>
+<li>  仮説の検証に必要な変数を用意しにくい</li>
+<li>  仮設用のログを取る仕組みを取る必要がある</li>
+<li>  自前でLoggerを作成してる 
+
+<ul>
+<li>  各ユーザーのクリックや遷移や滞在時間等を取得してる</li>
+</ul></li>
+</ul></li>
+<li>  検証の手数を増やす 
+
+<ul>
+<li>  開発と検証の分離</li>
+<li>  リモートから変更可能なUI 
+
+<ul>
+<li>  APIレスポンスにUIに関数情報を含める</li>
+<li>  <code>{ color : &#39;xxx&#39; : &#39;size&#39; : &quot;xxx&quot;</code>}`</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="「njkwebviewprogressを使ってローディングの表示を工夫する」@ninjinkunさん">「NJKWebViewProgressを使ってローディングの表示を工夫する」@ninjinkunさん</h2>
+
+<h3 id="アプリ内にwebviewを使いたい">アプリ内にWebViewを使いたい</h3>
+
+<ul>
+<li>  大分サイトを表示したい</li>
+<li>  アプリの画面をHTML+JSで作りたい</li>
+<li>  ヘルプやガイドなどをHTMLにしたい</li>
+</ul>
+
+<h3 id="アプリ内webview">アプリ内WebView</h3>
+
+<ul>
+<li>  ローディングの白い画面が出てしまう</li>
+<li>  コンテンツにローディングアイコンを出す 
+
+<ul>
+<li>  消すタイミングが難しい</li>
+<li>  <code>UIWebViewDelegate</code>で消す</li>
+<li>  読み込み完了 ≠ 画面が表示</li>
+</ul></li>
+<li>  HTMLが見える前に処理が始まってキレイにフェードできない</li>
+</ul>
+
+<h3 id="ninjinkun/njkwebviewprogress"><a href="https://github.com/ninjinkun/NJKWebViewProgress" title="ninjinkun/NJKWebViewProgress">ninjinkun/NJKWebViewProgress</a></h3>
+
+<ul>
+<li>  WebViewの読み込みの進捗率を取得する</li>
+<li>  <code>document.readyState</code> の interactiveなったかどうかを見てる</li>
+<li>  <a href="https://developer.mozilla.org/ja/docs/DOM/document.readyState" title="document.readyState - DOM | MDN">document.readyState &#8211; DOM | MDN</a></li>
+</ul>
+
+<h3 id="まとめ">まとめ</h3>
+
+<ul>
+<li>  白い画面をさけよう</li>
+</ul>
+
+<hr>
+
+<h2 id="「私のアプリがtvで紹介された時の話」--koogawa">「私のアプリがTVで紹介された時の話」- koogawa</h2>
+
+<ul>
+<li>  ダウンロード40万ぐらいのまりもアプリ</li>
+<li>  ダウンロード数が一瞬で3倍ぐらいになった</li>
+</ul>
+
+<h3 id="放送前">放送前</h3>
+
+<ul>
+<li>  事前に使用許諾メール</li>
+<li>  メール見てなかった</li>
+<li>  きゃか出してないけど放送された</li>
+</ul>
+
+<h3 id="放送後">放送後</h3>
+
+<ul>
+<li>  テレビ局にお礼のメールした</li>
+<li>  放送時の映像を送ってもらった</li>
+</ul>
+
+<hr>
+
+<h2 id="「メモリを節約する工夫」--@k_katsumi">「メモリを節約する工夫」- @k_katsumi</h2>
+
+<h3 id="メモリを節約する工夫">メモリを節約する工夫</h3>
+
+<ul>
+<li>  ユビレジのメモリ消費</li>
+<li>  普通の画面フローで40MBもメモリ消費してしまっていた</li>
+<li>  今回これを改善した</li>
+<li>  画像が大量にある</li>
+<li>  4画面ぐらい確保 + 画像が一杯あったのでメモリ消費されてた</li>
+</ul>
+
+<h4 id="解決方法">解決方法</h4>
+
+<ul>
+<li>  大きな1枚の画像 =&gt; パターン的に使える画像に分割して利用</li>
+<li>  小さい画像を分割してパターンを利用するようにした</li>
+<li>  複数の箇所で同じ画像が使いまわす</li>
+<li>  20MBぐらいまで減った</li>
+</ul>
+
+<h3 id="連打や同時押しに気をつけよう">連打や同時押しに気をつけよう</h3>
+
+<ul>
+<li>  ナビゲーションバーをカスタマイズしてるアプリでの問題</li>
+<li>  同時押しの対応をしないと、Navigation Stackに不整合がおきて死ぬ問題</li>
+<li>  UIButtonの<code>exlusiveTouch = YES</code>にして排他的にボタン処理をする</li>
+<li>  デフォルト<code>exlusiveTouch = YES</code>にしてしまうとかでもいいじゃないかな</li>
+</ul>
+
+<hr>
+
+<h2 id="「アプリのインタラクションデザイン」@yskm_">「アプリのインタラクションデザイン」@yskm_</h2>
+
+<ul>
+<li>  Share画面</li>
+<li>  <a href="http://www.openframeworks.cc/" title="openFrameworks">openFrameworks</a></li>
+<li>  デジタルサイネージ 
+
+<ul>
+<li>  OpenCVを使って動体を検知してインタラクション的な映像</li>
+</ul></li>
+<li>  <code>cal</code> 
+
+<ul>
+<li>  <a href="https://itunes.apple.com/jp/app/cal./id770260157?mt=8" title="iTunes の App Store で配信中の iPhone、iPod touch、iPad 用 cal.">iTunes の App Store で配信中の iPhone、iPod touch、iPad 用 cal.</a></li>
+<li>  触った時にフィードバックがあるアプリ</li>
+<li>  テーマを選択出来る機能</li>
+<li>  アイコンだけのPickerを作ってテーマ選択画面に使ってる</li>
+</ul></li>
+<li>  アイコンのPicker 
+
+<ul>
+<li>  選択した時に震えるフィードバックして選択できることを示してる</li>
+<li>  UIScrollViewベース + アイコンのPickerViewで表示</li>
+<li>  Scrollしてる位置でalpha値とかを変えてる</li>
+<li>  <code>scrollDidEnd</code> でアイコンの位置を決定してる</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="「ipad-観光アプリのご紹介」--@aplink_hidaka">「iPad 観光アプリのご紹介」- @aplink_hidaka</h2>
+
+<ul>
+<li>  観光するときにどうやって情報を収集するうか</li>
+<li>  それを行うiPadアプリ 
+
+<ul>
+<li>  福岡の糸島エリア</li>
+</ul></li>
+<li>  お気に入りのスポットの順番を並び替え出来る 
+
+<ul>
+<li>  情報誌とかだと順番は管理できない</li>
+</ul></li>
+<li>  個人だと広報が難しい 
+
+<ul>
+<li>  福岡ローカルで放送してもらった総合のランキングに入った</li>
+</ul></li>
+</ul>
+
+<p>人力で調査、反映してる</p>
+
+<ul>
+<li>  マネタイズは難しい</li>
+<li>  採算性は全然あわない</li>
+</ul>
+
+<hr>
+
+<h1 id="「ショートムービーアプリ•メチカブーラ」@kaz_piro_piroさん">「ショートムービーアプリ•メチカブーラ」@kaz_piro_piroさん</h1>
+
+<ul>
+<li>  デザイン</li>
+<li>  美容室を起業</li>
+</ul>
+
+<p>動画アプリ</p>
+
+<ul>
+<li>  スタンプを動画に貼れる感じ</li>
+<li>  15秒</li>
+<li>  メインが2秒x6コマ 
+
+<ul>
+<li>  ユーザーは後からコマを切り出すのが苦手</li>
+</ul></li>
+<li>  投稿の9割ぐらいは非公開になった</li>
+<li>  リテラシー低い人はオフラインでアプリを教える 
+
+<ul>
+<li>  その活性化する週末を以下に最大化するかについて</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<p>メモ : Markdown Life</p>
+
+<p>懇談会はにんじんくんさんとiOSアプリのコードレビュー的な勉強会あると楽しそうだよねという話をした。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-03-29-%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%E3%82%A2%E3%83%83%E3%83%97ios%E5%8B%89%E5%BC%B7%E4%BC%9A-3-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["iOS","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=iOS">iOS</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

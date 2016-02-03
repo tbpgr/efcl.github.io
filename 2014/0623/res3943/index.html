@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        JavaScript Promiseの本を書きました | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="book,javascript,Promises,まとめ" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0623/res3943/">
+    <h1 class="post-title">JavaScript Promiseの本を書きました</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年06月23日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-06-23-javascript-promise%E3%81%AE%E6%9C%AC%E3%82%92%E6%9B%B8%E3%81%8D%E3%81%BE%E3%81%97%E3%81%9F.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1><a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a></h1>
+
+<p><a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a>という無料で読める電子書籍を書きました。</p>
+
+<p>タイトルそのままで、JavaScriptのPromiseについて書いた書籍です。</p>
+
+<h2>書籍の目的</h2>
+
+<p>この書籍を読むことで学べる事として、次の3つを目標にして書きました。</p>
+
+<ul>
+<li>Promiseについて学び、パターンやテストを扱えるようになる事</li>
+<li>Promiseの向き不向きについて学び、何でもPromiseで解決するべきではないと知る事</li>
+<li>ECMAScript6 Promiseの基本をよく学び、発展した形を自分で形成できるようになる事</li>
+</ul>
+
+<p>Promiseは、次のECMAScriptの言語仕様として策定が進められていて既に多くのブラウザに実装されています。</p>
+
+<p>Promiseについて扱う書籍ですが、この機能は<a href="http://api.jquery.com/category/deferred-object/" title="jQuery.Deferred() method">jQuery.Deferred()</a>や<a href="https://docs.angularjs.org/api/ng/service/$q" title="AngularJS: API: $q">AngularJSの$q</a>や<a href="https://github.com/petkaantonov/bluebird" title="Bluebird">Bluebird</a>等の類似の機能が既にあるため扱ったことがあるかもしれません。</p>
+
+<p>ECMAScript6 Promiseの機能自体は新しいものではなく、既にあるものを標準化しただけです。<br />
+そのためライブラリ等を使えば今すぐ使えますし、既に使っています。</p>
+
+<p>また、今後ブラウザに実装されるAPIとして<a href="http://www.w3.org/TR/2014/WD-service-workers-20140508/" title="Service Workers">Service Workers</a>や<a href="http://www.w3.org/TR/streams-api/" title="Streams API">Streams API</a>等、Promiseをベースしたものも出てきています。<br />
+JavaScriptの非同期処理の一つのパラダイムであるため、この機会に学んでおくと他のAPIを学ぶときにも役立つかもしれません。</p>
+
+<h2>書籍の閲覧方法</h2>
+
+<p>この書籍は、スマートフォンも含めブラウザで見られる<a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">HTML版</a> と <a href="http://azu.github.io/promises-book/javascript-promise-book.pdf" title="JavaScript Promiseの本 - javascript-promise-book.pdf">PDF版</a>を公開しています。</p>
+
+<p><a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">HTML版</a>には、表示されているサンプルコードをそのまま実行して試せる機能があるため、Promiseをサポートしてるブラウザで見るのをオススメします。<br />
+ブラウザがPromiseをサポートしてなくてもPolyfillが使われるので大抵の環境で実行出来ます。</p>
+
+<p><a href="http://azu.github.io/promises-book/"><img src="http://efcl.info/wp-content/uploads/2014/06/promise-editor.png" alt="JavaScript Promiseの本 2014 06 23 00 46 57 2014 06 23 00 47 03" title="promise-editor.png" border="0" width="600" height="335" /><br />
+</a></p>
+
+<p>FirefoxとChrome、Operaの安定版は既にPromiseをサポートしてるので、その環境で見るのがオススメです(CORSやWeb Notificationを使うサンプルが出てくるのでデスクトップブラウザだと全てを試せます)</p>
+
+<p>この書籍のソースコードは全てGithubで公開されていて、ライセンスはCreative Commons Attribution-NonCommercialです。(コードはMIT)</p>
+
+<ul>
+<li><a href="https://github.com/azu/promises-book/" title="azu/promises-book">azu/promises-book</a></li>
+<li>書籍は<a href="http://asciidoc.org/" title="AsciiDoc">AsciiDoc</a>形式で書かれています。</li>
+</ul>
+
+<p>そのため、何か問題や意見などがあったら<a href="https://github.com/azu/promises-book/issues?state=open" title="Issues · azu/promises-book">Issues · azu/promises-book</a>にIssueを立てたり、<a href="https://gitter.im/azu/promises-book" title="azu/promises-book - Gitter">azu/promises-book &#8211; Gitter</a>のチャットに書き込んだりしてくれると嬉しいです。</p>
+
+<p>書籍のハッシュタグは<a href="https://twitter.com/search?q=%23Promise%E6%9C%AC" title="#Promise本">#Promise本</a>となっています。</p>
+
+<p>こういう形態で書籍を公開したのは、常に書籍が更新出来るようにしたいからでもあります。<br />
+そのため、今後の更新内容を受け取りたい場合は、<a href="https://github.com/azu/promises-book/releases.atom" title="Release notes from promises-book">Release notes from promises-book</a>をRSSリーダーで購読するといいかと思います。</p>
+
+<ul>
+<li><a href="https://github.com/azu/promises-book/releases" title="Releases · azu/promises-book">Releases · azu/promises-book</a></li>
+<li>GithubのReleaseはある程度の塊で更新内容を受け取れます。</li>
+</ul>
+
+<p>もっと細かく知りたい人は<a href="https://github.com/azu/promises-book" title="azu/promises-book">azu/promises-book</a>をWatchするといいでしょう。</p>
+
+<h2>書籍の作り方</h2>
+
+<p>書籍はAsciidoc形式で書いて<a href="http://asciidoctor.org/" title="Asciidoctor">Asciidoctor</a>でビルドしています。</p>
+
+<p>また、Promiseには興味ないけど、こういう電子書籍の作りに興味があるという人は、<a href="https://gumroad.com/l/javascript-promise" title="JavaScript Promiseの本 付録">JavaScript Promiseの本 付録</a>というおまけを公開しています。</p>
+
+<ul>
+<li><a href="https://gumroad.com/l/javascript-promise"><img src="http://img.shields.io/badge/Gumroad-%C2%A50-green.svg?style=flat" alt="Gumroad" /></a></li>
+<li><a href="https://gumroad.com/l/javascript-promise" title="JavaScript Promiseの本 付録">JavaScript Promiseの本 付録</a></li>
+</ul>
+
+<p>おまけ.pdfには、この書籍を書き始めた理由や、どのように書いていったか、書籍自体の自動テストやワークフローについて書かれています。<br />
+Github IssueやPull Requestの活用方法について自分なりに感じた事を長々書いてた気がします。</p>
+
+<p>Gumroadから無料 または 好きな値段でダウンロードすることが出来ます。(寄付したい人は寄付の代わりに使って下さい)</p>
+
+<p>ダウンロードする際に作者へのメッセージも書けるので、 メッセージを残すついでにダウンロードしていってね！</p>
+
+<p>最後に書籍の目次を貼っておきます。</p>
+
+<h2>書籍の目次</h2>
+
+<pre>
+1. Chapter.1 - Promiseとは何か
+
+    1.1. What Is Promise
+    1.2. Promise Overview
+    1.3. Promiseの書き方
+
+2. Chapter.2 - Promiseの書き方
+
+    2.1. Promise.resolve
+    2.2. Promise.reject
+    2.3. コラム: Promiseは常に非同期?
+    2.4. Promise#then
+    2.5. Promise#catch
+    2.6. コラム: thenは常に新しいpromiseオブジェクトを返す
+    2.7. Promiseと配列
+    2.8. Promise.all
+    2.9. Promise.race
+    2.10. then or catch?
+
+3. Chapter.3 - Promiseのテスト
+
+    3.1. 基本的なテスト
+    3.2. MochaのPromiseサポート
+    3.3. 意図したテストを書くには
+
+4. Chapter.4 - Advanced
+
+    4.1. Promiseのライブラリ
+    4.2. Promise.resolveとThenable
+    4.3. throwしないで、rejectしよう
+    4.4. DeferredとPromise
+    4.5. Promise.raceとdelayによるXHRのキャンセル
+    4.6. Promise.prototype.done とは何か?
+    4.7. Promiseとメソッドチェーン
+    4.8. Promiseによる逐次処理
+
+5. Promises API Reference
+
+    5.1. Promise#then
+    5.2. Promise#catch
+    5.3. Promise.resolve
+    5.4. Promise.reject
+    5.5. Promise.all
+    5.6. Promise.race
+
+6. 用語集
+</pre>
+
+<h2>書籍へのリンク</h2>
+
+<ul>
+<li><a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a></li>
+<li><a href="https://github.com/azu/promises-book/" title="azu/promises-book">azu/promises-book</a></li>
+</ul>
+
+<p>おまけに書いてたような書籍を作るにあたってやったことはまた別の記事で書くと思います。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-06-23-javascript-promise%E3%81%AE%E6%9C%AC%E3%82%92%E6%9B%B8%E3%81%8D%E3%81%BE%E3%81%97%E3%81%9F.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["book","javascript","Promises","まとめ"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=book">book</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=Promises">Promises</a></li>
+                
+                <li><a href="/tags/?q=まとめ">まとめ</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

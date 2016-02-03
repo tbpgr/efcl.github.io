@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        [iOS] Conference With Developers 2 アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="iOS,Objective-C,Ruby,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0201/res3651/">
+    <h1 class="post-title">[iOS] Conference With Developers 2 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年02月01日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-02-01-ios-conference-with-developers-2-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="conference-with-developers-2-|-peatix"><a href="http://confwd2.peatix.com/" title="Conference With Developers 2 | Peatix">Conference With Developers 2 | Peatix</a></h1>
+
+<p><a href="http://confwd2.peatix.com/" title="Conference With Developers 2 | Peatix">Conference With Developers 2</a> に参加してきたのでメモ。</p>
+
+<p>録画</p>
+
+<ul>
+<li>  <a href="http://www.ustream.tv/recorded/43319245" title="confwd">confwd 1</a></li>
+<li>  <a href="http://www.ustream.tv/recorded/43323576" title="confwd">confwd 2</a></li>
+</ul>
+
+<hr>
+
+<h2 id="iosエンジニアとgithubとキャリア-&#8211;-ninjinkun">iOSエンジニアとGitHubとキャリア &#8211; ninjinkun</h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/ninjinkun/i-os-30692824" title="GitHub活動を通して個人のキャリアを積みつつ仕事の成果を出す方法">GitHub活動を通して個人のキャリアを積みつつ仕事の成果を出す方法</a> </p>
+</blockquote>
+
+<ul>
+<li>  Github上で行うオープンソース活動</li>
+</ul>
+
+<h3 id="njkwebviewprogress">NJKWebViewProgress</h3>
+
+<ul>
+<li>  <a href="https://github.com/ninjinkun/NJKWebViewProgress" title="ninjinkun/NJKWebViewProgress">ninjinkun/NJKWebViewProgress</a></li>
+<li>  WebViewにロードバーを表示するライブラリ</li>
+<li>  proxyとして実装してるので既存のWebViewのdelegateに挟んで使える</li>
+</ul>
+
+<h3 id="njkscrollfullscreen">NJKScrollFullScreen</h3>
+
+<ul>
+<li>  <a href="https://github.com/ninjinkun/NJKScrollFullScreen" title="ninjinkun/NJKScrollFullScreen">ninjinkun/NJKScrollFullScreen</a></li>
+<li>  スクロールするとフルスクリーンになるUI</li>
+<li>  UIScrolViewDelegateをフックしてバーを隠すタイミングを教えてくれる proxy</li>
+<li>  ViewControllerのナビゲーションやToolbarを隠す機能</li>
+</ul>
+
+<h3 id="モジュールを作って貰う方法">モジュールを作って貰う方法</h3>
+
+<ul>
+<li>  デモアプリがあるとよい</li>
+<li>  (<code>pod-try</code> で試しやすい)</li>
+<li>  継承前提では作らない</li>
+<li>  テストを充実させる</li>
+<li>  CIを導入する</li>
+</ul>
+
+<h3 id="readme">README</h3>
+
+<ul>
+<li>  readmeをがんばる 
+
+<ul>
+<li>  ストレートに伝わる</li>
+</ul></li>
+<li>  UI系ライブラリ 
+
+<ul>
+<li>  gyazo gifとか動作を貼る</li>
+</ul></li>
+</ul>
+
+<h3 id="cocoapodsにpullreq">Cocoapodsにpullreq</h3>
+
+<ul>
+<li>  CocoaPodsにpullrequestする</li>
+<li>  <a href="https://twitter.com/CocoaPodsFeed" title="@CocoaPodsFeed ">@CocoaPodsFeed </a> 等に通知される</li>
+</ul>
+
+<h3 id="おわりに">おわりに</h3>
+
+<ul>
+<li>  OSSのロールモデル</li>
+<li>  CAPN &#8211; Perlのリポジトリ</li>
+<li>  企業の垣根を超えたコミットする分解</li>
+<li>  オープンソースモジュール</li>
+</ul>
+
+<hr>
+
+<h2 id="公開用のobjective-cの書き方-&#8211;-ishikawa">公開用のObjective-Cの書き方 &#8211; ishikawa</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/ishkawa/objective-c-programming-guide-for-open-source-software" title="Objective-C Programming Guide for Open Source Software // Speaker Deck">Objective-C Programming Guide for Open Source Software // Speaker Deck</a> </p>
+</blockquote>
+
+<h3 id="アプリでの衝突">アプリでの衝突</h3>
+
+<ul>
+<li>  シンボルの衝突 
+
+<ul>
+<li>  クラスやカテゴリ、定数の衝突</li>
+</ul></li>
+<li>  リソースの衝突 
+
+<ul>
+<li>  画像などの衝突</li>
+</ul></li>
+</ul>
+
+<h4 id="シンボルの衝突で命名規則で防ぐ">シンボルの衝突で命名規則で防ぐ</h4>
+
+<ul>
+<li>  3文字の大文字prefixを付ける 
+
+<ul>
+<li>  Appleののドキュメントにprefixの話がある</li>
+<li>  2文字より3文字</li>
+</ul></li>
+<li>  カテゴリも同様に小文字の3文字prefixを付ける 
+
+<ul>
+<li>  被ると動作が不定になる</li>
+</ul></li>
+</ul>
+
+<h4 id="定数の命名規則">定数の命名規則</h4>
+
+<ul>
+<li>  関連するクラスをprefixにつける</li>
+<li>  外部から不要な定数は非公開にしておく</li>
+</ul>
+
+<h4 id="外部のライブラリの依存管理">外部のライブラリの依存管理</h4>
+
+<ul>
+<li>  使用してるライブラリを明示する</li>
+<li>  CocoaPodsの依存管理を使う</li>
+</ul>
+
+<h4 id="リソースの衝突">リソースの衝突</h4>
+
+<ul>
+<li>  main bundleに同じ名前の画像があると死ぬ</li>
+<li>  Library bundle &#8211; ライブラリはmain bundleと分けたbundleを使う</li>
+<li>  main, library それぞれがあるので衝突しなくて済む</li>
+</ul>
+
+<h3 id="良い-@interface">良い <code>@interface</code></h3>
+
+<ul>
+<li>  実装を推測できる 
+
+<ul>
+<li>  interfaceをみて動作がわかる</li>
+</ul></li>
+</ul>
+
+<h4 id="良い-@property-の話">良い <code>@property</code> の話</h4>
+
+<ul>
+<li>  変更の可否を明確にする</li>
+<li>  ライブラリの利用に必要な情報は与える</li>
+<li>  ライブラリの利用に不要な情報は与えない</p> </li>
+<li><p><code>readwrite</code> がデフォルト</p></li>
+<li><p><code>readonly</code> は明示する</p></li>
+</ul>
+
+<h3 id="readwrite"><code>readwrite</code></h3>
+
+<ul>
+<li>  どんな時に変更しても問題ない事を示すプロパティに付ける</li>
+<li>  setterで変更を満たすように実装が必要</li>
+</ul>
+
+<h3 id="readonly"><code>readonly</code></h3>
+
+<ul>
+<li>  変更する必要がないプロパティ</li>
+<li>  変更を禁止したいプロパティ</li>
+<li>  指定イニシャライザで指定出来るようにする</li>
+</ul>
+
+<h3 id="良い通知パターン">良い通知パターン</h3>
+
+<p>いろんなパターンがあるけど、それぞれ使うタイミングがある</p>
+
+<h4 id="blocks">blocks</h4>
+
+<ul>
+<li>  通知が特定のメソッドに結びつく動作</li>
+<li>  通知の種類が少ない場合 
+
+<ul>
+<li>  handlerがいっぱいあると向いてない</li>
+</ul></li>
+<li>  openしたら通知が来るみたいな時</li>
+<li>  blockの引数は結果を渡す 
+
+<ul>
+<li>  エラーが起こる可能性があるなら <code>NSError</code> を渡す</li>
+</ul></li>
+</ul>
+
+<h4 id="delegate">delegate</h4>
+
+<ul>
+<li>  通知が特定のオブジェクトに結びつく</li>
+<li>  通知の種類が多い場合</li>
+<li>  通知の受け手が1つしかない</li>
+</ul>
+
+<h4 id="nsnotification">NSNotification</h4>
+
+<ul>
+<li>  通知の受け手が多い</li>
+<li>  通知の送信元と受け手が遠い時</li>
+<li>  ある種のグローバル変数</li>
+</ul>
+
+<h4 id="kvo">KVO</h4>
+
+<p>省略されました</p>
+
+<h3 id="ユニットテスト">ユニットテスト</h3>
+
+<p>テストを書く理由</p>
+
+<ul>
+<li>  テストを書いた方が早い場所がある(遅い場所もある)</li>
+<li>  ロジックメイン + 条件が多いとユニットテストした方が楽</li>
+</ul>
+
+<h4 id="コードが壊れている事をすぐに発見できる">コードが壊れている事をすぐに発見できる</h4>
+
+<ul>
+<li>  コードが壊れてるかどうかを簡単に検証できる</li>
+</ul>
+
+<h4 id="ライブラリのテストのメリットはコストに見合う事が多い">ライブラリのテストのメリットはコストに見合う事が多い</h4>
+
+<ul>
+<li>  アプリのコードに比べるとライブラリは大きな変更が少ないのでテストしやすい</li>
+</ul>
+
+<h3 id="ciを導入する">CIを導入する</h3>
+
+<ul>
+<li>  コミットごとにテストを実行したい</li>
+<li>  git pushをしたらテストを実行する仕組み</li>
+</ul>
+
+<h3 id="ターミナルからテストを実行する">ターミナルからテストを実行する</h3>
+
+<ul>
+<li>  まずはターミナルから実行できるようにする所から</li>
+<li>  xcodebuild を使う(or xctest)</li>
+</ul>
+
+<h3 id="travis-ci">Travis CI</h3>
+
+<ul>
+<li>  <a href="https://travis-ci.org/" title="Travis CI - Free Hosted Continuous Integration Platform for the Open Source Community">Travis CI &#8211; Free Hosted Continuous Integration Platform for the Open Source Community</a></li>
+<li>  無料でiOSのテストができる</li>
+</ul>
+
+<h3 id="coveralls"><a href="https://coveralls.io/" title="Coveralls">Coveralls</a></h3>
+
+<ul>
+<li>  コードカバレッジを図れるサービス</li>
+<li>  コードカバレッジの%を教えてくれるサービス</li>
+</ul>
+
+<h3 id="まとめ">まとめ</h3>
+
+<ul>
+<li>  テストを書いたらCIで回す</li>
+</ul>
+
+<hr>
+
+<h2 id="デザインのわかるエンジニアになる-&#8211;-fladdict">デザインのわかるエンジニアになる &#8211; fladdict</h2>
+
+<ul>
+<li>  デザインはスタイリングではない</li>
+<li>  デザインのメイン業務は設計、整理すること</li>
+<li>  デザインはエンジニアリング</li>
+<li>  使うのが視覚言語というようなもの</li>
+</ul>
+
+<p>&#8211;</p>
+
+<ul>
+<li>  目的 &#8211; 目的を提案・解決する</li>
+<li>  手段 &#8211; 満足感を与える、UXデザイン</li>
+</ul>
+
+<p>みたいな複雑な問題を整理することがデザインの目的。</p>
+
+<h3 id="グリッドを設計する">グリッドを設計する</h3>
+
+<ul>
+<li>  物事をおく配置を整理すること</li>
+<li>  ベースクラスを作って、継承してやっていくみたいな感じ</li>
+</ul>
+
+<h3 id="フィードバック">フィードバック</h3>
+
+<ul>
+<li>  関数の返り値、正否の判別をつけてあげる事</li>
+<li>  methodが成功したら真偽値を返すのと同じ</li>
+</ul>
+
+<h3 id="ios7のデザイン">iOS7のデザイン</h3>
+
+<h4 id="フラットデザイン">フラットデザイン</h4>
+
+<ul>
+<li>  フラットデザインなのにレイヤー構造を持ってる</li>
+<li>  レイヤーの構造を伝える 
+
+<ul>
+<li>  ジャイロを用いたパララックスエフェクト</li>
+<li>  曇りガラス状のブラー 
+
+<ul>
+<li>  一時的なステートを表現してる</li>
+<li>  後で戻れることを保証してる</li>
+<li>  型宣言とかみたいな</li>
+</ul></li>
+<li>  画面の遷移 
+
+<ul>
+<li>  ズームイン/ズームアウト</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3 id="視覚的言語とは">視覚的言語とは</h3>
+
+<ul>
+<li>  非言語的な資格情報も、言語として伝える</li>
+</ul>
+
+<h4 id="アニメーション">アニメーション</h4>
+
+<ul>
+<li>  一瞬の変化は近くできない</li>
+<li>  アニメーションを付けることで変化に気づかせる</li>
+<li>  よくない例としてのiOS7の電卓の話 <code>2500 / 50</code></li>
+<li>  チャンネルが増えることで理解しやすくなる</li>
+<li>  メールのアニメーション中のキャンセル</li>
+</ul>
+
+<h3 id="デザインとは">デザインとは</h3>
+
+<ul>
+<li>  しっかりしたデザインは位置、色、動画、音に意味と目的がある</li>
+<li>  制約の上にデザイン(スタイリング)を載せる</li>
+</ul>
+
+<hr>
+
+<h2 id="javascriptcore.frameworkでできること-&#8211;-kishikawa">JavaScriptCore.frameworkでできること &#8211; kishikawa</h2>
+
+<blockquote>
+<p><a href="https://github.com/kishikawakatsumi/downloadable-ios-apps" title="kishikawakatsumi/downloadable-ios-apps">kishikawakatsumi/downloadable-ios-apps</a> </p>
+</blockquote>
+
+<ul>
+<li>  ドキュメントがない</li>
+<li>  headerを見るだけ</li>
+</ul>
+
+<h3 id="javascriptcore.framework-の概要と使い方">JavaScriptCore.framework の概要と使い方</h3>
+
+<ul>
+<li>  Objective-Cか &lt; &#8211; &gt; JavaScriptからObjective-C</li>
+<li>  ブリッジするフレームワーク</li>
+<li>  グローバルの空間で関数を定義したら<code>JSContext</code> から名前で引ける</li>
+</ul>
+
+<h4 id="構成要素">構成要素</h4>
+
+<ul>
+<li>  <code>JSVirtualMachine</code> 
+
+<ul>
+<li>  シングルスレッドのJS仮想マシン</li>
+<li>  自動で作れる</li>
+<li>  複数作ればマルチスレッドみたいなことができるかも</li>
+</ul></li>
+<li>  <code>JSContext</code> 
+
+<ul>
+<li>  JSの実行コンテキスト(オブジェクトの管理)</li>
+<li>  名前空間をわけるのにも使える</li>
+</ul></li>
+<li>  <code>JSValue</code> 
+
+<ul>
+<li>  JSオブジェクトのラッパー</li>
+<li>  JavaScriptでの値をObjective-C的に持てるオブジェクト</li>
+</ul></li>
+</ul>
+
+<h4 id="objective-c--&gt;-javascript">Objective-C -&gt; JavaScript</h4>
+
+<ul>
+<li>  一部のロジックをJavaScriptで記述 
+
+<ul>
+<li>  ロジックを動的に変えられる</li>
+</ul></li>
+<li>  JavaScriptで書かれてたライブラリを使う 
+
+<ul>
+<li>  <a href="https://github.com/nitoyon/text-hatena.js">https://github.com/nitoyon/text-hatena.js</a></li>
+<li>  はてな記法パーサとかJavaScriptライブラリとして使えるものをObjective-Cで使える</li>
+<li>  JSONの圧縮 JSONHとかRJSONとか</li>
+</ul></li>
+</ul>
+
+<h4 id="javascript--&gt;-objective-c">JavaScript -&gt; Objective-C</h4>
+
+<ul>
+<li>  <code>JSExport</code> というプロトコルが大事</li>
+<li>  JavaScriptに公開するObjective-Cのインターフェースを定義する</li>
+<li>  <code>JSExport</code> が適応されてないメソッドはJavaScriptから呼べない</li>
+</ul>
+
+<h3 id="objective-c-runtime-apiの活用方法">Objective-C Runtime APIの活用方法</h3>
+
+<ul>
+<li>  宣言しないと呼び出せないのをRuntime APIを使って動的にプロトコルを適応する</li>
+<li>  <code>class_addProtocol</code> で <code>JSExport</code> を適応する</li>
+</ul>
+
+<h3 id="javascriptbridgeの紹介">JavaScriptBridgeの紹介</h3>
+
+<ul>
+<li>  <a href="https://github.com/kishikawakatsumi/JavaScriptBridge" title="kishikawakatsumi/JavaScriptBridge">kishikawakatsumi/JavaScriptBridge</a></li>
+<li>  UIKitとかの <code>JSExport</code>のプロトコルのブリッジを作った感じ</li>
+<li>  JavaScriptからUIKitのUIを作れる</li>
+</ul>
+
+<h3 id="runtime">runtime</h3>
+
+<ul>
+<li>  メソッドの転送</li>
+<li>  NSProxy</li>
+</ul>
+
+<h3 id="クラスにメソッドを追加">クラスにメソッドを追加</h3>
+
+<ul>
+<li>  クラスのメタクラスに対してメソッドを追加するとクラスメソッドを追加できる</li>
+<li>  クラスはそれぞれメタクラスを持ってる</li>
+<li>  <code>is_metaClass</code> を使ってid型のオブジェクトがクラスなのか判別できる</li>
+<li>  <code>_obj_msgForword</code> でbridgeしてメソッドを転送させる</li>
+</ul>
+
+<h3 id="jsb.require">JSB.require</h3>
+
+<ul>
+<li>  jsのファイルをインポートできるようになってる</li>
+<li>  ファイルをわけて書くこともできる</li>
+</ul>
+
+<hr>
+
+<h2 id="lt">LT</h2>
+
+<h3 id="ios7のbackboarddバグ-&#8211;-akisute">iOS7のbackboarddバグ &#8211; akisute</h3>
+
+<blockquote class="twitter-tweet" lang="en">
+  <p>
+    検証用死霊です <a href="https://t.co/XY3SXS3jcc">https://t.co/XY3SXS3jcc</a> <a href="https://twitter.com/search?q=%23confwd&src=hash">#confwd</a> プレゼンはどっかにアップしておこう＼(^o^)／
+  </p>
+  
+  <p>
+    &mdash; akisute (@akisutesama) <a href="https://twitter.com/akisutesama/statuses/429538944103878656">February 1, 2014</a>
+  </p>
+</blockquote>
+
+<ul>
+<li>  iOS7 backboardd のバグ</li>
+<li>  Springboardのバックエンド</li>
+<li>  初期インストールして、URLスキーム経由で起動すると10秒固まる</li>
+<li>  回避方法はありません</li>
+</ul>
+
+<h3 id="hbfavの実装とこだわり-&#8211;-naoya">HBFavの実装とこだわり &#8211; naoya</h3>
+
+<ul>
+<li>  HBFav &#8211; はてなブックマークビューアー</li>
+<li>  RubyMotionで作成</li>
+<li>  リソースの非同期ロード &#8211; AFNetworking</li>
+<li>  Direct Drawing 
+
+<ul>
+<li>  直接 drawRectで描画する</li>
+</ul></li>
+<li>  追加した時に上にセルを追加する 
+
+<ul>
+<li>  <code>contentOffSet</code> を保持して、再計算して移動させる</li>
+</ul></li>
+<li>  リアルタイムのように見せるため、Web Hookを使ってremote pushしてる 
+
+<ul>
+<li>  remote pushを受け取ったらRSSを見て更新する</li>
+</ul></li>
+<li>  RubyMotion でできることObjective-Cできることは大体似たような事</li>
+</ul>
+
+<h3 id="irkitについて--maash">IRKitについて -maash</h3>
+
+<ul>
+<li>  オープンソースの赤外製学習リモコン</li>
+<li>  wifiを伝えるときはモール信号で伝える</li>
+<li>  iOS SDKがあるので、いろいろ出来る</li>
+</ul>
+
+<h3 id="ロック画面をハックしてみる">ロック画面をハックしてみる</h3>
+
+<ul>
+<li>  mixi</li>
+<li>  ロックスクリーンハック &#8211; Androidでは色々</li>
+<li>  iOSでやるには</li>
+<li>  background modeを使う 
+
+<ul>
+<li>  MPMoviePlayerController</li>
+<li>  AVAudioSessionでバックグラウンドで動くようにする</li>
+</ul></li>
+<li>  音楽イベント 
+
+<ul>
+<li>  ロックスクリーンから音楽ボタンを受け取る</li>
+<li>  <code>RemoteControlEvents</code> で広会える</li>
+<li>  コントローラーのイベントを入力にする</li>
+</ul></li>
+<li>  アートワーク 
+
+<ul>
+<li>  ボタンに反応してアートワークを変えられる</li>
+</ul></li>
+</ul>
+
+<p>リジェクトされます</p>
+
+<h3 id="github活動初めて思ったこと">Github活動初めて思ったこと</h3>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/naoya/hbfavshi-zhuang-falsekodawari-number-confwd" title="HBFav実装のこだわり #confwd // Speaker Deck">HBFav実装のこだわり #confwd // Speaker Deck</a> </p>
+</blockquote>
+
+<ul>
+<li>  歩きスマホ防止ライブラリ</li>
+<li>  TweetBotみたいな画像を投げるライブラリ &#8211; YSViewer</li>
+</ul>
+
+<h3 id="av-foundation">AV Foundation</h3>
+
+<ul>
+<li>  心霊動画アプリを作った話</li>
+<li>  細かい制御するのにAV Foundationが必要</li>
+<li>  動画に対して、画像やナレーションを合成する</li>
+<li>  ワイプはアファイン変換で合成される</li>
+<li>  スローモーションは時間を2倍にして出力する</li>
+</ul>
+
+<h3 id="webviewを活用するアプリ">WebViewを活用するアプリ</h3>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/cockscomb/webviewwohuo-yong-suruapurifalsezuo-rifang-lt-at-conference-with-developers-2" title="WebViewを活用するアプリの作り方 LT @ Conference With Developers 2 // Speaker Deck">WebViewを活用するアプリの作り方 LT @ Conference With Developers 2 // Speaker Deck</a> </p>
+</blockquote>
+
+<ul>
+<li>  <code>UIWebView</code>でHTMLアプリを作る</li>
+<li>  JavaScriptとネイティブをどうやってやりとりする</li>
+<li>  Apache Cordova 
+
+<ul>
+<li>  UIWebViewを隠蔽</li>
+<li>  プラグインアーキテクチャ</li>
+</ul></li>
+<li>  WebViewJavaScriptBridge 
+
+<ul>
+<li>  WebViewを使ったJavaScriptとのやりとり</li>
+</ul></li>
+<li>  JavaScriptCore 
+
+<ul>
+<li>  <code>KVC</code> で WebViewから <code>JSContext</code> を取得できる</li>
+<li>  非公開APIを使う</li>
+</ul></li>
+</ul>
+
+<h3 id="ios7のuitextviewのいいところ探そう">iOS7のUITextViewのいいところ探そう</h3>
+
+<ul>
+<li>  画像を簡単に入れられる</li>
+<li>  文字にエフェクトが書けられる</li>
+<li>  <code>NSHTMLTextDocumentType</code> HTMLをUITeextViewに表示できる</li>
+<li>  UITextKit</li>
+</ul>
+
+<h3 id="ibeacon">iBeacon</h3>
+
+<ul>
+<li>  BTLEを使った近接検知技術</li>
+<li>  Beacon受信機はiOS端末、送信は専門端末(or iOS端末)</li>
+<li>  近傍/近い/遠い の3段階</li>
+<li>  <a href="http://qiita.com/advent-calendar/2013/ibeacon" title="iBeacon Advent Calendar 2013 - Qiita [キータ]">iBeacon Advent Calendar 2013 &#8211; Qiita [キータ]</a></li>
+<li>  <a href="https://twitter.com/iBeacon_bot" title="iBeacon bot (iBeacon_bot) on Twitter">iBeacon bot (iBeacon_bot) on Twitter</a></li>
+</ul>
+
+<h3 id="rubymotionの活用">RubyMotionの活用</h3>
+
+<ul>
+<li>  Objective-CとRubyMotionの比較</li>
+<li>  Rubyなのでテキスト処理が簡単に書ける</li>
+<li>  RubyのコードをClangを使ってアセンブリとオブジェクトにする</li>
+<li>  デバッグモードだとLLDBが起動してrubyのコードに対してブレークポイントを貼れる</li>
+<li>  処理速度は2倍程度違うけど、テキスト処理が強い</li>
+</ul>
+
+<h3 id="iosでポエムつづろう">iOSでポエムつづろう</h3>
+
+<ul>
+<li>  pplog.net のポエムの話</li>
+<li>  WebViewを使ったアプリ</li>
+<li>  RubyMotionを使ったアプリ</li>
+</ul>
+
+<h3 id="cocoapods-のプラグインを作った話">CocoaPods のプラグインを作った話</h3>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/dealforest/cocoapods-false-plugin-wozuo-tutahua" title="CocoaPods の Plugin を作った話 // Speaker Deck">CocoaPods の Plugin を作った話 // Speaker Deck</a> </p>
+</blockquote>
+
+<ul>
+<li>  <code>pod-try</code> もCocoapodsのプラグインとして実装されてる</li>
+<li>  <code>pod browser</code> コマンドでpodを検索したり、直接Githubのページを開ける</li>
+<li>  <a href="https://github.com/dealforest/cocoapods-browser" title="dealforest/cocoapods-browser">dealforest/cocoapods-browser</a></li>
+<li>  <code>cocoapods-</code> となってるのは公式じゃないプラグイン</li>
+</ul>
+
+<h3 id="メタプログラミングobjective-c">メタプログラミングObjective-C</h3>
+
+<ul>
+<li>  <code>@protpery(nonmatic ,weak) id hoge;</code> を動的に生やす</li>
+<li>  AssociatedObject を使って動的にプロパティを作る</li>
+<li>  WeakHashTableをStrongでつけて、そこにプロパティを突っ込んで行くとweakなものを扱える</li>
+<li>  プリミティプは同じようにNSValueを追加する</li>
+</ul>
+
+<hr>
+
+<p>メモ : Markdown life</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-02-01-ios-conference-with-developers-2-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["iOS","Objective-C","Ruby","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=iOS">iOS</a></li>
+                
+                <li><a href="/tags/?q=Objective-C">Objective-C</a></li>
+                
+                <li><a href="/tags/?q=Ruby">Ruby</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

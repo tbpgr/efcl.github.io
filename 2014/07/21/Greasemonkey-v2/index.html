@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Greasemonkey2.0対応 - LDRFullFeed、LDR NG、ldr_keyhack_jkc+n | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Greasemonkey,Browserify,セキュリティ,Firefox,GitHub" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/07/21/Greasemonkey-v2/">
+    <h1 class="post-title">Greasemonkey2.0対応 - LDRFullFeed、LDR NG、ldr_keyhack_jkc+n</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年07月21日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-07-21-Greasemonkey-v2.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>以下のGreasemonkeyスクリプトを修正した件についての話。</p>
+
+<ul>
+<li><a href="https://github.com/azu/LDR-NG" title="azu/LDR-NG">azu/LDR-NG</a></li>
+<li><a href="https://gist.github.com/azu/491fa1c5050fc378c746" title="LDRをj、kで前後の記事、nで新しいタブで開くGreasemonkey">LDRをj、kで前後の記事、nで新しいタブで開くGreasemonkey</a></li>
+<li><a href="https://github.com/Constellation/ldrfullfeed" title="Constellation/ldrfullfeed">Constellation/ldrfullfeed</a></li>
+</ul>
+
+<h2 id="greasemonkey2.0">Greasemonkey2.0</h2>
+
+<p>Greasemonkey2.0ではFirefoxの変更に合わせて、セキュリティ周りの変更がありました。
+それにより、色々なGreasemonkeyがそのままだと動かなくなっています。</p>
+
+<ul>
+<li><a href="https://blog.mozilla.org/addons/2014/04/10/changes-to-unsafewindow-for-the-add-on-sdk/" title="Changes to unsafeWindow for the Add-on SDK | Mozilla Add-ons Blog">Changes to unsafeWindow for the Add-on SDK | Mozilla Add-ons Blog</a></li>
+<li><a href="http://www.greasespot.net/2014/06/greasemonkey-20-release.html" title="Greasespot: Greasemonkey 2.0 Release">Greasespot: Greasemonkey 2.0 Release</a></li>
+<li><a href="http://blog.monoweb.info/blog/2014/07/13/greasemonkey-2-dot-0/" title="UserScriptのGreasemonkey 2.0対応 | monoの開発ブログ">UserScriptのGreasemonkey 2.0対応 | monoの開発ブログ</a></li>
+</ul>
+
+<p>動かない原因は大きく分けて2つあります。</p>
+
+<ul>
+<li><code>@grant none</code> がデフォルトになった</li>
+<li>unsafeWindowの挙動が変わった(Firefox側の変更)</li>
+</ul>
+
+<h2 id="@grant-none"><code>@grant none</code></h2>
+
+<ul>
+<li><a href="http://wiki.greasespot.net/@grant" title="@grant - GreaseSpot Wiki">@grant - GreaseSpot Wiki</a></li>
+<li><a href="http://blog.monoweb.info/blog/2014/07/13/greasemonkey-2-dot-0/" title="UserScriptのGreasemonkey 2.0対応 | monoの開発ブログ">UserScriptのGreasemonkey 2.0対応 | monoの開発ブログ</a></li>
+</ul>
+
+<p>に詳しい解説が書いてあります。</p>
+
+<p>簡単にいうと、今までそのまま使えていたGM_*関数は特権関数なので、Greasemonkeyで使う場合は、
+事前にスクリプトのメタ情報で</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// @grant GM_getValue
+// @grant GM_setValue
+// @grant GM_getResourceText
+// @grant GM_getResourceURL
+// @grant GM_openInTab
+// @grant GM_registerMenuCommand
+// @grant GM_xmlhttpRequest
+</code></pre></div>
+<p>のように列挙する必要があります。</p>
+
+<p>そのスクリプトで使っているAPIを列挙するのが面倒なので、
+既存のスクリプトから、メタ情報のコメントを取得するコマンドラインツールを作りました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/greasemonkey_grant_cli" title="azu/greasemonkey_grant_cli">azu/greasemonkey_grant_cli</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">npm install -g greasemonkey_grant_cli
+greasemonkey_grant file.user.js
+</code></pre></div>
+<p>という感じでファイルを指定して実行すると</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// @grant GM_addStyle
+// @grant GM_xmlhttpRequest
+</code></pre></div>
+<p>のようなコメント形式で使ってるAPI一覧を得られます。</p>
+
+<h3 id="@grant-noneの挙動"><code>@grant none</code>の挙動</h3>
+
+<p><code>@grant none</code> はpage contextで実行されるため<code>GM_*関数</code>は使えません。
+ブックマークレットと同じようなものなので、<code>GM_関数</code>が必要ない場合はこれをつかったほうが楽です。</p>
+
+<p>データの読み書き(localstorage)、GM_xmlhttpRequest(クロスドメインはそのままXHRと同じ)、GM_addStyleについてのshimライブラリが
+<a href="https://gist.github.com/arantius/3123124" title="Greasemonkey &amp;#34;@grant none&amp;#34; compatibility shim.">Greasemonkey &#34;@grant none&#34; compatibility shim.</a> に用意されいます。</p>
+
+<p>そのためサイト間をまたいだりしないGreasemonkeyは、これをつかって <code>@grant none</code> で動かせるケースが多いでしょう。
+(APIを叩く場合は大抵クロスドメイン跨ぐので無理かも)</p>
+
+<h4 id="実例">実例</h4>
+
+<p><a href="http://d.hatena.ne.jp/zaknak/20080909/1220936155" title="livedoor Reader で NG word フィルター を実現する Greasemonkey - zaknakの日記">livedoor Reader で NG word フィルター を実現する Greasemonkey - zaknakの日記</a> で公開されていた
+LDRのNGフィルタをするGreasemonkeyは<code>GM_*関数</code>が必要なかったので、 <code>@grant none</code>で動くように修正しました</p>
+
+<ul>
+<li><a href="https://github.com/azu/LDR-NG" title="azu/LDR-NG">azu/LDR-NG</a></li>
+</ul>
+
+<h2 id="unsafewindowの挙動">unsafeWindowの挙動</h2>
+
+<p>もう一つの大きな変更が、<code>unsafeWindow</code>周りの挙動です</p>
+
+<p>unsafeWindow(特権context) -&gt; window(page context) という一方通行なら、今までと同じ書き方で問題ありません。
+(Greasemonkeyからpage contextの関数を呼び出すとかは <code>unsafeWindow.hoge()</code>みたいにできる)</p>
+
+<p>unsafeWindow(特権context) -&gt; window(page context)にイベントハンドラを登録して、
+window(page context)からそのイベントが発火してメソッドを呼ぶみたいなケースだと問題がおきます。</p>
+
+<p>例えば、<a href="https://gist.github.com/azu/491fa1c5050fc378c746" title="LDRをj、kで前後の記事、nで新しいタブで開くGreasemonkey">LDRをj、kで前後の記事、nで新しいタブで開くGreasemonkey</a>では、
+以下のようににunsafeWindow経由で、イベントをpage contextに設定していました。</p>
+
+<p>つまり、Greasemonkey内で定義した関数をpage contextから呼ぶようになっていました。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">openAndGoNext</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span> <span class="nx">w</span><span class="p">.</span><span class="nx">get_active_item</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// background open</span>
+    <span class="nx">openNewBackgroundTab</span><span class="p">(</span><span class="nx">htmlEntityDecode</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">link</span><span class="p">));</span>
+    <span class="nx">w</span><span class="p">.</span><span class="nx">Control</span><span class="p">.</span><span class="nx">go_next</span><span class="p">();</span>
+<span class="p">};</span>
+<span class="nx">unsafeWindow</span><span class="p">.</span><span class="nx">Keybind</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="nx">openAndGoNext</span><span class="p">);</span>
+</code></pre></div>
+<p>これだと、page contextから<code>openAndGoNext</code>を呼ぼうとすると
+<code>Error: Permission denied to access property &#39;call&#39;</code> のようにパーミッションエラーという感じになって失敗します。</p>
+
+<p>そのため、<code>openAndGoNext</code> をpage contextから呼べるように定義する必要があります。</p>
+
+<p>このケースだと<code>exportFunction</code>というGreasemonkeyの関数をwindow(page context)に登録するものがあるのでこれを利用すれば、
+以下のように修正できます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">exportGMFunc</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">fnName</span> <span class="o">=</span> <span class="nx">name</span> <span class="o">||</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+    <span class="c1">// page contextからfnNameを呼べるようにする特権作成関数</span>
+    <span class="nx">exportFunction</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">unsafeWindow</span><span class="p">,</span> <span class="p">{</span><span class="nx">defineAs</span><span class="o">:</span> <span class="nx">fnName</span> <span class="p">});</span>
+    <span class="k">return</span> <span class="nx">unsafeWindow</span><span class="p">[</span><span class="nx">fnName</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">unsafeWindow</span><span class="p">.</span><span class="nx">Keybind</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="nx">exportGMFunc</span><span class="p">(</span><span class="nx">openAndGoNext</span><span class="p">));</span>
+</code></pre></div>
+<p>他にも変数やオブジェクトを登録する関数などがあり、以下に書いてあります。</p>
+
+<ul>
+<li><a href="https://blog.mozilla.org/addons/2014/04/10/changes-to-unsafewindow-for-the-add-on-sdk/" title="Changes to unsafeWindow for the Add-on SDK | Mozilla Add-ons Blog">Changes to unsafeWindow for the Add-on SDK | Mozilla Add-ons Blog</a></li>
+</ul>
+
+<p>この辺はProxy APIでラップしたwindowとかを作れば自動的にいけるんじゃないかと思って、<a href="https://github.com/azu/Greasemonkey-unsafeWindow-Proxy" title="azu/Greasemonkey-unsafeWindow-Proxy">azu/Greasemonkey-unsafeWindow-Proxy</a>
+というのを書いてたんですが、何かよくわからなくなって放置してます。</p>
+
+<h4 id="実例">実例</h4>
+
+<p>ldr_keyhack_jkc+nとLDRFullFeedはこの <code>exportFunction</code> を使って修正してあります。</p>
+
+<ul>
+<li><a href="https://gist.github.com/azu/491fa1c5050fc378c746" title="LDRをj、kで前後の記事、nで新しいタブで開くGreasemonkey">LDRをj、kで前後の記事、nで新しいタブで開くGreasemonkey</a></li>
+<li><a href="https://github.com/Constellation/ldrfullfeed" title="Constellation/ldrfullfeed">Constellation/ldrfullfeed</a></li>
+</ul>
+
+<h2 id="最近のgreasemonkey">最近のGreasemonkey</h2>
+
+<p>箇条書きで最近のGreasemonkey</p>
+
+<ul>
+<li><a href="https://github.com/scriptish/scriptish" title="scriptish/scriptish">scriptish/scriptish</a> まだFirefox30対応してない</li>
+<li>作者のErik Voldさんは<a href="http://work.erikvold.com/jetpack/2014/07/08/jpm-beta.html" title="JPM Beta">JPM Beta</a>に忙しい様子</li>
+<li>userscripts.org はほぼ完全に死んでる気がします</li>
+<li>代わりに <a href="https://greasyfork.org/" title="Greasy Fork - safe and useful user scripts">Greasy Fork</a> が動いています。</li>
+<li><a href="https://greasyfork.org/" title="Greasy Fork - safe and useful user scripts">Greasy Fork</a>は活発なのでこちらに移行するといいのでは</li>
+<li>GitHubにスクリプトを置いて自動的に同期する仕組みなどもある。</li>
+<li><a href="https://greasyfork.org/" title="Greasy Fork - safe and useful user scripts">Greasy Fork</a>は外部スクリプトの読み込みに一部制限がある</li>
+</ul>
+
+<p>最後のやつは外部スクリプトを置ける場所が制限されています(条件から外れた場合はインストールボタンが押せなくなる)</p>
+
+<p><a href="https://greasyfork.org/help/external-scripts" title="Greasy Fork policy on external scripts">Greasy Fork policy on external scripts</a>に書いてある
+CDNやGreasy Forkにおいてあるスクリプトは<code>@require</code>で読み込んで使うことが出来ます。</p>
+
+<p>簡単にいえば、動的にGreasemonkeyスクリプトの中身が変えられたりしないようにそういう制限を設けているという感じです。</p>
+
+<p>Greasemonkeyは下火ですが、まあまだ簡単に書く場合はAddon SDKより楽なので使う機会は多いです。</p>
+
+<p><a href="http://work.erikvold.com/jetpack/2014/07/08/jpm-beta.html" title="JPM Beta">JPM Beta</a> が熟してきて、
+Addon SDKでもnpmのエコシステムが回ったAddon作成ができるようになるといいですね。
+(その場合でもGreasemonkeyは <code>@grant none</code> - 常時実行するブックマークレットみたいなプラットフォームとして残る気はする)</p>
+
+<p>今の<a href="http://work.erikvold.com/jetpack/2014/07/08/jpm-beta.html" title="JPM Beta">JPM Beta</a>は<code>cfx</code>コマンドの代替的な感じです。(PythonベースじゃなくNode.jsベースになった)</p>
+
+<h3 id="browserify">Browserify</h3>
+
+<p>Greasemonkeyの<code>@require</code>でモジュール管理は正直現代的じゃないし難しい気がしてるので、
+最近は<a href="http://browserify.org/" title="Browserify">Browserify</a>でビルドしてGreasemonkeyスクリプトを書いています。</p>
+
+<ul>
+<li>azu/check_changelog_from_release
+<a href="https://github.com/azu/check_changelog_from_release">https://github.com/azu/check_changelog_from_release</a></li>
+<li>azu/github-releases-to-feedly
+<a href="https://github.com/azu/github-releases-to-feedly">https://github.com/azu/github-releases-to-feedly</a></li>
+<li>azu/show-diff-from-release
+<a href="https://github.com/azu/show-diff-from-release">https://github.com/azu/show-diff-from-release</a></li>
+</ul>
+
+<p>ただし、この方法を使った場合はGreasy Forkのポリシーと反してる気がするので、
+Greasy Forkでは公開できないかもしれません。</p>
+
+<p>以下で議論してたけど、どうすればいいのかよくわからないのでGitHubに直接置いてます。</p>
+
+<ul>
+<li><a href="https://greasyfork.org/forum/discussion/488/x" title="Strangely formatted, very long lines - Greasy Forum">Strangely formatted, very long lines - Greasy Forum</a></li>
+</ul>
+
+<p>Browserifyでビルドする場合は、
+git configでローカルのファイルパスを保存して<a href="https://github.com/azu/check_changelog_from_release/blob/59ec92b1f1a82caf20ca3c488fb934359e62cdca/package.json#L11-L16" title="check_changelog_from_release/package.json at 59ec92b1f1a82caf20ca3c488fb934359e62cdca · azu/check_changelog_from_release">ビルドスクリプト</a>を
+まわせば結構いい感じで開発出来ます。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">git config greasemonkey.file /path/to/自分の.user.js
+npm run watch <span class="c"># 監視 + ビルド</span>
+</code></pre></div>
+<ul>
+<li><a href="https://github.com/azu/check_changelog_from_release/blob/59ec92b1f1a82caf20ca3c488fb934359e62cdca/package.json#L11-L16" title="check_changelog_from_release/package.json at 59ec92b1f1a82caf20ca3c488fb934359e62cdca · azu/check_changelog_from_release">check_changelog_from_release/package.json at 59ec92b1f1a82caf20ca3c488fb934359e62cdca · azu/check_changelog_from_release</a></li>
+</ul>
+
+<p>ファイルサイズが大きくなりやすいですが、管理しやすいし各スクリプトで<a href="https://github.com/azu/show-diff-from-release/blob/4aecc1279e6d23600b99a139ea14437480153bac/package.json#L26" title="show-diff-from-release/package.json at 4aecc1279e6d23600b99a139ea14437480153bac · azu/show-diff-from-release">共通モジュール</a>が簡単にできたりするので、
+自分用に書く場合は圧倒的に楽になると思います。</p>
+
+<h2 id="まとめ">まとめ</h2>
+
+<ul>
+<li>Greasemonkey 2.0(Firefox30)で色々破壊的な変更が起きた
+
+<ul>
+<li><a href="http://blog.monoweb.info/blog/2014/07/13/greasemonkey-2-dot-0/" title="UserScriptのGreasemonkey 2.0対応 | monoの開発ブログ">UserScriptのGreasemonkey 2.0対応 | monoの開発ブログ</a></li>
+</ul></li>
+<li>userscripts.org は死んでいる</li>
+<li><a href="https://greasyfork.org/" title="Greasy Fork">Greasy Fork</a>がかわりに機能してる
+
+<ul>
+<li>safeを意識してるのでポリシーは若干厳し目</li>
+<li>どちらにしてもGitHubにもコードを置いたほうがいいですね</li>
+</ul></li>
+<li>Browserifyを使ってGreasemonkeyスクリプトを書く方法もある</li>
+<li>Addon SDKのエコシステムが強化のために<a href="http://work.erikvold.com/jetpack/2014/07/08/jpm-beta.html" title="JPM Beta">JPM Beta</a>がでてきた</li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-07-21-Greasemonkey-v2.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Greasemonkey","Browserify","セキュリティ","Firefox","GitHub"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Greasemonkey">Greasemonkey</a></li>
+                
+                <li><a href="/tags/?q=Browserify">Browserify</a></li>
+                
+                <li><a href="/tags/?q=セキュリティ">セキュリティ</a></li>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=GitHub">GitHub</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

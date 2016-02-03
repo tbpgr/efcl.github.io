@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        segmentio/dekuのコードリーディング | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="VirtualDOM,JavaScript,library,コードリーディング" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/12/09/deku-codereading/">
+    <h1 class="post-title">segmentio/dekuのコードリーディング</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年12月09日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-12-08-deku-codereading.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://qiita.com/advent-calendar/2014/virtual-dom" title="VirtualDOM Advent Calendar 2014 - Qiita">VirtualDOM Advent Calendar 2014</a> 9日目の記事。</p>
+
+<p><a href="https://github.com/segmentio/deku" title="segmentio/deku">segmentio/deku</a>  は最近出たばかりのVirtualDOMの実装ライブラリです。</p>
+
+<p>小さくて読みやすく拡張性がある実装を目指していて、既にある<a href="https://github.com/Matt-Esch/virtual-dom" title="virtual-dom">virtual-dom</a>とは別に作り始めたのも微妙にComponent周りの<a href="https://github.com/segmentio/deku/issues/10" title="Use Matt-Esch/virtual-dom · Issue #10 · segmentio/deku">考え方が違う</a>からのようです。</p>
+
+<ul>
+<li>読んだもの: deku <a href="https://github.com/segmentio/deku/releases/tag/0.0.2" title="0.0.2">0.0.2</a></li>
+<li>読んだ日付: 2014年12月9日</li>
+</ul>
+
+<p>絶賛実装中な感じなので、これを見たからといってもどうという感じではないと思います。</p>
+
+<p>基本的なVirtual DOMの構造はあるので、そういう意味では読みやすいです。</p>
+
+<h2 id="基本的な使い方">基本的な使い方</h2>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">component</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;segmentio/deku&#39;</span><span class="p">);</span>
+
+<span class="c1">// Buttonのcomponentを作る</span>
+<span class="c1">// &lt;button&gt;とonClickした時のイベントがある</span>
+<span class="kd">var</span> <span class="nx">ButtonComponent</span> <span class="o">=</span> <span class="nx">component</span><span class="p">({</span>
+  <span class="nx">onClick</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">clicked</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">(</span><span class="nx">dom</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">dom</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">onClick</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">onClick</span> <span class="p">},</span> <span class="p">[</span><span class="nx">props</span><span class="p">.</span><span class="nx">text</span><span class="p">]);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// mainとなるcomponent - componentはcomponentを含められる</span>
+<span class="c1">// &lt;div&gt; &lt;button /&gt; &lt;/div&gt;</span>
+<span class="kd">var</span> <span class="nx">App</span> <span class="o">=</span> <span class="nx">component</span><span class="p">({</span>
+  <span class="nx">render</span><span class="p">(</span><span class="nx">dom</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">dom</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="kr">class</span><span class="o">:</span> <span class="s1">&#39;App&#39;</span> <span class="p">},</span> <span class="p">[</span>
+      <span class="nx">ButtonComponent</span><span class="p">({</span> <span class="nx">text</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">buttonText</span> <span class="p">})</span>
+    <span class="p">]);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// `use`で拡張を追加出来る</span>
+<span class="nx">App</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">styleHelper</span><span class="p">());</span>
+
+<span class="c1">// bodyに `App` componentを追加</span>
+<span class="kd">var</span> <span class="nx">scene</span> <span class="o">=</span> <span class="nx">App</span><span class="p">.</span><span class="nx">mount</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">buttonText</span><span class="o">:</span> <span class="s1">&#39;Click Me!&#39;</span>
+<span class="p">});</span>
+
+<span class="c1">// 更新処理 =&gt; 描画も更新される</span>
+<span class="nx">scene</span><span class="p">.</span><span class="nx">setProps</span><span class="p">({</span>
+  <span class="nx">buttonText</span><span class="o">:</span> <span class="s1">&#39;Do it...&#39;</span>
+<span class="p">});</span>
+
+<span class="c1">// bodyから取り除く</span>
+<span class="nx">scene</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+</code></pre></div>
+<h2 id="lib/component">lib/component</h2>
+
+<ul>
+<li>ユーザが触る感じのAPI定義をしてる場所</li>
+<li><code>use</code>でprototype拡張してpluginを定義できるように</li>
+<li>コンストラクタが受け取る<code>spec</code>オブジェクト</li>
+</ul>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">ButtonComponent</span> <span class="o">=</span> <span class="nx">component</span><span class="p">({</span> <span class="c1">// specオブジェクト</span>
+  <span class="nx">onClick</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">clicked</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">(</span><span class="nx">dom</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">dom</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">onClick</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">onClick</span> <span class="p">},</span> <span class="p">[</span><span class="nx">props</span><span class="p">.</span><span class="nx">text</span><span class="p">]);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><code>spec</code>はcomponentの定義を書く場所。</p>
+
+<ul>
+<li><code>render</code>はデフォルトだと空なので、必ず上書きする</li>
+<li>APIは<code>setState</code>とか<code>renderString</code>とかReactの<a href="http://facebook.github.io/react/docs/component-api.html" title="Component API">Component API</a>っぽいのが多い</li>
+</ul>
+
+<p>この<code>spec</code>で面白いのは<code>displayName</code>というプロパティがあると、
+作った <code>component.displayName</code> にそれを設定してくれる。(デバッグ用)</p>
+
+<ul>
+<li><a href="https://medium.com/@cramforce/on-the-awesomeness-of-fn-displayname-9511933a714a" title="On the awesomeness of fn.displayName — Medium">On the awesomeness of fn.displayName — Medium</a></li>
+</ul>
+
+<h2 id="lib/node">lib/node</h2>
+
+<p>Virtual DOM trees(長いの次からvTreeと書きます)を作る場所</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">component</span><span class="p">({</span>
+      <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dom</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">props</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">dom</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Hello World&#39;</span><span class="p">]);</span>
+      <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>renderで渡ってくる<code>dom</code>という関数がvTreeを作る関数 = <code>render</code>メソッドの返り値はvTree。
+(本物のDOM Nodeではない)</p>
+
+<h3 id="lib/node/index.js">lib/node/index.js</h3>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="cm">/**</span>
+<span class="cm"> * Create virtual DOM trees.</span>
+<span class="cm"> *</span>
+<span class="cm"> * This creates the nicer API for the user.</span>
+<span class="cm"> * It translates that friendly API into an actual tree of nodes.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param {String|Function} type</span>
+<span class="cm"> * @param {Object} props</span>
+<span class="cm"> * @param {Array} children</span>
+<span class="cm"> * @return {Node}</span>
+<span class="cm"> * @api public</span>
+<span class="cm"> */</span>
+
+<span class="kd">function</span> <span class="nx">dom</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">props</span><span class="p">,</span> <span class="nx">children</span><span class="p">)</span> <span class="p">{}</span>
+</code></pre></div>
+<p><code>dom</code>関数でNodeを作る際にNodeにつくidはi++していったものを使ってる。
+(全体で共通でインクリメントしていくid)</p>
+
+<p><code>dom</code>関数では</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">dom</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Hello World&#39;</span><span class="p">]);</span>
+</code></pre></div>
+<p>という感じで、DSLで<code>ElementNode</code>を作る事ができる。</p>
+
+<p><code>ElementNode</code> はタグの名前とかプロパティを持ったデータのオブジェクト
+(操作するメソッドがないDOM Nodeみたいなものっぽい)</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="cm">/**</span>
+<span class="cm"> * Initialize a new `ElementNode`.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param {String} tagName</span>
+<span class="cm"> * @param {Object} attributes</span>
+<span class="cm"> * @param {String} key Used for sorting/replacing during diffing.</span>
+<span class="cm"> * @param {Array} children Child virtual dom nodes.</span>
+<span class="cm"> * @api public</span>
+<span class="cm"> */</span>
+
+<span class="kd">function</span> <span class="nx">ElementNode</span><span class="p">(</span><span class="nx">tagName</span><span class="p">,</span> <span class="nx">attributes</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;element&#39;</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">=</span> <span class="nx">tagName</span> <span class="o">||</span> <span class="s1">&#39;div&#39;</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">attributes</span> <span class="o">=</span> <span class="nx">parseAttributes</span><span class="p">(</span><span class="nx">attributes</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">attributes</span><span class="p">[</span><span class="s1">&#39;data-key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">key</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">children</span> <span class="o">=</span> <span class="nx">children</span> <span class="o">||</span> <span class="p">[];</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">key</span> <span class="o">=</span> <span class="nx">key</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>もう一つのパターンが、<code>dom</code>がComponentを受け取った場合は<code>ComponentNode</code>を作る事が出来る。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should render an element with component root&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">Span</span> <span class="o">=</span> <span class="nx">component</span><span class="p">({</span>
+      <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dom</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">props</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">dom</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="kd">var</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nx">component</span><span class="p">({</span>
+      <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dom</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">props</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">dom</span><span class="p">(</span><span class="nx">Span</span><span class="p">);</span><span class="c1">// Componentを渡してる</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">Component</span><span class="p">.</span><span class="nx">renderString</span><span class="p">();</span>
+    <span class="nx">assert</span><span class="p">(</span><span class="nx">result</span> <span class="o">===</span> <span class="s1">&#39;&lt;span&gt;foo&lt;/span&gt;&#39;</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div>
+<p>ComponentNodeとElementNodeの違い</p>
+
+<ul>
+<li><a href="https://github.com/segmentio/deku/issues/5" title="Decouple ElementNode ? · Issue #5 · segmentio/deku">Decouple ElementNode ? · Issue #5 · segmentio/deku</a></li>
+</ul>
+
+<p>componentの<code>render</code>はこの<code>lib/node</code>を使って、
+vTreeを返す関数を定義していく。</p>
+
+<p>その<code>render</code>関数が返したvTreeを実際のHTMLにしていくのが
+<code>lib/renderer</code>で、Virtual DOMの要であるdiff/patchもここにある。</p>
+
+<h2 id="lib/renderer">lib/renderer</h2>
+
+<p>レンダリングを担当する場所</p>
+
+<p><code>ComponentRenderer</code>や<code>Mount</code>で
+componentを受け取ってそれをレンダリングする(HTMLへ)</p>
+
+<h2 id="lib/renderer/component.js"><code>lib/renderer/component.js</code></h2>
+
+<p>レンダリングのmainとなる場所</p>
+
+<p>それぞれのcomponentは<code>render</code>メソッドを実装しているので
+<code>this.current = this.render()</code>でvTreeを取り出して使う。</p>
+
+<p>実際にvTreeから<code>ElementNode</code>を取り出してDOMに変換していくのは、以下の<code>toElement</code>で行う。</p>
+
+<h3 id="componentrenderer.prototype.toelement"><code>ComponentRenderer.prototype.toElement</code></h3>
+
+<p><code>toElement</code> は以下の処理を行う</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">ElementNode =&gt; DOM Node
+</code></pre></div>
+<p><code>toElement</code>は<code>ElementNode</code>を受け取り、
+<code>ElementNode</code>にはタグ名や属性の情報がプロパティとしてあるので、
+これを使って<code>document.createElement(node.tagName)</code>という感じで
+普通にDOM APIで組み立てていく。</p>
+
+<p><code>ElementNode</code>はchildrenを持っていることもあるので再帰的に行ってDOM Nodeを作る</p>
+
+<h2 id="component/vtreeの関係">Component/vTreeの関係</h2>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Component</span><span class="p">({</span>
+        <span class="c1">// @return vTree</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">vTree</span><span class="p">(</span><span class="nx">ComponentNode</span> <span class="o">|</span> <span class="nx">ElementNodes</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div>
+<h2 id="diff/patch">diff/patch</h2>
+
+<p>Virtual DOMの本領であるdiff/patchもRendererにある。</p>
+
+<p>初期化する時に<code>toElement</code>でDOM Nodeを作るのと同時に、
+インスタンスに変更が起きたら<code>ComponentRenderer.prototype.queue</code>を呼ぶようにイベントを設定する。</p>
+
+<h3 id="componentrenderer.prototype.queue"><code>ComponentRenderer.prototype.queue</code></h3>
+
+<p>dekuはVue.jsのようにキューにためて一定のタイミングでViewのアップデートの処理を行う。</p>
+
+<p><code>ComponentRenderer.prototype.queue</code>は他が処理中なら待ったり、
+連続して呼ばれたりしたらキャンセルしてから実際の<code>update</code>処理を呼ぶようにしてる。</p>
+
+<p>いわゆる<a href="http://qiita.com/koba04/items/de79f158cd1f59ba5d20#batching" title="Batching">Batching</a>の処理です。</p>
+
+<p>実際のdiff/patchでのDOM Nodeの更新をするのは<code>ComponentRenderer.prototype.update</code>で行われる</p>
+
+<h3 id="componentrenderer.prototype.update"><code>ComponentRenderer.prototype.update</code></h3>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="k">this</span><span class="p">.</span><span class="nx">previous</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">current</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+  <span class="c1">// update the element to match.</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">diff</span><span class="p">();</span>
+</code></pre></div>
+<p>という感じで、現在のvTreeを<code>this.previous</code>にいれて、
+<code>this.diff();</code>を呼び出してdiff/patchをする。</p>
+
+<p><code>diff</code>という名前だけど置換処理もそのまま行ってるので、patchの処理も含まれている。
+(今のところdiffの中間表現とかなく直接書き換えしてる、ここは実装変えそうな気がする)</p>
+
+<h3 id="lib/renderer/diff.js">lib/renderer/diff.js</h3>
+
+<p><code>diff</code> はvTreeである<code>this.previous</code>と<code>this.current</code>の
+プロパティ(属性とかtextContentとか)を比較して、
+異なってるなら置換していくpatch処理を行う。</p>
+
+<p>2014年12月4日: 絶賛実装中な感じ</p>
+
+<p>diff/patchについて詳しくは <a href="http://qiita.com/mizchi/items/d21bb598156821131b8c" title="AdventCalendar - segmentio/dekuのコード読んで自分でも仮想DOMのdiffアルゴリズムを書いてみた - Qiita">AdventCalendar - segmentio/dekuのコード読んで自分でも仮想DOMのdiffアルゴリズムを書いてみた - Qiita</a> を読みましょう。</p>
+
+<h2 id="lib/renderer/interactions.js"><code>lib/renderer/interactions.js</code></h2>
+
+<p>dekuでは<code>toElement</code>で実際のDOM Nodeにしたものへイベントを設定出来る</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">ButtonComponent</span> <span class="o">=</span> <span class="nx">component</span><span class="p">({</span>
+  <span class="nx">onClick</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">clicked</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">(</span><span class="nx">dom</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">dom</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">onClick</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">onClick</span> <span class="p">},</span> <span class="p">[</span><span class="nx">props</span><span class="p">.</span><span class="nx">text</span><span class="p">]);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>これはシンプルな仕組みで、<code>toElement</code>で作ったDOM Nodeへのパス
+(単純にプロパティにいれて保持してると考える)を保持しています。</p>
+
+<p>Componentにはひとつの<code>render</code>しかないので、その結果できるDOM Nodeも一つ(Treeではあるかもしれないが)となり、そのDOM Nodeを取り出して普通に<code>spec</code>オブジェクトのイベント定義を要素につけているだけのようです。</p>
+
+<hr>
+
+<h2 id="感想">感想</h2>
+
+<p>dekuのコードは読みやすいというよりは流れが見やすい感じがします。
+<code>diff</code>以外のところは結構素直に実装されていて、普通にコードを追っていくだけでどういう処理がされているか分かる感じです(実際実行しないで読めたので)</p>
+
+<h2 id="コードリーディングのツール">コードリーディングのツール</h2>
+
+<p><a href="http://www.jetbrains.com/webstorm/" title="WebStorm">WebStorm</a>を使って読みました。
+よくモジュール化されているので、定義元へのジャンプ等を使うとかなり読みやすいです。</p>
+
+<p>メモは自分で作った<a href="https://github.com/azu/floating-memo" title="floating-memo.app">floating-memo.app</a>というのを使いました。</p>
+
+<ul>
+<li><a href="http://efcl.info/2014/08/27/floating-memo/" title="node-webkitで最前面に置けるMarkdownメモアプリを作った">node-webkitで最前面に置けるMarkdownメモアプリを作った</a></li>
+</ul>
+
+<h3 id="どこから読むか">どこから読むか</h3>
+
+<p>Nodeモジュールを書き慣れている人は大体<code>index.js</code>を作ってるケースが多いです。
+dekuの場合も<a href="https://github.com/segmentio/deku/blob/master/index.js" title="deku/index.js">deku/index.js</a>というファイルがあり、以下のような1行があるだけです。</p>
+
+<p>単なるエイリアスみたいな使い方ですが、package.jsonの<code>main</code>フィールドの指定のデフォルト値が<code>index.js</code>であったり、名前的にも分かりやすいのでよく見かける気がします。
+(テストディレクトリ等から<code>require(&quot;../&quot;)</code>で読み込めると書いてましたが、<a href="https://github.com/efcl/efcl.github.io/commit/796c80b7b2f1ed2cb44f525d672f2001360d7947#commitcomment-8888418" title="package.json のあるディレクトリのパスを対象に require すると、自動的に main ファイルを読み込むようになっている">package.json のあるディレクトリのパスを対象に require すると、自動的に main ファイルを読み込むようになっている</a>とのことなのであくまで習慣的なものな気がします。)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./lib/component&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>つまり、<a href="https://github.com/segmentio/deku/blob/master/lib/component/index.js" title="lib/component/index.js">lib/component/index.js</a>から読み始めればいいと分かります。</p>
+
+<p>dekuの場合は上から読んでいけるコードなので、結構コードリーディングするのが楽だと思います。(イベント等があるとコードから追うのが難しくなるので、実行して必要がある)</p>
+
+<p>後は興味がある所から見ていくか、順番に見ていくかを決めるだけですね。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">lib
+├── component
+│   ├── index.js
+│   ├── protos.js
+│   └── statics.js
+├── node
+│   ├── component.js
+│   ├── element.js
+│   ├── index.js
+│   └── text.js
+└── renderer
+    ├── component.js
+    ├── diff.js
+    ├── interactions.js
+    ├── mount.js
+    ├── string.js
+    └── tree.js
+</code></pre></div>
+<h3 id="よくわからない時はテストを見る">よくわからない時はテストを見る</h3>
+
+<p>例えば、<a href="https://github.com/segmentio/deku/blob/8c11681775196ad337ddb3bb809882c815c1bfa1/lib/node/index.js#L49-53" title="lib/node/index.js">lib/node/index.js</a>を見ると、<code>dom(type, props, children)</code>関数で以下のようなif分岐があります。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// if you pass in a function, it&#39;s a `Component` constructor.</span>
+<span class="c1">// otherwise it&#39;s an element.</span>
+<span class="k">if</span> <span class="p">(</span><span class="s1">&#39;function&#39;</span> <span class="o">==</span> <span class="k">typeof</span> <span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ComponentNode</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">props</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">children</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ElementNode</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">props</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">children</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>type</code>に渡されるものが関数がそうでないかで分岐しています。</p>
+
+<p>こういう時にまず見るのがテストだと思います(今どきのなら普通はある)。
+<a href="https://github.com/segmentio/deku/blob/8c11681775196ad337ddb3bb809882c815c1bfa1/test/node/index.js" title="test/node/index.js">test/node/index.js</a>があるので、このテストを見ると</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">dom</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">key</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span> <span class="p">})</span>
+</code></pre></div>
+<p>という文字列を受け取るパターンと</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">Span</span> <span class="o">=</span> <span class="nx">component</span><span class="p">({</span>
+ <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dom</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">props</span><span class="p">){</span>
+   <span class="k">return</span> <span class="nx">dom</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+ <span class="p">}</span>
+<span class="p">});</span>
+<span class="kd">var</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nx">component</span><span class="p">({</span>
+ <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dom</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">props</span><span class="p">){</span>
+   <span class="k">return</span> <span class="nx">dom</span><span class="p">(</span><span class="nx">Span</span><span class="p">);</span>
+ <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><code>dom(component)</code>というようにcomponentを受け取るパターン(=type function)があると分かると思います。</p>
+
+<p>更によくわからない時はIssueを検索してみましょう。</p>
+
+<ul>
+<li><a href="https://github.com/segmentio/deku/issues" title="Issues · segmentio/deku">Issues · segmentio/deku</a></li>
+</ul>
+
+<h2 id="他のvirtual-dom">他のVirtual DOM</h2>
+
+<p>dekuはまだ0.0.2というレベルで、<code>diff.js</code>もまだ実装が変わりそうな気配があります。</p>
+
+<p>他にも<a href="https://github.com/Matt-Esch/virtual-dom" title="virtual-dom">virtual-dom</a>や<a href="https://github.com/facebook/react" title="React">React</a>等の情報の方が多いので、Virtual DOMの仕組み自体について知りたい場合は以下を見ましょう</p>
+
+<ul>
+<li><a href="http://saneyukis.hatenablog.com/entry/2014/09/03/134858" title="Virtual DOMのアルゴリズムが知りたくてvirtual-domのコードを読んだ話 - snyk_s log">Virtual DOMのアルゴリズムが知りたくてvirtual-domのコードを読んだ話 - snyk_s log</a></li>
+<li><a href="http://calendar.perfplanet.com/2013/diff/" title="Performance Calendar » React’s diff algorithm">Performance Calendar » React’s diff algorithm</a></li>
+<li><a href="http://qiita.com/koba04/items/de79f158cd1f59ba5d20" title="reactjs - React.jsのVirtualDOMについて - Qiita">reactjs - React.jsのVirtualDOMについて - Qiita</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-12-08-deku-codereading.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["VirtualDOM","JavaScript","library","コードリーディング"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=VirtualDOM">VirtualDOM</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=library">library</a></li>
+                
+                <li><a href="/tags/?q=コードリーディング">コードリーディング</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        JavaScript対応APIドキュメント生成ツールのまとめ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="API,javascript,Node.js,まとめ" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/0226/res2291/">
+    <h1 class="post-title">JavaScript対応APIドキュメント生成ツールのまとめ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年02月26日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-02-26-javascript%E5%AF%BE%E5%BF%9Capi%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E7%94%9F%E6%88%90%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AE%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%BF%E3%81%9F.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>JavaScriptにもJavaDocのようなコメントからAPIドキュメントを生成するツールがいろいろとあるため、どのようなものがあるか少し調べて見ました。基本的なコメントの書き方は大体がJSDocと共通しているので、特に言及がなければそのような書き方が通るものが多いです。</p>
+
+<ul>
+<li>  <a href="http://code.google.com/p/jsdoc-toolkit/" title="JsDoc Toolkit">JsDoc Toolkit</a></li>
+</ul>
+
+<p><a href="http://jsdoc.sourceforge.net/" title="JSDoc">JSDoc</a>(開発停止)の後継であるため最も有名だと思います。<br>
+現在はver2で機能追加のリクエストは停止されていますが、<a href="https://github.com/micmath/jsdoc" title="JSDoc 3">JSDoc 3</a>が開発中となっているそうです。<br>
+情報量もそこそこあると思うので、APIドキュメント生成ツール関係について調べる時に参考になる。<br>
+<a href="http://code.google.com/intl/ja/closure/compiler/docs/js-for-compiler.html" title="Closure Compiler">Closure Compiler</a>などいろいろなところで使われていたりします。<br>
+-<a href="http://www12.atwiki.jp/aias-jsdoctoolkit/pages/1.html" title="JsDoc Toolkitを使う！ - トップページ">JsDoc Toolkitを使う！ &#8211; トップページ</a></p>
+
+<ul>
+<li>  <a href="http://developer.yahoo.com/yui/yuidoc/" title="YUI Doc">YUI Doc</a></li>
+</ul>
+
+<p>YahooのYUI Libraryで使用されているドキュメント生成ツールです。<br>
+Pythonで書かれています。</p>
+
+<ul>
+<li>  <a href="http://code.google.com/p/ext-doc/" title="ext-doc">ext-doc</a></li>
+</ul>
+
+<p><span class="keyword">Ext JS</span>/Sencha Touch風のドキュメント生成ツールです。<br>
+ドキュメントの似た目もリッチ<br>
+-<a href="http://d.hatena.ne.jp/taka_2/20110202/p1" title="ext-docでSencha Touchのドキュメントを作ってみる - プログラマとSEのあいだ">ext-docでSencha Touchのドキュメントを作ってみる &#8211; プログラマとSEのあいだ</a></p>
+
+<ul>
+<li>  <a href="http://javascriptmvc.com/docs/DocumentJS.html#&amp;who=DocumentJS" title="DocumentJS">DocumentJS</a></li>
+</ul>
+
+<p><a href="http://javascriptmvc.com/" title="JavaScriptMVC">JavaScriptMVC</a>で使用されているドキュメント生成ツールです。<br>
+ドキュメント自体の作りを意識した@pageや@tagなどの要素があるのが特徴的。<br>
+rhino(Java)を使っているようです。</p>
+
+<ul>
+<li>  <a href="http://www.naturaldocs.org/" title="Natural Docs">Natural Docs</a></li>
+</ul>
+
+<p>多種多様な言語に対応しているドキュメント生成ツールです。<br>
+他のものとは書き方が異なり、パラメーターなどを使わずに自然な形で書けるように設計されています。<br>
+-<a href="http://d.hatena.ne.jp/gravit/20100801/1280755128" title="NaturalDocsの書き方と、出力結果 - 今日もコーディング日和　">NaturalDocsの書き方と、出力結果 &#8211; 今日もコーディング日和 </a></p>
+
+<ul>
+<li>  <a href="http://jgrouse.com/#main.html" title="jGrouseDoc">jGrouseDoc</a></li>
+</ul>
+
+<p>どこかで使われているのは見たことないです。<br>
+ANTが使われているようです。</p>
+
+<ul>
+<li>  <a href="http://docs.aptana.com/docs/index.php/ScriptDoc_comprehensive_tag_reference" title="ScriptDoc">ScriptDoc</a></li>
+</ul>
+
+<p>Aptanaで使われているドキュメント生成ツールです。<br>
+Aptana内のコードアシストに反映したりします。<br>
+-<a href="http://aptana.cssmaid.net/code_assist.html" title="Aptanaの使い方解説">Aptanaの使い方解説</a></p>
+
+<ul>
+<li>  <a href="https://github.com/visionmedia/dox" title="visionmedia/dox - GitHub">visionmedia/dox &#8211; GitHub</a></li>
+</ul>
+
+<p>node.js製のドキュメント生成ツールです。<br>
+<a href="http://visionmedia.github.com/dox/" title="Dox">Dox</a>を見るとわかりますがコメントとソースコードを並べて表示します</p>
+
+<ul>
+<li>  <a href="https://github.com/jashkenas/docco" title="jashkenas/docco - GitHub">jashkenas/docco &#8211; GitHub</a></li>
+</ul>
+
+<p><span class="comment"><span style="color: #000000;">CoffeeScript/JavaScriptに対応したnode.js製の</span></span>ドキュメント生成ツールです。<br>
+APIドキュメントというよりはコメントとソースコードを並べて読ませる感じのHTMLを生成します。<br>
+<a href="http://documentcloud.github.com/backbone/docs/backbone.html" title="backbone.js">backbone.js</a>などでも使われていたりして、ソースコードを読ませるのには向いているものだと思います<br>
+兄妹ツールとしての派生が多いツールです</p>
+
+<ol>
+<li> Ruby &#8211; <a href="http://rtomayko.github.com/rocco/">http://rtomayko.github.com/rocco/</a></li>
+<li> Sh &#8211; <a href="http://rtomayko.github.com/shocco/">http://rtomayko.github.com/shocco/</a></li>
+<li> Python &#8211; <a rel="nofollow" href="http://fitzgen.github.com/pycco/"><a href="http://fitzgen.github.com/pycco/">http://fitzgen.github.com/pycco/</a></a></li>
+</ol>
+
+<p>いろいろ紹介しましたが、基本的には書き方はJSDocなので似た目や機能などに違いが現れることが多いです。</p>
+
+<p><strong>JavaScript Documentation &#8211; The JSMentors JavaScript Discussion Group | Google グループ</strong>
+:   <a href="http://groups.google.com/group/jsmentors/browse_thread/thread/ab8884987bf4517c" title="JavaScript Documentation - The JSMentors JavaScript Discussion Group | Google グループ">http://groups.google.com/group/jsmentors/browse_thread/thread/ab8884987bf4517c</a></p>
+
+<p><strong>JavaScriptのドキュメントフォーマットにはどんなものがあるの？ &#8211; Nobody is perfect.</strong>
+:   <a href="http://d.hatena.ne.jp/takimo/20101105/1288933921" title="JavaScriptのドキュメントフォーマットにはどんなものがあるの？ - Nobody is perfect.">http://d.hatena.ne.jp/takimo/20101105/1288933921</a></p>
+
+<div id="_mcePaste" style="position: absolute; left: -10000px; top: 14px; width: 1px; height: 1px; overflow: hidden;">
+  <a title="ext-doc - Project Hosting on Google Code" href="http://code.google.com/p/ext-doc/">ext-doc &#8211; Project Hosting on Google Code</a>
+</div>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-02-26-javascript%E5%AF%BE%E5%BF%9Capi%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E7%94%9F%E6%88%90%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AE%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%BF%E3%81%9F.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["API","javascript","Node.js","まとめ"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=API">API</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+                <li><a href="/tags/?q=まとめ">まとめ</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

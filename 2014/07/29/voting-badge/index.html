@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        GitHubなどで使える:+1:するバッジサービスを作った | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="GitHub,Issue,WebService,Node.js,Heroku" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/07/29/voting-badge/">
+    <h1 class="post-title">GitHubなどで使える:+1:するバッジサービスを作った</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年07月29日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-07-29-voting-badge.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="voting-badge"><a href="http://azu.github.io/voting-badge/" title="Voting Badge">Voting Badge</a></h1>
+
+<p><a href="https://voting-badge.herokuapp.com/vote?url=https://github.com/azu/voting-badge"><img src="https://voting-badge.herokuapp.com/img?url=https://github.com/azu/voting-badge" alt="Vote++"></a></p>
+
+<p>GitHub Issueで賛成などを <code>:+1:</code> と書いてコメントすることが良くあります。
+投票ボタン的な機能としてそういうのが欲しかったので、Travis CIのバッジのように表示+投票できるボタンを作りました。</p>
+
+<ul>
+<li><a href="http://azu.github.io/voting-badge/" title=":1: Voting Badge">:+1: Voting Badge</a></li>
+</ul>
+
+<p>上記にアクセスしてURL(実はキーなら何でもいい)を書くとバッジのURLを作ってくれます。</p>
+
+<p>img + link というよく見るバッジの仕組みと同じです。</p>
+
+<h2 id="なぜ作ったか">なぜ作ったか</h2>
+
+<p>最近ブログをGitHub Pagesに移動したため、
+これから書く予定の記事候補をGitHub Issueをつかって管理しはじめていました。</p>
+
+<ul>
+<li><a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a></li>
+</ul>
+
+<p>しかし、<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">記事候補</a>に需要があるのか、
+よくわからないので簡単な投票機能が欲しいなーと思ったのが始まりです(コメントは敷居高い)</p>
+
+<p>また、<a href="http://shields.io/" title="shields.io">shields.io</a>はバッジを作ってくれるサービスですが、
+これを見た時にURLと投票数の関係を管理するサーバだけを作って、画像の生成などは<a href="http://shields.io/" title="shields.io">shields.io</a>にまかせてしまえば、
+意外と簡単に+1バッジが作れるかもしれないと思ったのも要因です。</p>
+
+<p>GitHubの要望として既に同様のものがあります。</p>
+
+<ul>
+<li><a href="https://github.com/isaacs/github/issues/9" title="Add explicit `+1` feature for issues that isn&amp;#39;t a comment · Issue #9 · isaacs/github">Add explicit <code>+1</code> feature for issues that isn&#39;t a comment · Issue #9 · isaacs/github</a>.</li>
+</ul>
+
+<p>しかし実装されなさそうな気がしてるので、とりあえず作ってみるかという感じで作りました。</p>
+
+<h2 id="leveldb">LevelDB</h2>
+
+<p><a href="http://shields.io/">http://shields.io/</a> がNodeなので、合わせてNodeで書くとして、
+保存する値は URL と 投票数 というだけというシンプルな感じで良かったので、KVSで適当なの使おうとしました。</p>
+
+<p>そこで何となく気になってた<a href="https://code.google.com/p/leveldb/" title="LevelDB">LevelDB</a>が使いたくなったので、
+<a href="https://github.com/rvagg/node-levelup" title="rvagg/node-levelup">rvagg/node-levelup</a>を使いました。</p>
+
+<h2 id="仕組み(初代)">仕組み(初代)</h2>
+
+<p>仕組みは凄くシンプルで、以下の2つのAPIを実装するだけでした。</p>
+
+<ul>
+<li><code>/vote?url=xxx</code> で+1投票</li>
+<li><code>/img?url=xxx</code> でバッジ画像をURLを返す</li>
+</ul>
+
+<p>imgでは、shields.ioのバッジ画像でリダイレクトを書けるというかなりずるい作りにしてました。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s2">&quot;https://img.shields.io/badge/Vote:+1:-&quot;</span> <span class="o">+</span> <span class="nx">count</span> <span class="o">+</span> <span class="s2">&quot;-red.svg?style=flat&quot;</span>
+</code></pre></div>
+<p><code>/img</code> にアクセスすると、そのurlに対するcountを使ったバッジURLを返すという感じですね。</p>
+
+<p><img src="https://img.shields.io/badge/Vote:+1:-100-red.svg?style=flat" alt=""></p>
+
+<h2 id="heroku">Heroku</h2>
+
+<p>どこに置くのかも考えずに完成して、そういえば<a href="https://dashboard.heroku.com/" title="Heroku">Heroku</a>は
+Node.js対応してた事を思い出したのでHerokuにおくことにしました。</p>
+
+<p>LevelDBはファイルベースのDBなので、特に設定などは必要ありませんでした。</p>
+
+<p>後は<a href="https://github.com/azu/voting-badge/blob/master/Procfile" title="Procfile">Procfile</a>を作ってpushするだけでローカルと同じように動きました。</p>
+
+<p>と思ったら、Heroku起動する度にファイルシステムはまっさらになるので、
+永続化するには別途アドオンや外部に保存しないと行けないことに気付きました。</p>
+
+<p>そして、HerokuでLevelDBを単純に永続化する方法はなさそうだったので諦めました。</p>
+
+<h2 id="redis">Redis</h2>
+
+<p>HerokuではRedisなどはアドオンが無料で使えて、こちらは永続化が簡単にできそうだったので、
+Redis版の実装を書きました。</p>
+
+<p>せっかくなので、LevelDB,Redisの上にもう一層軽いラッパを作って
+同じAPIで同じように扱えるようにして、LevelDB、Redisどちらでもうごかせるようにしてました。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/07/redis-leveldb-api.png" alt="api-wrapper"></p>
+
+<ul>
+<li><a href="https://github.com/azu/voting-badge/tree/master/lib/backend" title="voting-badge/lib/backend at master · azu/voting-badge">voting-badge/lib/backend at master · azu/voting-badge</a></li>
+</ul>
+
+<p>これでpushして永続化ができたので、完成！</p>
+
+<p>ではなく、キャッシュ時間が異様に長いというGitHub特有の問題に遭遇しました。</p>
+
+<h2 id="キャッシュの問題">キャッシュの問題</h2>
+
+<ul>
+<li><a href="https://github.com/github/markup/issues/224" title="Aggressive image caching breaks image badges · Issue #224 · github/markup">Aggressive image caching breaks image badges · Issue #224 · github/markup</a></li>
+<li><a href="https://github.com/blog/1766-proxying-user-images" title="Proxying User Images">Proxying User Images</a></li>
+</ul>
+
+<p>GitHubのREADMEやIssue等に貼った画像は基本的にキャッシュされた画像に差し替えされて表示されます。</p>
+
+<p>shields.ioのカスタムバッジだと、普通にキャッシュされてしまって全然更新されないバッジが出来上がります。
+(1日ぐらいキャッシュされる?)</p>
+
+<p><code>Cache-Control: no-cache</code> と Expires, Last-Modified or Etag あたりをちゃんと設定すれば、
+キャッシュされなくなりますが、
+shields.io の画像へリダイレクトしてるだけだったのでコントールすることが出来ませんでした。</p>
+
+<h2 id="自前でレンダリング">自前でレンダリング</h2>
+
+<p>キャッシュコントールするためには、Herokuからバッジ(svg)を直接配布する必要がありました。</p>
+
+<p>shields.ioのリポジトリを見ていたら、バッジを作成するモジュールが公開されてる事に気付きました。</p>
+
+<ul>
+<li><a href="https://github.com/badges/shields" title="badges/shields">badges/shields</a></li>
+</ul>
+
+<p><a href="https://github.com/Automattic/node-canvas" title="node-canvas">node-canvas</a> (cairo)のインストールが結構辛い感じでしたが、
+Herokuで動かす設定も載っていたので、自分でバッジを作成するように切り替えました。</p>
+
+<ul>
+<li><a href="https://github.com/Automattic/node-canvas/wiki/Installation-on-Heroku" title="Installation on Heroku · Automattic/node-canvas Wiki">Installation on Heroku · Automattic/node-canvas Wiki</a></li>
+</ul>
+
+<p>これで自分のところのコンテンツを返すので、レスポンスヘッダでキャッシュコントールもできるようになりました。</p>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>まだ、何か以下の心配点がありますが、一応 +1 バッジを作ることが出来ました。</p>
+
+<ul>
+<li>Herokuの無料サーバで上手く動き続けるの分からない。</li>
+<li>何か微妙にGitHubにキャッシュされてる気がする…</li>
+<li>DejaVu SansをHerokuにおいていいのかよく分からないため、適応してない
+
+<ul>
+<li>そのためレイアウトが怪しい感じ</li>
+<li>👍を表示したいけどsvgだと表示環境依存になって不便</li>
+</ul></li>
+</ul>
+
+<p>サンプルボタン =&gt; <a href="https://voting-badge.herokuapp.com/vote?url=https://github.com/azu/voting-badge"><img src="https://voting-badge.herokuapp.com/img?url=https://github.com/azu/voting-badge" alt="Vote++"></a></p>
+
+<p>ソースコードは<a href="https://github.com/azu/voting-badge/" title="azu/voting-badge">azu/voting-badge</a>に公開してあるので、修正等送ってくださると嬉しいです。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-07-29-voting-badge.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["GitHub","Issue","WebService","Node.js","Heroku"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=GitHub">GitHub</a></li>
+                
+                <li><a href="/tags/?q=Issue">Issue</a></li>
+                
+                <li><a href="/tags/?q=WebService">WebService</a></li>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+                <li><a href="/tags/?q=Heroku">Heroku</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

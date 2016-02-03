@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Mozilla 勉強会＠東京 6thのアウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Firefox,アウトライン,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2011/1003/res2967/">
+    <h1 class="post-title">Mozilla 勉強会＠東京 6thのアウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2011年10月03日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-10-03-mozilla-%E5%8B%89%E5%BC%B7%E4%BC%9A%EF%BC%A0%E6%9D%B1%E4%BA%AC-6th%E3%81%AE%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>2011年10月1日に行われた<a href="https://dev.mozilla.jp/events/workshop11/">Mozilla 勉強会＠東京 6th</a>のメモ</p>
+
+<p>イベントのページ: <a href="https://dev.mozilla.jp/events/workshop11/">Mozilla 勉強会＠東京 6th</a><br>
+Twitterのまとめ: <a href="http://togetter.com/li/195486">Mozilla 勉強会＠東京 6th &#8211; Togetter</a></p>
+
+<!--?xml version="1.0" encoding="UTF-8"?-->
+
+<ul style="font-family: Arial;">
+  <li>
+    14:30 – 15:00: 開場、発表者準備
+  </li>
+</ul>
+
+<ul style="font-family: Arial;">
+  <li>
+    15:00 – 15:10: Opening
+  </li>
+</ul>
+
+<p>自己紹介の流れ。</p>
+
+<div style="font-family: Arial;">
+  ■15:10 – 15:50: Firefox for Developers – 開発者ツール＆セキュリティ編
+</div>
+
+<div style="font-family: Arial;">
+  発表資料: <a rel="nofollow" href="http://www.slideshare.net/dynamis/firefox-developer-tools">開発者ツールの紹介</a>
+</div>
+
+<div style="font-family: Arial;">
+  Firefox開発者ツール &#8211; Web Console
+</div>
+
+<ul style="font-family: Arial;">
+  <li>
+    コマンドの補完
+  </li>
+</ul>
+
+<p>Inspector</p>
+
+<div style="font-family: Arial;">
+  <ul>
+    <li>
+      DOM Inspectorみたいなもの
+    </li>
+    <li>
+      要素を調査するツール
+    </li>
+    <li>
+      Style Inspector(開発中)
+    </li>
+  </ul>
+  
+  <p>
+    CSS Doctor
+  </p>
+</div>
+
+<div style="font-family: Arial;">
+  <ul>
+    <li>
+      CSSの間違いとか
+    </li>
+  </ul>
+  
+  <p>
+    ScrachPad
+  </p>
+</div>
+
+<div style="font-family: Arial;">
+  <ul>
+    <li>
+      エディタ
+    </li>
+    <li>
+      選択行のコードだけを実行できたりする。
+    </li>
+  </ul>
+  
+  <div>
+    GCLI
+  </div>
+  
+  <ul>
+    <li>
+      ubiquityみたいな感じの
+    </li>
+    <li>
+      CUIとGUI
+    </li>
+  </ul>
+  
+  <p>
+    Source Map
+  </p>
+</div>
+
+<div style="font-family: Arial;">
+  <ul>
+    <li>
+      CoffeeScriptのような変換コードと元コードをマッピングしたたものを作る
+    </li>
+    <li>
+      変換前の言語
+    </li>
+  </ul>
+  
+  <p>
+    Tilt
+  </p>
+</div>
+
+<div style="font-family: Arial;">
+  <ul>
+    <li>
+      DOMマップを3D化するアドオン
+    </li>
+  </ul>
+  
+  <p>
+    <strong>about:Firefox</strong></div> <div style="font-family: Arial;">
+      セキュリティとプライバシーの話
+    </div>
+    
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  発表資料: &lt;a rel=&quot;nofollow&quot; href=&quot;http://www.slideshare.net/dynamis/firefox-security-features&quot;&gt;セキュリティ機能の紹介&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  Same Origin Policy
+&lt;/div&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  Content Security Policy
+&lt;/div&gt;
+
+&lt;ul style=&quot;font-family: Arial;&quot;&gt;
+  &lt;li&gt;
+    次世代のセキュリティポリシー &lt;ul&gt;
+      &lt;li&gt;
+        XSSの攻撃防止
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    コンテンツ種別で読み込み制御 &lt;ul&gt;
+      &lt;li&gt;
+        画像やCSSやJSなども制御できるようにする
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    Webkitではほぼ開発されてる
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul style=&quot;font-family: Arial;&quot;&gt;
+  &lt;li&gt;
+    デフォルトセキュリティポリシーがいろいろ強化される
+  &lt;/li&gt;
+  &lt;li&gt;
+    CSPの使い方 &lt;ul&gt;
+      &lt;li&gt;
+        X-Content-Security-PolicyのHTTPレスポンスヘッダを送信
+      &lt;/li&gt;
+      &lt;li&gt;
+        HTMLのメタタグは書き換えできたりするものだからヘッダーで
+      &lt;/li&gt;
+      &lt;li&gt;
+        Apache でCSPの設定
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    CSP対応に移行する &lt;ul&gt;
+      &lt;li&gt;
+        JS,CSSは外部ファイルに
+      &lt;/li&gt;
+      &lt;li&gt;
+        evalを使わない
+      &lt;/li&gt;
+      &lt;li&gt;
+        ポリシー違反レポートでどこがおかしいのかも確認できる &lt;ul&gt;
+          &lt;li&gt;
+            ヘッダーでレポートを報告するURLを指定してログを残せる
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+
+      &lt;li&gt;
+        CSPブックマークレットもある
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+  HTTP Strict Transport Security
+&lt;/p&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      HTTPSでの接続を要求するヘッダ
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    X-Frame-Options
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      クリックジャッキングとか
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    Cross-Origin Resource Sharing
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      クロスドメインでの読み込み許可
+    &lt;/li&gt;
+    &lt;li&gt;
+      他のドメインから読み込まれてもいい場合の設定
+    &lt;/li&gt;
+    &lt;li&gt;
+      XHR2とか
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    ユーザ追跡拒否ヘッダ
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;ul style=&quot;font-family: Arial;&quot;&gt;
+  &lt;li&gt;
+    Do-Not-Trackヘッダ &lt;ul&gt;
+      &lt;li&gt;
+        ブラウザ側でサイトに通知する
+      &lt;/li&gt;
+      &lt;li&gt;
+        IE,Safariも対応
+      &lt;/li&gt;
+      &lt;li&gt;
+        Chromeだけ非対応
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    受け取ったらユーザー追跡をしない
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  &lt;div&gt;
+    ■15:50 – 16:30: Pano って拡張機能 teramako
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    発表資料: &lt;a rel=&quot;nofollow&quot; href=&quot;http://teramako.github.com/doc/modest-20111001/&quot;&gt;Pano って拡張機能&lt;/a&gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    Panorama
+  &lt;/div&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;
+      Firefox4から導入された
+    &lt;/li&gt;
+    &lt;li&gt;
+      タブグループを管理するビュー &lt;ul&gt;
+        &lt;li&gt;
+          アクティブなタブグループの切り替え
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    タブの種類
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      ピン止めタブ(AppTab)
+    &lt;/li&gt;
+    &lt;li&gt;
+      グループの属するタブ
+    &lt;/li&gt;
+    &lt;li&gt;
+      グループに属さないタブ(Firefox7で廃止)
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    Pano できること
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      グループの作成/削除
+    &lt;/li&gt;
+    &lt;li&gt;
+      グループ名の変更
+    &lt;/li&gt;
+    &lt;li&gt;
+      D&amp;D操作
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    実装の仕組み
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      panoramade上で起こったイベントを拾ってビューを作ってる &lt;ul&gt;
+        &lt;li&gt;
+          tabopenなど
+        &lt;/li&gt;
+        &lt;li&gt;
+          起こらないイベントは上書きして起こす
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      基本的にはビュー
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    頑張った所
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      アイコンはSVG &lt;ul&gt;
+        &lt;li&gt;
+          いろいろな場所で使われてる
+        &lt;/li&gt;
+        &lt;li&gt;
+          使いまわしたい -&gt; SVGで作る
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      SVG &lt;ul&gt;
+        &lt;li&gt;
+          ベクターなので拡大縮小できる
+        &lt;/li&gt;
+        &lt;li&gt;
+          ファイルサイズも小さい
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      about:addonsでアイコンが表示されてない &lt;ul&gt;
+        &lt;li&gt;
+          アイコンのサイズが指定されてなかった
+        &lt;/li&gt;
+        &lt;li&gt;
+          SVG内にサイズの指定した
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      タブ、Panoramaから発生するDOM Eventを拾う &lt;ul&gt;
+        &lt;li&gt;
+          Panoramaから発生しないEvent &lt;ul&gt;
+            &lt;li&gt;
+              グループが作成された
+            &lt;/li&gt;
+            &lt;li&gt;
+              グループから削除された
+            &lt;/li&gt;
+            &lt;li&gt;
+              グループから移動した
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+
+        &lt;li&gt;
+          取れないEventは無理やり発行させる &lt;ul&gt;
+            &lt;li&gt;
+              Gropuが作成されたときに起きるイベントを上書きする
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      GroupItems.registerの上書き &lt;ul&gt;
+        &lt;li&gt;
+          元関数を実行
+        &lt;/li&gt;
+        &lt;li&gt;
+          DOM Eventを発行
+        &lt;/li&gt;
+        &lt;li&gt;
+          コールバックシステムに関数を登録してDOM Eventを発行させる
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    起動速度の改良
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      起動時のスクリプトは最小限&lt;br /&gt; &lt;ul&gt;
+        &lt;li&gt;
+          必要なときにロードさせる
+        &lt;/li&gt;
+        &lt;li&gt;
+          mozUSSubScriptLoaderの使用
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      必要なときに取得 &lt;ul&gt;
+        &lt;li&gt;
+          getterの使用
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      速い読み込み &lt;ul&gt;
+        &lt;li&gt;
+          Firefox8 から mozUSSubScriptLoader もキャッシュされる
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    実装方法
+  &lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;
+      最初の読み込みは必要最小限 &lt;ul&gt;
+        &lt;li&gt;
+          40行ほど
+        &lt;/li&gt;
+        &lt;li&gt;
+          最初はロードするものを書いておいて、ロードしたときにそれを上書きする
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      getterの使用 &lt;ul&gt;
+        &lt;li&gt;
+          XPCOMUtil.jsmを使用してgetterを使いやすくする
+        &lt;/li&gt;
+        &lt;li&gt;
+          defineLazyGetter
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    コンテンツの遅延読み込み
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      bartab &lt;ul&gt;
+        &lt;li&gt;
+          起動したときはタブはできるが、ロードはされない
+        &lt;/li&gt;
+        &lt;li&gt;
+          タブが選択されたときに初めてロードされる
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      nsISessionStoreが鍵 &lt;ul&gt;
+        &lt;li&gt;
+          短いコードで実現する
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    非アクティブなグループ内に開くには
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      Panoramaとバッテングして上手く行かなった
+    &lt;/li&gt;
+    &lt;li&gt;
+      上手い解決方法が見つからない &lt;ul&gt;
+        &lt;li&gt;
+          setTimeoutでぐるぐるー
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    パネルでD&amp;Dするために
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      パネルをドラッグする前に閉じないようにする &lt;ul&gt;
+        &lt;li&gt;
+          noAutohide = true
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      メニューボタンを押したときは閉じない様にする
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;div&gt;
+    ■16:40 – 17:20: restartless – 再起動不要なアドオンをSDK無しで作るフレームワーク &amp;#8211; Piro
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    発表資料: &lt;a rel=&quot;nofollow&quot; href=&quot;http://piro.sakura.ne.jp/xul/doc/20111001workshop11/&quot;&gt;restartless – 再起動不要なアドオンをSDK無しで作るフレームワーク&lt;/a&gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    Add-on SDKの目的
+  &lt;/div&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;
+      誰でも開発できるようにする
+    &lt;/li&gt;
+    &lt;li&gt;
+      高機能なアドオンの開発は目的ではなかった
+    &lt;/li&gt;
+    &lt;li&gt;
+      今までのアドオン開発 &lt;ul&gt;
+        &lt;li&gt;
+          自由すぎた
+        &lt;/li&gt;
+        &lt;li&gt;
+          敷居高い
+        &lt;/li&gt;
+        &lt;li&gt;
+          何でもできた
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      SDKを使えばある程度制限された状態で簡単作れるようになる
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    Add-on SDKはGreasemonkeyスクリプトと同じような立ち位置
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  restartlessの目的
+&lt;/div&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      再起動不要なアドオンを今までの開発と同じ方式で作れるように
+    &lt;/li&gt;
+    &lt;li&gt;
+      Mozilla特有の事情を必要なのも従来方式
+    &lt;/li&gt;
+    &lt;li&gt;
+      対象も従来の開発者向け
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;div&gt;
+    restartlessの使い方
+  &lt;/div&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;
+      main.jsの内容 &lt;ul&gt;
+        &lt;li&gt;
+          startup()で読み込まれる
+        &lt;/li&gt;
+        &lt;li&gt;
+          専用の名前空間で実行される
+        &lt;/li&gt;
+        &lt;li&gt;
+          shutdown()を定義
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      ユーティリティ &lt;ul&gt;
+        &lt;li&gt;
+          location.href
+        &lt;/li&gt;
+        &lt;li&gt;
+          load関数 = Cu.importと互換
+        &lt;/li&gt;
+        &lt;li&gt;
+          require関数
+        &lt;/li&gt;
+        &lt;li&gt;
+          existsでファイルの有無を調べる
+        &lt;/li&gt;
+        &lt;li&gt;
+          resolve 相対パスの解決
+        &lt;/li&gt;
+        &lt;li&gt;
+          EXPORTED_SYMBOLS
+        &lt;/li&gt;
+        &lt;li&gt;
+          doAndWait &lt;ul&gt;
+            &lt;li&gt;
+              非同期処理を同期的に扱うときに使用
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+
+        &lt;li&gt;
+          jstimer
+        &lt;/li&gt;
+        &lt;li&gt;
+          pref
+        &lt;/li&gt;
+        &lt;li&gt;
+          locale &lt;ul&gt;
+            &lt;li&gt;
+              国際化
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+
+        &lt;li&gt;
+          config
+        &lt;/li&gt;
+        &lt;li&gt;
+          WindowManager &lt;ul&gt;
+            &lt;li&gt;
+              DOMWindowにアクセスする
+            &lt;/li&gt;
+            &lt;li&gt;
+              ウィンドウのopenを監視
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+
+        &lt;li&gt;
+          KeyboardShortcut &lt;ul&gt;
+            &lt;li&gt;
+              ショートカットの定義
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+
+        &lt;li&gt;
+          jsDefferred
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    restartlessの利用例
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;ul style=&quot;font-family: Arial;&quot;&gt;
+  &lt;li&gt;
+    ALT
+  &lt;/li&gt;
+  &lt;li&gt;
+    back to owner tab
+  &lt;/li&gt;
+  &lt;li&gt;
+    Fox Splitter
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+  restartlessのコードリーディング
+&lt;/p&gt;
+
+&lt;div style=&quot;font-family: Arial;&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      index.rdf &lt;ul&gt;
+        &lt;li&gt;
+          bootstrap=&amp;#8221;true&amp;#8221;で再起動不要と認識される
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      bootstrap.js &lt;ul&gt;
+        &lt;li&gt;
+          モジュールのロードとか
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      loader.js &lt;ul&gt;
+        &lt;li&gt;
+          ユーティリティとかが定義されている
+        &lt;/li&gt;
+        &lt;li&gt;
+          doAndWait &lt;ul&gt;
+            &lt;li&gt;
+              スレッドをたててメインループを回す実装
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      main.js &lt;ul&gt;
+        &lt;li&gt;
+          各アドオンのコード
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      module &lt;ul&gt;
+        &lt;li&gt;
+          各ライブラリが入ってるので、削除すれば消える
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;div&gt;
+    ■17:20 – 18:00: Lightning Talk
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ul style=&quot;font-family: Arial;&quot;&gt;
+  &lt;li&gt;
+    &lt;a rel=&quot;nofollow&quot; href=&quot;http://www.slideshare.net/knagato/mozilla-workshop-20111001-lt-addon-sdk&quot;&gt;アドオン SDK を利用した初めてのアドオン開発&lt;/a&gt;– by knagato&lt;br /&gt; &lt;ul&gt;
+      &lt;li&gt;
+        初めてアドオン開発する人が対象
+      &lt;/li&gt;
+      &lt;li&gt;
+        SDKを使ったアドオン開発を特徴 &lt;ul&gt;
+          &lt;li&gt;
+            HTMLやJavaScriptなどが中心で、XULやXPCOMなどMozilla特有の機能を使わなくても開発できる
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+
+      &lt;li&gt;
+        開発環境の種類 &lt;ul&gt;
+          &lt;li&gt;
+            Add-on BuilderをWeb上での開発 &lt;ul&gt;
+              &lt;li&gt;
+                再起動不要なのでその場で試せる
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+
+          &lt;li&gt;
+            Addon SDKを使った開発 &lt;ul&gt;
+              &lt;li&gt;
+                コマンドラインベース
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+
+      &lt;li&gt;
+        Add-on SDKのチュートリアル
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    &lt;a rel=&quot;nofollow&quot; href=&quot;http://www.p2pwf.com/&quot;&gt;Thunderbirdアドオンによるワークフロー開発について&lt;/a&gt;– by Nakashima&lt;br /&gt; &lt;ul&gt;
+      &lt;li&gt;
+        提案するツール &lt;ul&gt;
+          &lt;li&gt;
+            自分自身でのプロセス改善が可能
+          &lt;/li&gt;
+          &lt;li&gt;
+            やり取りの簡略化ができる
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+
+      &lt;li&gt;
+        &lt;a href=&quot;http://www.p2pwf.com/&quot;&gt;http://www.p2pwf.com/&lt;/a&gt; に仕様の詳細
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    &lt;a rel=&quot;nofollow&quot; href=&quot;http://www.slideshare.net/saneyuki/forking-secure-login&quot;&gt;Forking Secure Login&lt;/a&gt; – by saneyuki_s&lt;br /&gt; &lt;ul&gt;
+      &lt;li&gt;
+        Secure Loginアドオンのフォークの話 &lt;ul&gt;
+          &lt;li&gt;
+            現在はメンテナンスアップデートのみになってる
+          &lt;/li&gt;
+          &lt;li&gt;
+            全面改装してる
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+
+      &lt;li&gt;
+        一部機能の省略
+      &lt;/li&gt;
+      &lt;li&gt;
+        レガシーコードの除去
+      &lt;/li&gt;
+      &lt;li&gt;
+        doorhanger対応 &lt;ul&gt;
+          &lt;li&gt;
+            Firefoxに入ってるSSLのポップアップするやつ
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    &lt;a rel=&quot;nofollow&quot; href=&quot;http://0-9.sakura.ne.jp/pub/lt/modest/start.html&quot;&gt;jQueryで破棄されたrequestAnimationFrameとJSでのアニメーション実装で注意すること&lt;/a&gt; – by &lt;a rel=&quot;nofollow&quot; href=&quot;https://twitter.com/#%21/kyo_ago&quot;&gt;kyo_ago&lt;/a&gt;&lt;br /&gt; &lt;ul&gt;
+      &lt;li&gt;
+        requestAnimationFrame &lt;ul&gt;
+          &lt;li&gt;
+            setIntervalの問題点としてアニメーション向けではない
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+
+      &lt;li&gt;
+        jQuery 1.6から削除された &lt;ul&gt;
+          &lt;li&gt;
+            setIntervalとrequestAnimationFrameが衝突してキューがたまる
+          &lt;/li&gt;
+          &lt;li&gt;
+            タブがバックグランドにあるときの挙動
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    &lt;a rel=&quot;nofollow&quot; href=&quot;http://d.hatena.ne.jp/mooz/20111002/p1&quot;&gt;ES.next WeakMap&lt;/a&gt;– by mooz (&lt;a rel=&quot;nofollow&quot; href=&quot;https://twitter.com/#%21/stillpedant&quot;&gt;@stillpedant&lt;/a&gt;)&lt;br /&gt; &lt;ul&gt;
+      &lt;li&gt;
+        WeakMap = 連想配列
+      &lt;/li&gt;
+      &lt;li&gt;
+        Firefox6から利用可能
+      &lt;/li&gt;
+      &lt;li&gt;
+        {}やObject()と比較して &lt;ul&gt;
+          &lt;li&gt;
+            keyにオブジェクトが指定可能 &lt;ul&gt;
+              &lt;li&gt;
+                ハッシュはkeyに文字列しか指定できない(toStringされてる)
+              &lt;/li&gt;
+              &lt;li&gt;
+                WeakMapはkeyにオブジェクトが指定可能 &lt;ul&gt;
+                  &lt;li&gt;
+                    オブエジェクトしか指定できない
+                  &lt;/li&gt;
+                  &lt;li&gt;
+                    プリミティブ値はエラー
+                  &lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+
+              &lt;li&gt;
+                オブジェクトの外部拡張 &lt;ul&gt;
+                  &lt;li&gt;
+                    DOMノードに独自プロパティは危険
+                  &lt;/li&gt;
+                  &lt;li&gt;
+                    ES5ではオブジェクトの拡張がfreezeできる
+                  &lt;/li&gt;
+                  &lt;li&gt;
+                    オブジェクト自体は拡張しないで、外部に付加情報を持つ
+                  &lt;/li&gt;
+                  &lt;li&gt;
+                    WeakMapを利用する &lt;ul&gt;
+                      &lt;li&gt;
+                        キーとして外部情報をもたせる
+                      &lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+
+          &lt;li&gt;
+            keyに指定されたオブジェクトを弱く参照 &lt;ul&gt;
+              &lt;li&gt;
+                CGにたいして
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    Firefox4以降のE4X– by teramako &lt;ul&gt;
+      &lt;li&gt;
+        ワイルドカード &lt;ul&gt;
+          &lt;li&gt;
+            *が指定子に使える
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+
+      &lt;li&gt;
+        属性アクセス &lt;ul&gt;
+          &lt;li&gt;
+            @が使える
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+
+      &lt;li&gt;
+        Firefox3.6までは上記のものがE4X以外でも使えた &lt;ul&gt;
+          &lt;li&gt;
+            Firefox4以降は禁止された
+          &lt;/li&gt;
+          &lt;li&gt;
+            ざんねんでしたね
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre></div>
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2011/2011-10-03-mozilla-%E5%8B%89%E5%BC%B7%E4%BC%9A%EF%BC%A0%E6%9D%B1%E4%BA%AC-6th%E3%81%AE%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Firefox","アウトライン","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=アウトライン">アウトライン</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

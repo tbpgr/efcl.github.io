@@ -1,20 +1,304 @@
----
-layout: about
-title: タイムライン
-permalink: /about/timeline.html
----
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-<link href="./css/style.css" type="text/css" rel="stylesheet">
+    <title>
+        
+        タイムライン | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,ブラウザ,ECMAScript,Objective-C,Firefox,拡張機能" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+        <div class="container">
+            <div class="profile">
+                <a href="/about/" title="About"><img src="/public/img/azu.png"
+                                                                       alt="Profile"></a>
+
+                <h2><a href="/about/" title="About">azu</a></h2>
+            </div>
+            <div class="social">
+                <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                    <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+                </a>
+                <a class="github" href="https://github.com/azu" title="GitHub">
+                    <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+                </a>
+                <a class="rss" href="/feed/" title="RSS Feed">
+                    <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="search">
+                    <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                        <label for="search-box-label">検索:</label>
+                        <input type="hidden" name="q" value="site:efcl.info">
+                        <input id="search-box-label" type="search" name="q">
+                        <input type="submit" value="search">
+                    </form>
+                </div>
+            </nav>
+            <nav class="sidebar-nav">
+                <div class="about-menu">
+                    <ul class="recent-posts">
+                        <li><a href="/" title="Home">Home</a></li>
+                        <li><a href="/about/timeline.html" title="about me">タイムライン</a>
+                        </li>
+                        <li><a href="/about/sites.html" title="Sites">活動サイト</a></li>
+                        <li><a href="/about/presentations.html" title="勉強会のスライド一覧">勉強会での発表履歴</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</aside>
+<article>
+    <div class="content container">
+        <link href="./css/style.css" type="text/css" rel="stylesheet">
 今までやってきたこと
 
 <h1>タイムライン</h1>
 
 <p class="description">今までのネットでの活動を振り返る</p>
 <ol id="timeline">
-    {% for member in site.data.azu_timeline %}
+    
     <li>
-        <time datetime="{{ member.date | date: '%Y-%m-%d' }}">{{ member.date | date: '%Y年%m月%d日' }}</time>
-        <p>{{member.text}}</p>
+        <time datetime="2007-04-01">2007年04月01日</time>
+        <p><a href="https://addons.mozilla.org/ja/firefox/addon/greasemonkey/">Greasemonkey</a>に興味を持ちJavaScriptを学び始める</p>
     </li>
-    {% endfor %}
+    
+    <li>
+        <time datetime="2007-12-24">2007年12月24日</time>
+        <p><a href="http://efcl.info/">Web scratch</a>の運営を始める</p>
+    </li>
+    
+    <li>
+        <time datetime="2008-03-19">2008年03月19日</time>
+        <p><a href="http://twitter.com/azu_re">Twitter</a>を始める</p>
+    </li>
+    
+    <li>
+        <time datetime="2008-07-11">2008年07月11日</time>
+        <p><a href="http://efcl.info/wiki/flvplayer_wrapper/">flvplayer_wrapper</a>を引き継ぎ、開発を始める</p>
+    </li>
+    
+    <li>
+        <time datetime="2009-07-11">2009年07月11日</time>
+        <p>flvplayer_wrapperのハック対象である<a href="http://d.hatena.ne.jp/duaf/20090709/p2">旧プレイヤーの保守が終了</a>に伴い保守・開発を終了</p>
+    </li>
+    
+    <li>
+        <time datetime="2009-09-10">2009年09月10日</time>
+        <p><a href="http://efcl.info/adiary/">prog*sig</a>の運営を始め、積極的にプログラミングの記録をアウトプットする</p>
+    </li>
+    
+    <li>
+        <time datetime="2010-03-24">2010年03月24日</time>
+        <p><a href="http://lukewarm.s151.xrea.com/nilscript.html">NILScript</a>を知り<a href="https://github.com/azu/NILScript" title="azu/NILScript">色々なアプリ</a>を書く</p>
+    </li>
+    
+    <li>
+        <time datetime="2010-12-23">2010年12月23日</time>
+        <p>JavaScriptについてもっと知ってもらうために、<a href="http://twitter.com/azu_re/status/17919278288216064">JavaScript情報配信サイトの構想</a>を練る</p>
+    </li>
+    
+    <li>
+        <time datetime="2011-01-16">2011年01月16日</time>
+        <p><a href="https://dev.mozilla.jp/events/workshop08/">Mozilla 勉強会@東京 5th</a>でJSer.infoについて<a href="http://efcl.info/2011/0117/res2229/">発表</a>する</p>
+    </li>
+    
+    <li>
+        <time datetime="2011-01-16">2011年01月16日</time>
+        <p><a href="http://jser.info/" title="JSer.info">JSer.info</a>の運営を始める</p>
+    </li>
+    
+    <li>
+        <time datetime="2012-01-16">2012年01月16日</time>
+        <p><a href="http://jser.info/post/15883533195/" title="オフライン勉強会でJSer.info一周年について発表してきた - JSer.info">JSer.info一周年</a>イベントをする</p>
+    </li>
+    
+    <li>
+        <time datetime="2013-08-25">2013年08月25日</time>
+        <p><a href="http://azu.github.io/Meta-Weekly/" title="Meta Weekly">Meta Weekly</a>を公開</p>
+    </li>
+    
+    <li>
+        <time datetime="2014-06-23">2014年06月23日</time>
+        <p><a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a>を公開</p>
+    </li>
+    
+    <li>
+        <time datetime="2014-11-01">2014年11月01日</time>
+        <p><a href="http://jser.info/2014/11/02/jser200/" title="JSer.info 200回記念イベントを開催しました - JSer.info">JSer.info 200回記念イベント</a>を行う</p>
+    </li>
+    
 </ol>
+    </div>
+</article>
+</body>
+</html>

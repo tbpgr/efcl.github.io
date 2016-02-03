@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Frontrend Conference アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="イベント,JavaScript,CSS" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/02/21/frontrend/">
+    <h1 class="post-title">Frontrend Conference アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年02月21日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-02-21-frontrend.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://frontrend.github.io/conference/" title="Frontrend Conference - A conference for front-end developer（2015年2月21日開催）">Frontrend Conference - A conference for front-end developer（2015年2月21日開催）</a> に参加してきたのでメモ</p>
+
+<p>殆どCSS側のセッションにいたのでCSSが中心。
+終わったあとに<a href="https://twitter.com/search?f=realtime&amp;q=%23%E3%82%B4%E3%83%BC%E3%83%A4sushi&amp;src=typd" title="#ゴーヤsushi">#ゴーヤsushi</a>と<a href="https://twitter.com/search?f=realtime&amp;q=%23%E3%83%AB%E3%83%8E%E3%82%A2%E3%83%BC%E3%83%AB_sushi&amp;src=typd" title="#ルノアール_sushi">#ルノアール_sushi</a>をしたのでとても長かった。</p>
+
+<hr>
+
+<h2 id="pragmatic-front-end-developer:-from-artisan-to-expert---斉藤-祐也">Pragmatic Front-end Developer: From Artisan to Expert - 斉藤 祐也</h2>
+
+<ul>
+<li>基調講演</li>
+<li>メンテンス性
+
+<ul>
+<li>WEBを構成するJS+CSS+HTMLはあんまりメンテしやすくない</li>
+<li>けど専門的な知識がなくてもかけてしまう学びやすさがある</li>
+<li>言語的にシンプル</li>
+</ul></li>
+<li>コードスタイルガイドライン
+
+<ul>
+<li>多くの人が開発しても、一人の人が書いたように見えるようにしたほうがいい</li>
+<li>JavaScript
+
+<ul>
+<li>IDOMATIC.js</li>
+<li>jQuery Code Style GuideLine</li>
+</ul></li>
+<li>CSS
+
+<ul>
+<li>IDOMATIC.css</li>
+<li>Sass GuideLine</li>
+</ul></li>
+<li>HTML
+
+<ul>
+<li><a href="http://codeguide.co/" title="Code Guide by @mdo">Code Guide by @mdo</a></li>
+</ul></li>
+</ul></li>
+<li>ガイドラインは運用を継続できないと意味がない</li>
+<li>なのでツールを使うことが必要
+
+<ul>
+<li><a href="http://editorconfig.org/">http://editorconfig.org/</a></li>
+<li><a href="https://github.com/jscs-dev/node-jscs">https://github.com/jscs-dev/node-jscs</a></li>
+<li>csslint.net</li>
+<li>csscombは整形ツール</li>
+</ul></li>
+<li>自動化を目指すためにツールを使う
+
+<ul>
+<li>どうしてそのコードを書いたのかを議論する時間を使えるようにツールを使って単純化する</li>
+</ul></li>
+<li>サイト
+
+<ul>
+<li>GitHub</li>
+<li>Mailchimp</li>
+<li>styleguides.io アグリゲーション</li>
+</ul></li>
+<li>ドキュメンテーション
+
+<ul>
+<li>ドキュメンテーションは嘘をつくのが弱点</li>
+<li>変化が激しいので嘘ができてしまう</li>
+<li>そこを解決するのがツール</li>
+<li>コードコメントでMarkdownで書いて</li>
+<li>そこからドキュメンテーションを生成する</li>
+</ul></li>
+<li>KSS
+
+<ul>
+<li>ここから色々なツールがでてきた</li>
+<li>CSSのスタイルガイドをコメントから生成する</li>
+<li><a href="https://github.com/kss-node/kss-node">https://github.com/kss-node/kss-node</a></li>
+<li><a href="https://github.com/trulia/hologram">https://github.com/trulia/hologram</a></li>
+</ul></li>
+<li>ゴール
+
+<ul>
+<li>人は実際に見えるものに対して議論がし易い</li>
+<li>プロトタイピングにもスタイルガイドは役立つ</li>
+</ul></li>
+<li>プロトタイプ
+
+<ul>
+<li>プロトタイプはさっさと作る</li>
+</ul></li>
+<li>プロトタイプ制作のツール
+
+<ul>
+<li>HTML/CSS/JSで作る?</li>
+<li><a href="http://www.browsersync.io/">http://www.browsersync.io/</a> でのLiveReload
+
+<ul>
+<li>あるブラウザでの操作を別のブラウザでも反映できる</li>
+</ul></li>
+<li>JSBIN</li>
+<li>Chrome Dev Tools</li>
+</ul></li>
+<li>プログレッシブエンハンスメント
+
+<ul>
+<li>ウェブはプラットフォームじゃなくて連続性を持ってる</li>
+<li>ウェブは常に変化し続けてるので、YES/NOだけが答えじゃないことが多い</li>
+<li>ウェブそのものがプログレッシブエンハンスメント?</li>
+<li>CUT THE MUSTAND
+
+<ul>
+<li>ブラウザごとじゃなくて、コンポーネントごとにブラウザを判定して体験レイヤーを分ける</li>
+<li>コンポーネント(機能の塊)</li>
+<li><code>if(ある機能 &amp;&amp; ある機能 &amp;&amp; ある機能){}</code></li>
+<li>コンポーネントが使えるならって感じで分ける</li>
+<li>feature detectとはちょっと違う</li>
+<li><a href="http://www.filamentgroup.com/lab/grade-the-components.html" title="Grade components, not browsers | Filament Group, Inc., Boston, MA">Grade components, not browsers | Filament Group, Inc., Boston, MA</a></li>
+</ul></li>
+</ul></li>
+<li>プロダクトの責任
+
+<ul>
+<li>プロダクトを継続できるように気を配る</li>
+<li>ウェブは変化し続けるので、責任持ってる</li>
+</ul></li>
+<li>レスポンシブ
+
+<ul>
+<li>何もしなくても新しい対応出来てる状態が作れるかもしれない</li>
+<li>新しいサイズの端末が出てきた時に、その端末向けに何かを実装するんじゃなくて、それでも動くように作っておく</li>
+<li>ウェブは多くの環境から見られる</li>
+<li>それらの環境を考えるのもひとつ</li>
+</ul></li>
+<li>パフォーマンス
+
+<ul>
+<li>Twitterのクライアントサイド -&gt; サーバサイドサイドテンプレートに戻った話</li>
+<li>クライアントサイドだと1000msの壁を超えられなかった</li>
+<li>EmberのFast Boot</li>
+<li>NodeをバックエンドのUIレイヤーとして使ってファーストビューをよくする話</li>
+<li>React-Canvas</li>
+</ul></li>
+<li>プログラミングにおける割れ窓理論
+
+<ul>
+<li>周辺から片付けていこう</li>
+</ul></li>
+<li>知識を増やすための時間を定常的に設ける
+
+<ul>
+<li>常に危機感を持って新しい知識を求める</li>
+</ul></li>
+<li>コミュニケーション
+
+<ul>
+<li>自分が生み出した価値を伝える価値</li>
+<li>新しいプロダクトを作ったらそれを伝えることが必要</li>
+</ul></li>
+<li>チーム
+
+<ul>
+<li>それぞれ専門性持った人が集まるもの</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="箱---矢倉-眞隆">箱 - 矢倉 眞隆</h2>
+
+<ul>
+<li><a href="http://0-9.sakura.ne.jp/pub/kbkz_tech/start.html" title="CSSに死を！これはJSerの叫び！ #kbkz_tech">CSSに死を！これはJSerの叫び！ #kbkz_tech</a></li>
+<li>の話</li>
+<li>OOPみたいな概念をCSSに持ち込むにはどうすれば?</li>
+<li>CSS辛い話
+
+<ul>
+<li>CSSの新しいものを紹介しても使ってもらえない</li>
+<li>古い環境のサポートが必要だから</li>
+</ul></li>
+<li><code>object-fit</code>
+
+<ul>
+<li>アスペクト比を保ったまま画像を収めて表示できる機能</li>
+<li>ギャラリーを作るときとかに便利</li>
+<li>Webkit先行実装 -&gt; Blink実装 -&gt; Firefox実装のいつもの流れ</li>
+</ul></li>
+<li>CSSのpolyfill
+
+<ul>
+<li><code>object-fit</code>のpolyfillを書こうとする</li>
+<li>JavaScriptでやったほうが楽そうに見える</li>
+<li>けど、知らないものをまずをJSで解釈させる必要がある</li>
+<li>まずJavaScriptでCSSパーサを作る必要がある</li>
+<li>ブラウザはわからないプロパティを無視する(CSSOMから捨ててしまう)</li>
+<li>パフォーマンスが悪くなる</li>
+</ul></li>
+<li>CSSが表示されるまでの流れ
+
+<ul>
+<li>CSSをパースしてCSSOMにする</li>
+<li>レイアウトして描画</li>
+</ul></li>
+<li>CSSのpolyfill開発の辛さ
+
+<ul>
+<li>CSSOMには知らないものは現れない</li>
+<li>アクセスは文字列を変更する</li>
+<li>JavaScriptならオブジェクト+プロパティ</li>
+<li>ブラックボックスな感じ</li>
+</ul></li>
+<li>Extensible Web
+
+<ul>
+<li>開発者がウェブを拡張できるようにするための構想</li>
+<li>polyfillをもっと簡単に作れるように基盤を作ろう</li>
+</ul></li>
+<li>JavaScriptの場合
+
+<ul>
+<li>ES5のArray系メソッドはES3レベルでもpolyfillを書くことができた</li>
+</ul></li>
+<li>CSSはExtensibleじゃない
+
+<ul>
+<li>CSSプリプロセッサが行った拡張</li>
+<li>記述や管理面の強化なので、機能面で拡張できたわけじゃない</li>
+</ul></li>
+<li>SassScript
+
+<ul>
+<li>処理命令、データ構造、型などはある</li>
+<li>最初はRuby実装だったがC/C++などの実装がでてきたのはいいこと</li>
+<li><a href="https://github.com/sass/libsass" title="sass/libsass">sass/libsass</a></li>
+</ul></li>
+<li>Extensible CSSはプログラムっぽくなる
+
+<ul>
+<li>=&gt; おそらくならない</li>
+<li>JSなどのレイヤーでやることになる</li>
+</ul></li>
+<li><a href="https://wiki.css-houdini.org/" title="CSS Houdini Wiki [CSS-TAG Houdini Task Force Wiki]">CSS Houdini Wiki [CSS-TAG Houdini Task Force Wiki]</a>
+
+<ul>
+<li>Project Houdini</li>
+<li>TAGとCSS WGの合同タスクフォース</li>
+<li>JavaScriptでCSSのpolyfillを作りやすくするためのプロジェクト</li>
+<li><a href="http://vivliostyle.co.jp/2015/02/sydney/" title="CSS Houdini / CSS Working Groupミーティングに参加しました - 株式会社ビブリオスタイル (Vivliostyle Inc.)">CSS Houdini / CSS Working Groupミーティングに参加しました - 株式会社ビブリオスタイル (Vivliostyle Inc.)</a></li>
+</ul></li>
+<li>Houdini
+
+<ul>
+<li><a href="http://ja.wikipedia.org/wiki/%E3%83%8F%E3%83%AA%E3%83%BC%E3%83%BB%E3%83%95%E3%83%BC%E3%83%87%E3%82%A3%E3%83%BC%E3%83%8B">http://ja.wikipedia.org/wiki/%E3%83%8F%E3%83%AA%E3%83%BC%E3%83%BB%E3%83%95%E3%83%BC%E3%83%87%E3%82%A3%E3%83%BC%E3%83%8B</a></li>
+<li>箱の中から脱出するマジシャン的の人</li>
+<li>フーディンの元ネタ</li>
+</ul></li>
+<li>Houdiniの中身</li>
+<li>Exposition
+
+<ul>
+<li>今までブラックボックスだったところを取れるようにする</li>
+<li>JavaScriptから触れるようにする</li>
+<li>Parser API
+
+<ul>
+<li>まずはセレクタや算出前の値とか、値の型とかpolyfillの開発に</li>
+</ul></li>
+<li>Font Metrics
+
+<ul>
+<li>テキストのフォントのサイズとか、文字列の幅とかを取る</li>
+<li>タイポグラフィなどに役立つ</li>
+<li>CanvasだとできるAPIがある</li>
+</ul></li>
+<li>Fragment Tree API
+
+<ul>
+<li>ボックスを構成するフラグメントをexposeする</li>
+<li>複数行にまたいだ最初に一行目(First Letter)とかの大きさをとれる</li>
+<li>ブラウザのレンダリングツリーを取れるようにする</li>
+</ul></li>
+</ul></li>
+<li>Properties &amp; Values
+
+<ul>
+<li>CSS Variablesの拡張</li>
+<li>初期化や変更などができるように</li>
+<li>Web ComponentsのCSS版みたいのが実現できる?</li>
+</ul></li>
+<li>Custom Layout/Paint
+
+<ul>
+<li>レイアウトや描画に介入</li>
+</ul></li>
+<li>Scroll Extensions
+
+<ul>
+<li>Pull to refreshなど</li>
+<li>細かいスクロールの制御をする</li>
+</ul></li>
+<li>どこまで実現できるのか?
+
+<ul>
+<li>polyfillができるかもしれないが、まずこのHoudiniの</li>
+<li>できるまでに時間がかかる</li>
+</ul></li>
+<li>UI開発は楽になるか
+
+<ul>
+<li>DOMとCSSOMがもう少しシームレスにならないとUI開発が楽にならない</li>
+</ul></li>
+<li>拡張によってつらくなくなるか
+
+<ul>
+<li>ハイレイヤーなユースケースが多い</li>
+<li>Houdiniはローレイヤーの話が中心</li>
+<li>必ずしもローレイヤーのも求めなくてもいい場合もある</li>
+<li>ハイレイヤーな機能をもとめていいはず</li>
+<li>まずは声をあげて伝えよう</li>
+</ul></li>
+<li>つらい -&gt; つらいかも</li>
+</ul>
+
+<hr>
+
+<h2 id="web-components/polymer,-styling-shadow-dom---谷-拓樹">Web Components/Polymer, Styling Shadow DOM - 谷 拓樹</h2>
+
+<ul>
+<li>CSSのの解決していく手段
+
+<ul>
+<li>OOCSS</li>
+<li>SMACSS</li>
+<li>BEM</li>
+<li>などで解決していこうとしてる</li>
+<li>これらは紳士協定的なもの</li>
+<li>=&gt; 根本的な解決はできてない</li>
+</ul></li>
+<li>これを根本的に解決しようとするのがWeb Components</li>
+<li>Templates
+
+<ul>
+<li><code>&lt;template&gt;</code> はページ上ではレンダリングはされない</li>
+<li>Custom Elementとかで使う</li>
+</ul></li>
+<li>Custom Element
+
+<ul>
+<li>好きな要素をつくるための話</li>
+</ul></li>
+<li>Shadow DOM
+
+<ul>
+<li>CSSにとって大事</li>
+<li>Chromeとかは<code>&lt;video&gt;</code>とかで使われてる</li>
+</ul></li>
+<li>HTML Imports
+
+<ul>
+<li>作ったものをページ間とか共有するために使う</li>
+</ul></li>
+<li><code>webcomponents.js</code>
+
+<ul>
+<li>polyfill である程度</li>
+<li>若干の制限がある</li>
+</ul></li>
+<li>Polymer
+
+<ul>
+<li>Googleが中心でやってるWebComponent周りのプロジェクト</li>
+<li><code>webcomponents.js</code> ベース + UI Componentなどが</li>
+</ul></li>
+<li>メルヘンなデモ
+
+<ul>
+<li>ひかりの世界(普通にHTMLの世界)</li>
+<li><code>&lt;x-element&gt;</code> という要素を作っていく</li>
+<li><code>&lt;template&gt;</code>の中身に置き換わる =&gt; やみの世界へ</li>
+<li>やみの世界とひかり世界をつなげる</li>
+<li><code>&lt;content /&gt;</code> = ひかりの世界 の内容</li>
+<li>ひかりの世界とやみの世界ではCSSのスコープが分けられる</li>
+<li><code>:host</code> というのがひかりと闇の世界の境界</li>
+<li>やみの世界にたいして、ひかりの世界からスタイルを当てる
+
+<ul>
+<li><code>x-element::shadow{}</code> <code>::shadow</code>という擬似要素を使う</li>
+</ul></li>
+<li>ひかりの世界から、やみの世界に対してスタイルを当てる
+
+<ul>
+<li><code>::content{}</code>に対してスタイルをあてる</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;x-element&gt;
+ひかりの世界
+&lt;/x-element&gt;
+</code></pre></div>
+<ul>
+<li>Callout
+
+<ul>
+<li>吹き出しのデモ</li>
+<li>外から吹き出しの背景の色を変更する
+
+<ul>
+<li><code>::shadow</code> で外から色を指定する</li>
+<li>ShadowDOMから<code>:host</code>を指定しておいて、<code>x-element</code>にクラスを指定してマッチさせる</li>
+</ul></li>
+<li>もう一つの方法</li>
+<li><code>:host-context()</code>を使う
+
+<ul>
+<li>テーマ的な割り当てる</li>
+<li><code>x-element</code>をテーマ的なクラスでラップする</li>
+</ul></li>
+</ul></li>
+<li>Grid
+
+<ul>
+<li><code>x-grid</code> グリッドレイアウトをするデモ</li>
+<li><code>col-4</code> というクラスが<code>x-grid</code>に指定されていた場合に4つで折り返すことができる</li>
+<li><code>:host</code></li>
+<li>応用すれば <code>column=&quot;4&quot;</code> みたいなのも属性セレクタでも実現できる</li>
+<li>modifier
+
+<ul>
+<li>クラスセレクタ or 属性セレクタ</li>
+</ul></li>
+</ul></li>
+<li>ToolTip
+
+<ul>
+<li><code>ui-tooltip</code> というCustom Element</li>
+<li>コンポーネントをコンポーネントで作る</li>
+<li>内部的に<code>ui-callout</code>を使ってる</li>
+<li><code>Attributes</code></li>
+<li><code>Nest</code></li>
+</ul></li>
+<li>Deep Combinator
+
+<ul>
+<li><code>&lt;ui-tooltip&gt; &lt;ui-callout /&gt; &lt;/ui-tooltip&gt;</code></li>
+<li>コンポーネントを入れ子にするとShadowが深くなる</li>
+<li><code>ui-tooltip ui-callout .body{}</code>ではスタイルは変わらない</li>
+<li>=&gt; <code>ui-tooltip::shadow ui-callout::shadow .body{}</code>ではスタイルは変わらない</li>
+<li><a href="http://www.html5rocks.com/ja/tutorials/webcomponents/shadowdom-201/" title="Shadow DOM 201: CSS とスタイリング - HTML5 Rocks">Shadow DOM 201: CSS とスタイリング - HTML5 Rocks</a></li>
+<li>/deep/ コンビネータでできるけど最近変わった</li>
+</ul></li>
+<li><code>&lt;time&gt;</code> 
+
+<ul>
+<li>GitHubで使われてる要素</li>
+<li><code>&lt;time is=&quot;time-ago&quot;&gt;</code>という感じでCustom Elementが使われてる</li>
+</ul></li>
+<li><a href="https://1000ch.github.io/lazyload-image/" title="lazyload-image">lazyload-image</a>
+
+<ul>
+<li><code>&lt;img is=&#39;lazyload-image&#39;&gt;</code></li>
+<li>JSオフなら普通のimgになる</li>
+</ul></li>
+<li>道を知ってることとあることは違う
+
+<ul>
+<li>WebComponents</li>
+<li>ユーザーが作ったものは<code>-</code>を要素名に含める必要がある</li>
+<li>それが便利なら将来<code>-</code>なしで仕様としてはいるかもしれないね</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="css3-プロパティを使ってなにか作ります---@herablog">CSS3 プロパティを使ってなにか作ります - @herablog</h2>
+
+<ul>
+<li>filter
+
+<ul>
+<li>CSS Filter Effects</li>
+<li><a href="http://html5-demos.appspot.com/static/css/filters/index.html" title="CSS Filters">CSS Filters</a></li>
+<li>jpn-filter.css</li>
+<li>日本っぽいフィルター</li>
+</ul></li>
+</ul>
+
+<h2 id="css-polyfill-preprocessor---@pocotan001">CSS Polyfill Preprocessor - @pocotan001</h2>
+
+<ul>
+<li>Myth </li>
+<li><a href="http://www.myth.io/" title="Myth - CSS the way it was imagined.">Myth - CSS the way it was imagined.</a></li>
+<li>CSSの仕様を実装したプリプロセッサ</li>
+<li>CSS Variableとかの実装</li>
+<li>内部的にはreworkを使ってる</li>
+<li><a href="https://github.com/reworkcss/rework" title="reworkcss/rework">reworkcss/rework</a></li>
+<li>CSSをCSSとか理解できる
+
+<ul>
+<li>独自のシンタックスじゃない</li>
+</ul></li>
+<li>コンパイルの早さ
+
+<ul>
+<li>polyfillなので、実装されれば捨てられる</li>
+</ul></li>
+<li>CSSはツールよりも考え方が優先されてるような気がする
+
+<ul>
+<li>Sassとかだと<code>@extend</code>とかが使いにくいいとか</li>
+<li>最低限なので、ミニマムでいいのでは</li>
+<li><a href="https://github.com/pocotan001" title="pocotan001 (Hayato Mizuno)">pocotan001 (Hayato Mizuno)</a></li>
+</ul></li>
+</ul>
+
+<h2 id="position:-fixed;を上手に飼う方法---石橋-啓太">position: fixed;を上手に飼う方法 - 石橋 啓太</h2>
+
+<ul>
+<li>固定表示の実装でのはまりどころ</li>
+<li><code>position: fixed</code>の理屈
+
+<ul>
+<li><code>absolute</code>と同じ絶対配置</li>
+<li>基準点がviewport</li>
+</ul></li>
+<li>viewportとは
+
+<ul>
+<li>PCの場合はbodyと大体一致</li>
+<li>スマホだとズームがあるので</li>
+<li>visual viewport</li>
+<li>layout viewport</li>
+<li>の2種類ある</li>
+</ul></li>
+<li>fixedな要素をまるごとtransformで動かしたい
+
+<ul>
+<li><code>position</code>が入れ子になってると大変</li>
+<li>適当なz-indexがあると辛い</li>
+<li>formへのフォーカス、</li>
+<li>入力は特殊な動きが起きやすいので注意する</li>
+</ul></li>
+<li>固定する要素はシンプルに保つ</li>
+<li>デバイス独自の挙動を考慮する</li>
+</ul>
+
+<h2 id="5分でわかるflexbox---@a_t">5分でわかるflexbox - @a_t</h2>
+
+<ul>
+<li>LINE</li>
+<li><a href="http://developers.linecorp.com/blog/?p=2479" title="flexboxの旧仕様、改定仕様、現行仕様の一覧 « LINE Engineers&amp;#39; Blog">flexboxの旧仕様、改定仕様、現行仕様の一覧 « LINE Engineers&#39; Blog</a></li>
+<li>fluxboxは仕様変更があったので3つぐらい実装がある</li>
+<li>flexbox
+
+<ul>
+<li>関連プロパティが名前変わったりしたので多い</li>
+<li>宣言、縦横の揃え</li>
+</ul></li>
+<li>Flexoxの宣言
+
+<ul>
+<li><code>display:flex</code></li>
+<li>縦の高さを揃えてくれる</li>
+</ul></li>
+<li>縦横の揃え
+
+<ul>
+<li><code>align-items</code> と<code>justify-content</code>で指定できる</li>
+</ul></li>
+<li>幅の拡張
+
+<ul>
+<li><code>flex:1</code></li>
+<li>親要素の幅まで、子要素の幅を拡張できる</li>
+<li>幅 = コンテンツ幅 + 分配幅</li>
+<li>均等にしたい場合は、基準幅を変更する</li>
+</ul></li>
+<li>擬似要素
+
+<ul>
+<li>擬似要素に対してflexboxを適応する</li>
+<li>擬似要素も横並びに巻き込まれる</li>
+</ul></li>
+<li>テキストノード
+
+<ul>
+<li>テキストしか持たない要素にflexを指定した場合</li>
+<li><code>display:flex</code> テキストにも影響がでる</li>
+</ul></li>
+</ul>
+
+<h2 id="yet-another-css-preprocessor---@morishitter_">Yet Another CSS Preprocessor - @morishitter_</h2>
+
+<ul>
+<li><a href="https://github.com/morishitter/YACP" title="morishitter/YACP">morishitter/YACP</a></li>
+<li>既存のプリプロセッサは構文があってればよかった</li>
+<li>良くない書き方は抑制できない</li>
+<li>安全な<code>@extend</code>
+
+<ul>
+<li>プレースホルダとかのみextendできるように</li>
+<li>なんでもやると辛くなる</li>
+</ul></li>
+<li>詳細度の統一
+
+<ul>
+<li>クラスセレクタとそれに関連する擬似セレクタ以外を禁止</li>
+</ul></li>
+<li>ルールセットのカプセル化</li>
+<li>Single Class設計
+
+<ul>
+<li>マルチクラス設計の問題点</li>
+<li>共通するプロパティが上書きされる</li>
+<li>ルールセット間で暗門な依存関係
+
+<ul>
+<li><code>.button .button-big</code> みたいな</li>
+</ul></li>
+<li>クラス名のセマンティック
+
+<ul>
+<li><code>.button-next</code> みたいな意味を持たせる</li>
+</ul></li>
+</ul></li>
+<li>シングルクラス設計</li>
+</ul>
+
+<hr>
+
+<h2 id="inline-layout---高津戸-壮">Inline layout - 高津戸 壮</h2>
+
+<p>スライド: <a href="http://takazudo.github.io/presentation-inlineLayout/#/" title="Inline Layout">Inline Layout</a> と <a href="https://github.com/Takazudo/presentation-inlineLayout" title="Takazudo/presentation-inlineLayout">Takazudo/presentation-inlineLayout</a></p>
+
+<ul>
+<li>CSSの深堀り
+
+<ul>
+<li>font-size</li>
+<li>line-height</li>
+<li>vertical-align</li>
+<li>inline-block</li>
+</ul></li>
+<li>インライン関連の仕組みを調べる</li>
+<li><code>&lt;div&gt;&lt;img&gt;&lt;/div&gt;</code>
+
+<ul>
+<li>謎の隙間が下にできる</li>
+<li><code>vertical-align: top;</code> で治る</li>
+<li>このスペースって何? </li>
+</ul></li>
+<li>アイコン + 文字
+
+<ul>
+<li>うまく位置が揃わない</li>
+</ul></li>
+<li>今日のメニュー</li>
+<li>画像の下部の余白の謎</li>
+<li>font-sizeとline-heightの関係
+
+<ul>
+<li>行の高さ(line-height)が16px,font-sizeが16px</li>
+<li>line-height : 24px</li>
+<li>行に隙間ができる</li>
+<li>leadingという隙間</li>
+<li>half-leadingというのが2つある状態になる(上下)</li>
+<li>half-leading が4pxずつある</li>
+<li> <a href="https://twitter.com/myakura/status/569030089645498368">https://twitter.com/myakura/status/569030089645498368</a></li>
+<li>文字自体の高さがinline-box</li>
+<li>inline-box + half-leading = extended inline box</li>
+<li>=&gt; 1em といわれるもの</li>
+<li>アルファベットの下の位置がbaseline</li>
+<li>日本語だとideographical baselineなどもう少し特殊なものがある</li>
+</ul></li>
+<li>画像を入れた場合
+
+<ul>
+<li>vertical-alignによって決まってくる</li>
+<li><code>top</code>
+
+<ul>
+<li>行の上端に画像の上端が揃う</li>
+</ul></li>
+<li><code>text-top</code>
+
+<ul>
+<li>フォントが持つ高さの上端に揃える</li>
+<li>上にhalf-leaingの高さ分空きがある</li>
+</ul></li>
+<li><code>baseline</code>
+
+<ul>
+<li>初期値</li>
+<li>ベースラインに対して画像の下端が揃う</li>
+<li>そのため、画像の下端に隙間ができていた</li>
+</ul></li>
+<li><code>middle</code>
+
+<ul>
+<li>baselineから上に半分行ったところにあるline</li>
+<li>下端が揃う</li>
+</ul></li>
+<li><code>central</code>
+
+<ul>
+<li>baselineじゃんくて、行の高さの半分のline</li>
+<li>下端が揃う</li>
+</ul></li>
+<li>display:blockにしたほうが楽</li>
+</ul></li>
+<li>テキスト+アイコン
+
+<ul>
+<li><code>middle</code>ベースでやるのがいい?(centralがない)</li>
+<li>日本語の文字は密度が上にあるのでちょっと微調整が必要</li>
+</ul></li>
+<li> テキスト複数行 + アイコン
+
+<ul>
+<li>ネガティブマージン</li>
+</ul></li>
+<li>チェックボックやラジオボタンの配置
+
+<ul>
+<li>ブラウザによって高さが違うため決め打ちをできない</li>
+<li><code>inline-block</code></li>
+</ul></li>
+<li>リストのパレット
+
+<ul>
+<li><code>li{ background: xxx }</code></li>
+<li>line-heightが高くなるとずれてしまう</li>
+<li>backgroundは左上原点なので、ledding分ずれる</li>
+<li><code>li:before</code>の擬似要素を作って、そこにbackgroundでリスト画像をつける</li>
+<li>text-indent で左に移動、maringで調整</li>
+<li>list-style-imageでやれるところ</li>
+</ul></li>
+<li>カラムレイアウト
+
+<ul>
+<li>行のレイアウトの仕組みを使ってカラムレイアウトをする</li>
+<li><code>display:inline-block</code> + コメントでホワイトスペースを作らせない</li>
+<li><code>flexbox</code>が使えれば…</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="javascriptテストの疑問、お答えします。--吾郷-協">JavaScriptテストの疑問、お答えします。- 吾郷 協</h2>
+
+<p>スライド: <a href="http://0-9.sakura.ne.jp/pub/frontrend/start.html" title="JavaScriptテストの疑問、お答えします #frontrendJS">JavaScriptテストの疑問、お答えします #frontrendJS</a></p>
+
+<ul>
+<li>テスト書いてますか?</li>
+<li>手動テストも含めれば、何らかのテストはやってるはず</li>
+<li>テストって本当に必要ですか?
+
+<ul>
+<li>YES</li>
+<li>自動テストが必要かどうかはケースバイケース</li>
+</ul></li>
+<li>テストは自動テストだけではない
+
+<ul>
+<li>テスト自動化の功罪</li>
+<li>手動テストにも価値はある</li>
+</ul></li>
+<li>使ったことない手法
+
+<ul>
+<li>費用対効果を予測するのが困難</li>
+<li>最初は捨てる前提で簡単な部分から始める</li>
+<li>失敗だったら捨てればいい</li>
+<li>自動テストは個人でもできる、そこから予測の経験値を積む</li>
+<li>費用、効果は技術力、経験から異なる結果が得られる</li>
+<li>技術力が低い != テストできない</li>
+<li>テストは書かないとテストの技術力は得られない。</li>
+<li>テストを経験を積むと、見極めができるようになってくる</li>
+</ul></li>
+<li>UIテストのテストはやらない?
+
+<ul>
+<li>JavaScriptだと大体UIじゃないか?</li>
+<li>不安にフォーカスする</li>
+<li>テストは不安に対処するための手法</li>
+</ul></li>
+<li>手元にテストがないコードがあったどうする?
+
+<ul>
+<li>E2E、Integrationテストを書いてみるといいのでは</li>
+<li>ユニットテストは高いレベルでかかれたコードのテストはできるが、逆に低いレベルのコードは難しい</li>
+<li>E2Eテストはターゲットコードの品質の影響を受けにくい</li>
+</ul></li>
+<li>テストは楽になったの?
+
+<ul>
+<li>UIのテストは基本大変</li>
+<li>Nodeみたいなコンテキストならユニットテストはまあまあ書ける</li>
+</ul></li>
+<li>テストの量はどう評価するのがいいか?
+
+<ul>
+<li>不安が解消されるまで</li>
+<li>誰の不安を解消してようとしてるのかが基準</li>
+</ul></li>
+</ul>
+
+<p>演説</p>
+
+<ul>
+<li>テストの目的
+
+<ul>
+<li>何も目的がないのにテストを入れるのは少し変</li>
+<li>目的を持つ</li>
+</ul></li>
+<li>自分の不安解消</li>
+<li>他人の不安解消</li>
+<li>手動テストの自動化
+
+<ul>
+<li>1クリックの省略</li>
+<li>準備を自動化する</li>
+<li>ちょっとづつやりましょう</li>
+</ul></li>
+<li>勉強、処理、見栄
+
+<ul>
+<li>テストのためだけのプロダクトを作ってみると、「テストやってますか?」という質問に手を上げやすい</li>
+</ul></li>
+<li>リグレッションテスト
+
+<ul>
+<li>バグが出た時に、次にバグがでないようにテストを追加する</li>
+<li>既存のテストないコードだと入れるのが難しい</li>
+<li>場当たり的なテストになりがちなので、不要になるケースも</li>
+</ul></li>
+<li>ドキュメントの代わり
+
+<ul>
+<li><a href="http://cho45.stfuawsc.com/jsdeferred/" title="JSDeferred - Asynchronous library in JavaScript. Standalone and Compact">JSDeferred - Asynchronous library in JavaScript. Standalone and Compact</a></li>
+<li>わかりやすい量が重要</li>
+</ul></li>
+<li>知識の共有
+
+<ul>
+<li>チームに対する情報共有</li>
+<li>先にテストだけPR出す</li>
+<li>一人にテストを任せて集中してもらうと、テストがない状態からの導入としてやりやすい</li>
+</ul></li>
+<li>設計
+
+<ul>
+<li>TDD的な感じ</li>
+</ul></li>
+<li>テストはやればやるほどいいわけではない
+
+<ul>
+<li>みんなのテストの目的意識を合わせる</li>
+</ul></li>
+<li>テストを書く文化の構築
+
+<ul>
+<li>新規導入する場合は難しいのでなぜをちゃんと伝える</li>
+</ul></li>
+<li>どこからテストを始めるか
+
+<ul>
+<li>ユニットテストからは難易度が高い</li>
+<li>assertから始めるのがいいのでは</li>
+<li>assertの理由はテストにも持って行きやすい</li>
+</ul></li>
+<li>やっぱりどこからテストをやればいいの?
+
+<ul>
+<li>不安はケースバイケース</li>
+<li>= テストもどこからはケースバイケース</li>
+<li>=&gt; 不安を自覚しよう</li>
+</ul></li>
+<li>テストかけたけど。。。
+
+<ul>
+<li>ゴミなら捨てよう</li>
+<li>基盤だけ残すとか</li>
+</ul></li>
+</ul>
+
+<p>ツールに関して</p>
+
+<ul>
+<li>Mocha、Jasmineが主流</li>
+<li>Qunitは新規採用はないけど、使ってるならそれはそれでいい</li>
+<li>Sinon.jsの代わりはいまんとこない</li>
+<li>Promiseパターンが増えたので、fake timerがなくてもいい非同期テストがよくなった</li>
+<li>E2Eテスト Protractor、testium</li>
+<li>test runner : Karma、testem
+
+<ul>
+<li><a href="https://github.com/yahoo/preceptor" title="yahoo/preceptor">yahoo/preceptor</a>とかも最近でた</li>
+</ul></li>
+<li>isomorphic
+
+<ul>
+<li>Nodeで動くならそれの方が楽</li>
+<li>DOMがないので楽</li>
+<li>PhantomJSはPhantomJSという別のブラウザ対応が必要になってしまう</li>
+<li>PhantomJSというレガシーブラウザ対応</li>
+</ul></li>
+<li>テストを別言語?
+
+<ul>
+<li>AltJSを使ってまでやるか微妙</li>
+</ul></li>
+<li>テストと数値
+
+<ul>
+<li>バグの発生曲線</li>
+</ul></li>
+<li>コードカバレッジ
+
+<ul>
+<li>メリットがあるならやる、目的がないならやらない</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="styling-atom-(editor)---simurai">Styling Atom (Editor) - Simurai</h2>
+
+<ul>
+<li>Atom Shell</li>
+<li>Atom ShellはChroniumとio.jsで動いてる</li>
+<li>lessで書いたスタイルが使われてる</li>
+<li>Twitter bootstrap + normalize.css</li>
+<li>AtomのスタイルはCSSをいじることで変更できる</li>
+<li>= Themes
+
+<ul>
+<li>ThemeはUIとSyntaxの2種類がある</li>
+</ul></li>
+<li><atom-text-editor>` 中にあるstyleがSyntaxのスタイル
+
+<ul>
+<li><atom-text-editor>`のShadow DOMのroot</li>
+<li>Shadow DOMなのでUIとSyntaxのスタイルがそれぞれ影響受けない</li>
+<li>::shadow とかつかないとアクセスできない</li>
+</ul></li>
+<li>CSSのcolorは全部変数を使う
+
+<ul>
+<li>Themeで設定できるようにするため</li>
+</ul></li>
+<li>UserStyleというのが存在する
+
+<ul>
+<li>既存のThemeに対して一部だけ修正を書ける</li>
+</ul></li>
+<li><a href="http://css-tricks.com/css/" title="The CSS at... | CSS-Tricks">The CSS at... | CSS-Tricks</a> 
+
+<ul>
+<li>良い記事</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<blockquote>
+<p><a href="https://github.com/meta-sushi/guideline" title="Sushiイベントのガイドライン">Sushiイベントのガイドライン</a></p>
+</blockquote>
+
+<h2 id="#ゴーヤsushi"><a href="https://twitter.com/search?f=realtime&amp;q=%23%E3%82%B4%E3%83%BC%E3%83%A4sushi&amp;src=typd" title="#ゴーヤsushi">#ゴーヤsushi</a></h2>
+
+<blockquote class="twitter-tweet" lang="en"><p>これが <a href="https://twitter.com/hashtag/%E3%82%B4%E3%83%BC%E3%83%A4sushi?src=hash">#ゴーヤsushi</a> <a href="http://t.co/GkT1HMmIQg">pic.twitter.com/GkT1HMmIQg</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/569075453492797440">February 21, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>ECMA 402(i18n API)は<a href="http://site.icu-project.org/" title="ICU - International Components for Unicode">ICU - International Components for Unicode</a>がないと実装できなかったのでは問題へのMSの対処</p>
+
+<ul>
+<li><a href="https://msdn.microsoft.com/en-us/library/dn305667(v=vs.85).aspx" title="[MS-ECMA402]: Internet Explorer ECMA-402 ECMAScript Internationalization API Standards Support">[MS-ECMA402]: Internet Explorer ECMA-402 ECMAScript Internationalization API Standards Support</a> これかな?</li>
+</ul>
+
+<p>ブラウザは家電事業みたいという話(一度撤退すると再参入は難しそう)、TypeScriptは色々Syntaxとか増えてるけどAtScriptはほんとに上位互換なの?、<a href="https://github.com/wooorm/mdast" title="wooorm/mdast">wooorm/mdast</a>の出力するASTは綺麗という話</p>
+
+<ul>
+<li>ReactのIEサポートはIE8から via <a href="https://twitter.com/koba04/status/569100564534947841">koba04</a></li>
+<li><a href="https://thestrangeloop.com/" title="Home - Strange Loop">Strange Loop</a>というマイナー言語が集まるイベントについて</li>
+<li><a href="https://www.youtube.com/channel/UC_QIfHvN9auy2CoOdSfMWDw/videos" title="Strange Loop - YouTube">Strange Loop - YouTube</a></li>
+<li>Immutable.jsって使ってますか? とReact Confの動画について</li>
+<li><a href="https://www.youtube.com/watch?v=I7IdS-PbEgI" title="▶ React.js Conf 2015 - Immutable Data and React - YouTube">▶ React.js Conf 2015 - Immutable Data and React - YouTube</a></li>
+<li> V8のTurbofunとasm.js(Spidermonkey) <a href="http://arewefastyet.com/#machine=28&amp;view=breakdown&amp;suite=asmjs-apps" title="ARE WE FAST YET?">ARE WE FAST YET?</a></li>
+</ul>
+
+<h2 id="#ルノアール_sushi"><a href="https://twitter.com/search?f=realtime&amp;q=%23%E3%83%AB%E3%83%8E%E3%82%A2%E3%83%BC%E3%83%AB_sushi&amp;src=typd" title="#ルノアール_sushi">#ルノアール_sushi</a></h2>
+
+<p>V8のStrong mode、ES6 moduleとCommonJS module(CommonJSのrequireはES6 moduleで実装できるが逆は難しい)、モジュールに自由度を持たせて全部サポートより制限を設けて実装進めたほうが動きが早かったのでは?という話、日本に呼びたいJavaScriptの人、エラーハンドリングの設計、Angular2についてなどの話をした。</p>
+
+<ul>
+<li><a href="https://angular2-intro.firebaseapp.com/#/" title="Intro to Angular2">Intro to Angular2</a></li>
+</ul>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/%E3%83%AB%E3%83%8E%E3%82%A2%E3%83%BC%E3%83%AB_sushi?src=hash">#ルノアール_sushi</a> 会長のuse strongについてのLT</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/569123725863358464">February 21, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>V8のフラグを見ていて&quot;use strong&quot;について気づいた</li>
+<li>SaneScript (strong mode)について</li>
+<li>警告一覧をみてどういうものを制限していきたいかについてを見ていった</li>
+<li><a href="http://d.hatena.ne.jp/jovi0608/20150219/1424322335" title="ES6時代のGoogle的Good Parts: V8のstrong modeを試す - ぼちぼち日記">ES6時代のGoogle的Good Parts: V8のstrong modeを試す - ぼちぼち日記</a></li>
+<li>まずはSaneScriptで既存のJavaScriptに制限を設けてスピードアップ</li>
+<li>更にそこへSoundScript(型システム)を追加して更にスピードアップするのでは?</li>
+<li><a href="http://gihyo.jp/news/report/01/rubykaigi2014/0002" title="まつもとゆきひろさん，Ruby 3に向けて組み込んでみたいアイデアを提案 ～ RubyKaigi 2014 2日目 基調講演：RubyKaigi 2014 レポート｜gihyo.jp … 技術評論社">まつもとゆきひろさん，Ruby 3に向けて組み込んでみたいアイデアを提案 ～ RubyKaigi 2014 2日目 基調講演：RubyKaigi 2014 レポート｜gihyo.jp … 技術評論社</a>的に言うとV8は&quot;パフォーマンス&quot;としての型を入れたいのでは?</li>
+<li>(参考論文 がどこかに)</li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-02-21-frontrend.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["イベント","JavaScript","CSS"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=CSS">CSS</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

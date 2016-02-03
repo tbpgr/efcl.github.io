@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        JSオジサンで現在のJavaScript ASTについて発表してきた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="ECMAScript,javascript,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0328/res3756/">
+    <h1 class="post-title">JSオジサンで現在のJavaScript ASTについて発表してきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年03月28日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-03-28-js%E3%82%AA%E3%82%B8%E3%82%B5%E3%83%B3%E3%81%A7%E7%8F%BE%E5%9C%A8%E3%81%AEjavascript-ast%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E7%99%BA%E8%A1%A8%E3%81%97%E3%81%A6%E3%81%8D%E3%81%9F.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="jsオジサン">JSオジサン</h1>
+
+<p><a href="http://atnd.org/events/48368" title="【満員御礼！】JSオジサン #1 : ATND">JSオジサン #1 : ATND</a> に参加してきたのでメモ。</p>
+
+<ul>
+<li>  <a href="http://togetter.com/li/648396" title="JSオジサン #1 - Togetterまとめ">JSオジサン #1 &#8211; Togetterまとめ</a></li>
+<li>  <a href="http://kinpatsu-dev.hatenablog.com/entry/2014/03/29/124640" title="【イベントレポート】JSオジサン#1が無事に終わりました。たくさんのご来場、本当にありがとうございました！ - 金髪DEV">【イベントレポート】JSオジサン#1が無事に終わりました。たくさんのご来場、本当にありがとうございました！ &#8211; 金髪DEV</a></li>
+</ul>
+
+<hr>
+
+<p><div class="kwout" style="text-align: center;">
+  <a href="http://azu.github.io/slide/JSojisan/"><img src="http://kwout.com/cutout/m/q7/88/pmv.jpg" alt="http://azu.github.io/slide/JSojisan/" title="カジュアルJavaScript AST" width="600" height="417" style="border: none;" usemap="#map_mq788pmv" /></a></p> <p>
+    <a href="http://azu.github.io/slide/JSojisan/">カジュアルJavaScript AST</a></div> <p>
+      自分はJavaScript ASTについて発表してきた。
+    </p></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;ul&gt;
+  &lt;li&gt;
+    JavaScript ASTの現在
+  &lt;/li&gt;
+  &lt;li&gt;
+    簡単なAST概要
+  &lt;/li&gt;
+  &lt;li&gt;
+    実際に使われてるツールを見て
+  &lt;/li&gt;
+  &lt;li&gt;
+    ASTを使ってツールを書いてみる話
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+  等について書かれています。
+&lt;/p&gt;
+
+&lt;h2&gt;
+  「LTおじさんの歴史『人はなぜLTをするのか』」 &amp;#8211; @kyo_ago
+&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;
+    &lt;a href=&quot;http://0-9.sakura.ne.jp/pub/lt/JSOjisan/start.html&quot; title=&quot;LTおじさんの歴史『人はなぜLTをするのか』 #jsオジサン&quot;&gt;LTおじさんの歴史『人はなぜLTをするのか』 #jsオジサン&lt;/a&gt;
+  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    LTオジサンの歴史
+  &lt;/li&gt;
+  &lt;li&gt;
+    週に2回ぐらいLTをしてる
+  &lt;/li&gt;
+  &lt;li&gt;
+    2007年 &lt;ul&gt;
+      &lt;li&gt;
+        YAPC とかで LTを知る
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    2008年 &lt;ul&gt;
+      &lt;li&gt;
+        会社の技術ブログ
+      &lt;/li&gt;
+      &lt;li&gt;
+        作ったのに放置されてたので技術ブログに書いた
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    2008-9年 &lt;ul&gt;
+      &lt;li&gt;
+        jQuery関連記事でブクマがつくのが嬉しくて週一ぐらい書いてた
+      &lt;/li&gt;
+      &lt;li&gt;
+        まだ参加者ぐらい
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    2010-2011 &lt;ul&gt;
+      &lt;li&gt;
+        二ヶ月に1回ぐらい各種イベントでLTするようになった
+      &lt;/li&gt;
+      &lt;li&gt;
+        Web+DB Pressに記事を書く
+      &lt;/li&gt;
+      &lt;li&gt;
+        Twitter を初めて記事を書かなくなった
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    2012-2013 &lt;ul&gt;
+      &lt;li&gt;
+        各種イベントに読んでいただるようになる
+      &lt;/li&gt;
+      &lt;li&gt;
+        長い時間話すと失敗する
+      &lt;/li&gt;
+      &lt;li&gt;
+        LTで分割して話すように成る
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    なぜLTをするのか &lt;ul&gt;
+      &lt;li&gt;
+        長い時間を話すのが苦手
+      &lt;/li&gt;
+      &lt;li&gt;
+        技術力アピールしなくて済むから
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2&gt;
+  「初学者に JS を教える事について」 &amp;#8211; hebikuzure
+&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;
+    &lt;a href=&quot;http://www.slideshare.net/hebikuzure/j-sojisan&quot; title=&quot;初学者にJavaScriptを教えてみた&quot;&gt;初学者にJavaScriptを教えてみた&lt;/a&gt;
+  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    仕事の依頼 &lt;ul&gt;
+      &lt;li&gt;
+        初学者にJavaScript/HTML/CSSを教える
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    期間は4ヶ月 &lt;ul&gt;
+      &lt;li&gt;
+        テキストは書き起こしてる
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    難しい点1 &lt;ul&gt;
+      &lt;li&gt;
+        データ型って何? という話になる
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    難しい点2 &lt;ul&gt;
+      &lt;li&gt;
+        プリミティブとオブジェクトの違いについて
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    難しい点3 &lt;ul&gt;
+      &lt;li&gt;
+        DOMアクセス
+      &lt;/li&gt;
+      &lt;li&gt;
+        アクセス方法がいろいろあるのでやりにくい
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    難しい点4 &lt;ul&gt;
+      &lt;li&gt;
+        コンテンツの動的生成
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    困り事 &lt;ul&gt;
+      &lt;li&gt;
+        IDEを使うべきか
+      &lt;/li&gt;
+      &lt;li&gt;
+        最初に手入力でコーディングスタイルを意識したほうがいい?
+      &lt;/li&gt;
+      &lt;li&gt;
+        ある程度複雑になるとIDEがあったほうがいい
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    こまりごと2 &lt;ul&gt;
+      &lt;li&gt;
+        どの段階からJavaScriptライブラリを使うか?
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    こまりごと3 &lt;ul&gt;
+      &lt;li&gt;
+        IE8だと互換性の問題が色々
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2&gt;
+  「CI on client side and server side」 &amp;#8211; @yosuke_furukawa
+&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;
+    &lt;a href=&quot;https://speakerdeck.com/yosuke_furukawa/ci-on-client-and-server&quot; title=&quot;ci_on_client_and_server // Speaker Deck&quot;&gt;ci_on_client_and_server // Speaker Deck&lt;/a&gt;
+  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    ぶらうざりふぁい
+  &lt;/li&gt;
+  &lt;li&gt;
+    nodeで書いてブラウザで動くコードにする
+  &lt;/li&gt;
+  &lt;li&gt;
+    そこで自動テストをどうするか?
+  &lt;/li&gt;
+  &lt;li&gt;
+    CIサービスが色々
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;
+  Travis CI
+&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    nodeのバージョンをまたいでテストしやすい
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;
+  drone.io
+&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    dockerを使った仮想環境ができる
+  &lt;/li&gt;
+  &lt;li&gt;
+    バージョンをまたいだテストは試行錯誤が必要
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;
+  testling-ci
+&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    browserify + tape だと簡単にクロスブラウザのテストができる
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;
+  zuul + saucelabs
+&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    ブラウザをまたいだテストをsaucelabsで動かせる
+  &lt;/li&gt;
+  &lt;li&gt;
+    並列で動くので早い
+  &lt;/li&gt;
+  &lt;li&gt;
+    複数プロジェクトがだるい
+  &lt;/li&gt;
+  &lt;li&gt;
+    バッジがダサい
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2&gt;
+  「SourceMap について」 &amp;#8211; 今屋雄太
+&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;
+    &lt;a href=&quot;http://presentboldly.com/imaya/source-map&quot; title=&quot;&quot;&gt;Source Map について&lt;/a&gt;
+  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    JSON形式
+  &lt;/li&gt;
+  &lt;li&gt;
+    開発者ツールなどと連携する対応表 &lt;ul&gt;
+      &lt;li&gt;
+        altjs
+      &lt;/li&gt;
+      &lt;li&gt;
+        minigy する前のコード
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    最近はCSSでも対応 &lt;ul&gt;
+      &lt;li&gt;
+        Firefox 29+
+      &lt;/li&gt;
+      &lt;li&gt;
+        Chrome 27+
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    SourceMapがあるとうれしい &lt;ul&gt;
+      &lt;li&gt;
+        開発中のウェブアプリ
+      &lt;/li&gt;
+      &lt;li&gt;
+        コードリーディング
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    SourceMapの難所 &lt;ul&gt;
+      &lt;li&gt;
+        jQuery.minのがmapファイルが404になる
+      &lt;/li&gt;
+      &lt;li&gt;
+        mapファイルも一緒に設置しないと行けないのが忘れられる
+      &lt;/li&gt;
+      &lt;li&gt;
+        ソースコードが書き換わると不整合がある
+      &lt;/li&gt;
+      &lt;li&gt;
+        他のファイルを参照するときにミスが起きてるケースがある
+      &lt;/li&gt;
+      &lt;li&gt;
+        =&gt; sourcemapを埋め込む事で解決できる
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    SourcemapをDataURLにして埋め込むだけ
+  &lt;/li&gt;
+  &lt;li&gt;
+    SourceMapにソースコードを埋め込む &lt;ul&gt;
+      &lt;li&gt;
+        &lt;code&gt;sourcesContent&lt;/code&gt; に 文字列として入れる
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;code&gt;sources&lt;/code&gt; と位置を合わせて、ファイルの中身を &lt;code&gt;sourcesContent&lt;/code&gt;に文字列として入れる事ができる
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;code&gt;sources&lt;/code&gt; にDataURLを入れても動く
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    Sourcemapを配布する選択肢 &lt;ul&gt;
+      &lt;li&gt;
+        すべて1ファイルにして配布 &lt;ul&gt;
+          &lt;li&gt;
+            jsとmapの不整合がおきない
+          &lt;/li&gt;
+          &lt;li&gt;
+            必要ない人もダウンロードしてしまう
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+
+      &lt;li&gt;
+        jsとmapを分けて配布 &lt;ul&gt;
+          &lt;li&gt;
+            分割ダウンロード
+          &lt;/li&gt;
+          &lt;li&gt;
+            jsとmapの不整合が起きる可能性がでる
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    SourceMap 応用編 &lt;ul&gt;
+      &lt;li&gt;
+        SourceMapに求人情報埋め込む
+      &lt;/li&gt;
+      &lt;li&gt;
+        変換前のソースコードにコメント形式で書く &lt;ul&gt;
+          &lt;li&gt;
+            Chromeだと文字化けする
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+
+      &lt;li&gt;
+        変換後のSourceMapにDataURLで打ち込む &lt;ul&gt;
+          &lt;li&gt;
+            &lt;code&gt;sources&lt;/code&gt; にはなんでも入れることができる
+          &lt;/li&gt;
+          &lt;li&gt;
+            マッピングがずれるので末尾に入れる
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2&gt;
+  「node-webkit ＆ chrome-remote-interfaceでブラウザオートメーション」 &amp;#8211; ぁゃぴ
+&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;
+    &lt;a href=&quot;http://ayapi.github.io/posts/jsojisan1/&quot; title=&quot;JSオジサン＃1 LT「node-webkitとchrome-remote-interfaceでブラウザオートメーション」 - ayapi.github.io&quot;&gt;JSオジサン＃1 LT「node-webkitとchrome-remote-interfaceでブラウザオートメーション」 &amp;#8211; ayapi.github.io&lt;/a&gt;
+  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    node-webkit
+  &lt;/li&gt;
+  &lt;li&gt;
+    自動化できる仕事をnode-webkitでやる
+  &lt;/li&gt;
+  &lt;li&gt;
+    バンドルして配布出来る
+  &lt;/li&gt;
+  &lt;li&gt;
+    ブラウザオートメーションにおけるnode-webkiの優位性 &lt;ul&gt;
+      &lt;li&gt;
+        分かりやすい見た目を作れる
+      &lt;/li&gt;
+      &lt;li&gt;
+        npmを使える
+      &lt;/li&gt;
+      &lt;li&gt;
+        Same-Origin Policyが適応されないので自由
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    他の技術 &lt;ul&gt;
+      &lt;li&gt;
+        seleniumはUI的な自動テスト
+      &lt;/li&gt;
+      &lt;li&gt;
+        HTTPヘッダをテストに使うとかがしにくい
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    同期的な遷移の状態判定 &lt;ul&gt;
+      &lt;li&gt;
+        node-webkitでHTTPヘッダを見て遷移が上手くいってるとかやりたい
+      &lt;/li&gt;
+      &lt;li&gt;
+        Chrome Remote Debugging Protocolを使って上手くやる
+      &lt;/li&gt;
+      &lt;li&gt;
+        node-webkitから&lt;a href=&quot;https://github.com/cyrus-and/chrome-remote-interface&quot; title=&quot;chrome-remote-interface&quot;&gt;chrome-remote-interface&lt;/a&gt; で使える
+      &lt;/li&gt;
+      &lt;li&gt;
+        より詳細なHTTPヘッダとかの情報を得られるので自動化に役立つ
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2&gt;
+  「カジュアルJavaScript AST」 &amp;#8211; azu
+&lt;/h2&gt;
+
+&lt;p&gt;
+  &lt;a href=&quot;http://azu.github.io/slide/JSojisan/&quot; title=&quot;カジュアルJavaScript AST&quot;&gt;カジュアルJavaScript AST&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+  JavaScript ASTについて発表
+&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2&gt;
+  「なぜ html の form は PUT / DELETE をサポートしないのか？」 &amp;#8211; Jxck
+&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    HTML5 &lt;ul&gt;
+      &lt;li&gt;
+        form に &lt;code&gt;PUT&lt;/code&gt; や&lt;code&gt;DELETE&lt;/code&gt; がない
+      &lt;/li&gt;
+      &lt;li&gt;
+        そんなものはいらない
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    XForm &lt;ul&gt;
+      &lt;li&gt;
+        XMLでよりリッチなフォームへ
+      &lt;/li&gt;
+      &lt;li&gt;
+        XHTMLはXFormを組み込む予定だった
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    HTML4.01 &lt;ul&gt;
+      &lt;li&gt;
+        method に &lt;code&gt;PUT&lt;/code&gt; や &lt;code&gt;DELETE&lt;/code&gt; がない
+      &lt;/li&gt;
+      &lt;li&gt;
+        何故?
+      &lt;/li&gt;
+      &lt;li&gt;
+        謎が多い
+      &lt;/li&gt;
+      &lt;li&gt;
+        セキュリティ問題
+      &lt;/li&gt;
+      &lt;li&gt;
+        Formのaction属性は静的
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;
+    まだ調査中
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+  つづきはウェブで
+&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;
+    &lt;a href=&quot;http://jxck.hatenablog.com/entry/why-form-dosent-support-put-delete&quot; title=&quot;なぜ html の form は PUT / DELETE をサポートしないのか？ - Block Rockin’ Codes&quot;&gt;なぜ html の form は PUT / DELETE をサポートしないのか？ &amp;#8211; Block Rockin’ Codes&lt;/a&gt;
+  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2&gt;
+  ぼくの考えるオジサン的JavaScript &amp;#8211; saneyuki
+&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;
+    &lt;a href=&quot;http://www.slideshare.net/saneyuki/jsojisan&quot; title=&quot;JSオジサン#1で飛び込みLTしてきた&quot;&gt;JSオジサン#1で飛び込みLTしてきた&lt;/a&gt;
+  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    MozillaのJavaScript &lt;ul&gt;
+      &lt;li&gt;
+        180万行のJavaScript(テストケース)
+      &lt;/li&gt;
+      &lt;li&gt;
+        特権APIを持ってる
+      &lt;/li&gt;
+      &lt;li&gt;
+        大規模JavaScriptのユースケース
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2&gt;
+  「5分で挑戦！JSクイズ」 &amp;#8211; @TAKESAKO
+&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    ESオジサン
+  &lt;/li&gt;
+  &lt;li&gt;
+    http://ecma262.info/
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2&gt;
+  「最高のUX」 &amp;#8211; はまちや2
+&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    おじさん寄りの話
+  &lt;/li&gt;
+  &lt;li&gt;
+    おっぱぶ に学ぶUI
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;
+  メモ: Markdown Life
+&lt;/p&gt;
+
+&lt;p&gt;
+  懇談会はHTTP2.0とかMITMとかおじさん In The Middleとか、ネットワークの話とかソフトウェアルーター書きたいとかそういう話だった。
+&lt;/p&gt;
+</code></pre></div>
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-03-28-js%E3%82%AA%E3%82%B8%E3%82%B5%E3%83%B3%E3%81%A7%E7%8F%BE%E5%9C%A8%E3%81%AEjavascript-ast%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E7%99%BA%E8%A1%A8%E3%81%97%E3%81%A6%E3%81%8D%E3%81%9F.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["ECMAScript","javascript","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=ECMAScript">ECMAScript</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

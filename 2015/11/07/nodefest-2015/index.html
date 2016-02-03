@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        東京Node学園祭2015で技術文書をソフトウェア開発する話をしてきた | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,GitBook,textlint,電子書籍" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/11/07/nodefest-2015/">
+    <h1 class="post-title">東京Node学園祭2015で技術文書をソフトウェア開発する話をしてきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年11月07日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-11-07-nodefest-2015.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://nodefest.jp/2015/" title="東京Node学園祭2015">東京Node学園祭2015</a>に参加したきたメモです。</p>
+
+<p>また、<a href="https://azu.gitbooks.io/nodefest-technical-writing/content/" title="Introduction | 技術文書をソフトウェア開発する話">技術文書をソフトウェア開発する話</a>という内容でブログ以上技術書以下の文書を書く場合における開発方法について話してきました。</p>
+
+<h2 id="the-state-of-javascript---@domenic">The State of JavaScript - @domenic</h2>
+
+<blockquote>
+<p>スライド: <a href="http://www.slideshare.net/domenicdenicola/the-state-of-javascript-2015" title="The State of JavaScript (2015)">The State of JavaScript (2015)</a></p>
+</blockquote>
+
+<ul>
+<li>皆Babelを使い始めたらそれはスタンダードじゃない可能性があるので気をつけた方がいい</li>
+<li>Custom Element</li>
+<li>Service Worker
+
+<ul>
+<li>ブラウザの中でプロキシサーバ的なことができる</li>
+</ul></li>
+<li>Custom Paint
+
+<ul>
+<li><code>registerPaint</code> </li>
+<li>新しいCSSプロパティ</li>
+</ul></li>
+<li>言語</li>
+<li>TC39/ecma262
+
+<ul>
+<li>に新しい仕様が置いてある</li>
+<li>GitHubにある</li>
+<li>Living Standard的な感じになってる</li>
+</ul></li>
+<li>Spec番号
+
+<ul>
+<li>あんまり気にする必要はない</li>
+<li>言語ではバージョン番号は必要ない</li>
+<li>仕様書に入ったものだけがstable</li>
+<li>そうじゃない場合は戻ってくる可能性があるunstable</li>
+</ul></li>
+<li>ES7
+
+<ul>
+<li>async/await</li>
+<li>SIMD.js</li>
+</ul></li>
+<li>watch out for
+
+<ul>
+<li>value types</li>
+<li>decorators
+
+<ul>
+<li>コードで静的に決まるの良いところ</li>
+</ul></li>
+<li>cancelable promises</li>
+<li>async iterator</li>
+<li>module loader
+
+<ul>
+<li>import a from &quot;./&quot;;</li>
+<li>import b from &quot;../&quot;</li>
+<li>import url from &quot;<a href="https://example.com/js">https://example.com/js</a>&quot;</li>
+<li>が最小のケース?</li>
+</ul></li>
+<li>web assembly</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="how-did-we-get-here">How did we get here</h2>
+
+<blockquote>
+<p>スライド: <a href="https://speakerdeck.com/dshaw/node-dot-js-in-the-enterprise" title="Node.js in the Enterprise // Speaker Deck">Node.js in the Enterprise // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>Nodeがどうやって今日の状態になったかについて</li>
+</ul>
+
+<hr>
+
+<h2 id="技術文書をソフトウェア開発する話"><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/" title="Introduction | 技術文書をソフトウェア開発する話">技術文書をソフトウェア開発する話</a></h2>
+
+<blockquote>
+<p>スライド: <a href="https://azu.gitbooks.io/nodefest-technical-writing/content/" title="Introduction | 技術文書をソフトウェア開発する話">Introduction | 技術文書をソフトウェア開発する話</a></p>
+</blockquote>
+
+<div class="kwout" style="text-align: center;"><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/"><img src="http://kwout.com/cutout/7/ct/aw/dc3_bor.jpg" alt="https://azu.gitbooks.io/nodefest-technical-writing/content/" title="Introduction | 技術文書をソフトウェア開発する話" width="600" height="308" style="border: none;" /></a><p style="margin-top: 10px; text-align: center;"><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/">Introduction | 技術文書をソフトウェア開発する話</a></p></div>
+
+<p>textlintとかを使って文書をテストしながら開発する話をしました。</p>
+
+<ul>
+<li>技術書を書く環境
+
+<ul>
+<li>技術文書のコードと文書のテスト</li>
+<li>textlintについて</li>
+<li>表記揺れのルールを設ける必要性</li>
+<li>技術文書の開発とCI</li>
+<li>何事も計測してから</li>
+<li>校正と推敲</li>
+</ul></li>
+</ul>
+
+<p>この<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>は<a href="https://github.com/jser/jser.info/" title="jser.info">jser.info</a>の文章をチェックするのに作ったのが始まりですが、今は日本語問わず文章なら何でもLintできるように設計されています(日本語向けのルールがあるとかそういう話)</p>
+
+<ul>
+<li><a href="http://efcl.info/2014/12/30/textlint/" title="JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch">JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch</a></li>
+<li><a href="http://efcl.info/2015/09/10/introduce-textlint/" title="textlintで日本語の文章をチェックする | Web Scratch">textlintで日本語の文章をチェックする | Web Scratch</a></li>
+</ul>
+
+<p><a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="azu/JavaScript-Plugin-Architecture">azu/JavaScript-Plugin-Architecture</a>はこのツールなどを作ってチェックしながら書いているという話をしました。</p>
+
+<p>今は<a href="http://redpen.cc/" title="RedPen">RedPen</a>とか自然言語処理をちゃんとやっているツールもありますが、発表で話していたように自然言語の正しさは人によるところがあります。</p>
+
+<p>そういった細かいルールをすぐ書いて使える環境として<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>を作っているので、Node.jsに慣れている人(ESLintのルールを書いたことがある人ならなおさら)は扱いやすいと思います。</p>
+
+<p>発表では話していませんでしたが、対応してるMarkdown、txt、HTMLは<a href="https://github.com/textlint/textlint/blob/master/docs/plugin.md">Processor Plugin</a>として実装されているので、対応する拡張子自体も拡張が可能です。</p>
+
+<p>Markdownのパースでは<a href="https://github.com/wooorm/mdast" title="mdast">mdast</a>をベースとしたものを使ったりしています。</p>
+
+<p>話した内容のGitBookの構成は<a href="https://github.com/azu/gitbook-starter-kit" title="gitbook-starter-kit">gitbook-starter-kit</a>というリポジトリをcloneすればすぐに使えるようになっています。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/09/28/easy-to-create-ebook/" title="今すぐ電子書籍(技術書)を書き始める方法と文章の自動チェック | Web Scratch">今すぐ電子書籍(技術書)を書き始める方法と文章の自動チェック | Web Scratch</a></li>
+</ul>
+
+<p>何かあれば<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>にIssueを立てるといいかと思います。</p>
+
+<hr>
+
+<h2 id="&quot;npm&quot;:-&quot;&gt;=3&quot;">&quot;npm&quot;: &quot;&gt;=3&quot;</h2>
+
+<p>スライド: <a href="https://github.com/zkat/talks" title="zkat/talks">zkat/talks</a></p>
+
+<ul>
+<li>npmの話</li>
+<li>CLIはJavaScriptのために動くチーム
+
+<ul>
+<li>CLIチームは3名</li>
+</ul></li>
+<li>npm日本語サポートの窓口
+
+<ul>
+<li> @watilde @yosuke_furukawa </li>
+</ul></li>
+<li>npm</li>
+<li>ProgressBar
+
+<ul>
+<li>要望は昔からあったけどnpm 3でやっと実装</li>
+</ul></li>
+<li>semver
+
+<ul>
+<li>バージョンを見た時に意味のあるものが入ったことがバージョン番号だけで分かる</li>
+</ul></li>
+<li>npm3でのmajorな変更
+
+<ul>
+<li>Flat tree</li>
+<li>npm dedupeがインストールされるたびに行われる</li>
+<li>モジュールがグローバルに入ってる事には依存できなくなる</li>
+<li>フロントエンドの事を考えてdudupeされてる</li>
+<li>peerDependencies
+
+<ul>
+<li>実際に入ってるかどうかは関係ない</li>
+<li>設定されてることが警告されるだけ</li>
+<li>npm install hellになってしまった</li>
+</ul></li>
+</ul></li>
+<li>npm shrinkwrap
+
+<ul>
+<li>どこで何回インストールされても必ず同じ結果になるのがshrinkwrapになる</li>
+</ul></li>
+<li>npm v3の内部的な変更
+
+<ul>
+<li>フェーズに分けた</li>
+<li>パッケージのダウンロード -&gt; 次のフェーズ</li>
+<li>preversionのlifecycle hookでnpm testするといい感じ</li>
+</ul></li>
+<li><a href="https://github.com/npm/npm/wiki/Roadmap" title="Roadmap · npm/npm Wiki">Roadmap · npm/npm Wiki</a>
+
+<ul>
+<li>npmのロードマップ</li>
+<li>frontend modulesのサポート</li>
+<li>JavaScript以外のファイルの対応</li>
+<li><code>browserDependencies</code>
+
+<ul>
+<li>dependenciesが必ずFALT</li>
+<li>ならない場合はFAIL</li>
+<li>FALTになるように選択する</li>
+<li>結果として全てのモジュールがフラットで、モジュールの依存がはっきりする</li>
+</ul></li>
+</ul></li>
+<li>Windowsサポート
+
+<ul>
+<li>npm installの42%はWindowsから</li>
+</ul></li>
+<li>ES6 modules
+
+<ul>
+<li>ES6 modulesの仕様がどう進むのであれ、将来的にはnpmはES6 modulesとなるだろう</li>
+<li>仕様のfixすれば</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="electroknit!---pixel-to-sweater-with-node.js---@kosamari">Electroknit! - Pixel to sweater with Node.js - @kosamari</h2>
+
+<blockquote>
+<p>スライド: <a href="http://kosamari.com/presentation/nodefest-2015/#/0" title="Electroknit！">Electroknit！</a></p>
+</blockquote>
+
+<ul>
+<li>Scripto</li>
+<li>編み物のカウントするスクリプトからJavaScriptを始めた</li>
+<li>ウェブエンジニアでもハッカーになれる</li>
+<li>編み物はバイナリ</li>
+<li>編み機について
+
+<ul>
+<li>自動編み機のバイナリデータをNode.jsで作る</li>
+</ul></li>
+<li>Bitwise Operatorを初めて使った</li>
+<li><a href="https://github.com/aheckmann/gm" title="aheckmann/gm">aheckmann/gm</a>
+
+<ul>
+<li>画像からフルカラーは取れた</li>
+<li>でもグレースケールにしないと</li>
+</ul></li>
+<li>ニッティングマシンは200針 = 200px</li>
+<li>カーネルコンボリューション=畳み込みしないとノイズデータが多い
+
+<ul>
+<li>画像処理も必要になった</li>
+</ul></li>
+<li>作ったデータを編み機で編み(手動)</li>
+<li>画像もJavaScript(D3)で作った</li>
+<li>コードがどうやって動くのかを編み機で理解</li>
+<li>PEG.jsで編み物を書くだけの言語を作った</li>
+</ul>
+
+<hr>
+
+<h2 id="esdoc---es6時代のドキュメンテーションツール">ESDoc - ES6時代のドキュメンテーションツール</h2>
+
+<blockquote>
+<p>スライド: <a href="https://speakerdeck.com/h13i32maru/esdoc-es6shi-dai-falsedokiyumentesiyonturu-nodexue-yuan-ji-2015" title="ESDoc - ES6時代のドキュメンテーションツール - Node学園祭2015 // Speaker Deck">ESDoc - ES6時代のドキュメンテーションツール - Node学園祭2015 // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>ES6時代の開発環境</li>
+<li>ドキュメンテーションツール進化した?</li>
+<li>JSDoc
+
+<ul>
+<li>まだES6には正式対応してない</li>
+</ul></li>
+<li>JSDocのここを良くしたい
+
+<ul>
+<li>タグが多すぎる</li>
+<li>成果物が微妙</li>
+<li>コードベースをES6</li>
+<li>Rhino対応が複雑化の原因</li>
+</ul></li>
+<li>ESDocというツールを作った
+
+<ul>
+<li>ES6 Class/モジュール対応</li>
+<li>カバレッジ</li>
+<li>テストコード統合</li>
+<li>静的解析</li>
+<li>Lint</li>
+<li>ホスティング</li>
+</ul></li>
+<li>ESDocのゴール
+
+<ul>
+<li>良いドキュメントを作れるツール</li>
+</ul></li>
+<li>ドキュメントとは何か?
+
+<ul>
+<li>要求</li>
+<li>デザイン</li>
+<li>algorithmとか技術的な擬似コード</li>
+<li>エンドユーザー(マニュアル)</li>
+<li>マーケティング</li>
+</ul></li>
+<li>ESDocが対象するドキュメント = マニュアル</li>
+<li>いいドキュメントとは?
+
+<ul>
+<li>書き手: コードより簡単に書ける</li>
+<li>読み手: コードより簡単に理解できる</li>
+</ul></li>
+<li>ドキュメントの要素
+
+<ul>
+<li>Instalation</li>
+<li>Usage</li>
+<li>API Reference</li>
+<li>Example</li>
+<li>ChangeLog</li>
+</ul></li>
+<li>継続性:カバレッジ
+
+<ul>
+<li>ドキュメントがどれだけ書かれているかをカバレッジ</li>
+<li>モチベーション</li>
+<li>網羅性</li>
+</ul></li>
+<li>網羅性: 静的解析
+
+<ul>
+<li>型を出す</li>
+<li>プリミティブなものしか対応してない</li>
+</ul></li>
+<li>関連性: テストコードの統合
+
+<ul>
+<li>テストコードとドキュメントと関連付ける</li>
+<li><code>@test</code></li>
+</ul></li>
+<li>検索性
+
+<ul>
+<li>検索インデックスを作って検索する</li>
+</ul></li>
+<li>その他のドキュメントについてはどうするのか</li>
+<li>マニュアルの統合
+
+<ul>
+<li>APIリファレンス以外の内容もドキュメントに含められる</li>
+<li>ESDocはmarkdownを読み込んで一緒に表示できる</li>
+</ul></li>
+<li>ドキュメントのフレームを提供したい
+
+<ul>
+<li>読み手にも書き手にも優しい</li>
+</ul></li>
+<li>ESDocの今後
+
+<ul>
+<li>コードとドキュメントの日時チェック</li>
+<li>テストコードのさらなる活用</li>
+<li>クラスの関連図の作成</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="フロントエンドに秩序を取り戻す方法">フロントエンドに秩序を取り戻す方法</h2>
+
+<blockquote>
+<p>スライド: <a href="https://speakerdeck.com/fand/hurontoendonizhi-xu-woqu-rili-sufang-fa" title="フロントエンドに秩序を取り戻す方法 // Speaker Deck">フロントエンドに秩序を取り戻す方法 // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>記事編集画面のリニューアル</li>
+<li>はてなブログの設計思想
+
+<ul>
+<li>4周年</li>
+</ul></li>
+<li>問題発生
+
+<ul>
+<li>巨大なファイルがいる</li>
+<li>テストが書けない</li>
+</ul></li>
+<li>はてなブログのJS
+
+<ul>
+<li>全体2万</li>
+<li>一部1ファイル5500行だったり</li>
+</ul></li>
+<li>編集画面のJSがでかい</li>
+<li>従来のJS分解
+
+<ul>
+<li>名前空間ベース</li>
+<li>concatしてた</li>
+<li>グローバル名前空間</li>
+<li><code>window.Hatena = {}</code></li>
+</ul></li>
+<li>依存関係の問題
+
+<ul>
+<li>名前空間ベースは依存関係でつまる</li>
+<li>concatでは難しい</li>
+</ul></li>
+<li>Lintにやさしくない
+
+<ul>
+<li>未定義の変数が名前空間にいると死ぬ</li>
+<li><code>Hatena.Util.hoge</code> Utilがちゃんといるかどうか</li>
+</ul></li>
+<li>Browserify
+
+<ul>
+<li>concatしなくて良くなる</li>
+<li>少しずつCommmonJSに書き換えた</li>
+</ul></li>
+<li>名前空間 =&gt; モジュール
+
+<ul>
+<li><code>index.js</code>で名前空間にモジュールを突っ込む</li>
+<li>共通化を正しく行う必要がある</li>
+<li>循環参照</li>
+</ul></li>
+<li>設計のスタイルの問題
+
+<ul>
+<li>データとDOMが密結合</li>
+<li>constructorでデータ初期化、DOMからデータ初期化色々なパターンが混在していた</li>
+</ul></li>
+<li>コンポーネント間の連携の問題
+
+<ul>
+<li>循環参照で呼び合ってた</li>
+<li>Triggerで無理やり回避してたり</li>
+</ul></li>
+<li>サーバとの連携
+
+<ul>
+<li>HTMLからJSでスクレイピングしてた感じ</li>
+<li>サーバからHTMLを吐いて差し替えみたいな形</li>
+</ul></li>
+<li>バニラJSで改善していく
+
+<ul>
+<li>データとDOMの分離</li>
+<li>初期化するときにDOMからデータを取ってくる</li>
+<li>途中ではDOMから取ってこないように</li>
+</ul></li>
+<li>DOM操作は専用メソッド
+
+<ul>
+<li>JSでレンダリング</li>
+<li>要素をまるまるけして、まるっと入れ替える</li>
+</ul></li>
+<li>機能ごとにViewModelっぽいのを作る
+
+<ul>
+<li>データ、ビジネスロジックは親コンポーネント</li>
+<li>EventEmitterになっていて、子コンポーネントはその通知を受け取ってDOMメソッドを呼ぶ</li>
+<li>親はデータを受け取り、変更、emitする</li>
+</ul></li>
+<li>コンポーネント間のやりとり</li>
+<li><code>render</code>を2015に自作?
+
+<ul>
+<li>Vue.js</li>
+<li>React</li>
+<li>学習コスト、捨てやすい</li>
+</ul></li>
+<li>Reactを採用
+
+<ul>
+<li>Vue -&gt; Reactは難しい</li>
+<li>React -&gt; Vueはできる</li>
+</ul></li>
+<li>デザイナーが触れない
+
+<ul>
+<li>JSXくらい触れるはず</li>
+<li>CSSだけで</li>
+</ul></li>
+<li>Babel
+
+<ul>
+<li>JSXのために導入(という口実)</li>
+<li>Statge 2イカは禁止(変な機能を使われると困る)</li>
+</ul></li>
+<li>基本的な考え方
+
+<ul>
+<li>Fluxフレームワークは使いたくない</li>
+<li>いつ消えるかわからない</li>
+<li>EventEmitterで簡単にやる</li>
+<li>小規模: ViewModel</li>
+<li>中規模: Flux風</li>
+<li>大規模: Dispatcherを導入</li>
+</ul></li>
+<li>スタイル導入の方針
+
+<ul>
+<li>全ての標準ルールを入れる</li>
+<li>既存コードで警告がなくなるまでやっていく</li>
+</ul></li>
+<li>テスト
+
+<ul>
+<li>4月: Casper JSのE2Eのみ</li>
+<li>記事投稿とか特定の部分のみ</li>
+</ul></li>
+<li>E2Eテストから?
+
+<ul>
+<li>シナリオが結構複雑</li>
+<li>ユニットテストからしたい</li>
+</ul></li>
+<li>ユニットテストから
+
+<ul>
+<li>テスタブルなコードじゃないとテストしにくい</li>
+<li>View操作は必ず分離する</li>
+<li>DOMを触るモジュールは</li>
+</ul></li>
+<li>Karma
+
+<ul>
+<li>localStorageを使ってるものがいたので本物のブラウザ</li>
+</ul></li>
+<li>リファクタリングしたらテストを追加するツール
+
+<ul>
+<li>Util系から</li>
+<li>EventEmitterを導入したのでテストしやすくなった</li>
+</ul></li>
+<li>E2E Test
+
+<ul>
+<li>ReactがあるためCasperJSが死ぬ</li>
+<li>Nightmare</li>
+<li>Protractor
+
+<ul>
+<li>Angularっぽい</li>
+</ul></li>
+<li>Slenium.io
+
+<ul>
+<li>Selenium系なのでいざとう時に移行できる</li>
+</ul></li>
+<li>ES6 generatorで同期的にテスト書ける</li>
+</ul></li>
+<li>今日話したこと
+
+<ul>
+<li>良い設計を目指すための土台作り</li>
+</ul></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-11-07-nodefest-2015.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","GitBook","textlint","電子書籍"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=GitBook">GitBook</a></li>
+                
+                <li><a href="/tags/?q=textlint">textlint</a></li>
+                
+                <li><a href="/tags/?q=電子書籍">電子書籍</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

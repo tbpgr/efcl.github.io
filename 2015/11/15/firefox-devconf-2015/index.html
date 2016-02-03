@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Firefox Developers Conference 2015 アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Firefox,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/11/15/firefox-devconf-2015/">
+    <h1 class="post-title">Firefox Developers Conference 2015 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年11月15日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-11-15-firefox-devconf-2015.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://www.mozilla.jp/events/devcon/2015/tokyo/" title="Firefox Developers Conference 2015 in Tokyo Hack, Inspect &amp;amp; Ignite | Mozilla Japan">Firefox Developers Conference 2015</a>に参加してきたのでメモ。</p>
+
+<p>Tokyoでは久々のFirefox Developers Conferenceだった。</p>
+
+<ul>
+<li><a href="http://efcl.info/2012/0121/res2997/">Mozilla Vision 2012 Conference Day アウトラインメモ | Web Scratch</a></li>
+<li><a href="http://efcl.info/2010/1121/res2092/">Firefox Developers Conference 2010 アウトラインメモ | Web Scratch</a></li>
+<li><a href="http://efcl.info/2009/1108/res1424/">Firefox Developers Conference 2009 アウトラインメモ | Web Scratch</a></li>
+</ul>
+
+<hr>
+
+<h2 id="inspection-&amp;-tweak:-firefox-を使ったフロント開発-清水智公">Inspection &amp; tweak: Firefox を使ったフロント開発 清水智公</h2>
+
+<ul>
+<li>Firefoxの開発者ツールは見るだけじゃなくていじれるようにしてる</li>
+<li>ネットワーク
+
+<ul>
+<li>通信の内容を見れる</li>
+<li>HARでダンプを保存できる</li>
+<li>HARで他のツールで読み込ませることができる</li>
+</ul></li>
+<li>DOM
+
+<ul>
+<li>&quot;要素を調査&quot; 要素からそのままInspectできる</li>
+<li>Style Editorで編集、保存ができる</li>
+</ul></li>
+<li>Canvas
+
+<ul>
+<li>Canvas Editor フレーム毎の描画や関数の呼び出しを記録して確認できる</li>
+</ul></li>
+<li>Storage</li>
+<li>Flame Chart
+
+<ul>
+<li>タイムラインで色々見られる</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="porting-c/c++-code-to-web-加藤-誠">Porting C/C++ code to Web 加藤 誠</h2>
+
+<ul>
+<li>既存のC/C++ライブラリを使ってやる
+
+<ul>
+<li>デスクトップならFFIだったり</li>
+<li>JavaScriptにわざわざ移植するのは大変</li>
+</ul></li>
+<li>Fx0のIME
+
+<ul>
+<li>今までのやつC &lt;-WebSocket -&gt; JSとしてる</li>
+<li>新しい奴はJSで動く</li>
+</ul></li>
+<li>過去のC/C++ -&gt; Web
+
+<ul>
+<li>NPAPI</li>
+<li>ActiveX</li>
+<li>NaCL/PNaCL</li>
+<li>Extension/Addon</li>
+</ul></li>
+<li>NPAPI
+
+<ul>
+<li>Netscape PLugin API
+
+<ul>
+<li>1990年台にデザインされたもの</li>
+<li>サンドボックスをもたない</li>
+<li>FirefoxとSafariでサポート
+
+<ul>
+<li>過去にもはIEやChromeもサポートしてた</li>
+</ul></li>
+</ul></li>
+<li>ActiveX
+
+<ul>
+<li>WindowsとCOMに依存</li>
+<li>IE4 for Macは実はサポートしてた</li>
+<li>サンドボックスは持たない</li>
+<li>デジタル署名が必要</li>
+<li>IEのみサポート</li>
+</ul></li>
+<li>NaCL/PNacl
+
+<ul>
+<li>ネイティブコードを各プラットフォームへコンパイル</li>
+</ul></li>
+<li>Addons/Extensions
+
+<ul>
+<li>アドオンがC/C++で書かれたものとプロセス通信でやり取り</li>
+<li>標準入力 &lt;-&gt; 標準出力</li>
+</ul></li>
+<li>今のプラグイン
+
+<ul>
+<li>ChromeはNPAPIのサポートを終了している</li>
+<li>Firefox Win64はNPAPI Flashのみしかサポート</li>
+<li>Mozillaとして将来的にFlash以外のサポートを止めるかも</li>
+<li>SilverlightやJavaなどはサポート切りたい</li>
+</ul></li>
+<li>DRM
+
+<ul>
+<li>FlashやSilverlightを使う理由はDRMがある</li>
+<li>EMEという仕様がある</li>
+<li>NetflixはEMEをサポート
+
+<ul>
+<li>Chrome, IE/Edge, Firefoxがサポート</li>
+</ul></li>
+</ul></li>
+<li>NaCl/PNacl/PPAPI
+
+<ul>
+<li>サンドボックス</li>
+<li>NaCLはCPU依存、PNaCLは非依存</li>
+<li>Chrome(Blink)のみ
+
+<ul>
+<li>FlashはPPAPIベース</li>
+</ul></li>
+</ul></li>
+<li>プラグイン
+
+<ul>
+<li>プラグインの仕組みをMozillaとしては無くしたい</li>
+<li>Always bet on JS</li>
+</ul></li>
+<li>emscripten
+
+<ul>
+<li>C/C++ -&gt; JavaScript</li>
+<li>コンパイラツールとライブラリ</li>
+<li>どのエンジンでも動くJavaScriptを吐く</li>
+<li>clang/LLVMベース
+
+<ul>
+<li>専用のバックエンドを持ってる</li>
+<li>C -&gt; LLVM Byte -&gt;(mscripten) JavaScript</li>
+</ul></li>
+</ul></li>
+<li>emsdk
+
+<ul>
+<li>emscriptenのインストーラ</li>
+<li>emscripteのバイナリをダウンロードできる</li>
+</ul></li>
+<li>emscripten tools
+
+<ul>
+<li>emconfigure
+
+<ul>
+<li>configureのラッパー</li>
+<li>emscriptenの設定を自動的に設定される</li>
+</ul></li>
+<li><code>$HOME/.emscripten</code></li>
+<li>パスをいれるだけ</li>
+</ul></li>
+<li>JavaScriptから呼べる関数
+
+<ul>
+<li>どの関数をexportするかを書く必要がある</li>
+<li>初期化のデータを分けることもできる</li>
+</ul></li>
+<li><code>ccall</code> と <code>cfunc</code>
+
+<ul>
+<li><code>cfunc</code>で関数を作れる</li>
+</ul></li>
+<li><code>types</code>
+
+<ul>
+<li>void</li>
+<li>number (大抵ここ、pointer)</li>
+<li>string</li>
+</ul></li>
+<li>Builtin functions
+
+<ul>
+<li><code>Module._malloc</code></li>
+<li><code>module._free</code></li>
+<li><code>Module._UTFxxString</code></li>
+<li>みたいな関数がある</li>
+</ul></li>
+<li>File access
+
+<ul>
+<li>Emscriptenは標準ライブラリをサポートするので<code>fopen()</code>などもある</li>
+<li>ただし、コンパイル時に<code>--preload-file</code>などで指定する必要がある</li>
+</ul></li>
+<li>emscriptenとゲーム
+
+<ul>
+<li>ゲームのためのライブラリが多い</li>
+<li>元々ゲームエンジンを早く動かしたかった</li>
+<li>いまはpthreadも動く</li>
+</ul></li>
+<li>Inline JavaScript
+
+<ul>
+<li>JavaScriptを埋め込める</li>
+</ul></li>
+<li>デバッグ
+
+<ul>
+<li><code>emcss -g3 &lt;source&gt;</code></li>
+<li>SourceMapを吐ける</li>
+</ul></li>
+<li>パフォーマンス
+
+<ul>
+<li>SHA1 Hashの実装</li>
+<li>JavaScript(on Node.js) 2.0秒</li>
+<li>C実装(x86_64) 0.6秒</li>
+<li>C実装(on Node.js) 3.2秒</li>
+<li>ぐらい</li>
+</ul></li>
+<li>emscripten code
+
+<ul>
+<li>JITされやすいコードを利用</li>
+<li><code>var x = x|0</code> = int型になる</li>
+<li>TypedArrayを使ったりする</li>
+</ul></li>
+<li>asm.js
+
+<ul>
+<li>新しい言語ではなくてJavaScriptのサブセット</li>
+<li>Type annotation</li>
+<li>Typed Array</li>
+<li>AOT compile
+
+<ul>
+<li>最適化済みのコードを使う</li>
+</ul></li>
+<li>Unreal</li>
+<li>Unity</li>
+<li>Firefox OS</li>
+</ul></li>
+<li>asm.js
+
+<ul>
+<li>SHA1 Hashの実装(C -&gt; asm.js)</li>
+<li>asm.js 1.1秒</li>
+<li>Cの2倍コード</li>
+<li>しかし、ファイルがめっちゃでかい</li>
+</ul></li>
+<li>asm.js
+
+<ul>
+<li>OpenWnn 5MB JS</li>
+<li>asm.jsはテキスト形式なので構文解析も遅い</li>
+<li>Unreal Engine 20-30秒</li>
+</ul></li>
+<li>Web Assembly
+
+<ul>
+<li>バイナリフォーマット</li>
+<li>テキストフォーマットもある</li>
+<li>型システム</li>
+<li>SIMD(128bitのみ)</li>
+<li>メモリモデル wasm32/wasm64</li>
+</ul></li>
+<li>MVP(Minimum Viable Product)
+
+<ul>
+<li>はじめのバージョンがでるまでに作らないと行けないもの</li>
+<li>Module</li>
+<li>AST</li>
+<li>バイナリフォーマット
+
+<ul>
+<li>一回決めたら固定される</li>
+<li>なので最初には入れない</li>
+</ul></li>
+<li>テキストフォーマット</li>
+<li>各エンジンでの実装(ウェブブラザ、Nonウェブブラザ)</li>
+<li>Polyfill</li>
+</ul></li>
+<li>Post MVP
+
+<ul>
+<li>一度stable -&gt; 次</li>
+<li>Thread</li>
+<li>SIMD(f32x4 ARMのやつ)</li>
+<li>いくつかのC++例外</li>
+</ul></li>
+<li>asm.js -&gt; wasm
+
+<ul>
+<li>asm.js -&gt; WebAssemblyへのトランスレーター</li>
+<li>inaryan</li>
+<li>emscriptenは既にプロダクションレベル</li>
+<li>asm.js はある程度信用できる</li>
+<li>なのでasm.js -&gt; wasmしてやるといい感じにいけそう</li>
+<li>LLVM WebAssemblyバックエンドが実装される予定</li>
+</ul></li>
+<li>wasmｒの例
+
+<ul>
+<li>S式になる</li>
+</ul></li>
+<li>VM
+
+<ul>
+<li>Chakra</li>
+<li>JavaScript Core
+
+<ul>
+<li>既にwasm吐ける</li>
+</ul></li>
+<li>SpiderMonkey</li>
+<li>V8</li>
+</ul></li>
+<li>デモ
+
+<ul>
+<li><code>asm2wasm</code>でasm.js -&gt; wasmへ変換できる</li>
+</ul></li>
+<li>まとめ
+
+<ul>
+<li>EmscriptenでC/C++ -&gt; JavaScriptへ変換できる</li>
+<li>Emscripteは色々できる</li>
+<li>WebAssemblyという新しい仕様を策定中</li>
+<li>全てのブラウザで実装予定</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="es6-in-practice-佐藤-鉄平">ES6 in Practice 佐藤 鉄平</h2>
+
+<blockquote>
+<p>スライド: <a href="http://www.slideshare.net/teppeis/es6-in-practice" title="ES6 in Practice">ES6 in Practice</a></p>
+</blockquote>
+
+<ul>
+<li>ES6, ES7</li>
+<li>ES6 Modules
+
+<ul>
+<li>ES6 ≠ Babel</li>
+<li>TypeScript</li>
+<li>Rollup</li>
+<li>HTTP/2</li>
+</ul></li>
+<li>ES6
+
+<ul>
+<li>JavaScriptの仕様</li>
+<li>Ecma Internationが標準化</li>
+<li>ISOでも標準化</li>
+<li>TC39が策定
+
+<ul>
+<li>全てのブラウザベンダーとウェブ開発者の企業が参加</li>
+</ul></li>
+<li>構文と組み込みオブジェクトが増えた</li>
+<li>組み込みメソッドの追加</li>
+<li>ES2015が正式名称</li>
+</ul></li>
+<li>ES.next
+
+<ul>
+<li>TC39 Process: Annual</li>
+<li>機能単位で策定される様になった</li>
+<li>バージョン単位での策定ではない</li>
+<li>Stageの5段階レベル</li>
+<li>Stage 4を毎年20xxとして出す</li>
+</ul></li>
+<li>Stage 0
+
+<ul>
+<li>アイデア</li>
+<li>GitHub PRで提案ができる</li>
+<li>チャンピオンがつけばStageを進められる</li>
+</ul></li>
+<li>Stage 4
+
+<ul>
+<li>仕様公開の準備完了</li>
+<li>2つ環境で実装済みでないといけない</li>
+</ul></li>
+<li>ES2016
+
+<ul>
+<li>ES6のバグ修正が中心</li>
+<li>2016年6月に公開予定
+
+<ul>
+<li><code>Arrayn#includes</code> のみがStage 4になってる</li>
+<li>exponential operatorやasync/awaitなどはStage 3</li>
+</ul></li>
+</ul></li>
+<li>ES7言うな問題
+
+<ul>
+<li>ES7には殆ど新機能入らない</li>
+<li>ES7 Decoratorみたいな表現はおかしくなる可能性がある</li>
+<li>バージョン番号より機能単位で語られていくだろうという話</li>
+</ul></li>
+<li>ES6 Modules
+
+<ul>
+<li>1ファイル1モジュール</li>
+<li>staticで宣言的なシンタックス</li>
+<li>strictモード</li>
+<li>循環参照に対応(仕様として書かれてる)</li>
+</ul></li>
+<li>Syntax
+
+<ul>
+<li>Default export/import</li>
+<li>Named export/import
+
+<ul>
+<li>名前付きでexport</li>
+</ul></li>
+<li>mixして書ける</li>
+</ul></li>
+<li>Default exportがオススメ
+
+<ul>
+<li>ES6 ModulesはDefault Exportが最も使いやすいようになってる</li>
+<li>Named Exportは、バインディングを知らないとimportできない</li>
+<li>シンプルなのは1module = 1export</li>
+</ul></li>
+<li>Static and Declarative
+
+<ul>
+<li>静的で宣言的</li>
+<li>実行しなくても解析にSyntaxErrorが分かる</li>
+<li>実行する前に存在しないファイルなどがないとか分かる</li>
+<li>Browserifyとか解析ツールなどが書きやすい
+
+<ul>
+<li>CommonJSな場合は呼ばないかもしれないものも含めないと上手く行かないケースがある</li>
+</ul></li>
+<li>最適化しやすい</li>
+</ul></li>
+<li>実行前エラー
+
+<ul>
+<li>export defaultの重複</li>
+<li>存在しないファイルをimport</li>
+<li>存在しないバインディングをimport</li>
+</ul></li>
+<li>default exportのプロパティとnamed exportは異なる</li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// export.js</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;Default Propety&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s2">&quot;named&quot;</span><span class="p">;</span>
+<span class="c1">// import.js</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">foo</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;./export.js&quot;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span> <span class="c1">// &quot;Named&quot;// Named</span>
+</code></pre></div>
+<ul>
+<li>Named exportしたものがNamed importでバインディングを取れる</li>
+<li>Script or Module
+
+<ul>
+<li>Moduleの場合
+
+<ul>
+<li>強制的にstrictモード</li>
+<li>トップレベルthisはundefined</li>
+<li>トップレベル変数がグローバルにならない</li>
+</ul></li>
+</ul></li>
+<li>ScriptとModuleってどうやって指定するの? とか未定義な部分</li>
+<li>ES6 Modules
+
+<ul>
+<li>ES6でのModulesは半分ぐらいしか決まってない</li>
+<li>シンタックスとセマンティックのみ</li>
+<li>Loader、Dynamic APIは未定義</li>
+</ul></li>
+<li>WHATWG
+
+<ul>
+<li>WHATWG/Loader</li>
+<li>ブラウザのローダーを中心に議論中</li>
+<li><code>&lt;script type=&quot;module&quot; /&gt;</code> という提案</li>
+<li>ScriptとModuleの区別</li>
+<li>識別子</li>
+</ul></li>
+<li>JSC shellでES6 Modules体験
+
+<ul>
+<li>JSCでLoaderの初期実装</li>
+<li>Macはバイナリがある</li>
+<li>jscshell -m で試せる</li>
+</ul></li>
+<li>Roadmap of Loader
+
+<ul>
+<li>Milestone 0 - 3</li>
+<li>ブラウザを中心にした議論</li>
+</ul></li>
+<li>Node.jsでは
+
+<ul>
+<li>npmはNode.js待ち</li>
+<li>Node.jsはV8待ち</li>
+<li>V8はwhatwg/loader待ち</li>
+<li>論点: CommonJSとの相互運用</li>
+<li>ES6 Module importでCommmonJSを読む</li>
+<li>CommonJS <code>require()</code>でES6 Moduleを読む</li>
+</ul></li>
+<li>CommonJS
+
+<ul>
+<li>CommonJSはただの関数なので、動的に動く</li>
+<li>パースしてもexportされてるか分からない</li>
+</ul></li>
+<li>Babelでは(v5)
+
+<ul>
+<li>CommonJS変換</li>
+<li>識別子はNode.jsと同じ</li>
+<li>CommonJSとの相互運用性を重視</li>
+<li>ES6 moduleという印を付ける</li>
+<li><code>.default</code>と<code>module.export</code>にexportしてる</li>
+<li>importはinteropRequireをかましてrequireする</li>
+<li>CommonJSでもES6 Moduleでもimportできるようにしてる</li>
+<li>問題点
+
+<ul>
+<li>staticなsyntax errorが失われてる</li>
+</ul></li>
+</ul></li>
+<li>Babel 6での変更
+
+<ul>
+<li><code>module.export = xxx</code> がなくなった</li>
+<li>CommonJSから読むには<code>require(&quot;i.js&quot;).default</code>とする必要があった</li>
+</ul></li>
+<li>Babel Risk
+
+<ul>
+<li>ES6 modulesは仕様未決定の部分が多い</li>
+<li>Babelの独自解釈成分も強い</li>
+<li>Babelの解釈変更やNode.js/ブラウザとは異なる可能性がある</li>
+</ul></li>
+<li>TypeScriptでは
+
+<ul>
+<li>TypeScript ModuleをES6 moduleとしてimportできない</li>
+<li>TypeScript Module &lt;-&gt; ES6 Moduleの相互運用はできない</li>
+<li>休憩式のモジュールは旧形式でロード</li>
+<li>ES6モジュールはES6形式でロード</li>
+<li>文法が2種類あるが、独自解釈が入りやすい相互変換は避けている</li>
+</ul></li>
+<li>Transpiler
+
+<ul>
+<li>生産性の高い機能を実行環境に実装される前から使いたい</li>
+<li>標準化されているから将来性がある</li>
+<li>というのが本来</li>
+</ul></li>
+<li>ES6 Modulesを今使う
+
+<ul>
+<li>標準化まだ途中、相互運用性はツール依存、将来動作しない可能性も</li>
+<li>一回立ち止まって考える</li>
+<li>静的であることがまだツールを活かせていない</li>
+</ul></li>
+<li>Rollup
+
+<ul>
+<li>Browserifyみたいなツール</li>
+<li>staticな文法を最大限活用してる</li>
+<li>最適化で未使用なバインディングを削除してる</li>
+<li>未使用な変数を削除してる
+
+<ul>
+<li>CommonJSだとプロパティに代入されたものを削除するというのと同じになる</li>
+<li>そのためアグレッシブな削除じゃないとできなかった</li>
+</ul></li>
+</ul></li>
+<li><code>jsnext:main</code>
+
+<ul>
+<li><code>main</code> とは <code>jsnext:main</code> </li>
+<li>npmはbrowserifyで変換したものだけをpublishするのが普通</li>
+<li>npmにもES6 modulesで書かれたものを含めて<code>jsnext:main</code>で指定できるようにするという話</li>
+<li>両方の強みを持つよう</li>
+</ul></li>
+<li>まとめ
+
+<ul>
+<li>「ES6 Modulesはいまから使える」は言いすぎた</li>
+<li>Babelの独自解釈がある部分もあるのでその辺の危険性は理解して使いましょう</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="web-技術の今日とこれから：view-source-conference-レポート-矢倉-眞隆">Web 技術の今日とこれから：View Source Conference レポート 矢倉 眞隆</h2>
+
+<ul>
+<li>合計3日間のポートランドで行われたカンファレンス</li>
+<li>Ignite View Source(前夜祭)
+
+<ul>
+<li>一人20枚、15秒で強制めくりのLT</li>
+<li>ウェブ開発とはちょっと違う所の人が多かった</li>
+</ul></li>
+<li><a href="https://viewsourceconf.org/schedule/">Schedule - View Source</a></li>
+<li><a href="http://codezine.jp/article/detail/9069">Mozilla ViewSource Conferenceが本日開幕、前夜祭はLTイベント「IGNITE」で大盛り上がり (1/2)：CodeZine（コードジン）</a></li>
+<li>カンファレンス初日
+
+<ul>
+<li>いろんなパターンを挙手させていって、大体の人が挙手する状況を作って、それらは決して遠いものではないとわからせるテクニック</li>
+<li>カンファレンスについての議論もあった</li>
+<li>後半になるとテクニカルな話が多くなってきた
+
+<ul>
+<li>デザインは夢見がちなものとなりやすいけど、ちゃんとそれをコードと落とせるようにコミュニケーションを取らないといけないねという話</li>
+<li><a href="http://www.slideshare.net/SaraSoueidan/svg-for-web-designers-and-developers" title="SVG For Web Designers (and Developers)">SVG For Web Designers (and Developers)</a></li>
+<li><a href="http://www.smashingmagazine.com/2015/07/designing-simple-pie-charts-with-css/" title="Designing Flexible Pie Charts With CSS and SVG — Smashing Magazine">Designing Flexible Pie Charts With CSS and SVG — Smashing Magazine</a></li>
+</ul></li>
+<li>アフターパーティーが豪華</li>
+</ul></li>
+<li>カンファレンス2日目
+
+<ul>
+<li>WebAudioの話</li>
+<li>WebAnimation</li>
+<li><a href="https://viewsourceconf.org/session/state-of-the-animation-2015/" title="State of the animation 2015 - View Source">State of the animation 2015 - View Source</a></li>
+<li>WebVRの話
+
+<ul>
+<li>VRをウェブに持ち込むのはなぜ?</li>
+<li>ウェブというのはアクセスしただけですぐに見られるのが強み</li>
+<li>なので広く使われることで新しい表現が生まれるのではという話</li>
+<li>WebComponent + WebVR</li>
+<li>タグで簡単にVRできるもの</li>
+<li>VRにおける青い下線 = リンクという標準的な表現はまだない</li>
+<li>なので、VRにもそういう表現がやってくると面白いのではという</li>
+</ul></li>
+<li>メインセッション -&gt; ディスカッション -&gt; メインセッションという話</li>
+<li>Fire side chat = 会場にいる人からの質問に応えるコーナー</li>
+<li>wasmの話を<a href="https://github.com/lukewagner" title="lukewagner (Luke Wagner)">lukewagner (Luke Wagner)</a>さんがしていた
+
+<ul>
+<li>wasmはJavaScriptを殺すものではない</li>
+<li>最初のターゲットは数十万行あるようなC/C++のコード</li>
+<li>MathStudioとかを例に</li>
+<li>ゲームをターゲットにしてるのは触媒として</li>
+</ul></li>
+<li>JavaScript Today
+
+<ul>
+<li>Allenさんが質問者を壇上にあげて答えてた</li>
+<li><a href="http://codezine.jp/article/detail/9071" title="ECMAScript 2015はなぜ策定まで時間がかかったか？ 仕様策定のリーダー、アレン・ワーフスブラック氏に聞く：CodeZine（コードジン）">ECMAScript 2015はなぜ策定まで時間がかかったか？ 仕様策定のリーダー、アレン・ワーフスブラック氏に聞く：CodeZine（コードジン）</a></li>
+<li>TC39という標準化団体しかできないことに注力する</li>
+<li>ES.nextでは1年ごと、機能ごと</li>
+</ul></li>
+<li>Googleの人
+
+<ul>
+<li>Progress App</li>
+</ul></li>
+</ul></li>
+<li>スピーカーとディスカッション
+
+<ul>
+<li>発表するだけじゃなくてディスカッションの時間を色々作ってる</li>
+<li>ディスカッションとしてのカンファレンスが多い</li>
+<li>カンファレンスとディスカッションのバランスの話</li>
+</ul></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-11-15-firefox-devconf-2015.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Firefox","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

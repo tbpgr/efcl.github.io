@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        textlintで日本語の文章をチェックする | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="textlint,AST,Lint,tools" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/09/10/introduce-textlint/">
+    <h1 class="post-title">textlintで日本語の文章をチェックする</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年09月10日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-09-10-introduce-textlint.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="textlint">textlint</h2>
+
+<p><a href="https://github.com/textlint/textlint" title="textlint">textlint</a>はMarkdownやテキスト向けのLintツールで、テキスト版ESLintみたいな感じのツールです。</p>
+
+<ul>
+<li><a href="http://efcl.info/2014/12/30/textlint/" title="JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch">JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch</a></li>
+</ul>
+
+<p>最近<a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="azu/JavaScript-Plugin-Architecture">azu/JavaScript-Plugin-Architecture</a>という小さな書籍を書いていて、色々簡単に使えるような仕組みを追加しています。</p>
+
+<p>この記事では簡単な<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>の導入方法について紹介します。</p>
+
+<p>扱う<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>は<a href="https://github.com/azu/textlint/releases/tag/v3.3.0" title="v3.3.0">v3.3.0</a>以降とします。</p>
+
+<h3 id="インストール">インストール</h3>
+
+<p>textlintはデフォルトでは一つもルールがありません。
+これはpluggable linting toolのためでもありますが、現実的に全ての言語(日本語やロシア語といった言語)で上手く機能するようなルールは少ないと思ってるからでもあります。(逆にtextlintは日本語に特化したツールでもありません)</p>
+
+<p>ルールはJavaScriptで書くことができ、それらのルールはNode.jsのパッケージ管理ツールであるnpmで公開、利用することができます。
+(textlintのルールは<code>textlint-rule-*</code>という名前で公開をオススメします)</p>
+
+<p>なので、自分が作った幾つかのルールを入れて試してみたいと思います。</p>
+
+<p>npmでグローバルにtextlintと3種類の日本語関係のルールを入れてみます。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">npm i -g textlint
+npm i -g textlint-rule-max-ten textlint-rule-spellcheck-tech-word textlint-rule-no-mix-dearu-desumasu
+</code></pre></div>
+<p>Node.jsの<code>package.json</code>があるプロジェクトなら<code>--save-dev</code>とかでインストールして使うと良いと思います。(できればこちらをオススメします)</p>
+
+<p>インストールすると<code>$ textlint</code>というコマンドが使えるようになります。</p>
+
+<p>入れた3つのルールはそれぞれ以下のようなことをチェックしてくれます。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-max-ten">textlint-rule-max-ten</a>
+
+<ul>
+<li>一文に利用できる<code>、</code>の数をチェックするルール</li>
+</ul></li>
+<li><a href="https://github.com/azu/textlint-rule-spellcheck-tech-word">textlint-rule-spellcheck-tech-word</a>
+
+<ul>
+<li>WEB+DB PRESS用語統一ルールをベースにした<a href="https://github.com/azu/technical-word-rules" title="azu/technical-word-rules">azu/technical-word-rules</a>の辞書で単語チェック</li>
+</ul></li>
+<li><a href="https://github.com/azu/textlint-rule-no-mix-dearu-desumasu">textlint-rule-no-mix-dearu-desumasu</a>
+
+<ul>
+<li>「ですます」調と「である」調の混在をチェックするルール</li>
+</ul></li>
+</ul>
+
+<h3 id="文章をルールでlintする">文章をルールでLintする</h3>
+
+<p>先ほど入れたルールを使ってみましょう。</p>
+
+<p><code>--rule &lt;ルール名&gt;</code>でルールを指定でき、ルール名とはインストール時のパッケージの名前となっています。</p>
+
+<p><code>textlint-rule-*</code>で始まるパッケージ名は省略できるようにしてあるので、具体的には次のようになっています</p>
+
+<ul>
+<li><code>textlint-rule-no-mix-dearu-desumasu</code> -&gt; <code>no-mix-dearu-desumasu</code></li>
+<li><code>textlint-rule-max-ten</code> -&gt; <code>max-ten</code></li>
+<li><code>textlint-rule-spellcheck-tech-word</code> -&gt; <code>spellcheck-tech-word</code></li>
+</ul>
+
+<p><code>README.md</code>というファイルをこれらのルールでチェックしたい場合は以下のように書くことができます。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>textlint --rule no-mix-dearu-desumasu --rule max-ten --rule spellcheck-tech-word README.md
+</code></pre></div>
+<p><img src="https://monosnap.com/file/GWDaE7DNxI7miV2alir12IqsQLcHIz.png" alt="result"></p>
+
+<p>引数が多いですね… </p>
+
+<p>textlint <a href="https://github.com/azu/textlint/releases/tag/v3.3.0" title="v3.3.0">v3.3.0</a>で<code>.textlintrc</code>という設定ファイルをサポートしていて、上記のコマンドは以下のような設定ファイルにすることができます。</p>
+
+<p>設定ファイルはJSON、YAML、JSモジュール(<code>module.exports = {}</code>)で書くことができます。(ファイル名は <code>.textlintrc</code> で同じ)</p>
+
+<blockquote>
+<p><code>.textlintrc</code></p>
+</blockquote>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;max-ten&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;max&quot;</span><span class="p">:</span> <span class="mi">3</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;spellcheck-tech-word&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;no-mix-dearu-desumasu&quot;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>rules</code>にはルールの有効(true)/無効(true) または ルールの設定を書くことができます。</p>
+
+<p>詳しくは<a href="https://github.com/azu/textlint#textlintrc">README.md#textlintrc</a>を見てみて下さい</p>
+
+<p>textlintを実行すると自動で<code>.textlintrc</code>ファイルを探索して読み込まれるので、<code>--rule</code>引数を指定しなくてもよくなります。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>textlint --rule no-mix-dearu-desumasu --rule max-ten --rule spellcheck-tech-word README.md
+<span class="c"># ==</span>
+<span class="nv">$ </span>textlint README.md
+</code></pre></div>
+<p>実例: <a href="https://github.com/azu/JavaScript-Plugin-Architecture/pull/43" title="refactor: use `.textlintrc` for textlint by azu · Pull Request #43 · azu/JavaScript-Plugin-Architecture">refactor: use <code>.textlintrc</code> for textlint by azu · Pull Request #43 · azu/JavaScript-Plugin-Architecture</a></p>
+
+<p>textlintのルールは以下のWikiにまとめてありますが、ルールを作った場合は自由に追加してみてください。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint/wiki/Collection-of-textlint-rule" title="Collection of textlint rule · azu/textlint Wiki">Collection of textlint rule · azu/textlint Wiki</a></li>
+</ul>
+
+<p>追記: どのルールを使えばいいか分からない！という場合はルールプリセットから始めるとよいでしょう。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/12/30/textlint-preset/" title="ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch">ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch</a></li>
+</ul>
+
+<h2 id="ルールを作る">ルールを作る</h2>
+
+<p>textlintのルールの作り方は以下のドキュメントに書かれています。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint/blob/master/docs/rule.md" title="textlint/create-rules.md at master · azu/textlint">textlint/create-rules.md at master · azu/textlint</a></li>
+</ul>
+
+<p>Lintの仕組みは<a href="http://eslint.org/" title="ESLint">ESLint</a>と同じく、Markdown(コード)をパースしてASTにしたものをtraverseしながらそれぞれのルールに渡してチェックする仕組みをtextlintは提供しています。</p>
+
+<p>詳しくはESLintのプラグインアーキテクチャを解説を書いたので読んでみるといいと思います。</p>
+
+<ul>
+<li><a href="http://azu.gitbooks.io/javascript-plugin-architecture/content/ja/ESLint/index.html" title="ESLint | JavaScript Plugin Architecture">ESLint | JavaScript Plugin Architecture</a></li>
+</ul>
+
+<p>以下の記事でも簡単に紹介しています。</p>
+
+<ul>
+<li><a href="http://efcl.info/2014/12/30/textlint/">JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch</a></li>
+<li><a href="http://efcl.info/2015/01/07/textlint1.4/">textlint 1.4 パーサの安定化、ルールの自由度の改善をして現実的に使えるLintツールへ | Web Scratch</a></li>
+</ul>
+
+<p>例えば、&quot;しかし&quot;という同じ接頭辞が連続して出てくるのをチェックしたいとします。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">しかし、〜。
+だが、〜。
+しかし、〜。
+</code></pre></div>
+<p>これをチェックするtextlintのルールは以下のように書けます。</p>
+
+<ul>
+<li>それぞれのパラグラフの接頭辞を取り出す</li>
+<li>変数に接頭辞を保存しておく</li>
+<li>2センテンス以内に同じ接頭辞が使われないかを調べる</li>
+<li>一致していたら<code>context.report</code>でエラー報告をする</li>
+</ul>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="nx">ObjectAssign</span> <span class="nx">from</span> <span class="s2">&quot;object-assign&quot;</span>
+<span class="kr">const</span> <span class="nx">defaultOptions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">interval</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kr">const</span> <span class="nx">punctuation</span> <span class="o">=</span> <span class="sr">/[。\?]/</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">pointing</span> <span class="o">=</span> <span class="sr">/[、,]/</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">splitBySentence</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">text</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">punctuation</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// conjunction</span>
+<span class="kd">function</span> <span class="nx">getFirstPhrase</span><span class="p">(</span><span class="nx">sentence</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">phrases</span> <span class="o">=</span> <span class="nx">sentence</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">pointing</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">phrases</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">phrases</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">trim</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">{</span>
+    <span class="nx">options</span> <span class="o">=</span> <span class="nx">ObjectAssign</span><span class="p">({},</span> <span class="nx">defaultOptions</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="p">{</span><span class="nx">Syntax</span><span class="p">,</span><span class="nx">getSource</span><span class="p">,</span> <span class="nx">report</span><span class="p">,</span><span class="nx">RuleError</span><span class="p">}</span> <span class="o">=</span> <span class="nx">context</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">previousPhases</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="kd">var</span> <span class="nx">useDuplicatedPhase</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="c1">// パラグラフ == &lt;p&gt; と考えればいいはず</span>
+        <span class="p">[</span><span class="nx">Syntax</span><span class="p">.</span><span class="nx">Paragraph</span><span class="p">](</span><span class="nx">node</span><span class="p">){</span>
+            <span class="c1">// パラグラフは1文だけとは限らないので。で分割</span>
+            <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">getSource</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">sentences</span> <span class="o">=</span> <span class="nx">splitBySentence</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+            <span class="nx">sentences</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">sentence</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="c1">// 先頭の接続詞、 をとりだす。</span>
+                <span class="kd">var</span> <span class="nx">phrase</span> <span class="o">=</span> <span class="nx">getFirstPhrase</span><span class="p">(</span><span class="nx">sentence</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">phrase</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="c1">// 少し前の文で出てきてないかをチェック</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">previousPhases</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">phrase</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">useDuplicatedPhase</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="c1">// 使われてたらエラー報告</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">useDuplicatedPhase</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">report</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="k">new</span> <span class="nx">RuleError</span><span class="p">(</span><span class="err">`</span><span class="nx">don</span><span class="err">&#39;</span><span class="nx">t</span> <span class="nx">repeat</span> <span class="s2">&quot;${phrase}&quot;</span> <span class="k">in</span> <span class="nx">$</span><span class="p">{</span><span class="nx">options</span><span class="p">.</span><span class="nx">interval</span><span class="p">}</span> <span class="nx">phrases</span><span class="err">`</span><span class="p">));</span>
+                    <span class="nx">useDuplicatedPhase</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="c1">// add first item</span>
+                <span class="nx">previousPhases</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">phrase</span><span class="p">);</span>
+                <span class="nx">previousPhases</span> <span class="o">=</span> <span class="nx">previousPhases</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">interval</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>このルールは<a href="https://github.com/azu/textlint-rule-no-start-duplicated-conjunction" title="azu/textlint-rule-no-start-duplicated-conjunction">azu/textlint-rule-no-start-duplicated-conjunction</a>に置いてあります。</p>
+
+<h3 id="おわりに">おわりに</h3>
+
+<p>textlintはデフォルトでルールを持ってない代わりに、自分でルールを書きやすいようにしています。</p>
+
+<p>最近だと<a href="http://redpen.cc/" title="RedPen">RedPen</a>もJavaScriptでバリデーションを書けるようになったりしています。(MarkdownだけじゃなくてAsciidocやLaTeXも対応してる)</p>
+
+<ul>
+<li><a href="http://blog.redpen.cc/2015/09/08/writing-extension-with-javascript/" title="Writing RedPen extension with JavaScript | RedPen BLOG">Writing RedPen extension with JavaScript | RedPen BLOG</a></li>
+</ul>
+
+<p>なので、自然言語に詳しい人がもっと<a href="http://tsuchinoko.dmmlabs.com/?p=2303">難しい日本語文法などの間違い</a>をチェックできるものを書いていったり、思いつきで自分で書いた文章をチェックするものを作ってみると面白くなるんじゃないかなと思います。</p>
+
+<p>複雑なことを考えなければ、正規表現とStringメソッドぐらいで、ある程度のルールを書けたりします。(よく使うパターンは<a href="https://github.com/azu/textlint-rule-helper" title="azu/textlint-rule-helper">azu/textlint-rule-helper</a>に追加していきたい)</p>
+
+<p>自然言語をチェックする場合に万人が満足するルールを作るのは難しそうなので、自分用のルールを書いてみて、必要に応じてオプションを増やすのがいいのではないかなーと思います。</p>
+
+<p>最近だとJavaScriptでも日本語をちゃんと扱える形態素解析器である<a href="https://github.com/takuyaa/kuromoji.js">kuromoji.js</a>、<a href="https://github.com/rakuten-nlp/rakutenma">rakutenma</a>などがあります。</p>
+
+<p>また、日本語がそのまま扱えるわけじゃないですが<a href="https://github.com/NaturalNode/natural">NaturalNode/natural</a>や<a href="https://github.com/wooorm/retext">wooorm/retext</a>など結構手軽に文章などを扱って遊べます。</p>
+
+<p>特に<a href="https://github.com/wooorm" title="wooorm">wooorm</a>先生は<a href="http://alexjs.com/" title="ALEX">ALEX</a>というチェックツールを出したり、Markdownパーサである<a href="https://github.com/wooorm/mdast" title="mdast">mdast</a>を作ったり、テキスト処理向けの抽象フォーマットである<a href="https://github.com/wooorm/vfile" title="VFile">VFile</a>を作ったり精力的にモジュールなどを書いています。</p>
+
+<p>この辺の抽象フォーマットなどの足並みが揃ってくると、文章を扱うツールのエコシステムが回ってきて色々なツールが出てくるようになってくると思います。</p>
+
+<p>例えば、textlintではMarkdownは<a href="https://github.com/azu/markdown-to-ast" title="azu/markdown-to-ast">azu/markdown-to-ast</a>でパースして独自に定義したAST(抽象構文木)にした状態で扱います。
+しかし、独自のASTだとファイルフォーマット毎に独自のパーサが必要になり、そのASTを扱うツールもそれぞれ必要になってしまうため結構面倒くさいです。</p>
+
+<p>その辺が解決していければ、プログラミング言語を扱うツールのように、文章を扱うツールがもっと作りやすくなったりするんじゃないかなと思います。</p>
+
+<p>文章の正しさは時間で変化する感じがして、その時に正しいと思ったことをすぐにチェックできるようにしたいと思って<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>を作ったので、一度遊んでみるといいのかもしれません。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-09-10-introduce-textlint.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["textlint","AST","Lint","tools"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=textlint">textlint</a></li>
+                
+                <li><a href="/tags/?q=AST">AST</a></li>
+                
+                <li><a href="/tags/?q=Lint">Lint</a></li>
+                
+                <li><a href="/tags/?q=tools">tools</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

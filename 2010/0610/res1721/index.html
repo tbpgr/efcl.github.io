@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        OAuth for Greasemonkeyのラッパーライブラリ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="API,Greasemonkey,javascript,twitter" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2010/0610/res1721/">
+    <h1 class="post-title">OAuth for Greasemonkeyのラッパーライブラリ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2010年06月10日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-06-10-oauth-for-greasemonkey%E3%81%AE%E3%83%A9%E3%83%83%E3%83%91%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><strong><a href="http://efcl.info/2010/0609/res1715/">Post Now browsing to TwitterをOAuth認証に対応しました | Web scratch</a></strong>でGreasemonkeyスクリプトの「<a href="http://userscripts.org/scripts/show/46441">Post Now browsing to Twitter</a>」をOAuth認証に対応したものを作りました。<br>
+OAuthのJavaScript実装はいくつかあるみたいですがGreasemonkeyで使う感じになってるものは無かったみたいなので、OAuth.jsを使ったtwitterでのOAuth認証を手助けするラッパーみたいなものを書きました。</p>
+
+<p>xAuthを使えば楽な気もしますがブラウザベースのものはxAuthを使わずに<a href="http://help.twitter.com/requests/982242">OAuthを使ってね</a>との事です</p>
+
+<p>大部分は</p>
+
+<ul>
+<li>  <a href="http://blog.tomatomax.net/archives/2696">TwitterクライアントのOAuth対応(JavaScript編) | tomatomax.net</a></li>
+<li>  <a href="http://techno-st.net/2009/11/26/twitter-api-oauth-0.html">Twitter API を OAuth で認証するスクリプトを 0 から書いてみた &#8211; trial and error</a></li>
+<li>  <a href="http://sites.google.com/site/elekmole/twitter4jtop/00-preparation/h-oauth-preparation">H.Basic認証/OAuth認証 (陽昇れども地の底に光届かず)</a></li>
+</ul>
+
+<p>を参考に書きました。<br>
+何となく分かるかも知れませんが、今回扱うアプリはApplication Typeがclientタイプのものです。</p>
+
+<p>[&lt;!--more--&gt;</p>
+
+<p>]<a href="http://userscripts.org/scripts/show/78102">7</a>今回書いたラッパーは以下のOAuthライブラリを簡単に扱うためのものになってます。<br>
+OAuth.js<br>
+SHA-1.js<br>
+<a href="http://code.google.com/p/oauth/source/browse/code/javascript/">http://code.google.com/p/oauth/source/browse/code/javascript/</a> あたりにある。<br>
+ラッパーと併せて3つのjsからなりますが、3回も@requireするのは面倒だったので一つのファイルにまとめたソースコードを<strong><a href="http://userscripts.org/scripts/show/78102">OAuth for Greasemonkey for Greasemonkey</a></strong>に置いてあります。<br>
+OAuth.jsはApache license ver2、SHA-1.jsはBSDライセンスになっています。<br>
+自分が書いたラッパー部分はMITライセンスとしておきます(基本的に自由に使える)<br>
+しかし、いつ変更するか分からないので自分で別途保存して@requireする方が良いでしょう。<br>
+追記: <strong>githubに置いたのでこちらを利用した方がいいと思います</strong></p>
+
+<ul>
+<li>  #### <a href="http://github.com/azu/OAuth-for-Greasemonkey">azu&#8217;s OAuth-for-Greasemonkey at master &#8211; GitHub</a></li>
+</ul>
+
+<p>以下はラッパー部分だけを抜き出したものです。(2010/08/07現在のソースから)<br>
+<strong>ここに書いてあるのは古いと思うので上のリンクから適当に見て下さい。</strong></p>
+
+<pre class="brush:javascript;">// TwitterOauth for Greasemonkey
+function TwitterOauth(){
+    this.initialize.apply(this, arguments);
+}
+TwitterOauth.prototype = {
+    initialize: function(con) {
+        var accessor = this.getAccessor();
+        if(accessor){
+            this.accessor = accessor;
+        }else{
+            this.accessor.consumerKey = con.consumerKey;
+            this.accessor.consumerSecret = con.consumerSecret;
+            this.accessor.token = "";
+            this.accessor.tokenSecret = "";
+        }
+    },
+    accessor : {
+        consumerKey : "",
+        consumerSecret: "",
+        token: "",// response access_token
+        tokenSecret: "", // response access_token_secret
+    },
+    // temp for request
+    request : {
+        token :"",// response oauth_token
+        tokenSecret: ""// response oauth_token_secret
+    },
+    // トークンが取得済みかの真偽値を返す
+    isAuthorize : function(){
+        var accessor = this.accessor;
+        if(accessor.consumerKey && accessor.consumerSecret && accessor.token && accessor.tokenSecret){
+            return true;
+        }else{
+            return false;
+        }
+    },
+    getAccessor : function(){
+        var accessor = GM_getValue("OAuthAccessor", null);
+        if(accessor){
+            return JSON.parse(accessor);
+        }else{
+            return false;
+        }
+    },
+    // 取得したトークンを保存
+    saveAccessor : function(){
+        GM_setValue("OAuthAccessor",JSON.stringify(this.accessor));
+    },
+    deleteAccessor : function(){
+        var clientInfo = {
+            consumerKey: this.accessor.consumerKey,
+            consumerSecret: this.accessor.consumerSecret,
+        }
+        GM_deleteValue("OAuthAccessor");
+        this.initialize(clientInfo);
+    },
+    // 認証ページのURLを取得
+    getRequestToken : function(callback){
+        var message = {
+          method: "GET",
+          action: "https://twitter.com/oauth/request_token",
+          parameters: {
+            oauth_signature_method: "HMAC-SHA1",
+            oauth_consumer_key: this.accessor.consumerKey
+          }
+        };
+        OAuth.setTimestampAndNonce(message);
+        OAuth.SignatureMethod.sign(message, this.accessor);
+        var target = OAuth.addToURL(message.action, message.parameters);
+        var self = this;
+        var options = {
+          method: message.method,
+          url: target,
+          onload: function(d) {
+            if(d.status == 200){
+                var res = d.responseText;
+                var parameter = self.getParameter(res);
+                self.request.token = parameter&#91;"oauth_token"&#93;;
+                self.request.tokenSecret = parameter&#91;"oauth_token_secret"&#93;;
+                // requestURLを引数にcallback
+                if(callback){
+                    callback("https://twitter.com/oauth/authorize?oauth_token="+self.request.token);
+                }
+            }else{
+                alert(d.statusText);
+            }
+          },
+        };
+        GM_xmlhttpRequest(options);
+
+    },
+    // pinを元にAccess Tokenを取得して保存、callbackにはaccessorオブジェクトを渡す
+    getAccessToken : function(pin ,callback) {
+        var message = {
+          method: "GET",
+          action: "https://twitter.com/oauth/access_token",
+          parameters: {
+            oauth_signature_method: "HMAC-SHA1",
+            oauth_consumer_key: this.accessor.consumerKey,
+            oauth_token: this.request.token, // Request Token
+            oauth_verifier: pin
+          }
+        };
+        OAuth.setTimestampAndNonce(message);
+        OAuth.SignatureMethod.sign(message, this.request);
+        var target = OAuth.addToURL(message.action, message.parameters);
+        var self = this;
+        var options = {
+          method: message.method,
+          url: target,
+          onload: function(d) {
+            if(d.status == 200){
+                /* 返り値からAccess Token/Access Token Secretを取り出す */
+                var res = d.responseText;
+                var parameter = self.getParameter(res);
+                self.accessor.token = parameter&#91;"oauth_token"&#93;;
+                self.accessor.tokenSecret = parameter&#91;"oauth_token_secret"&#93;;
+                // Accessorの保存
+                self.saveAccessor();
+                if(callback){
+                    callback(self.accessor);
+                }
+            }else{
+                alert(d.statusText);
+            }
+          },
+        };
+
+        GM_xmlhttpRequest(options); // 送信
+    },
+    // api+?+query にアクセスした結果をcallbackに渡す
+    get : function(api, query, callback) {
+        var btquery = (query)? "?"+this.buildQuery(query) : "";
+        var message = {
+          method: "GET",
+          action: api + btquery,
+          parameters: {
+            oauth_signature_method: "HMAC-SHA1",
+            oauth_consumer_key: this.accessor.consumerKey,// queryの構築
+            oauth_token: this.accessor.token // Access Token
+          }
+        };
+        OAuth.setTimestampAndNonce(message);
+        OAuth.SignatureMethod.sign(message, this.accessor);
+        var target = OAuth.addToURL(message.action, message.parameters);
+        var options = {
+          method: message.method,
+          url: target,
+          onload: function(d) {
+            if(d.status == 200){
+                if(callback){
+                    callback(d.responseText);
+                }
+            }else{
+                callback(d.statusText);
+            }
+          },
+        };
+        GM_xmlhttpRequest(options); // 送信
+    },
+    post : function(api, content, callback) {
+        var message = {
+          method: "POST",
+          action: api,
+          parameters: {
+            oauth_signature_method: "HMAC-SHA1",
+            oauth_consumer_key: this.accessor.consumerKey,
+            oauth_token: this.accessor.token // Access Token
+          }
+        };
+        // 送信するデータをパラメータに追加する
+        for ( var key in content ) {
+          message.parameters&#91;key&#93; = content&#91;key&#93;;
+        }
+        OAuth.setTimestampAndNonce(message);
+        OAuth.SignatureMethod.sign(message, this.accessor);
+        var target = OAuth.addToURL(message.action, message.parameters);
+        var options = {
+            method: message.method,
+            url: target,
+            onload: function(d) {
+                if (d.status == 200) {
+                    if (callback) {
+                        callback(d.responseText);
+                    }
+                } else {
+                    // typeof d == object
+                    callback(d);
+                }
+            }
+        };
+        GM_xmlhttpRequest(options); // 送信
+    },
+    // GM_xmlhttpRequest風に使う
+    xhr : function(opts){
+        if(!(opts && opts.url && opts.method)){
+            GM_log("URLまたはメソッドが指定されていません");
+            return;
+        }
+        var message = {
+          method: opts.method,
+          action: opts.url,
+          parameters: {
+            oauth_signature_method: "HMAC-SHA1",
+            oauth_consumer_key: this.accessor.consumerKey,
+            oauth_token: this.accessor.token // Access Token
+          }
+        };
+        // POST - opts.dataは文字列でもオブジェクトでも可能にする
+        if(opts && opts.method.toLowerCase() == "post" && opts.data){
+            if(typeof(opts.data) === "string"){// 文字列からパラメータオブジェクトを作る
+                opts.data = this.getParameter(opts.data);
+            }
+            var content = opts.data;
+            if(typeof(content) === "object"){
+                for(var key in content) {
+                    message.parameters&#91;key&#93; = content&#91;key&#93;;
+                }
+            }
+        }
+        OAuth.setTimestampAndNonce(message);
+        OAuth.SignatureMethod.sign(message, this.accessor);
+        opts.url = OAuth.addToURL(message.action, message.parameters);// URLを書き換え
+        GM_xmlhttpRequest(opts);// 送信
+    },
+    // utility関数
+    // http://kevin.vanzonneveld.net
+    urlencode : function (str) {
+        str = (str+'').toString();
+        return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/(/g, '%28').
+                                                                        replace(/)/g, '%29').replace(/*/g, '%2A').replace(/%20/g, '+');
+    },
+    // オブジェクトからクエリを生成
+    buildQuery : function(formdata, numeric_prefix, arg_separator) {
+        // *     example 1: http_build_query({foo: 'bar', php: 'hypertext processor', baz: 'boom', cow: 'milk'}, '', '&amp;');
+        // *     returns 1: 'foo=bar&amp;php=hypertext+processor&amp;baz=boom&amp;cow=milk'
+        // *     example 2: http_build_query({'php': 'hypertext processor', 0: 'foo', 1: 'bar', 2: 'baz', 3: 'boom', 'cow': 'milk'}, 'myvar_');
+        // *     returns 2: 'php=hypertext+processor&myvar_0=foo&myvar_1=bar&myvar_2=baz&myvar_3=boom&cow=milk'
+        var value, key, tmp = &#91;&#93;;
+        var self = this;
+        var _http_build_query_helper = function (key, val, arg_separator) {
+            var k, tmp = &#91;&#93;;
+            if (val === true) {
+                val = "1";
+            } else if (val === false) {
+                val = "0";
+            }
+            if (val !== null && typeof(val) === "object") {
+                for (k in val) {
+                    if (val&#91;k&#93; !== null) {
+                        tmp.push(_http_build_query_helper(key + "&#91;" + k + "&#93;", val&#91;k&#93;, arg_separator));
+                    }
+                }
+                return tmp.join(arg_separator);
+            } else if (typeof(val) !== "function") {
+                return self.urlencode(key) + "=" + self.urlencode(val);
+            } else {
+                throw new Error('There was an error processing for http_build_query().');
+            }
+        };
+
+        if (!arg_separator) {
+            arg_separator = "&";
+        }
+        for (key in formdata) {
+            value = formdata&#91;key&#93;;
+            if (numeric_prefix && !isNaN(key)) {
+                key = String(numeric_prefix) + key;
+            }
+            tmp.push(_http_build_query_helper(key, value, arg_separator));
+        }
+
+        return tmp.join(arg_separator);
+    },
+    // Query String から 連想配列を返す
+    getParameter: function(str){
+      var dec = decodeURIComponent;
+      var par = {}, itm;
+      if(typeof(str) == 'undefined') return par;
+      if(str.indexOf('?', 0) &#62; -1) str = str.split('?')&#91;1&#93;;
+      str = str.split('&');
+      for(var i = 0; str.length &#62; i; i++){
+        itm = str&#91;i&#93;.split("=");
+        if(itm&#91;0&#93; != ''){
+          par&#91;itm&#91;0&#93;&#93; = typeof(itm&#91;1&#93;) == 'undefined' ? true : dec(itm&#91;1&#93;);
+        }
+      }
+      return par;
+   }
+};
+</pre>
+
+<p>OAuth認証を手助けすることを目的に書いたので、アクセストークンを使って実際にAPIをたたく部分のTwitterOauth.getやTwitterOauth.postは適当です。<br>
+ラッパーの動作自体はそこまで難しい事はやってないので、<strong>OAuth認証の手順を理解する方が大切</strong>です。<br>
+<a href="http://dev.twitter.com/apps">Twitter Applications | dev.twitter.com</a> から自分の作成するGreasemonkeyをnew appから登録しておきます。<br>
+Application TypeはClientならPINコードを使うタイプ、Browserなら認証したときにリダイレクトするURLを決めてそのURLでアクセストークンを受け取れます。今回は<strong>ClientタイプつまりPINコードを使う方法</strong>です。<figure id="attachment_1745" style="width: 300px;" class="wp-caption alignnone"></p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/06/sshot-2010-06-10-4.png"><img class="size-medium wp-image-1745" title="sshot-2010-06-10-4" src="http://efcl.info/wp-content/uploads/2010/06/sshot-2010-06-10-4-300x284.png" alt="" width="300" height="284" /></a><figcaption class="wp-caption-text">登録でClientを選ぶ</figcaption></figure> 
+ユーザーにPINコードをコピーさせてそれを入力させるという動作が、普通のWebサービスではあまり見ない流れだと思います。このラッパーでやっているOAuth認証の流れを簡単に図にするとこんな流れです。(Browserタイプよりユーザーの負担が大きい)</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/06/4853f6fc7d7316c872b273d972580a55.png"><img class="aligncenter size-medium wp-image-1724" title="シーケンス図0" src="http://efcl.info/wp-content/uploads/2010/06/4853f6fc7d7316c872b273d972580a55-270x300.png" alt="" width="270" height="300" /></a>もっとコアの流れをみるなら<a href="http://d.hatena.ne.jp/furyu-tei/20090929/1254225568">OAuthのやり取りを読み取ってみる &#8211; 風柳メモ</a> とか</p>
+
+<p>実際にGreasemonkeyでやってる動画 <a href="http://www.youtube.com/watch?v=8oXTuZk5xAk">YouTube &#8211; Post Now browsing to Twitter for Greasemonkey</a><br>
+かなり大雑把な流れなので詳しくは他のサイトを参照して下さい。<br>
+基本的にはトークンなどを元にしてOAuth.jsのOAuth.SignatureMethod.signでシグネチャを作成して、それを元に新たなトークンを受け取ってまたOAuth.SignatureMethod.signでシグネチャを作るみたいな繰り返しです。<br>
+最終的にAPIを叩く際に必要なものがアクセストークンとなります。</p>
+
+<ol>
+<li> リクエストトークンとリクエストトークンシークレットをもらいに行く。(タイムスタンプとconsumerKeyで一意な情報を元にする)</li>
+<li> もらってきたリクエストトークンを使って認証ページのURLを作る。<br>
+(<a href="https://twitter.com/oauth/authorize?oauth_token=">https://twitter.com/oauth/authorize?oauth_token=</a> + リクエストトークンが認証ページのURL)</li>
+<li> ユーザーに認証の動作を行ってもらう。</li>
+<li> 認証するとPINコードが表示されるので、ユーザーにPINコードをコピーしてアプリに入力してもらう。</li>
+<li> 入力してもらったPINコードを元にアクセストークンとアクセストークンシークレットをもらいに行く。(アクセストークンがAPIにたたくときに必要となるものです。リクエストトークンは認証時に必要となるだけなので使い捨てです。)</li>
+<li> アクセストークンをもらったら保存して完了。</li>
+</ol>
+
+<p>実際にラッパーを使った大筋の流れとして、まずラッパーを呼び出して各自のアプリ情報を渡して初期化します。</p>
+
+<pre class="brush:javascript;">// http://dev.twitter.com/apps に書いてある。
+var clientInfo = {
+    name: 'アプリ名',
+    consumerKey: '各自アプリ',
+    consumerSecret: '各自アプリ',
+}
+// TwitterOauthにクライアント情報を渡してnewする(必須)
+var tw = new TwitterOauth(clientInfo);
+</pre>
+
+<p>そして、tw.isAuthorize() で既にアクセストークンを持っているかを調べられる(持ってたら直ぐにAPIをたたける)ので、持っていなかったらリクエストトークンをもらいに行きます。</p>
+
+<pre class="brush:javascript;">if(tw.isAuthorize()){// まだ認証していない
+    tw.getRequestToken(callback);
+    // callbackに渡る引数は認証ページのURL
+}
+</pre>
+
+<p>getRequestTokenのcallback関数には認証ページのURLが渡るので、それを元にユーザーにそのページに行ってもらいアプリのOAuth認証してPINコードをコピーしてきてもらいます。<br>
+PINコードを入力してもらう必要があるので、適当な入力エリアを作っておく必要もあります。</p>
+
+<pre class="brush:javascript;">// アクセストークンをもらいに行く。
+// アクセストークンを取得できたら自動で保存処理を行っています。
+// callbackにはaccessor(アクセストークンなどが入ったオブジェクト)を渡しますが、使い道は…
+tw.getAccessToken(callback);
+// 取得したアクセストークンを捨てたいときは
+// tw.deleteAccessor() で破棄できます。
+</pre>
+
+<p>アクセストークンを取得して保存できたらOAuth認証は完了です。<br>
+アクセストークンを持っていればAPIをたたけるので、tw.get、tw.postを使ってAPIを叩きます。</p>
+
+<pre class="brush:javascript;">// get第二引数はクエリになるオブジェクトを渡す
+   // 以下はapi?q=oauth&per_page=5 となる。
+    var query = {
+        q : "oauth",
+        per_page : 5
+    }
+    // get : function(api, query, callback)
+    tw.get("http://api.twitter.com/1/users/search.json" , query ,function(res){
+        if(typeof res != "object"){// Twitterのエラー時はリスポンスのオブジェクトをそのまま返すため
+            console.log(res); // firebug
+        }
+    })
+</pre>
+
+<pre class="brush:javascript;">// postはそのまま何も工夫がない。
+    var content = {status: "update test", source: clientInfo.name};
+    tw.post('http://twitter.com/statuses/update.json', content ,function(){
+        console.log(res); // firebug
+    });
+</pre>
+
+<p><a href="http://apiwiki.twitter.com/Twitter-API-Documentation">Twitter API Wiki / Twitter API Documentation</a> を参考に使う。<br>
+HTTP MethodがGETならそのクエリになるようにAPIのURLとクエリオブジェクトをtw.getに渡す。<br>
+HTTP MethodがPOSTなら、APIのURLにcontentとなるオブジェクトを渡す。という感じでかなり適当な作りをしています。<br>
+<a href="http://code.google.com/p/twigadge/source/browse/trunk/js/twigadge.js">twigadge</a> のようにもう少し機能別に作った方が使いやすくなると思います。</p>
+
+<p>以上で説明のようなそうでないものは終わりですが、以下に簡単なサンプルGreasemonkeyを置いてあります。</p>
+
+<ul>
+<li>  <a href="http://gist.github.com/418274">GreasemonkeyでOAuth認証を手助けするライブラリとそのサンプル</a><br>
+(猿アイコンのユーザースクリプトから認証とget、postのテストができます。できれば自分のconsumerKeyとか使ってね。)</li>
+</ul>
+
+<p><strong>追記</strong></p>
+
+<p>新たにxhrというメソッドを追加しました。(上記ならtw.xhr({})みたいな使い方)<br>
+xhrメソッドはGM_xmlhttpRequestと同じようにオプションのオブジェクトを引数にとって、APIと通信します。<br>
+GM_xmlhttpRequestをラップしているので、感覚的にはGM_xmlhttpRequestと同じ感じで使えると思います。<br>
+一つサンプル</p>
+
+<p>// ↓↓↓↓Your Script↓↓↓↓ の所までがOAuth認証のパネルを作ったりするテンプレート的なものです。<br>
+OAuth認証が済んでない（tw.isAuthorize()==false)なら途中でreturnされるので、既存コードの上部に<em>// ClientInfomation</em> から <em>// ↓↓↓↓Your Script↓↓↓↓</em>までをコピペして、API周りを修正すれば簡単にOAuth認証に対応できます。(できる限り自分の登録したアプリのclientInfoを使って下さい)<br>
+当たり前ですが、その時@requireでOAuth.jsの3点セットを読み込んでおいて、インストールし直す必要があります(<strong>@requireが動作するのはインストール時のみ</strong>)<br>
+APIを叩くときにOAuth認証で得たアクセストークンからシグネチャを作る必要があるので、GM_xmlhttpRequestでそのままAPIを叩いたままでは通りません。そこで今回追加したxhrメソッドの出番です。<br>
+Getメソッドの場合だとGM_xmlhttpRequestをtw.xhrに変更するだけで既存のコードは通ると思います。<br>
+POSTメソッドもGM_xmlhttpRequestをxhrメソッドに変えるだけで大体通ると思います。<br>
+GM_xmlhttpRequestだとdata部分は文字列で書くので、そのまま&#8221;foo=fizz&amp;bar=bazz&#8221;と書く方法と下のようにオブジェクト書く方法が使えます。(オブジェクトの方が効率がいい)</p>
+
+<pre>data : {
+    foo:fizz,
+    bar:bazz,
+}</pre>
+
+<p>サンプルは猿アイコンを右クリックからでるユーザーコマンドで、xhrのそれぞれgetとpostをテストする関数が動作するだけです。</p>
+
+<p>以下リンクまとめ</p>
+
+<p>ライブラリの置き場所。こっちが多分一番新しい。</p>
+
+<p><strong>azu&#8217;s OAuth-for-Greasemonkey at master &#8211; GitHub</strong>
+:   <a href="http://github.com/azu/OAuth-for-Greasemonkey" title="azu&#39;s OAuth-for-Greasemonkey at master - GitHub">http://github.com/azu/OAuth-for-Greasemonkey</a></p>
+
+<p>実際にラッパーを使ったGreasemonkey
+<strong>Post Now browsing to Twitter for Greasemonkey</strong>
+:   <a href="http://userscripts.org/scripts/show/46441" title="Post Now browsing to Twitter for Greasemonkey">http://userscripts.org/scripts/show/46441</a></p>
+
+<p>上のGreasemonkeyで使ってるラッパーライブラリとかをまとめたもの
+<strong>OAuth for Greasemonkey for Greasemonkey</strong>
+:   <a href="http://userscripts.org/scripts/show/78102" title="OAuth for Greasemonkey for Greasemonkey">http://userscripts.org/scripts/show/78102</a></p>
+
+<p>&nbsp;</p>
+
+<div id="_mcePaste" style="overflow: hidden; position: absolute; left: -10000px; top: 6332px; width: 1px; height: 1px;">
+  HTTP MethodがGETならそのクエリになるようにAPIのURLとクエリオブジェクトをtw.getに渡す。
+</div>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-06-10-oauth-for-greasemonkey%E3%81%AE%E3%83%A9%E3%83%83%E3%83%91%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["API","Greasemonkey","javascript","twitter"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=API">API</a></li>
+                
+                <li><a href="/tags/?q=Greasemonkey">Greasemonkey</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=twitter">twitter</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

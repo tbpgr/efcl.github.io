@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        JTF日本語標準スタイルガイドのルールセットで文章をチェックできるtextlintプリセット | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="textlint,plugin,JavaScript" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/10/19/textlint-plugin-JTF-style/">
+    <h1 class="post-title">JTF日本語標準スタイルガイドのルールセットで文章をチェックできるtextlintプリセット</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年10月19日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-10-19-textlint-plugin-JTF-style.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="textlint"><a href="https://github.com/azu/textlint" title="textlint">textlint</a></h2>
+
+<p>昨日、<a href="http://efcl.info/2015/10/18/textlint-4.0/" title="校正ツール textlint 4.0リリース | Web Scratch">textlint 4.0をリリース</a>しましたが、textlintはMarkdownなどの文章に対してルールベースでチェックできるツールです。</p>
+
+<p>詳しくは以下の記事を参照してください。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/09/10/introduce-textlint/">textlintで日本語の文章をチェックする | Web Scratch</a></li>
+<li><a href="http://efcl.info/2015/09/14/textlint-rule-prh/">textlint + prhで表記ゆれを検出する | Web Scratch</a></li>
+<li><a href="http://efcl.info/2015/09/28/easy-to-create-ebook/">今すぐ電子書籍(技術書)を書き始める方法と文章の自動チェック | Web Scratch</a></li>
+</ul>
+
+<h2 id="textlint-rule-preset-jtf-style"><a href="https://github.com/azu/textlint-rule-preset-jtf-style" title="textlint-rule-preset-jtf-style">textlint-rule-preset-jtf-style</a></h2>
+
+<p>textlintのプリセット(ルールセット)として<a href="https://github.com/azu/textlint-rule-preset-jtf-style" title="textlint-rule-preset-jtf-style">textlint-rule-preset-jtf-style</a>を作成しました。</p>
+
+<p>これへ<a href="http://www.jtf.jp/" title="日本翻訳連盟">日本翻訳連盟</a>の<a href="https://www.jtf.jp/jp/style_guide/styleguide_top.html" title="JTF日本語標準スタイルガイド（翻訳用）">JTF日本語標準スタイルガイド（翻訳用）</a>をtextlintのルールとして実装したものです。</p>
+
+<blockquote>
+<p>『JTF日本語標準スタイルガイド（翻訳用）』は、実務翻訳において和訳時に使用できる日本語表記ガイドラインです。2012年1月30日に初版を公開しました。『JTF日本語標準スタイルガイド』はどなたでも無償で使用できます。日本語の表記のゆらぎを防いで、スムーズに表記を統一するためのガイドラインとして活用してください</p>
+</blockquote>
+
+<p><a href="https://www.jtf.jp/jp/style_guide/pdf/jtf_style_guide.pdf">jtf_style_guide.pdf</a>からスタイルガイドの内容を読むことができます。</p>
+
+<h2 id="インストール">インストール</h2>
+
+<p>詳しくは以下のREADMEに書かれているのでそちらを読んで頂くとして、一応の推奨インストール方法を紹介します。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint" title="textlint">textlint</a></li>
+<li><a href="https://github.com/azu/textlint-rule-preset-jtf-style" title="azu/textlint-rule-preset-jtf-style">azu/textlint-rule-preset-jtf-style</a></li>
+</ul>
+
+<p>現在のディレクトリに<code>textlint</code>と<code>textlint-rule-preset-jtf-style</code>をインストールして使うと、グローバルにインストールしなくても良くなります。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm init # package.jsonがないなら
+npm install -D textlint textlint-rule-preset-jtf-style
+</code></pre></div>
+<p>textlintの設定ファイルとなる<code>.textlintrc</code>に次のように<code>textlint-rule-preset-jtf-style</code>を設定します。</p>
+
+<p><code>textlint-rule-</code>というprefixは省略して設定します。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;preset-jtf-style&quot;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>後は、インストールした<code>textlint</code>でチェックしたいファイルを指定して実行します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">node_modules/.bin/textlint /path/to/target.md
+# npm binを使っても同じ
+$(npm bin)/textlint /path/to/target.md
+</code></pre></div>
+<p>もしくは<code>package.json</code>のrun-scriptにtextlintを定義して</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">  &quot;scripts&quot;: {
+    &quot;textlint&quot;: &quot;textlint -f pretty-error&quot;,
+  },
+</code></pre></div>
+<p><code>npm run</code>コマンド経由で実行すると良さそうです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm run textlint -- /path/to/target.md
+</code></pre></div>
+<p><img src="https://monosnap.com/file/q6345QwaZACnrGN6MBrFqFvpRTOVZV.png" alt="screenshot"></p>
+
+<h2 id="スタイルガイド">スタイルガイド</h2>
+
+<p>日本語に関するスタイルガイドをいくつか調べていたのですが、技術文章は元となる技術が英語圏のものであることが殆どなので、翻訳向けのスタイルガイドは違和感が少なく相性は悪く無いと思います。</p>
+
+<ul>
+<li><a href="http://qiita.com/azu/items/623e5f50ccac2d4a8ac8" title="日本語文章のスタイルガイドのまとめ - Qiita">日本語文章のスタイルガイドのまとめ - Qiita</a></li>
+</ul>
+
+<p>ただし、カタカナ表記などはJTFスタイルガイドが参照する<a href="http://www.jtca.org/standardization/" title="外来語（カタカナ）表記ガイドライン">外来語（カタカナ）表記ガイドライン</a>は技術文章向けではないのでそこは違和感が出る場所もあるかもしれません。</p>
+
+<ul>
+<li><a href="http://d.hatena.ne.jp/momdo/20131228/p1" title="JTF日本語標準スタイルガイドを読んでみる（HTML5仕様の翻訳方針について） - 血統の森+はてな">JTF日本語標準スタイルガイドを読んでみる（HTML5仕様の翻訳方針について） - 血統の森+はてな</a></li>
+</ul>
+
+<p>textlintでは違和感があるルールは個別に無効化することができます。
+例えばカタカナに関しては以下のルールを無効化すると抑制することができるようになっています。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;preset-jtf-style&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;1.2.2.ピリオド(.)とカンマ(,)&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>JTFスタイルガイドは簡単で小さなルールが60個ほどあって、大体の部分はあまり意識せずにやってる書き方と似ています。</p>
+
+<p><a href="https://www.jtf.jp/jp/style_guide/styleguide_top.html" title="JTF日本語標準スタイルガイド（翻訳用）">JTF日本語標準スタイルガイド（翻訳用）</a>は例文も載っているので、読み物として見てみると面白いかもしれません。</p>
+
+<h2 id="ルール一覧">ルール一覧</h2>
+
+<p>最新の実装状況は<a href="https://github.com/azu/textlint-rule-preset-jtf-style" title="azu/textlint-rule-preset-jtf-style">azu/textlint-rule-preset-jtf-style</a>を見るのを推奨します。</p>
+
+<p>以下に現在実装されてるルール一覧を載せておきます。</p>
+
+<p>そもそも正否のチェックできないルールが一部存在ありますが、だいたい40/60程度実装してあります。</p>
+
+<p>今のところ全てがデフォルトで有効になっていますが、1.0までにデフォルトは警告だけとするものを追加するかもしれません。</p>
+
+<table>
+<tbody><tr>
+    <th>対応ルール</th>
+    <th>ページ（v2.1）</th>
+    <th>小項目</th>
+    <th>JTF標準ルール</th>
+    <th>中項目</th>
+    <th>大項目</th>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/1.1.1.js">1.1.1.js</a></td>
+    <td>10</td>
+    <td>本文</td>
+    <td>目的に応じて敬体、常体のどちらかに統一する。</td>
+    <td>文体</td>
+    <td>基本文型</td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/1.1.2.js">1.1.2.js</a></td>
+    <td>10</td>
+    <td>見出し</td>
+    <td>常体または体言止め。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/1.1.3.js">1.1.3.js</a></td>
+    <td>10</td>
+    <td>箇条書き</td>
+    <td>「本文」の文体に合わせる。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>不可</td>
+    <td>11</td>
+    <td>図表内テキスト</td>
+    <td>「本文」の文体に合わせる。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/1.1.5.js">1.1.5.js</a></td>
+    <td>11</td>
+    <td>図表のキャプション</td>
+    <td>「本文」の文体に合わせる。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/1.2.1.js">1.2.1.js</a></td>
+    <td>11</td>
+    <td>句点（。）と読点（、）</td>
+    <td>全角の「、」と「。」を使う。</td>
+    <td>句読点の使用</td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/1.2.2.js">1.2.2.js</a></td>
+    <td>11</td>
+    <td>ピリオド（.）とカンマ（,）</td>
+    <td>和文の句読点として使用しない。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>未実装</td>
+    <td>11</td>
+    <td>ひらがな</td>
+    <td>全角。昭和61年7月1日内閣告示第1号の「現代仮名遣い」に準じる。</td>
+    <td>用字、用語</td>
+    <td>文字の表記</td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/2.1.2.js">2.1.2.js</a> (辞書ベース)</td>
+    <td>11</td>
+    <td>漢字</td>
+    <td>常用漢字表にゆるやかに準じる。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>未実装</td>
+    <td>12</td>
+    <td>漢字の送りがな</td>
+    <td>昭和48年6月18日内閣告示第2号「送り仮名の付け方」に準じる。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>未実装</td>
+    <td>13</td>
+    <td>複合語の送りがな</td>
+    <td>昭和48年6月18日内閣告示第2号「送り仮名の付け方」に準じる。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/2.1.5.js">2.1.5.js</a> (辞書ベース)</td>
+    <td>14</td>
+    <td>カタカナ</td>
+    <td>全角。半角カタカナは特殊用途を除いて使わない。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/2.1.6.js">2.1.6.js</a> (辞書ベース)</td>
+    <td>14</td>
+    <td>カタカナの長音</td>
+    <td>原則として省略しない。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>不可</td>
+    <td>15</td>
+    <td>カタカナ複合語</td>
+    <td>中黒または半角スペースで区切る。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/2.1.8.js">2.1.8.js</a></td>
+    <td>16</td>
+    <td>算用数字</td>
+    <td>半角。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/2.1.9.js">2.1.9.js</a></td>
+    <td>16</td>
+    <td>アルファベット</td>
+    <td>半角。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/2.1.10.js">2.1.10.js</a></td>
+    <td>16</td>
+    <td>算用数字（位取りの表記）</td>
+    <td>桁区切りには「カンマ」、小数点には「ピリオド」を使う。ただし桁区切りの「カンマ」は省略する場合がある。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/2.2.1.js">2.2.1.js</a> (辞書ベース)</td>
+    <td>17</td>
+    <td>ひらがなと漢字の使い分け</td>
+    <td>参考文献に従う。</td>
+    <td>文字の表記と使い分け</td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/2.2.2.js">2.2.2.js</a></td>
+    <td>19</td>
+    <td>算用数字と漢数字の使い分け</td>
+    <td>数えられるものは算用数字。慣用句は漢数字。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/2.2.3.js">2.2.3.js</a></td>
+    <td>20</td>
+    <td>一部の助数詞の表記</td>
+    <td>「〜か月」、「〜か所」</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/3.1.1.js">3.1.1.js</a></td>
+    <td>20</td>
+    <td>全角と半角の間</td>
+    <td>スペースなし</td>
+    <td>単一文字間のスペースの有無</td>
+    <td>文字間のスペース</td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/3.1.2.js">3.1.2.js</a></td>
+    <td>20</td>
+    <td>全角どうし</td>
+    <td>スペースなし</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>不可</td>
+    <td>20</td>
+    <td>半角どうし</td>
+    <td>和文中に欧文を引用するなど、和文に欧文が含まれる場合は欧文中の半角スペースを維持する。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/3.2.js">3.2.js</a></td>
+    <td>20</td>
+    <td>カタカナ語間のスペースの有無</td>
+    <td>中黒または半角スペースを入れる。</td>
+    <td>カタカナ語間のスペースの有無</td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/3.3.js">3.3.js</a></td>
+    <td>20</td>
+    <td>かっこ類と隣接する文字の間のスペース</td>
+    <td>スペースなし</td>
+    <td>かっこ類と隣接する文字の間のスペースの有無</td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.1.1.js">4.1.1.js</a></td>
+    <td>21</td>
+    <td>句点（。）</td>
+    <td>全角</td>
+    <td>句読点</td>
+    <td>記号の表記と用途</td>
+</tr>
+<tr>
+    <td>不可(1.2.2参照)</td>
+    <td>21</td>
+    <td>読点（、）</td>
+    <td>全角</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.1.3.js">4.1.3.js</a> (1.2.2参照)</td>
+    <td>21</td>
+    <td>ピリオド（.）、カンマ（,）</td>
+    <td>半角</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.2.1.js">4.2.1.js</a></td>
+    <td>21</td>
+    <td>感嘆符（！）</td>
+    <td>全角。和文では多用しない。</td>
+    <td>記号</td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.2.2.js">4.2.2.js</a></td>
+    <td>22</td>
+    <td>疑問符（？）</td>
+    <td>全角。和文では多用しない。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>チェック項目なし</td>
+    <td>22</td>
+    <td>スラッシュ（/）</td>
+    <td>全角または半角</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.2.4.js">4.2.4.js</a></td>
+    <td>22</td>
+    <td>中黒（・）</td>
+    <td>全角</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.2.5.js">4.2.5.js</a></td>
+    <td>22</td>
+    <td>波線（〜または～）</td>
+    <td>全角</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.2.6.js">4.2.6.js</a></td>
+    <td>22</td>
+    <td>ハイフン（-）</td>
+    <td>原則として和文では使用しない。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.2.7.js">4.2.7.js</a></td>
+    <td>23</td>
+    <td>コロン（：）</td>
+    <td>全角。和文では多用しない。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.2.8.js">4.2.8.js</a></td>
+    <td>23</td>
+    <td>セミコロン（；）</td>
+    <td>原則として和文では使用しない。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.2.9.js">4.2.9.js</a></td>
+    <td>23</td>
+    <td>ダッシュ（－）</td>
+    <td>原則として和文では使用しない。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.3.1.js">4.3.1.js</a></td>
+    <td>23</td>
+    <td>丸かっこ（）</td>
+    <td>全角</td>
+    <td>かっこ</td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.3.2.js">4.3.2.js</a></td>
+    <td>23</td>
+    <td>大かっこ［］</td>
+    <td>全角</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.3.3.js">4.3.3.js</a></td>
+    <td>23</td>
+    <td>かぎかっこ「」</td>
+    <td>全角</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.3.4.js">4.3.4.js</a></td>
+    <td>23</td>
+    <td>二重かぎかっこ『』</td>
+    <td>全角</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.3.5.js">4.3.5.js</a> (対の有無)</td>
+    <td>23</td>
+    <td>二重引用符\" \"</td>
+    <td>半角。和文では多用しない。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.3.6.js">4.3.6.js</a> (対の有無)</td>
+    <td>24</td>
+    <td>中かっこ{}</td>
+    <td>原則として和文では使用しない。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.3.7.js">4.3.7.js</a> (対の有無)</td>
+    <td>24</td>
+    <td>山かっこ＜＞</td>
+    <td>原則として和文では使用しない。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td><a href="https://github.com/azu/textlint-rule-preset-JTF-style/blob/master/src/4.3.8.js">4.3.8.js</a> (対の有無)</td>
+    <td>24</td>
+    <td>一重引用符' '</td>
+    <td>原則として和文では使用しない。</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>不可</td>
+    <td>24</td>
+    <td>JIS規格Z8202「量及び単位」、Z8203「国際単位系(SI)及びその使い方」に従う。</td>
+    <td></td>
+    <td>単位系</td>
+    <td>単位の表記</td>
+</tr>
+<tr>
+    <td></td>
+    <td>24</td>
+    <td>主に、英字による表記とカタカナによる表記がある。</td>
+    <td></td>
+    <td>単位記号の表記</td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>24</td>
+    <td>時間、時刻</td>
+    <td>時間、時、分、秒、ミリ秒</td>
+    <td>個別の単位</td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>24</td>
+    <td>長さ</td>
+    <td>mm、km、ミリメートル、センチメートル</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>24</td>
+    <td>質量</td>
+    <td>g、kg、t、グラム、キログラム、トン</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>24</td>
+    <td>面積、体積</td>
+    <td>㎡、平方メートル、立法メートル</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>24</td>
+    <td>電気</td>
+    <td>A、W、V、アンペア、ワット、ボルト</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>25</td>
+    <td>温度</td>
+    <td>℃</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>25</td>
+    <td>周波数</td>
+    <td>Hz、ヘルツ</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>25</td>
+    <td>速度</td>
+    <td>m/s、キロメートル毎時、分速～km</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>25</td>
+    <td>伝送速度</td>
+    <td>bps、Kbps、バイト/秒</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>25</td>
+    <td>割合</td>
+    <td>％、パーセント</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>25</td>
+    <td>角度</td>
+    <td>90°、90度</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>25</td>
+    <td>記憶容量</td>
+    <td>ビット、バイト、Kb、KB、Mb、MB</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>25</td>
+    <td>通貨</td>
+    <td>円、米ドル、ユーロ、＄、USD</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>25</td>
+    <td>その他</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+</tbody></table>
+
+<p>個人的な感覚では辞書ベースとなる部分は人によって感覚のズレが起きやすいです。
+そういう表記揺れを統一するためのスタイルガイドですが、煩わしい場合は個別に無効化するとよさそうです。</p>
+
+<p>追記(2015-12-22): <strong>textlint-plugin-jtf-style</strong> は <strong>textlint-rule-preset-jtf-style</strong>へとリネームされました。</p>
+
+<p>この記事もプラグインではなく、プリセットとしてのインストール方法に変更されています。
+移行方法などについては以下を参照して下さい。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style/releases/tag/2.0.0" title="Release 2.0.0 · azu/textlint-rule-preset-JTF-style">Release 2.0.0 · azu/textlint-rule-preset-JTF-style</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-10-19-textlint-plugin-JTF-style.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["textlint","plugin","JavaScript"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=textlint">textlint</a></li>
+                
+                <li><a href="/tags/?q=plugin">plugin</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ブラウザでビジュアルテストをするreftest-runnerを作った | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Testing,Browser,JavaScript,Node.js" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/05/14/reftest-runner/">
+    <h1 class="post-title">ブラウザでビジュアルテストをするreftest-runnerを作った</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年05月14日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-05-14-reftest-runner.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="概要">概要</h2>
+
+<p><a href="https://github.com/azu/reftest-runner" title="azu/reftest-runner">reftest-runner</a>というブラウザで描画内容やレイアウトといった表示結果をテストするためのライブラリを作りました。</p>
+
+<p>要素技術としてはブラウザ、WebDriver API、レンダリングキャプチャ、画像Diffという感じです。</p>
+
+<ul>
+<li><a href="https://github.com/azu/reftest-runner" title="azu/reftest-runner">azu/reftest-runner</a></li>
+</ul>
+
+<h3 id="時間が無い人向け">時間が無い人向け</h3>
+
+<p>以下のスライドに簡単に<a href="https://github.com/azu/reftest-runner" title="azu/reftest-runner">reftest-runner</a>やreftestとはなにか、どういうユースケースがあるのかが書いてあります。</p>
+
+<ul>
+<li><a href="https://github.com/azu/reftest-runner/blob/master/docs/reftest-runner-overview.pdf" title="reftest-runner-overview.pdf">reftest-runner-overview.pdf</a></li>
+</ul>
+
+<h2 id="reftestとは">reftestとは</h2>
+
+<p>reftest(Referrence Test)とは、2つのHTMLの表示結果(スクリーンショット)を比較することで表示結果が意図したものかをテストする方法です。</p>
+
+<p>用意するHTMLとして以下の2種類を1セットとして用意して利用します。</p>
+
+<ul>
+<li>テスト用HTML
+
+<ul>
+<li>テストしたい機能を使って実装したHTML</li>
+</ul></li>
+<li>リファレンス用HTML
+
+<ul>
+<li>テスト用HTMLとは別の機能で実装したHTML</li>
+</ul></li>
+</ul>
+
+<p>この2つのHTMLをブラウザで表示し、スクリーンショットを取って画像として比較することで、2つのHTMLの表示が一致する OR 一致しないことを自動的にテストするためのツールが今回作った<a href="https://github.com/azu/reftest-runner" title="azu/reftest-runner">reftest-runner</a>です。</p>
+
+<p><img src="https://cdn.rawgit.com/azu/reftest-runner/master/docs/reftest-runner-overview-image.png" alt="ref-test"></p>
+
+<p>詳しくは以下でも書かれていますが、FirefoxやWebkit、Chormeといったブラウザで使われていて、こういうのをもっと普通のウェブ開発レベルでも使いたくなったのでこれをインスパイアしています(完全に一致というわけでもないかも…)</p>
+
+<ul>
+<li><a href="http://slides.com/nakajmg/reftest#/" title="リファレンステストの書き方 by nakajmg">リファレンステストの書き方 by nakajmg</a></li>
+<li><a href="http://testthewebforward.org/docs/reftests.html">Writing Reftests | Test the Web Forward</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Creating_reftest-based_unit_tests">Creating reftest-based unit tests | MDN</a></li>
+<li><a href="https://github.com/w3c/csswg-test" title="w3c/csswg-test">w3c/csswg-test</a></li>
+</ul>
+
+<p>reftestは、画像のキャプチャを保存しておいて比較するのと違って、HTMLがテストファイルとなっています。
+そのため、reftest向けに作ったHTMLは自動テストだけじゃなくて、普通にHTMLを開いて目視のテストや機能のデバッグなどにも使えるので多少面倒ですが意外と使い道があったりします。</p>
+
+<p>また画像自体を保存して画像比較するテストは管理が大変なので、reftestのような形式のほうが柔軟性がある感じです。</p>
+
+<blockquote>
+<p>画像比較ベースのテストは変化に弱く保守が大変なので、 一年ほど前に Reftests と呼ばれる新しいタイプのテストがサポートされた
+-- <a href="http://steps.dodgson.org/b/2012/05/20/gardening-with-canaries/" title="炭坑の庭師 - steps to phantasien">炭坑の庭師 - steps to phantasien</a></p>
+</blockquote>
+
+<h2 id="reftest-runnerのできること">reftest-runnerのできること</h2>
+
+<ul>
+<li>HTMLの描画結果の比較テスト
+
+<ul>
+<li>いわゆるreftestができます</li>
+<li>非同期テストも対応しています</li>
+</ul></li>
+<li>クロスブラウザの描画比較テスト
+
+<ul>
+<li>通常は同じブラウザ同士で別HTMLの表示比較をしますが、同じHTMLを別ブラウザで表示比較が可能</li>
+<li>WebDriverサポートしてるブラウザ - IE、Firefox、Chrome、Safari、Opera、PhantomJSなどで動作します</li>
+</ul></li>
+<li>比較結果のDiff画像を生成</li>
+<li>テスト結果をTAP形式で出力</li>
+<li>テスト用のローカルサーバを立てる</li>
+<li><code>reftest.list</code> という形式でテスト対象を記述</li>
+</ul>
+
+<p><a href="https://github.com/azu/reftest-runner" title="azu/reftest-runner">reftest-runner</a>はrunnerという名前になってて一応コマンドラインツールとしても動かせますが、本質的にはNodeモジュールとして使えるような作りになっています</p>
+
+<p>Diff画像とは以下の様なテスト対象とリファレンスのキャプチャ画像を比較して差分を出す画像で、<a href="https://github.com/yahoo/blink-diff" title="yahoo/blink-diff">yahoo/blink-diff</a>を使っています。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2015/05/2015_05_13__08-54-18-canvas-left.html-vs-canvas-right.html2.png" alt="diff"></p>
+
+<p>この画像の差が一定のしきい値(delta、設定可能)を超えると一致してないと判定されます。</p>
+
+<p>表示結果さえあれば何でもテストできるので、テストが難しいCanvas APIのテスト等もできます。</p>
+
+<hr>
+
+<h2 id="インストール">インストール</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install reftest-runner -g
+</code></pre></div>
+<p>でインストールできます。インストールすると<code>reftest-runner</code>というコマンドが追加されます。</p>
+
+<h2 id="動かし方">動かし方</h2>
+
+<p>リポジトリにサンプルが入ってるので、このreftestを動かしてみたいと思います。</p>
+
+<ul>
+<li><a href="https://github.com/azu/reftest-runner/tree/master/example" title="reftest-runner/example at master · azu/reftest-runner">reftest-runner/example at master · azu/reftest-runner</a></li>
+</ul>
+
+<p>先ほどでてきた<code>reftest.list</code>というテキストファイルに、比較するHTMLと比較演算子(== or !=)を並べるのが簡単な使い方です。</p>
+
+<p>サンプルの<code>reftest.list</code>では以下のようになっています。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># implementation is difference, but visual is the same
+== ./equal/smile-canvas.html ./equal/smile-img.html
+# ◀ != ▶
+!= ./non-equal/canvas-left.html ./non-equal/canvas-right.html
+# async test support
+== ./async/reftest-async-xhr.html ./async/reftest-sync.html
+</code></pre></div>
+<p>例えば、</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">== ./equal/smile-canvas.html ./equal/smile-img.html
+</code></pre></div>
+<p>は&quot;<code>./equal/smile-canvas.html</code>と <code>./equal/smile-img.html</code>の描画結果が一致することを期待する&quot; 事を示しています。</p>
+
+<p>この作成した<code>reftest.list</code>をCLIで以下のように指定すれば、reftestが実行できます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ reftest-runner --list path/to/reftest.list
+</code></pre></div>
+<p>もちろん、<code>reftest.list</code>なしでもできて、以下のようにテスト用ファイルとリファレンスファイルをそれぞれ指定することでも実行できます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ reftest-runner --browser &quot;firefox&quot; --targetA path/to/fileA.html --targetB path/to/fileB.html
+</code></pre></div>
+<p><code>--browser</code>で実行ブラウザも指定できて、IE/Firefox/Chrome/phantomjs/iPhone/Andoirdのような<a href="http://docs.seleniumhq.org/" title="Selenium WebDriver">Selenium WebDriver</a>があるものをサポートしてます。
+(<a href="https://github.com/SeleniumHQ/selenium" title="SeleniumHQ/selenium">SeleniumHQ/selenium</a> に依存してます)</p>
+
+<p>実行すると、<code>logs</code>ディレクトリにスクリーンショットのdiff画像が生成されます。</p>
+
+<h3 id="実行してる動画">実行してる動画</h3>
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/9BFdxZI381A" frameborder="0" allowfullscreen></iframe>
+
+<h3 id="非同期のテスト">非同期のテスト</h3>
+
+<p>何か非同期の処理が終わってからその描画テストしたい場合は非同期テストにする必要があります。</p>
+
+<p><a href="https://github.com/azu/reftest-runner/tree/master/example/async" title="reftest-runner/example/async at master · azu/reftest-runner">reftest-runner/example/async at master · azu/reftest-runner</a>に非同期テストのサンプルがあります。</p>
+
+<p>対象のHTMLで<code>html</code>のクラス属性に<code>reftest-wait</code>が含まれている場合、このHTMLは非同期テストの対象として認識します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;html class=&quot;reftest-wait&quot;&gt;
+</code></pre></div>
+<p>非同期処理が終わったらこのクラスを削除したら、reftest-runnerは描画完了したと判断してその時点の描画内容を比較に使用します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// html classの中身を空にする = 非同期処理完了
+document.documentElement.className = &quot;&quot;;
+</code></pre></div>
+<p>これは既存のブラウザが使ってるreftestツールがこういう形式を取っていたのでそれに合わせた形です。</p>
+
+<h2 id="reftestの使いドコロ">reftestの使いドコロ</h2>
+
+<h3 id="リグレッションテスト">リグレッションテスト</h3>
+
+<p>典型的な使いドコロとしてはリグレッションテストがあると思います。</p>
+
+<p>あるUIライブラリの構造を多く変更しようとした時に、APIのインターフェースも変わる場合ユニットテストだとやりにくいケースが出てきます。
+そこで、以前のバージョンを使って書いたUIをリファレンスとして、作りなおしたライブラリで同じUIが再現できているかをチェックするテストを書くという使い道があります。</p>
+
+<h3 id="canvasのテスト">Canvasのテスト</h3>
+
+<p>Canvasは描画されている内容がピクセルでしか取れないので、ある描画上手くできてるのかのテストが難しいです。</p>
+
+<p><a href="https://github.com/azu/reftest-runner/tree/master/example/equal">Canvasの描画内容とimgタグでの画像の表示を比較したり</a>することでテストが出来ます。</p>
+
+<p>Canvasのライブラリを書いている場合は、そのライブラリを使って書いたものをテスト対象として、素のCanvas APIで書いたリファレンス対象として用意して比較したりできます。</p>
+
+<h3 id="クロスブラウザの表示一致テスト">クロスブラウザの表示一致テスト</h3>
+
+<p><a href="https://github.com/azu/reftest-runner" title="azu/reftest-runner">reftest-runner</a>はモジュールとして使えば、FirefoxとChromeで同じHTMLの表示結果を比較できるので、ブラウザの差を吸収しているライブラリがほぼ同じ表示になるかのチェックできます。</p>
+
+<ul>
+<li><a href="https://github.com/azu/reftest-runner/blob/master/example/example.js" title="reftest-runner/example.js at master · azu/reftest-runner">reftest-runner/example.js at master · azu/reftest-runner</a>
+
+<ul>
+<li><code>reftestPhantomJSAndFirefox()</code>ではPhantomJSとFirefoxで比較しています</li>
+<li>背景色が透明と白色などブラウザではデフォルトでの差異が多いのでどこまで使えるか微妙ですが</li>
+</ul></li>
+</ul>
+
+<p><code>blinkDiff</code>の<code>delta</code>オプションでどれくらいの差を許容するかを決定できます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ReftestEngine</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;reftest-runner&quot;</span><span class="p">).</span><span class="nx">Engine</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">testEngine</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ReftestEngine</span><span class="p">({</span>
+    <span class="nx">server</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">port</span><span class="o">:</span> <span class="mi">8989</span>
+    <span class="p">},</span>
+    <span class="nx">rootDir</span><span class="o">:</span> <span class="nx">__dirname</span><span class="p">,</span>
+    <span class="nx">blinkDiff</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">delta</span><span class="o">:</span> <span class="mi">20</span> <span class="c1">// どのくらいの差を許容するか</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<h2 id="おわりに">おわりに</h2>
+
+<p><a href="https://github.com/azu/reftest-runner" title="azu/reftest-runner">reftest-runner</a> はこういうことができたらもっといろんな角度からテストできるのではと思って、既存のものを組み合わせて作った感じです。</p>
+
+<p><blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">DOMのテストだと、ある要素がDOMに追加されてるかとかを判定するテストがあるけど、Canvasの場合にある図形や画像がCanvasにレンダリングされてるかをテストすることって出来る? <a href="https://twitter.com/hashtag/CanvasTests?src=hash">#CanvasTests</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/586872208867246080">April 11, 2015</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<p>3時間後 -&gt;</p>
+
+<p><blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">ReftestsみたいなのWebDriver APIで動かして画像diffを確認できるところまで作った。 <a href="http://t.co/ZpxKN311yH">pic.twitter.com/ZpxKN311yH</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/586916886195019776">April 11, 2015</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<p>実際にCanvasライブラリを書き直す時に、互換性を検証するための自動テストに組み込んで使ってみた感じ、テストファイルがただのHTMLであるというのがかなり有用だと思いました。</p>
+
+<ul>
+<li><a href="http://testthewebforward.org/docs/test-style-guidelines.html#self-describing-tests" title="Self-Describing Tests">Self-Describing Tests</a>
+
+<ul>
+<li>Test Runnerに依存しないで、ファイル単体で実行できるテスト</li>
+</ul></li>
+</ul>
+
+<p>そのテスト用HTMLは別にテストのためだけではなく、ある機能を使って動かすサンプルコードともなるので、妙な動きをした場合はそのHTMLを開いてデバッガで確認するという単純なことができるのがいい気がします。
+テストファイルのテストが簡単にできるというのはユニットテストとは少し違う所なのかもしれません。</p>
+
+<p><a href="https://github.com/azu/reftest-runner" title="azu/reftest-runner">reftest-runner</a> はrunnerとなっていますがNodeモジュールとして使った方ができることは多くて、実際APIの方を意識して実装しています。(CLIは単純なことしかできない)</p>
+
+<p>そのため<a href="https://github.com/azu/reftest-runner/issues/7" title="mocha integrate · Issue #7 · azu/reftest-runner">mocha integrate</a>ができたりするともっと使いやすくなったりすんじゃないかと思うので、何かあったら<a href="https://github.com/azu/reftest-runner/issues" title="Issues · azu/reftest-runner">Issues · azu/reftest-runner</a>へお願いします。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-05-14-reftest-runner.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Testing","Browser","JavaScript","Node.js"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Testing">Testing</a></li>
+                
+                <li><a href="/tags/?q=Browser">Browser</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

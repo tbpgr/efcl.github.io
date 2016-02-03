@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        The Refactoring Tales - JavaScriptのリファクタリング本を読んだ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,リファクタリング,電子書籍,Books" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/01/11/refactoring-tales/">
+    <h1 class="post-title">The Refactoring Tales - JavaScriptのリファクタリング本を読んだ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年01月11日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-01-11-refactoring-tales.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="the-refactoring-tales"><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html" title="The Refactoring Tales -">The Refactoring Tales</a></h1>
+
+<ul>
+<li>GitHub: <a href="https://github.com/jackfranklin/the-refactoring-tales" title="jackfranklin/the-refactoring-tales">jackfranklin/the-refactoring-tales</a></li>
+<li>読んだ日付: 2015年1月11日 </li>
+</ul>
+
+<p>まだ4章の途中までしか書かれてないですが、ウェブ版は無料で読めてPDF版等は買えるようになるようです(6-7章ぐらい予定)</p>
+
+<ul>
+<li><a href="http://javascriptplayground.com/the-refactoring-tales/" title="The Refactoring Tales">The Refactoring Tales - JavaScript Playground</a></li>
+</ul>
+
+<p>また<a href="https://github.com/jackfranklin/the-refactoring-tales" title="jackfranklin/the-refactoring-tales">GitHubにソースが公開</a>されています(ウェブページはまだ反映されてない感じのtypoの修正等がありました)</p>
+
+<hr>
+
+<h2 id="感想">感想</h2>
+
+<p>1,2章はフロントのJavaScriptで、jQuery世界を例にjQueryでべったり書いてしまったものをどうやって分けていくかの話。</p>
+
+<p>1章はとても読みやすくて完成度もあるので読んでみるといい気がします、2章のカヌーセルの話はもっと深くやっても良かったような気がします。</p>
+
+<p>縦に並ぶ<code>$</code>を見かけるとつらい感じになりますが、まずは手が出しやすい場所からやって見ると見えてくるかもしれないという感じがしました。</p>
+
+<p>3章では不必要に複雑化して、過剰な非同期の使い方、早期リターンでスッキリさせるなどよくある感じの話でした。</p>
+
+<p>4章ではより一般的な話。単一責任の原則とかPub/SubとかJavaScriptに限らない話な気がします。</p>
+
+<p>5章は多分MV*のFat Controllerの話が予定されてる気がします。</p>
+
+<hr>
+
+<h2 id="introduction"><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html#introduction">Introduction</a></h2>
+
+<ul>
+<li>リファクタリングとは何か</li>
+<li>テストはリファクタリングした時に壊してないかの自信を持つために必要
+
+<ul>
+<li>また休憩後にスグ作業に戻るのに大事</li>
+</ul></li>
+</ul>
+
+<h2 id="tale-1:-terrible-tabs"><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html#tale-1-terrible-tabs" title="Tale 1: Terrible Tabs">Tale 1: Terrible Tabs</a></h2>
+
+<p>jQuery世界のタブUIをリファクタリングする話</p>
+
+<p><code>tabularize</code>というタブUIを作る関数をリファクタリングする</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">tabularize</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">active</span> <span class="o">=</span> <span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">active</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.tabs&quot;</span><span class="p">).</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nx">active</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.active&quot;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s2">&quot;active&quot;</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.tab-link&quot;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)</span> <span class="o">===</span> <span class="nx">active</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">parent</span><span class="p">().</span><span class="nx">addClass</span><span class="p">(</span><span class="s2">&quot;active&quot;</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.tabs&quot;</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;.tab-link&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.tabs&quot;</span><span class="p">).</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)).</span><span class="nx">show</span><span class="p">();</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.active&quot;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s2">&quot;active&quot;</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">parent</span><span class="p">().</span><span class="nx">addClass</span><span class="p">(</span><span class="s2">&quot;active&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>やってることとしては</p>
+
+<ul>
+<li>URL.hashからどの位置にいるのかを判定</li>
+<li>タブをクリックした時に中身の書き換えを行う</li>
+</ul>
+
+<h3 id="reuse-of-selectors">Reuse of Selectors</h3>
+
+<p>Step 1 としてjQueryセレクタが重複してるのをまとめる。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">    $(&quot;.tabs&quot;)
+    $(&quot;.tabs&quot;).children(&quot;div&quot;)
+    $(&quot;.tab-link&quot;)
+// これらに名前を付けてセレクタ重複を取り除く
+</code></pre></div>
+<ul>
+<li>ちょっとした変更だけど重複が減って、次に変更するときにそれぞれをここに変更する必要がなくなる。</li>
+<li>複雑なセレクタを分解して名前を付けることで理解するのに役立つ</li>
+</ul>
+
+<h3 id="more-duplication">More Duplication</h3>
+
+<p>次に<code>&quot;active&quot;</code>という文字列が何回も出てることがわかるので、
+<code>var activeClass = &quot;active&quot;</code>という感じで取り出す。</p>
+
+<p>ここで、この<code>activeClass</code>の使われどころを見ていく</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="nx">activeClass</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="nx">activeClass</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">parent</span><span class="p">().</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">activeClass</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>現在のアクティブ要素をアクティブではなくす</li>
+<li>新しいアクティブとなって要素の親にアクティブにさせる</li>
+</ul>
+
+<p>こういう手続き的な処理はまとめて抽象化した方が理解しやすい。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">activateLink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="nx">activeClass</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="nx">activeClass</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="nx">elem</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">activeClass</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>という<code>activateLink</code>関数に取り出す。</p>
+
+<h3 id="higher-level-duplication">Higher level duplication</h3>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">tabsWrapper</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.tabs&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">tabs</span> <span class="o">=</span> <span class="nx">tabsWrapper</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">tabLinks</span> <span class="o">=</span> <span class="nx">tabsWrapper</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;.tab-link&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">activeClass</span> <span class="o">=</span> <span class="s2">&quot;active&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">activateLink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="nx">activeClass</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="nx">activeClass</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="nx">elem</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">activeClass</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">active</span> <span class="o">=</span> <span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">active</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">tabs</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+  <span class="nx">$</span><span class="p">(</span><span class="nx">active</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+  <span class="nx">tabLinks</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)</span> <span class="o">===</span> <span class="nx">active</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">activateLink</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">parent</span><span class="p">());</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+<span class="nx">tabLinks</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">tabs</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+  <span class="nx">$</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)).</span><span class="nx">show</span><span class="p">();</span>
+  <span class="nx">activateLink</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">parent</span><span class="p">());</span>
+  <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>ここまでリファクタリングした<code>tabularize</code>を見てみると、大き分けて2つのブロックがあることが分かる。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">if</span><span class="p">(</span><span class="nx">active</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// do tab things</span>
+<span class="p">};</span>
+
+<span class="nx">tabLinks</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// do tab things</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>この2つのブロックを見ると共通してやってることがあるのが見える</p>
+
+<ul>
+<li><code>tabs.hide()</code></li>
+<li><code>特定のタブ.show()</code></li>
+<li><code>activateLink</code>を呼ぶ</li>
+</ul>
+
+<p>タブ全部をhideしてから-&gt; showという流れを一つのくくりにして<code>activateTab</code>にまとめる。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">activateTab</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tabSelector</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">tabs</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+  <span class="nx">$</span><span class="p">(</span><span class="nx">tabSelector</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>メソッドは5行以上にするべきじゃないという話があったよという話。</p>
+
+<h3 id="merging-the-branches">Merging the branches</h3>
+
+<p>ここまでリファクタリングすると、先ほどの2種類のブロックはそれぞれ<code>activateLink</code>と<code>activateTab</code>という関数を呼び出すという事をやってるのは同じになってる。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="nx">activateTab</span><span class="p">(</span><span class="nx">active</span><span class="p">);</span>
+  <span class="nx">tabLinks</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)</span> <span class="o">===</span> <span class="nx">active</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">activateLink</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">parent</span><span class="p">());</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+</code></pre></div>
+<p>というのは<code>each</code>してるけど、結局はある一つのactiveなものを対象に<code>activateLink</code>を呼んでいると読み替え出来る。</p>
+
+<p>なので、あるひとつのものを取り出してから(fileter)、<code>activateLink</code>を呼ぶというふうに書き換え出来る。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="nx">activateTab</span><span class="p">(</span><span class="nx">active</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">link</span> <span class="o">=</span> <span class="nx">tabLinks</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)</span> <span class="o">===</span> <span class="nx">active</span><span class="p">;</span>
+  <span class="p">}).</span><span class="nx">parent</span><span class="p">();</span>
+  <span class="nx">activateLink</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
+</code></pre></div>
+<p>こうするとますます<code>activateTab</code>と<code>activateLink</code>をセットに出来そうな感じになる。それを<code>transition</code>という別の関数にまとめて、最終的に以下のような感じになった。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">tabsWrapper</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.tabs&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">tabs</span> <span class="o">=</span> <span class="nx">tabsWrapper</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">tabLinks</span> <span class="o">=</span> <span class="nx">tabsWrapper</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;.tab-link&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">activeClass</span> <span class="o">=</span> <span class="s2">&quot;active&quot;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">activateLink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="nx">activeClass</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="nx">activeClass</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="nx">elem</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">activeClass</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">activateTab</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tabSelector</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">tabs</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+  <span class="nx">$</span><span class="p">(</span><span class="nx">tabSelector</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">transition</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">activateTab</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span>
+  <span class="nx">activateLink</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">active</span> <span class="o">=</span> <span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">active</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">transition</span><span class="p">(</span><span class="nx">active</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">tabLinks</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">transition</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">));</span>
+  <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+<h2 id="tale-2:-cringey-carousels"><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html#tale-2-cringey-carousels" title="Tale 2: Cringey Carousels">Tale 2: Cringey Carousels</a></h2>
+
+<p>第二章はjQueryで書かれたCarouselデザインのリファクタリング</p>
+
+<p><img src="http://monosnap.com/image/YtmnAR4sEZDvL4nVDDKpjeHXAUVnWY.png" alt="image"></p>
+
+<p>(こういうデザインのやつの話)</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span> <span class="o">&amp;&amp;</span> <span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;ul&quot;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
+      <span class="s2">&quot;margin-left&quot;</span><span class="o">:</span> <span class="nx">number</span> <span class="o">*</span> <span class="o">-</span><span class="mi">300</span>
+    <span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">currentImage</span> <span class="o">=</span> <span class="nx">number</span><span class="p">;</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.controls span&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Current: &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">currentImage</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+  <span class="kd">var</span> <span class="nx">timeout</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.left&quot;</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">);</span>
+  <span class="p">},</span> <span class="mi">10000</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">currentImage</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="c1">// &lt;- ボタン</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.left&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timeout</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">currentImage</span> <span class="o">==</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">).</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;ul&quot;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
+        <span class="s2">&quot;margin-left&quot;</span><span class="o">:</span> <span class="mi">0</span>
+      <span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">currentImage</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.controls span&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Current: &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">currentImage</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+      <span class="p">});</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;ul&quot;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
+        <span class="s2">&quot;margin-left&quot;</span><span class="o">:</span> <span class="s2">&quot;-=300px&quot;</span>
+      <span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">currentImage</span><span class="o">+=</span><span class="mi">1</span><span class="p">;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.controls span&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Current: &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">currentImage</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="nx">timeout</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.left&quot;</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">);</span>
+    <span class="p">},</span> <span class="mi">10000</span><span class="p">);</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">});</span>
+  <span class="c1">// -&gt; ボタン</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.right&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timeout</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">currentImage</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;ul&quot;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
+        <span class="s2">&quot;margin-left&quot;</span><span class="o">:</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">).</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">300</span>
+      <span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">currentImage</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">).</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.controls span&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Current: &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">currentImage</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+      <span class="p">});</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;ul&quot;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
+        <span class="s2">&quot;margin-left&quot;</span><span class="o">:</span> <span class="s2">&quot;+=300px&quot;</span>
+      <span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">currentImage</span><span class="o">-=</span><span class="mi">1</span><span class="p">;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.controls span&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Current: &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">currentImage</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="nx">timeout</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.left&quot;</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">);</span>
+    <span class="p">},</span> <span class="mi">10000</span><span class="p">);</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>ざっと見て色々な問題が見つかると思う。</p>
+
+<ul>
+<li><strong>重複</strong> -  left right</li>
+<li><strong>良くないセレクタ</strong> <code>$(&quot;ul&quot;)</code>とかの汎用的すぎるやつ</li>
+<li><strong>マジックバリュー</strong>  <code>10000</code>とか<code>300</code>とか</li>
+<li>全体が<code>$(function() { })</code> に包まれていて息苦しい</li>
+</ul>
+
+<p>色々あるけど、簡単なところからやっていこう</p>
+
+<h3 id="return-false;-the-anti-pattern">return false; the anti-pattern</h3>
+
+<blockquote>
+<p><a href="http://fuelyourcoding.com/jquery-events-stop-misusing-return-false/" title="jQuery Events: Stop (Mis)Using Return False | Fuel Your Coding">jQuery Events: Stop (Mis)Using Return False | Fuel Your Coding</a></p>
+</blockquote>
+
+<p>jQuery世界における<code>return false</code>は<code>preventDefault()</code>と<code>stopPropagation()</code>を一緒に呼ぶのと同じ意味。余計なことをやってしまうかもしれないので普通に個別で<code>preventDefault</code>を使うべき</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.right&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// things happen here</span>
+  <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="c1">// =&gt; 普通にpreventDefaultを使おう</span>
+<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.right&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// things happen here</span>
+  <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="on()-and-off()">on() and off()</h3>
+
+<p>今は<code>click</code>じゃなくて<code>on</code>使え</p>
+
+<h3 id="repeated-numbers">Repeated Numbers</h3>
+
+<p><code>300</code>とか<code>10000</code>とかマジックナンバーは変数にいれて名前をつけよう</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">CAROUSEL_TRANSITION_TIME</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="caching-selectors">Caching selectors</h3>
+
+<p>jQueryセレクタはまとめよ</p>
+
+<h3 id="functions">functions</h3>
+
+<p>関数を呼ぶコストを恐れる人もいるけど、極端な例を除けば関数にまとめた方が分かりやすくなることが多いという話。</p>
+
+<p>ここまでの</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">CAROUSEL_TRANSITION_TIME</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">ul</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;ul&quot;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">controlText</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.controls span&quot;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">leftLink</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.left&quot;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">rightLink</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.right&quot;</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">updateControlText</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">controlText</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Current: &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">currentImage</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+  <span class="p">};</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span> <span class="o">&amp;&amp;</span> <span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+    <span class="nx">ul</span><span class="p">.</span><span class="nx">animate</span><span class="p">({</span>
+      <span class="s2">&quot;margin-left&quot;</span><span class="o">:</span> <span class="nx">number</span> <span class="o">*</span> <span class="o">-</span><span class="mi">300</span>
+    <span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">currentImage</span> <span class="o">=</span> <span class="nx">number</span><span class="p">;</span>
+      <span class="nx">updateControlText</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+  <span class="kd">var</span> <span class="nx">timeout</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">leftLink</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">);</span>
+  <span class="p">},</span> <span class="nx">CAROUSEL_TRANSITION_TIME</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">currentImage</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="nx">leftLink</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+    <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timeout</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">currentImage</span> <span class="o">==</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">).</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">ul</span><span class="p">.</span><span class="nx">animate</span><span class="p">({</span>
+        <span class="s2">&quot;margin-left&quot;</span><span class="o">:</span> <span class="mi">0</span>
+      <span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">currentImage</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nx">updateControlText</span><span class="p">();</span>
+      <span class="p">});</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">ul</span><span class="p">.</span><span class="nx">animate</span><span class="p">({</span>
+        <span class="s2">&quot;margin-left&quot;</span><span class="o">:</span> <span class="s2">&quot;-=300px&quot;</span>
+      <span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">currentImage</span><span class="o">+=</span><span class="mi">1</span><span class="p">;</span>
+        <span class="nx">updateControlText</span><span class="p">();</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="nx">timeout</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">leftLink</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">);</span>
+    <span class="p">},</span> <span class="nx">CAROUSEL_TRANSITION_TIME</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nx">rightLink</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+    <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timeout</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">currentImage</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">ul</span><span class="p">.</span><span class="nx">animate</span><span class="p">({</span>
+        <span class="s2">&quot;margin-left&quot;</span><span class="o">:</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">).</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">300</span>
+      <span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">currentImage</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">).</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nx">updateControlText</span><span class="p">();</span>
+      <span class="p">});</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">ul</span><span class="p">.</span><span class="nx">animate</span><span class="p">({</span>
+        <span class="s2">&quot;margin-left&quot;</span><span class="o">:</span> <span class="s2">&quot;+=300px&quot;</span>
+      <span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">currentImage</span><span class="o">-=</span><span class="mi">1</span><span class="p">;</span>
+        <span class="nx">updateControlText</span><span class="p">();</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="nx">timeout</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">leftLink</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">);</span>
+    <span class="p">},</span> <span class="nx">CAROUSEL_TRANSITION_TIME</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>何か消化不良なので今後追記されるのかな?</p>
+
+<h2 id="tale-3:-async-abominations"><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html#tale-3-async-abominations" title="Tale 3: Async Abominations">Tale 3: Async Abominations</a></h2>
+
+<p>Nodeのアプリの話</p>
+
+<p>飛んできたリクエストが正しいかどうかのバリデーションを行う</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">matchTokenToUser</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">userId</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// implementation irrelevant</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">ensureTokenExists</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// implementation irrelevant</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">validateParamsExist</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span> <span class="nx">errors</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;no parameters supplied&#39;</span><span class="p">]</span> <span class="p">});</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">errors</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">[</span><span class="nx">p</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">errors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;parameter &#39;</span> <span class="o">+</span> <span class="nx">p</span> <span class="o">+</span> <span class="s1">&#39; is required&#39;</span><span class="p">);</span>
+        <span class="nx">callback</span><span class="p">();</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">p</span> <span class="o">===</span> <span class="s1">&#39;token&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">token</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">userId</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">matchTokenToUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">userId</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">ensureTokenExists</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+          <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="nx">callback</span><span class="p">();</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">errors</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span> <span class="nx">errors</span><span class="o">:</span> <span class="nx">errors</span> <span class="p">});</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>というものが以下のようになる過程を見ていく。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">matchTokenToUser</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">userId</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// method for making sure a token matches a user</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">ensureTokenExists</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// method for ensuring a token exists</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">noParamsPassed</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span> <span class="nx">errors</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;no parameters supplied&#39;</span><span class="p">]</span> <span class="p">});</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">checkTokenAndIds</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">token</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">userId</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">userId</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">token</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">userId</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">matchTokenToUser</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">userId</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">ensureTokenExists</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">cb</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">validateParamsExist</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">noParamsPassed</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">))</span> <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">errors</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="nx">params</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">[</span><span class="nx">p</span><span class="p">])</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;parameter &#39;</span> <span class="o">+</span> <span class="nx">p</span> <span class="o">+</span> <span class="s1">&#39; is required&#39;</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nx">checkTokenAndIds</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">errors</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span> <span class="nx">errors</span><span class="o">:</span> <span class="nx">errors</span> <span class="p">});</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+</code></pre></div>
+<p><code>validateParamsExist</code>の中身を見てみると</p>
+
+<ol>
+<li>パラメータの全くないなら、スグcallbackを呼び出して失敗させる</li>
+<li>それぞれのパラメターのチェック、<code>error</code>は配列に貯める</li>
+<li>tokenとidをチェックする</li>
+<li>エラーがあったら<code>res.json</code>で返し、<code>callback(false)</code>を呼ぶ</li>
+<li>そうじゃないなら=バリデーションして大丈夫だったらなら<code>callbacl(true)</code>を呼ぶ</li>
+</ol>
+
+<p>という流れになるようにリファクタリングされている。
+一番最初の<code>validateParamsExist</code>はそれが一つの関数に全部入った状態になってるので、これを直していく章。</p>
+
+<p>まず、最初の<code>if(!req.query)</code>ならreturnしている部分は早期リターンできるし、全体をif-elseにする必要性はない.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">validateParamsExist</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span> <span class="nx">errors</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;no parameters supplied&#39;</span><span class="p">]</span> <span class="p">});</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// ....</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>これを<code>noParamsPassed</code>という感じで取り出す。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">noParamsPassed</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span> <span class="nx">errors</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;no parameters supplied&#39;</span><span class="p">]</span> <span class="p">});</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+
+<span class="kd">var</span> <span class="nx">validateParamsExist</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">noParamsPassed</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">))</span> <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>guard clauses</em> と呼ぶらしい。</p>
+
+<p>次にasyncの中で複雑な条件分岐が発生してるので、ここを取り出す。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript">      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">[</span><span class="nx">p</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">errors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;parameter &#39;</span> <span class="o">+</span> <span class="nx">p</span> <span class="o">+</span> <span class="s1">&#39; is required&#39;</span><span class="p">);</span>
+        <span class="nx">callback</span><span class="p">();</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">p</span> <span class="o">===</span> <span class="s1">&#39;token&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">token</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">userId</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">matchTokenToUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">userId</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">ensureTokenExists</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+          <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="nx">callback</span><span class="p">();</span>
+        <span class="p">}</span>
+</code></pre></div>
+<p>これは単純に関数として取り出せるので、取り出して後で細かく直す。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">checkTokenAndIds</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">p</span> <span class="o">===</span> <span class="s1">&#39;token&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">token</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">userId</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">matchTokenToUser</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">userId</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">ensureTokenExists</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">callback</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="c1">// 大分小さくなってきた</span>
+<span class="kd">var</span> <span class="nx">validateParamsExist</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">noParamsPassed</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">))</span> <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">errors</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">[</span><span class="nx">p</span><span class="p">])</span> <span class="p">{</span>
+      <span class="nx">errors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;parameter &#39;</span> <span class="o">+</span> <span class="nx">p</span> <span class="o">+</span> <span class="s1">&#39; is required&#39;</span><span class="p">);</span>
+      <span class="nx">callback</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">checkTokenAndIds</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">errors</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span> <span class="nx">errors</span><span class="o">:</span> <span class="nx">errors</span> <span class="p">});</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>次に見ていくと、<a href="https://github.com/caolan/async" title="caolan/async">caolan/async</a>を使ってる所が気になる。</p>
+
+<ul>
+<li>そもそもこのコードは<code>async.each</code>を使う必要がない</li>
+<li><code>checkTokenAndIds</code>の方だけが非同期</li>
+<li><code>if(!req.query[p])</code>は同期的にチェックしてるだけ</li>
+</ul>
+
+<p>=&gt; <code>if(!req.query[p])</code>のチェックを先にやって、<code>checkTokenAndIds</code>に渡すコールバックに<code>function(err) { }</code>の内容を書けばいい</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">validateParamsExist</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">noParamsPassed</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">))</span> <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">errors</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="nx">params</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">[</span><span class="nx">p</span><span class="p">])</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;parameter &#39;</span> <span class="o">+</span> <span class="nx">p</span> <span class="o">+</span> <span class="s1">&#39; is required&#39;</span><span class="p">);</span>
+  <span class="p">});</span>
+  <span class="c1">// asyncが消えた</span>
+  <span class="nx">checkTokenAndIds</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">errors</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">errors</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span> <span class="nx">errors</span><span class="o">:</span> <span class="nx">errors</span> <span class="p">});</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="tale-4:-parsing-problems"><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html#tale-4-parsing-problems" title="Tale 4: Parsing Problems">Tale 4: Parsing Problems</a></h2>
+
+<p>CSVをパースしてEmailを送るプログラムの話</p>
+
+<p>該当のプログラムのインターフェースを見てみる。(実際の中身はどうでもいい)</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">EmailSender</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">csv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">csv</span> <span class="o">=</span> <span class="nx">csv</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+  <span class="p">},</span>
+  <span class="nx">parseEmailsFromCsv</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// implementation not important</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">emails</span> <span class="o">=</span> <span class="p">[...]</span>
+  <span class="p">},</span>
+  <span class="nx">sendEmail</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// sends email, implementation not important</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">emails</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(...);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3 id="single-responsibility-principle">Single Responsibility Principle</h3>
+
+<p>単一責任の原則の話。</p>
+
+<p>このプログラムはパースとメールの送信の2つをやってるのでSRPに反してる。</p>
+
+<p>なのでまずはCSVパーサとメールを送るものを分けよう。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">Parser</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">csv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">csv</span> <span class="o">=</span> <span class="nx">csv</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+  <span class="p">},</span>
+  <span class="nx">parseEmails</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span> <span class="c1">// not important</span>
+    <span class="k">return</span> <span class="nx">emails</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>メールもメールを送るだけ</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">EmailSender</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">emails</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">emails</span> <span class="o">=</span> <span class="nx">emails</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+  <span class="p">},</span>
+  <span class="nx">sendEmail</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// sends email, implementation not important</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">emails</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(...);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>こうすることで、<code>EmailSender</code>は<code>Parser</code>の存在を知らなくても良くなる。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">emails</span> <span class="o">=</span> <span class="nx">Parser</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">csv</span><span class="p">).</span><span class="nx">parseEmails</span><span class="p">();</span>
+<span class="nx">EmailSender</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">emails</span><span class="p">).</span><span class="nx">sendEmail</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="publish-and-subscribe">Publish and Subscribe</h3>
+
+<p>Pub/Subとタブのパターンについて</p>
+
+<p>微妙に未完</p>
+
+<h2 id="tale-5:-the-fat-controller">Tale 5: The Fat Controller</h2>
+
+<p>まだ書かれてない</p>
+
+<hr>
+
+<p>続きは<a href="http://javascriptplayground.com/the-refactoring-tales/" title="The Refactoring Tales">ウェブで</a></p>
+
+<ul>
+<li><a href="http://javascriptplayground.com/the-refactoring-tales/" title="The Refactoring Tales">The Refactoring Tales - JavaScript Playground</a></li>
+<li><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html#tale-4-parsing-problems" title="The Refactoring Tales -">The Refactoring Tales</a></li>
+</ul>
+
+<hr>
+
+<p>レガシーコード改善ガイドか新装版 リファクタリングを<a href="https://github.com/azu/azu/issues/29" title="読みたい本 · Issue #29 · azu/azu">読みたい</a>ですが、どっちから読むのか迷ってて色々探してて見つけた。</p>
+
+<p><a href="http://javascriptplayground.com/" title="The JavaScript Playground">The JavaScript Playground</a>はいいブログなので読むといい気がします。(いつのまにかURL変わってた)</p>
+
+<p>他に見つけたやつ</p>
+
+<ul>
+<li><a href="https://github.com/tcorral/Refactoring_Patterns">tcorral/Refactoring_Patterns</a></li>
+<li><a href="https://github.com/KarlPurk/javascript-refactoring">KarlPurk/javascript-refactoring</a></li>
+</ul>
+
+<p>やっぱりリファクタリングも自分でやってなれるしかない気がする。
+そういうリファクタリングするオープンソースプロジェクトみたいのやりたいけど、何をリファクタリングするかってのが難しい。。(何かちょうどいい感じのとかあるのかな?)</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-01-11-refactoring-tales.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","リファクタリング","電子書籍","Books"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=リファクタリング">リファクタリング</a></li>
+                
+                <li><a href="/tags/?q=電子書籍">電子書籍</a></li>
+                
+                <li><a href="/tags/?q=Books">Books</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

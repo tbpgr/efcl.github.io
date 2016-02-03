@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ECMAScript6についてes6featuresで学んだ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="ECMAScript,javascript" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/0323/res3750/">
+    <h1 class="post-title">ECMAScript6についてes6featuresで学んだ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年03月23日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-03-23-ecmascript6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6es6features%E3%81%A7%E5%AD%A6%E3%82%93%E3%81%A0.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="はじめに">はじめに</h2>
+
+<p>ECMAScript6についてのは色々情報がでてきていて、またライブラリとかでも一部採用してるケースも見られてきました。</p>
+
+<ul>
+<li>  <a href="http://www.slideshare.net/RameshNair6/es6-next-generation-javascript" title="ES6 - Next Generation Javascript">ES6 &#8211; Next Generation Javascript</a></li>
+<li>  <a href="http://tagtree.tv/ecmascript-6-episode-1" title="ES6 - episode 1">ES6 &#8211; episode 1</a></li>
+<li>  <a href="http://blog.tastejs.com/rewriting-a-webapp-with-ecmascript-6" title="Rewriting A WebApp With ECMAScript 6 — TasteJS">Rewriting A WebApp With ECMAScript 6 — TasteJS</a></li>
+</ul>
+
+<p>等など、色々紹介してるサイトはありますが、その中でも<a href="https://github.com/lukehoban/es6features" title="lukehoban/es6features">lukehoban/es6features</a>はコード例が豊富に載っていて面白そうなので、写経してみました。</p>
+
+<h2 id="現在のes6とは">現在のES6とは</h2>
+
+<p><a href="http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts" title="harmony:specification_drafts [ES Wiki]">harmony:specification_drafts [ES Wiki]</a>で公開されてるES6の仕様や<a href="https://onedrive.live.com/view.aspx?resid=704A682DC00D8AAD!59602&amp;app=Excel&amp;authkey=!AAMixsO0TuyPYwc" title="ES6FeatureSet.xlsx - Microsoft Excel Web App">ES6FeatureSet.xlsx &#8211; Microsoft Excel Web App</a> 等を見るとAPI的に固まってきている部分は何となく見える感じはします。</p>
+
+<p><a href="http://blog.angularjs.org/2014/03/angular-20.html" title="AngularJS 2.0 | AngularJS">AngularJS 2.0 | AngularJS</a>がES6ベースで書いていくと方針が発表されたことで、<a href="https://github.com/google/traceur-compiler" title="Traceur">Traceur</a>等を使ったES6で書いてES5に変換して動かす部分にも興味を持った人もいるかもしれません。</p>
+
+<p><a href="https://github.com/addyosmani/es6-tools" title="addyosmani/es6-tools">addyosmani/es6-tools</a>等を見ると、現段階でES6の機能をpolyfillやtranspilerで持ってこられるツールなどについてまとまってます。</p>
+
+<p>今回は、<a href="https://github.com/google/traceur-compiler" title="Traceur">Traceur</a>をベースにして、<a href="https://github.com/lukehoban/es6features" title="lukehoban/es6features">lukehoban/es6features</a>のコードを写経してみました。</p>
+
+<h2 id="写経">写経</h2>
+
+<p>写経したコードは<a href="https://github.com/azu/es6features-playground" title="azu/es6features-playground">azu/es6features-playground</a>に置いてあります。</p>
+
+<p>環境としては traceur 0.0.30 + Node.js V0.11です。</p>
+
+<p>polyfillなどでは実現が難しそうな</p>
+
+<ul>
+<li>  <code>Set</code></li>
+<li>  <code>Map</code></li>
+<li>  <code>WeakSet</code></li>
+<li>  <code>WeakMap</code></li>
+</ul>
+
+<p>などはNode.js v0.11 で <code>--harmony</code> のオプションを使うと大体利用できます。(V8のオプションなので、Chromeとかでもフラグ付きで利用できるはず)</p>
+
+<p>以下の項目は traceur 0.0.30 では変換できなさそうな感じでした。</p>
+
+<ul>
+<li>  &#8220;Enhanced Object Literals&#8221;</li>
+<li>  &#8220;Const&#8221;</li>
+<li>  &#8220;Comprehensions&#8221;</li>
+<li>  &#8220;Module Loaders&#8221;</li>
+<li>  &#8220;Subclassable Built-ins&#8221;</li>
+<li>  &#8220;Tail Calls&#8221;</li>
+</ul>
+
+<p><code>let</code> はtraceurに <code>--experimental</code>をフラグをつけると何故か対応してましたが、<code>try-catch</code>を使って無理やりやってたりしてて面白かったです(あんまり実用的じゃない感じだけど)</p>
+
+<ul>
+<li>  <a href="https://github.com/azu/es6features-playground/blob/master/out/src/let_const.js" title="let_const.js">let_const.js</a></li>
+</ul>
+
+<p>変換できない事が多く見えてしまうかもしれませんが、<a href="https://github.com/lukehoban/es6features" title="lukehoban/es6features">lukehoban/es6features</a>に書かれてることはコレの3-4倍ぐらいあるので、意外と変換できるものは多いです。</p>
+
+<p><code>class</code> とかは <code>traceur-runtime.js</code> というランタイムファイルを読み込む必要があるのですが、<a href="https://github.com/lukehoban/es6features#arrows" title="Arrows">Arrows Function</a>や<a href="https://github.com/lukehoban/es6features#template-strings" title=" Template Strings">Template Strings</a>、<a href="https://github.com/lukehoban/es6features#template-strings" title=" Destructuring">Destructuring</a>、<a href="https://github.com/lukehoban/es6features#template-strings" title="Default + Rest + Spread">Default + Rest + Spread</a>あたりはそのままrun-timeなしで展開して使えるので、この辺があるだけで結構便利になります。</p>
+
+<p>traceurが対応してるものは一応以下にも書かれています。</p>
+
+<ul>
+<li>  <a href="https://github.com/google/traceur-compiler/wiki/LanguageFeatures" title="LanguageFeatures · google/traceur-compiler Wiki">LanguageFeatures · google/traceur-compiler Wiki</a></li>
+</ul>
+
+<p>また、traceurのようなruntimeを使わないような変換ができることを目標にしてる<a href="https://github.com/termi/es6-transpiler" title="termi/es6-transpiler">termi/es6-transpiler</a>というプロジェクトもあります。</p>
+
+<h3 id="テスト">テスト</h3>
+
+<p>写経しながらテストコードもそのまま書いててて、<br>
+テストはmocha + <a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a>で書いてます。</p>
+
+<p>power-assertを使うときに<a href="https://github.com/azu/intelli-espower-loader" title="intelli-espower-loader">intelli-espower-loader</a>をインストールしておくと楽です。(<a href="https://github.com/twada/espower-loader" title="espower-loader">espower-loader</a>のラッパーです)</p>
+
+<p><code>$ mocha --require intelli-espower-loader</code> だけでpower-assertらしいテスト結果が出せるようになります。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2014/03/NewImage.png" alt="NewImage" title="NewImage.png" border="0" width="600" height="303" /></p>
+
+<div class="highlight">
+  <pre><span class="s2">"use strict"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"power-assert"</span><span class="p">);</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s2">"Default"</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s2">"default parameter value"</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">assert</span><span class="p">(</span><span class="nx">f</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">15</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s2">"Rest"</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s2">"...parameter"</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="p">...</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">y</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">assert</span><span class="p">(</span><span class="nx">f</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span> <span class="o">===</span> <span class="mi">6</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s2">"Spread"</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s2">"pass each elem of array as argument"</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span> <span class="o">+</span> <span class="nx">z</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">assert</span><span class="p">(</span><span class="nx">f</span><span class="p">(...[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span> <span class="o">===</span> <span class="mi">6</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre>
+</div>
+
+<p>Arrow Functionをそのまま使ってるので、BDD系のネストがあるやつも比較的見やすくなります。</p>
+
+<h2 id="editor">Editor</h2>
+
+<p><a href="https://github.com/azu/es6features-playground#setting-webstorm" title="azu/es6features-playground">azu/es6features-playground</a> にも書いていますが、<br>
+<a href="http://www.jetbrains.com/webstorm/nextversion/" title="WebStorm 8">WebStorm 8</a>あたりからES6のサポートが色々改善されたので、traceurが扱えるコードはWebStormでも普通に書けるようになってます。(フォーマットとかリファクタリングとかできる)</p>
+
+<p>また、File Watcherでtraceurは元から用意されてるので、結構気軽にtraceurを使ってES6ライクなJavaScriptを書けるようになってます。</p>
+
+<h2 id="感想">感想</h2>
+
+<p>いろんなところで、「ES6はいつから使えるのか」という事について、「今すぐ使える」という話はよく聞くと思います。</p>
+
+<ul>
+<li>  <a href="http://www.slideshare.net/domenicdenicola/es6-in-real-life" title="ES6 in Real Life">ES6 in Real Life</a></li>
+<li>  <a href="http://www.thomasboyt.com/2013/06/21/es6-module-transpiler" title="Using Grunt &amp; the ES6 Module Transpiler">Using Grunt &amp; the ES6 Module Transpiler</a></li>
+<li>  <a href="http://addyosmani.com/blog/ecmascript-6-resources-for-the-curious-javascripter/" title="ECMAScript 6 Resources For The Curious JavaScripter">ECMAScript 6 Resources For The Curious JavaScripter</a></li>
+</ul>
+
+<p>実際に書いてみると、結構普通に使えてしまう感じがして感触は悪く無いです。</p>
+
+<p><code>let</code> や <code>Generator</code> 等変換を無理してやって使うべきじゃないものもありますが、ES6はシンタックスシュガー的なものも多いのでその辺は積極的に使いたいなーという感じになりました。(変換したもの自体は機械的に展開してる程度な感じのも多い)</p>
+
+<p><a href="https://nicolas.perriault.net/code/2013/functional-javascript-for-crawling-the-web/" title="Functional JavaScript">Functional JavaScriptと合わせた話</a>とか面白い<a href="http://h3manth.com/new/blog/2014/es6-one-liners-to-show-off/" title="One Liner">One Liner</a>ができたりするので、<br>
+<a href="https://github.com/lukehoban/es6features#arrows" title="Arrows">Arrows Function</a>、<a href="https://github.com/lukehoban/es6features#template-strings" title=" Template Strings">Template Strings</a>、<a href="https://github.com/lukehoban/es6features#template-strings" title=" Destructuring">Destructuring</a>、<a href="https://github.com/lukehoban/es6features#template-strings" title="Default + Rest + Spread">Default + Rest + Spread</a>とかは一度触ってみると楽しいと思います。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-03-23-ecmascript6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6es6features%E3%81%A7%E5%AD%A6%E3%82%93%E3%81%A0.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["ECMAScript","javascript"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=ECMAScript">ECMAScript</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        今すぐ電子書籍(技術書)を書き始める方法と文章の自動チェック | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,GitBook,textlint,book" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/09/28/easy-to-create-ebook/">
+    <h1 class="post-title">今すぐ電子書籍(技術書)を書き始める方法と文章の自動チェック</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年09月28日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-09-28-easy-to-create-ebook.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="電子書籍開発環境">電子書籍開発環境</h2>
+
+<div class="kwout" style="text-align: center;"><a href="http://azu.github.io/slide/niku_sushi/ebook_development.html"><img src="http://kwout.com/cutout/a/94/x9/4x5_bor.jpg" alt="http://azu.github.io/slide/niku_sushi/ebook_development.html" title="Markdownで書く電子書籍開発環境" width="600" height="225" style="border: none;" /></a><p style="margin-top: 10px; text-align: center;"><a href="http://azu.github.io/slide/niku_sushi/ebook_development.html">Markdownで書く電子書籍開発環境</a></p></div>
+
+<p><a href="http://azu.github.io/slide/niku_sushi/ebook_development.html" title="Markdownで書く電子書籍開発環境">Markdownで書く電子書籍開発環境</a>というスライドで、GitBookとMarkdownで技術書(電子書籍)を書く話を紹介しました。</p>
+
+<p>文章は<a href="https://github.com/azu/textlint" title="textlint">textlint</a>で、コードは<a href="http://eslint.org/" title="ESLint">ESLint</a>とテストでチェックして、サンプルコードに対してテストを書けるプロジェクト構造について書かれています。</p>
+
+<p>どのように表記揺れなどやコードの間違いを防ぎながら、書籍を開発していくかについて書いているので詳しくは上記のスライドを見て下さい。(スライドの下へスクロールすると文章版が載ってます)</p>
+
+<h2 id="スターターキット">スターターキット</h2>
+
+<p>上記の設定をすぐに使えるようにスターターキット的なものを作りました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/gitbook-starter-kit" title="azu/gitbook-starter-kit">azu/gitbook-starter-kit</a></li>
+</ul>
+
+<p>実際にこのgitbook-starter-kitを電子書籍とした時の表示は以下で見ることができます。</p>
+
+<ul>
+<li><a href="https://www.gitbook.com/book/azu/gitbook-starter-kit/details" title="GitBook Starter Kit - GitBook">GitBook Starter Kit - GitBook</a></li>
+</ul>
+
+<h3 id="インストール">インストール</h3>
+
+<p>利用するときは以下のように3つのコマンドを叩くだけで準備が完了します。
+(事前にNode.jsを入れておいて下さい)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># your-book-nameは好きなディレクトリ名
+git clone https://github.com/azu/gitbook-starter-kit.git your-book-name
+cd your-book-name
+npm install
+</code></pre></div>
+<p><code>.git</code>がそのまま引き継がれるのが気になる場合は以下のように<code>.git</code>を初期化するか、<a href="https://github.com/azu/gitbook-starter-kit/archive/master.zip">zipでダウンロード</a>して使うなどすれば良い気がします。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">rm .git
+git init
+</code></pre></div>
+<h3 id="使い方">使い方</h3>
+
+<p><a href="https://github.com/azu/gitbook-starter-kit">README.md</a>にも使い方などは書いてありますが、<code>npm start</code>をするだけでブラウザで書籍のプレビューが行えます。(今後変わるかもしれないのでREADME.mdの方を見て下さい)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm start
+# gitbookサーバが立つ
+open http://localhost:4000/
+</code></pre></div>
+<p><a href="https://github.com/GitbookIO/gitbook" title="GitBook">GitBook</a>はHTMLだけPDFやEpub、MOBIでも出力できます。</p>
+
+<p><a href="http://manual.calibre-ebook.com/cli/ebook-convert.html" title="ebook-convert">ebook-convert</a>が必要になるので、面倒な場合は<a href="https://www.gitbook.com/">GitBook.com</a>で<a href="https://help.gitbook.com/github/index.html" title="GitHub Integration | Documentation">GitHub Integration</a>をすれば、GitBook.comに自動的にPDFなどが生成されます。
+(このIntegrationはFirefoxだと設定できないバグがある気がします)</p>
+
+<h3 id="文章を書く">文章を書く</h3>
+
+<p>gitbook-starter-kitでは以下のようなディレクトリ構造になっています。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">.
+├── README.md
+├── SUMMARY.md &lt;= 目次
+├── ja/ &lt;= .mdの文章を追加する
+├── prh.yml
+├── src/ &lt;= サンプルコード
+└── test/ &lt;= サンプルコードのテスト
+</code></pre></div>
+<p>文章を追加する<code>ja/</code>というディレクトリ名には独別な意味はないため好きな名前に変更して問題ありません。</p>
+
+<p>文章を追加する場合は以下の手順で行うことができます。</p>
+
+<ol>
+<li><code>ja/</code> 以下にMarkdownファイルで文章を追加する</li>
+<li><code>SUMMARY.md</code> に追加したMarkdownファイルへのリンクを書く</li>
+</ol>
+
+<p>追加した後はデフォルトで自動的にリロードされるようになっています。
+(<code>npm start</code>を叩きなおしても良い)</p>
+
+<h2 id="テスト">テスト</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm test
+</code></pre></div>
+<p>npm testで以下のテストが実行されます。</p>
+
+<p>gitbook-starter-kitはJavaScript向けの設定にしているので、以下のようなテストが実行されます。</p>
+
+<ul>
+<li><a href="http://eslint.org/" title="ESLint">ESLint</a>でのコードチェック</li>
+<li><a href="https://github.com/azu/textlint" title="textlint">textlint</a>での文章チェック</li>
+<li><a href="http://mochajs.org/" title="Mocha">Mocha</a>でのテスト</li>
+</ul>
+
+<p>並列でテストを実行できるように<a href="https://github.com/mysticatea/npm-run-all" title="npm-run-all">npm-run-all</a>を利用しています。
+テスト結果の表示が混ざるのが気になる場合は、<code>--parallel</code>オプションを外してみてください。</p>
+
+<p>テストツールなどは普通のJavaScriptライブラリと変わらないので好きなものを使うといいかと思います。</p>
+
+<p>このテストはTravis CIでも動くので、以下のように<code>.travis.yml</code>を作るだけで自動的にテストが動くようになります。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">gem install travis
+travis init node.js
+</code></pre></div>
+<h2 id="表記揺れのテスト">表記揺れのテスト</h2>
+
+<p><a href="http://azu.github.io/slide/niku_sushi/ebook_development.html" title="Markdownで書く電子書籍開発環境">Markdownで書く電子書籍開発環境</a>でもプロジェクト固有のルールで表記揺れのチェックが必要になる話を書いています。</p>
+
+<p>gitbook-starter-kitでは<a href="https://github.com/azu/gitbook-starter-kit/blob/master/prh.yml">prh.yml</a>に辞書を追加することで表記揺れをチェックすることができます。
+詳しい設定方法については以下を参照して下さい。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/09/14/textlint-rule-prh/" title="textlint + prhで表記ゆれを検出する | Web Scratch">textlint + prhで表記ゆれを検出する | Web Scratch</a></li>
+<li><a href="http://efcl.info/2015/09/10/introduce-textlint/" title="textlintで日本語の文章をチェックする | Web Scratch">textlintで日本語の文章をチェックする | Web Scratch</a></li>
+</ul>
+
+<p><img src="https://embed.gyazo.com/af14634690a0515c2c5ce56bd2fd6431.gif" alt="gif"></p>
+
+<p>Atomと<a href="https://github.com/1000ch/linter-textlint" title="1000ch/linter-textlint">1000ch/linter-textlint</a>を使うと保存する毎に表記揺れのチェックができるので、特に決まったエディタがないならAtomを使ってみるといいかもしれません(Markdownは書きやすいので)</p>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>今<a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="JavaScript-Plugin-Architecture">JavaScript-Plugin-Architecture</a>という電子書籍を書いてて作った文章を書く環境について紹介しました。</p>
+
+<p>元々これは<a href="https://github.com/azu/azu/issues/42" title="[Markdown] 電子書籍開発環境 #42">[Markdown] 電子書籍開発環境 #42</a>で&quot;もっと気軽に書ける電子書籍&quot;をやりたい目的で作った感じです。</p>
+
+<p>また、アドベントカレンダーの季節がやってきますが、一人アドベントカレンダーとして記事を沢山書くよりも小さな電子書籍として書いたほうが、メンテがしやすくなるのではと思ったのも一つのきっかけです。</p>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">一人でアドベントカレンダー大量に書くパターンに比べると、電子書籍(電子書籍と言うけど普通のHTMLページも含む)の方がPull Requestとか送りやすい環境に自然となりそう。&#10;アドベントカレンダーってどうも記事の延長にあるから、それっきりで情報の鮮度的に寿命が短い感じがする。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/538307698215751680">November 28, 2014</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>GitHubやGitBookなどのツールやプラットフォームがある今なら、電子書籍を書くのはものすごい高い壁ではないと思います(販売もGitBook.comとかLeanpubを使えばある程度簡単)。</p>
+
+<p>最近では、ライブラリのリファレンスにGitBookを使ったりしてるケースも多くなってきたので、電子書籍というものがもっと気軽に書けるようになるといいじゃないかなと思います。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-09-28-easy-to-create-ebook.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","GitBook","textlint","book"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=GitBook">GitBook</a></li>
+                
+                <li><a href="/tags/?q=textlint">textlint</a></li>
+                
+                <li><a href="/tags/?q=book">book</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

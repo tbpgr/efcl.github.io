@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        TwitterのWebページをサイドバーで使うためのまとめ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="css,Greasemonkey,twitter,web" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2009/1125/res1488/">
+    <h1 class="post-title">TwitterのWebページをサイドバーで使うためのまとめ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2009年11月25日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2009/2009-11-25-twitter%E3%81%AEweb%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E3%82%B5%E3%82%A4%E3%83%89%E3%83%90%E3%83%BC%E3%81%A7%E4%BD%BF%E3%81%86%E3%81%9F%E3%82%81%E3%81%AE%E3%81%BE%E3%81%A8%E3%82%81.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><strong>Twitterのウェブサイトをクライアントとして使うのに役立つGreasemonkeyとCSS | Web scratch</strong>
+:   <a href="http://efcl.info/2009/0317/res613/" title="Twitterのウェブサイトをクライアントとして使うのに役立つGreasemonkeyとCSS | Web scratch">http://efcl.info/2009/0317/res613/</a></p>
+
+<p>以前書いたような記事と似たような記事を書きましたが、今回はシンプルにサイドバーでTwitterのWebページを表示する方法です。<br>
+Greasemonkeyがサイドバーでも動作するようになったので、かなり快適になり、またWebページを表示するだけなので<strong>APIを使わない</strong>のが特徴です。</p>
+
+<p><br class="spacer_" /><figure id="attachment_1490" style="width: 121px;" class="wp-caption alignnone"></p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2009/11/ss-2009-11-25-22-40-16.png"><img class="size-medium wp-image-1490" title="ss-2009-11-25-22-40-16" src="http://efcl.info/wp-content/uploads/2009/11/ss-2009-11-25-22-40-16-121x300.png" alt="最終的な似た目" width="121" height="300" /></a><figcaption class="wp-caption-text">最終的な似た目</figcaption></figure> 
+<br class="spacer_" /></p>
+
+<p>まずはCSSでサイドバーに合わせた形にする必要があります。</p>
+
+<p><strong>nukumori wiki &#8211; Firefoxのサイドバーでtwitter.comするCSS</strong>
+:   <a href="http://nukumori.org/hiki/?TwitterSidebarCSS" title="nukumori wiki - Firefoxのサイドバーでtwitter.comするCSS">http://nukumori.org/hiki/?TwitterSidebarCSS</a></p>
+
+<p>にあるCSSを使ってサイドバーに合わせたものにしていきます。<br>
+使い方は書いてあるのでそれをよく読んでCSSを反映させます。<br>
+(ブックマークするのは<a href="http://twitter.com/?sidebar">http://twitter.com/?sidebar</a> という適当なクリエを付けたURLです。<br>
+<a href="http://twitter.com/?sidebar">http://twitter.com/</a>だと通常見るときと混ざってしまうため。)</p>
+
+<p>ブックマークではなく<a href="https://addons.mozilla.org/ja/firefox/addon/2707">Custom Buttons</a>を使ってtwitterをサイドバーに表示するボタンを作成する方法もあります。<br>
+Twitterをサイドバーに表示するボタンを作成しておきました。</p>
+
+<ul>
+<li><p><a href="custombutton://%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Ccustombutton%20xmlns%3Acb%3D%22http%3A//custombuttons2.com/%22%3E%0A%20%20%3CCb2Ver%3E3.1.0%3C/Cb2Ver%3E%0A%20%20%3Cname%3ETwitter%20sidebar%3C/name%3E%0A%20%20%3Cimage%3E%3C%21%5BCDATA%5Bdata%3Aimage/png%3Bbase64%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%3D%5D%5D%3E%3C/image%3E%0A%20%20%3Cmode%3E0%3C/mode%3E%0A%20%20%3Ccode%3E%3C%21%5BCDATA%5Bvar%20title%20%3D%20%22Twitter%22%3B%0Avar%20uri%20%3D%20%22http%3A//twitter.com/%3Fsidebar%22%3B%0Avar%20sidebarTitle%20%3D%20document.getElementById%28%22sidebar-title%22%29.value%3B%0Avar%20sidebarBox%20%3D%20document.getElementById%28%22sidebar-box%22%29%3B%0Aif%20%28title%20%3D%3D%20sidebarTitle%29%20%7B%0A%09toggleSidebar%28%29%3B%0A%7D%20else%20%7B%0A%09openWebPanel%28title%2C%20uri%29%3B%20%20%0A%7D%5D%5D%3E%3C/code%3E%0A%20%20%3Cinitcode%3E%3C%21%5BCDATA%5B/*Initialization%20Code*/%5D%5D%3E%3C/initcode%3E%0A%20%20%3Caccelkey%3E%3C%21%5BCDATA%5B%5D%5D%3E%3C/accelkey%3E%0A%20%20%3Chelp%3E%3C%21%5BCDATA%5B%5D%5D%3E%3C/help%3E%0A%3C/custombutton%3E" title="Twitter sidebar"><img style="margin: 0 6px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAIAAABvFaqvAAAABnRSTlMAlADkAOhKGpR3AAAACXBIWXMAAAsTAAALEwEAmpwYAAAG40lEQVQ4EQHYBif5AZTk6AAAAAAAAAAAAAAAAAAAAAAAAAwDAgcCAgoCAvP9/u/8/AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAD/AAD+/wAEAQEBAQECAf8DAQH+AAD/AAAAAAAAAAD/AAD/AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA/gAADgMDFwYFCQIC/P7/CQIDEgQDBQEBDAMCFQUEFQUFFAUECAIB/wAA/wAA/gAA/wAAAAAAAAAAAgAAAAAAAAAAAAAAAP4AAAoCAhMFBPz/ABIFBBgHBf8AAAMBARQFBA8EAwoDAwsDAg0DAxQFBQkCAgUBARAEAwoDAgAAAAAAAAIAAAAAAAAAAAAAAAAB/wAIAgIAAAABAQDx/P0OBAMyDAoUBQX/AAD7/gD+//8AAAD/AAACAAANBAMTBQQLAgIQAwMRBAQAAAACAAAAAAAAAAAAAAAAAQEADAMCAQAAAAD/BAEA3ff49/7+QBANQRAOMw0LGwcGBgIBAgAA/gAAAQAABgEBBQICAwEBCAIBCQICAgAAAAAAAAAAAAAAAP7/APb9/hUGBRgGBf8AAAcBAdr2+Oz7/BQFBCMJBysLCfz///n+//8AAAUBAQIBAQIAAAMBAQAAAAUBAQIAAAD/AAAAAAAAAAABAQDx/f3j+PoCAAEkCQgVBgX+AADH8vT5/v7/AAD6/v8ZBgY/EA0kCQf9///7////AAD8////AAD3/v4CEQQDBQIBAAAAAAAAAQAA/f//8f383Pj42vb4CQICLwwKGAYF7Pv8AQAADQQDMAwKEgUE6Pr8/QAA////+v7++/7+8v3++v//AbHr7vP9/e38/QYBAQwDAgwDAwkCAg0DAg0EBAYCAQwCAhsHBgAAAP8AAAAAAAEAAMXx89D09gcCAf8AAAEAAPz///v/AAIAAAGx7O/2/f3z/f75/v4DAQAFAQIEAQD4/v8AAAAOAwMcBwYnCggVBQQBAQH////E8vTO8/UEAQEAAAAAAAAAAAAAAAABAAAAAAACAQAACQICEQQDDAMCEgQEEwUEEwUFFgYFCQIB7Pv7x/Lzt+7w+f//AQAA5fr6y/L0BgEBAQAAAQAAAQAAAQAAAQAAAAAAAAAAAgEAAAQBAQMBAQ0DAwYCAgUBAQEAAAcBARAEBA8EBBcGBUEQDgkCAv8AAMvy9gQBAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAD/AAAEAQH/AAAAAAAEAQADAQAAAAAAAAAEAgEyDAsfCAf8///J8vTj+fkFAQD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBQIBAAAAAAAAAAAA/wAABAEBBgEBAQEA+///FQUEJgoI5fn6wvDz4fj5DAMD/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgIAAAEAAPz///4AAP7///T9/vb+/vf9/gIAABIEBMvz9c3z9vL9/QYCAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL6/v/0/f77//8MAgL/AAD6///3/f/+AAAAAQDe9/nj+Pr5//7+///5/v7y/f0AAAAAAAAAAAABAAAAAAAAAAABAAAAAAAAAAAC9P39FwYEHgcFBwICCQICEQMECQMCAwEB9/3/AgEAHQgFGgYEAAAA8vz9KAoHAwEB/v8A/f8A+f///wAA/gAA+P7//f8AAQAAAgYB/9n2Dun6CyIIAxYGAwkD/wgCABEEAfv//BUFCdX1DsrzDgwDCSsLCdT1ESsKCAIB/hMFASAHBAMB/wgCACcKBBIFAfz/AAGz7OzE8RO/8AApCgAzDQAlCf0JAv/x/QEOA/7q+wUBAACk6QAqCv8yDf+U5QJKEv40Dfvm+QTk+gI3Dfn4/gK77wY6Dv78/+0CDgQD+/4APA8Adh4A/v8Aue4D5/oEx/ED6voFl+UAvfAABwEA1PUB7fsCAwAA3/gC0PQHmOcDz/QBp+oIp+oGBgH+BQL8+/8AAgAAATEN/tb1AJLkABIFAOv7AKbqANX2AKzrAE0TAAQAAEQSAPr/ABkGADYOAPP8AB0IABsHAAMBACIJAA4EAFUW9+r67fH8/gGr6u0iCAb2/gjh+AAnCv31/QD0/QICAP7z/v8ZBfvz/QUMA/rh+AcJAv4WBv3a9wYeB/sAAAHp+gMcB/z/AAPm+vXs+/sGAQEBl+XpAwEBIQgEAQD/8f0AAQD/BQAA6Pv8/P//+P4ABwEA+P4ADQQA+/8A+f4ADgMA9f0AAQEACAIA9v0AAwEA/gABAwAA/wAAMPXnCY8rWH4AAAAASUVORK5CYII=" border="0" alt="Twitter sidebar" />Twitter sidebar</a></p></li>
+<li><p><a href="http://gist.github.com/242683">userChrome.css</a><br>
+少し自分向けに修正したCSS(通常のTwitterページ向けも混ざってる)</p></li>
+</ul>
+
+<p>次により使い易くするためのGreasemonkeyを入れていく。</p>
+
+<ul>
+<li><p><div>
+  <div>
+    <span><a href="http://gist.github.com/242700">Twitter Enhancements: Press Ctrl + Enter to Send Update.user.js</a></span>
+  </div></p>
+
+<p><div>
+    <div id="gist-embed" style="display: inline;">
+      <input style="display: none;" size="25" src="%22http://gist.github.com/242700.js?file=Twitter+Enhancements%3A+Press+Ctrl+%2B+Enter+to+Send+Update.user.js%22%3E%3C/script%3E" type=" mce_src=" value="<script src=" />
+    </div>
+  </div>
+</div></p></li>
+</ul>
+
+<p>Ctrl+Enterでポストする。</p>
+
+<ul>
+<li>  <a href="http://gist.github.com/242666">Twitter Change Style.user.js</a></li>
+</ul>
+
+<p>自分の投稿や、特定のワードが入ってる投稿を色分けする<br>
+<cite></cite><a href="../2009/0317/res613/%5C">tyoro.exe: 投稿内容からマッチングしてスタイル変えるグリモン書いたよ！</a></p>
+
+<ul>
+<li>  <a href="http://gist.github.com/242701">TwitterAutoReloader.user.js</a></li>
+</ul>
+
+<p>自動更新の差分を自動で取得<br>
+<a href="http://hazisarashi.com/2009/11/17/twitter-web%E3%81%AE%E8%87%AA%E5%8B%95%E5%B7%AE%E5%88%86%E6%9B%B4%E6%96%B0greasemonkey%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%82%92%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%BF%E3%81%9F/">Twitter webの自動差分更新Greasemonkeyスクリプトを書いてみた « H.LOG</a></p>
+
+<p><br class="spacer_" /></p>
+
+<p>自分は入れてませんが基本的にはTwitterのWebページと同じなので、</p>
+
+<ul>
+<li>  <a href="http://twitter.trauma2u.com/pbtweet/">PBTweet+</a></li>
+<li>  <a href="http://userscripts.org/scripts/show/40617">troynt&#8217;s Twitter Script</a></li>
+</ul>
+
+<p>など入れるのもありかもしれない。</p>
+
+<p><br class="spacer_" /></p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2009/2009-11-25-twitter%E3%81%AEweb%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E3%82%B5%E3%82%A4%E3%83%89%E3%83%90%E3%83%BC%E3%81%A7%E4%BD%BF%E3%81%86%E3%81%9F%E3%82%81%E3%81%AE%E3%81%BE%E3%81%A8%E3%82%81.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["css","Greasemonkey","twitter","web"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=css">css</a></li>
+                
+                <li><a href="/tags/?q=Greasemonkey">Greasemonkey</a></li>
+                
+                <li><a href="/tags/?q=twitter">twitter</a></li>
+                
+                <li><a href="/tags/?q=web">web</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

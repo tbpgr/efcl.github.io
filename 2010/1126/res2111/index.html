@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        英語が読めない人向け、英語技術書の読み方 | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="日本語,翻訳,辞書" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2010/1126/res2111/">
+    <h1 class="post-title">英語が読めない人向け、英語技術書の読み方</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2010年11月26日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-11-26-%E8%8B%B1%E8%AA%9E%E3%81%8C%E8%AA%AD%E3%82%81%E3%81%AA%E3%81%84%E4%BA%BA%E5%90%91%E3%81%91%E3%80%81%E8%8B%B1%E8%AA%9E%E6%8A%80%E8%A1%93%E6%9B%B8%E3%81%AE%E8%AA%AD%E3%81%BF%E6%96%B9.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>英語が大して読めないけど、最新の技術とか読みたい内容が英語だったするジレンマがある人向けの記事。<br>
+自分も大して英語が読めませんが、550ページほどの<a href="http://efcl.info/adiary/JavaScript%20Cookbook%e3%81%ae%e8%a8%98%e9%8c%b2">JavaScript Cookbook</a>というオライリー本を原著で読んだので、どのようにして読んでいたのかを書いてみます。</p>
+
+<h3 id="電子書籍">電子書籍</h3>
+
+<p>まずは読む本ですが、pdfやepubなどの電子書籍で読むのが良いと思います。<br>
+分からない単語が出てきたりしたときに毎回辞書なんか引いてたらつらいので、その場で翻訳できる電子書籍だと圧倒的に時間短縮できます。<br>
+オライリー本なら<a href="http://efcl.info/adiary/JavaScript%20Cookbook%e3%81%ae%e8%a8%98%e9%8c%b2">JavaScript Cookbookの記録 &#8211; prog*sig</a>でも書いていましたが、iPhoneアプリやpdf、safari onlineなど電子書籍として読む方法はいろいろあるので手を出しやすいと思います。<br>
+また、最近の海外の書籍だと<a href="http://manning.com/resig/">Secrets of the JavaScript Ninja</a>や<a href="http://oreilly.com/catalog/9780596805531">サイ本の6版</a>などは執筆中のものを読むことができます。(プレオーダーで値段も安くなったりするのでおすすめ)<br>
+最近でた海外のJavaScript関係の書籍は下のサイトによくまとまっています。</p>
+
+<ul>
+<li>  <a href="http://d.hatena.ne.jp/cou929_la/20101117/1290008912">最近の JavaScript 関連書籍まとめ &#8211; フリーフォーム フリークアウト</a></li>
+</ul>
+
+<p>海外の技術書についてまとめると、紙の書籍よりも電子書籍の方が入手が楽で、安く、早い段階で入手できるのでおすすめです。日本のオライリーの電子書籍のように変な制限は少ないと思います。(とりあえずテキストのコピーぐらいどうにかして欲しい)<br>
+→やっと制限がゆるくなった</p>
+
+<div class="quote">
+  <blockquote title="O'Reilly Japan Ebook Store : 購入規約" cite="http://www.oreilly.co.jp/ebook/explain.html">
+    <p>
+      <del>販売されるEbookは、印刷、テキストのコピー、ページの抽出、内容の変更を行うことができません。決済時に入力いただいたご購入者のメールアドレスが挿入されます</del>
+    </p>
+    
+    <p>
+      <cite><a href="http://www.oreilly.co.jp/ebook/explain.html">O&#8217;Reilly Japan Ebook Store : 購入規約</a></cite>
+    </p>
+  </blockquote>
+</div>
+
+<p>海外のオライリー本の入手は<a href="http://blogs.itmedia.co.jp/yasusasaki/2010/07/oreilly-70af.html">O&#8217;Reillyの電子書籍流通への取り組みが色々参考になる件：平凡でもフルーツでもなく、、、：ITmedia オルタナティブ・ブログ</a>が参考になります。<br>
+Mobi, PDF, ePubなどの形式などで購入できますが、素だと少し高いのでセール時やiPhoneアプリなら600円程度だったりするので、買い方によってかなりお買い得になります。</p>
+
+<h3 id="英語の読み方">英語の読み方</h3>
+
+<p>やっと本題になりますが、英語ができる人曰く英単語が分かれば大体は分かるようになると、また技術書は物語と違って複雑な文法表現などは少ないので、基本的に単語とある程度の文法などの表現が分かれば読み解くことができます。加えて、技術書なのでコードで表現する部分(コードは共通言語)もあるので、ずっと文章を読むよりは挑戦しやすいと思います。</p>
+
+<p>読むのに使用していたソフトウェア</p>
+
+<ul>
+<li>  ビューアー(pdfなら<a href="http://www.foxitsoftware.com/japan/">Foxit Reader</a>とか<a href="http://www.tracker-software.com/">PDF-XChange Viewer</a>など)</li>
+<li>  <a href="http://www.lingoes.net/">Lingoes</a>(翻訳ソフト)→<a href="http://efcl.info/2011/0604/res2808/">NILtranslator</a>(自作の翻訳ソフト)</li>
+<li>  <a href="http://www.alc.co.jp/">英辞郎 on the WEB</a> (辞書)</li>
+</ul>
+
+<p><a href="http://www.lingoes.net/">Lingoes</a>は<a href="http://plaisir.genxx.com/?p=214">Lingoesというポップアップ辞書が尋常じゃない &#8211; plaisir.genxx.com</a>の時は英辞郎とか無断配布してたみたいですが、多分今はされてないと思うので使うのに問題はないと思います(まあ元から入れなければいい話)<br>
+Lingoesでメインに使っていたのはGoogle翻訳の機能だったのであんまり関係ないかもしれない。<br>
+このソフトは選択範囲を翻訳してポップアップ表示する事ができるので、意味が分からない所を自動翻訳すれば何となく意味がとれてくると思うので、<a href="http://www.alc.co.jp/">英辞郎 on the WEB</a>などの詳しく引ける辞書と併用して意味を理解してました。<br>
+途中から英辞郎とExcite翻訳(個人的にはGoogle翻訳より日本語っぽい結果になる)が付ける翻訳ツールを作ってました<del>がまだ未完成。。 </del><br>
+→ある程度完成した <a href="http://efcl.info/2011/0604/res2808/">ローカルの英辞郎検索やGoogle翻訳も使える翻訳ソフトウェア</a><br>
+また、本文のコピペができる電子書籍なので、気になったものはGoogle検索などしてよりわかりやすい解説を見つけたりしながら読み進めていました。たとえ書かれていることが全く分からなくても、そこで何について説明しているかはタイトルなどから読み取れると思うので、それについて言及してる記事などを探して一緒に読めば理解が深まります。</p>
+
+<p>まとめると、翻訳ソフトを使って斜め読みして、意味がつかめないときは辞書を引く、文章全体がよく分からないときはWebから関係ありそうな記事を探して読む と全く読めないという事はほとんど無くなると思います。</p>
+
+<h3 id="本の理解">本の理解</h3>
+
+<p>ここからはあんまり英語と関係なく紙の書籍でもできる内容ですが、自分なりどのように本を読んでいるかという話。<br>
+<strong>まずは読むペースについて</strong><br>
+自分は○時間ほど読むというよりはこの章まで読むという感じのノルマ式の読み方をとっています。<br>
+まあ、この方法で読んでいる人は多いと思いますが、章ごとに内容はまとまっているので、時間で区切るよりは章で区切った方が理解が深まるのは必然だと思います。</p>
+
+<p>もう一つは、本を読みながらブログなどに<strong>メモを取ること</strong><br>
+<a href="http://efcl.info/adiary/">prog*sig</a>はまさにそれのためのブログで、本を読みながら1章1記事で、中では節ぐらいに分けてメモをとりながら読んでいます。<br>
+上で言っていたように翻訳しながら読んでいる感じなので、翻訳することに集中してしまいその章が読み終わったときに内容を覚えてないとか残念な結果になったりする可能性があります。<br>
+そのため、節ぐらいに分けながら内容について自分で分かるように手抜きしながらメモをとると、後で見返したときにどんな内容だったかが分かります。<br>
+また、オライリー本はプログラムコードの一部を引用することが許されていたすることがあるため、コードをメモってコメントをつけたりして理解するという方法もとれます。 (コードの意味が理解できない時は写経しましょう)<br>
+インプットしながらアウトプット(メモをとるぐらいなのでアウトプットとは言い切れないけど)すると理解が浅くなりがちな感じはしますが、日本語の文章だって難しいと一度では理解できないので何度も読み返す必要がある。その時にメモはとても役に立つと思います。<br>
+またメモは本の内容だけではなくWebから関係ありそうな記事を探して読んだときに、それらもメモすることができるので本の内容以外についても書き記すことができます。<br>
+メモをとることについて書きましたが、既に知っている内容が出てくることもあります。そういう時はすべてメモしようとしないとしないで、手を抜くのも本を読むのに疲れないためには必要だと思います。</p>
+
+<p>まとめると時間単位より章単位で読む、読みながらメモをとる。</p>
+
+<h3 id="おわりに">おわりに</h3>
+
+<p>自分なりに英語の技術書の読み方を書いたけど、これをやって良かったと思うことは以前に比べて英語を読む事への抵抗が減ったこと。<br>
+以前は目に入れるのが面倒だったぐらいだけど、今は意味は大して分かってないけどさらっと(タイトルとか最初の部分を)目を通すようになったと思う。<br>
+また、英語以外にJavaScriptの話題に関しては韓国とか中国とかの記事とかも少し見るようになった。<br>
+ハングルとか中国語とか全く読めないけど、Google翻訳だよりでさらっと見る感じ(韓国語はGoogle翻訳だと意外と読みやすい日本語になったりする事多い気がする)<br>
+ここまでいろいろ書いたけど、とりあえず日本語以外の本も読む対象に入れてみてはどうでしょうか。</p>
+
+<p><br class="spacer_" /></p>
+
+<div id="_mcePaste" style="position: absolute; left: -10000px; top: 1244px; width: 1px; height: 1px; overflow: hidden;">
+  <a href="http://frends.kr/topics/couchdb-%ec%8b%9c%ec%9e%91%ed%95%98%ea%b8%b0/">CouchDB 시작하기</a>
+</div>
+
+<div style="display: none; position: fixed; max-height: 1832px; width: 450px; padding: 3px; background-color: #ffffff; overflow: auto; min-height: 200px; z-index: 2147479999; text-align: center; color: #000000; right: 0px; top: 0px; border: 0px 0px 2px 2px dashed grey;">
+  <textarea style="height: 80px; width: 444px; border: 1px solid grey; padding: 2px;"></textarea> <select><option value="af">Afrikaans</option><option value="sq">Albanian</option><option value="ar">Arabic</option><option value="be">Belarusian</option><option value="bg">Bulgarian</option><option value="ca">Catalan</option><option value="zh-CN">Chinese</option><option value="hr">Croatian</option><option value="cs">Czech</option><option value="da">Danish</option><option selected="selected" value="auto">Detect language</option><option value="nl">Dutch</option><option value="en">English</option><option value="et">Estonian</option><option value="tl">Filipino</option><option value="fi">Finnish</option><option value="fr">French</option><option value="gl">Galician</option><option value="de">German</option><option value="el">Greek</option><option value="ht">Haitian Creole ALPHA</option><option value="iw">Hebrew</option><option value="hi">Hindi</option><option value="hu">Hungarian</option><option value="is">Icelandic</option><option value="id">Indonesian</option><option value="ga">Irish</option><option value="it">Italian</option><option value="ja">Japanese</option><option value="ko">Korean</option><option value="lv">Latvian</option><option value="lt">Lithuanian</option><option value="mk">Macedonian</option><option value="ms">Malay</option><option value="mt">Maltese</option><option value="no">Norwegian</option><option value="fa">Persian</option><option value="pl">Polish</option><option value="pt">Portuguese</option><option value="ro">Romanian</option><option value="ru">Russian</option><option value="sr">Serbian</option><option value="sk">Slovak</option><option value="sl">Slovenian</option><option value="es">Spanish</option><option value="sw">Swahili</option><option value="sv">Swedish</option><option value="th">Thai</option><option value="tr">Turkish</option><option value="uk">Ukrainian</option><option value="vi">Vietnamese</option><option value="cy">Welsh</option><option value="yi">Yiddish</option></select></p> <p>
+    <span style="font-weight: bold; cursor: pointer; color: lightgrey;">⇄</span> <select><option value="af">Afrikaans</option><option value="sq">Albanian</option><option value="ar">Arabic</option><option value="be">Belarusian</option><option value="bg">Bulgarian</option><option value="ca">Catalan</option><option value="zh-CN">Chinese</option><option value="hr">Croatian</option><option value="cs">Czech</option><option value="da">Danish</option><option value="nl">Dutch</option><option value="en">English</option><option value="et">Estonian</option><option value="tl">Filipino</option><option value="fi">Finnish</option><option value="fr">French</option><option value="gl">Galician</option><option value="de">German</option><option value="el">Greek</option><option value="ht">Haitian Creole ALPHA</option><option value="iw">Hebrew</option><option value="hi">Hindi</option><option value="hu">Hungarian</option><option value="is">Icelandic</option><option value="id">Indonesian</option><option value="ga">Irish</option><option value="it">Italian</option><option selected="selected" value="ja">Japanese</option><option value="ko">Korean</option><option value="lv">Latvian</option><option value="lt">Lithuanian</option><option value="mk">Macedonian</option><option value="ms">Malay</option><option value="mt">Maltese</option><option value="no">Norwegian</option><option value="fa">Persian</option><option value="pl">Polish</option><option value="pt">Portuguese</option><option value="ro">Romanian</option><option value="ru">Russian</option><option value="sr">Serbian</option><option value="sk">Slovak</option><option value="sl">Slovenian</option><option value="es">Spanish</option><option value="sw">Swahili</option><option value="sv">Swedish</option><option value="th">Thai</option><option value="tr">Turkish</option><option value="uk">Ukrainian</option><option value="vi">Vietnamese</option><option value="cy">Welsh</option><option value="yi">Yiddish</option></select>
+  </p>
+  
+  <div style="text-align: left; background-color: #ebeff9;">
+    Detect language » Japanese
+  </div>
+</div>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-11-26-%E8%8B%B1%E8%AA%9E%E3%81%8C%E8%AA%AD%E3%82%81%E3%81%AA%E3%81%84%E4%BA%BA%E5%90%91%E3%81%91%E3%80%81%E8%8B%B1%E8%AA%9E%E6%8A%80%E8%A1%93%E6%9B%B8%E3%81%AE%E8%AA%AD%E3%81%BF%E6%96%B9.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["日本語","翻訳","辞書"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=日本語">日本語</a></li>
+                
+                <li><a href="/tags/?q=翻訳">翻訳</a></li>
+                
+                <li><a href="/tags/?q=辞書">辞書</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

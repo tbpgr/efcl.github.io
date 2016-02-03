@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        テストできないコードをE2Eテストを使ってリファクタリングしよう | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="E2Eテスト,JavaScript,Browser,jQuery,testing,リファクタリング" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/01/24/testium-e2e-refactoring/">
+    <h1 class="post-title">テストできないコードをE2Eテストを使ってリファクタリングしよう</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年01月24日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-01-24-testium-e2e-refactoring.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>ユニットテストがしにくい状態となってるコードを<a href="https://github.com/groupon-testium/testium" title="Testium">Testium</a>を使ったE2Eテストを書いてリファクタリングしてみる話です。</p>
+
+<p>例えば、以下のようなjQueryで書いたコードは外(テストコード)から取り出すポイントがないので、ユニットテストを書くのは難しいと思います。(そもそもViewのコードなので)</p>
+
+<p><img src="http://gyazo.com/b7e1593ef11326f5d6bf788d25e1bd6d.gif" alt="img"></p>
+
+<blockquote>
+<p>特定のバージョンでの変更点を簡単に確認できるよう、 
+「Aの列のラジオボタンを選ぶと同じ行より一つ下にあるBの列のラジオボタンを自動で選ぶ」 という補助機能</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// seq: シーケンス番号</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">([</span><span class="s2">&quot;new_version&quot;</span><span class="p">,</span> <span class="s2">&quot;old_version&quot;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;input[name=&#39;&quot;</span> <span class="o">+</span> <span class="k">this</span> <span class="o">+</span> <span class="s2">&quot;&#39;]&quot;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">idx</span><span class="p">,</span> <span class="nx">elem</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="nx">$</span><span class="p">(</span><span class="nx">elem</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;checked&#39;</span><span class="p">,</span> <span class="s1">&#39;checked&#39;</span><span class="p">);</span>
+            <span class="nx">$</span><span class="p">(</span><span class="nx">elem</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;seq&#39;</span><span class="p">,</span> <span class="nx">idx</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;input[name=&#39;new_version&#39;]&quot;</span><span class="p">).</span><span class="nx">change</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">seq</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;seq&#39;</span><span class="p">));</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;input[name=&#39;old_version&#39;]&quot;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="nx">seq</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;checked&#39;</span><span class="p">,</span> <span class="s1">&#39;checked&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<ul>
+<li><a href="http://labs.timedia.co.jp/2012/07/beautiful-code-vs-mr-oldtype.html" title="美しいプログラムを書く(業務用Webアプリケーション保守編) - TIM Labs">美しいプログラムを書く(業務用Webアプリケーション保守編) - TIM Labs</a> からの引用</li>
+</ul>
+
+<p>上記の記事ではこのコードをリファクタリングしていますが、リファクタリングする際に動作が変わってないかの保証がないと不安です。</p>
+
+<p>通常ではユニットテストがその役割に使われると思いますが、元々テストコードがなかったり、上記のような全体が関数で囲まれているとテストから触れないため難しいケースがあります。</p>
+
+<p>このようなケースでもE2Eテストだと内部的なコードがどうなってるかはあまり気にしないで動作のテストが可能になります(Integration Tests、UI Tests 呼ばれ方が色々ある気がしますがどれもイマイチピンとこないので、とりあえずE2Eとします)</p>
+
+<p>この記事では、E2Eテストフレームワークである<a href="https://github.com/groupon-testium/testium" title="Testium">Testium</a>の紹介とどうやってリファクタリングするかについて紹介します。</p>
+
+<h2 id="testiumとは"><a href="https://github.com/groupon-testium/testium" title="Testium">Testium</a>とは</h2>
+
+<p><a href="https://github.com/groupon-testium/testium" title="Testium">Testium</a>はWebDriver APIを使いブラウザを操作して出来るテストフレームワークです。同様のツールとして以下のようなものがあります。</p>
+
+<ul>
+<li><a href="http://nightwatchjs.org/" title="Nightwatch">Nightwatch</a></li>
+<li><a href="http://theintern.io/" title="Intern">Intern</a></li>
+<li><a href="https://github.com/angular/protractor" title="Protractor">Protractor</a></li>
+</ul>
+
+<p>WebDriver APIに対応してるブラウザを実行環境として使えるので、現在だとPhantomJS/Chrome/Firefox/IE等でE2Eテストを動かすことが出来ます。</p>
+
+<p>Testiumは<a href="https://github.com/groupon-testium/webdriver-http-sync">同期的なWebDriver APIのラッパ</a>を持っているため、<code>.click()</code>といったブラウザを操作する処理を同期的に書くことができるのが大きな特徴です。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">inputNew</span> <span class="o">=</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">getElement</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">);</span>
+<span class="nx">inputNew</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span><span class="c1">// クリックの処理が同期的になってる</span>
+<span class="nx">assert</span><span class="p">(</span><span class="nx">inputNew</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">),</span> <span class="s2">&quot;expected value&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p>他のE2Eテストフレームワークは非同期で呼び出すWebDriver APIのラッパーを使っています。
+そのため<a href="http://nightwatchjs.org/" title="Nightwatch.js">Nightwatch.js</a>のようなDSL的なメソッドチェーンや<a href="https://github.com/angular/protractor" title="Protractor">Protractor</a>のようなPromiseを吸収するような仕組みが必要になります。(<a href="https://github.com/angular/protractor" title="Protractor">Protractor</a>がJasmineと密接なのも<code>expect(promise)</code>という形のassetionレベルでの非同期対応が必要となるためです)</p>
+
+<ul>
+<li><a href="http://qiita.com/shuhei/items/6973fe694d29a193f224" title="JavaScript - こわくない Protractor - Qiita">JavaScript - こわくない Protractor - Qiita</a></li>
+</ul>
+
+<p>また、TestiumはMocha上でテストを書くことができるので<a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a>など既存のものがそのまま使うことが出来ます。</p>
+
+<p>Mocha連携の仕組みも、<code>before(injectBrowser)</code> という形で、mochaが用意してるテストのイベント(テスト開始時、終了時)に処理を登録したり、<code>this.browser</code>を追加するだけなので、Mochaに強く依存してるわけではないです。(今のところMochaしかないですが、自分で書くのもそんなに難しい感じではないと思います。</p>
+
+<ul>
+<li><a href="https://github.com/groupon-testium/testium/blob/master/src/mocha/index.coffee">https://github.com/groupon-testium/testium/blob/master/src/mocha/index.coffee</a></li>
+</ul>
+
+<p>実際に書いてみると普段書くユニットテストと似たような感覚で書くことができ、<code>this.browser</code>にブラウザを操作する<a href="https://github.com/groupon-testium/testium" title="Testium">Testium</a>のAPIが用意されています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">injectBrowser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;testium/mocha&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;power-assert&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">browser</span><span class="p">;</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;app-test&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="s1">&#39;todo text&#39;</span><span class="p">;</span>
+    <span class="nx">before</span><span class="p">(</span><span class="nx">injectBrowser</span><span class="p">());</span>
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">browser</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">browser</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">navigateTo</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="nx">context</span><span class="p">(</span><span class="s2">&quot;when テキストボックスに文字を入れて送信した時&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="c1">// テキストを入力して送信ボタンをクリック</span>
+            <span class="nx">browser</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="s1">&#39;.todoText&#39;</span><span class="p">,</span> <span class="nx">text</span><span class="p">);</span>
+            <span class="nx">browser</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="s1">&#39;.todoBtn&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should li要素が作成されている&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">list</span> <span class="o">=</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">getElements</span><span class="p">(</span><span class="s1">&#39;.todoList li&#39;</span><span class="p">);</span>
+            <span class="nx">assert</span><span class="p">(</span><span class="nx">list</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// assertが普通に利用できる</span>
+        <span class="p">});</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should リストアイテムのテキストは送信したものと一致している&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="c1">// testiumが用意してるassertionも幾つかある</span>
+            <span class="nx">browser</span><span class="p">.</span><span class="nx">assert</span><span class="p">.</span><span class="nx">elementHasText</span><span class="p">(</span><span class="s1">&#39;.todoList li&#39;</span><span class="p">,</span> <span class="nx">text</span><span class="p">);</span> 
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>面白いところとしては、デフォルトでテストが失敗した時にスクリーンショットが保存されてるようになっています。
+また、スクリーンショット同士の比較してのテストするAPIも持っているため、画面が変化してないかのチェック等も可能です。</p>
+
+<h3 id="testiumを動かしてみよう">Testiumを動かしてみよう</h3>
+
+<p><a href="https://github.com/groupon-testium/testium" title="Testium">Testium</a>を最小構成(といいつつpower-assert入ってる)で動かすサンプルを作ったので、それを見ながら解説します。</p>
+
+<ul>
+<li><a href="https://github.com/azu/testium-seed/" title="azu/testium-seed">azu/testium-seed</a></li>
+<li>READMEにも同じ解説が書いてあります。</li>
+</ul>
+
+<p><a href="http://azu.github.io/testium-seed/"><img src="http://gyazo.com/1b73573394ce9fa9e674c2f10d82943a.gif" alt="site"></a></p>
+
+<p><img src="http://monosnap.com/image/FA1NZW9vzQilkGMOLOBSrkp9ZdA56H.png" alt="screenshot-error"></p>
+
+<p>1: インストール <code>devDependencies</code></p>
+
+<p>このプロジェクトは<a href="https://github.com/groupon-testium/testium" title="testium">testium</a>、<a href="http://mochajs.org/" title="Mocha">Mocha</a>、<a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a>を使っているので以下のような感じで必要なものをインストールします。</p>
+
+<p>また実行環境としてphantomjsを使いたいのでphantomjsもインストールします(グローバルにインストールしてる場合は別に必要ありません)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install --save-dev mocha power-assert intelli-espower-loader testium http-server phantomjs
+</code></pre></div>
+<p>2: .testiumrcの作成</p>
+
+<p>Testiumの設定ファイルである<code>.testiumrc</code>ファイルを作成して、プロジェクトルートにおきます。</p>
+
+<p>ini形式で書く設定ファイルで、<code>launch = true</code>と書くと<code>npm test</code>という感じでテストを実行した時に、自動的に<code>npm start</code>で指定したローカルサーバを立てて、設定したブラウザ(デフォルトではphantomjs)を起動して実行出来ます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">; defaults to false, `npm start`s the app
+launch = true
+</code></pre></div>
+<p>別のローカルサーバを立てて繋ぎたい場合は設定でportを指定したりしてつなぎます。(参考: <a href="https://github.com/coding-kata/monologue" title="coding-kata/monologue">coding-kata/monologue</a>)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">[app]
+port=8989
+</code></pre></div>
+<p>3: HTTPサーバを立てる</p>
+
+<p>HTMLを表示してアクセスする場合にもローカルサーバを立ててそこに繋いだ方がいいので、<a href="https://github.com/nodeapps/http-server" title="nodeapps/http-server">nodeapps/http-server</a>を使ってHTTPサーバを立てます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -D http-server
+</code></pre></div>
+<p>でインストールしていれば、以下のように書いておけばプロジェクトルートを元に <a href="http://localhost:port">http://localhost:port</a> でアクセス出来ます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;http-server&quot;,
+    &quot;test&quot;: &quot;mocha test/*.js&quot;
+  },
+</code></pre></div>
+<p>4: E2Eのテストケースを書く</p>
+
+<p>詳しくは<a href="https://github.com/azu/testium-seed/blob/gh-pages/test/app-test.js" title="app-test.js">app-test.js</a>を見てみるといいですが、以下のような形でテストを書きます。</p>
+
+<p><code>this.browser.navigateTo(&quot;/&quot;)</code>でローカルサーバにアクセスして、ブラウザを操作してテストをします。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">injectBrowser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;testium/mocha&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;power-assert&#39;</span><span class="p">);</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">before</span><span class="p">(</span><span class="nx">injectBrowser</span><span class="p">());</span><span class="c1">// &lt;= integrate testium </span>
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">navigateTo</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">);</span><span class="c1">// move to `&quot;/&quot;` which is served by http-server</span>
+    <span class="p">});</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;then output filled with text of this option&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">firstInput</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">getElement</span><span class="p">(</span><span class="s1">&#39;input[name=&quot;framework_name&quot;]&#39;</span><span class="p">);</span>
+        <span class="c1">// click</span>
+        <span class="nx">firstInput</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+        <span class="c1">// assert </span>
+        <span class="kd">var</span> <span class="nx">testFrameWorkName</span> <span class="o">=</span> <span class="nx">firstInput</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">output</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">getElement</span><span class="p">(</span><span class="s2">&quot;#js-output&quot;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">output</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">);</span>
+        <span class="nx">assert</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">testFrameWorkName</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>5: テストを実行する</p>
+
+<p>後はMochaでテストを実行するのと同じです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm test
+# alias to
+mocha --require intelli-espower-loader test/
+</code></pre></div>
+<p><img src="http://monosnap.com/image/hwVhdEMWlrgafoUNOq8hUKOePaFRNH.png" alt="Success tests"></p>
+
+<h3 id="chromeでテストする">chromeでテストする</h3>
+
+<p>先ほどはデフォルトのphantomjsでテストを実行しましたが、chromeなどでもテストを動かせます。</p>
+
+<p>1: <code>.testiumrc</code>に<code>browser = &quot;chrome&quot;</code>を追加する</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">; defaults to false, `npm start`s the app
+launch = true
+browser = &quot;chrome&quot;
+</code></pre></div>
+<p>2: Download chromium-driver</p>
+
+<p><a href="https://github.com/groupon-testium/testium" title="Testium">Testium</a>にはchrome-driver等をダウンロードするコマンドがあるので、そのコマンドを使います。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ ./node_modules/.bin/testium --download-selenium
+</code></pre></div>
+<p><strong>Tips:</strong></p>
+
+<p>TestiumコマンドにはREPL機能があり、以下のようなコマンドを実行するREPLとして<code>browser</code>APIを叩いて試せます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">./node_modules/.bin/testium --browser firefox
+</code></pre></div>
+<p>3: テストを実行する</p>
+
+<p>後は実行するだけです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm test
+</code></pre></div>
+<p><img src="http://gyazo.com/3ff16c0473b5eb3729d26c6401a2fe7b.gif" alt="chrome-e2e"></p>
+
+<p>細かい設定は<a href="https://github.com/groupon-testium/testium#configuration" title="Configuration">Configuration</a>にかいてありますが、この設定書式をini形式(Key=value)に直す必要があることには注意して下さい。</p>
+
+<p>例えば、</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">app:
+  # A port of 0 means &quot;auto-select available port&quot;
+  port: process.env.PORT || 0
+</code></pre></div>
+<p>は以下のような感じになると思います。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">[app]
+port=0
+</code></pre></div>
+<h3 id="補足">補足</h3>
+
+<p>またTestiumは全ての<a href="https://code.google.com/p/selenium/wiki/JsonWireProtocol" title="WebDriver">WebDriver API</a>ラッパが実装されてないので、足りないものは<a href="https://github.com/groupon-testium/webdriver-http-sync" title="webdriver-http-sync">webdriver-http-sync</a>に一覧があるので実装してみるといいかもしれません。</p>
+
+<h2 id="e2eテストとリファクタリング">E2Eテストとリファクタリング</h2>
+
+<p><a href="https://github.com/coding-kata"><img src="https://avatars0.githubusercontent.com/u/10607142?v=3&amp;s=200" alt="coding-kata"></a></p>
+
+<p>最近<a href="https://github.com/coding-kata/" title="coding-kata">coding-kata</a>というプロジェクトで、JavaScriptのリファクタリングを写経をしていましたが、jQueryのベタ書きだとユニットテストを入れるのが結構難しいと思います。</p>
+
+<p>E2Eテストの場合は現状を壊してないかのテストは比較的カンタンに書くことが出来ます(そこから継続して機能追加するとまた別のコストがありますが)</p>
+
+<blockquote class="twitter-tweet" lang="en"><p>ユニットテストは機能で取り出せないとテスト難しいけど、E2Eテストは面で切り取りできるので既存のものへテスト置きやすい。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/557904943957688320">January 21, 2015</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>最初にあげた<a href="http://labs.timedia.co.jp/2012/07/beautiful-code-vs-mr-oldtype.html" title="美しいプログラムを書く(業務用Webアプリケーション保守編) - TIM Labs">美しいプログラムを書く(業務用Webアプリケーション保守編) - TIM Labs</a>を題材に、<a href="https://github.com/groupon-testium/testium" title="Testium">Testium</a>を使ったE2Eテストを書いてリファクタリングしたものが以下にあります。</p>
+
+<ul>
+<li><a href="https://github.com/coding-kata/beautiful-code-vs-mr-oldtype" title="coding-kata/beautiful-code-vs-mr-oldtype">coding-kata/beautiful-code-vs-mr-oldtype</a></li>
+</ul>
+
+<p>実際に行ったリファクタリングはそれぞれPull Requestになってます。</p>
+
+<ul>
+<li><a href="https://github.com/coding-kata/beautiful-code-vs-mr-oldtype/pull/1" title="Refactoring jQuery by azu · Pull Request #1 · coding-kata/beautiful-code-vs-mr-oldtype">Refactoring jQuery by azu · Pull Request #1 · coding-kata/beautiful-code-vs-mr-oldtype</a>
+
+<ul>
+<li>E2Eテストを書いて記事中にあったリファクタリングを適応した内容</li>
+</ul></li>
+<li><a href="https://github.com/coding-kata/beautiful-code-vs-mr-oldtype/pull/2" title="Refactoring E2E tests to apply page-object pattern by azu · Pull Request #2 · coding-kata/beautiful-code-vs-mr-oldtype">Refactoring E2E tests to apply page-object pattern by azu · Pull Request #2 · coding-kata/beautiful-code-vs-mr-oldtype</a>
+
+<ul>
+<li>E2Eテストのリファクタリングをした内容</li>
+<li><a href="https://github.com/angular/protractor/blob/master/docs/page-objects.md" title="Page Objects">Page Objects</a>パターンを使うことで、テスト内から<code>this.browser.getElements(&#39;input[name=&quot;new_version&quot;]&#39;)</code>のようなセレクタを排除して、ページが変更されても更新しやすくなるようにしてます</li>
+</ul></li>
+</ul>
+
+<p>他にも幾つか同じような構成で写経をしてました。</p>
+
+<ul>
+<li><a href="https://github.com/coding-kata/todo-app-jquery-to-backbone" title="coding-kata/todo-app-jquery-to-backbone">coding-kata/todo-app-jquery-to-backbone</a>
+
+<ul>
+<li><a href="http://hokaccha.github.io/slides/refactoring/" title="リファクタリングのためのテスト">リファクタリングのためのテスト</a>のE2EテストをTestiumに移植した内容</li>
+<li>jQueryで書かれたTodoアプリをBackbone.jsベースにリファクタリングしてます。</li>
+<li>実装はES6で書いてます =&gt; <a href="http://efcl.info/2015/01/09/write-es6/" title="ライブラリをES6で書いて公開する所から始めよう | Web Scratch">ライブラリをES6で書いて公開する所から始めよう | Web Scratch</a></li>
+</ul></li>
+<li><a href="https://github.com/coding-kata/monologue" title="coding-kata/monologue">coding-kata/monologue</a>
+
+<ul>
+<li>以下のを元にjQueryベースのものをBackbone.jsベースにリファクタリングする内容です</li>
+<li>Browserifyでファイルとしてモジュールを分けたりなどもしています。</li>
+<li><a href="http://opensoul.org/2012/05/16/the-plight-of-pinocchio/">The Plight of Pinocchio: JavaScript&#39;s quest to become a real language</a></li>
+<li><a href="https://github.com/kjbekkelund/writings/blob/master/published/understanding-backbone.md/">writings/understanding-backbone.md at master · kjbekkelund/writings</a></li>
+</ul></li>
+</ul>
+
+<p>またリポジトリを見てみると分かるように全部Travis CIでE2Eテストが動いています。</p>
+
+<p><a href="https://travis-ci.org/coding-kata/beautiful-code-vs-mr-oldtype"><img src="https://travis-ci.org/coding-kata/beautiful-code-vs-mr-oldtype.svg" alt="Build Status"></a></p>
+
+<p>jQueryで書いたコードをどうやってリファクタリングするかは<a href="http://efcl.info/2015/01/11/refactoring-tales/" title="The Refactoring Tales - JavaScriptのリファクタリング本を読んだ | Web Scratch">The Refactoring Tales - JavaScriptのリファクタリング本を読んだ | Web Scratch</a>で書いた<a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html" title="The Refactoring Tales">The Refactoring Tales</a>を読んでみるのもいいかもしれません。</p>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>まだ、足りない機能や<del>日本語をWebDriver API経由での入力が上手く行かないバグ等</del>(直った)もありますが、Protractorに比べると設定ファイルや実行するために覚える必要があることが少なくて済むのでいいなーという感じがします。</p>
+
+<ul>
+<li><a href="https://github.com/groupon-testium/testium/issues/124" title="doesn&amp;#39;t deal with multibyte unicode characters · Issue #124 · groupon-testium/testium">doesn&#39;t deal with multibyte unicode characters · Issue #124 · groupon-testium/testium</a> 2.5.0で修正済</li>
+</ul>
+
+<p>後、やはり同期的なAPIであることやMochaでユニットテストと同じように書けるのが書き心地に影響があって、E2Eテストとユニットテストで脳をスイッチするコストが小さく済むように思えます。</p>
+
+<p>まだ<a href="https://github.com/groupon-testium/testium" title="groupon-testium/testium">groupon-testium/testium</a>試したことがある人は少ないと思いますが、E2Eテストがユニットテストと同じぐらい手軽に書けるので試してみるといいかもしれません。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-01-24-testium-e2e-refactoring.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["E2Eテスト","JavaScript","Browser","jQuery","testing","リファクタリング"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=E2Eテスト">E2Eテスト</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=Browser">Browser</a></li>
+                
+                <li><a href="/tags/?q=jQuery">jQuery</a></li>
+                
+                <li><a href="/tags/?q=testing">testing</a></li>
+                
+                <li><a href="/tags/?q=リファクタリング">リファクタリング</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

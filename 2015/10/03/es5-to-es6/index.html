@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ES5で書かれたライブラリをES6に書き換える手順 | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="ES6,JavaScript,library,textlint" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/10/03/es5-to-es6/">
+    <h1 class="post-title">ES5で書かれたライブラリをES6に書き換える手順</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年10月03日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-10-03-es5-to-es6.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="https://github.com/azu/textlint" title="textlint">textlint</a> 3.6.1でコードベースをES6に書き直して、特に問題無く動いてるっぽいのでどういう手順で書き換えたかについての話。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint/releases/tag/3.6.1" title="Release Moving to ES6 · azu/textlint">Release Moving to ES6 · azu/textlint</a></li>
+</ul>
+
+<p>具体的な作業は以下に残ってます。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint/issues/11" title="Move to ES6 · Issue #11 · azu/textlint">Move to ES6 · Issue #11 · azu/textlint</a></li>
+<li><a href="https://github.com/azu/textlint/pull/27" title="to ES6 by azu · Pull Request #27 · azu/textlint">to ES6 by azu · Pull Request #27 · azu/textlint</a></li>
+</ul>
+
+<h3 id="事前準備">事前準備</h3>
+
+<ul>
+<li>テストを書く</li>
+</ul>
+
+<p>テストが書かれてると変換した時にエラーがスグ発見できるのでカバレッジが高いテストがあると安心して変換出来ます。</p>
+
+<p>面倒な時はExampleテストを追加してみるといい気がします。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/07/29/example-test-on-npm/" title="npmパッケージをExampleテストしよう | Web Scratch">npmパッケージをExampleテストしよう | Web Scratch</a></li>
+</ul>
+
+<p>そのライブラリのユースケースを考えて幾つかのパターンを実行出来るExampleテストを作っておくと、普通に実行してエラーにならないことが保証できるのでカバレッジが上げやすい気がします。</p>
+
+<p>textlintの場合は<a href="https://github.com/azu/textlint/tree/master/examples/cli">普通にコマンドラインで叩く場合</a>、<a href="https://github.com/azu/textlint/tree/master/examples/config-file">.textlintrcの設定ファイルを使う場合</a>、<a href="https://github.com/azu/textlint/tree/master/examples/rulesdir"><code>--rulesdir</code>を使う場合</a>と3つぐらいのExampleテストを事前に追加しました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint/issues/26" title="Add exmples/ · Issue #26 · azu/textlint">Add exmples/ · Issue #26 · azu/textlint</a></li>
+</ul>
+
+<h3 id="xto6で書き換え"><a href="http://xto6.js.org/" title="xto6">xto6</a>で書き換え</h3>
+
+<ul>
+<li><a href="http://qiita.com/yudppp/items/c6e9a825659b07da5072" title="JavaScript - ES5のコードをES6のコードに変換するxto6の紹介 - Qiita">JavaScript - ES5のコードをES6のコードに変換するxto6の紹介 - Qiita</a></li>
+</ul>
+
+<p>まず<a href="http://xto6.js.org/" title="xto6">xto6</a>を使って大雑把にコードをES6に書き換えました。
+まず、<code>lib/</code>に現状のES5なコードを置いておいて、ES6のコードを置く<code>src/</code>ディレクトリを作っておきます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">.
+├── LICENSE
+├── lib (ES5のコード)
+├── src (ES6用のディレクトリ)
+└── test
+</code></pre></div>
+<p>そうしたら、<code>lib/</code>ディレクトリ内で以下のようにしてそれぞれファイルを変換した感じです。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">find . -type f -not -path <span class="s2">&quot;*node_modules*&quot;</span> -name <span class="s2">&quot;*.js&quot;</span> -print0 <span class="p">|</span> xargs -0 -I % xto6 % -o ../src/%
+</code></pre></div>
+<p>これで、<code>const</code>とか<code>class</code>とかの書き換えはある程度いい感じにできますが、
+いくつか変換バグ的なものもありました。</p>
+
+<ul>
+<li>コンストラクタ関数の仮引数が消える
+
+<ul>
+<li>classに変換された時になぜか仮引数が消えるので付け加えた</li>
+</ul></li>
+<li><code>try/catch</code>内での<code>var</code>が<code>let</code>や<code>const</code>になって解決できなくなる
+
+<ul>
+<li>Babelとかでコンパイルすれば普通にわかるのでそれで直せる</li>
+</ul></li>
+</ul>
+
+<p>とかぐらいで、<a href="https://github.com/estools/escodegen" title="escodegen">escodegen</a>がまだES6をフルサポートしてないのもあるので、全ての変換が上手く出来るわけではないですが、意外といい感じに変換してくれると思います。
+ある程度テスト書かれてれば、テストが落ちやすい部分だったのでどこが間違ってるのか分からない的な変換はなかったと思います。</p>
+
+<h3 id="テストをes6対応する">テストをES6対応する</h3>
+
+<p>元々のテストは以下の構成でした。</p>
+
+<ul>
+<li><a href="http://mochajs.org/" title="Mocha">Mocha</a></li>
+<li><a href="https://github.com/power-assert-js/power-assert">power-assert</a></li>
+<li><a href="https://github.com/power-assert-js/intelli-espower-loader">intelli-espower-loader</a></li>
+</ul>
+
+<p>これをテストからそのまま<code>src/</code>にあるES6のファイルを使ってテスト出来るように以下の構成に変更しました。</p>
+
+<ul>
+<li><a href="http://mochajs.org/" title="Mocha">Mocha</a></li>
+<li><a href="https://github.com/power-assert-js/power-assert">power-assert</a></li>
+<li><a href="https://github.com/power-assert-js/espower-babel" title="espower-babel">espower-babel</a></li>
+</ul>
+
+<p>テストから<code>lib/</code>を参照している場合は<code>src/</code>に書き換えたのと、<code>mocha.opts</code>ファイルを一行変更しただけで済みました。</p>
+<div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gd">- --require intelli-espower-loader</span>
+<span class="gi">+ --compilers js:espower-babel/guess</span>
+</code></pre></div>
+<h3 id="細かいリファクタリング">細かいリファクタリング</h3>
+
+<p>xto6みたいに構造的にそのまま一致しない場合は変換できないので、いいタイミングだったので一緒にリファクタリングした。</p>
+
+<ul>
+<li>static methodベースだったものをclassに変更
+
+<ul>
+<li><a href="https://github.com/azu/textlint/commit/6ab92721eb3f2381b09b66c2ee9f41b1a4bbae40" title="refactor(textlnt): add textlint-core class · azu/textlint@6ab9272">refactor(textlnt): add textlint-core class · azu/textlint@6ab9272</a></li>
+</ul></li>
+</ul>
+
+<h3 id="パッケージの情報を書き換え">パッケージの情報を書き換え</h3>
+
+<p><a href="http://efcl.info/2015/01/09/write-es6/" title="ライブラリをES6で書いて公開する所から始めよう | Web Scratch">ライブラリをES6で書いて公開する所から始めよう</a>でやっているES6で書いたライブラリ構成になるということなので、<code>package.json</code>を色々書き換えます。</p>
+
+<ul>
+<li><code>&quot;main&quot;</code>のパスが変わってるなら変更</li>
+<li><code>.gitignore</code>に<code>/lib</code>を追加</li>
+<li><code>lib/</code>をGitの管理下から外す(git rm)</li>
+</ul>
+
+<h3 id="jscsでスタイルチェック"><a href="http://jscs.info/" title="JSCS">JSCS</a>でスタイルチェック</h3>
+
+<p>元々<a href="http://jscs.info/" title="JSCS">JSCS</a>を導入してありましたが、
+<a href="http://jscs.info/" title="JSCS">JSCS</a>はES6も対応してるので、特に設定は必要なくそのままES6でも使えます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">jscs -x src/
+</code></pre></div>
+<p><code>xto6</code>でファイル末尾の改行が消えるので、jscsの<a href="http://jscs.info/overview#cli" title="--fix (-x)">--fix (-x)</a>オプションを使えば直せます。</p>
+
+<h3 id="おわり">おわり</h3>
+
+<p>後はマージしてpublishしただけです。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint/releases/tag/3.6.1" title="Release Moving to ES6 · azu/textlint">Release Moving to ES6 · azu/textlint</a></li>
+</ul>
+
+<p><a href="https://github.com/azu/textlint" title="textlint">textlint</a>は元々処理をモジュールで分けて使ってるので、コアとなるのは1000行程のプロジェクトです。</p>
+
+<ul>
+<li><a href="https://github.com/azu/txt-ast-traverse">azu/txt-ast-traverse</a></li>
+<li><a href="https://github.com/azu/textlint-formatter">azu/textlint-formatter</a></li>
+<li><a href="https://github.com/azu/markdown-to-ast">azu/markdown-to-ast</a></li>
+<li><a href="https://github.com/azu/txt-to-ast">azu/txt-to-ast</a></li>
+</ul>
+
+<p>実際にやってみてES6だと100行弱ぐらいは減ってたので1割弱ぐらいはコードベースが小さくなる気がします。
+大部分は<a href="http://xto6.js.org/" title="xto6">xto6</a>の自動的な書き換えでよくて、単純にES6で動くだけの変換なら30分ぐらいでできた気がします(併せて色々リファクタリングしたのでもうちょっとかかった)</p>
+
+<p>書き換えたくなった理由としては、デフォルト引数使いたい場面やArrow Function使えばこの<code>that</code>いらないのにと思ったり、これclassで良いよな的な状況がちょくちょくでてきたので書き換えました。</p>
+
+<p>書き換えしなくてもBabelで変換するだけならES5のコードそのものをBabelで変換しても問題ないはずですが、中途半端に追加していくのはダルそうだったのでザクっと変換しました。</p>
+
+<p>書き換えするのにあるといいのは、カバレッジが高いテストコードですが、今回はそれの補強材として<a href="http://efcl.info/2015/07/29/example-test-on-npm/" title="Exampleテスト">Exampleテスト</a>を幾つか追加してから変換しました。</p>
+
+<p>textlintの作りは<a href="https://github.com/eslint/eslint" title="ESLint">ESLint</a>の作りを大体継承してますが、
+ES5だとやっぱり見た目からどういう状態を持ってるのかが分かりにくい問題が起きやすい部分があると思います。</p>
+
+<p>特に<a href="https://github.com/eslint/eslint/blob/v1.6.0/lib/eslint.js" title="eslint.js">eslint.js</a>は<code>api</code>という巨大なシングルトンみたいな感じになっています。
+このシングルトンの扱いをclass自体とそれをnewしたシングルトンオブジェクトをそれぞれexportするというパターンに修正したかったのもあります。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint/blob/4a28a282e86d3b4b8f9c9f9449c512ec8bc560a0/src/textlint.js#L37-L40" title="textlint/textlint.js at 4a28a282e86d3b4b8f9c9f9449c512ec8bc560a0 · azu/textlint">textlint/textlint.js at 4a28a282e86d3b4b8f9c9f9449c512ec8bc560a0 · azu/textlint</a></li>
+<li><a href="http://havelog.ayumusato.com/develop/javascript/e666-singleton_export_with_es6.html" title="テストを考慮した singleton の ES6 export ::ハブろぐ">テストを考慮した singleton の ES6 export ::ハブろぐ</a></li>
+</ul>
+
+<p>今回のES5 to ES6のリファクタリングでコード自体は見やすくなったのではないかなーと思います。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-10-03-es5-to-es6.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["ES6","JavaScript","library","textlint"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=ES6">ES6</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=library">library</a></li>
+                
+                <li><a href="/tags/?q=textlint">textlint</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        歌舞伎座.tech#6「VirtualDOMとReact」 アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="イベント,JavaScript,React,VirtualDOM" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/02/16/kbkz_tech/">
+    <h1 class="post-title">歌舞伎座.tech#6「VirtualDOMとReact」 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年02月16日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-02-16-kbkz_tech.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://kbkz.connpass.com/event/11254/" title="歌舞伎座.tech#6「VirtualDOMとReact」 - connpass">歌舞伎座.tech#6「VirtualDOMとReact」 - connpass</a> に参加して来たのでメモ。</p>
+
+<hr>
+
+<h2 id="すべてのcssに死を！これはjserの叫び！--@kyo_ago">すべてのCSSに死を！これはJSerの叫び！- @kyo_ago</h2>
+
+<p>スライド: <a href="http://0-9.sakura.ne.jp/pub/kbkz_tech/start.html" title="CSSに死を！これはJSerの叫び！ #kbkz_tech">CSSに死を！これはJSerの叫び！ #kbkz_tech</a></p>
+
+<ul>
+<li>CSSが辛い</li>
+<li>CSSはカプセル化とか継承とか、プログラムからの概念がそのまま持ってこれない</li>
+<li>ReactStyle</li>
+<li><a href="https://github.com/js-next/react-style" title="js-next/react-style">js-next/react-style</a></li>
+<li>JS内にStyleを埋め込むことができる
+
+<ul>
+<li>そのままオブジェクト的に入れられる</li>
+<li>Template Stringsと合わせればその場でCSSを入れることができる</li>
+<li><code>styles=</code>にスタイルを入れる</li>
+</ul></li>
+<li>セレクタをあまり考えなくていい</li>
+<li><code>style</code>属性でスタイリングする</li>
+<li>擬似要素、擬似クラスが全滅
+
+<ul>
+<li><code>:hover</code></li>
+<li><code>:active</code></li>
+<li>などが使えない。</li>
+</ul></li>
+<li>CSSの継承などの概念が消える</li>
+<li>自分で頑張る必要がある</li>
+</ul>
+
+<h2 id="ユーザプレビュー用localproxy---@kyo_ago">ユーザプレビュー用LocalProxy - @kyo_ago</h2>
+
+<ul>
+<li>非エンジニアのユーザーに対するプレビュー</li>
+<li>このブランチでDockerとか大変</li>
+<li>ステージング環境を用意するのが大変</li>
+<li>アクセス制限やデータ用途が面倒</li>
+<li>同時並行で確認できる環境とか作るの大変</li>
+<li>=&gt; ローカルプロキシでURLを別のURLにリダイレクトするプロキシ</li>
+<li>Chrome拡張で実装したローカルプロキシ</li>
+<li>手元のJSやCSSをビルドしたものをどこかにアップロード(Google Driverで管理)、そのリソースのURLをアップロードにしたものへと置き換える。</li>
+<li>置き換え設定を吐いて、プロキシに読み込ませる</li>
+</ul>
+
+<hr>
+
+<h2 id="dive-into-react.js---@koba04">Dive into React.js - @koba04</h2>
+
+<blockquote>
+<p>スライド: <a href="https://speakerdeck.com/koba04/dive-into-react-dot-js" title="Dive into React.js // Speaker Deck">Dive into React.js // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>Viewのライブラリ</li>
+<li>Componentを組み合わせてUIを作る</li>
+<li>1wayなデータバインディング</li>
+<li><a href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi" title="React Developer Tools - Chrome ウェブストア">React Developer Tools - Chrome ウェブストア</a>を使うとReactの<code>props</code>とかComponent見られる</li>
+<li>VirtualDOMからCanvasを吐いたり、単純なHTML以外でもある</li>
+<li>Component?とElement?
+
+<ul>
+<li><code>React.createClass</code> が作るのが Component</li>
+<li><code>React.createElement</code> でできるのが Element - Virtual DOMの各要素を表す小さなオブジェクト</li>
+</ul></li>
+<li>Props
+
+<ul>
+<li>Propは外部のインターフェースとなる</li>
+<li>Componentに何を渡したらいいのかの仕様的な感じ</li>
+<li>デバッグ時はインターフェースに合わないものを渡すと警告</li>
+<li>プロダクトだと無害</li>
+</ul></li>
+<li>State
+
+<ul>
+<li>StateはComponentの状態</li>
+<li><code>setState</code>は非同期に更新される</li>
+<li>Fluxでループを回してアクセスされることをが前提にあるからかな?</li>
+</ul></li>
+<li>Reuseable
+
+<ul>
+<li>Componentの役割を意識する</li>
+</ul></li>
+<li>VirtualDOMはインフラ
+
+<ul>
+<li>書くときに気にする部分はあんまりきにしない</li>
+<li>keyをつけるぐらい</li>
+</ul></li>
+<li>Componentのライフサイクル
+
+<ul>
+<li>基本的にはこの部分に処理を書いてComponentを書いていく</li>
+</ul></li>
+<li>JSX
+
+<ul>
+<li><code>React.createElement</code> のシンタックスシュガー</li>
+<li>テンプレートらいくなやつ : <a href="https://github.com/wix/react-templates" title="wix/react-templates">wix/react-templates</a></li>
+</ul></li>
+<li>react-tools
+
+<ul>
+<li>jsxコマンドや変換ライブラリが入ってる</li>
+</ul></li>
+<li>Babel(6to5)
+
+<ul>
+<li>元からJSXサポート</li>
+</ul></li>
+<li>ref、getDOMNode
+
+<ul>
+<li>refはgetDOMNodeと組み合わせて使う</li>
+</ul></li>
+<li>dangerouslySetInnerHTML
+
+<ul>
+<li>HTMLを直接吐く危険なAPI</li>
+</ul></li>
+<li>SyntheticEvent
+
+<ul>
+<li>Componentのイベントdelegate</li>
+</ul></li>
+<li>How to test
+
+<ul>
+<li>React.addons。TestUtilsなどを使ってテストする</li>
+<li>基本的にはDOMに追加してテストする</li>
+</ul></li>
+<li>rackt/react-router
+
+<ul>
+<li>ルーター</li>
+<li><code>&lt;Route&gt;</code> isomorphic的なときにも動く</li>
+</ul></li>
+<li>サーバサイドレンダリング
+
+<ul>
+<li>React.jsではComponentの状態をオブジェクトを持ってるので、HTMLとして吐き出すことができる</li>
+<li>SEOや初期ロードの時などに活用</li>
+</ul></li>
+<li>実装方法
+
+<ul>
+<li><code>renderToString</code>
+
+<ul>
+<li>フロントでもReactを使って動かす</li>
+<li>reactIdなどの属性がついたHTMLができる</li>
+<li>クライアントサイドでReactで処理を続ける</li>
+</ul></li>
+</ul></li>
+<li>Flux
+
+<ul>
+<li>Facebook/Flux はdispatcherのみ</li>
+<li>Fluxライブラリが乱立してる</li>
+<li><a href="https://github.com/voronianski/flux-comparison" title="voronianski/flux-comparison">voronianski/flux-comparison</a></li>
+<li><a href="http://pixelhunter.me/post/110248593059/flux-solutions-compared-by-example" title="Flux solutions compared by example - Pixelhunter.me | Dmitri Voronianski&amp;#39;s blog">Flux solutions compared by example - Pixelhunter.me | Dmitri Voronianski&#39;s blog</a></li>
+</ul></li>
+<li>React.jsは簡単か
+
+<ul>
+<li>基本的にJavaScriptの知識をそのまま使える</li>
+</ul></li>
+<li>Reactは開発速度よりもアプリの信頼性を高めることが目的</li>
+<li>FAQ
+
+<ul>
+<li>どこから始めるか?</li>
+<li>「VirtualDOMはブラウザが取り込んでいくべきなのかどうか?」</li>
+<li>「React.js Advent Calenderで書き残したこと?」</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="「react/fluxを実案件で使ってみた」その後---@t_wada">「React/Fluxを実案件で使ってみた」その後 - @t_wada</h2>
+
+<blockquote>
+<p>スライド: <a href="http://twada.herokuapp.com/presentations/react_kbkz_tech/react_kbkz_tech.html" title="「React / Flux を実案件で使ってみた」その後">「React / Flux を実案件で使ってみた」その後</a></p>
+</blockquote>
+
+<ul>
+<li><a href="http://twada.herokuapp.com/presentations/reactsushi/reactsushi.html" title="React / Flux を実案件で使ってみた">React / Flux を実案件で使ってみた</a> の続編</li>
+<li>RendrのAirBnbがReactを使い始めたのがきっかけの一つ</li>
+<li>Reactをどう勉強したか
+
+<ul>
+<li>公式ドキュメント、チュートリアルが充実してる</li>
+<li>そのまま写経していって覚えた</li>
+</ul></li>
+<li>Flux
+
+<ul>
+<li><a href="https://github.com/facebook/flux/tree/master/examples/flux-chat" title="flux/examples/flux-chat at master · facebook/flux">flux/examples/flux-chat at master · facebook/flux</a></li>
+<li>チャットのサンプルがよくできてる</li>
+<li>Storeが普通のサンプルだと1つだけど、chatチュートリアルだと複数あって実践的</li>
+</ul></li>
+<li>実案件で適応したところ
+
+<ul>
+<li>業務システムのやや複雑な管理画面で使った</li>
+<li>Angularが強い場所</li>
+<li>Excelみたいな複雑で更新頻度が高いやつ</li>
+<li>Reactが向いてるのでは? となり使った</li>
+</ul></li>
+<li>開発環境
+
+<ul>
+<li>Emacs</li>
+<li>React + 元祖Flux</li>
+<li>Browserify</li>
+<li>npm runでビルド</li>
+<li>Browserifyみたいなのを使うとモジュールの選び方が変わる</li>
+<li>underscore.jsみたいな全部入りより、細かいライブラリを合わせて使うようになる。</li>
+</ul></li>
+<li>チームにどう伝えたか
+
+<ul>
+<li>最初に画面の各コンポーネントの対応表みたいなものを作った</li>
+<li>画面がコンポーネントが構造化されて整理できる</li>
+</ul></li>
+<li>実際に使ってみてどうだったか
+
+<ul>
+<li>富豪的にデータを更新してもレンダリングのコストを心配しなくていい</li>
+<li>データを渡して全部レンダリングし直すみたいのがVirtualDOMで吸収できて楽ができる</li>
+</ul></li>
+<li>はまったところ
+
+<ul>
+<li>stateとpropの使い分け
+
+<ul>
+<li>親から渡ってくるものがprop</li>
+<li>Componentの内部的な状態がstate</li>
+</ul></li>
+<li>jQuery UIの置き換え</li>
+</ul></li>
+<li>テストについて
+
+<ul>
+<li>公式はJest(jasmineベース)</li>
+<li>Node.js 0.12/io.js で動かない</li>
+<li>Jasmine 2とかに対応してない?</li>
+<li>デフォルトモック, モッキスト</li>
+<li>遅い</li>
+<li>普通にMocha+assertでも書ける
+
+<ul>
+<li>TestUtilsがやってくれる</li>
+</ul></li>
+</ul></li>
+<li>プロパティに触るだけで死ぬパターンがある
+
+<ul>
+<li>観測によってテストが失敗する</li>
+<li>テスト・ツールがやっちゃいけないこと</li>
+</ul></li>
+<li>React/Flux何が良かった
+
+<ul>
+<li>サーバサイドみたいなやり方</li>
+<li>パフォーマンスの問題が起こさずに、データとテンプレートをあわせるだけでできる</li>
+<li>プログラミングモデルがすごい単純にできる</li>
+</ul></li>
+<li>FAQ
+
+<ul>
+<li>どれぐらいの規模感
+
+<ul>
+<li>でかいフォーム | 右プレビュー</li>
+<li>3日ぐらい</li>
+</ul></li>
+<li>どれくらいのComponentの分割
+
+<ul>
+<li>細かく分けてもVirtual DOMでコストはまかなえる</li>
+<li>細かく分けたほうがテストは書きやすい</li>
+<li><code>&lt;div&gt;</code> の入れ子が大体一つのComponentになる感じ</li>
+</ul></li>
+<li>Componentの値のやり取り
+
+<ul>
+<li>親子がある場合は親から子へpropを渡す</li>
+<li>子のonChangeは親に伝えることができる</li>
+<li>再描画したいComponentまでonChangeが渡ったらActionを叩く</li>
+<li>Storeと同じぐらいの大きさのComponent
+
+<ul>
+<li>そのComponentは自分が何をするか知ってる</li>
+</ul></li>
+<li>子のComponentは渡ってきた値を表示するだけ</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="real-world-virtual-dom---あるいは次世代アプリケーション設計---@mizchi">Real World Virtual DOM - あるいは次世代アプリケーション設計 - @mizchi</h2>
+
+<blockquote>
+<p>スライド: <a href="https://speakerdeck.com/mizchi/real-world-virtual-dom" title="Real World Virtual DOM // Speaker Deck">Real World Virtual DOM // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>Reactが話題になれば、プロダクションで使えます。</li>
+<li>Kobito
+
+<ul>
+<li>atom-shell版を作った話</li>
+</ul></li>
+<li>Qiita(Qiita Team)</li>
+<li>同期しないでローカルでも使える</li>
+<li>結局Reactとはなんだったのか
+
+<ul>
+<li>単なる「データバインド付きテンプレートエンジン」</li>
+</ul></li>
+<li>VirtualDOMとしてのReactの選定理由
+
+<ul>
+<li>情報が十分ある</li>
+<li>でもちょっとでかい</li>
+</ul></li>
+<li>Qiitaへのフィードバック
+
+<ul>
+<li>Atom-Shellで作ってるけど</li>
+<li>作ったComponentをウェブへ持っていけるかも</li>
+</ul></li>
+<li>Atom-Shellで作れるメリット
+
+<ul>
+<li>Nodeのモジュールを呼べる</li>
+<li>Same Originを超えられる</li>
+<li>デスクトップアプリとして配布できる</li>
+<li>ブラウザストレージの上限を設定できる</li>
+</ul></li>
+<li>設計時に問題になったこと</li>
+<li>問題: JSX
+
+<ul>
+<li>JavaScriptの知識を要求しすぎる
+
+<ul>
+<li>listを<code>array.map</code>で作る</li>
+</ul></li>
+<li>AltJSと相性がよくない</li>
+<li>テンプレート密結合しすぎる
+
+<ul>
+<li>ViewModel的な</li>
+</ul></li>
+</ul></li>
+<li>解決: JSX
+
+<ul>
+<li>React-Jade</li>
+<li>JadeテンプレートをReactの関数に落とす</li>
+<li>jade と slim 似てる</li>
+</ul></li>
+<li>開発言語
+
+<ul>
+<li>UIはReactでCoffeeScript</li>
+<li>ドメイン層はTypeScriptで書かれてる</li>
+</ul></li>
+<li>Flux実装の現実
+
+<ul>
+<li>薄い</li>
+<li>どの実装もそれな感じ</li>
+</ul></li>
+<li>作った: <a href="https://github.com/mizchi/arda" title="mizchi/arda">mizchi/arda</a>
+
+<ul>
+<li>Store/View/Dispatcherの塊をContextという単位で管理</li>
+<li>ReactのState/Propの<strong>概念</strong>を継承した</li>
+<li>位置づけ、Fluxよりもう少し上の概念でMeta-Fluxといってる</li>
+</ul></li>
+<li>モジュールを単純に
+
+<ul>
+<li>Viewは単なるReactComponent</li>
+<li>Dispatcherは単なるEventEmitter</li>
+<li>StoreはEventを受けて状態を更新</li>
+</ul></li>
+<li>ContextをTypeScriptで記述できるようにする
+
+<ul>
+<li>型によって仕様を明確にするのが目的</li>
+<li>ComponentPropsが存在する意味は</li>
+<li>Componentが知るべき状態を分離したかった</li>
+<li>Chaplinjs的な分離</li>
+<li>ComponentPropsが同じなら必ず同じViewを吐く</li>
+</ul></li>
+<li>Kobito と Arda
+
+<ul>
+<li>ContextはTypeScriptで型で保護する</li>
+<li>ComponentはCoffeeScriptで雑に書いてEventをdispatcherする</li>
+<li>Eventの購読側はTypeScripdで書く</li>
+</ul></li>
+<li>Isomorphicの実践
+
+<ul>
+<li>同じライブラリがNodeでもブラウザでも動くといい</li>
+<li>UnitTestはNodeでやりたい</li>
+<li>起動コストが高くて不安定なヘッドレスではやりたくない</li>
+</ul></li>
+<li>isomorphicのための抽象化
+
+<ul>
+<li>ストレージ
+
+<ul>
+<li><a href="https://github.com/mWater/minimongo" title="mWater/minimongo">mWater/minimongo</a></li>
+</ul></li>
+<li>DOM
+
+<ul>
+<li>JSDOM</li>
+</ul></li>
+</ul></li>
+<li>ReactのIsomorphic化
+
+<ul>
+<li>ブラウザ環境がなくても動く</li>
+<li>JSDOMを使っても動く</li>
+<li>componentWillMountまでは呼ばれる(DOM履く直前)</li>
+<li><code>document</code>, <code>window</code>, <code>navigator</code> があればReactが動かせる(JSDOMでモックする)</li>
+</ul></li>
+<li>Atom-Shellの配布
+
+<ul>
+<li>配布用にビルドしたjsだけにした</li>
+<li>node_modulesなどには色々はいっててproductにはいらない</li>
+</ul></li>
+<li>実際のReact
+
+<ul>
+<li>画面を変化させまくるときには良い</li>
+</ul></li>
+<li>Reactの懸念点
+
+<ul>
+<li>サイズがでかい</li>
+<li>他のVirtual DOM実装がいったいどれが残るかわからない</li>
+</ul></li>
+<li>jQueryとReact
+
+<ul>
+<li>思想レベルで衝突してる</li>
+<li>jQueryをリードオンリーモードとして使えばいい</li>
+</ul></li>
+<li>DOM
+
+<ul>
+<li>CodeMirrorみたいなDOMの塊は一つコンテナを用意して入れておく</li>
+</ul></li>
+<li>jQueryを使った箇所
+
+<ul>
+<li>スクロール量の読み出しと更新</li>
+<li>擬似クリックイベントの白化</li>
+<li>aタグの挙動を全部埋めるハック</li>
+</ul></li>
+<li>大規模SPAの設計
+
+<ul>
+<li>ストレージを扱うとデータ管理がシビア
+
+<ul>
+<li>ドメイン駆動を意識する</li>
+</ul></li>
+<li>RP(Reactive Programming)</li>
+</ul></li>
+<li>いいところ
+
+<ul>
+<li>Reactは設計が単純化に方向に働く</li>
+<li>クライアントサイドはisomorphicになっていく</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="reactと関数型altjs">Reactと関数型AltJS</h2>
+
+<ul>
+<li>Om</li>
+<li>Elm</li>
+<li>blaze-html
+
+<ul>
+<li>ReactやVirtual-DOMラッパを持つAltJSが増えた</li>
+</ul></li>
+<li>jQueryはやんちゃだった</li>
+<li>AltJSは自己主張が激しい、ReactはViewのみだったので共存できた</li>
+<li>Reactを関数型AltJSで書く利点
+
+<ul>
+<li>Om、elm-htmlは</li>
+<li>immutableでComponentの更新状態がはっきりする</li>
+</ul></li>
+<li>オススメのAltJS</li>
+<li>ClojureScript
+
+<ul>
+<li>Om</li>
+</ul></li>
+<li>Elm
+
+<ul>
+<li>FRPで有名なElm</li>
+</ul></li>
+<li>Scala.js
+
+<ul>
+<li>安定</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="react-+-cordovaでスマホアプリを作る---masui">React + Cordovaでスマホアプリを作る - MASUI</h2>
+
+<blockquote>
+<p>スライド: <a href="https://speakerdeck.com/masuidrive/react-plus-cordovade-sumahoapuriwozuo-ru" title="React + Cordovaで スマホアプリを作る // Speaker Deck">React + Cordovaで スマホアプリを作る // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>チュートリアルはごまかしがきくので何か作って見る</li>
+<li>現実に近いところで</li>
+<li>トレタのみにツールを作って見た話
+
+<ul>
+<li>APIを叩いて表示</li>
+</ul></li>
+<li>Cordovaを使ってアプリ化する</li>
+<li>CSSの問題
+
+<ul>
+<li><a href="http://react-bootstrap.github.io/">http://react-bootstrap.github.io/</a></li>
+<li><a href="http://goratchet.com/">http://goratchet.com/</a></li>
+<li>UI Componentは結局自作</li>
+</ul></li>
+<li>コンポーネント構造
+
+<ul>
+<li>全体でも300行ぐらい</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="flowtype---@teppeis">Flowtype - @teppeis</h2>
+
+<blockquote>
+<p>スライド: <a href="http://www.slideshare.net/teppeis/flowtype-introduction" title="Flowtype Introduction">Flowtype Introduction</a></p>
+</blockquote>
+
+<ul>
+<li>Facebookが発表したJavaScriptの型チェックツール</li>
+<li>コンパイル時に静的に方の整合性をチェックすることができる</li>
+<li>TypeScriptっぽい型注釈</li>
+<li>強力な型推論
+
+<ul>
+<li>TypeScriptより厳しいチェックする</li>
+</ul></li>
+<li>Reactのサポート
+
+<ul>
+<li>PropTypesの定義を型をコンパイルチェック</li>
+</ul></li>
+<li>ES6 Class with React</li>
+<li>Flowtypeのコンパイルが早い
+
+<ul>
+<li>flowコマンドでバックグランドにプロセス立ち上げて</li>
+<li>次から高速</li>
+</ul></li>
+<li>Flow vs TypeScript
+
+<ul>
+<li>高速なインクリメンタルコンパイラ</li>
+<li>Flowはlangじゃない</li>
+</ul></li>
+<li>Flowtypeは型チェックだけというレイヤー
+
+<ul>
+<li>型注釈を削ったらそのままJSになる</li>
+<li>TC39に型注釈の仕様に提案してる</li>
+</ul></li>
+<li>はまりポイント
+
+<ul>
+<li>情報がなくて、まだ不安定</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="riot.js---@neo6120">Riot.js - @neo6120</h2>
+
+<ul>
+<li>独自シンタックスがいいわけじゃなくて</li>
+<li>それっぽいコンポーネントを書いたら動くのがいい </li>
+<li>最近、ランタイムがバグってる</li>
+<li>Vue.jsが何か意外とよさそうなのでは
+
+<ul>
+<li><a href="https://github.com/vuejs/vue-component-compiler" title="vuejs/vue-component-compiler">vuejs/vue-component-compiler</a></li>
+</ul></li>
+<li>Riot</li>
+<li>Vue</li>
+<li>React
+
+<ul>
+<li>でそれぞれ作って比較した</li>
+<li><a href="http://emo.jgs.me/" title="emo">emo</a></li>
+</ul></li>
+<li>求めてたものはvue-componentだったのでは</li>
+</ul>
+
+<hr>
+
+<h2 id="fluxの話---@banana_umai">Fluxの話 - @banana_umai</h2>
+
+<ul>
+<li>DispatcherとActionのモヤモヤについて</li>
+<li><a href="http://pixelhunter.me/post/110248593059/flux-solutions-compared-by-example" title="Flux solutions compared by example - Pixelhunter.me | Dmitri Voronianski&amp;#39;s blog">Flux solutions compared by example - Pixelhunter.me | Dmitri Voronianski&#39;s blog</a></li>
+<li>&gt; Dispatcher and Constants あたりの話</li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-02-16-kbkz_tech.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["イベント","JavaScript","React","VirtualDOM"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=React">React</a></li>
+                
+                <li><a href="/tags/?q=VirtualDOM">VirtualDOM</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

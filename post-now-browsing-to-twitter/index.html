@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Post Now browsing to Twitterの解説 | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="page">
+  <h1 class="page-title">Post Now browsing to Twitterの解説</h1>
+  <p><a href="http://userscripts.org/scripts/show/46441"><br>
+Post Now browsing to Twitter</a>の機能解説ページ。<br>
+今見ているサイトのURLとタイトルにコメントを付けてTwitterにポストするGreasemonkeyスクリプトです。</p>
+
+<h3 id="使用方法">使用方法</h3>
+
+<p>OAuthを使ってTwitterへポストするためまずはOAuth認証をする必要があります。<br>
+OAuth認証の手順は以下の動画を参考にして下さい。</p>
+
+<p>文字で書くと、</p>
+
+<ol>
+<li> ステータスバーのGreasemonkeyアイコンを右クリック<br>
+ユーザースクリプトコマンド→Post Now browsing to Twitter Settingから設定画面へ</li>
+<li> OAuth認証をまだしてないなら、&#8221;Sign in with Twitter&#8221;ボタンが表示されるのでクリック</li>
+<li> OAuth認証ページが開くので、そこへ行き許可(Allow)する。</li>
+<li> PINコードが表示されるのでCtrl+Cなどでコピーする。</li>
+<li> 再び設定画面に戻り、インプットボックスへPINコードをCtrl+V(ペースト)して、Comfirmボタンを押す。</li>
+<li> Success!と出たら認証完了</li>
+</ol>
+
+<p><strong>投稿の仕方</strong></p>
+
+<ol>
+<li> 投稿したいページで設定したショートカットキーを押す(デフォルトは<strong>Ctrl+Shift+Enter</strong>)</li>
+<li> 適当にコメントとかを書いたらEnter(設定でCtrl+Enterに変えられます)でTwitterへポストする</li>
+<li> 投稿できたらOK</li>
+</ol>
+
+<p>この時、設定のUse selectionQuoteに✓チェックが入っていると、選択範囲を引用して投稿することもできます。<br>
+また入力画面でESCキーを押すとキャンセルできます。</p>
+
+<h3 id="設定項目">設定項目</h3>
+
+<p>設定画面を開くには<strong>ステータスバーのGreasemonkeyアイコンを右クリック<br>
+ユーザースクリプトコマンド→Post Now browsing to Twitter Setting</strong>をクリックします。</p>
+
+<p>それぞれの設定項目の解説</p>
+
+<ul>
+<li>  <strong>Prefix</strong>:コメント未入力でポストした時に付ける接頭辞とする文字列</li>
+<li>  <strong>Use selectionQuote</strong>:選択範囲があるときにそれを「」で囲って引用するか?</li>
+<li>  <strong>Short URL</strong>:使用する短縮URLサービス</li>
+<li>  <strong>ShortcutKey</strong>: ポストするために使うショートカット 枠内でキーを押すと自動で入力されます。 デフォルトはCS+Enter<br>
+テキストボックスで使いたいショートカットキーの組み合わせを押すだけで設定できます。</li>
+<li>  <strong>Post with Ctrl+Enter</strong>:Enterの代わりにCtrl+Enterでポストできるようにします。</li>
+</ul>
+
+<p>使用できる短縮URLサービス</p>
+
+<ul>
+<li>  <a href="http://bit.ly/">http://bit.ly/</a> (j.mp) APIにも対応しています。</li>
+<li>  <a href="http://is.gd/">http://is.gd/</a></li>
+<li>  <a href="http://goo.gl/">http://goo.gl/</a></li>
+<li><p><a href="http://tinyurl.com/">http://tinyurl.com/</a></p></li>
+<li><p>*<em>bit.ly *</em>: 短縮URLでbit.lyまたはj.mpを選んだときに使用するAPIKEYを変えられます。<br>
+デフォルトは作者のものになっています。</p></li>
+</ul>
+
+<p><strong>OAuth Authorization</strong> : OAuth認証についての設定です。(上記の設定とは別領域に保存されています)<br>
+まだOAuth認証をしていない場合は以下のような表示になるのでOAuth認証をして下さい。<br>
+<a href="http://efcl.info/wp-content/uploads/2010/06/sshot-2010-06-10-2.png"><img class="size-medium wp-image-1731 alignnone" title="sshot-2010-06-10-2" src="http://efcl.info/wp-content/uploads/2010/06/sshot-2010-06-10-2-300x223.png" alt="未認証" width="300" height="223" /></a></p>
+
+<p>認証が既に済んでいる場合はlogoutボタンが表示されているので、OAuth認証をやり直したい場合の時などそこからOAuth関係の情報を削除できます。(Twitter側のconnection設定が解除されるわけではないので、完全に消す場合は<a href="https://twitter.com/settings/connections">Twitter / Connections</a>から削除して下さい)</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2010/06/sshot-2010-06-10-3.png"><img class="alignnone size-medium wp-image-1732" title="sshot-2010-06-10-3" src="http://efcl.info/wp-content/uploads/2010/06/sshot-2010-06-10-3-300x186.png" alt="" width="300" height="186" /></a></p>
+
+<p>以上で設定項目は終わりです。<br>
+またサイト固有の行動としてLDRとFastladderの記事上でショートカットキーを押すと、フォーカスがある記事を投稿できます。</p>
+
+<h3 id="その他機能">その他機能</h3>
+
+<ul>
+<li>  引用機能<br>
+設定のUse selectionQuoteに✓チェックが入っているとき、ショートカットキーを押す前に引用したい部分を選択しておくと、選択範囲(複数の選択範囲も対応)の内容を「」で囲んでタイトルの前に付加します。</li>
+<li>  activityFiled(引用とタイトルが表示される部分)の編集<br>
+activityFiledをクリックまたはコメント入力欄でTabキーを押すことで編集状態になります。<br>
+引用したい部分を後から少し削りたい時などに使う。<br>
+<a href="http://efcl.info/wp-content/uploads/2010/06/sshot-2010-06-20-2.png"></a><a href="http://efcl.info/wp-content/uploads/2010/06/sshot-2010-06-20-21.png"><img class="alignnone size-medium wp-image-1798" title="sshot-2010-06-20-2" src="http://efcl.info/wp-content/uploads/2010/06/sshot-2010-06-20-21-300x69.png" alt="" width="300" height="69" /></a></li>
+</ul>
+
+<p>インストールはこちらから**<br>
+**</p>
+
+<p><strong>Post Now browsing to Twitter for Greasemonkey</strong>
+:   <a href="http://userscripts.org/scripts/show/46441" title="Post Now browsing to Twitter for Greasemonkey">http://userscripts.org/scripts/show/46441</a></p>
+
+<p>&nbsp;</p>
+
+</div>
+
+    </div>
+</article>
+</body>
+</html>

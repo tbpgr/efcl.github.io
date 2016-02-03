@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ライブラリをES6で書いて公開する所から始めよう | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="ES6,JavaScript,Node.js,library" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/01/09/write-es6/">
+    <h1 class="post-title">ライブラリをES6で書いて公開する所から始めよう</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年01月09日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-01-09-write-es6.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p>この記事はECMAScript 6の事始めとして、ライブラリをES6で書いて公開するというところから始めるのがいいのではという内容です。</p>
+
+<p><strong>2015-05-09: 追記</strong></p>
+
+<ul>
+<li>6to5 は Babel へリネームされました。</li>
+<li><a href="https://github.com/azu/espower-babel" title="azu/espower-babel">azu/espower-babel</a>はテストコード以外もBabelで変換するようになりました
+
+<ul>
+<li>テストから<code>import hoge from &quot;../lib/hoge&quot;</code>ではなく<code>import hoge from &quot;../src/hoge&quot;</code>を参照できるようになりました</li>
+</ul></li>
+</ul>
+
+<h2 id="現在のes6--&gt;-es5">現在のES6 -&gt; ES5</h2>
+
+<p>ECMAScript 6は現在策定の最終段階で、メジャーなブラウザの最新版は<a href="http://kangax.github.io/compat-table/es6/" title="ECMAScript 6 compatibility table">多くの機能</a>を既に実装しています。</p>
+
+<ul>
+<li><a href="http://kangax.github.io/compat-table/es6/" title="ECMAScript 6 compatibility table">ECMAScript 6 compatibility table</a></li>
+</ul>
+
+<p>しかし、現実には最新版以外の実行環境でも動くように書くと思うので、ES6のコードをES5に変換して利用すると思います。</p>
+
+<p>今すぐ、ES6でコードを書いてES5に変換するツールは色々あります。</p>
+
+<ul>
+<li><a href="http://babeljs.io/" title="Babel">Babel</a></li>
+<li><a href="https://github.com/google/traceur-compiler" title="Traceur">Traceur</a></li>
+<li>TypeScript</li>
+</ul>
+
+<p>少し注意したほうがいいのは、上記のツールは構文(<code>class</code>や<code>module</code>など)をサポートという意味が多いです(そうじゃないとシンタックスエラーになるので)。</p>
+
+<p>一方、<code>Array.from</code>や<code>Promise</code>といったAPIは別のpolyfill(またはruntimeなどと言わわれるもの)を使いサポートしているという違いがある事には少し注意しておいたほうがいいです。</p>
+
+<p>なので、こういった変換ツールを使う際は構文のサポートを求める感じで使うのがいいと思います。逆にpolyfillで対処できる機能は別にES6で書かなくても利用することができます。</p>
+
+<p>polyfillについては以下を見ていくと面白いと思います。</p>
+
+<ul>
+<li><a href="https://cdn.polyfill.io/v1/docs/" title="Polyfill service">Polyfill service</a></li>
+</ul>
+
+<p>簡単にまとめると、ES6の構文を使うことでコードもシンプルになりますが、それを公開するためには変換ツールを使わないといけないというのが現状だと思います(一種のAltJSみたいなもの)</p>
+
+<h2 id="ライブラリをes6で書いてnpmで公開してみよう">ライブラリをES6で書いてnpmで公開してみよう</h2>
+
+<p>じゃあ手始めにどういう時にES6で書くのがいいかというと、ライブラリとして公開するようなコードをES6で書くのがいいと思います。</p>
+
+<p>具体的な例と共にES6で書いてnpmでライブラリを公開するまでを見て行きたいと思います。</p>
+
+<p>扱う題材をシンプルにするためにNode.jsのライブラリとして考えます。</p>
+
+<p>以下の<a href="https://github.com/azu/textlint-rule-helper" title="azu/textlint-rule-helper">azu/textlint-rule-helper</a>というものを例にして見ていきます。(このライブラリは<a href="http://efcl.info/2014/12/30/textlint/" title="textlint">textlint</a>というツールのルールを書くのを補助するライブラリですが今回はどうでもいいです)</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-helper" title="azu/textlint-rule-helper">azu/textlint-rule-helper</a></li>
+</ul>
+
+<p>上記のリポジトリをみてもらうと、ES5のコードやgulp等の設定ファイルも存在しない事がわかると思います。</p>
+
+<p><a href="https://github.com/azu/textlint-rule-helper"><img src="http://efcl.info/wp-content/uploads/2015/01/09-1420785429.png" alt="file tree"></a></p>
+
+<h2 id="ライブラリの構成">ライブラリの構成</h2>
+
+<p>ライブラリの構成は以下のようになっています。</p>
+
+<ul>
+<li><code>src/</code>: ES6で書かれたコード</li>
+<li><code>lib/</code>: babelで<code>src/</code>以下のコードを変換したES5のコード
+
+<ul>
+<li><code>lib/</code>ディレクトリは<code>.gitignore</code>で無視して、リポジトリには含めない</li>
+<li>変換後のソースはGitで管理しない(そうした方がPull Request時に迷わない)</li>
+<li>逆に<code>package.json</code>の<code>files</code>フィールドでは<code>&quot;files&quot; : [&quot;lib&quot;]</code>のみとする</li>
+<li>npmが軽量になるし、npmで取ってきたファイルは<code>lib/</code>以下のES5のコードのみにできる</li>
+<li><a href="http://t-wada.hatenablog.jp/entry/nodejs-package-json-tips" title="細かすぎて伝わらない package.json 小ネタ三選 - t-wadaのブログ">細かすぎて伝わらない package.json 小ネタ三選 - t-wadaのブログ</a></li>
+</ul></li>
+<li><code>test/</code>: ES6 + mocha + power-assertでテストを書く
+
+<ul>
+<li><a href="https://github.com/azu/espower-babel" title="azu/espower-babel">azu/espower-babel</a>を使うことで、<code>mocha --compilers js:espower-babel/guess</code>と指定するだけでテストもES6で書ける</li>
+</ul></li>
+<li><code>README.md</code>: ドキュメント
+
+<ul>
+<li>ライブラリにはドキュメントは必要。いくら良いコードでもドキュメントがないならゴミ</li>
+<li>JSDocでドキュメントを書き、<a href="https://github.com/75lb/jsdoc-to-markdown" title="jsdoc-to-markdown">jsdoc-to-markdown</a>でREADMEに追加出来るように自動化する</li>
+<li><a href="https://github.com/75lb/jsdoc-to-markdown" title="jsdoc-to-markdown">jsdoc-to-markdown</a>を使うことで、<code>template/</code>のテンプレートを使ってREADMEを生成できる</li>
+<li>JSDocを変更する度にREADMEを手動で変更する必要がなくなる</li>
+</ul></li>
+</ul>
+
+<p>ざっくり見ると<a href="https://github.com/azu/textlint-rule-helper" title="azu/textlint-rule-helper">azu/textlint-rule-helper</a>は上記のような構成で動いています。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2015/01/textlint-rule-helper.png" alt="tree"></p>
+
+<p>(OmniGraffleの<strong>アイコン</strong>にディレクトリをD&amp;Dするとこういう図ができる - <a href="http://macsparky.com/blog/2010/4/21/omnigraffle-folder-trick.html" title="OmniGraffle Folder Trick — MacSparky">OmniGraffle Folder Trick — MacSparky</a>)</p>
+
+<h3 id="src/"><code>src/</code></h3>
+
+<p>ES6で書いたコードを置く場所です。AltJSでも<code>src/</code>にAltJSのソースを置くのと同じような話です。</p>
+
+<h3 id="lib/"><code>lib/</code></h3>
+
+<p>JavaScriptのコードを置く場所です。Node.jsでは一般的に<code>lib/</code>以下にJSのソースをおいてると思います。</p>
+
+<p>ここに置かれるJSは<code>src/</code>のものをES5に変換したものが配置されます。</p>
+
+<p>ES6 -&gt; ES5の変換には<a href="http://babeljs.io/" title="Babel">Babel</a>を使っています。<code>devDependencies</code>で入れておいて、npm run-scriptで実行するようにすればglobalに入れる必要はありません。</p>
+
+<ul>
+<li><a href="http://qiita.com/Jxck_/items/efaff21b977ddc782971" title="npm で依存もタスクも一元化する - Qiita">npm で依存もタスクも一元化する - Qiita</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">  ...
+  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;babel src --out-dir lib  --source-maps-inline&quot;,
+    &quot;watch&quot;: &quot;babel src --out-dir lib --watch --source-maps-inline&quot;,
+    &quot;test&quot;: &quot;npm run build &amp;&amp; mocha test/*.js&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;babel&quot;: &quot;^5.2.17&quot;,
+    &quot;espower-babel&quot;: &quot;^3.0.0&quot;,
+    &quot;power-assert&quot;: &quot;^0.11.0&quot;
+  }
+  ...
+</code></pre></div>
+<p>しかし、変換したJSにPull Requestとか送られても困るのでGitリポジトリには<code>lib/</code>は含めないようにします。</p>
+
+<p><code>.gitignore</code>に以下のように書いて、<code>lib</code>ディレクトリを無視させます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">/lib
+</code></pre></div>
+<p>逆に、<code>npm publish</code>で公開するときには、ES5に変換されたコードだけを公開したいです。
+そういう時は、<code>package.json</code>の<code>&quot;files&quot;</code>フィールドに、ホワイトリストで含めたいファイル or ディレクトリを指定出来ます。</p>
+
+<p><code>lib/</code>だけを含めたいので以下のように書くことが出来ます。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;textlint-rule-helper&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Helper for textlint rule.&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1.2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;homepage&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/azu/textlint-rule-helper/&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;repository&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/azu/textlint-rule-helper.git&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;main&quot;</span><span class="p">:</span> <span class="s2">&quot;lib/textlint-rule-helper.js&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;lib&quot;</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>package.jsonやREADMEやLICENSE、CHANGELOG等のファイルはデフォルトで含まれるようになってるので書かなくても問題ありません。</p>
+
+<ul>
+<li><a href="https://github.com/npm/fstream-npm/blob/4a95e1903f93dc122320349bb55e367ddd08ad6b/fstream-npm.js#L89-L104" title="fstream-npm/fstream-npm.js at 4a95e1903f93dc122320349bb55e367ddd08ad6b · npm/fstream-npm">fstream-npm/fstream-npm.js</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm info textlint-rule-helper
+</code></pre></div>
+<p>で直接<code>.tgz</code>ファイルを落としてみると含まれてることが分かると思います。</p>
+
+<p>ホワイトリストで指定する事でnpm packageのサイズが小さくなるというメリットもあるので、自然と取り入れやすいです。</p>
+
+<ul>
+<li><a href="http://t-wada.hatenablog.jp/entry/nodejs-package-json-tips" title="細かすぎて伝わらない package.json 小ネタ三選 - t-wadaのブログ">細かすぎて伝わらない package.json 小ネタ三選 - t-wadaのブログ</a></li>
+</ul>
+
+<hr>
+
+<h3 id="test/"><code>test/</code></h3>
+
+<p>テストもES6で書き、<a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a>を使いMochaでテストします。</p>
+
+<p>テストファイルではES6で書かれた<code>src/</code>にあるコードをimportします。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span><span class="nx">RuleHelper</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;../src/textlint-rule-helper.js&quot;</span><span class="p">;</span>
+<span class="c1">// package.json に &quot;main&quot;: &quot;lib/textlint-rule-helper.js&quot;, とある場合</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">RuleHelper</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;../&quot;</span><span class="p">;</span> <span class="c1">// でも同じ意味になる</span>
+</code></pre></div>
+<p>しかし、このテスト構成だと、<a href="http://babeljs.io/" title="Babel">Babel</a>はES6-&gt;ES5の変換、<a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a>はJS-&gt;JSの変換を行う必要があります。</p>
+
+<p>つまり、babelで変換してからそれを更にpower-assert向けに変換し直して、mochaで実行するという流れが必要になります。</p>
+
+<p><a href="http://gulpjs.com/" title="gulp.js - the streaming build system">gulp</a>で表現すると以下の様な流れですね。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="s1">&#39;powered-test&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="nx">TEST</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">sourcemaps</span><span class="p">.</span><span class="nx">init</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">to5</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">espower</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">sourcemaps</span><span class="p">.</span><span class="nx">write</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="s1">&#39;./powered-test/&#39;</span><span class="p">));</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>実際にgulpでやる場合は以下のリポジトリ等を参考にしてみるといい気がします。</p>
+
+<ul>
+<li><a href="https://github.com/Constellation/structured-source/blob/master/gulpfile.js" title="structured-source/gulpfile.js at master · Constellation/structured-source">structured-source/gulpfile.js at master · Constellation/structured-source</a></li>
+</ul>
+
+<p>自分は設定ファイルとかを別途作成するのは好きじゃないので、<a href="https://github.com/azu/espower-babel" title="azu/espower-babel">azu/espower-babel</a>というモジュールを作成しました。</p>
+
+<p><a href="https://github.com/azu/intelli-espower-loader" title="azu/intelli-espower-loader">azu/intelli-espower-loader</a>と大体同じような事をやっていて、babel + power-assertの変換を一緒に実行時にやってくれるhookスクリプトです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install espower-babel -D
+mocha --compilers js:espower-babel/guess test/**/*.js
+</code></pre></div>
+<p>とするだけで、ES6で書かれたテストコードをpower-assertを使ってテストすることが出来ます。</p>
+
+<p>power-assertを使わない場合は以下のように書くだけで問題ないので、<a href="https://github.com/azu/espower-babel" title="azu/espower-babel">azu/espower-babel</a>は不要です。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">mocha --compilers js:babel/register test/**/*.js
+</code></pre></div>
+<ul>
+<li><a href="http://babeljs.io/docs/using-babel/#mocha" title="Using Babel · Babel">Using Babel · Babel</a></li>
+</ul>
+
+<p><strong>Tips</strong></p>
+
+<p>ES6ではArrow Functionが使えるので、以下のように書くことが出来ます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">describe(&quot;#getParents()&quot;, ()=&gt; {
+   context(&quot;on Document&quot;, ()=&gt; {
+       it(&quot;should return []&quot;, () =&gt; {
+           var text = &quot;# Header&quot;;
+           var parents = [];
+           assert(parents.length === 0);
+       });
+   });
+});
+</code></pre></div>
+<p>しかし、<code>this</code>の扱いが違うのでテストケース間で<code>this.prop</code>的なやり取りをしたい場合は気をつけましょう。</p>
+
+<ul>
+<li><a href="http://js-next.hatenablog.com/entry/2014/07/23/173147">アロー関数が実装された - JS.next</a></li>
+<li><a href="http://d.hatena.ne.jp/teramako/20130325/p1">ES.next Draft仕様より、普通のfunctionとArrowFunctionの違い - hogehoge @teramako</a></li>
+</ul>
+
+<h3 id="document">Document</h3>
+
+<p>このライブラリは小さいことを前提としてたので、<code>README.md</code>にAPIの一覧をコード内のJSDocから生成して出しています。</p>
+
+<p><a href="https://github.com/75lb/jsdoc-to-markdown" title="75lb/jsdoc-to-markdown">75lb/jsdoc-to-markdown</a>を使い、<a href="https://github.com/azu/textlint-rule-helper/blob/master/template/README.template.md" title="README.template.md">README.template.md</a>を用意してこのファイルからJSDocの情報を使ったREADME.mdを生成しています。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">  &quot;scripts&quot;: {
+    &quot;docs&quot;: &quot;jsdoc2md -t template/README.template.md lib/textlint-rule-helper.js &gt; README.md&quot;,
+  },
+</code></pre></div>
+<p>正直この方法はかなり限定的で、色々環境で上手く働く感じではない気がしてるので、<a href="https://efcl.wordpress.com/2014/12/31/%E5%AE%9F%E8%B7%B5%E7%9A%84%E3%81%AAreadme%E9%A7%86%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" title="README駆動">README駆動</a>とか<a href="https://github.com/uupaa/Help.js/wiki/SourceCodeWithoutDocument#helpjs-%E3%81%A7%E5%AE%9F%E7%8F%BE%E3%81%97%E3%81%9F%E3%81%8B%E3%81%A3%E3%81%9F%E3%81%93%E3%81%A8" title="ソースコードとドキュメントの分離">ソースコードとドキュメントの分離</a>とかもっと別の方法があるかもしれません。</p>
+
+<p>理想的にはd.tsかWebIDLでインターフェースを書いてドキュメント化できるといい気がしますが今のところツールがないので。</p>
+
+<h3 id="エディタ">エディタ</h3>
+
+<p>好きなエディタをつかって下さい。</p>
+
+<p>WebStorm等のJetBrains IDEのES6対応は微妙に古い所があるので、<a href="https://github.com/casser/intellij-es67" title="casser/intellij-es67">casser/intellij-es67</a>のプラグインを一緒に入れるとES6 modulesの扱いなどが改善します。</p>
+
+<h3 id="es6">ES6</h3>
+
+<p>各自調べて下さい。</p>
+
+<p>構文だけに限ってみてもTemplate Stings、Spread operator、Computed Property Names、ES6 classesなど、コードがシンプルに書きやすくなる部分が多いので、小さいライブラリを書くことで慣れておくといい気がします。</p>
+
+<p>特にES6 modulesはちょっと表現力が高くて、仕様のシンタックスも固まったので慣れておきましょう。</p>
+
+<ul>
+<li><a href="http://jsmodules.io/">JavaScript Modules</a></li>
+<li><a href="http://www.2ality.com/2014/09/es6-modules-final.html">ECMAScript 6 modules: the final syntax</a></li>
+<li><a href="https://github.com/google/traceur-compiler/wiki/LanguageFeatures" title="LanguageFeatures · google/traceur-compiler Wiki">LanguageFeatures · google/traceur-compiler Wiki</a></li>
+</ul>
+
+<p>ライブラリで今までクラスっぽいものを書いて公開してるケース等はES6 classesを使えば、シンプルに書けるようになるのでおすすめです。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">RuleHelper</span> <span class="p">{</span>
+  <span class="c1">// コンストラクタ</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">ruleContext</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">ruleContext</span> <span class="o">=</span> <span class="nx">ruleContext</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// 静的メソッド - RuleHelper.getHoge()</span>
+  <span class="kr">static</span> <span class="nx">getHoge</span><span class="p">(){</span>
+  <span class="p">}</span>
+  <span class="c1">// プロトタイプのメソッド - ruleHelper.isFuga()</span>
+  <span class="nx">isFuga</span><span class="p">(){</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>ES6の書籍</p>
+
+<ul>
+<li><a href="https://leanpub.com/understandinges6/read/" title="Read Understanding ECMAScript 6 | Leanpub">Read Understanding ECMAScript 6 | Leanpub</a></li>
+</ul>
+
+<p>ES6の仕様についてのコミュニティ</p>
+
+<ul>
+<li><a href="http://es-discourse.com/" title="ES Discourse">ES Discourse</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-01-09-write-es6.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["ES6","JavaScript","Node.js","library"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=ES6">ES6</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+                <li><a href="/tags/?q=library">library</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

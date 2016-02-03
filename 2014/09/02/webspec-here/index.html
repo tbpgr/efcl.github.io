@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ウェブの仕様は今どこにあるのか？ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Web,Spec,JavaScript,ECMAScript,DOM,Community,Browser" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/09/02/webspec-here/">
+    <h1 class="post-title">ウェブの仕様は今どこにあるのか？</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年09月02日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-09-02-webspec-here.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="webの仕様">Webの仕様</h2>
+
+<p>ウェブの仕様といえば、<a href="http://www.w3.org/TR/" title="W3C Open Source Software">W3C</a>や<a href="http://www.whatwg.org/specs/" title="WHATWG">WHATWG</a>、<a href="https://www.ietf.org/" title="IETF">IETF</a>とかが思い浮かぶかもしれません。</p>
+
+<p>これらの仕様が最近ではメーリングリストやIRCといった旧来のところだけではなく、GitHub上で議論されて策定が進められている事が増えています。(両方使ってるという話)</p>
+
+<p>この記事はそのような方法で進められてる仕様等についての紹介です。</p>
+
+<p>＊ 自分自身はそこまで仕様に対して強い興味があるわけではないので、もっと詳しい方が正しくまとめて頂きたいです。。</p>
+
+<p>最初に<a href="http://movethewebforward.org/" title="Move The Web Forward | Guide to getting involved with standards and browser development">Move The Web Forward | Guide to getting involved with standards and browser development</a>を見ておくといいかもしれません。</p>
+
+<h3 id="javascriptの仕様">JavaScriptの仕様</h3>
+
+<p>この動きが多く見られるのがJavaScript(ECMAScriptやDOM APIを含む)周りの仕様についてです。</p>
+
+<p>例えば、ES6 PromisesはGitHub上の<a href="https://github.com/domenic/promises-unwrapping" title="domenic/promises-unwrapping">domenic/promises-unwrapping</a>が議論の中心となっていて、ECMAScript 6thに入った仕様もこのREADMEファイルに書かれたものがベースとなっています。</p>
+
+<p>GitHubにおいてあるので、当たり前のように<strong>仕様</strong>に対してPull Requestして修正等も行われています。</p>
+
+<p>また、最近のJavaScript仕様策定では仕様と共にPolyfillやリファンレス実装を一緒に作るケースが見られます。</p>
+
+<p>domenicさんが担当する<a href="https://github.com/domenic/promises-unwrapping" title="ES6 promises">ES6 Promises</a>と<a href="https://github.com/whatwg/streams" title="Streams API">Streams API</a>では、<a href="https://github.com/domenic/especially" title="Especially">Especially</a>というモジュールを使ったリファレンス実装が公開されています。</p>
+
+<p><a href="https://github.com/domenic/especially" title="Especially">Especially</a>はECMAScriptの仕様内部で表現操作をコードで表現するためのものなので、リファレンス実装も仕様書のStepに沿うようなコードになっています。</p>
+
+<hr>
+
+<h3 id="ecmascriptはどこに?">ECMAScriptはどこに?</h3>
+
+<p>ECMAScript自体の議論の場としてはMLがあり、<a href="http://esdiscuss.org/" title="es-discuss">es-discuss</a>という専用のサイトでアーカイブを見られます。
+また、定期的に行われている<a href="https://github.com/rwaldron/tc39-notes" title="rwaldron/tc39-notes">ECMAのTC39ミーティングのノート</a>がGitHubで公開されています。</p>
+
+<ul>
+<li><a href="http://esdiscuss.org/" title="ES Discuss">ES Discuss</a></li>
+<li><a href="https://twitter.com/esdiscuss" title="es-discuss summaries (esdiscuss) on Twitter">es-discuss summaries (esdiscuss) on Twitter</a></li>
+<li><a href="https://github.com/rwaldron/tc39-notes" title="rwaldron/tc39-notes">rwaldron/tc39-notes</a></li>
+</ul>
+
+<p>現在策定中のECMAScript 6thについては上記などで議論された内容を反映したものが、<a href="http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts" title="Draft Specification for ES.next (Ecma-262 Edition 6)">Draft Specification for ES.next (Ecma-262 Edition 6)</a>にてドラフト版として公開されています。
+(HTML版も<a href="http://people.mozilla.org/%7Ejorendorff/es6-draft.html" title="ECMAScript Language Specification ECMA-262 6th Edition – DRAFT">ECMAScript Language Specification ECMA-262 6th Edition – DRAFT</a>)</p>
+
+<hr>
+
+<h3 id="the-extensible-web-manifesto"><a href="http://extensiblewebmanifesto.org/" title="The Extensible Web Manifesto">The Extensible Web Manifesto</a></h3>
+
+<p>実際に使えるPolyfillを作りながら仕様も策定していってるスタイルだと<a href="http://webcomponents.org/" title="Web Components">Web Components</a>が有名どころです。</p>
+
+<p><a href="http://webcomponents.org/" title="Web Components">Web Components</a>では<a href="http://www.polymer-project.org/docs/start/platform.html" title="platform.js">platform.js</a>(Polymerの内部で使われる)というPolyfillが既に公開されています。</p>
+
+<p>この実際に動かせるPolyfillを用意するというスタイルは<a href="http://extensiblewebmanifesto.org/" title="The Extensible Web Manifesto">The Extensible Web Manifesto</a>というポリシーが掲げられていて、これに基づいた行動といえると思います。</p>
+
+<p>これ以外にも最近の仕様は大体GitHubにリポジトリを持つのが一般的と言えるぐらいGitHub上に置かれていることが多いです。</p>
+
+<h3 id="github上の仕様とアカウント">GitHub上の仕様とアカウント</h3>
+
+<p>仕様関係のGitHubアカウントを適当にまとめてみました。</p>
+
+<p>W3C/WHATWG 組織アカウント</p>
+
+<ul>
+<li><a href="https://github.com/w3c" title="World Wide Web Consortium">World Wide Web Consortium</a></li>
+<li><a href="https://github.com/whatwg" title="whatwg">whatwg</a></li>
+</ul>
+
+<p>Wiki</p>
+
+<p>W3CとWHATWGにはGitHubの利用についてかかれたページがあります。(このページがどれくらい参照されてるのかよく分からないですが)</p>
+
+<ul>
+<li><a href="http://www.w3.org/wiki/GitHub" title="GitHub - W3C Wiki">GitHub - W3C Wiki</a>
+
+<ul>
+<li> <a href="http://www.w3.org/wiki/Guide/GitHub" title="Guide/GitHub - W3C Wiki">Guide/GitHub - W3C Wiki</a></li>
+</ul></li>
+<li><a href="http://wiki.whatwg.org/wiki/GitHub#Makefile" title="GitHub - WHATWG Wiki">GitHub - WHATWG Wiki</a></li>
+</ul>
+
+<p>WG</p>
+
+<ul>
+<li><a href="https://github.com/w3ctag" title="W3C Technical Architecture Group">W3C Technical Architecture Group</a></li>
+<li><a href="https://github.com/sysapps" title="W3C System Applications Working Group">W3C System Applications Working Group</a></li>
+<li><a href="https://github.com/WebAudio" title="W3C Audio Working Group">W3C Audio Working Group</a></li>
+</ul>
+
+<p>その他</p>
+
+<ul>
+<li><a href="https://github.com/slightlyoff/ServiceWorker" title="slightlyoff/ServiceWorker">slightlyoff/ServiceWorker</a></li>
+<li><a href="https://github.com/domenic/promises-unwrapping" title="domenic/promises-unwrapping">domenic/promises-unwrapping</a></li>
+<li><a href="https://github.com/http2" title="HTTP/2">HTTP/2</a></li>
+</ul>
+
+<p>GitHubにある仕様はJavaScript関係のものだけではなく、<a href="https://github.com/http2" title="HTTP/2">HTTP/2</a>も同様にGitHubにリポジトリを持って管理されていたりします。</p>
+
+<p>(仕様関係のGitHubアカウント どこかにまとめないのかな?)</p>
+
+<hr>
+
+<h3 id="リポジトリ">リポジトリ</h3>
+
+<p>上記で紹介しているGitHubリポジトリは必ずしもそこがメインのリポジトリとして使われているわけではありません。</p>
+
+<p>例えば、<a href="https://github.com/w3c/csswg-drafts" title="w3c/csswg-drafts">w3c/csswg-drafts</a>は<a href="https://dvcs.w3.org/hg/csswg" title="csswg: Summary">csswg: Summary</a>のミラーとして置かれています。</p>
+
+<p>W3Cの場合は、バージョン管理+ファイル置き場としては<a href="https://dvcs.w3.org/hg?sort=lastchange" title="Mercurial repositories index">dvcs.w3.org</a>と<a href="https://github.com/w3c" title="World Wide Web Consortium">GitHub</a>のどちらも使われているようです。</p>
+
+<p>そのため、単純に仕様がどこにあるのかを見たい場合は、最初に紹介した公式サイト<a href="http://www.w3.org/TR/" title="W3C Open Source Software">W3C</a>や<a href="http://www.whatwg.org/specs/" title="WHATWG">WHATWG</a>から該当する仕様を探すのがいいと思います。</p>
+
+<p><strong>追記</strong>: 仕様書のURL等やメタ情報が<a href="https://github.com/tobie/specref" title="tobie/specref">tobie/specref</a>にてまとめられています。</p>
+
+<ul>
+<li><a href="https://github.com/tobie/specref" title="tobie/specref">tobie/specref</a></li>
+</ul>
+
+<p>JSONファイルで仕様書のバージョン毎のURLや作者などがまとめられていて、
+<code>http://specref.jit.su/bibrefs?refs=SVG,REX,DAHUT</code> のようにAPIとして使うことも出来ます。</p>
+
+<ul>
+<li>W3C</li>
+<li>WHATWG</li>
+<li>ECMA</li>
+<li>IETF</li>
+</ul>
+
+<p>など殆どの仕様がまとめられているのでこれを参照するのが簡単だと思います。</p>
+
+<p>これを元に仕様書をまとめてダウンロードするものを作りました</p>
+
+<ul>
+<li><a href="https://github.com/azu/webspec-downloader" title="azu/webspec-downloader">azu/webspec-downloader</a></li>
+</ul>
+
+<hr>
+
+<h3 id="コミュニティ">コミュニティ</h3>
+
+<p>ウェブの仕様の策定作業等がGitHubに移動(メーリングリスト等も併用する)したケースだと、
+以前に比べると変更を見たり、疑問や問題をIssueにしたり、Pull Requestによって変更を送りやすくなりました。</p>
+
+<p>ただ、それでも仕様に対するContributingは難しいという印象があるかもしれません。
+例えば、どこに仕様があるのか分からなかったり、過去ログを見ないと言いたいことが既出なのか分からない等、意見するのに壁があるかもしれません。</p>
+
+<p>そのようなどうすればいいのかわからない状態を補助するために作られたのが<a href="http://discourse.specifiction.org/" title="Specifiction">Specifiction</a>というサイトです。</p>
+
+<p><a href="http://discourse.specifiction.org/" title="Specifiction">Specifiction</a>は見た目通りの掲示板的な場所ですが、以下で案内されているように、そのウェブ標準への意見の内容が既出であろうがなかろうが言える場所となることを目的にしています。</p>
+
+<blockquote>
+<p>Basically, if you have anything to say about Web standards, be it a new feature or feedback on an existing one, just say it!
+<a href="http://discourse.specifiction.org/t/welcome-to-specifiction/6" title="Welcome to Specifiction - Specifiction">Welcome to Specifiction - Specifiction</a></p>
+</blockquote>
+
+<p>HTMLやCSSといったかなり大雑把なカテゴリが用意されていることからも分かるように、どこに言えばいいのか分からないならここで言おうという感じです。</p>
+
+<p>話題になった例だと、CSS Color Level 4に<code>rebeccapurple</code>を加えるという議論はここから始まっています。</p>
+
+<ul>
+<li><a href="http://discourse.specifiction.org/t/name-663399-becca-purple-in-css4-color/225" title="Name #663399 &amp;#34;Becca Purple&amp;#34; in CSS4 Color? - Specifiction">Name #663399 &quot;Becca Purple&quot;in CSS4 Color? - Specifiction</a></li>
+<li><a href="http://cpplover.blogspot.jp/2014/06/rebeccapurplecss-4-color.html" title="本の虫: rebeccapurpleがCSS 4 colorに提案された経緯">本の虫: rebeccapurpleがCSS 4 colorに提案された経緯</a></li>
+</ul>
+
+<p>このような &quot;誰に or どこに言えばいいのか分からない&quot;ような意見の場としては、ウェブ標準についてだけではなくウェブサイトのブラウザ間での互換性についてもコミュニティが存在します。</p>
+
+<p><a href="http://webcompat.com/" title="webcompat.com">webcompat.com</a>はMozilla Web Compatibility teamが始めたサイト(GitHub Issue)で&quot;Bug reporting for the internet.&quot;と書かれているように、通常のウェブサイトの問題やウェブブラウザの問題について報告できる場所です。</p>
+
+<p>報告された問題に対して、ボランティアの人等が調べて、サイトの持ち主やブラウザベンダに報告してくれるという形です。</p>
+
+<p>MSも<a href="http://webcompat.com/" title="webcompat.com">webcompat.com</a>からのバグ報告について言及しています。</p>
+
+<ul>
+<li><a href="http://blogs.msdn.com/b/ie/archive/2014/07/31/the-mobile-web-should-just-work-for-everyone.aspx" title="The Mobile Web should just work for everyone - IEBlog - Site Home - MSDN Blogs">The Mobile Web should just work for everyone - IEBlog - Site Home - MSDN Blogs</a></li>
+</ul>
+
+<h3 id="おわりに">おわりに</h3>
+
+<p>最近よく見るウェブの仕様について簡単に紹介しました。</p>
+
+<p>今までのメーリングリストというような見えにくい所だけではなく、GitHub上や<a href="http://discourse.specifiction.org/" title="Specifiction">Specifiction</a>といったより見やすく、参加しやすい形へと変化していってると思います。</p>
+
+<hr>
+
+<h2 id="識者の見解">識者の見解</h2>
+
+<p><a href="http://d.hatena.ne.jp/momdo/20140905/p1" title="ウェブの仕様は今どこにあるのか？を分かる範囲で追補 - 血統の森+はてな">ウェブの仕様は今どこにあるのか？を分かる範囲で追補 - 血統の森+はてな</a></p>
+
+<blockquote>
+<p>古典的なものの見方で、W3C HTML5仕様を軸にW3C仕様の現状を分かる範囲でごく簡単に</p>
+</blockquote>
+
+<p><a href="http://mozaic.fm/post/108439721723/14-whatwg" title="#14 WHATWG | mozaic.fm">#14 WHATWG | mozaic.fm</a></p>
+
+<blockquote>
+<p>WHATWG、 W3C、 TAG などの成り立ちや、それらがやっていること。先日の HTML5 勧告の意味。 LivingStandard とはどう考えればいいのか？といった話から、標準化において「今何が起こっているのか」、「これからどうなっていくのか」そして、「自分たちはそれにどう参加できるのか？」を議論しました。</p>
+</blockquote>
+
+<hr>
+
+<p>より詳しい(正しい)見方などがありましたらPull Requestよろしくお願いします。</p>
+
+<p>＜ Pull Request は   <a href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-09-02-webspec-here.md" title="efcl/efcl.github.io">こちらからです！</a>＞</p>
+
+<hr>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-09-02-webspec-here.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Web","Spec","JavaScript","ECMAScript","DOM","Community","Browser"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Web">Web</a></li>
+                
+                <li><a href="/tags/?q=Spec">Spec</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=ECMAScript">ECMAScript</a></li>
+                
+                <li><a href="/tags/?q=DOM">DOM</a></li>
+                
+                <li><a href="/tags/?q=Community">Community</a></li>
+                
+                <li><a href="/tags/?q=Browser">Browser</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        HTML5 Conference アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="HTML5" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/01/25/html5-conf/">
+    <h1 class="post-title">HTML5 Conference アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年01月25日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-01-25-html5-conf.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 id="html5カンファレンス">HTML5カンファレンス</h1>
+
+<p><a href="http://events.html5j.org/conference/2015/1/" title="HTML5 Conference">HTML5 Conference</a>に午後から参加したのでメモ</p>
+
+<h2 id="web:-reboot">Web: Reboot</h2>
+
+<p>13:20 - 14:00 Michel Smith</p>
+
+<ul>
+<li>What is &quot;Extensible Web&quot;</li>
+<li><a href="https://extensiblewebmanifesto.org/ja/" title="The Extensible Web Manifesto">The Extensible Web Manifesto</a>
+
+<ul>
+<li>ちょっと政治的っぽい</li>
+</ul></li>
+<li><a href="https://extensiblewebreportcard.org/" title="The Extensible Web Report Card">The Extensible Web Report Card</a></li>
+<li>Exntensible Web の前にWebとはなにかか</li>
+<li>&quot;Web Is Everywhere?&quot;</li>
+<li>&lt;= Web is Universality</li>
+<li>Timの言霊</li>
+<li>全てのものが全てのものとつながる</li>
+<li><a href="http://www.amazon.com/dp/B0000546SQ/" title="Amazon.com: Weaving the Web: The Original Design and Ultimate Destiny of the World Wide Web (Audible Audio Edition): Tim Berners-Lee: Books">Amazon.com: Weaving the Web: The Original Design and Ultimate Destiny of the World Wide Web (Audible Audio Edition): Tim Berners-Lee: Books</a>
+
+<ul>
+<li>Audio Bookでまだ買える</li>
+</ul></li>
+<li>&quot;分散的&quot; というキーワード
+
+<ul>
+<li>Node</li>
+</ul></li>
+<li>オリジナルウェブで定義されたもの
+
+<ul>
+<li>Shared universal information space</li>
+<li>Decetralized</li>
+<li>Link unconnected bits of information</li>
+</ul></li>
+<li>=&gt; WWW(World Wide Web)</li>
+<li>Webは技術的なセットというものではなかった
+
+<ul>
+<li>HTMLとかそういうの特定の何かの集合というわけではない</li>
+<li>なんでもWebになれる</li>
+</ul></li>
+<li>Extensible WebというのはそのオリジナルのWebに回帰するところがる</li>
+<li>&quot;decentralized innovation&quot; がExtensible Webでは可能になるかもしれない
+
+<ul>
+<li>今まではトップダウンなプロセスだった</li>
+<li>仕様 -&gt; ブラウザベンダー -&gt; 開発者</li>
+<li>Extensible Webでは開発者がイノベーションを起こせる</li>
+<li>開発者自身が自分で作ったものをWebにできるかも?</li>
+<li>Permissive Innovation</li>
+</ul></li>
+<li>Power
+
+<ul>
+<li>Developer, Maker, Creater が Get involved.</li>
+</ul></li>
+<li>Evaluate
+
+<ul>
+<li>評価してフィードバックできる</li>
+<li>このAPIが良くないよとか伝える</li>
+</ul></li>
+<li><a href="https://extensiblewebreportcard.org/" title="The Extensible Web Report Card">The Extensible Web Report Card</a>
+
+<ul>
+<li>Plays Well With Others</li>
+<li>Disruptive In Class</li>
+<li>という協調性があるやつとそうじゃない奴でAPIを分けてる</li>
+<li><a href="https://github.com/w3ctag/extensible-web-report-card" title="w3ctag/extensible-web-report-card">w3ctag/extensible-web-report-card</a></li>
+</ul></li>
+<li>歴史</li>
+<li>In 2004-5 XHR が大きな変革点(Webの)だった</li>
+<li>=&gt; Web Reboot</li>
+</ul>
+
+<hr>
+
+<h2 id="2015年これからの日本のwebサイトパフォーマンスについて">2015年これからの日本のWebサイトパフォーマンスについて</h2>
+
+<ul>
+<li>パフォーマンス改善の技術について聞きたい人が多い感じ</li>
+<li>日本のサイトのダウンロード時間</li>
+<li>パフォーマンスのとりくみ
+
+<ul>
+<li>この画面で何秒とか、パフォーマンスはやって当たり前の話</li>
+<li>まずはパフォーマンス測定の前に試験をする</li>
+<li>長い目で見ていく試験</li>
+<li>あんまりパフォーマンスをどう改善していくのかの指標とかが公開されてない</li>
+</ul></li>
+<li>続ハイパフォーマンスWebサイト
+
+<ul>
+<li>色々なツールはでてきた</li>
+<li>納品系はそれが適応できてない</li>
+</ul></li>
+<li>Amazon.co.jpのfirst paintの速度について
+
+<ul>
+<li>定期的に計測してると特定の期間から初期表示の時間がバラけてる</li>
+<li>ネットワーク回線も日々変化してる</li>
+<li>アクセス回線がネックになるケースが多い
+
+<ul>
+<li>アクセス回線が結構引っ張ることがある</li>
+</ul></li>
+<li>コネクションが貼れない時を前提とした仕様とかが検討されてる?</li>
+</ul></li>
+<li>0.5秒が初回表示時間の区切り</li>
+<li>Webの配信品質とは?
+
+<ul>
+<li>1ヶ月また365日 のn％が目標の数値で提供出来てるか</li>
+<li>アクセスが集中する夜間に計測してる?</li>
+<li>この品質に関わるのが統計学</li>
+</ul></li>
+<li>Googleがやってることが常に正しいという基準ではなくて、常に計測したデータを指標に考えるべき</li>
+<li>トップページにでかい画像を置く文化は減ってきてる</li>
+<li>重要なのは定期的な観測</li>
+</ul>
+
+<hr>
+
+<h2 id="web-audio-api、-web-midi-api-を使ったサウンドプログラミング">Web Audio API、 Web MIDI API を使ったサウンドプログラミング</h2>
+
+<ul>
+<li>Web Audio API</li>
+<li>APIの特徴
+
+<ul>
+<li>JavaScriptで音そのものを作成&amp;加工</li>
+<li>W3Cから発行されるオープンな仕様</li>
+<li>Audio WGで策定作業</li>
+<li>プラットフォーム依存がない</li>
+</ul></li>
+<li>API策定の方針
+
+<ul>
+<li>デベロッパー思考</li>
+<li>手数を少なくすることを考慮</li>
+<li>APIの互換性の考慮</li>
+<li>ネイティブと同等のAPIを目指す
+
+<ul>
+<li>プラットフォームに依存しないでネイティブと同等にする</li>
+</ul></li>
+<li>モジュール思考
+
+<ul>
+<li>一つ一つをNodeと呼んでいる</li>
+</ul></li>
+</ul></li>
+<li>モジュール思考
+
+<ul>
+<li>オシレーター</li>
+<li>フィルター</li>
+<li>ディレイ</li>
+<li>パン</li>
+<li>... などそれぞれをNodeとして用意してる</li>
+<li>これらのNodeをつなげて音声ファイルに対して効果をかけることができる</li>
+</ul></li>
+<li>デモ
+
+<ul>
+<li>マイク -&gt; ピッチシフト -&gt; ディレイ -&gt; 出力</li>
+<li>ディレイ + ボリュームダウンを繰り返し =&gt; エコー</li>
+</ul></li>
+<li>変更点
+
+<ul>
+<li>New: AudioWorker</li>
+<li>Old: ScriptProccesor</li>
+<li>ScriptProccesorはUIスレッドで動いてたので、Workerスレッドで動かせるようにする目的</li>
+</ul></li>
+<li>ブラウザ
+
+<ul>
+<li>IEはIn Development</li>
+<li>他のブラウザに実装されてる</li>
+</ul></li>
+<li>音程
+
+<ul>
+<li>波が変わると音程も変わる</li>
+<li>音色を変更 = 波形を変える</li>
+<li>シンセサイザーと同じ仕組み</li>
+</ul></li>
+<li>デモ
+
+<ul>
+<li>オシレーター(発信機) * 2</li>
+<li>LFO</li>
+<li>フィルターなどで音を変えているということがシンセサイザーな基本的な動作原理</li>
+<li>Node作ってconnectしていくコードを書くだけ</li>
+</ul></li>
+<li>Web MIDI API
+
+<ul>
+<li>ウェブブラウザとMIDI機器を直接接続するためのAPI</li>
+</ul></li>
+<li>Chromeが実装してる
+
+<ul>
+<li>iOSでネイティブで実装+WebViewなライブラリもある</li>
+<li><a href="https://github.com/mizuhiki/WebMIDIAPIShimForiOS" title="mizuhiki/WebMIDIAPIShimForiOS">mizuhiki/WebMIDIAPIShimForiOS</a></li>
+</ul></li>
+<li>Web MIDI APIのプロトコル</li>
+<li>MIDI メッセージ
+
+<ul>
+<li>メッセージは16進数</li>
+<li><code>message.toString(16);</code></li>
+</ul></li>
+<li>16コの音を並列に鳴らせることができる = チャンネル</li>
+<li>MIDIは音を鳴らしたり、停止したりプロトコル
+
+<ul>
+<li>音色については取り決めがない</li>
+<li>SysExで指定できる</li>
+</ul></li>
+<li>x-midi
+
+<ul>
+<li>polymerを使ったWeb MIDIのWebComponents</li>
+</ul></li>
+<li>昔からできたよね
+
+<ul>
+<li>Flash</li>
+<li>Java</li>
+<li>音楽系のアプリが動作するプラットフォームが増えたというだけ</li>
+</ul></li>
+<li>ウェブというプラットフォーム
+
+<ul>
+<li>実行環境がブラウザ</li>
+<li>コンパイルが必要ない</li>
+<li>仕様がちゃんとある</li>
+<li>仕様策定のスピードが早い</li>
+</ul></li>
+<li>2つの視点、マーケット
+
+<ul>
+<li>ユーザー視線
+
+<ul>
+<li>アプリのインストール不要</li>
+<li>ネイティブと同様のことができる(まだ途中)</li>
+</ul></li>
+<li>デベロッパー視点
+
+<ul>
+<li>開発のハードルが下がった</li>
+<li>知識やノウハウも得やすい</li>
+</ul></li>
+<li>マーケット
+
+<ul>
+<li>音楽以外の分野との親和性が上がる</li>
+<li>イノベーションが自分で試して実現できるかも</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="beyond-css-architecture">Beyond CSS Architecture</h2>
+
+<ul>
+<li>CSSの難しいところ
+
+<ul>
+<li>アイコン + テキストを揃える</li>
+<li>カラムの高さを合わせる</li>
+<li>カラムの調整</li>
+<li>こういう難しいところの難しさはCSSのプロパティの指定の問題</li>
+</ul></li>
+<li>CSS設計で悩ませるのはセレクタ</li>
+</ul>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.selector</span><span class="p">{</span>
+    <span class="n">property</span> <span class="o">:</span> <span class="n">value</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>CSSの場合はグルーピングするときに,区切りで並べて管理する</li>
+<li>数が多くなると大変</li>
+<li>OOCSS
+
+<ul>
+<li>ページで使うCSSルールを定義して、それをマークアップ時に要素にルールを適応する</li>
+</ul></li>
+<li>BEM
+
+<ul>
+<li>大きなフレームワーク</li>
+<li>その一部である命名規則がよく取り上げられる</li>
+<li>Block, Element, Modifierの3つの要素に分ける</li>
+<li><code>.media</code>がBlock、<code>.media__body</code>がElement</li>
+<li>CSSセレクタをネストすると詳細度が高くなってしまう</li>
+<li>BEMは詳細度を一定にできるので詳細度の考えを飛ばせる</li>
+</ul></li>
+<li>Sass
+
+<ul>
+<li><code>%Media</code> プレースホルダーを使って継承させる</li>
+<li>マークアップからはひとつのclassで済むのでスリムになる</li>
+<li>マルチクラスに固執しないて、シングルクラスで書くことができる</li>
+<li><code>%Media</code> を継承した<code>.author</code>を継承したクラスを作ったりすると何が何に依存してるかわからなくなる</li>
+<li>継承元を一つに集約するべき</li>
+</ul></li>
+<li><a href="https://amcss.github.io/" title="AMCSS - Attribute Modules for CSS">AMCSS - Attribute Modules for CSS</a>
+
+<ul>
+<li>属性セレクタを使った拡張する</li>
+</ul></li>
+<li>他には<a href="http://hail2u.net/blog/webdesign/every-declaration-just-once-example.html" title="Every Declaration Just Onceの例 - Weblog - Hail2u.net">Every Declaration Just Onceの例 - Weblog - Hail2u.net</a>や<a href="https://github.com/morishitter/YACP" title="YACP">YACP</a></li>
+<li>コンポーネントやモジュールはどういう単位で作っていくべきか</li>
+<li>SMACSSというアプローチ</li>
+<li>ITCSS
+
+<ul>
+<li><a href="http://itcss.io/" title="itcss, from CSS Wizardry">itcss, from CSS Wizardry</a></li>
+<li>逆三角形の構造(下に行くほど詳細度が強くなる)</li>
+<li>詳細度と戦うための設計</li>
+<li>Sassなどのプリプロセッサを前提にしてる</li>
+<li>Setting
+
+<ul>
+<li>グローバル変数、設定</li>
+</ul></li>
+<li>Tools
+
+<ul>
+<li>Mixin, Function</li>
+</ul></li>
+<li>Generic
+
+<ul>
+<li>Normalize,Reset 要素セレクタ</li>
+</ul></li>
+<li>Base
+
+<ul>
+<li>タイプセレクタ</li>
+</ul></li>
+<li>Objects
+
+<ul>
+<li>OOCSS的なベーシックなパターン</li>
+</ul></li>
+<li>Components
+
+<ul>
+<li>UIを構成するコンポーネント</li>
+</ul></li>
+<li>Trumps
+
+<ul>
+<li>Helper, Utils</li>
+</ul></li>
+<li>この逆三角形を維持した(途中の要素を削ってもいいので)設計　</li>
+</ul></li>
+<li>CSS設計を支えるツール
+
+<ul>
+<li>(Static) Styleguide
+
+<ul>
+<li><a href="http://styleguides.io/" title="Website Style Guide Resources">Website Style Guide Resources</a></li>
+<li>コーディングガイド</li>
+<li>スタイルガイド駆動開発</li>
+<li>デザイナーとのコミュケーションツール</li>
+<li>テスト・ツール</li>
+</ul></li>
+<li>(Living) Styleguide
+
+<ul>
+<li>CSSのコメントからスタイルガイドを更新できるようにする</li>
+<li>動的なドキュメント生成</li>
+<li><a href="https://github.com/trulia/hologram" title="trulia/hologram">trulia/hologram</a></li>
+</ul></li>
+</ul></li>
+<li>セレクタと詳細度の傾向を見るツール
+
+<ul>
+<li>Specification Graph</li>
+<li>コードの後ろになるほど詳細度が高くなるといい</li>
+</ul></li>
+<li><a href="https://github.com/t32k/stylestats" title="t32k/stylestats">t32k/stylestats</a>
+
+<ul>
+<li>宣言されてる色のチェック</li>
+<li>ヘルスチェックツール</li>
+</ul></li>
+<li>より高度なCSS(クリティカルレンダリングパス)
+
+<ul>
+<li>リソース数の最小化
+
+<ul>
+<li>画像とかCSSの数</li>
+</ul></li>
+<li>バイト数の最小化
+
+<ul>
+<li>ファイルサイズ</li>
+</ul></li>
+<li>パス長の最小化</li>
+</ul></li>
+<li>カンファレンスサイトの最適化
+
+<ul>
+<li>クリティカル・パスを</li>
+<li>ジェネレータを使って吐いたものをつかた</li>
+</ul></li>
+<li>CSS設計の未来
+
+<ul>
+<li>ここまでの設計は現状に対する苦し紛れの対処法</li>
+<li>Shadow DOMとかが未来的な</li>
+</ul></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-01-25-html5-conf.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["HTML5"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=HTML5">HTML5</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

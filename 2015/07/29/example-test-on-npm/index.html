@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        npmパッケージをExampleテストしよう | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="npm,testing,JavaScript,Node.js" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2015/07/29/example-test-on-npm/">
+    <h1 class="post-title">npmパッケージをExampleテストしよう</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2015年07月29日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-07-29-example-test-on-npm.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="exampleテスト">Exampleテスト</h2>
+
+<p>自分がそう呼んでいるだけなので、正式名称があるのかよくわかりませんが、</p>
+
+<p>あるライブラリを公開する際に、exampleディレクトリにそのライブラリを使って実際に動くサンプルコードを作って、それを実行するテスト</p>
+
+<p>というのを示しています。</p>
+
+<p>Go言語のExampleと近いような気がします。</p>
+
+<ul>
+<li><a href="http://golang.org/pkg/testing/" title="testing - The Go Programming Language">testing - The Go Programming Language</a></li>
+</ul>
+
+<p>以下のスライドでも簡単に解説してますが、この記事はExampleテストのメリットやNodeモジュールでのやり方について書いていきます。</p>
+
+<div class="kwout" style="text-align: center;"><a href="http://azu.github.io/slide/assistant-bucho/test-everything.html"><img src="http://kwout.com/cutout/c/eg/rb/qs2_bor.jpg" alt="http://azu.github.io/slide/assistant-bucho/test-everything.html" title="ロジック、E2E、描画、音、動画、Example、文章 - 色々なJSテスト" width="600" height="294" style="border: none;" /></a><p style="margin-top: 10px; text-align: center;"><a href="http://azu.github.io/slide/assistant-bucho/test-everything.html">ロジック、E2E、描画、音、動画、Example、文章 - 色々なJSテスト</a></p></div>
+
+<h2 id="exampleテストの利点">Exampleテストの利点</h2>
+
+<p>以下は思いついたExampleテストの良いところですが、これについて簡単に解説します。</p>
+
+<ul>
+<li>始めるのが簡単</li>
+<li>実際に動くサンプルコードが作成できる</li>
+<li>ドキュメントの一部になる</li>
+<li><code>package.json</code>の設定ミスとかをチェックできる</li>
+</ul>
+
+<h3 id="始めるのが簡単">始めるのが簡単</h3>
+
+<p>多くの人はライブラリを書いたらREADMEにサンプルコードを載せたりすると思います。
+それを実際のファイルとして作れば大体Exampleテストのやることは完了です。</p>
+
+<p>典型的なExampleテストの作り方は以下のような感じです。</p>
+
+<ol>
+<li><code>example/</code>ディレクトリを作成</li>
+<li><code>npm install --save-dev ../</code> ローカルモジュールでテストしたいライブラリを読み込む</li>
+<li>ライブラリを使ったサンプルコードを書く</li>
+</ol>
+
+<p>コマンドで見ると以下のような感じですね。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">mkdir example
+<span class="nb">cd </span>example
+npm install --save-dev ../
+<span class="c"># example.jsを作成...</span>
+<span class="c"># =&gt; example.jsを実行</span>
+node example.js
+</code></pre></div>
+<p>こうして作った<code>example.js</code>を実行した結果が正常終了ならば、Exampleテストをパスしたという単純なものなので特別なテストフレームワークなども不要で導入は簡単だと思います。</p>
+
+<p>こうして作った<code>example.js</code>を<code>npm test</code>などで実行するようにすればExampleテストができます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;(cd example &amp;&amp; npm install &amp;&amp; node example.js)&quot;
+  },
+</code></pre></div>
+<p>また、ロジックテストを書くことが難しいライブラリでも、単純に実行するだけなら書くことは簡単で少なくても実行して例外がでないというチェックを簡単に取り入れることが利点の一つです。</p>
+
+<h3 id="実際に動くサンプルコードが作成できる">実際に動くサンプルコードが作成できる</h3>
+
+<p>例えば、<code>require(&quot;some&quot;)</code>して使うsomeライブラリを公開するとした場合、
+ローカルモジュールを使うことで、サンプルコードから<code>require(&quot;../lib/some&quot;)</code>のような相対パスが不要になります。
+<code>node_modules</code>以下にインストールされるので、ユーザーがライブラリを使うのと同じように<code>require(&quot;some&quot;)</code>と書くことができます。</p>
+
+<p>例えば、<a href="https://github.com/azu/browser-runner" title="azu/browser-runner">azu/browser-runner</a>のExampleテストでは<a href="https://github.com/azu/browser-runner/blob/d4003d7dae6f3766c9447c7310092529d16956f5/example/package.json#L15">ローカルモジュールとして</a>本体のライブラリを読み込んでいるため、<a href="https://github.com/azu/browser-runner/blob/master/example/example.js" title="browser-runner/example.js at master · azu/browser-runner">browser-runner/example.js</a>には相対パスが出てこないようになっています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">BrowserRunner</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;browser-runner&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">runner</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BrowserRunner</span><span class="p">({</span>
+    <span class="s2">&quot;browser&quot;</span><span class="o">:</span> <span class="s2">&quot;phantomjs&quot;</span>
+<span class="p">});</span>
+<span class="nx">runner</span><span class="p">.</span><span class="nx">runBrowser</span><span class="p">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;FINISH EXAMPLE!&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">console</span><span class="p">));</span>
+</code></pre></div>
+<p>つまり、ユーザーがコピペで動かせるようなサンプルコードが作れる事につながります。</p>
+
+<p>実際に動かせるサンプルコードはドキュメントとしても役立つのでExampleテストはドキュメント的な性質もあるかもしれません。</p>
+
+<p>後は、この作ったexample.jsを<code>npm test</code>とかで実行するようにするだけで、CIとかでも自動的にExampleテストが走るので便利です。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">  &quot;scripts&quot;: {
+    &quot;prepublish&quot;: &quot;npm run build&quot;,
+    &quot;test&quot;: &quot;mocha &amp;&amp; (cd example &amp;&amp; npm run example)&quot;
+  },
+</code></pre></div>
+<h3 id="package.jsonの設定ミスとかをチェックできる"><code>package.json</code>の設定ミスとかをチェックできる</h3>
+
+<p><code>package.json</code>の&quot;main&quot;や&quot;files&quot;、npmignoreなどが色々合わさってnpm publishされるため、publishしたものにファイルが入ってなかったりそういうミスは結構多いです。</p>
+
+<p><a href="http://efcl.info/2015/04/09/npm-publish-pattern/" title="npm publishのパターン">npm publishのパターン</a>的なものを使ったり<a href="https://www.npmjs.com/package/dependency-check" title="dependency-check">dependency-check</a>などでチェックしたりすることである程度カバーできます。</p>
+
+<p>Exampleテストをするときにローカルモジュールとしてインストールして試せば、実際にその時点のpackage.jsonが使われるのでpackage.jsonのミスに気付きやすくなります。</p>
+
+<p>例えば、&quot;bin&quot;のパスが間違ってたりするとExampleテストからコマンドを叩こうとするテストを書いておけば例外が起きるのでパスの間違いに事前に気付くちゃんとが増えるといった感じです。</p>
+
+<h3 id="おわりに">おわりに</h3>
+
+<p>Exampleテストはサンプルコードを実行した結果が正常終了であるという前提のため、異常系など全部をカバーするのは難しいと思います。
+そういうのはロジックテストなど普通のテストでやるほうが楽で、両方できるとカバー出来る範囲は広がります。</p>
+
+<p>テストを書くのが難しそうなものであった場合にとりあえずexampleだけでも書いて実行できるようにしておけば、結構安心感がでるのでオススメです。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2015/2015-07-29-example-test-on-npm.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["npm","testing","JavaScript","Node.js"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=npm">npm</a></li>
+                
+                <li><a href="/tags/?q=testing">testing</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

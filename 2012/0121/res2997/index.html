@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Mozilla Vision 2012 Conference Day アウトラインメモ | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Firefox,javascript,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2012/0121/res2997/">
+    <h1 class="post-title">Mozilla Vision 2012 Conference Day アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2012年01月21日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2012/2012-01-21-mozilla-vision-2012-conference-day-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h1 style="margin-top: 0px; margin-right: 0px; margin-bottom: 18px; margin-left: 0px; font-weight: bold; font-style: normal; font-size: 30px; line-height: 36px; font-family: inherit; color: #404040; padding: 0px; border: 0px initial initial;">
+  Mozilla Vision 2012 – Conference Day
+</h1>
+
+<p><a href="http://mozilla.jp/events/vision/2012/conference/">Mozilla Vision 2012 Conference Day</a>に参加してきたので、その時のメモです。(いつも通り正確性は保証されません)</p>
+
+<p><img title="NewImage.png" src="http://efcl.info/wp-content/uploads/2012/01/NewImage.png" alt="NewImage" width="448" height="600" border="0" /></p>
+
+<!--more-->
+
+<p>&nbsp;</p>
+
+<h1 id="boot-to-gecko">Boot to Gecko</h1>
+
+<p>B2G = Boot to Gecko</p>
+
+<h3 id="なぜ必要なのか">なぜ必要なのか</h3>
+
+<p>モバイルは閉鎖的すぎる</p>
+
+<p>過去を振りかえる</p>
+
+<ul>
+<li>  2002年 ブラウザの場合</li>
+</ul>
+
+<p>IE のみだったので、拡張性はなかった。 拡張する必要がなかった</p>
+
+<p>やがて複数のブラウザが登場して競争するようになった。 ブラウザ間で実装の競争が起こると</p>
+
+<ul>
+<li>  UXが良くなる</li>
+<li>  ユーザーはハッピーになる</li>
+<li>  標準化も良くなっていく -&gt; 書き手もハッピー</li>
+</ul>
+
+<h3 id="ブラウザとモバイル">ブラウザとモバイル</h3>
+
+<p>モバイルプラットフォームは閉鎖的で、プラットフォーム側がコントールできるようにしている。</p>
+
+<p>様々なプラットフォームに対応しようとするとそのプラットフォームに対応しないといけない -&gt; 時間の無駄になってる。</p>
+
+<p>プラットフォームを移行するとデータが移行できない。 このようなsilosがあるとオープンではない</p>
+
+<p>これを変えるためにB2Gを作っていく。</p>
+
+<h3 id="webプラットフォームができる事">Webプラットフォームができる事</h3>
+
+<p>オープンなものにするために必要なもの</p>
+
+<ul>
+<li>  オープンなApp Marketsが必要</li>
+<li>  プラットフォーム間を移行する際にデータも移行できる Firefox Syncのデバイスを超えた同期システム。</li>
+<li>  BrowserID</li>
+</ul>
+
+<p>ネイティブアプリだと使えるケドWebからは使えないモバイルの機能があるのはWebのバグなども</p>
+
+<h3 id="boo2gecko">Boo2Gecko</h3>
+
+<p>B2Gに必要なもの</p>
+
+<ul>
+<li>  iOS負けないUX</li>
+<li>  オープンスタンダートを構築する。B2G以外でも同じAPIが利用できる</li>
+<li>  Apps。Web自体がapp storeみたいなもの</li>
+</ul>
+
+<h3 id="デモ">デモ</h3>
+
+<ul>
+<li>  ロックスクリーン、ホーム画面もWebアプリとして実装されている</li>
+<li>  60FPS出るようにしている</li>
+</ul>
+
+<p>電話ができるようにWeb APIとしてDevice APIを実装してある。 ネイティブコードではなくてWebの技術で実装されている。</p>
+
+<p>ホーム画面もHTMLベースなので、ソースコードが見られる</p>
+
+<ul>
+<li>  Quake 3を使ったアプリ 
+
+<ul>
+<li>  WebGLのエンジン</li>
+</ul></li>
+</ul>
+
+<p>クラッシュしたけど、直ぐ立ち上がる。</p>
+
+<h3 id="b2gの実装">B2Gの実装</h3>
+
+<p>iOSなどのネイティブAPIの代わりに、Webエンジン/標準化されたDevice APIsがあり、ネイティブUIの代わりにWebベースのUIが存在する。</p>
+
+<p>すべて再開発するわけではなく、Webレイヤー以外の部分は既存のものをサイっ利用したりする。</p>
+
+<p>Gonk ( Androidのものも再利用) WebランタイムにMozillaは集中開発して、GPSなど他の部分に関してはAndroidのコードを利用する。</p>
+
+<h3 id="b2gは何がしたい">B2Gは何がしたい</h3>
+
+<ul>
+<li>  モバイルをオープンにしたい</li>
+<li>  プランや開発やソースコードもオープンにしている</li>
+<li>  作成したAPIを標準化したい</li>
+<li>  オープンなエコシステムを作成したい</li>
+<li>  Boot2Webkit など他の実装も作れるようにしたい</li>
+<li>  B2Gで動くものはB2Wでうごくようになるべき</li>
+</ul>
+
+<p>一からはじめたプロジェクトではない。 Androidのコミュニティ</p>
+
+<h3 id="q&amp;a">Q&amp;A</h3>
+
+<p><em>Q</em> どのようにして標準化していくのか。 それぞれの実装に対してそれぞれのUIがあるから、ポートする作業していく必要がでていく。 Gaiaに対してのUIのガイドラインが必要</p>
+
+<p><em>A</em> 標準化していくのはシステムのテーマ</p>
+
+<p><em>Q</em> non-nativeなものを場合、ゲーム等最大限の性能出すためにネイティブAPIを開発するの?</p>
+
+<p><em>A</em> ネイティブAPIを実装するつもりはない。 WebGLがOpenGLが遅ければそれはWebのバグである。 クロスプラットフォームを常に担保していくという目的を持っているので、少し遠回りでもWeb APIをやっていく。</p>
+
+<p><em>Q</em> アプリが落ちたときに他のシステムを巻き込むの?</p>
+
+<p><em>A</em> プライオリティの高いものを別のプロセスを走らせる事もできる。 OSがとても軽量なので、全てがダウンしても直ぐに起動できる。</p>
+
+<p>電話のプロセスは別のものとして動いてるのでOSがダウンしても生きてる。 プロセスのセパレーションと呼ばれるものが実装できてる。</p>
+
+<p>Linuxカーネルがあってその上にいくつかのXULや電話やBTなどのプロセスなどを起動していく。そして最後にB2Gのプロセスが起動して、その中でWeb Appが起動する。</p>
+
+<p>Chromelessのようなイメージで、全てがiframeのようなものになって、iframeにマニフェストを与えて、iframeを別プロセスで動作させることができる。</p>
+
+<p><em>Q</em> どのようにB2Gを提供していくか? Mozillaがサポートするの?</p>
+
+<p><em>A</em> Mozillaは直接デバイスを出荷することはなく、 Mozilla Phoneパートナーと一緒してやっていく。 メジャーなキャリアとはやり取りを始めていて、最終的にそのキャリアが出していくことになる。</p>
+
+<p><em>Q</em> デバイスを買ってきて、OSとしてB2Gを後入れるということはできるの?</p>
+
+<p><em>A</em> 今サムソンのデバイスを使ってるが勝手に入れてる。 なので、将来的にはより多くのデバイスをサポートして行って、そのような事が可能になる</p>
+
+<h1 id="web-標準の今、そして未来">Web 標準の今、そして未来</h1>
+
+<p>Tantek Çelik</p>
+
+<p>スライド : <a href="http://tantek.com/presentations/2012/01/open-web/">Open Standards Stories &amp; Practices</a></p>
+
+<p>CSSの標準化に参加したことについてのお話</p>
+
+<ul>
+<li>  ISO</li>
+</ul>
+
+<p>買った上で誰でも見ることができる =&gt; 昔のオープン</p>
+
+<ul>
+<li>  CalConnect</li>
+</ul>
+
+<p>お金を払った上にテストに参加できる。 テストスイートなのに、対象が限定されている。</p>
+
+<p>W3Cはだれても見られるオープン</p>
+
+<ul>
+<li>  W3C tests</li>
+</ul>
+
+<p>CSS WGはレポートを公開していたので誰でも見ることができた。 CalcConnectは公開してはいけないという縛りがあった</p>
+
+<p><strong>オープンなテストは再現性が担保されている</strong></p>
+
+<h3 id="まだcss-wg不満があった">まだCSS WG不満があった</h3>
+
+<p>更にテスト、レポートをオープンにしていく必要がある。</p>
+
+<ul>
+<li>  Blog</li>
+<li>  Wiki</li>
+</ul>
+
+<p>CSS WGのWikiを作成した。まだ閉ざされていた部分があったが、IRCやバグトラッカーなども公開していくようにした。</p>
+
+<p>当時にメーリングリストはあったが、W3Cのメンバーでないとみられないようになっていたが、テクニカルな内容のものは全てPublicにしていくようにした。</p>
+
+<ul>
+<li>  editor &#8216;s drafts</li>
+</ul>
+
+<p>これもエディターが書いてる途中のものも公開していくようにした。</p>
+
+<ul>
+<li>  last call</li>
+</ul>
+
+<p>2011になってCSS2.1がやっとRCになった。9年もかかった。</p>
+
+<p>CSS3の確固たる基盤になるCSS2.1ができた。</p>
+
+<h3 id="学んだ事">学んだ事</h3>
+
+<p>オープンは進化する</p>
+
+<h2 id="2.-xfn">2. XFN</h2>
+
+<ul>
+<li>  2003年</li>
+</ul>
+
+<p>SXSWという会議に参加した時の話。</p>
+
+<p>ブログロールの仕組みについての会議で、ものすごく複雑な仕様になっていた。</p>
+
+<p>rel=&#8221;friend&#8221;がついてればいいぐらいな簡単なものを提案した。</p>
+
+<p>実際にどういう状態がfriendなのかについて調査した。</p>
+
+<h3 id="cc">CC</h3>
+
+<p>XFNは初めてのCCライセンスを使ったオープンな標準化となった。 そこからフィードバックをもらってXFN1.1をリリースした。</p>
+
+<h3 id="rel=me">rel=me</h3>
+
+<p>一番大きな6文字。自分を示すrel属性で、多くのSNSなどで使用されている。</p>
+
+<h3 id="rel=me-,-oauth">rel=me , OAuth</h3>
+
+<p>２つを組み合わせることで、OpenIDをよりシンプルなものを実現できるでは?</p>
+
+<p>XFNから学んだものは単純でシンプルであるべきということ</p>
+
+<h2 id="3.-microformat">3. MicroFormat</h2>
+
+<ul>
+<li>  rel=license</li>
+</ul>
+
+<p>この時初めてMicroFormatという事が使われた</p>
+
+<p>その頃はまだ標準に関するWikiがなかったので、Wikiで公開した。= 初めてのWikiで公開され知多Web標準</p>
+
+<h3 id="人を表現するhtml">人を表現するhtml</h3>
+
+<p>classnameでつけていた習慣など、定義されていた言葉を元に定義した。</p>
+
+<h3 id="hcard-,-hcalendar">hcard , hcalendar</h3>
+
+<p>既にある用語を元に作成した標準。 既存のフォーマットを使用したので馴染みやすい。</p>
+
+<h2 id="webレビューのフォーマット">Webレビューのフォーマット</h2>
+
+<p>いろいろ研究した</p>
+
+<p>80/20の法則 : 比較などのある程度のフォーマットの表現が見えてきた</p>
+
+<ul>
+<li>  hreview</li>
+</ul>
+
+<p>hreviewという標準化した</p>
+
+<h3 id="microformats.org">microformats.org</h3>
+
+<p>これまでの標準化団体とは少し異なる。</p>
+
+<ul>
+<li>  プロセスそのものを文章化</li>
+<li>  今までの教訓を掲載した</li>
+<li>  IRCもオープンに</li>
+<li>  パブリックなログを公開</li>
+</ul>
+
+<p>wikiがemail以上の公式な文章であるとした。 -&gt; Wikiが厳格であるようにした</p>
+
+<ul>
+<li>  IRCに変更をとばすbot</li>
+<li>  スパムの除去</li>
+</ul>
+
+<p>Wikiのイイ点としては同時に翻訳が行えるようになった。 今も標準化作業中に17ヶ国に翻訳作業がされている。</p>
+
+<p>どんどんフィードバックを送る。標準化は誰でも参加ができる環境に翻訳は重要</p>
+
+<p>Wikiは誰でも参加できる。W3Cは組織としての参加が必要になってる。</p>
+
+<p>全てPublic domain / CC0にすることで全てがオープンであることを体現する。</p>
+
+<h3 id="microformats2">microformats2</h3>
+
+<p>更にシンプルになるMicroformat。 ユーザーはシンプルなしようが求められる。</p>
+
+<h2 id="4.-html5">4. HTML5</h2>
+
+<ul>
+<li>  2004年</li>
+</ul>
+
+<p>W3Cのワークショップが始まり。</p>
+
+<p>HTM + CSS + DOM VS XHTML2 +XForms +etc..</p>
+
+<p>これまでを進化させていく方向　VS W3CのXML</p>
+
+<p>incremental VS replace</p>
+
+<p>進化させていくと置き換えていくの対決</p>
+
+<p>HTML VS XML は8:11でHTMLは負けた</p>
+
+<p>ベンダーはHTMlの方を支持していた。MS,Apple,Mozilla等</p>
+
+<p>Web自体は進化しないと行けない</p>
+
+<h3 id="whatwgが設立">WHATWGが設立</h3>
+
+<p>ここでHTMLは進化していった。</p>
+
+<p>Web Apllication specがHTMl5になっていった。</p>
+
+<p>Core+new APIsという構成はCSSも同じ</p>
+
+<p>WHATWGはMITライセンスをしようした!!! これまであるライセンスを再利用した</p>
+
+<p>W3Cは独自のライセンス &#8211; フォークが許されないライセンス</p>
+
+<h3 id="w3cとwhatwgの共通点">W3CとWHATWGの共通点</h3>
+
+<ul>
+<li>  要素</li>
+</ul>
+
+<p>エディタを信頼する VS WG全体で協議する</p>
+
+<p>というような対立が生まれてた。</p>
+
+<h2 id="5.-w3c-cgs-(コミュニティグループ)">5. W3C CGs (コミュニティグループ)</h2>
+
+<ul>
+<li>  2011年</li>
+</ul>
+
+<p>2011にW3Cコミュニティグループができた</p>
+
+<p>あるテーマに関するコミュニティグループは4人いればできる</p>
+
+<h3 id="cc0-&amp;-owfa-の仕様">CC0 &amp; OWFa の仕様</h3>
+
+<p>Mozillaの弁護士にそれぞれ調べて持ったが、どちらもいい感じだった。 オープンに使えるライセンス。</p>
+
+<h2 id="仕様作成の10個のベストプラクティス">仕様作成の10個のベストプラクティス</h2>
+
+<ol>
+<li> オープンに作る(標準をオープンに作っていく)</li>
+<li> オープンに反復を行う(完璧じゃなくてもいいから試行錯誤を出す)</li>
+<li> オープンWikiを使う</li>
+<li> オープンに討議をする</li>
+<li> ブログ、Tweet、あらゆる手を使ってオープンに</li>
+<li> オープンなアーカイブ&amp;ログ</li>
+<li> Wiki編集はIRCに投げる</li>
+<li> オープンテストスイート(堅牢、反復的に</li>
+<li> テストレポートをオープンにする</li>
+<li>可能な限りコミュニティを巻き込む( 多くの人を巻き込む)</li>
+</ol>
+
+<p>境界を超えた範囲で巻き込んだ作業をする。標準はグローバル</p>
+
+<h2 id="q&amp;a">Q&amp;A</h2>
+
+<p><em>Q</em> MicroFormats以外に草の根的なものはありますか?</p>
+
+<p><em>A</em> OAuthはメーリングリストだけでできてきた</p>
+
+<p><em>Q</em> ベストプラクティスはWeb以外に対しても適応できる?</p>
+
+<p><em>A</em> 他にも適応できるだろう.</p>
+
+<p>Facebookがオープンプラットフォームということをやろうとしている</p>
+
+<p><em>Q</em> W3Cのノンフォークライセンスだということだけど、コミュニティができてフォークが行われてる。W3Cが変わってきてるの?</p>
+
+<p><em>A</em> 今は２つの方向ができてきてる。 HTML5はまだノンフォークなライセンスになってる。</p>
+
+<p>将来的には切り替わるかもしれない。</p>
+
+<h1 id="pdf.js-—-html5-と-javascript-の限界に挑戦する">pdf.js — HTML5 と JavaScript の限界に挑戦する</h1>
+
+<h3 id="なぜpdf.jsが必要なのか">なぜpdf.jsが必要なのか</h3>
+
+<p>信頼されたネイティブコードは脆弱性があると問題になる。</p>
+
+<h3 id="pdfに何が必要なのか">pdfに何が必要なのか</h3>
+
+<p>portableなのに巨大なフォーマット</p>
+
+<ul>
+<li>  Adobeのみが実装してるサブセットがある</li>
+<li>  pdfの一部サブセットを実装することを目的にした</li>
+</ul>
+
+<p>圧縮されたpdfを戻して、パースしてdrawTextみたい形にしてレンダリングする。</p>
+
+<p>Document -&gt; ページとオブジェクトがある。</p>
+
+<h3 id="html/css/js">HTML/CSS/JS</h3>
+
+<ul>
+<li>  JavaScriptはTyped Arrayなどを使用して高速化</li>
+<li>  Fast 2D Canvas、GPUで加速的</li>
+<li>  CSS @fant-face フォントに対応、ダイナミックにフォントをロードする機能</li>
+<li>  data: URI バイナリデータをJavaScript上で作れる</li>
+</ul>
+
+<p>SVGなどを使わなかった理由もある。 = スピード</p>
+
+<h3 id="pdf.jsの手順">pdf.jsの手順</h3>
+
+<h4 id="ダウンロード">ダウンロード</h4>
+
+<p>バイナリデータをXHRでresponseTYpe = &#8220;arraybuffer&#8221;でダウンロードできる。</p>
+
+<h4 id="デコード、解読、パース">デコード、解読、パース</h4>
+
+<ul>
+<li>  PNG,LZWデコーダーをJavaScriptで書いた</li>
+<li>  パーサーもJavaScriptで書いた</li>
+</ul>
+
+<h4 id="レンダリング">レンダリング</h4>
+
+<p>パースしたものをレンダリングしていくのが大変</p>
+
+<ul>
+<li>  2D CanvasでLineやarcsなどを描いていく</li>
+<li>  bitmapもimgで描画する</li>
+</ul>
+
+<h4 id="問題">問題</h4>
+
+<ul>
+<li>  2DCanvasは十分ではなかった。</li>
+<li>  Dash line等Canvasには実装されてなかった。 even odd ruleなどもそう</li>
+</ul>
+
+<p>解決方法として2DCanvas自体を拡張していく</p>
+
+<p>bitmap画像のデコードをサポートしてなかった。</p>
+
+<ul>
+<li>  img と Canvasはjpeg2000</li>
+<li>  フォーマットを追加するのは大変</li>
+<li>  JavaScriptでデコーダーを書く</li>
+</ul>
+
+<p>フォントの問題</p>
+
+<ul>
+<li>  OpenType , TrueTypesなどブラウザはサポートしてないTypeがあった</li>
+<li>  Type1は一番PDFで使わてるのにCSS Font faceでサポートされてない</li>
+</ul>
+
+<p>解決方法としてOpenTypeに変換して、中間フォーマット的にType1をサポートした。</p>
+
+<p>まだまだやることはいろいろ</p>
+
+<ul>
+<li>  Shading fillはCSS gradientsで実装されてる</li>
+<li>  Image Mask はCanvasがネイティブでできる</li>
+<li>  PostScriptオブジェクト &#8211; PostScriptのインタープリタをJSで</li>
+<li>  TYpe3フォント PDF.js自体でレンダリングを行ってる</li>
+</ul>
+
+<p>pdfをWeb技術でレンダリングする事に成功した。</p>
+
+<h3 id="デモ">デモ</h3>
+
+<ul>
+<li>  Web技術で実装するとモバイルでも動かせる</li>
+<li>  フルのPDFレンダラーがブラウザ上で走っている</li>
+</ul>
+
+<h3 id="pdfビューアーのui">PDFビューアーのUI</h3>
+
+<p>UIを作っていく</p>
+
+<ul>
+<li>  ページビュー(サイドでページをプレビューする)</li>
+<li>  ハイパーリンクのサポート</li>
+<li>  テキストの選択 &#8211; 難しい</li>
+<li>  テキストの検索 &#8211; 難しい</li>
+</ul>
+
+<h4 id="ハイパーリンクの実装">ハイパーリンクの実装</h4>
+
+<p>2種類のリンク方式がある</p>
+
+<ul>
+<li>  相互参照</li>
+<li>  外部リング</li>
+</ul>
+
+<p>Webブラウザが認識できるaリンクに変換した。 そのオブジェクトをpdf.jsでレンダリングした上にaリンクを重ねたものを表示して扱うようにした。</p>
+
+<p>相互参照はポイントへ飛ぶようにしていて、バックボタンが機能するようになっている。</p>
+
+<h4 id="テキストの選択">テキストの選択</h4>
+
+<p>Canvasは画素が並んでいるだけなので選べないが、オーバーレイに透過性を持ったdivタグでテキストを描画している。</p>
+
+<p>アクセシビリティもサポートできている。</p>
+
+<h3 id="pdf.jsの高速化">pdf.jsの高速化</h3>
+
+<h4 id="コンパイル">コンパイル</h4>
+
+<p>pdf.jsはPDFのサブセットをレンタリング</p>
+
+<ul>
+<li>  PDFレンダラーはインタープリタだった</li>
+<li>  PDFレンダラーのJITコンパイルする switch等をコンパイルしたら省略できるので、直接draw*を呼べるようにできて十数倍の動作速度が得られる。</li>
+<li>  <a href="http://blog.mozill*A*com/cjones/2011/06/15/overview-of-pdf-js-guts/">Overview of pdf.js guts &lt; Chris Pitchin&#8217; Hey</a></li>
+</ul>
+
+<p>ダイナミックなコンパイレーションを行なってFunction()で実行してる。</p>
+
+<h4 id="web-workers">Web Workers</h4>
+
+<p>Web Workersを使って別のスレッドで、デコード、パース、フォント変換、デコードイメージを行う。</p>
+
+<ul>
+<li>  main threadではdrawを行なっていく。(これはUIブロックを生む)</li>
+<li>  別スレッドで実行してるものはUIブロックの影響されない</li>
+<li>  同時併用でタスクを実行できるので高速化</li>
+</ul>
+
+<h3 id="pdf.jsの現状">pdf.jsの現状</h3>
+
+<ul>
+<li>  大部分の機能は完成している</li>
+<li>  Firefox,Chromeの拡張して利用できる</li>
+</ul>
+
+<p><em>\</em> HTML/JS/CSS Can redner PDFs **</p>
+
+<h3 id="next">next</h3>
+
+<ul>
+<li>  PDF内のテキストを検索</li>
+<li>  HTTP byte-rangeリクエストを使ってPDFを分割ロード。メモリの削減になる</li>
+<li>  Web Worker内でCanvasをサポート。UIブロックを潰せる</li>
+<li>  (maybe) WebGLで高速レンダリング？？？ GPUをもっと使える</li>
+</ul>
+
+<h3 id="質問">質問</h3>
+
+<p><em>Q</em> なぜCanvasを使用したのか?</p>
+
+<p><em>A</em> JavaScriptが直接やり取りできる。SVGはDOMを経由しないといけないため、より早くするには難しい。</p>
+
+<p>PDFではPDFファイルがあるのだからDOMを作成してやるのは不要だ。</p>
+
+<p><em>Q</em> 政府などでフォームとしてPDFを利用する場合。インタラクティブなPDFな方向はするのか?</p>
+
+<p><em>A</em> ２つのフォームフォーマットがある</p>
+
+<ul>
+<li>  Acro format &#8211; 標準化されてる</li>
+<li>  XNA format &#8211; プロレタリア</li>
+</ul>
+
+<p>PDF.jsでも実装しやすい部類のもの。 AdobeではSpiderMonkeyベースのエンジンが使わていて、Validationが行われていたりする。</p>
+
+<p>pdf.jsは100%のpdfのサポートするわけではないので、フォームなどのやり取りをべーすとするならばHTMLベースのほうがよいものになるかもしれない。</p>
+
+<p><em>Q</em> セキュリティポリシーについて</p>
+
+<p><em>A</em> pdf.jsの用途について</p>
+
+<p><em>A</em> メールクライアントなどの場合 HTMLのセキュリティポリシーに寄っていく(クロスドメインの問題がでるかもしれない)</p>
+
+<p><em>Q</em> テキストの描画方法</p>
+
+<p><em>A</em> PDFは左から右へ書けというようなコマンドが存在する。 まだ、サポートしてないが、Canvasの機能を一部利用かもしれない。</p>
+
+<p><em>Q</em> Canvasにテキスト選択を追加しなかった理由?</p>
+
+<p><em>A</em> Canvasにそれが実装されなかったのはとても管理が大変だったから。パフォーマンスとテキスト選択のトレードオフの結果</p>
+
+<p><em>Q</em> 対応するブラウザについて</p>
+
+<p><em>A</em> pdf.jsはオープンWeb標準を使って作っていくという方向から始まった。だが、ブラウザにはまだ実装されていない機能があって、その部分が拡張実装として、Firefox や Webkitに実装されていった。</p>
+
+<p>dot line と even fill あたりが互換性ブラウザの問題を生んでる。 =&gt; スタンダートを追加していく</p>
+
+<p>重要なのはTyped Arrayのサポートが大事で高速に動作するにはこれが必須。# LT</p>
+
+<h1 id="lt">LT</h1>
+
+<h2 id="&#8220;実践&#8221;emscripten">&#8220;実践&#8221;Emscripten</h2>
+
+<ul>
+<li>  Alon zakai 
+
+<ul>
+<li>  EmScriptenの作者</li>
+</ul></li>
+<li>  C, C++をLLVMでJavaScriptへ変換する 
+
+<ul>
+<li>  バイトコードになってそれをエミュレート</li>
+</ul></li>
+<li>  手作業よりも少し遅いぐらい</li>
+<li>  まとめ 
+
+<ul>
+<li>  2-4倍ぐらい遅くなる</li>
+<li>  変換作業が短くすむ</li>
+</ul></li>
+<li>  JSViz 
+
+<ul>
+<li>  GraphVizを変換</li>
+<li>  アニメーション機能付き</li>
+<li>  グラフを考えるようにするのを視覚化</li>
+</ul></li>
+</ul>
+
+<h2 id="ブラウザプレゼンテーションの教育的利用">ブラウザプレゼンテーションの教育的利用</h2>
+
+<ul>
+<li>  Nurota Lab.</li>
+<li>  教師と生徒とのやり取りが必要になる。 
+
+<ul>
+<li>  臨機応変に内容を変えられるようにする</li>
+<li>  黒板以上のことをできるようにする</li>
+</ul></li>
+<li>  インタラクティブにコードを実行しながら事業を進行できる</li>
+<li>  Webページを埋め込むとかWeb技術を使える</li>
+<li>  数学とか物理とか利用方法がある</li>
+</ul>
+
+<h2 id="firefox-syncサーバを建てて見た">Firefox Syncサーバを建てて見た</h2>
+
+<ul>
+<li>  Firefox Sync 
+
+<ul>
+<li>  保存情報をアドオンを同期する機能</li>
+<li>  Androidとも同期できる</li>
+</ul></li>
+<li>  Mozillaのサーバに情報が転送される 
+
+<ul>
+<li>  ローカで暗号化されてから送信している</li>
+</ul></li>
+<li>  Syncサーバを自前で建てて利用する 
+
+<ul>
+<li>  証明書を用意してHTTPSでやり取りできる</li>
+</ul></li>
+<li>  Python, SQLite、Macurialで動く 
+
+<ul>
+<li>  ビルドして、コマンドだけ動く</li>
+</ul></li>
+<li>  いろいろ調整しないと動かないけど</li>
+</ul>
+
+<h2 id="firefox-布教大作戦">Firefox 布教大作戦</h2>
+
+<ul>
+<li>  Firefox を 灘高校 に広める 
+
+<ul>
+<li>  IE 83%のシェアな高校</li>
+</ul></li>
+<li>  Firefoxノートを1300部発注 
+
+<ul>
+<li>  教員に止められた</li>
+</ul></li>
+<li>  「布教」は簡単ではない</li>
+</ul>
+
+<h2 id="firefoxのゴキゲンな通知ui">Firefoxのゴキゲンな通知UI</h2>
+
+<ul>
+<li>  Popup Notifications 
+
+<ul>
+<li>  doorhangerがコードネーム</li>
+</ul></li>
+<li>  ノンブロッキングな通知UI</li>
+<li>  PopupNotification.show() 
+
+<ul>
+<li>  6つの引数で設定</li>
+</ul></li>
+<li>  通知の複数表示ができないバグ</li>
+<li>  ドキュメントが充実してない 
+
+<ul>
+<li>  コードはドキュメントになってる</li>
+</ul></li>
+<li>  まとめ</li>
+</ul>
+
+<h2 id="ドアハンガーをもっと簡単につかいたい!-&#8211;-piro">ドアハンガーをもっと簡単につかいたい! &#8211; Piro</h2>
+
+<ul>
+<li>  PopupNotication.jsmの罠 
+
+<ul>
+<li>  CSSでアイコンの表示</li>
+<li>  コードバックをたくさん指定しないといけない</li>
+</ul></li>
+<li>  簡単に扱えるライブラリを書いた</li>
+</ul>
+
+<h2 id="海外の開発コミュニティをを利用して世界デビューをしよう">海外の開発コミュニティをを利用して世界デビューをしよう</h2>
+
+<ul>
+<li>  Linuxに企業として参加 
+
+<ul>
+<li>  コミニティに参加していくには</li>
+</ul></li>
+<li>  ユーザーもどんどん参加する</li>
+<li>  英語のレベルはあまりきにしない</li>
+<li>  批判されても落ち込まない</li>
+<li>  思いついたらすぐ投稿(反応を早く)</li>
+<li>  オープンにディスカッションをする</li>
+<li>  キーとなる人を早く見つける</li>
+<li>  まずは感謝</li>
+</ul>
+
+<h2 id="才能のソーシャルメディア">才能のソーシャルメディア</h2>
+
+<ul>
+<li>  Stylelist DirectoryというSNSサービス 
+
+<ul>
+<li>  才能のソーシャルメディア</li>
+<li>  美容師のソーシャルメディア</li>
+</ul></li>
+<li>  欧米だと美容師は芸術家的に個人活動 
+
+<ul>
+<li>  日本だとサロン</li>
+</ul></li>
+<li>  美容師が才能を発揮できるようなサイト 
+
+<ul>
+<li>  活躍のアピール</li>
+<li>  一般の人たちもそれらに反応</li>
+</ul></li>
+<li>  Joomla の CMSを使って運営してる 
+
+<ul>
+<li>  他の業界とのコラボレーションとかやっていきたい</li>
+</ul></li>
+</ul>
+
+<h2 id="scratchでつなぐオープンな学び">Scratchでつなぐオープンな学び</h2>
+
+<ul>
+<li>  Openな学び</li>
+<li>  Scratch 
+
+<ul>
+<li>  8 &#8211; 12歳向けのMITが開発してるソフト</li>
+<li>  80万人ぐらいアクティブユーザー</li>
+</ul></li>
+<li>  デモ</li>
+</ul>
+
+<h2 id="interop-tokyoでのオープンなネットワークエンジニア育成">Interop Tokyoでのオープンなネットワークエンジニア育成</h2>
+
+<ul>
+<li>  Interop 
+
+<ul>
+<li>  ネットワークの国内最大のイベント</li>
+<li>  いろんな会社の機器を使ってネットワークを構築する</li>
+<li>  超ネット</li>
+</ul></li>
+<li>  ShowNet 
+
+<ul>
+<li>  STMプログラム</li>
+<li>  インターネット技術者を育てる</li>
+</ul></li>
+</ul>
+
+<h1 style="margin-top: 0px; margin-right: 0px; margin-bottom: 18px; margin-left: 0px; font-weight: bold; font-style: normal; font-size: 30px; line-height: 36px; font-family: inherit; color: #404040; padding: 0px; border: 0px initial initial;">
+  <span style="font-size: 24px; color: #000000; line-height: normal;">まとめ</span>
+</h1>
+
+<p>Web 標準の今、そして未来 by Tantek Çelik がとても面白かった。仕様を作っている側からの視点の話は結構貴重な貴重な気がした。</p>
+
+<p>Mozilla飯よかった。</p>
+
+<p>メモツール(セッションごとに別々のファイルで保存)</p>
+
+<ul>
+<li>  <a href="http://www.inkcode.net/qute">Qute for PC/Mac</a></li>
+<li>  <a href="http://mouapp.com/">Mou</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2012/2012-01-21-mozilla-vision-2012-conference-day-%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%A2.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Firefox","javascript","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Firefox">Firefox</a></li>
+                
+                <li><a href="/tags/?q=javascript">javascript</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

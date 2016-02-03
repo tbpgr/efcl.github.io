@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        今年のOSS活動振り返り @ 2014 | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="JavaScript,OSS,promise,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/12/31/oss-in-2014/">
+    <h1 class="post-title">今年のOSS活動振り返り @ 2014</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年12月31日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-12-31-oss-in-2014.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="元ネタ">元ネタ</h2>
+
+<ul>
+<li><a href="http://dameleon.github.io/memo/2014/12/27/2014/">2014振り返り - damemo</a></li>
+<li><a href="http://watilde.hatenablog.com/entry/2014/12/29/174246">ざっくり2014年の振り返り - watilde&#39;s blog</a></li>
+<li><a href="http://mizchi.hatenablog.com/entry/2014/12/28/184803">今年のOSSお焚き上げ - mizchi&#39;s blog</a></li>
+<li><a href="http://mizchi.hatenablog.com/entry/2014/12/30/142611">2014年の振り返り - mizchi&#39;s blog</a></li>
+</ul>
+
+<h2 id="概略">概略</h2>
+
+<ul>
+<li>JavaScriptとObjective-Cいっぱい書いた</li>
+<li><a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a>書いた</li>
+<li>食事会 == LT会した</li>
+<li>勉強会の主催みたいなものもした</li>
+</ul>
+
+<h2 id="oss">OSS</h2>
+
+<p><a href="https://github.com/azu"><img src="http://efcl.info/wp-content/uploads/2014/12/31-1420004166.png" alt="Contributions Graph"></a></p>
+
+<p>あまり意識しないで、1年以上毎日コミットしてた。</p>
+
+<p>ブログなんかもGitHubに移行したのが要因の一つな気がする。</p>
+
+<ul>
+<li><a href="https://github.com/jser/jser.info">jser/jser.info</a></li>
+<li><a href="https://github.com/efcl/efcl.github.io">efcl/efcl.github.io</a></li>
+<li><a href="https://github.com/jser/jser.github.io">jser/jser.github.io</a></li>
+</ul>
+
+<h3 id="コミットメッセージ">コミットメッセージ</h3>
+
+<p><a href="https://github.com/ajoslin/conventional-changelog/blob/master/CONVENTIONS.md" title="conventional-changelog/CONVENTIONS.md at master · ajoslin/conventional-changelog">conventional-changelog/CONVENTIONS.md</a> のルールで書くようになった。(Angularチームのコミットメッセージルールが元)</p>
+
+<h3 id="javascript">JavaScript</h3>
+
+<p>JavaScriptは趣味であったため、あまり実用的なJavaScriptライブラリは書いてないです。</p>
+
+<p>結構コマンドラインツールとか自分用のnode-webkitアプリとか書いてたので、40弱ぐらいnpmにあげていたみたいです。</p>
+
+<ul>
+<li><a href="https://www.npmjs.com/%7Eazu" title="@azu">npm: @azu</a></li>
+</ul>
+
+<p>少し上げてみると、Promise本を書いてたのでそれ向けのライブラリやパーサみたいのが多いようです。</p>
+
+<ul>
+<li><a href="https://github.com/azu/bookmarkletter" title="azu/bookmarkletter">azu/bookmarkletter</a>
+
+<ul>
+<li>JavaScriptファイルからブックマークレットを生成するコマンドラインツール</li>
+</ul></li>
+<li><a href="https://github.com/azu/codemirror-console" title="azu/codemirror-console">azu/codemirror-console</a>
+
+<ul>
+<li>CodeMirrorにJavaScriptコンソールをつけるplugin</li>
+<li><a href="http://efcl.hatenablog.com/entry/2014/06/12/020617" title="CodeMirrorにJavaScriptの実行機能をつけるやつ - efcl’s blog">CodeMirrorにJavaScriptの実行機能をつけるやつ - efcl’s blog</a></li>
+</ul></li>
+<li><a href="https://github.com/azu/inlining-node-require" title="azu/inlining-node-require">azu/inlining-node-require</a>
+
+<ul>
+<li>Nodeの<code>require</code>をインライン化するライブラリ</li>
+</ul></li>
+<li><a href="https://github.com/azu/remove-use-strict" title="azu/remove-use-strict">azu/remove-use-strict</a>
+
+<ul>
+<li>&quot;use strict&quot;を取り除くライブラリ</li>
+<li>こっちもPromise本で使用した
+-<a href="http://efcl.info/2014/0316/res3719/" title="Node.jsのrequireをインライン化、無駄なuse strictを取り除くモジュールを書いた | Web Scratch">Node.jsのrequireをインライン化、無駄なuse strictを取り除くモジュールを書いた | Web Scratch</a></li>
+</ul></li>
+<li><a href="https://github.com/azu/intelli-espower-loader" title="azu/intelli-espower-loader">azu/intelli-espower-loader</a>
+
+<ul>
+<li>power-assertの補助ライブラリ</li>
+<li><a href="http://efcl.info/2014/0406/res3809/" title="power-assertの使い方 Node.js編 | Web Scratch">power-assertの使い方 Node.js編 | Web Scratch</a></li>
+</ul></li>
+<li><a href="https://github.com/azu/jekyll-meta-from-markdown" title="azu/jekyll-meta-from-markdown">azu/jekyll-meta-from-markdown</a>
+
+<ul>
+<li>Jekyllのmarkdownからyamlを取り出すやつ</li>
+<li>作ってから同じのがあったのに気づいた <a href="https://github.com/jxson/front-matter" title="jxson/front-matter">jxson/front-matter</a></li>
+</ul></li>
+<li><a href="https://github.com/azu/multi-stage-sourcemap" title="azu/multi-stage-sourcemap">azu/multi-stage-sourcemap</a>
+
+<ul>
+<li>多段SourceMapに対応するためのコンセプト証明のライブラリ</li>
+<li><a href="http://efcl.info/2014/09/03/multi-stage-sourcemap/" title="多段SourceMapの対応方法とライブラリ | Web Scratch">多段SourceMapの対応方法とライブラリ | Web Scratch</a></li>
+</ul></li>
+<li><a href="https://github.com/azu/node-webkit-winstate" title="azu/node-webkit-winstate">azu/node-webkit-winstate</a>
+
+<ul>
+<li>node-webkitのウィンドウサイズと位置を保持するやつ(npmにおいただけ)</li>
+</ul></li>
+<li>OPML形式を扱うライブラリ
+
+<ul>
+<li><a href="https://www.npmjs.com/package/opml-generator">opml-generator</a></li>
+<li><a href="https://www.npmjs.com/package/opml-to-json">opml-to-json</a></li>
+<li><a href="https://www.npmjs.com/package/opml-to-markdown">opml-to-markdown</a></li>
+<li>以下のようなツール書いててなかったので書いた</li>
+<li><a href="http://efcl.info/2014/0120/res3605/">npmとbrowserifyを使ったクライアントサイドのウェブアプリ開発 | Web Scratch</a></li>
+</ul></li>
+<li><a href="http://efcl.info/2014/0119/res3594/">YoutubeとVimeoの検索結果のRSSをまとめてOPMLで取得できるサイトを作った | Web Scratch</a></li>
+<li><a href="https://github.com/azu/parse-github-event" title="azu/parse-github-event">azu/parse-github-event</a>
+
+<ul>
+<li><a href="https://developer.github.com/v3/activity/events/types/" title="Event Types &amp;amp; Payloads | GitHub API">Event Types &amp; Payloads | GitHub API</a>からGitHubのダッシュボードでみるようなメッセージを組み立てるやつ</li>
+<li><a href="http://efcl.info/2014/0430/res3872/" title="Githubのタイムラインや通知を見るアプリをnode-webkitで作った | Web Scratch">Githubのタイムラインや通知を見るアプリをnode-webkitで作った | Web Scratch</a>で使ってる</li>
+</ul></li>
+<li><a href="https://github.com/azu/slide-pdf.js" title="azu/slide-pdf.js">azu/slide-pdf.js</a>
+
+<ul>
+<li>PDF形式のスライドをpdf.jsでSlideShareみたいに表示できるライブラリ</li>
+<li><a href="http://efcl.info/2014/10/07/pdf-presentation/" title="pdf.jsを使いブラウザで見られるPDFスライド表示ツールを作った | Web Scratch">pdf.jsを使いブラウザで見られるPDFスライド表示ツールを作った | Web Scratch</a></li>
+<li>今年の後半はこれ使ってスライド公開してる。</li>
+</ul></li>
+<li><a href="https://github.com/azu/podspec-bump" title="azu/podspec-bump">azu/podspec-bump</a>
+
+<ul>
+<li>Cocoaのライブラリを公開するためのpodspecというファイル(package.jsonみたいな)を簡単にSemverでアップデートするためのコマンドラインツール</li>
+<li>Objective-Cライブラリ書きまくってたのでかなり使った</li>
+<li><a href="http://efcl.info/2014/08/22/cocoapods-podspec-release-tools/" title="podspec(cocoapods)のバージョンを更新するコマンドラインツールを書いた | Web Scratch">podspec(cocoapods)のバージョンを更新するコマンドラインツールを書いた | Web Scratch</a></li>
+</ul></li>
+<li><a href="https://github.com/azu/promise-test-helper" title="azu/promise-test-helper">azu/promise-test-helper</a>
+
+<ul>
+<li>Promiseのテストヘルパーライブラリ</li>
+</ul></li>
+<li><a href="https://github.com/azu/refute" title="azu/refute">azu/refute</a>
+
+<ul>
+<li>&quot;assert.not*&quot;を行うassertライブラリ</li>
+<li><code>asssert</code>モジュールと一緒に動く(+power-assertも)</li>
+</ul></li>
+<li><a href="https://github.com/azu/release-changelog" title="azu/release-changelog">azu/release-changelog</a>
+
+<ul>
+<li>npm publishとCHANGELOGの生成ツール</li>
+</ul></li>
+<li><a href="https://github.com/azu/x-readline" title="azu/x-readline">azu/x-readline</a>
+
+<ul>
+<li>Node Streamでn行ごとに取得するライブラリ</li>
+</ul></li>
+<li><a href="https://github.com/azu/webspec-downloader" title="webspec-downloader">webspec-downloader</a>
+
+<ul>
+<li>W3Cとかの仕様をまとめてダウンロードするコマンドラインツール</li>
+<li><a href="http://efcl.info/2014/09/02/webspec-here/" title="ウェブの仕様は今どこにあるのか？ | Web Scratch">ウェブの仕様は今どこにあるのか？ | Web Scratch</a></li>
+<li><a href="http://efcl.info/2014/09/16/promises-spec-ref-list/" title="JavaScript Promiseを使うウェブの仕様を調べてみた | Web Scratch">JavaScript Promiseを使うウェブの仕様を調べてみた | Web Scratch</a></li>
+</ul></li>
+<li><a href="https://github.com/azu/wzeditor-word-rules-parser" title="azu/wzeditor-word-rules-parser">azu/wzeditor-word-rules-parser</a>
+
+<ul>
+<li>WZEditorの用語統一ルールの辞書ファイルのパーサ</li>
+<li><a href="http://efcl.info/2014/0616/res3931/">WEB+DB PRESS用語統一ルール(WZEditor)のパーサを書いた | Web Scratch</a></li>
+<li><a href="http://efcl.info/2014/10/20/lint-tech-word/">WEB+DB PRESS用語統一ルール等を使った技術用語のLintをするCodeMirrorアドオンを書いた | Web Scratch</a></li>
+</ul></li>
+<li><a href="https://github.com/azu/textlint" title="azu/textlint">azu/textlint</a>
+
+<ul>
+<li>テキストやMarkdown等の校正ツール</li>
+<li><a href="http://efcl.info/2014/12/30/textlint/" title="JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch">JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch</a></li>
+</ul></li>
+</ul>
+
+<h3 id="objective-c">Objective-C</h3>
+
+<p>Objective-Cのライブラリはいろいろ書いていた気がします。(どれが今年が曖昧…)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ pod trunk me
+  - Name:     azu
+  - Email:    azuciao@gmail.com
+  - Since:    May 20th, 06:52
+  - Pods:
+    - UITextSubClass
+    - MochaAsyncTest
+    - SimpleUserDefaults
+    - AZEncodeURIComponent
+    - NSDictionaryAsURLQuery
+    - UIImage-Teeny
+    - RoleTabBarController
+    - SnoozeLocalNotification
+    - UIAlertView-NSErrorAddition
+    - EasyMailSender
+    - OpenFileInWebView
+    - isUnitTesting
+    - UITextFieldWithLimit
+    - iOSDetector
+    - XCTestCase+RunAsync
+    - NSDate-Escort
+    - CrayWebViewController
+    - XCTestCase-RunAsync
+    - ErrorGen
+    - RequestInMemory
+    - AZNSDateKiwiMatcher
+    - LupinusHTTP
+    - BlockValueTransformer
+    - ManagedMappingObject
+    - TimeRange
+    - OperationPromise
+    - AppStoreOpener
+    - BlobURLOfUIImage
+    - DrowningGraphicer
+    - AZDateBuilder
+    - SimplePanel
+    - StoryboardInitializer
+    - XUIRoundedRectButton
+    - ArsDashFunction
+    - CounterAgent
+    - AppVersioning
+    - OPBitMaskNumber
+    - ArsScale
+</code></pre></div>
+<h2 id="pull-requests"><a href="https://github.com/pulls?q=is%3Apr+author%3Aazu+is%3Aclosed+created%3A%222014-01-01+..+2015-01-01%22" title="Pull Requests">Pull Requests</a></h2>
+
+<ul>
+<li>後述するPromise本で自分へのPull Requestを結構やってた</li>
+<li>あんまり機能追加とか開発的なpullreqは出来なかった</li>
+<li>Markdownの記法修正、README、ドキュメントの修正は見つける度にやってた
+
+<ul>
+<li><a href="https://github.com/pulls?q=is%3Apr+author%3Aazu+is%3Aclosed+created%3A%222014-01-01+..+2015-01-01%22+fix+OR+Markdown+OR+README+" title="Pull Requests">大体50件ぐらいやってたみたい</a></li>
+<li><a href="https://github.com/rwaldron/tc39-notes/graphs/contributors" title="tc39-notes">tc39-notes</a>とかESLintで<a href="https://github.com/eslint/eslint/pull/1389#issuecomment-60469818" title="Fix Markdown link by azu · Pull Request #1389 · eslint/eslint">PullRequestのコミットメッセージの修正方法</a>を教えてもらったり、CoreOSの<a href="https://github.com/coreos/rocket/pull/152" title="appc: remove unnecessary bracket in README by azu · Pull Request #152 · coreos/rocket">rocketのpullreq</a>とかが印象深い</li>
+<li>いつもpullreq送るリポジトリのコミットの書き方見て、それを真似る感じコミットメッセージを書いてる</li>
+<li>コミットメッセージの規約が厳しいと送りにくいので、送ってくれれば<a href="https://twitter.com/nolanlawson/status/537235691844153345" title="Nolan Lawson on Twitter: &amp;#34;@azu_re pull req送ったら、最初の時だと私や他のcontributorがコミットメセージを変えてあげますよ。問題ありません。:-)&amp;#34;">こちらでメッセージ書き換えるので大丈夫だよ</a>とか記述があるといいと思った。</li>
+<li>後、CLAとかのサインが必要だと面倒で避ける原因になるので、<a href="https://www.clahub.com/" title="CLAHub">CLAHub</a>や<a href="https://yahoocla.herokuapp.com/" title="Yahoo Open Source Contributor License Agreement">Yahoo Open Source Contributor License Agreement</a>みたいにGitHubアカウントでサインできるといい気がした</li>
+</ul></li>
+</ul>
+
+<p>こういうPull Requestレポート面白いのでもっとあるといいと思った。</p>
+
+<ul>
+<li><a href="http://faithandbrave.hateblo.jp/entry/2014/11/28/142245" title="Emscriptenへのpull requestレポート - Faith and Brave - C++で遊ぼう">Emscriptenへのpull requestレポート - Faith and Brave - C++で遊ぼう</a></li>
+</ul>
+
+<h3 id="promise本">Promise本</h3>
+
+<p><a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a> を書いたのが今年一番大きかったと思う。</p>
+
+<p><a href="https://gumroad.com/l/javascript-promise" title="JavaScript Promiseの本 付録">JavaScript Promiseの本 付録</a>(無料、<a href="https://github.com/azu/promises-book/tree/master/Appendix-Note" title="おまけ: Editor’s Note">おまけ: Editor’s Note</a>にソース)でも書いてましたが、<a href="https://github.com/azu/promises-book/graphs/punch-card">コアコミットタイム</a>が移動中の時間だったり、自分自身にpull requestして書くスタイルをとったりしてたので、結構今のコミットスタイルにも影響があるなーと思います。</p>
+
+<ul>
+<li><a href="http://azu.github.io/slide/udonjs/github-issue.html" title="一人で使えるGithub Issue">一人で使えるGithub Issue</a></li>
+</ul>
+
+<p>最初に<a href="https://github.com/azu/azu/issues/7" title="Promisesの薄い本 · Issue #7 · azu/azu">Promisesの薄い本 · Issue #7 · azu/azu</a>でTODOとしてあげて、2014年3月2日に書き始めて、2014年6月2日に全ての章が書き終わり(+リファクタリング期間)だったので大体3ヶ月ぐらいかかりました。</p>
+
+<blockquote>
+<p>こういう形態で書籍を公開したのは、常に書籍が更新出来るようにしたいからでもあります。
+-- <a href="http://efcl.info/2014/0623/res3943/" title="JavaScript Promiseの本を書きました | Web Scratch">JavaScript Promiseの本を書きました | Web Scratch</a></p>
+</blockquote>
+
+<p>電子書籍であるメリットはいつでも更新できる点で、今も<a href="http://efcl.info/2014/11/17/tkbjs-promises-book/" title="#tkbjs でPromise本のオンライン勉強会">#tkbjs でPromise本のオンライン勉強会</a>で題材になってるので<a href="https://github.com/azu/promises-book/issues?q=is%3Aissue">ちょこちょこ直しています</a></p>
+
+<p>また、<a href="https://github.com/azu/promises-book/blob/master/Appendix-Note/tooling-ci.adoc" title="執筆のために作成したツール">執筆のために作成したツール</a>や<a href="http://azu.github.io/slide/individual/" title="Githubで書く電子書籍">Githubで書く電子書籍</a>で書いていますが、文章のCIするという考えがこの辺で結構出てきた気がします。</p>
+
+<ul>
+<li><a href="http://efcl.info/2014/0628/res3950/" title="個人開発を支える技術Night Githubで作る電子書籍について発表してきた | Web Scratch">個人開発を支える技術Night Githubで作る電子書籍について発表してきた | Web Scratch</a></li>
+</ul>
+
+<p>最近も<a href="http://efcl.info/2014/12/30/textlint/" title="JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch">JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った</a>というような校正するためのツールを作ったり、<a href="http://azu.github.io/slide/jser200/" title="JSer.info 200 回目記念イベント">JSer.info 200 回目記念イベント</a>でも話していたようにJSer.infoを更新するツールにもそういう文章のチェックツール等を取り入れています。</p>
+
+<p>自然言語について無知なのでそれっぽいツールをそれっぽく作るみたいな感じでやってた気がします。</p>
+
+<h2 id="食事と勉強会">食事と勉強会</h2>
+
+<p>誰かと食事に行くたびにLTをしてたら、食事会 == LT会となって便利だった。</p>
+
+<p>多分、そういう形体で一番最初は<a href="http://efcl.info/2013/1011/res3455/" title="JavaScriptご飯を食べてきました | Web Scratch">JavaScriptご飯を食べてきました | Web Scratch</a>だったと思いますが、<a href="http://azu.github.io/slide/okonomi.js/" title="power-doctest @ okonomi.js">お好み焼きJS</a>、<a href="http://azu.github.io/slide/soba/index.html#0" title="Soba.js">そばJS</a>、<a href="http://efcl.info/2014/0401/res3779/" title="寿司">寿司JS</a>、<a href="http://efcl.info/2014/0403/res3793/" title="桜JS">桜JS</a>、<a href="http://efcl.info/2014/0415/res3844/" title="葉桜JS">葉桜JS</a>、<a href="http://efcl.info/2014/0528/res3914/" title="うどんJS">うどんJS</a>、<a href="http://efcl.info/2014/11/15/nodefest-2014/" title="企業JavaScript飯">企業JavaScript飯</a>、<a href="http://efcl.info/2014/09/22/sourcemap-ast/" title="DOMQuery寿司">DOMQuery寿司</a>、<a href="http://efcl.info/2014/12/05/chatworkjs/" title="北京ダック">chatworkjs</a>、<a href="http://efcl.info/2014/12/18/pxgridjs/" title="pxgridjs">pxgridjs</a>という感じです。</p>
+
+<p>その他普通の勉強会での発表は<a href="http://efcl.info/about/presentations.html" title="勉強会での発表履歴 | Web Scratch">勉強会での発表履歴 | Web Scratch</a>にまとめてあります。</p>
+
+<p>後、JSer.info 200回投稿記念イベントもやれたので良かった(2015年1月16日で4周年)</p>
+
+<ul>
+<li><a href="http://jser.info/2014/11/02/jser200/" title="JSer.info 200回記念イベントを開催しました - JSer.info">JSer.info 200回記念イベントを開催しました - JSer.info</a></li>
+</ul>
+
+<p>来年も頑張れるといいですね。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-12-31-oss-in-2014.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","OSS","promise","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=OSS">OSS</a></li>
+                
+                <li><a href="/tags/?q=promise">promise</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

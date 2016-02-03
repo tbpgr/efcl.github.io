@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Post Now browsing to Twitterで設定画面が開かないバグ修正 | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="Greasemonkey,UI,設定" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2010/1207/res2169/">
+    <h1 class="post-title">Post Now browsing to Twitterで設定画面が開かないバグ修正</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2010年12月07日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-12-07-post-now-browsing-to-twitter%E3%81%A7%E8%A8%AD%E5%AE%9A%E7%94%BB%E9%9D%A2%E3%81%8C%E9%96%8B%E3%81%8B%E3%81%AA%E3%81%84%E3%83%90%E3%82%B0%E4%BF%AE%E6%AD%A3.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <p><a href="http://userscripts.org/scripts/show/46441">Post Now browsing to Twitter</a>で設定画面がうまく開かない現象が起きていたみたいで、以前は<a href="http://userscripts.org/scripts/show/49700">GM_config</a>というGUI用のライブラリを使っていたのですが、今回<a href="https://github.com/h1mesuke/usconfig">usconfig</a>に移行しました。<br>
+なので、今まで設定画面が開かないなどの現象が起きていた人はインストールしなおしてください。<br>
+(おかしいときは ツール→Greasemonkey(もしくはステータスバーの猿アイコン)→ユーザースクリプトの管理→Post Now browsing to Twitterを選択→✓関連付けられた設定も削除にチェック→アンインストール → インストール)</p>
+
+<ul>
+<li>  <a href="http://userscripts.org/scripts/show/46441">Post Now browsing to Twitter for Greasemonkey</a></li>
+</ul>
+
+<p>こっからはGM_configからUSConfigへ移行方法について。</p>
+
+<ul>
+<li>  <a href="http://d.hatena.ne.jp/h1mesuke/20100713/p1">Greasemonkeyスクリプトに設定画面を追加するライブラリ USConfig &#8211; Alone Like a Rhinoceros Horn</a></li>
+<li>  <a href="https://github.com/h1mesuke/usconfig/wiki/_pages">Usconfig のページ一覧 &#8211; GitHub</a></li>
+</ul>
+
+<p>GM_configは前から少し不安定な感じがあったので、同種のライブラリであるUSConfigに変えました。<br>
+GM_configとUSConfigの違いを簡単に挙げてみると(移行するに当たっての変更点)</p>
+
+<p>まずはGUIの書き方が別物なので、そこはすべて書き直す必要があります。</p>
+
+<p>GM_configの場合</p>
+
+<pre class="brush:javascript;">GM_config.init('Configuration for Post Now browsing to Twitter', {
+    'defaultTag': {
+        'label': 'Prefix:',
+        'type': 'text',
+        'default':'Now browsing: '
+    },
+    'isSelection': {
+        'label': 'Use selectionQuote',
+        'type': 'checkbox',
+        'default':true
+    },
+    'ShortURL': {
+        'label': 'Short URL',
+        'type': 'select',
+        'options': {
+            'bit.ly': 'bit.ly',
+            'j.mp': 'j.mp',
+            'goo.gl': 'goo.gl',
+            'is.gd': 'is.gd',
+            'tinyurl.com': 'tinyurl.com'
+        },
+        'default':'bit.ly'
+    },
+    'ShortCutKey': {
+        'label': 'ShortcutKey:',
+        'type': 'text',
+        'default':'CS-Enter'
+    },
+    'PostWithCtrl': {
+        'label': 'Post with Ctrl+Enter:',
+        'type': 'checkbox',
+        'default': false
+    },
+    'bitlyUserName': {
+        'section': &#91;'bit.ly'&#93;,
+        'label': 'bit.ly Username:',
+        'type': 'text',
+    'default':
+        'remiko'
+    },
+    'bitlyAPIKey': {
+        'label': 'bit.ly APIKey :',
+        'type': 'text',
+        'default': 'R_fa2240c646c07b2091x'
+    }
+}, configStyle , {
+    open: function () {
+        // ショートカットの入力補助
+        var iframe = document.getElementById("GM_config");
+        var iframeDoc = iframe.contentDocument;
+        iframeDoc.getElementById("field_ShortCutKey").addEventListener('keydown', function (evt) {
+            evt.preventDefault();
+            this.value = shortcut.get(evt);
+        }, false);
+        // OAuth Setting
+        if (TWOauth.isAuthorize()) {
+            TWOauth.injectToConfig();
+        } else {
+            XHRloading.createText(iframeDoc);
+            TWOauth.getRequestToken(TWOauth.injectToConfig);
+        }
+    },
+    save: function () {
+
+    } // reload the page when configuration was changed
+});</pre>
+
+USConfigの場合
+
+<pre class="brush:javascript;">Config.define('usc_basic', function() {
+    with (this.builder) {
+        var shortURL_opt = &#91;
+            'bit.ly',
+            'j.mp',
+            'goo.gl',
+            'is.gd',
+            'tinyurl.com'
+        &#93;
+        dialog(
+            "Post Now browsing to Twitter Settings",
+            { width: 600, height: 700 },
+
+                section(
+                        "User options",
+                        "Behavior/keyboard Preference",
+                        grid(
+                                text("Prefix:", 'defaultTag', "Now browsing: ", { size: 20 }), 'n',
+                                checkbox("Use selection quote", 'isSelection', true), 'n',
+                                checkbox("Post with Ctrl+Enter", 'PostWithCtrl', false), 'n',
+                                text("ShortcutKey:", 'ShortCutKey', "CS-Enter", { size: 16 })
+                                )
+                        ),
+                section(
+                        "Short URL options",
+                        "select used Short URL service",
+
+                        grid(
+                                select("Short URL Services", 'ShortURL', shortURL_opt, "bit.ly"), 'n',
+                                text("bit.ly Username:", 'bitlyUserName', "remiko"), 'n',
+                                text("bit.ly APIKey :", 'bitlyAPIKey', 'R_fa2240c646c07b2091c6bc6d109089ef', { size: 30 })
+                                )
+                        ),
+                section(
+                        "OAuth Authorization",
+                        "Sign in with Twitter"
+                        )
+                );
+    }
+}, {
+    saveKey: 'GM_config',
+    aftersave: function() {
+
+    },
+    afteropen : function() {
+        // ショートカットの入力補助
+        var iframeDoc = this.frame.contentDocument;
+        iframeDoc.getElementById("control_ShortCutKey").addEventListener('keydown', function (evt) {
+            evt.preventDefault();
+            this.value = shortcut.get(evt);
+        }, false);
+        // OAuth Setting
+        if (TWOauth.isAuthorize()) {
+            TWOauth.injectToConfig();
+        } else {
+            XHRloading.createText(iframeDoc);
+            TWOauth.getRequestToken(TWOauth.injectToConfig);
+        }
+    }
+});</pre>
+
+二つを見比べると、GM_configはオブジェクトを定義する感じだけど、USConfigはその都度関数を呼び出す感じになってる。レイアウトの自由度はUSConfigの方が上ですが、ちょっとインデント管理が大変で書きにくい。  
+またUSConfigではselectに連想配列っぽいオブジェクトを使えないので、配列に直す必要があります。  
+後、[Text() ][6]のデフォルトサイズが少し小さいので第4引数で属性にsizeを追加してます。  
+最後の空sectionはafteropen時に書き換えるようにしてるので、本質とはあんまり関係ないです。  
+USConfigの方が[Config.define()][7]でのコールバック(afteropenなど)が豊富なので、細かい制御がしやすいと思います。  
+そのコードバックで設定画面のiframeをとるにはthis.frameとすればよいみたいです。
+
+*   [Twitter / h1mesuke: @azu_re はじめまして。afteropen と &#8230;][8]
+
+次に設定情報の取り出し方  
+GM\_configがそのつど、keyを指定してvalueを取り出す感じだったのが(GreasemonkeyのGM\_getvalueに近い)
+
+<pre>GM_config.get(key);// value</pre>
+
+USConfigでは設定全部をまとめたオブジェクトを最初にロードする感じになっています
+
+<pre>var settings = Config.load();
+settings.key;// value
+</pre>
+
+<p>また、設定を保存するキーの初期値はGM_configと違うのでそのまま移行させるためにはsaveKeyを&#8217;GM_config&#8217;にします。</p>
+
+<pre>Config.define('dialog_name', function() { with (this.builder) {
+  dialog(...);
+}}, {
+  saveKey: 'GM_config',
+  aftersave: function() {...},
+});
+</pre>
+
+<p>後はGM_config.*()がConfig.*()など細かい違いあるので、それを手直しすれば移行できました。<br>
+(GM_config.close()がConfig.remove()だったのが少しはまった)</p>
+
+<div id="_mcePaste" style="position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;">
+  USConfig
+</div>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2010/2010-12-07-post-now-browsing-to-twitter%E3%81%A7%E8%A8%AD%E5%AE%9A%E7%94%BB%E9%9D%A2%E3%81%8C%E9%96%8B%E3%81%8B%E3%81%AA%E3%81%84%E3%83%90%E3%82%B0%E4%BF%AE%E6%AD%A3.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Greasemonkey","UI","設定"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Greasemonkey">Greasemonkey</a></li>
+                
+                <li><a href="/tags/?q=UI">UI</a></li>
+                
+                <li><a href="/tags/?q=設定">設定</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        GitHubのIssue一覧をiframeで埋め込めるウィジェットを作った | Web Scratch
+        
+    </title>
+    
+    <meta name="keywords" content="GitHub,HTML,API,JSONP" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 145
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 1
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/17/jserinfo-5years/">
+                JSer.info 5周年記念イベント アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/12/textlint-coverage/">
+                textlintで文章カバレッジレポートを継続的に見ていく
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2014/08/31/github-issue-widget/">
+    <h1 class="post-title">GitHubのIssue一覧をiframeで埋め込めるウィジェットを作った</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2014年08月31日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-08-31-github-issue-widget.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+    </div>
+    <div class="post-content">
+        <h2 id="github-issue-widget"><a href="https://github.com/azu/github-issue-widget" title="github-issue-widget">github-issue-widget</a></h2>
+
+<p>GitHubの特定のリポジトリのIssue一覧をiframeで埋め込めるものを作りました。</p>
+
+<p>以下のようにiframeの<code>src</code>にパラメータを指定して埋め込む事が出来ます。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;iframe</span> <span class="na">src=</span><span class="s">&quot;https://azu.github.io/github-issue-widget/?owner=efcl&amp;repo=efcl.github.io&amp;limit=3&amp;random&quot;</span>
+        <span class="na">allowtransparency=</span><span class="s">&quot;true&quot;</span> <span class="na">frameborder=</span><span class="s">&quot;0&quot;</span> <span class="na">scrolling=</span><span class="s">&quot;0&quot;</span> <span class="na">width=</span><span class="s">&quot;100%&quot;</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+</code></pre></div>
+<p>結果は以下のような表示です。</p>
+
+<iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&limit=3&random" allowtransparency="true" frameborder="0" scrolling="0" width="100%"></iframe>
+
+<h2 id="使い方">使い方</h2>
+
+<p>使い方は単純で、以下のようにiframeで <code>https://azu.github.io/github-issue-widget/</code> にパラーメータをつけて埋め込むだけです。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;iframe</span> <span class="na">src=</span><span class="s">&quot;https://azu.github.io/github-issue-widget/?owner=efcl&amp;repo=efcl.github.io&amp;random&quot;</span>
+        <span class="na">allowtransparency=</span><span class="s">&quot;true&quot;</span> <span class="na">frameborder=</span><span class="s">&quot;0&quot;</span> <span class="na">scrolling=</span><span class="s">&quot;0&quot;</span> <span class="na">width=</span><span class="s">&quot;100%&quot;</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+</code></pre></div>
+<h3 id="パラメータ">パラメータ</h3>
+
+<p>パラメータに必須なのは、<code>owner</code>と<code>repo</code>のみです。他はオプショナルなパラメータになります。</p>
+
+<h4 id="ownerとreop">ownerとreop</h4>
+
+<p><code>https://github.com/azu/github-issue-widget</code> を例にすると
+<code>owner</code>は<code>azu</code>で、<code>repo</code>は<code>github-issue-widget</code> です。</p>
+
+<h4 id="limit">limit</h4>
+
+<p><code>limit</code>は表示する件数の指定です。(多分取得数に限界があるので、その場合は小さいほうが優先されます)</p>
+
+<p>デフォルト値は1にしています</p>
+
+<h4 id="random">random</h4>
+
+<p><code>random</code> は <code>&amp;random</code> という感じでvalueなしで指定(keyがあればtrueになる)する感じで使います。</p>
+
+<p>これを指定した場合は、表示する順番がランダムになります。</p>
+
+<h4 id="github-api">GitHub API</h4>
+
+<p>他にもGitHub APIを叩く際のオプションを指定することが出来ます。</p>
+
+<p>以下のように<code>state</code>で閉じているissueを取得することもできます。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;iframe</span> <span class="na">src=</span><span class="s">&quot;https://azu.github.io/github-issue-widget/?owner=efcl&amp;repo=efcl.github.io&amp;limit=10&amp;state=closed&quot;</span>
+        <span class="na">allowtransparency=</span><span class="s">&quot;true&quot;</span> <span class="na">frameborder=</span><span class="s">&quot;0&quot;</span> <span class="na">scrolling=</span><span class="s">&quot;0&quot;</span> <span class="na">width=</span><span class="s">&quot;100%&quot;</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+</code></pre></div>
+<p>基本的にGitHub APIとParametersの名前は同じになっています。</p>
+
+<p>GitHub APIを<a href="https://developer.github.com/v3/#json-p-callbacks" title="JSON-P Callbacks">JSON-P Callbacks</a>を使って叩いているので、パラメータの詳細は<a href="https://github.com/azu/github-issue-widget#parameters" title="Parameters">Parameters</a>を見て下さい。</p>
+
+<h2 id="その他">その他</h2>
+
+<p>埋め込んでいるHTMLはGitHub Pagesで公開してるものを使っているだけな感じです。</p>
+
+<ul>
+<li><a href="https://github.com/azu/github-issue-widget#parameters" title="azu/github-issue-widget">azu/github-issue-widget</a></li>
+</ul>
+
+<p>これは、以下のButtonを参考に作りました。</p>
+
+<ul>
+<li><a href="http://ghbtns.com/" title="The Unofficial GitHub Watch &amp;amp; Fork Buttons">The Unofficial GitHub Watch &amp; Fork Buttons</a></li>
+</ul>
+
+<p>このブログでは次に書く候補の記事をGitHub Issueにメモしたりしてるので、記事の下にその候補を表示するようにしました。</p>
+
+<p><a href="https://github.com/efcl/efcl.github.io/issues" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a> にまとめてるので興味があったらコメントや<code>:+1</code>しておくと参考になります。</p>
+
+<ul>
+<li><a href="http://efcl.info/2014/07/29/voting-badge/" title="GitHubなどで使える:+1:するバッジサービスを作った | Web Scratch">GitHubなどで使える:+1:するバッジサービスを作った | Web Scratch</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/master/_posts/2014/2014-08-31-github-issue-widget.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["GitHub","HTML","API","JSONP"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=GitHub">GitHub</a></li>
+                
+                <li><a href="/tags/?q=HTML">HTML</a></li>
+                
+                <li><a href="/tags/?q=API">API</a></li>
+                
+                <li><a href="/tags/?q=JSONP">JSONP</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+    </div>
+</article>
+</body>
+</html>

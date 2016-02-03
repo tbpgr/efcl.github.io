@@ -1,10 +1,79 @@
----
-layout: null
----
 {
     "categories": [
-        {% for category in site.categories %}
-        "{{ category | first }}"{% unless forloop.last %},{% endunless %}
-        {% endfor %}
+        
+        "greasemonkey",
+        
+        "ニコニコ動画",
+        
+        "小説電子化",
+        
+        "vista",
+        
+        "firefox",
+        
+        "その他",
+        
+        "webサービス",
+        
+        "software",
+        
+        "雑記",
+        
+        "まとめ",
+        
+        "zaurus",
+        
+        "ハードウェア",
+        
+        "アドオン",
+        
+        "wordpress",
+        
+        "javascript",
+        
+        "インストール設定",
+        
+        "iphone",
+        
+        "loox u",
+        
+        "tombloo",
+        
+        "イベント",
+        
+        "userchome.js",
+        
+        "jetpack",
+        
+        "onenote",
+        
+        "nilscript",
+        
+        "keysnail",
+        
+        "ios",
+        
+        "shell",
+        
+        "r言語",
+        
+        "node.js",
+        
+        "mac",
+        
+        "github",
+        
+        "jekyll",
+        
+        "golang",
+        
+        "web",
+        
+        "スライド",
+        
+        "ie",
+        
+        "書籍"
+        
     ]
 }
