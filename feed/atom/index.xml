@@ -4,7 +4,7 @@
  <title></title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-02-03T20:39:14+09:00</updated>
+ <updated>2016-02-03T21:14:27+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -64,7 +64,9 @@ D--&gt;&gt;A: Dashed open arrow
 
 <h3 id="体験版">体験版</h3>
 
-<p>AppStoreで売ってるだけで体験版は用意されていませんが、GitHub Issueでやり取りしてるβ版を使えば試すことができます。</p>
+<p>AppStoreで販売されていますが、<a href="http://happenapps.com/#quiver">公式サイト</a>の<a href="http://happenapps.com/downloads/QuiverFreeTrial.zip">Free Trial</a>から体験版をダウンロードできます。</p>
+
+<p>また、GitHub Issueでやり取りしてるβ版でも試すことができます。</p>
 
 <ul>
 <li><a href="https://github.com/HappenApps/Quiver/issues/361" title="Quiver 3.0.1 Beta · Issue #361 · HappenApps/Quiver">Quiver 3.0.1 Beta · Issue #361 · HappenApps/Quiver</a></li>

@@ -5,8 +5,8 @@
     <description>ブラウザ/JavaScript等についてのブログ</description>
     <link>http://efcl.info/</link>
     <atom:link href="http://efcl.info/feed/" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 03 Feb 2016 20:39:14 +0900</pubDate>
-    <lastBuildDate>Wed, 03 Feb 2016 20:39:14 +0900</lastBuildDate>
+    <pubDate>Wed, 03 Feb 2016 21:14:27 +0900</pubDate>
+    <lastBuildDate>Wed, 03 Feb 2016 21:14:27 +0900</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -56,7 +56,9 @@ D--&amp;gt;&amp;gt;A: Dashed open arrow
 
 &lt;h3 id=&quot;体験版&quot;&gt;体験版&lt;/h3&gt;
 
-&lt;p&gt;AppStoreで売ってるだけで体験版は用意されていませんが、GitHub Issueでやり取りしてるβ版を使えば試すことができます。&lt;/p&gt;
+&lt;p&gt;AppStoreで販売されていますが、&lt;a href=&quot;http://happenapps.com/#quiver&quot;&gt;公式サイト&lt;/a&gt;の&lt;a href=&quot;http://happenapps.com/downloads/QuiverFreeTrial.zip&quot;&gt;Free Trial&lt;/a&gt;から体験版をダウンロードできます。&lt;/p&gt;
+
+&lt;p&gt;また、GitHub Issueでやり取りしてるβ版でも試すことができます。&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/HappenApps/Quiver/issues/361&quot; title=&quot;Quiver 3.0.1 Beta · Issue #361 · HappenApps/Quiver&quot;&gt;Quiver 3.0.1 Beta · Issue #361 · HappenApps/Quiver&lt;/a&gt;&lt;/li&gt;
