@@ -4,7 +4,7 @@
  <title></title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-02-12T22:48:24+09:00</updated>
+ <updated>2016-02-12T22:49:20+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -81,20 +81,16 @@
 ちゃんとテーマごとに議論の区切りと結論が書いてあるので、気になるものだけみるならすぐ読めると思います。</p>
 
 <p>例えば先ほどの<a href="https://github.com/tc39/tc39-notes/blob/master/es7/2016-01/2016-01-27.md#ecma-262402-2016-end-game" title="ECMA-262/402 2016 End-Game">ECMA-262/402 2016 End-Game</a>なら、以下のように終わりに&quot;Conclusion/Resolution&quot;がわかりやすく書いてあります。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">ECMA-262/402 2016 End-Game  
 
-<blockquote>
-<p>ECMA-262/402 2016 End-Game  </p>
-
-<p>AWB: slide (Key dates)<br>
-BT: the way I want to do this, at the march meeting I want us to approve what is in master, or a snapshot. I don&#39;t want to make minor tech or editorial changes. I will make fixes if major issues exist, but otherwise I wish we can leave it as is. Leaving it as a tag<br>
-...<br>
-Conclusion/Resolution</p>
-
-<p>30 days before the next meeting, the final draft will be provided
+AWB: slide (Key dates)  
+BT: the way I want to do this, at the march meeting I want us to approve what is in master, or a snapshot. I don&#39;t want to make minor tech or editorial changes. I will make fixes if major issues exist, but otherwise I wish we can leave it as is. Leaving it as a tag  
+...  
+Conclusion/Resolution
+   30 days before the next meeting, the final draft will be provided
    next meeting we will vote to make it ES2016
-   start the out-patent review process, you may need to alert your organizations</p>
-</blockquote>
-
+   start the out-patent review process, you may need to alert your organizations
+</code></pre></div>
 <p>自分は<a href="https://twitter.com/search?f=realtime&amp;q=%20%23TC39MTG" title="#TC39MTG">#TC39MTG</a>というハッシュタグをつけて読んでいます。</p>
 
 <ul>
@@ -110,6 +106,8 @@ Conclusion/Resolution</p>
 <p>特に<a href="https://github.com/rwaldron/tc39-notes/pull/41">今回はtypoの数が多かった</a>ので、積極的に修正を送ると他の読む人が幸せになれます。</p>
 
 <p><img src="http://efcl.info/wp-content/uploads/2016/02/12-1455276798.png" alt="contributing"></p>
+
+<p>typoを直すためにかなりの数コミットしたので跳ねてる…(まだtypoは残ってるのがあると思います…)</p>
 
 <h3 id="具体的な修正の送り方">具体的な修正の送り方</h3>
 
