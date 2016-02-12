@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "ECMAScript, TC39 Meeting Notesの読み方と修正方法",
+            "url": "http://efcl.info/2016/02/12/tc39-meeting-notes/",
+            "date": "2016-02-12T11:12:00+09:00"
+        },
+        
+        {
             "title": "メモアプリをDayOneからQuiverに移行した",
             "url": "http://efcl.info/2016/02/03/quiver/",
             "date": "2016-02-03T20:28:00+09:00"

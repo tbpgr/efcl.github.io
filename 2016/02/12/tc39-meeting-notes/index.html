@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        ECMAScript, TC39 Meeting Notesの読み方と修正方法 | Web Scratch
+        
+    </title>
+    <meta name="description" content="ECMAScriptは毎年リリースの方針となったため、最新の仕様を管理しているtc39/ecma262には毎日のようにコミットされています。">
+    
+    <meta name="keywords" content="ECMAScript,JavaScript,GitHub" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="ECMAScript, TC39 Meeting Notesの読み方と修正方法">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/02/12/tc39-meeting-notes/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="ECMAScriptは毎年リリースの方針となったため、最新の仕様を管理しているtc39/ecma262には毎日のようにコミットされています。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-02-12T11:12:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/02/03/quiver/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/01/22/textlint-unexpanded-acronym/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/01/22/es-usage-rate/">
+
+
+
+
+
+<meta property="article:section" content="javascript">
+
+
+
+
+
+<meta property="article:tag" content="ECMAScript">
+
+<meta property="article:tag" content="JavaScript">
+
+<meta property="article:tag" content="GitHub">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 146
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 72
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/02/12/tc39-meeting-notes/">
+                ECMAScript, TC39 Meeting Notesの読み方と修正方法
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/02/03/quiver/">
+                メモアプリをDayOneからQuiverに移行した
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/es-usage-rate/">
+                JavaScriptのコードを分解してよく使われてる機能を分析する
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/02/12/tc39-meeting-notes/">
+    <h1 class="post-title">ECMAScript, TC39 Meeting Notesの読み方と修正方法</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年02月12日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-02-12-tc39-meeting-notes.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p>ECMAScriptは毎年リリースの方針となったため、最新の仕様を管理している<a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a>には毎日のようにコミットされています。</p>
+
+<p>ECMAScriptのリリース方針についてなどは以下を参照してください。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/10/18/ecmascript-paper/" title="ECMAScriptの仕様策定に関するカンニングペーパー | Web Scratch">ECMAScriptの仕様策定に関するカンニングペーパー | Web Scratch</a></li>
+</ul>
+
+<p>これらの最新の変更が反映されたLiving Standardなものは以下のURLで公開されています。</p>
+
+<ul>
+<li><a href="https://tc39.github.io/ecma262/">tc39.github.io/ecma262/</a></li>
+</ul>
+
+<p>また、Proposalを元にECMAScript 2016に<a href="http://jser.info/2016/02/01/es2016/">入る機能は既に決まっています</a>。
+何か新しく入るのかは以下の記事を見てみてください。</p>
+
+<ul>
+<li><a href="http://jser.info/2016/02/01/es2016/#%E5%A4%89%E6%9B%B4%E3%82%92%E7%9F%A5%E3%82%8B%E6%96%B9%E6%B3%95" title="ECMAScript 2016 features &amp;amp; changes - JSer.info">ECMAScript 2016 features &amp; changes - JSer.info</a></li>
+</ul>
+
+<p>これが&quot;どこで&quot;決まっているのかというと2ヶ月に1回行われているTC39のミーティングです。(どこかに物理的に集合してF2Fでやる)</p>
+
+<ul>
+<li><a href="https://github.com/tc39/tc39-notes/blob/master/es7/2016-01/2016-01-27.md#ecma-262402-2016-end-game" title="ECMA-262/402 2016 End-Game">ECMA-262/402 2016 End-Game</a>
+
+<ul>
+<li>具体的にES2016は、ここで今回のミーティングでStage 4となったものがそうだと決まった</li>
+</ul></li>
+</ul>
+
+<p>小さな修正などは直接GitHubで議論して終わることがありますが、TC39としての意志が求められる新しい機能の追加や互換性のない修正などはTC39のミーティングを通して判断されます。</p>
+
+<ul>
+<li>ProposalのStageをあげるあげない</li>
+<li>ProposalをStage 0として追加するかどうか</li>
+<li>後方互換性のない変更を加えるか</li>
+<li>現実との互換性のためにAnnex Bへ仕様を追加するか</li>
+</ul>
+
+<p>などはここで議論された結果が仕様へ反映されます。
+(大体はGitHub Issueで議論後、Pull Requestを出した状態で実際のミーティングに持ち込まれてる)</p>
+
+<p>そのため、仕様/Proposalへどういう変更をどういう理由で加えるかというのはこのミーティングノートを見れば大体分かります。</p>
+
+<ul>
+<li><a href="https://github.com/tc39/tc39-notes" title="tc39/tc39-notes: These are the notes I take at TC39 Meetings, with Markdown formatting">tc39/tc39-notes</a>
+
+<ul>
+<li><a href="https://github.com/rwaldron/tc39-notes" title="rwaldron/tc39-notes">rwaldron/tc39-notes</a>が元リポジトリ</li>
+</ul></li>
+<li><a href="https://github.com/tc39/ecma262/pulls?q=is%3Apr+is%3Aclosed" title="Pull Requests · tc39/ecma262">Pull Requests · tc39/ecma262</a>
+
+<ul>
+<li>あわせてPull Requestを見るのが早い</li>
+</ul></li>
+</ul>
+
+<p>ミーティングノートは3日分がワンセットなのでちょっと多いですが、数時間あれば読める感じです。
+ちゃんとテーマごとに議論の区切りと結論が書いてあるので、気になるものだけみるならすぐ読めると思います。</p>
+
+<p>例えば先ほどの<a href="https://github.com/tc39/tc39-notes/blob/master/es7/2016-01/2016-01-27.md#ecma-262402-2016-end-game" title="ECMA-262/402 2016 End-Game">ECMA-262/402 2016 End-Game</a>なら、以下のように終わりに&quot;Conclusion/Resolution&quot;がわかりやすく書いてあります。</p>
+
+<blockquote>
+<p>ECMA-262/402 2016 End-Game  </p>
+
+<p>AWB: slide (Key dates)<br>
+BT: the way I want to do this, at the march meeting I want us to approve what is in master, or a snapshot. I don&#39;t want to make minor tech or editorial changes. I will make fixes if major issues exist, but otherwise I wish we can leave it as is. Leaving it as a tag<br>
+...<br>
+Conclusion/Resolution</p>
+
+<p>30 days before the next meeting, the final draft will be provided
+   next meeting we will vote to make it ES2016
+   start the out-patent review process, you may need to alert your organizations</p>
+</blockquote>
+
+<p>自分は<a href="https://twitter.com/search?f=realtime&amp;q=%20%23TC39MTG" title="#TC39MTG">#TC39MTG</a>というハッシュタグをつけて読んでいます。</p>
+
+<ul>
+<li><a href="https://tc39-mtg.doorkeeper.jp/" title="TC39 MTG Notes MTG | Doorkeeper">TC39 MTG Notes MTG | Doorkeeper</a></li>
+</ul>
+
+<h2 id="tc39ミーティングノートの修正方法">TC39ミーティングノートの修正方法</h2>
+
+<p>ここでやっと本題ですが、ミーティングノートを読んでいると結構な頻度でtypoなどの間違いやリンク切れ、Markdownの構文ミスなどが見つかると思います。</p>
+
+<p>間違いを見つけた時は<a href="https://github.com/rwaldron/tc39-notes" title="rwaldron/tc39-notes">rwaldron/tc39-notes</a>に普通にPull Requestで修正を送りましょうという話です。</p>
+
+<p>特に<a href="https://github.com/rwaldron/tc39-notes/pull/41">今回はtypoの数が多かった</a>ので、積極的に修正を送ると他の読む人が幸せになれます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2016/02/12-1455276798.png" alt="contributing"></p>
+
+<h3 id="具体的な修正の送り方">具体的な修正の送り方</h3>
+
+<p>やり方も何もないですが、Markdownファイルを修正して以下のリポジトリにPull Requestを送るだけです。</p>
+
+<ul>
+<li><a href="https://github.com/rwaldron/tc39-notes" title="rwaldron/tc39-notes">rwaldron/tc39-notes</a></li>
+</ul>
+
+<p>注意点としてはこのミーティングノートを管理している<a href="https://github.com/rwaldron" title="rwaldron">@rwaldron</a>さんは、結構Pull Requestを見逃すことがあるのでmentionを本文に入れておいたほうが確実です。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">/cc @rwaldron
+</code></pre></div>
+<p>また、数日反応がなかったら<code>ping @rwaldron</code>などとするのがいい気がしています。</p>
+
+<p>修正はまとめて一つのPull Requestで送ることが多いです。</p>
+
+<h3 id="修正箇所の見つけ方">修正箇所の見つけ方</h3>
+
+<p>結構、普通に見ていれば崩れている場所が見つかると思います。</p>
+
+<ul>
+<li>MarkdownのCodeBlockが壊れてる</li>
+<li>インデントが揃ってない</li>
+<li><code>----</code> が余計にある</li>
+<li><code>-</code> だけが残ってる</li>
+<li>リンク切れ</li>
+<li>typo</li>
+</ul>
+
+<p>リアルタイムに文字起こしてるようなきがするので、スペルチェッカーを通すだけでも結構なtypoが見つかります。
+(自分は英語に自信がないので、確実に間違ってるものだけ修正しています。もっと英語表現に詳しい方も修正送って欲しい…)</p>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>ECMAScriptの新しいProposalを知りたいという場合は、適当なブログを見るよりもProposalを書いてる人たちの意見が見られるミーティングノートを見るのが確実です。</p>
+
+<p>ちょっと長いですが、一次情報を見ればモチベーションなどもわかるし、なんとなく見てても面白いのでおすすめです。(Conclusionだけ見ても色々分かります)</p>
+
+<p>少なくてもBabelで<code>Stage X preset</code>を使ってる人は一度見るといいかと思います。(ミーティノートにも度々Babelの話はでてきます)</p>
+
+<p>Angular 2を使ってる人も<a href="https://github.com/wycats/javascript-decorators">Stage 1のDecorators</a>の上に<a href="http://ecmascript-daily.github.io/2016/01/28/stage0-descorator-related">Stage 0のDecorators関連Proposal</a>があることなどを知るために見ておくべきです。</p>
+
+<blockquote>
+<p>情報の伝達が早い順で並べるとTwitter &gt; GitHub &gt; その他という感じです。<br>
+-- <a href="http://jser.info/2016/02/01/es2016/#%E5%A4%89%E6%9B%B4%E3%82%92%E7%9F%A5%E3%82%8B%E6%96%B9%E6%B3%95" title="ECMAScript 2016 features &amp;amp; changes - JSer.info">ECMAScript 2016 features &amp; changes - JSer.info</a></p>
+</blockquote>
+
+<p>こうしてミーティングノートや<a href="https://github.com/tc39/ecma262" title="tc39/ecma262: Status, process, and documents for ECMA262">tc39/ecma262</a>を見て集めた&quot;その他&quot;の情報を、適当なブログである<a href="http://ecmascript-daily.github.io/" title="ECMAScript Daily">ECMAScript Daily</a>に更新しています。</p>
+
+<p><a href="https://twitter.com/ecmascriptdaily" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @ecmascriptdaily</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?&#39;http&#39;:&#39;https&#39;;if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+&#39;://platform.twitter.com/widgets.js&#39;;fjs.parentNode.insertBefore(js,fjs);}}(document, &#39;script&#39;, &#39;twitter-wjs&#39;);</script></p>
+
+<p><a href="http://ecmascript-daily.github.io/" title="ECMAScript Daily">ECMAScript Daily</a>はPull Requestで誰でも記事を追加できるので興味がある人は<a href="https://github.com/ecmascript-daily/ecmascript-daily.github.com/blob/master/CONTRIBUTING.md" title="Contributing Guideline">Contributing Guideline</a>を見てください！</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-02-12-tc39-meeting-notes.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["ECMAScript","JavaScript","GitHub"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=ECMAScript">ECMAScript</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=GitHub">GitHub</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>
