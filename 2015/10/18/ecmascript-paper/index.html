@@ -558,15 +558,23 @@ var blog_categories = [
 
 <h2 id="新しいプロポーザルを提案するには">新しいプロポーザルを提案するには</h2>
 
-<p><a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a>の<code>stage0.md</code>にプロポーザルを追加してPull Requestする。Ecma Internationalの特許、著作権のポリシーに同意してる人ならば誰でも出来る。</p>
+<p><a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a>の<code>stage0.md</code>にプロポーザルを追加してPull Requestする。Ecma Internationalの特許、著作権のポリシーに同意してる人ならば誰でも出来るが、基本的にはTC39で議論してからPull Requestする。</p>
 
 <ul>
 <li><a href="https://github.com/tc39/ecma262#contributing-new-proposals" title="Contributing New Proposals">Contributing New Proposals</a></li>
 </ul>
 
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">ECMAScriptに仕様提案までのフロー(Ecma非会員の場合)&#10;1. 仕様策定のプロセスを理解しましょう&#10;2. フォームから必要な情報送ってルールに同意してね &#10;3. ProposalをPull Requestしましょう&#10;<a href="https://t.co/vTcqEPzzBg">https://t.co/vTcqEPzzBg</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/652419947059150848">October 9, 2015</a></blockquote>
+<p>決まったパターンがあるわけではなく最終的にPull Requestでマージされるというのが決まっているだけ。</p>
 
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>よくある流れとしては</p>
+
+<ol>
+<li><a href="https://esdiscuss.org/" title="ES Discuss">ES Discuss</a>(ML)で議論</li>
+<li>2ヶ月に1回のTC39ミーティングで議題に取り上げる</li>
+<li>TC39でそのプロポーザルをStage 0でOKと承認する(たまにStage 1からとかもある)</li>
+<li><a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a>の<code>stage0.md</code>にPull Request</li>
+<li>マージ</li>
+</ol>
 
 <h2 id="ecmascriptとgithub">ECMAScriptとGitHub</h2>
 
@@ -629,6 +637,8 @@ var blog_categories = [
 <li><a href="https://github.com/tc39/Array.prototype.includes/">tc39/Array.prototype.includes</a></li>
 <li><a href="https://github.com/rwaldron/exponentiation-operator">rwaldron/exponentiation-operator</a></li>
 </ul>
+
+<p>追記(2016-02-12): 実際に入るものが決まった =&gt; <a href="http://jser.info/2016/02/01/es2016/#%E5%A4%89%E6%9B%B4%E3%82%92%E7%9F%A5%E3%82%8B%E6%96%B9%E6%B3%95" title="ECMAScript 2016 features &amp;amp; changes - JSer.info">ECMAScript 2016 features &amp; changes - JSer.info</a></p>
 
 <p>2016年1月までにある<a href="https://github.com/tc39/agendas">ミーティング</a>は2回。</p>
 
