@@ -4,7 +4,7 @@
  <title></title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-02-12T22:53:31+09:00</updated>
+ <updated>2016-02-12T22:58:02+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -46,7 +46,7 @@
 <li><a href="https://github.com/tc39/tc39-notes/blob/master/es7/2016-01/2016-01-27.md#ecma-262402-2016-end-game" title="ECMA-262/402 2016 End-Game">ECMA-262/402 2016 End-Game</a>
 
 <ul>
-<li>具体的にES2016は、ここで今回のミーティングでStage 4となったものがそうだと決まった</li>
+<li>具体的に「ES2016に入る機能は今回のミーティングでStage 4となったものがそうだ」と決まった</li>
 </ul></li>
 </ul>
 
