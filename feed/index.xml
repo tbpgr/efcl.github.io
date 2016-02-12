@@ -4,7 +4,7 @@
  <title></title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-02-12T22:51:43+09:00</updated>
+ <updated>2016-02-12T22:53:31+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -80,7 +80,9 @@
 <p>ミーティングノートは3日分がワンセットなのでちょっと多いですが、数時間あれば読める感じです。
 ちゃんとテーマごとに議論の区切りと結論が書いてあるので、気になるものだけみるならすぐ読めると思います。</p>
 
-<p>例えば先ほどの<a href="https://github.com/tc39/tc39-notes/blob/master/es7/2016-01/2016-01-27.md#ecma-262402-2016-end-game" title="ECMA-262/402 2016 End-Game">ECMA-262/402 2016 End-Game</a>なら、以下のように終わりに&quot;Conclusion/Resolution&quot;がわかりやすく書いてあります。</p>
+<p>例えば、先ほどの<a href="https://github.com/tc39/tc39-notes/blob/master/es7/2016-01/2016-01-27.md#ecma-262402-2016-end-game" title="ECMA-262/402 2016 End-Game">ECMA-262/402 2016 End-Game</a>なら、結論が&quot;Conclusion/Resolution&quot;にわかりやすく書いてあります。</p>
+
+<p>口語表現が多くてよく分からなかったら(自分は大抵そうなります)、結論からさかのぼって読むといい気がします。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">ECMA-262/402 2016 End-Game  
 
 AWB: slide (Key dates)  
@@ -120,7 +122,7 @@ Conclusion/Resolution
 <p>注意点としてはこのミーティングノートを管理している<a href="https://github.com/rwaldron" title="rwaldron">@rwaldron</a>さんは、結構Pull Requestを見逃すことがあるのでmentionを本文に入れておいたほうが確実です。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">/cc @rwaldron
 </code></pre></div>
-<p>また、数日反応がなかったら<code>ping @rwaldron</code>などとするのがいい気がしています。</p>
+<p>また、数日反応がなかったら<code>ping @rwaldron</code>などとコメントするといいかもしれません。</p>
 
 <p>修正はまとめて一つのPull Requestで送ることが多いです。</p>
 
