@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-02-24T00:31:58+09:00</updated>
+ <updated>2016-02-24T00:37:10+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -120,7 +120,7 @@
 
 <ul>
 <li>try/catchでハンドリングしないと行けないのは複雑になる可能性</li>
-<li>GoLangのように多値を変えるEither的なアプローチで解決できなかったのか</li>
+<li>GoLangのように多値を返すアプローチで解決できなかったのか</li>
 <li><a href="http://saneyukis.hatenablog.com/entry/2015/03/22/184823" title="Option/Maybeとかで解決していることを、さながらgolangのようにES6のdestructuring assignmentで解決する - snyk_s log">Option/Maybeとかで解決していることを、さながらgolangのようにES6のdestructuring assignmentで解決する - snyk_s log</a></li>
 </ul></li>
 <li>WebComponents
