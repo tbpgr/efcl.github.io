@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        #reject_sushi でReactとチーム開発について話してきた | Web Scratch
+        
+    </title>
+    <meta name="description" content="React.js meetup #3に参加できなかったので#reject_sushiに参加してきました。">
+    
+    <meta name="keywords" content="JavaScript,react,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="#reject_sushi でReactとチーム開発について話してきた">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/02/23/reject-sushi/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="React.js meetup #3に参加できなかったので#reject_sushiに参加してきました。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-02-23T23:05:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/02/12/tc39-meeting-notes/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/02/03/quiver/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/01/22/textlint-unexpanded-acronym/">
+
+
+
+
+
+<meta property="article:section" content="イベント">
+
+
+
+
+
+<meta property="article:tag" content="JavaScript">
+
+<meta property="article:tag" content="react">
+
+<meta property="article:tag" content="イベント">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 146
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 73
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/02/23/reject-sushi/">
+                #reject_sushi でReactとチーム開発について話してきた
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/02/12/tc39-meeting-notes/">
+                ECMAScript, TC39 Meeting Notesの読み方と修正方法
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/02/03/quiver/">
+                メモアプリをDayOneからQuiverに移行した
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/01/22/textlint-unexpanded-acronym/">
+                未知の頭字語を見つけるtextlintルール
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/02/23/reject-sushi/">
+    <h1 class="post-title">#reject_sushi でReactとチーム開発について話してきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年02月23日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-02-23-reject-sushi.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="http://reactjs-meetup.connpass.com/event/26229/" title="React.js meetup #3">React.js meetup #3</a>に参加できなかったので<a href="https://twitter.com/search?f=tweets&amp;vertical=default&amp;q=reject_sushi&amp;src=typd" title="reject_sushi">#reject_sushi</a>に参加してきました。</p>
+
+<ul>
+<li><a href="http://togetter.com/li/942101" title="#reject_sushi - Togetterまとめ">#reject_sushi - Togetterまとめ</a></li>
+</ul>
+
+<hr>
+
+<ul>
+<li><a href="https://facebook.github.io/draft-js/" title="Draft.js | Rich Text Editor Framework for React">Draft.js | Rich Text Editor Framework for React</a>
+
+<ul>
+<li>©年号を見る感じ結構前から実装してそう</li>
+</ul></li>
+</ul>
+
+<h2 id="how-to-work-as-a-team-@-azu"><a href="http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html" title="How to work as a Team">How to work as a Team</a> @ azu</h2>
+
+<p>自分はチーム開発でReact + 何かを採用するときにどういうフローで話を進めていってるかについてを話しました。
+まだ結論はないですが、Flux的な何かを採用したからといって設計がすごく簡単になるという話ではないです。
+またStoreはただの入れ物的な使い方をした場合に、ドメイン層はActionCreator的な部分が持つのか、それはどうやって扱うのかという部分がふわふわしているという話になりました。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">StoreはただのViewのためのStateという感じ。<br>その場合にドメイン層をどこに書くかが皆迷うところ。 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702105875771555840">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>以下のスライドも見てみると面白いかもしれません。</p>
+
+<ul>
+<li><a href="http://www.slideshare.net/saneyuki/my-thoughy-about-beyond-flux" title="My thought about beyond flux">My thought about beyond flux</a></li>
+</ul>
+
+<p>また最近<a href="http://www.amazon.co.jp/dp/4802510012/" title="今日からはじめる情報設計">今日からはじめる情報設計</a>や<a href="http://www.amazon.co.jp/dp/B00EESW7OG/" title="エンジニアのための図解思考">エンジニアのための図解思考</a>的な本を読んでいたので、そういった情報の扱い方や表現という話も兼ねています。</p>
+
+<h2 id="rails-と-npm-@-mizchi">Rails と npm @ mizchi</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">browserify-railsとtsify問題 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; サスケ (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/702089989887172609">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>Node.jsのエコシステムにビルドを寄せる話</li>
+<li>browserify-railsに寄せると楽</li>
+<li>だけどtsifyが標準出力ではStreamを使うため browserify-railsと相性が悪い。</li>
+<li>browserify-railsを使いたい理由は、Nodeを普段使わない人が多い環境でNodeの流儀をやってもらうとよくわからないことが多くてコストがある</li>
+</ul>
+
+<h2 id="http2-を前提とした-html+css-コンポーネントのレンダリングパス最適化-@-jxck">HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化 @ jxck</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a>   &quot;HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化について | <a href="https://t.co/Bb4j0utYux">https://t.co/Bb4j0utYux</a>&quot;  <a href="https://t.co/wQlZpQZBMj">https://t.co/wQlZpQZBMj</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702092500157145089">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><a href="https://blog.jxck.io/entries/2016-02-15/loading-css-over-http2.html" title="HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化について | blog.jxck.io">HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化について | blog.jxck.io</a></li>
+<li>コンポーネント+CSSで送れると、サーバ側が全部のリソースが揃う前にレスポンスを返すことが出来る様になる</li>
+<li>lengthは決まってないと行けないけど、例外としてTransfer-Encoding: chunkedを使う</li>
+<li>= プログレッシブレスポンス?</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">プログレッシブレスポンスができるようになるそれようの仕組みがサーバで流行るのでは。<br>それってJSPで見た話だ！！！ <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702093276040433664">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>この時の問題点</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">HTTPはステータスコードを最初に返す必要があり、それを途中で変更できない。<br>ステータスコードは1行目問題はPushでも起きる<br>なのでプログレッシブレスポンスの場合は、CSSはpushしておいてchunkedで送ると <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702094414600994816">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>ステータスコードコードが最初に決まってないと行けない</li>
+<li>プログレッシブレスポンスだとこれがやっかいなりそう</li>
+<li>動画を全部読まないとシークできなかった話と似ている</li>
+<li>このステータスコードの位置/変更/指定の問題は今後の課題になりそう(プログレッシブレスポンスするなら)</li>
+</ul>
+
+<h2 id="typescript-1.8のjavascriptをbundleしてくれる機能---kyo_ago">TypeScript 1.8のJavaScriptをbundleしてくれる機能 - kyo_ago</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">kyo_ago 「TypeScript 1.8のJavaScriptをbundleしてくれる機能」 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702099720164872192">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><a href="https://github.com/Microsoft/TypeScript/wiki/What&#x27;s-new-in-TypeScript#concatenate-amd-and-system-modules-with---outfile" title="Concatenate AMD and System modules with --outFile">Concatenate AMD and System modules with --outFile</a></li>
+<li><a href="https://blogs.msdn.microsoft.com/typescript/2016/02/22/announcing-typescript-1-8-2/" title="Announcing TypeScript 1.8 | TypeScript">Announcing TypeScript 1.8 | TypeScript</a></li>
+<li>循環参照を避けるためbundleするのはimport/exportのみ?</li>
+<li><code>require</code>は動的ロードとして扱われてる</li>
+<li>ちょこっとsystemjs用のものを加えると動かせる</li>
+</ul>
+
+<h2 id="javascriptの非同期処理/例外処理">JavaScriptの非同期処理/例外処理</h2>
+
+<ul>
+<li>async/await
+
+<ul>
+<li>try/catchでハンドリングしないと行けないのは複雑になる可能性</li>
+<li>GoLangのように多値を変えるEither的なアプローチで解決できなかったのか</li>
+<li><a href="http://saneyukis.hatenablog.com/entry/2015/03/22/184823" title="Option/Maybeとかで解決していることを、さながらgolangのようにES6のdestructuring assignmentで解決する - snyk_s log">Option/Maybeとかで解決していることを、さながらgolangのようにES6のdestructuring assignmentで解決する - snyk_s log</a></li>
+</ul></li>
+<li>WebComponents
+
+<ul>
+<li>名前がでかすぎて何から手を出せばいいのかよくわからなくなる問題</li>
+<li>Polymerは何か別のものになってしまった</li>
+<li>明らかに大事だけど流行るには何かが足りない</li>
+<li>コンポーネント間の関係をどう管理するのか問題</li>
+</ul></li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「Web Componentをどこから始めればいいのか分からない」<br>「Web Componentという名前が良くなかった。それぞれの仕様にフォーカスするべきだったのでは」 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702118804793356288">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+<ul>
+<li>ECMAScriptにEventEmitter的なのが欲しい
+
+<ul>
+<li>DOM Eventを通るのはなんか</li>
+</ul></li>
+</ul>
+
+<h2 id="その他">その他</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a> で発表しなかった「3分でわかるtextlint」のスライドです。自然言語Lintツールの現状  &quot;3分でわかるtextlint&quot;  <a href="https://t.co/wtHBxxIOok">https://t.co/wtHBxxIOok</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702133285934145536">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>発表しなかった<a href="http://azu.github.io/slide/2016/reject-sushi/textlint.html" title="3分でわかるtextlint">3分でわかるtextlint</a>のスライド。</p>
+
+<p><a href="http://textlint.github.io/" title="textlint - pluggable linting tool for text and markdown">textlint - pluggable linting tool for text and markdown</a>のサイトがDeku v2 + Reduxで動いていて、Reduxを最初に試す場合はDekuと組み合わせたほうがわかりやすよという話をした。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-02-23-reject-sushi.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","react","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=react">react</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

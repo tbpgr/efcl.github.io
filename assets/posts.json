@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "#reject_sushi でReactとチーム開発について話してきた",
+            "url": "http://efcl.info/2016/02/23/reject-sushi/",
+            "date": "2016-02-23T23:05:00+09:00"
+        },
+        
+        {
             "title": "ECMAScript, TC39 Meeting Notesの読み方と修正方法",
             "url": "http://efcl.info/2016/02/12/tc39-meeting-notes/",
             "date": "2016-02-12T11:12:00+09:00"

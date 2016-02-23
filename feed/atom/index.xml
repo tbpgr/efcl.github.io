@@ -4,7 +4,7 @@
  <title></title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-02-12T22:58:02+09:00</updated>
+ <updated>2016-02-24T00:13:34+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,146 @@
  </author>
  
 
+ 
+ <entry>
+   <title>#reject_sushi でReactとチーム開発について話してきた</title>
+   <link href="http://efcl.info/2016/02/23/reject-sushi/"/>
+   <updated>2016-02-23T23:05:00+09:00</updated>
+   <id>http://efcl.info/2016/02/23/reject-sushi</id>
+   <content type="html"><![CDATA[ <p><a href="http://reactjs-meetup.connpass.com/event/26229/" title="React.js meetup #3">React.js meetup #3</a>に参加できなかったので<a href="https://twitter.com/search?f=tweets&amp;vertical=default&amp;q=reject_sushi&amp;src=typd" title="reject_sushi">#reject_sushi</a>に参加してきました。</p>
+
+<ul>
+<li><a href="http://togetter.com/li/942101" title="#reject_sushi - Togetterまとめ">#reject_sushi - Togetterまとめ</a></li>
+</ul>
+
+<hr>
+
+<ul>
+<li><a href="https://facebook.github.io/draft-js/" title="Draft.js | Rich Text Editor Framework for React">Draft.js | Rich Text Editor Framework for React</a>
+
+<ul>
+<li>©年号を見る感じ結構前から実装してそう</li>
+</ul></li>
+</ul>
+
+<h2 id="how-to-work-as-a-team-@-azu"><a href="http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html" title="How to work as a Team">How to work as a Team</a> @ azu</h2>
+
+<p>自分はチーム開発でReact + 何かを採用するときにどういうフローで話を進めていってるかについてを話しました。
+まだ結論はないですが、Flux的な何かを採用したからといって設計がすごく簡単になるという話ではないです。
+またStoreはただの入れ物的な使い方をした場合に、ドメイン層はActionCreator的な部分が持つのか、それはどうやって扱うのかという部分がふわふわしているという話になりました。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">StoreはただのViewのためのStateという感じ。<br>その場合にドメイン層をどこに書くかが皆迷うところ。 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702105875771555840">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>以下のスライドも見てみると面白いかもしれません。</p>
+
+<ul>
+<li><a href="http://www.slideshare.net/saneyuki/my-thoughy-about-beyond-flux" title="My thought about beyond flux">My thought about beyond flux</a></li>
+</ul>
+
+<p>また最近<a href="http://www.amazon.co.jp/dp/4802510012/" title="今日からはじめる情報設計">今日からはじめる情報設計</a>や<a href="http://www.amazon.co.jp/dp/B00EESW7OG/" title="エンジニアのための図解思考">エンジニアのための図解思考</a>的な本を読んでいたので、そういった情報の扱い方や表現という話も兼ねています。</p>
+
+<h2 id="rails-と-npm-@-mizchi">Rails と npm @ mizchi</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">browserify-railsとtsify問題 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; サスケ (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/702089989887172609">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>Node.jsのエコシステムにビルドを寄せる話</li>
+<li>browserify-railsに寄せると楽</li>
+<li>だけどtsifyが標準出力ではStreamを使うため browserify-railsと相性が悪い。</li>
+<li>browserify-railsを使いたい理由は、Nodeを普段使わない人が多い環境でNodeの流儀をやってもらうとよくわからないことが多くてコストがある</li>
+</ul>
+
+<h2 id="http2-を前提とした-html+css-コンポーネントのレンダリングパス最適化-@-jxck">HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化 @ jxck</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a>   &quot;HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化について | <a href="https://t.co/Bb4j0utYux">https://t.co/Bb4j0utYux</a>&quot;  <a href="https://t.co/wQlZpQZBMj">https://t.co/wQlZpQZBMj</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702092500157145089">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><a href="https://blog.jxck.io/entries/2016-02-15/loading-css-over-http2.html" title="HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化について | blog.jxck.io">HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化について | blog.jxck.io</a></li>
+<li>コンポーネント+CSSで送れると、サーバ側が全部のリソースが揃う前にレスポンスを返すことが出来る様になる</li>
+<li>lengthは決まってないと行けないけど、例外としてTransfer-Encoding: chunkedを使う</li>
+<li>= プログレッシブレスポンス?</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">プログレッシブレスポンスができるようになるそれようの仕組みがサーバで流行るのでは。<br>それってJSPで見た話だ！！！ <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702093276040433664">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>この時の問題点</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">HTTPはステータスコードを最初に返す必要があり、それを途中で変更できない。<br>ステータスコードは1行目問題はPushでも起きる<br>なのでプログレッシブレスポンスの場合は、CSSはpushしておいてchunkedで送ると <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702094414600994816">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>ステータスコードコードが最初に決まってないと行けない</li>
+<li>プログレッシブレスポンスだとこれがやっかいなりそう</li>
+<li>動画を全部読まないとシークできなかった話と似ている</li>
+<li>このステータスコードの位置/変更/指定の問題は今後の課題になりそう(プログレッシブレスポンスするなら)</li>
+</ul>
+
+<h2 id="typescript-1.8のjavascriptをbundleしてくれる機能---kyo_ago">TypeScript 1.8のJavaScriptをbundleしてくれる機能 - kyo_ago</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">kyo_ago 「TypeScript 1.8のJavaScriptをbundleしてくれる機能」 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702099720164872192">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><a href="https://github.com/Microsoft/TypeScript/wiki/What&#x27;s-new-in-TypeScript#concatenate-amd-and-system-modules-with---outfile" title="Concatenate AMD and System modules with --outFile">Concatenate AMD and System modules with --outFile</a></li>
+<li><a href="https://blogs.msdn.microsoft.com/typescript/2016/02/22/announcing-typescript-1-8-2/" title="Announcing TypeScript 1.8 | TypeScript">Announcing TypeScript 1.8 | TypeScript</a></li>
+<li>循環参照を避けるためbundleするのはimport/exportのみ?</li>
+<li><code>require</code>は動的ロードとして扱われてる</li>
+<li>ちょこっとsystemjs用のものを加えると動かせる</li>
+</ul>
+
+<h2 id="javascriptの非同期処理/例外処理">JavaScriptの非同期処理/例外処理</h2>
+
+<ul>
+<li>async/await
+
+<ul>
+<li>try/catchでハンドリングしないと行けないのは複雑になる可能性</li>
+<li>GoLangのように多値を変えるEither的なアプローチで解決できなかったのか</li>
+<li><a href="http://saneyukis.hatenablog.com/entry/2015/03/22/184823" title="Option/Maybeとかで解決していることを、さながらgolangのようにES6のdestructuring assignmentで解決する - snyk_s log">Option/Maybeとかで解決していることを、さながらgolangのようにES6のdestructuring assignmentで解決する - snyk_s log</a></li>
+</ul></li>
+<li>WebComponents
+
+<ul>
+<li>名前がでかすぎて何から手を出せばいいのかよくわからなくなる問題</li>
+<li>Polymerは何か別のものになってしまった</li>
+<li>明らかに大事だけど流行るには何かが足りない</li>
+<li>コンポーネント間の関係をどう管理するのか問題</li>
+</ul></li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「Web Componentをどこから始めればいいのか分からない」<br>「Web Componentという名前が良くなかった。それぞれの仕様にフォーカスするべきだったのでは」 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702118804793356288">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+<ul>
+<li>ECMAScriptにEventEmitter的なのが欲しい
+
+<ul>
+<li>DOM Eventを通るのはなんか</li>
+</ul></li>
+</ul>
+
+<h2 id="その他">その他</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a> で発表しなかった「3分でわかるtextlint」のスライドです。自然言語Lintツールの現状  &quot;3分でわかるtextlint&quot;  <a href="https://t.co/wtHBxxIOok">https://t.co/wtHBxxIOok</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702133285934145536">February 23, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>発表しなかった<a href="http://azu.github.io/slide/2016/reject-sushi/textlint.html" title="3分でわかるtextlint">3分でわかるtextlint</a>のスライド。</p>
+
+<p><a href="http://textlint.github.io/" title="textlint - pluggable linting tool for text and markdown">textlint - pluggable linting tool for text and markdown</a>のサイトがDeku v2 + Reduxで動いていて、Reduxを最初に試す場合はDekuと組み合わせたほうがわかりやすよという話をした。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>ECMAScript, TC39 Meeting Notesの読み方と修正方法</title>
@@ -2724,226 +2864,6 @@ Vue.jsというと2 wayのgetter/setterを使ったデータバインディン�
 <ul>
 <li><a href="http://qiita.com/azu/items/bacd146ed2e26980b9b0" title="JavaScriptのトレンドを素振りして確認する方法 - Qiita">JavaScriptのトレンドを素振りして確認する方法 - Qiita</a></li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>#忘年_sushi でJavaScriptの素振りする技術について話してきた</title>
-   <link href="http://efcl.info/2015/12/09/year-end-sushi/"/>
-   <updated>2015-12-09T23:19:00+09:00</updated>
-   <id>http://efcl.info/2015/12/09/year-end-sushi</id>
-   <content type="html"><![CDATA[ <p><a href="https://twitter.com/search?q=%23%E5%BF%98%E5%B9%B4_sushi" title="#忘年_sushi">#忘年_sushi</a>で<a href="http://azu.github.io/slide/2015/year-end/javascript-swing.html" title="JavaScriptの素振りする技術">JavaScriptの素振りする技術</a>について話してきました。</p>
-
-<ul>
-<li><a href="http://togetter.com/li/910679" title="#忘年_sushi - Togetterまとめ">#忘年_sushi - Togetterまとめ</a></li>
-</ul>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="und" dir="ltr">🍣 <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> <a href="https://t.co/NAnBXXucnl">pic.twitter.com/NAnBXXucnl</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674538717093085184">December 9, 2015</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<hr>
-
-<h2 id="angular2">Angular2</h2>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> こう感じ(AngularJS) <a href="https://t.co/rvr8jAsl4S">pic.twitter.com/rvr8jAsl4S</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674535461642104832">December 9, 2015</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<ul>
-<li>Angualr 2を想定して書くAngular 1はAngularらしくない感じ</li>
-<li>Angular 1での縛りプレイ</li>
-<li>Angualr 2はαがアップデートされまくってる
-
-<ul>
-<li><a href="https://github.com/angular/angular/releases" title="Releases · angular/angular">Releases · angular/angular</a></li>
-<li><a href="https://github.com/ReactiveX/RxJS/releases" title="RxJS">RxJS</a>もαがアップデートされまくってる</li>
-</ul></li>
-</ul>
-
-<h2 id="コーチング">コーチング</h2>
-
-<ul>
-<li>コーチングとは
-
-<ul>
-<li>DDDみたいなもの</li>
-</ul></li>
-</ul>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">DDDを多人数との現実的なコミュニケーションパターンとして捉えるなら、コーチングで学んでることも同じようなパターンランゲージ&#10; <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674537699605262336">December 9, 2015</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<ul>
-<li>コーチングの分類</li>
-<li>広義なコーチング = 人との関わり全般</li>
-<li>狭義のコーチング = コーチング資格の持ってるひとのやること</li>
-<li>マネージメントとコーチング
-
-<ul>
-<li>コーチングから見るとマネージメントは別</li>
-<li>マネージメントから見るとコーチングは別、またマネージメントの一種の手法</li>
-</ul></li>
-</ul>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">マネージメントの問題を解決するときのツールが欲しいという話 <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674541071724994560">December 9, 2015</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<h2 id="pdf.js-controller">pdf.js-controller</h2>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="und" dir="ltr"><a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> <a href="https://t.co/X3FRXzSkzA">pic.twitter.com/X3FRXzSkzA</a></p>&mdash; サスケ (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/674541370808270848">December 9, 2015</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<ul>
-<li><a href="http://efcl.info/2015/12/07/pdf.js-controller/" title="[pdf.js] テキスト選択出来るスライド表示ライブラリを書いた | Web Scratch">[pdf.js] テキスト選択出来るスライド表示ライブラリを書いた | Web Scratch</a></li>
-<li>pdf.jsは扱いにくいけど普通に動いても面白い</li>
-<li>楽に扱えるライブラリを書いたよという話</li>
-</ul>
-
-<h2 id="serviceworkerとhttp/2-push">ServiceWorkerとHTTP/2 push</h2>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">これからの AppCache (？)の話をしている。 <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> <a href="https://t.co/NVr9AntFk6">pic.twitter.com/NVr9AntFk6</a></p>&mdash; Jxck (@Jxck_) <a href="https://twitter.com/Jxck_/status/674553985764737024">December 9, 2015</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p><a href="http://jxck.hatenablog.com/entry/service-worker-casper" title="HTTP/2 Push を Service Worker + Cache Aware Server Push で効率化したい話 - Block Rockin’ Codes">HTTP/2 Push を Service Worker + Cache Aware Server Push で効率化したい話 - Block Rockin’ Codes</a></p>
-
-<ul>
-<li>localhostのHTTPS化問題
-
-<ul>
-<li>HTTP2がHTTPSじゃないと使えないので<a href="https://localhost/%E3%81%A8%E3%81%99%E3%82%8B%E5%BF%85%E8%A6%81%E3%81%8C%E3%81%82%E3%82%8B">https://localhost/とする必要がある</a></li>
-<li>でもlocalhostの証明書がinvalidだとSWが登録できない</li>
-<li>これを回避する安全な方法がChromeではバグッてる</li>
-<li>危険なフラグで無理矢理開発してる。怖い。</li>
-</ul></li>
-<li>SWを使ったキャッシュレイヤーがあり、Server pushでそれに必要なものを送り込む
-
-<ul>
-<li>次回のリクエストをhookしてSWがレスポンスを返せれば、実際のリクエストをしなくてよくなるという話</li>
-</ul></li>
-<li>cache aware server pushの理論
-
-<ul>
-<li>クライアントが持ってるSWのキャッシュをサーバに教える</li>
-<li>クッキーかヘッダーか</li>
-</ul></li>
-<li>Hookポイントが色々足りない</li>
-</ul>
-
-<h2 id="社内let&#39;s-encrypt">社内Let&#39;s Encrypt</h2>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">Let&#39;s Encryptが社内ネットワークにあるドメインには使えないという話。&#10;社外から認証のリクエストを制限してるから <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674554358290255872">December 9, 2015</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<ul>
-<li>社内ネットワークにあるドメインにはLet&#39;s Encryptが使えない
-
-<ul>
-<li>社内ネットワーク内のみからアクセス出来るドメイン</li>
-<li>ACMEプロトコルでのやり取りは外と繋ぐ必要がある</li>
-<li>更新時に開けるか社内CA&amp;社内Let&#39;s Encrypt</li>
-</ul></li>
-<li>社内に置くとhttpにしてしまう文化ができがち
-
-<ul>
-<li>AppCache Poistioning + HTTP のリスク</li>
-<li>社内ネットワークからのアクセスのみで中間者攻撃が残る</li>
-<li>社内ネットワークからのアクセスもSSL化すると安全</li>
-<li>社内ツールもちゃんとSSL化する</li>
-</ul></li>
-<li>社内ツールを置くドメイン + ワイルドカードでSSL</li>
-<li>社内CAを作って各端末にRoot証明書?
-
-<ul>
-<li>やっぱりリスクがあるのでは</li>
-</ul></li>
-<li>社内やデータセンター内などのSSL化でACMEプロトコルを使ったものは増えるかも</li>
-<li><a href="http://jxck.hatenablog.com/entry/letsencrypt-acme" title="Let&amp;#39;s Encrypt を支える ACME プロトコル - Block Rockin’ Codes">Let&#39;s Encrypt を支える ACME プロトコル - Block Rockin’ Codes</a></li>
-</ul>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">唐突に🍣 <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> <a href="https://t.co/iwIpydUM7j">pic.twitter.com/iwIpydUM7j</a></p>&mdash; teppeis (@teppeis) <a href="https://twitter.com/teppeis/status/674571307334275076">December 9, 2015</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<h2 id="let-vs-const">let vs const</h2>
-
-<p><a href="https://speakerdeck.com/yosuke_furukawa/const-vs-let" title="const vs let // Speaker Deck">const vs let // Speaker Deck</a></p>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">そろそろ決着を付けたい let vs const <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a></p>&mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/status/674437783772004352">December 9, 2015</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">御社はこんな会議やってるんですか？ <a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> <a href="https://t.co/SIHnmY8hcq">pic.twitter.com/SIHnmY8hcq</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674559952023719936">December 9, 2015</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<ul>
-<li><code>const</code>のPros
-
-<ul>
-<li>脳内メモリの節約に役立つ</li>
-<li>変わる場所だけが<code>let</code>で宣言される</li>
-<li>if分岐で代入みたいなパターンが減る</li>
-</ul></li>
-<li><code>const</code>のCons
-
-<ul>
-<li>オブジェクトのプロパティなどは書き換え可能</li>
-<li><code>const</code>という文字数が長い、威圧感がある</li>
-<li><code>const</code>を使ったからといってすべてがimmutableにはならない</li>
-<li>モジュールからexportされたconstはconstではなくなる</li>
-<li>現状では<code>const</code>できない場所が色々ある
-
-<ul>
-<li><a href="http://wiki.ecmascript.org/doku.php?id=strawman:defensible_classes" title="strawman:defensible_classes [ES Wiki]">strawman:defensible_classes [ES Wiki]</a></li>
-</ul></li>
-</ul></li>
-</ul>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> 「今のconstは精神的なconst」</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674565236536422400">December 9, 2015</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-    
-
-<ul>
-<li>精神的なconst
-
-<ul>
-<li>const使う事自体は正しい</li>
-<li>一種のコーディングスタイルに近い効力</li>
-<li>引数のconst問題</li>
-<li>constを利用することは問題ないが、既存の全てをconstにしろと言える程の効力がない</li>
-<li>constで解決出来ることは別のスタイルでも解決できる可能性もある</li>
-</ul></li>
-<li><a href="http://hjm333.hatenablog.com/entry/2015/09/15/000644">【Effective Java】項目１５：可変性を最小限にする - モノクローム</a></li>
-<li><a href="http://tatsuyamuku.hatenablog.com/entry/2015/06/20/223021">【Effective Java】項目15 可変性を最小限にする - tatsuyamukuの日記</a>
-
-<ul>
-<li>Javaのfinalはフィールドなどに対してという話。</li>
-<li>ローカル変数を全てconstしろという話ではない。</li>
-<li>現状のES6 constはローカル変数に対してのconstしかない</li>
-<li>JavaScriptにはスレッドセーフという概念はない</li>
-</ul></li>
-</ul>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/%E5%BF%98%E5%B9%B4_sushi?src=hash">#忘年_sushi</a> 「結論はケースバイケース」 <a href="https://t.co/Qc2vIdnlhP">https://t.co/Qc2vIdnlhP</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/674568622187020288">December 9, 2015</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<h2 id="javascriptの素振りする技術"><a href="http://azu.github.io/slide/2015/year-end/javascript-swing.html" title="JavaScriptの素振りする技術">JavaScriptの素振りする技術</a></h2>
-
-<p>JavaScriptのトレンドというのは半分ぐらい主張なので、それを確認する術を身につけようと言う話でした。</p>
-
-<p>需要があったら別の記事で書くかもしれません。</p>
-
-<h2 id="おわり">おわり</h2>
-
-<p>今年もお疲れ様でした！</p>
  ]]></content>
  </entry>
  
