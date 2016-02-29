@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-01T00:40:35+09:00</updated>
+ <updated>2016-03-01T00:44:32+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -21,10 +21,14 @@
    <id>http://efcl.info/2016/02/29/uruu_sushi</id>
    <content type="html"><![CDATA[ <p>うるう年なので<a href="https://twitter.com/hashtag/uruu_sushi?src=hash" title="#uruu_sushi">#uruu_sushi</a>を食べてきた。</p>
 
-<p>脆弱性報告者</p>
+<ul>
+<li><a href="http://togetter.com/li/944473" title="#uruu_sushi - Togetterまとめ">#uruu_sushi - Togetterまとめ</a></li>
+</ul>
+
+<p>脆弱性報告</p>
 
 <ul>
-<li>バグハンティング</li>
+<li>バグハンター</li>
 <li><a href="https://hackerone.com/" title="HackerOne: Vulnerability Coordination and Bug Bounty Platform">HackerOne: Vulnerability Coordination and Bug Bounty Platform</a></li>
 <li>Bug Bountyのプラットフォームなども最近できてきた
 
@@ -44,8 +48,8 @@
 <p>報奨金制度</p>
 
 <ul>
-<li>バグハンティング同士、企業間同士の脆弱性に関する情報共有する場所がない</li>
-<li>脆弱性報告により新しい攻撃方法を知ることがある
+<li>バグハンター同士、企業間同士の脆弱性に関する情報共有する場所がない</li>
+<li>報告を受け付ける側も脆弱性報告により新しい攻撃方法を知ることがある
 
 <ul>
 <li>関連サービスに同様の問題があり、そちらを直すことができる</li>
