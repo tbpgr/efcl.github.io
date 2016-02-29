@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-01T00:45:48+09:00</updated>
+ <updated>2016-03-01T00:47:46+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -28,7 +28,7 @@
 <p>脆弱性報告</p>
 
 <ul>
-<li>バグハンティング</li>
+<li>バグハンター</li>
 <li><a href="https://hackerone.com/" title="HackerOne: Vulnerability Coordination and Bug Bounty Platform">HackerOne: Vulnerability Coordination and Bug Bounty Platform</a></li>
 <li>Bug Bountyのプラットフォームなども最近できてきた
 
@@ -48,8 +48,8 @@
 <p>報奨金制度</p>
 
 <ul>
-<li>バグハンティング同士、企業間同士の脆弱性に関する情報共有する場所がない</li>
-<li>脆弱性報告により新しい攻撃方法を知ることがある
+<li>バグハンター同士、企業間同士の脆弱性に関する情報共有する場所がない</li>
+<li>報告を受け付ける側も脆弱性報告により新しい攻撃方法を知ることがある
 
 <ul>
 <li>関連サービスに同様の問題があり、そちらを直すことができる</li>
@@ -108,6 +108,7 @@
 <li>コード書くときにコード書くパターンがあるように、脆弱性を探す人も脆弱性を探すパターンがあるはず</li>
 <li>検査的な文字列パターンを持ってる</li>
 <li>特殊なツールは使ってない</li>
+<li>逆に普通の開発者がどうやってセキュリティ的な問題を見つけたり、どういうツールを使ってるのかを知らない</li>
 </ul>
 
 <p>セキュリティ診断</p>
