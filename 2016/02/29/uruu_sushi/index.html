@@ -394,6 +394,39 @@ var blog_categories = [
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+<h2 id="仕様とセキュリティ---azu">仕様とセキュリティ - azu</h2>
+
+<p>セキュリティな問題のある仕様の変更や、
+現実の実装に合わせた仕様の定義とうような変更があったよ的な話をしました。</p>
+
+<ul>
+<li><code>Object.prototype.</code> hijack</li>
+<li><a href="http://ecmascript-daily.github.io/2015/12/26/how-should-browsers-mitigate-proxy-related-security-issues-issue-272-tc39-ecma262" title="How should browsers mitigate Proxy-related security issues? · Issue #272 · tc39/ecma262 | ECMAScript Daily">How should browsers mitigate Proxy-related security issues? · Issue #272 · tc39/ecma262 | ECMAScript Daily</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script&gt;</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">=</span> <span class="nx">Proxy</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+    <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;data=&quot;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://victim/test.csv&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div>
+<ul>
+<li>POC on Chrome(<code>chrome://flags/#enable-javascript-harmony</code>)</li>
+<li>Changed in ES2016 Draft 2016-02-15</li>
+</ul>
+
+<blockquote>
+<p><code>Object.prototype</code> is an immutable prototype exotic object.<br>
+-- <a href="https://github.com/tc39/ecma262/releases/tag/es2016-draft-20160215" title="Release ES2016 Draft 2016-02-15 · tc39/ecma262">Release ES2016 Draft 2016-02-15 · tc39/ecma262</a></p>
+</blockquote>
+
+<ul>
+<li>WHATWG HTML define Window</li>
+<li><a href="https://github.com/whatwg/html/commit/acae3df652b382e9f4f1d1b4dc7e08e2b00df821" title="Define security around Window, WindowProxy, and Location properly · whatwg/html@acae3df">Define security around Window, WindowProxy, and Location properly · whatwg/html@acae3df</a></li>
+</ul>
+
 <h2 id="node.js-と-es6-modules">Node.js と ES6 modules</h2>
 
 <ul>
