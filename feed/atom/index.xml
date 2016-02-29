@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-02-24T20:19:34+09:00</updated>
+ <updated>2016-03-01T00:40:35+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,125 @@
  </author>
  
 
+ 
+ <entry>
+   <title>#uruu_sushi アウトラインメモ</title>
+   <link href="http://efcl.info/2016/02/29/uruu_sushi/"/>
+   <updated>2016-02-29T23:10:00+09:00</updated>
+   <id>http://efcl.info/2016/02/29/uruu_sushi</id>
+   <content type="html"><![CDATA[ <p>うるう年なので<a href="https://twitter.com/hashtag/uruu_sushi?src=hash" title="#uruu_sushi">#uruu_sushi</a>を食べてきた。</p>
+
+<p>脆弱性報告者</p>
+
+<ul>
+<li>バグハンティング</li>
+<li><a href="https://hackerone.com/" title="HackerOne: Vulnerability Coordination and Bug Bounty Platform">HackerOne: Vulnerability Coordination and Bug Bounty Platform</a></li>
+<li>Bug Bountyのプラットフォームなども最近できてきた
+
+<ul>
+<li>報告者/企業のレーティングなどができる</li>
+<li>特定のレーティング向けの案件なども存在する</li>
+</ul></li>
+<li>脆弱性報告はやり取りのコストがある</li>
+<li>そのため単純にBug bounty programが増えるだけだと嬉しくない</li>
+<li>報告したことに対して即時レスポンスがあると報告者として安心できる</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「報告者としては新規報告先とのやりとりは結構負担になるので、報告先が増えてもそんなに嬉しくない」<br> <a href="https://twitter.com/hashtag/uruu_sushi?src=hash">#uruu_sushi</a></p>&mdash; サスケ (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/704269476515041280">February 29, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>報奨金制度</p>
+
+<ul>
+<li>バグハンティング同士、企業間同士の脆弱性に関する情報共有する場所がない</li>
+<li>脆弱性報告により新しい攻撃方法を知ることがある
+
+<ul>
+<li>関連サービスに同様の問題があり、そちらを直すことができる</li>
+</ul></li>
+<li><a href="https://www.ipa.go.jp/security/vuln/CVSS.html" title="共通脆弱性評価システムCVSS">共通脆弱性評価システムCVSS</a></li>
+<li>ドメインに依存しないので、指標として扱いやすい</li>
+<li>逆にオープンリダイレクターの扱いが高いなど、現実に則してないケースもある</li>
+</ul>
+
+<p>Case</p>
+
+<ul>
+<li>安全にファイルダウンロードを実装するのは難しい</li>
+<li>ServiceWorkerは本当に安全?</li>
+<li>HTMLをHTTPSでホスティングするサービスで何か悪さができてしまわないか</li>
+<li>ブラウザというサンドボックスはある程度安全
+
+<ul>
+<li>そこから外れたものを作った場合に問題が起こりやすい</li>
+<li>Electron, Firefox OS</li>
+</ul></li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/uruu_sushi?src=hash">#uruu_sushi</a> これの話  &quot;Firefox OS is not helping the web — Anne’s Blog&quot;  <a href="https://t.co/XhdnAdaDTX">https://t.co/XhdnAdaDTX</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/704275123025477632">February 29, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    
+
+<h2 id="node.js-と-es6-modules">Node.js と ES6 modules</h2>
+
+<ul>
+<li><a href="https://github.com/nodejs/node-eps/pull/3" title="002: ES6 module interop by bmeck · Pull Request #3 · nodejs/node-eps">002: ES6 module interop by bmeck · Pull Request #3 · nodejs/node-eps</a></li>
+<li>interoperabilityに関するIssue</li>
+<li>interoperability優先 vs 原則</li>
+<li>interoperabilityは大事だが、何のためにES6モジュールを使うのかを見失っている可能性
+
+<ul>
+<li>静的に解析出来る</li>
+<li>ブラウザ/Nodeどちらでも動く</li>
+<li>本来はこの2つが目的だったはず。interoperabilityのためにこれが犠牲になってしまうのでは。</li>
+</ul></li>
+<li>npmというエコシステムの互換性</li>
+<li>互換性という魔法のコトバがある限り意見の一致が難しい</li>
+<li>Python 3になってはいけない</li>
+<li>意見が割れてる、議論になってない</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">Python3ifyじゃなくて、Python3ishだった <a href="https://t.co/fwE7PBbIkQ">https://t.co/fwE7PBbIkQ</a> <a href="https://twitter.com/hashtag/uruu_sushi?src=hash">#uruu_sushi</a></p>&mdash; teppeis (@teppeis) <a href="https://twitter.com/teppeis/status/704327441595019265">February 29, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="どうやって脆弱性の探し方を学ぶのか">どうやって脆弱性の探し方を学ぶのか</h2>
+
+<ul>
+<li>脆弱性の探し方はどうやって学ぶのか</li>
+<li>コード書くときにコード書くパターンがあるように、脆弱性を探す人も脆弱性を探すパターンがあるはず</li>
+<li>検査的な文字列パターンを持ってる</li>
+<li>特殊なツールは使ってない</li>
+</ul>
+
+<p>セキュリティ診断</p>
+
+<ul>
+<li>バグハンターのような特殊な人達に調査を頼むのと、脆弱性診断サービスの違い</li>
+<li>セキュリティ業界とウェブ開発者の意識の違い
+
+<ul>
+<li>セキュリティ業界が最新のウェブに疎く見える問題</li>
+<li>ウェブ側もセキュリティをよくわからない問題</li>
+</ul></li>
+<li>間に繋ぐような人が重要という話</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">XSSとかSQLiとかはどんどん減ってきてる。今はアクセス権問題が割合として増えてきている <a href="https://twitter.com/hashtag/uruu_sushi?src=hash">#uruu_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/704290564158525440">February 29, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="おわり">おわり</h2>
+
+<p>セキュリティ寿司は久々な気がする。</p>
+
+<ul>
+<li><a href="http://efcl.info/2014/0415/res3844/" title="テストとセキュリティの葉桜JSに参加してきた | Web Scratch">テストとセキュリティの葉桜JSに参加してきた | Web Scratch</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>textlintの公式サイト(オンラインデモ)を作りました</title>
@@ -2394,159 +2513,6 @@ $(npm bin)/textlint -f codecov README.md | codecov
 <ul>
 <li><a href="https://github.com/azu/how-to-learn-es6" title="azu/how-to-learn-es6">azu/how-to-learn-es6</a>とか<a href="https://twitter.com/hashtag/thinking_in_es6?src=hash" title="#thinking_in_es6">#thinking_in_es6</a>で考えてるやつ</li>
 </ul></li>
-</ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>ルールプリセットを使ってお手軽にtextlint入門</title>
-   <link href="http://efcl.info/2015/12/30/textlint-preset/"/>
-   <updated>2015-12-30T16:01:00+09:00</updated>
-   <id>http://efcl.info/2015/12/30/textlint-preset</id>
-   <content type="html"><![CDATA[ <p><a href="https://github.com/textlint/textlint" title="textlint">textlint</a>はルールで拡張出来る自然言語向けのLintツールです。</p>
-
-<p><a href="https://github.com/textlint/textlint" title="textlint">textlint</a> <a href="https://github.com/textlint/textlint/releases/tag/5.1.0" title="5.1.0">5.1.0</a>でルールのプリセットをサポートしました。</p>
-
-<p>ルール、プリセット、プラグインは以下のような関係です。</p>
-
-<ul>
-<li><a href="https://github.com/textlint/textlint/tree/master/docs/docs/rule.md">rule</a>
-
-<ul>
-<li>いわゆるルール</li>
-</ul></li>
-<li><a href="https://github.com/textlint/textlint/tree/master/docs/docs/rule-preset.md">rule-preset</a>
-
-<ul>
-<li>ルールをまとめたもの</li>
-</ul></li>
-<li><a href="https://github.com/textlint/textlint/tree/master/docs/docs/plugin.md">plugin</a>
-
-<ul>
-<li>ルールとプロセッサ(拡張機能)を持ってる</li>
-</ul></li>
-</ul>
-
-<p><img src="https://raw.githubusercontent.com/textlint/textlint/master/docs/resources/rule-preset-plugin.png" alt="rule-preset-plugin"></p>
-
-<p>textlintはデフォルトでは一つもルールを持っていません。</p>
-
-<p>そのため、どのルールを入れたらいいか迷った場合に、誰かがまとめてくれたプリセットをとりあえず入れれば、とりあえず文章のチェックが出来るようになります。</p>
-
-<p>textlintの使い方は以下で解説しているのと基本的に同じですが、今回はプリセットの使い方を紹介します。</p>
-
-<ul>
-<li><a href="http://efcl.info/2015/09/10/introduce-textlint/" title="textlintで日本語の文章をチェックする | Web Scratch">textlintで日本語の文章をチェックする | Web Scratch</a></li>
-</ul>
-
-<h2 id="インストール">インストール</h2>
-
-<p>textlint本体と2つのプリセットをインストールしてみます。</p>
-
-<ul>
-<li><a href="https://github.com/azu/textlint-rule-preset-japanese">azu/textlint-rule-preset-japanese</a>
-
-<ul>
-<li>自分が作った日本語関係のルールセット</li>
-</ul></li>
-<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style">azu/textlint-rule-preset-JTF-style</a>
-
-<ul>
-<li><a href="https://www.jtf.jp/jp/style_guide/styleguide_top.html">JTFスタイルガイド</a>のルールセット</li>
-<li><a href="http://efcl.info/2015/10/19/textlint-plugin-JTF-style/" title="JTF日本語標準スタイルガイドのルールセットで文章をチェックできるtextlintプリセット | Web Scratch">JTF日本語標準スタイルガイドのルールセットで文章をチェックできるtextlintプリセット | Web Scratch</a></li>
-</ul></li>
-</ul>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh">npm i -D textlint textlint-rule-preset-japanese textlint-rule-preset-jtf-style
-</code></pre></div>
-<h2 id="使い方">使い方</h2>
-
-<p>プリセットをコマンドラインから指定することで設定ファイルなしに利用することもできます。</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="k">$(</span>npm bin<span class="k">)</span>/textlint --preset preset-japanese --preset preset-jtf-style README.md
-</code></pre></div>
-<p>逆にこの場合はルール毎の設定ができないので、設定ファイルである<code>.textlintrc</code>を使ってみます。</p>
-
-<h3 id="設定ファイル">設定ファイル</h3>
-
-<p>サンプルリポジトリを以下に置いておきます。</p>
-
-<ul>
-<li><a href="https://github.com/azu/textlint-preset-example" title="azu/textlint-preset-example">azu/textlint-preset-example</a></li>
-</ul>
-
-<p><code>.textlintrc</code>に以下のように書くとプリセットを有効化できます</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
-  <span class="s2">&quot;rules&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;preset-japanese&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="s2">&quot;preset-jtf-style&quot;</span><span class="o">:</span> <span class="kc">true</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>プリセットはルールの集合なので、プリセットの中にある特定のルールを設定したい場合があります。</p>
-
-<p>例えば、<a href="https://github.com/azu/textlint-rule-preset-JTF-style" title="textlint-rule-preset-JTF-style">textlint-rule-preset-JTF-style</a>の<code>&quot;1.2.2.ピリオド(.)とカンマ(,)&quot;</code>だけを無効化したいなら次のように書くことができます。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
-  <span class="s2">&quot;rules&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;preset-jtf-style&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;1.2.2.ピリオド(.)とカンマ(,)&quot;</span><span class="o">:</span> <span class="kc">false</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>同じディレクトリに<code>.textlinrc</code>があれば、実行は<code>textlint</code>コマンドを叩くだけです。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$(npm bin)/textlint README.md
-</code></pre></div>
-<p><img src="https://monosnap.com/file/tndweS7k0ZsrVz8yN3olPvD3l2rbTx.png" alt="result"></p>
-
-<h3 id="もっとルールを加える">もっとルールを加える</h3>
-
-<p>プリセットとルールは併用可能なので、プリセットにないルールは自分で追加していくといいと思います。</p>
-
-<p><a href="https://github.com/azu/textlint-rule-prh" title="textlint-rule-prh">textlint-rule-prh</a>を使った表記揺れの検出などは効果的なルールと言えます。</p>
-
-<ul>
-<li><a href="http://efcl.info/2015/09/14/textlint-rule-prh/" title="textlint + prhで表記ゆれを検出する | Web Scratch">textlint + prhで表記ゆれを検出する | Web Scratch</a></li>
-</ul>
-
-<h3 id="もっと優しい使い方">もっと優しい使い方</h3>
-
-<p>Node.jsやGitなどに慣れてない人は以下を参考にしてください。
-(プリセットではなくルールベースですが、プリセットとルールの使い方はだいたい同じです)</p>
-
-<ul>
-<li><a href="https://github.com/kubosho/textlint-starter-kit">kubosho/textlint-starter-kit</a></li>
-<li><a href="https://github.com/KenshoFujisaki/TextlintAtom">KenshoFujisaki/TextlintAtom</a></li>
-</ul>
-
-<p><img src="https://gyazo.com/430f92606e5f5bdb06e0583001a9a2b0.gif" alt="preview"></p>
-
-<h2 id="プリセットの作り方">プリセットの作り方</h2>
-
-<p>プリセットの作り方は以下のドキュメントを参考にしてください。</p>
-
-<ul>
-<li><a href="https://github.com/textlint/textlint/blob/master/docs/rule-preset.md" title="textlint/rule-preset.md at master · textlint/textlint">textlint/rule-preset.md at master · textlint/textlint</a></li>
-</ul>
-
-<p>基本的にルール本体を<code>rules</code>に、ルールのデフォルト設定を<code>rulesConfig</code>に書いたオブジェクトを返すだけなので単純です。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">module.exports = {
-    &quot;rules&quot;: {
-        &quot;no-todo&quot;: require(&quot;textlint-rule-no-todo&quot;)
-    },
-    &quot;rulesConfig&quot;: {
-        &quot;no-todo&quot;: true
-    }
-};
-</code></pre></div>
-<p>作ったプリセットは<code>textlint-rule-preset-&lt;好きな名前&gt;</code>で公開してください。
-(この命名規則だとtextlint-rule部分の指定を省略できます)</p>
-
-<p>プリセットは元々別にあるルールを集めただけの場合が多くなると思うので、依存するルールが更新された時にプリセットも更新できると便利です。</p>
-
-<p><a href="http://greenkeeper.io/" title="Greenkeeper">Greenkeeper</a>と<a href="https://github.com/semantic-release/semantic-release" title="semantic-release">semantic-release</a>を使うと依存するルールモジュールが更新されたら自動でPull Requestがきて、マージしたら自動的にnpm publishすることができて便利です。</p>
-
-<ul>
-<li><a href="http://qiita.com/itkrt2y/items/c0e77a4e3cda173917bb" title="JavaScript - 自動でnpmライブラリをアプデ&amp;amp;プルリクしてくれるサービスのgreenkeeperがすごく便利だった - Qiita">JavaScript - 自動でnpmライブラリをアプデ&amp;プルリクしてくれるサービスのgreenkeeperがすごく便利だった - Qiita</a></li>
-<li><a href="http://azu.github.io/slide/niku_sushi/npm-semantic-release.html" title="npmで成果物をsemantic-release :rocket:">npmで成果物をsemantic-release :rocket:</a></li>
 </ul>
  ]]></content>
  </entry>

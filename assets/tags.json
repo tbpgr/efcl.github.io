@@ -709,7 +709,9 @@
         
         "react",
         
-        "Redux"
+        "Redux",
+        
+        "security"
         
     ]
 }
