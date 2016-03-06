@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-01T01:16:52+09:00</updated>
+ <updated>2016-03-06T13:59:09+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,169 @@
  </author>
  
 
+ 
+ <entry>
+   <title>JavaScript ASTを始める最初の一歩</title>
+   <link href="http://efcl.info/2016/03/06/ast-first-step/"/>
+   <updated>2016-03-06T12:39:00+09:00</updated>
+   <id>http://efcl.info/2016/03/06/ast-first-step</id>
+   <content type="html"><![CDATA[ <p>何かJavaScriptのソースコードを機械的にチェックするためのツールを作りたいという場合に、JavaScriptのASTというものを触る必要が出てくると思います。</p>
+
+<p>この記事では、その取っ掛かりとなる案内を簡単にまとめたものです。</p>
+
+<h2 id="astとは">ASTとは</h2>
+
+<ul>
+<li><a href="http://azu.github.io/slide/JSojisan/">カジュアルJavaScript AST</a></li>
+<li><a href="http://azu.github.io/slide/tkbjs/js-ast-walker.html">JavaScript AST Walker</a></li>
+</ul>
+
+<h2 id="astのコミュニティ標準">ASTのコミュニティ標準</h2>
+
+<p>ESTreeというデファクトスタンダードがあります(ES6までは定義されている)</p>
+
+<ul>
+<li><a href="https://github.com/estree/estree" title="estree/estree: The ESTree Spec">estree/estree: The ESTree Spec</a></li>
+</ul>
+
+<p>経緯: <a href="http://efcl.info/2015/02/26/recent-js-ast/" title="[2015-02] 最近のJavaScript AST標準化の動き | Web Scratch">[2015-02] 最近のJavaScript AST標準化の動き | Web Scratch</a></p>
+
+<ul>
+<li>Babel、Esprima、Acorn などどれもES6のレベルまでなら同じASTを吐く</li>
+<li><code>token</code>、<code>range</code>、コメントのいち情報周りの扱いがパーサによって異なる</li>
+<li>ASTの範囲内ならどのパーサでも同じ</li>
+</ul>
+
+<h2 id="パーサ">パーサ</h2>
+
+<ul>
+<li><a href="https://github.com/babel/babel/tree/master/packages/babylon" title="Babylon">Babylon</a>
+
+<ul>
+<li>Babelで使われてるAcorn派生のパーサ</li>
+<li>まだ<a href="http://azu.github.io/slide-what-is-ecmascript/slide/12.html" title="TC39 Process: Stage | ECMAScriptとは何か？">仕様として入るか分からないStage</a>の構文も対応している</li>
+</ul></li>
+<li><a href="http://esprima.org/" title="Esprima">Esprima</a>
+
+<ul>
+<li><a href="https://github.com/benjamn/ast-types" title="ast-types">ast-types</a></li>
+</ul></li>
+<li><a href="https://github.com/ternjs/acorn" title="Acorn">Acorn</a></li>
+<li><a href="https://github.com/eslint/espree" title="espree">espree</a>
+
+<ul>
+<li><a href="http://eslint.org/" title="ESLint">ESLint</a>で使われてるパーサ</li>
+<li>AcornベースでEsprimaのtokenとの互換性を持っているパーサ</li>
+</ul></li>
+</ul>
+
+<p>どのパーサもいろんなツールで使われてる実績があります。
+Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じでやるのが良いと思います。</p>
+
+<p>大きく分けると以下の2系統になっています。</p>
+
+<ul>
+<li>Esprima</li>
+<li>Acorn</li>
+</ul>
+
+<p>BabylonはEStreeの仕様外について積極的にサポートしているため、
+それらが必要な場合はBabylonを使うが、そうでないなら他のパーサの方が安定しています。</p>
+
+<h2 id="関連ツール">関連ツール</h2>
+
+<ul>
+<li><a href="http://astexplorer.net/" title="AST explorer">AST explorer</a>
+
+<ul>
+<li>AST見るのに便利</li>
+</ul></li>
+</ul>
+
+<h2 id="よくある流れ">よくある流れ</h2>
+
+<ul>
+<li>パーサでコードをパースしてASTにする
+
+<ul>
+<li><a href="https://github.com/babel/babel/tree/master/packages/babylon" title="Babylon">Babylon</a>、<a href="http://esprima.org/" title="Esprima">Esprima</a>、<a href="https://github.com/ternjs/acorn" title="Acorn">Acorn</a>、<a href="https://github.com/eslint/espree" title="espree">espree</a></li>
+</ul></li>
+<li>ASTをtraverseして処理(変換、チェック)する
+
+<ul>
+<li><a href="https://github.com/estools/estraverse" title="estraverse">estraverse</a>、<a href="https://github.com/benjamn/ast-types#ast-traversal" title="ast-types">ast-types</a>、<a href="https://github.com/babel/babel/tree/master/packages/babel-traverse" title="babel-traverse">babel-traverse</a></li>
+<li><a href="https://github.com/Rich-Harris/estree-walker" title="estree-walker">estree-walker</a>、<a href="https://github.com/estools/esrecurse" title="esrecurse">esrecurse</a></li>
+<li>どのライブラリもほぼおなじものを持っている</li>
+</ul></li>
+<li>ASTからJSのコードを生成する(チェックのみの場合は不要)
+
+<ul>
+<li><a href="https://github.com/estools/escodegen" title="escodegen">escodegen</a>、<a href="https://www.npmjs.com/package/babel-generator" title="babel-generator">babel-generator</a>を使う</li>
+<li>ジェネレータはパーサと合わせたツールが必要</li>
+<li>Esprimaならescodegen、babelならbabel-generator</li>
+</ul></li>
+</ul>
+
+<p>Parser、Traverser、Generatorは基本的にセットで同じ系統のツールを使う形になります。</p>
+
+<p>そういうのを考えるのが面倒なので、そこを抽象化するライブラリを作ったりしていました。
+コンセプトの証明的なものなので、実用的に使う場合は未対応の部分があると思います。(維持コストが高い)
+コントリビュートは歓迎です。</p>
+
+<ul>
+<li><a href="https://github.com/azu/ast-source" title="azu/ast-source: AST helper to transform source code.">azu/ast-source: AST helper to transform source code.</a></li>
+</ul>
+
+<h2 id="例)-evalの中身を解析したい">例) evalの中身を解析したい</h2>
+
+<p>evalの中を取り出して安全に評価したいというケース</p>
+
+<h3 id="evalの中身">evalの中身</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">eval(&quot;var a = 20&quot;)
+</code></pre></div>
+<ul>
+<li><a href="http://kitak.hatenablog.jp/entry/2014/11/15/233649" title="JSのASTを扱うライブラリをつかって、不要なeval呼び出しを除くコードを書いてみた - kitak.blog">JSのASTを扱うライブラリをつかって、不要なeval呼び出しを除くコードを書いてみた - kitak.blog</a></li>
+</ul>
+
+<p>のようにパースして、evalの中身を取り出すことが可能。</p>
+
+<ul>
+<li>何かを防ぐという仕組みから連想できるものはホワイトリスト</li>
+<li>ホワイトリストでevalの中で使えるプロパティの名前などを制限する</li>
+<li>未知のプロパティを見つけらたらその弾く?</li>
+<li>ブラックリストだと何を防止すればいいのかが難しい</li>
+</ul>
+
+<h3 id="解析のフェーズ">解析のフェーズ</h3>
+
+<p>適当な考え方(正しいのかは自信ないけど)</p>
+
+<ol>
+<li>evalのなかを取り出す</li>
+<li>evalのなかのコードをパースする</li>
+<li><strong>安全な部分</strong>だけを取り出す</li>
+<li>安全な部分で評価する</li>
+</ol>
+
+<p><strong>安全な部分</strong> が何かを決める必要がありそう。
+安全でないことが分かったら実行は諦める。</p>
+
+<p>というような考え方でやるのがよくあるケースだと思います。</p>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>上記のようなチェックツールを書くには、まず<a href="http://eslint.org/" title="ESLint">ESLint</a>のルールを見てみるのが参考になるはずです。</p>
+
+<p>書き換えをしたい場合はそのまま書き換えるとASTのTree内で不整合が起きて大変になります。
+<a href="https://github.com/facebook/jscodeshift" title="jscodeshift">jscodeshift</a>や<a href="https://github.com/benjamn/ast-types#ast-traversal" title="ast-types">ast-types</a>などのライブラリが使えないか検討してみてください。</p>
+
+<p>また、同様の機能を持つツールがどういうライブラリを使っているかを調べてみるのが近道になるはずです。
+例えば、モジュールbundleツールの<a href="https://github.com/rollup/rollup" title="rollup">rollup</a>は<a href="https://github.com/Rich-Harris/magic-string" title="magic-string">magic-string</a>というライブラリで文字列の操作をしていることが分かります。</p>
+
+<p>現在のASTの状況はESTreeより先のデファクトがないため新しい構文を扱おうとすると色々考えることが出てきます。
+そういった時には<a href="https://github.com/azu/ast-source" title="ast-source">ast-source</a>のような抽象層が必要になってくるかもしれません。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>#uruu_sushi アウトラインメモ</title>
@@ -2204,358 +2367,6 @@ $(npm bin)/textlint -f codecov README.md | codecov
 (研究から出てるツールはあるけど、特定のユースケースをはみ出ると使えなくなる印象)</p>
 
 <p>文書もCIを回して開発するのがもっとあたりまえになってくると、もっと面白いことが色々起きるのではないかと思っています。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>今年のOSS活動振り返り @ 2015</title>
-   <link href="http://efcl.info/2015/12/31/oss-in-2015/"/>
-   <updated>2015-12-31T01:44:00+09:00</updated>
-   <id>http://efcl.info/2015/12/31/oss-in-2015</id>
-   <content type="html"><![CDATA[ <p>2015年のOSS活動の振り返り</p>
-
-<p>去年のこちら =&gt; <a href="http://efcl.info/2014/12/31/oss-in-2014/" title="今年のOSS活動振り返り @ 2014 | Web Scratch">今年のOSS活動振り返り @ 2014 | Web Scratch</a></p>
-
-<h2 id="github">GitHub</h2>
-
-<p><a href="https://github.com/azu"><img src="http://efcl.info/wp-content/uploads/2015/12/30-1451483221.png" alt="github contributes"></a></p>
-
-<p>Contributions in the last yearが6490 =&gt; 9322になってるけど、全体では自分のトークンを使ったCIからの自動デプロイが1/3ぐらい占めてそうなので水増し感がある</p>
-
-<p>9月ぐらいまでだいたい7000前後で安定してて、その辺りで<a href="http://realtime.jser.info/" title="Realtime JSer.info">Realtime JSer.info</a>追加したのと<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>の開発を再開したり<a href="https://www.gitbook.com/book/azu/javascript-plugin-architecture/details" title="JavaScript Plugin Architecture">JavaScript Plugin Architecture</a>という本書いてたのが増えてる原因。</p>
-
-<blockquote class="twitter-tweet" data-conversation="none" lang="en"><p lang="ja" dir="ltr">Current streak 666だ。&#10;Contributionsはゾロ目にはならなかった。 <a href="http://t.co/i7ohh0hKqg">pic.twitter.com/i7ohh0hKqg</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/638740485498998784">September 1, 2015</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>Current streakの方を見ると2年ぐらい毎日コミットを継続してる。
-コミットするのは習慣なので特に意識はしてない。
-原因としては<a href="http://efcl.info/2014/12/31/oss-in-2014/">去年も書いた</a>けど<a href="https://github.com/jser/jser.info" title="jser/jser.info">jser/jser.info</a>とかのブログ周りが入ってるのと、移動中とか空いてる時間にコミットしているのが影響してる。
-逆に移動中もコミット出来るように、あらかじめIssueで設計とかをしてすぐ作業できるものをキューに積んでいる感じ。</p>
-
-<p>最近GTD本読んでて同じようなことが書いてあった。</p>
-
-<blockquote>
-<p>そのときやることに関して最初に考えなければならないのは、その場所で、そこにあるものを使ってできるのは何かということだ。
-...
-「@電話」「@家」「@パソコン」「@買い物・用事」...といった具合だ。行動を選択する際に、こうして&quot;状況&quot;で分類されたリストがあれば便利だ。
-...
-一つのToDoリストにさまざまな状況の行動がごちゃまぜになっていると、いちいち全部をチェックしなおさなければならないからだ。</p>
-</blockquote>
-
-<ul>
-<li><a href="http://www.amazon.co.jp/dp/4576082116/" title="はじめてのGTD ストレスフリーの整理術">はじめてのGTD ストレスフリーの整理術</a></li>
-</ul>
-
-<p>自分の場合は移動中にやることはIssueを立てて<a href="https://github.com/issues/assigned">自分をassign</a>しておき、移動中はIssueを処理することに集中している。
-インストールが重いやつとか調べ物はネットワーク的に辛いので、事前に調べた事を書いておきオフラインに近い状況で出来るように準備してる。</p>
-
-<h2 id="issue/pull-reuqst">Issue/Pull Reuqst</h2>
-
-<ul>
-<li><a href="https://github.com/search?utf8=%E2%9C%93&amp;q=author%3Aazu+created%3A2015-01-01..2016-01-01+is%3Aissue&amp;type=Issues&amp;ref=searchresults">立てたIssue</a>: 299</li>
-<li><a href="https://github.com/search?q=author%3Aazu+created%3A2015-01-01..2016-01-01++is%3Aissue&amp;ref=searchresults&amp;state=closed&amp;type=Issues&amp;utf8=%E2%9C%93">閉じたIssue</a>: 231</li>
-<li><a href="https://github.com/search?utf8=%E2%9C%93&amp;q=author%3Aazu+created%3A2015-01-01..2016-01-01+is%3Apr&amp;type=Issues&amp;ref=searchresults">出したPull Requst</a>: 367</li>
-<li><a href="https://github.com/search?q=author%3Aazu+created%3A2015-01-01..2016-01-01+is%3Apr+&amp;state=closed&amp;type=Issues&amp;utf8=%E2%9C%93">閉じたPull Request</a>: 355</li>
-</ul>
-
-<h2 id="作ったもの"><a href="https://github.com/search?o=asc&amp;q=user%3Aazu+created%3A2015-01-01..2016-01-01&amp;ref=searchresults&amp;s=updated&amp;type=Repositories&amp;utf8=%E2%9C%93">作ったもの</a></h2>
-
-<p>記憶にあるものを抜粋</p>
-
-<ul>
-<li><a href="https://github.com/azu/node-cocproxy" title="azu/node-cocproxy">azu/node-cocproxy</a>
-
-<ul>
-<li>Node.js版<a href="http://coderepos.org/share/wiki/CocProxy" title="CocProxy">CocProxy</a></li>
-</ul></li>
-<li><a href="https://github.com/azu/wait-for-element.js" title="azu/wait-for-element.js">azu/wait-for-element.js</a>
-
-<ul>
-<li><a href="http://efcl.info/2015/04/06/wait-for-element/" title="ある要素が表示されるまで待つJSライブラリを書いた(MutationObserver)">ある要素が表示されるまで待つJSライブラリを書いた(MutationObserver)</a></li>
-</ul></li>
-<li><a href="https://github.com/azu/mini-flux">azu/mini-flux</a>
-
-<ul>
-<li><a href="http://azu.github.io/slide/react-meetup/flux.html">10分で実装するFlux</a></li>
-</ul></li>
-<li><a href="https://github.com/azu/pdf-markdown-annotator" title="azu/pdf-markdown-annotator">azu/pdf-markdown-annotator</a>
-
-<ul>
-<li><a href="http://efcl.info/2015/05/04/pdf-annotation-markdown/" title="PDFを見ながらMarkdownでメモを取れるアプリを書いた | Web Scratch">PDFを見ながらMarkdownでメモを取れるアプリを書いた | Web Scratch</a></li>
-<li><a href="https://github.com/azu/azu/issues/47" title="ECMAScript仕様書を読む">ECMAScript仕様書を読む</a>ために作成した</li>
-<li><a href="http://azu.github.io/annotation-memo/es6/">ECMAScript 6 読書メモ</a></li>
-<li><a href="http://azu.github.io/annotation-memo/es6-draft/">ECMAScript 6 draft 読書メモ</a></li>
-<li><a href="http://azu.github.io/annotation-memo/es5/">ECMAScript 5 読書メモ</a></li>
-</ul></li>
-<li><a href="https://github.com/azu/github-issue-teev" title="azu/github-issue-teev">azu/github-issue-teev</a>
-
-<ul>
-<li><a href="http://efcl.info/2015/07/30/github-issue-manager/" title="自分に関係するGitHub Issueを一覧できるアプリを書いた | Web Scratch">自分に関係するGitHub Issueを一覧できるアプリを書いた | Web Scratch</a></li>
-<li>自分をassignしたIssueを確認するために作った</li>
-<li><a href="https://www.producteev.com/" title="Producteev">Producteev</a>と<a href="https://tacoapp.com/" title="Taco">Taco</a>をインスパイアした</li>
-</ul></li>
-<li><a href="https://github.com/azu/browser-runner" title="azu/browser-runner">azu/browser-runner</a>
-
-<ul>
-<li><a href="http://efcl.info/2015/07/23/browser-runner/" title="コマンドラインまたはNodeモジュールからブラウザでURLへ簡単にアクセスさせる | Web Scratch">コマンドラインまたはNodeモジュールからブラウザでURLへ簡単にアクセスさせる | Web Scratch</a></li>
-<li>Seleniumで遊んでた</li>
-</ul></li>
-<li><a href="https://github.com/azu/video-transcript-note" title="azu/video-transcript-note">azu/video-transcript-note</a>
-
-<ul>
-<li><a href="http://efcl.info/2015/07/27/video-transcript-note/" title="動画とルビ翻訳された字幕をみながらMarkdownメモできるアプリを書いた | Web Scratch">動画とルビ翻訳された字幕をみながらMarkdownメモできるアプリを書いた | Web Scratch</a></li>
-<li><a href="https://github.com/azu/video-transcript-tracker">azu/video-transcript-tracker</a></li>
-<li><a href="https://github.com/azu/video-transcript-note">azu/video-transcript-note</a></li>
-<li><a href="https://github.com/azu/video-shortcut-controller">azu/video-shortcut-controller</a></li>
-<li><a href="https://github.com/azu/video-prefetcher">azu/video-prefetcher</a></li>
-</ul></li>
-<li><a href="http://azu.github.io/tc39-svg/" title="TC39 Process">TC39 Process</a>
-
-<ul>
-<li>TC39プロセスの図解</li>
-</ul></li>
-<li><a href="https://github.com/azu/power-doctest" title="azu/power-doctest">azu/power-doctest</a>
-
-<ul>
-<li><a href="http://efcl.info/2015/08/10/power-doctest1.0/" title="power-assertを使ったDoctestツール power-doctestを書き直した | Web Scratch">power-assertを使ったDoctestツール power-doctestを書き直した | Web Scratch</a></li>
-<li><a href="https://github.com/azu/ast-equal">azu/ast-equal</a></li>
-<li><a href="https://github.com/azu/tagged-template-to-ast">azu/tagged-template-to-ast</a></li>
-<li><a href="https://github.com/azu/comment-to-assert">azu/comment-to-assert</a></li>
-<li><a href="https://github.com/azu/ast-source">azu/ast-source</a>
-
-<ul>
-<li>ast-sourceは未完成な感じなので書き直す</li>
-</ul></li>
-</ul></li>
-<li><a href="https://github.com/azu/reftest-runner">azu/reftest-runner</a>
-
-<ul>
-<li><a href="http://efcl.info/2015/05/14/reftest-runner/">ブラウザでビジュアルテストをするreftest-runnerを作った | Web Scratch</a></li>
-<li>ブラウザの描画結果を比較するテストツールを書いた</li>
-<li><a href="https://speakerdeck.com/ooooooo_q/nds-8-reftest">nds_8_reftest.pdf // Speaker Deck</a></li>
-</ul></li>
-<li><a href="https://github.com/azu/npm-relative-install" title="azu/npm-relative-install">azu/npm-relative-install</a></li>
-<li><a href="https://github.com/azu/npm-relative-version" title="azu/npm-relative-version">azu/npm-relative-version</a>
-
-<ul>
-<li>現在のpatchバージョン前のモジュールをインストールするツール</li>
-<li>reftestで前回のバージョンからの描画差異がないかを自動的にやるために書いた</li>
-<li><a href="http://azu.github.io/slide/assistant-bucho/test-everything.html" title="ロジック、E2E、描画、音、動画、Example、文章 - 色々なJSテスト">ロジック、E2E、描画、音、動画、Example、文章 - 色々なJSテスト</a></li>
-</ul></li>
-<li><a href="https://github.com/azu/stemming-x-keywords" title="azu/stemming-x-keywords">azu/stemming-x-keywords</a>
-
-<ul>
-<li>文章からキーワードを取り出すやつ</li>
-</ul></li>
-<li><a href="http://azu.github.io/slide-what-is-ecmascript/">Introduction | ECMAScriptとは何か？</a></li>
-<li><a href="http://efcl.info/2015/10/18/ecmascript-paper/">ECMAScriptの仕様策定に関するカンニングペーパー | Web Scratch</a>
-
-<ul>
-<li><a href="http://nextwebconf.connpass.com/event/19699/" title="次世代 Web カンファレンス">次世代 Web カンファレンス</a>の予習用に作ったやつ</li>
-</ul></li>
-<li><a href="https://github.com/azu/read-all-later" title="azu/read-all-later">azu/read-all-later</a>
-
-<ul>
-<li>PocketにURLをまとめて追加するアプリ</li>
-<li><a href="http://efcl.info/2015/11/30/read-all-later/" title="WeeklyメルマガのURLを貼ったら中のリンクを全部Pocketに突っ込むアプリ | Web Scratch">WeeklyメルマガのURLを貼ったら中のリンクを全部Pocketに突っ込むアプリ | Web Scratch</a></li>
-</ul></li>
-<li><a href="https://github.com/azu/pdf.js-controller" title="azu/pdf.js-controller">azu/pdf.js-controller</a>
-
-<ul>
-<li><a href="http://efcl.info/2015/12/07/pdf.js-controller/" title="[pdf.js] テキスト選択出来るスライド表示ライブラリを書いた | Web Scratch">[pdf.js] テキスト選択出来るスライド表示ライブラリを書いた | Web Scratch</a></li>
-<li>PDFをスライド表示するライブラリ</li>
-<li><a href="http://www.decksetapp.com/" title="Deckset">Deckset</a>で作った自分の発表資料を公開するときに作ったのが元</li>
-</ul></li>
-<li><a href="https://github.com/azu/browser-javascript-resource" title="azu/browser-javascript-resource">azu/browser-javascript-resource</a>
-
-<ul>
-<li>ブラウザ公式の情報はどこを見ればいいのかをまとめたもの</li>
-</ul></li>
-<li><a href="https://github.com/azu/idempotent-bind" title="azu/idempotent-bind">azu/idempotent-bind</a>
-
-<ul>
-<li>毎回同じものを返す<code>bind</code>のライブラリ</li>
-<li><a href="http://efcl.info/2015/06/05/this-component/" title="React/dekuコンポーネントとthisのパターン | Web Scratch">React/dekuコンポーネントとthisのパターン | Web Scratch</a></li>
-</ul></li>
-<li><a href="https://github.com/azu/tweet-truncator" title="azu/tweet-truncator">azu/tweet-truncator</a>
-
-<ul>
-<li>Twitterへ投稿するメッセージを140文字以内に省略するライブラリ</li>
-</ul></li>
-<li><a href="http://azu.github.io/github-ribbon-generator/" title="GitHub Ribbon Generator">GitHub Ribbon Generator</a>
-
-<ul>
-<li><a href="http://efcl.info/2015/12/25/github-ribbon-generator/" title="GitHub Ribbon GeneratorをVue.jsで書いた | Web Scratch">GitHub Ribbon GeneratorをVue.jsで書いた | Web Scratch</a></li>
-</ul></li>
-<li><a href="https://github.com/azu/material-flux-container" title="azu/material-flux-container">azu/material-flux-container</a>
-
-<ul>
-<li><a href="https://github.com/azu/material-flux" title="material-flux">material-flux</a>のcontainer実装</li>
-</ul></li>
-<li><a href="https://github.com/azu/electron-authentication-hatena" title="azu/electron-authentication-hatena">azu/electron-authentication-hatena</a>
-
-<ul>
-<li>ElectronではてなのOAuth認証をするライブラリ</li>
-<li><a href="https://github.com/hatena/Hatena-Bookmark-iOS-SDK/issues/40" title="複数クライアントで発生する認証の問題 · Issue #40 · hatena/Hatena-Bookmark-iOS-SDK">複数クライアントで発生する認証の問題 · Issue #40 · hatena/Hatena-Bookmark-iOS-SDK</a>がつらすぎる</li>
-</ul></li>
-<li><a href="https://github.com/azu/postem" title="azu/postem">azu/postem</a>
-
-<ul>
-<li><a href="https://github.com/tombfix" title="Tombfix">Tombfix</a>のようなクロスポストクライアント</li>
-<li>Electronで作っていてOAuth認証とかをやってる</li>
-<li>拡張する仕組みはあるけど、アプリで配布すると拡張が難しい問題にはまってる</li>
-</ul></li>
-</ul>
-
-<p>npmに上げたモジュールは122個となった</p>
-
-<ul>
-<li><a href="https://www.npmjs.com/%7Eazu">https://www.npmjs.com/~azu</a></li>
-</ul>
-
-<h2 id="文書開発について">文書開発について</h2>
-
-<p>今年の後半は<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>を始めとした文書関連のものを色々やったので別途項目を設ける。</p>
-
-<p><a href="http://efcl.info/2014/12/31/oss-in-2014/">去年</a>は<a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a>を書いていたけど、今年は書くためのツールや手法を考えるのを目的にした</p>
-
-<p>今年やってたことの大元は以下のIssueから始まってる形</p>
-
-<blockquote>
-<p>コンセプト: もっと気軽に書ける電子書籍
--- <a href="https://github.com/azu/azu/issues/42#issuecomment-155667921" title="[Markdown] 電子書籍開発環境 · Issue #42 · azu/azu">[Markdown] 電子書籍開発環境 · Issue #42 · azu/azu</a></p>
-</blockquote>
-
-<ul>
-<li><a href="http://efcl.info/2015/09/28/easy-to-create-ebook/" title="今すぐ電子書籍(技術書)を書き始める方法と文章の自動チェック | Web Scratch">今すぐ電子書籍(技術書)を書き始める方法と文章の自動チェック | Web Scratch</a>
-
-<ul>
-<li><a href="http://efcl.info/2015/09/27/niku_sushi/" title="#niku_sushi">#niku_sushi</a>で発表した</li>
-</ul></li>
-<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/" title="Introduction | 技術文書をソフトウェア開発する話">Introduction | 技術文書をソフトウェア開発する話</a>
-
-<ul>
-<li><a href="http://efcl.info/2015/11/07/nodefest-2015/" title="東京Node学園祭2015">東京Node学園祭2015</a>で発表した</li>
-</ul></li>
-<li><a href="https://github.com/azu/gitbook-starter-kit" title="azu/gitbook-starter-kit">azu/gitbook-starter-kit</a>
-
-<ul>
-<li>GitBookで電子書籍を書くスターターキットを作った</li>
-</ul></li>
-<li><a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="azu/JavaScript-Plugin-Architecture">azu/JavaScript-Plugin-Architecture</a>
-
-<ul>
-<li>文書開発するためにJavaScriptのプラグインアーキテクチャについての本を書いてた</li>
-<li><a href="https://github.com/textlint/textlint" title="textlint">textlint</a>とかのツールを書いても定量的に確かめられる文章がないと困るので一緒に書いてた</li>
-</ul></li>
-</ul>
-
-<h3 id="textlint">textlint</h3>
-
-<p>textlint自体は去年の今頃作った。</p>
-
-<p>だけど、この時は<a href="https://github.com/azu/textlint-rule-spellcheck-tech-word" title="textlint-rule-spellcheck-tech-word">textlint-rule-spellcheck-tech-word</a>だけのためにtextlintという汎用的な仕組みを作っただけでした。</p>
-
-<ul>
-<li><a href="http://efcl.info/2014/12/30/textlint/" title="JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch">JavaScriptでルールを書けるテキスト/Markdownの校正ツール textlint を作った | Web Scratch</a></li>
-<li><a href="http://efcl.info/2015/01/15/reactsushi/">#reactsushi でESLintとtextlintの設計について話してきた | Web Scratch</a></li>
-</ul>
-
-<p>今年の9月ぐらいから電子書籍開発環境についてちゃんと手を動かそうと思って開発が再開した。</p>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">今ひたすらこれやってる  &quot;[Markdown] 電子書籍開発環境 · Issue #‌42 · azu/azu&quot;  <a href="https://t.co/Pze9xH2x4g">https://t.co/Pze9xH2x4g</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/637230368148426752">August 28, 2015</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>文章を書こうと思ったら自分ですぐ書けるようなチェックツールが絶対必要になる(かつそれが独自のものだと再利用できないしだるい)ので、
-<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>をちゃんと使えるものにした。</p>
-
-<ul>
-<li><a href="http://efcl.info/2015/09/10/introduce-textlint/">textlintで日本語の文章をチェックする | Web Scratch</a></li>
-<li><a href="http://efcl.info/2015/09/14/textlint-rule-prh/">textlint + prhで表記ゆれを検出する | Web Scratch</a></li>
-<li><a href="http://efcl.info/2015/10/19/textlint-plugin-JTF-style/">JTF日本語標準スタイルガイドのルールセットで文章をチェックできるtextlintプリセット | Web Scratch</a></li>
-<li><a href="http://efcl.info/2015/11/20/textlint5.0.0/">textlint 5.0.0で非同期処理に対応、kuromoji.jsで校正、テキストの統計処理 | Web Scratch</a></li>
-<li><a href="http://efcl.info/2015/12/30/textlint-preset/">ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch</a></li>
-</ul>
-
-<p>これに関連して<a href="https://github.com/azu/textlint-rule-no-doubled-joshi">色々</a><a href="https://github.com/azu/textlint-rule-no-double-negative-ja">論文</a>や<a href="http://redpen.cc/" title="RedPen">RedPen</a>の実装などを参考にtextlintルールを書いてた。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2015/12/31-1451491109.png" alt="textlint module"></p>
-
-<ul>
-<li><a href="https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule" title="Collection of textlint rule · textlint/textlint Wiki">Collection of textlint rule · textlint/textlint Wiki</a></li>
-</ul>
-
-<p>textlint側も拡張に必要なものは大体実装して、ある程度日本語関係のルールも出てきたので、
-これから使ってみたい人は以下の記事あたりを見ると良さそう。</p>
-
-<ul>
-<li><a href="http://efcl.info/2015/12/30/textlint-preset/">ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch</a></li>
-<li><a href="http://efcl.info/2015/09/10/introduce-textlint/">textlintで日本語の文章をチェックする | Web Scratch</a></li>
-</ul>
-
-<h2 id="その他のコミット">その他のコミット</h2>
-
-<ul>
-<li>ECMAScriptのISO標準関連(ISO/IEC 16262)
-
-<ul>
-<li>SC 22/ECMAScript Ad Hoc委員会への参加</li>
-</ul></li>
-<li><a href="https://github.com/rwaldron/tc39-notes" title="rwaldron/tc39-notes">rwaldron/tc39-notes</a>
-
-<ul>
-<li>TC39のミーティングノートに<a href="https://github.com/rwaldron/tc39-notes/commits?author=azu">毎回</a>修正投げてる</li>
-</ul></li>
-<li><a href="https://github.com/pulls?utf8=%E2%9C%93&amp;q=is%3Apr+author%3Aazu+is%3Aclosed+created%3A%222015-01-01+..+2016-01-01%22+fix+OR+Markdown+OR+README">いろんなところでドキュメントの修正</a>をPull Request
-
-<ul>
-<li>機能追加とかのPRとかよりはドキュメントの修正を送ることが多い</li>
-</ul></li>
-<li><a href="https://github.com/takuyaa/kuromoji.js/pulls?q=is%3Apr+author%3Aazu+is%3Aclosed">kuromoji.js</a>に何個か修正送った
-
-<ul>
-<li><a href="https://github.com/azu/kuromojin" title="kuromojin">kuromojin</a>を作ったりもした</li>
-</ul></li>
-</ul>
-
-<h2 id="来年">来年</h2>
-
-<ul>
-<li><a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a>のVer 2.0がでるといいな
-
-<ul>
-<li>async/awaitとjQuery待ち</li>
-</ul></li>
-<li><a href="http://jser.info/" title="JSer.info">JSer.info</a>
-
-<ul>
-<li>来月で<a href="http://jser.info/2015/12/14/jser-info-announce-5-years/" title="JSer.info 5周年記念イベントを1/16(土)に開催します - JSer.info">JSer.info 5周年記念</a>になる</li>
-</ul></li>
-<li>自動化、コストを小さくする
-
-<ul>
-<li>気合で解消してる場所をシステムとして解消していきたい</li>
-</ul></li>
-<li>テストへコミットする
-
-<ul>
-<li>テストフレームワークの変化はゆっくりである</li>
-<li>けど、<a href="https://github.com/mochajs/mocha/issues/1969">最近</a>、<a href="https://github.com/sindresorhus/ava">ちょっと</a>変化の<a href="https://github.com/js-reporters/js-reporters">タイミング</a>がありそうなのでちゃんと考える</li>
-</ul></li>
-<li>作って継続的に動くサイト?を作る
-
-<ul>
-<li><a href="http://sisidovski.hatenablog.com/entry/2015/12/04/120633" title="Progressive Web Apps">Progressive Web Apps</a>的なものとかはそれを目的に何か作るよりも、既にあるものへそれを取り組む姿勢が必要そう</li>
-<li>そういう遊び場となるサイトがないので欲しい</li>
-</ul></li>
-<li>JavaScript/ECMAScriptを改めてどう学べばいいのか考える
-
-<ul>
-<li><a href="https://github.com/azu/how-to-learn-es6" title="azu/how-to-learn-es6">azu/how-to-learn-es6</a>とか<a href="https://twitter.com/hashtag/thinking_in_es6?src=hash" title="#thinking_in_es6">#thinking_in_es6</a>で考えてるやつ</li>
-</ul></li>
-</ul>
  ]]></content>
  </entry>
  
