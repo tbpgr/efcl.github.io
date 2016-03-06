@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-06T14:17:50+09:00</updated>
+ <updated>2016-03-06T15:58:32+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -97,7 +97,12 @@ JavaScriptの場合はJavaScriptオブジェクト(JSON)として表現されま
 <ul>
 <li>Babel、Esprima、Acorn などどれもES6のレベルまでなら同じASTを吐く</li>
 <li><code>token</code>、<code>range</code>、コメントのいち情報周りの扱いがパーサによって異なる</li>
-<li>ASTの範囲内ならどのパーサでも同じ</li>
+<li>ESTreeで定義されているASTの範囲内ならどのパーサでも殆ど同じ
+
+<ul>
+<li><code>Literal</code>やGeneratorに関してパーサ間で解釈が異なるため議論中です</li>
+<li><a href="https://github.com/estree/estree/issues/120" title="Proposal to potentially incorporate changes to existing nodes · Issue #120 · estree/estree">Proposal to potentially incorporate changes to existing nodes · Issue #120 · estree/estree</a></li>
+</ul></li>
 </ul>
 
 <h2 id="パーサ">パーサ</h2>
