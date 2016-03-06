@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-06T15:58:32+09:00</updated>
+ <updated>2016-03-06T16:50:56+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -95,13 +95,13 @@ JavaScriptの場合はJavaScriptオブジェクト(JSON)として表現されま
 <p>経緯: <a href="http://efcl.info/2015/02/26/recent-js-ast/" title="[2015-02] 最近のJavaScript AST標準化の動き | Web Scratch">[2015-02] 最近のJavaScript AST標準化の動き | Web Scratch</a></p>
 
 <ul>
-<li>Babel、Esprima、Acorn などどれもES6のレベルまでなら同じASTを吐く</li>
 <li><code>token</code>、<code>range</code>、コメントのいち情報周りの扱いがパーサによって異なる</li>
 <li>ESTreeで定義されているASTの範囲内ならどのパーサでも殆ど同じ
 
 <ul>
-<li><code>Literal</code>やGeneratorに関してパーサ間で解釈が異なるため議論中です</li>
+<li>注意: <code>Literal</code>やGeneratorに関してパーサ間で解釈が異なるため議論中です</li>
 <li><a href="https://github.com/estree/estree/issues/120" title="Proposal to potentially incorporate changes to existing nodes · Issue #120 · estree/estree">Proposal to potentially incorporate changes to existing nodes · Issue #120 · estree/estree</a></li>
+<li>ポータブルな実装をしようとした時にハマるかもしれないので注意</li>
 </ul></li>
 </ul>
 
