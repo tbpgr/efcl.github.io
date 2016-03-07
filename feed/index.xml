@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-06T16:50:56+09:00</updated>
+ <updated>2016-03-07T18:55:50+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -113,6 +113,7 @@ JavaScriptの場合はJavaScriptオブジェクト(JSON)として表現されま
 <ul>
 <li>Babelで使われてるAcorn派生のパーサ</li>
 <li>まだ<a href="http://azu.github.io/slide-what-is-ecmascript/slide/12.html" title="TC39 Process: Stage | ECMAScriptとは何か？">仕様として入るか分からないStage</a>の構文も対応している</li>
+<li>注意: 逆にESTree仕様外の拡張も指定しているため、ESTree互換ではないです。</li>
 </ul></li>
 <li><a href="http://esprima.org/" title="Esprima">Esprima</a>
 
