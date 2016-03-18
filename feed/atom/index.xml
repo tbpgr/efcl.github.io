@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-18T10:46:11+09:00</updated>
+ <updated>2016-03-18T12:59:43+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,361 @@
  </author>
  
 
+ 
+ <entry>
+   <title>textlint 6.0リリース。--fixでの自動修正に対応</title>
+   <link href="http://efcl.info/2016/03/15/textlint--fix/"/>
+   <updated>2016-03-15T20:33:00+09:00</updated>
+   <id>http://efcl.info/2016/03/15/textlint--fix</id>
+   <content type="html"><![CDATA[ <p><a href="https://textlint.github.io/" title="textlint">textlint</a> 6.0をリリースしました。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/releases/tag/6.0.1" title="Release 6.0: --fix to be stable · textlint/textlint">Release 6.0: --fix to be stable · textlint/textlint</a></li>
+</ul>
+
+<p>モジュールとして使っている場合に、細かな破壊的な変更があります。
+ツールとして使っている人は単純に<code>npm install textlint@6 -D</code>などでアップデートすれば動くと思います。</p>
+
+<p>textlint自体については以下を見てください。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/09/10/introduce-textlint/">textlintで日本語の文章をチェックする | Web Scratch</a></li>
+<li><a href="http://efcl.info/2015/12/30/textlint-preset/">ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch</a></li>
+</ul>
+
+<h2 id="--fixによる自動修正の対応"><code>--fix</code>による自動修正の対応</h2>
+
+<p><a href="https://github.com/textlint/textlint/releases/tag/5.5.3" title="5.5.3: --fix &amp;amp; --experimental support">5.5.3: --fix &amp; --experimental support</a>で<code>--fix</code>による自動修正機能を実験的にサポートしていました。</p>
+
+<p>6.0では<code>--fix</code>を<code>--experimental</code>フラグなしで利用できるようになりました。</p>
+
+<p>自動修正はルール側で対応が必要 かつ 原理的に自動修正が難しいルールもあると思うので、あくまでサポート的な機能です。</p>
+
+<p><a href="https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule">Wiki</a>にまとめてあるルールのうち、✔ fixableマークが付いてるものは対応しています。</p>
+
+<p>対応しているルールをfixableルールと呼んでいて、以下のバッジをつけています。</p>
+
+<p><a href="https://textlint.github.io/"><img src="https://img.shields.io/badge/textlint-fixable-green.svg?style=social" alt="textlint rule"></a></p>
+
+<p>現状では以下のようなルールが<code>--fix</code>に対応しています。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-prh" title="azu/textlint-rule-prh: textlint rule for prh.">azu/textlint-rule-prh: textlint rule for prh.</a></li>
+<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style" title="azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.">azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.</a></li>
+<li><a href="https://github.com/azu/textlint-rule-spellcheck-tech-word" title="textlint-rule-spellcheck-tech-word">azu/textlint-rule-spellcheck-tech-word</a></li>
+<li><a href="https://github.com/io-monad/textlint-rule-common-misspellings">io-monad/textlint-rule-common-misspellings: textlint rule to check common misspellings</a></li>
+<li><a href="https://github.com/io-monad/textlint-rule-general-novel-style-ja">io-monad/textlint-rule-general-novel-style-ja: textlint rule to follow general style of Japanese novels</a></li>
+<li><a href="https://github.com/nodaguti/textlint-rule-spellchecker">nodaguti/textlint-rule-spellchecker: textlint rule to check spellings with native spellchecker</a></li>
+<li><a href="https://github.com/nodaguti/textlint-rule-ginger">nodaguti/textlint-rule-ginger: textlint rule to check your English grammar with Ginger Proofreading</a></li>
+</ul>
+
+<p>fixableルールは<a href="http://efcl.info/2015/09/14/textlint-rule-prh/">prhと辞書を使った表記揺れの統一</a>や<a href="http://efcl.info/2015/10/19/textlint-plugin-JTF-style/">JTF日本語標準スタイルガイドを使った表記の統一</a>など、辞書ベースやスタイルの統一を簡単になるのが利点です。</p>
+
+<p>逆に表現的なものをチェックするルールは自動修正が難しく、頑張ってもサジェストのような推敲支援になると思います。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/11/07/nodefest-2015/" title="東京Node学園祭2015で技術文書をソフトウェア開発する話をしてきた | Web Scratch">東京Node学園祭2015で技術文書をソフトウェア開発する話をしてきた | Web Scratch</a></li>
+<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/slide/90.html" title="校正と推敲 | 技術文書をソフトウェア開発する話">校正と推敲 | 技術文書をソフトウェア開発する話</a></li>
+<li><a href="http://editor.hatenastaff.com/entry/2016/03/17/113000" title="編集は「自動化」されていく仕事なのか　編集者のためのイベント「編む庭 」レポ【前編】 - はてな編集部ブログ「編む庭」">編集は「自動化」されていく仕事なのか　編集者のためのイベント「編む庭 」レポ【前編】 - はてな編集部ブログ「編む庭」</a></li>
+</ul>
+
+<p><a href="https://github.com/textlint/textlint" title="textlint">textlint</a>は校正支援として始めたツールなので、まだ推敲支援のような要素は入っていません。
+以下のIssueでそのようなサジェストをどう扱うかについて話し合ってるので興味がある人は見てください。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/issues/158" title="Feature Request: Multiple fix results and interactive fix · Issue #158 · textlint/textlint">Feature Request: Multiple fix results and interactive fix · Issue #158 · textlint/textlint</a></li>
+</ul>
+
+<p>また<code>--fix</code>はread onlyなlintと違ってwrite処理であるため、バグを作りやすいです。
+自分もリリースしてからあるルールでバグがあることに気づいたので、そういうのテストする方法については以下で話し合っています。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/issues/136" title="Document: add &amp;#34;How to test your rule?&amp;#34; · Issue #136 · textlint/textlint">Document: add &quot;How to test your rule?&quot; · Issue #136 · textlint/textlint</a></li>
+</ul>
+
+<p>使用してバグを見つけたら、それは特定のルールのバグであるならそちらへ、そうでなくて<code>textlint</code>のバグであるならtextlintに報告してください。</p>
+
+<p>バグ報告の仕方については以下を参考にしてください。</p>
+
+<ul>
+<li><a href="https://gist.github.com/azu/913454a54ea8ef59ba30" title="textlint Bug Reporting">textlint Bug Reporting</a></li>
+<li><a href="https://github.com/textlint/textlint/blob/master/CONTRIBUTING.md#bug-reporting" title="textlint/CONTRIBUTING.md at master · textlint/textlint">textlint/CONTRIBUTING.md at master · textlint/textlint</a></li>
+</ul>
+
+<h2 id="fixableルール">Fixableルール</h2>
+
+<p>実際に<code>--fix</code>による自動修正の例を見てみます。</p>
+
+<p>このブログのリポジトリ対象にしてみます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">git clone https://github.com/efcl/efcl.github.io
+cd efcl.github.io
+</code></pre></div>
+<p>次に<code>textlint</code>とfixableに対応してる3つのルール/プリセットをインストールします。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style" title="azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.">azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.</a></li>
+<li><a href="https://github.com/azu/textlint-rule-spellcheck-tech-word" title="textlint-rule-spellcheck-tech-word">textlint-rule-spellcheck-tech-word</a></li>
+<li><a href="https://github.com/io-monad/textlint-rule-common-misspellings">io-monad/textlint-rule-common-misspellings: textlint rule to check common misspellings</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -D textlint textlint-rule-preset-jtf-style textlint-rule-spellcheck-tech-word textlint-rule-common-misspellings
+</code></pre></div>
+<p>インストールし終わったら、<code>.textlintrc</code>にインストールしたルールを使うように設定します。
+(<code>--rule</code>や<code>--preset</code>オプションでも指定できますが毎回やるのは面倒なので)</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="k">$(</span>npm bin<span class="k">)</span>/textlnt --init
+</code></pre></div>
+<p>というコマンドを叩くと、空の<code>.textlintrc</code>設定ファイルが作成されるので、編集して次のような設定をします。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;preset-jtf-style&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;spellcheck-tech-word&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;common-misspellings&quot;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>この状態でチェックしたいファイルを指定すれば<code>textlint</code>でLintすることができます。</p>
+
+<p>自分の今まで書いてきた全記事のうちMarkdownをこのルールでLintしてみます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$(npm bin)/textlint _posts/
+
+...
+✖ 6091 problems (6091 errors, 0 warnings)
+✓ 5639 fixable problems.
+Try to run: $ textlint --fix [file]
+</code></pre></div>
+<p><img src="http://efcl.info/wp-content/uploads/2016/03/16-1458133066.png" alt="result of linting"></p>
+
+<p>絶望的な数のエラーが表示されました…</p>
+
+<p>デフォルトのformatterである<code>-f stylish</code> または <code>-f pretty-error</code>では、
+Lintの結果にそのうち自動修正できるエラーの数を表示してくれます。</p>
+
+<p>この数値は実際に修正できる数とは必ずしも一致しません。ルール間は独立しているので、重複や衝突が存在しているためです。基本的には衝突しないように修正を逐次的に処理していく形になります。</p>
+
+<p>このエラーを実際に<code>--fix</code>で修正してみたいと思います。</p>
+
+<p>修正する前に、対象のファイルは必ず復元できるように、バックアップを取るかGitにコミットしておくなどしてください。
+また、<code>--dry-run</code>オプションを使うことで、実際にファイルの上書きはしないでどのような変更が行われるかを見ることができます。</p>
+
+<p>変更を比較する場合は <code>-f diff</code> でdiff表示をするformatterを利用すると分かりやすいです。
+(<code>--fix</code>は本当に逐次的に処理するので、ルールやファイルが多いと掛け算的に処理時間が増えます)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$(npm bin)/textlint _posts --fix --dry-run -f diff
+# 実際に変更は反映しないでdiffだけをみる
+
+....
+✔ Fixed 5713 problems
+✖ Remaining 73 problems
+</code></pre></div>
+<p><img src="http://efcl.info/wp-content/uploads/2016/03/16-1458133752.png" alt="result of fixing"></p>
+
+<p>✖ 6091 problemsのうち✔ Fixed 5713 problemsが自動で修正することができます。
+<code>--dry-run</code>で問題ないのが確認できたら、<code>--fix</code>のみにして上書き保存できます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$(npm bin)/textlint _posts --fix
+</code></pre></div>
+<p><img src="http://efcl.info/wp-content/uploads/2016/03/16-1458134174.png" alt="fix error"></p>
+
+<h2 id="textlint-v5からv6の変更点">textlint v5からv6の変更点</h2>
+
+<p><a href="http://efcl.info/2015/11/20/textlint5.0.0/" title="textlint 5.0.0">textlint 5.0.0までの変更点</a>はいぜん書いたので、5.0から6.0までにあった変更点を列挙してみます。</p>
+
+<h3 id="5.1.0"><a href="https://github.com/textlint/textlint/releases/tag/5.1.0" title="5.1.0">5.1.0</a></h3>
+
+<p><code>textlint-rule-preset</code>をサポートしました。
+ルールプリセットは個別のルールをまとめたモジュールという位置づけです。</p>
+
+<p>もちろん内蔵しているルール個別に設定を<code>.textlintrc</code>に書くことができるので、
+一つのルールに沢山のチェック機能を設けるよりも、個別のルールに分けてルールプリセットとして公開することを推奨しています。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/12/30/textlint-preset/" title="ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch">ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch</a></li>
+</ul>
+
+<h3 id="5.2.0"><a href="https://github.com/textlint/textlint/releases/tag/5.2.0" title="5.2.0">5.2.0</a></h3>
+
+<p><code>textlint-formatter-&lt;name&gt;</code>のようなモジュールを<code>--formatter &lt;name&gt;</code>という形で指定できるようになりました。</p>
+
+<p>これを利用したカバレッジを出力するformatterを公開しています。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-formatter-lcov">azu/textlint-formatter-lcov: textlint formatter for lcov format</a></li>
+<li><a href="https://github.com/azu/textlint-formatter-codecov">azu/textlint-formatter-codecov: textlint formatter for codecov json.</a></li>
+<li><a href="http://efcl.info/2016/01/12/textlint-coverage/" title="textlintで文章カバレッジレポートを継続的に見ていく | Web Scratch">textlintで文章カバレッジレポートを継続的に見ていく | Web Scratch</a></li>
+</ul>
+
+<p>formatterの作り方はドキュメントを見てください。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/blob/master/docs/formatter.md" title="textlint/formatter.md at master · textlint/textlint">textlint/formatter.md at master · textlint/textlint</a></li>
+</ul>
+
+<h3 id="5.3.0"><a href="https://github.com/textlint/textlint/releases/tag/5.3.0" title="5.3.0">5.3.0</a></h3>
+
+<p><code>--stdin-filename</code> をサポートしました。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">cat readme.md | textlint --format compact --stdin --stdin-filename readme.md
+</code></pre></div>
+<p>という感じで標準入力のテキストに対して擬似的な名前を付けることができます。
+(拡張子に対応した種類のファイルとしてtextlintが処理するため)</p>
+
+<p>この仕組はSublimeプラグインを作るのに使われています</p>
+
+<ul>
+<li><a href="https://github.com/joeybaker/sublimelinter-textlint" title="SublimeLinter-textlint">SublimeLinter-textlint</a></li>
+</ul>
+
+<h3 id="5.4.0"><a href="https://github.com/textlint/textlint/releases/tag/5.4.0" title="5.4.0">5.4.0</a></h3>
+
+<p><code>.textlintrc</code>ファイルを作成する<code>--init</code>オプションが追加されました。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">textlint --init
+</code></pre></div>
+<p>で空の<code>.textlintrc</code>ファイルを作成してくれます。</p>
+
+<p>まだ色々改良の余地があるので興味がある人は以下のIssueを見てください。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/issues/129" title="--init options: Create .textlintrc file · Issue #129 · textlint/textlint">--init options: Create .textlintrc file · Issue #129 · textlint/textlint</a></li>
+</ul>
+
+<h3 id="5.5.3"><a href="https://github.com/textlint/textlint/releases/tag/5.5.3" title="5.5.3">5.5.3</a></h3>
+
+<p><code>--fix</code>と<code>--experimental</code>を実験的にサポートしました。
+ここで実験的に追加した<code>--fix</code>は6.0.0で正式サポートとなります。</p>
+
+<h3 id="5.6.0"><a href="https://github.com/textlint/textlint/releases/tag/5.6.0" title="5.6.0">5.6.0</a></h3>
+
+<p>ルール開発者向けに<code>RuleError</code>が<code>index</code>プロパティをサポートしました。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ruleError</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">context</span><span class="p">.</span><span class="nx">RuleError</span><span class="p">(</span><span class="s2">&quot;Found rule error&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">index</span><span class="o">:</span> <span class="nx">paddingIndex</span> <span class="p">});</span>
+</code></pre></div>
+<p>正確なエラーの位置を簡単に指定できます。
+今まで通り、<code>column</code>と<code>line</code>の組み合わせでも問題ないですが、<code>column</code>単独の指定は<code>index</code>に書き換える事を推奨しています。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/blob/master/docs/rule.md#ruleerror" title="textlint/rule.md at master · textlint/textlint">textlint/rule.md at master · textlint/textlint</a></li>
+<li><a href="https://github.com/textlint/textlint/blob/master/docs/faq/failed-to-load-textlints-module.md" title="textlint/failed-to-load-textlints-module.md at master · textlint/textlint">textlint/failed-to-load-textlints-module.md at master · textlint/textlint</a></li>
+</ul>
+
+<p><a href="https://github.com/textlint/textlint-tester" title="textlint-tester">textlint-tester</a>でテストしている場合は、<code>column</code>単独の場合には警告を出してくれます。</p>
+
+<h2 id="5.7.0"><a href="https://github.com/textlint/textlint/releases/tag/5.7.0" title="5.7.0">5.7.0</a></h2>
+
+<p>5.7.0では一部formatterがエラーとそのエラーが自動修正できるかを出すようになりました。</p>
+
+<h2 id="6.0.0">6.0.0</h2>
+
+<p>6.0.0では</p>
+
+<ul>
+<li><code>--dry-run</code>のサポート(<code>--fix</code>と組み合わせて使います)</li>
+<li><code>--fix</code>からexperimentalフラグが外れました</li>
+<li><code>--fix</code>向けのformatterとして<code>-f diff</code>を追加しました</li>
+</ul>
+
+<p>モジュールとして使う場合に関連するものとして</p>
+
+<ul>
+<li><code>TextLintEngine#setRulesBaseDirectory</code> が削除されました</li>
+<li><code>TextFixEngine</code>が追加されました
+
+<ul>
+<li><code>--fix</code>における処理を扱うEngineです</li>
+</ul></li>
+<li><code>TextLintCore#setupProcessors</code>が追加されました
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/blob/master/docs/plugin.md" title="Processor">Processor</a>を設定するAPIです</li>
+</ul></li>
+</ul>
+
+<p>また内部をかなりリファクタリングして、</p>
+
+<ul>
+<li>CLI</li>
+<li>Engine</li>
+<li>Core</li>
+</ul>
+
+<p>の役割と関心を分離してディレクトリなどを切るようになりました。
+詳しくは以下のドキュメントに書かれています。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/blob/master/src/README.md" title="textlint/README.md at master · textlint/textlint">textlint/README.md at master · textlint/textlint</a></li>
+</ul>
+
+<p>結構長くなりましたが、5.0.0〜6.0.0の変更点は以上です。
+Breaking Changeはほとんどのユーザには関係ないものだと思います(実際使ってるコードはGitHub上にはなかった)</p>
+
+<h2 id="その他">その他</h2>
+
+<ul>
+<li><a href="http://io-monad.hatenablog.com/entry/2016/03/14/225800" title="文書校正ツール textlint の Chrome 拡張を作った - もなでぃっく">文書校正ツール textlint の Chrome 拡張を作った - もなでぃっく</a></li>
+<li><a href="https://chrome.google.com/webstore/detail/textlint-proofreader/hdongmdneapmhfblomidbafplpanpdmm?hl=ja&amp;gl=JP" title="textlint: 文章チェッカー - Chrome ウェブストア">textlint: 文章チェッカー - Chrome ウェブストア</a></li>
+</ul>
+
+<p>Chrome拡張として<code>textlint</code>を動かすものが出てきたので、Node.jsを入れなくても
+ブラウザでインストールしてGUIで設定できるので簡単に使うことができます。</p>
+
+<ul>
+<li><a href="https://github.com/Nkzn/textlint-prh-template" title="Nkzn/textlint-prh-template: A writing environment watched by textlint &amp;amp; prh">Nkzn/textlint-prh-template: A writing environment watched by textlint &amp; prh</a></li>
+</ul>
+
+<p>Atomプラグインとして<a href="https://github.com/1000ch/linter-textlint" title="linter-textlint">linter-textlint</a>を使う場合は上記のリポジトリが参考になるかもしれません。</p>
+
+<h2 id="開発メモ">開発メモ</h2>
+
+<p><code>--fix</code>は5.5から使えたのですが、色々APIデザインを変更する可能性があったのでexperimentalフラグを付けてリリースしました。</p>
+
+<p>浅いイテレーションをするには</p>
+
+<ul>
+<li>本体機能をテストしてもらいたいならbetaをとにかく出す</li>
+<li>プラグインに関係するエコシステム的な機能を試したいならexperimentalフラグ付きで出す</li>
+<li>プラグイン側は最新の本体でしか動かない変更を入れるならメジャーアップデート
+
+<ul>
+<li>本体バージョンとプラグインの参照するバージョンがズレているとユーザーはハマります</li>
+<li>なのでメジャーアップデートとするのが無難です</li>
+</ul></li>
+<li>プラグイン側が特定バージョン以降に依存するならpeerDependenciesを付ける</li>
+<li>npmのbetaとGitHubのprereleaseを使う
+
+<ul>
+<li><code>npm publish --tag beta</code>するalisを使っています</li>
+<li><a href="https://gist.github.com/azu/fb3ec88231235511858a">npm version publish alias - http://efcl.info/2015/04/08/npm-publish-pattern/</a></li>
+<li><a href="http://efcl.info/2015/04/08/npm-publish-pattern/">npm publishのパターン | Web Scratch</a></li>
+</ul></li>
+<li>フラグつき機能は、次のメジャーアップデートで外す</li>
+<li>testライブラリを作りdeprecatedはプラグイン作者に通知
+
+<ul>
+<li>テスト中はガンガン例外を投げて伝える</li>
+<li>textlintは<a href="https://github.com/textlint/textlint-tester" title="textlint-tester">textlint-tester</a>経由の実行時のみ例外を投げるUtilを持っています。</li>
+<li><a href="https://github.com/textlint/textlint/blob/master/src/util/throw-log.js" title="throw-log.js">throw-log.js</a></li>
+</ul></li>
+<li>本体とプラグインが同時にnpmのbetaになると辛い
+
+<ul>
+<li>βはsemverで<code>&gt;=</code>のような指定ができなくて、直書きする事になって辛いです</li>
+</ul></li>
+<li>experimentalフラグ付きで本体はstableリリースして、プラグインはstableな本体に依存させたbetaを出す</li>
+<li>プラグインがstableリリースする際はメジャーアップデート+peerDependenciesにする
+
+<ul>
+<li>この辺が<code>--experimental</code>フラグを作った理由です</li>
+</ul></li>
+</ul>
+
+<p>課題としては</p>
+
+<ul>
+<li>本体のBreaking Changeに依存したプラグインの変更をうまく扱う方法がない</li>
+<li>なので本体のBreaking Changeはなるべく小さく、単独でリリースする
+
+<ul>
+<li>プラグインがすぐに追従できるような変更の粒度を考える</li>
+</ul></li>
+</ul>
+
+<p>という感じになっています。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>JavaScript ASTを始める最初の一歩</title>
@@ -2237,196 +2592,6 @@ VariableDeclaration:const<span class="p">|</span><span class="m">1</span>  <span
 <hr>
 
 <p>お疲れ様でした。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>textlintで文章カバレッジレポートを継続的に見ていく</title>
-   <link href="http://efcl.info/2016/01/12/textlint-coverage/"/>
-   <updated>2016-01-12T09:44:00+09:00</updated>
-   <id>http://efcl.info/2016/01/12/textlint-coverage</id>
-   <content type="html"><![CDATA[ <h2 id="文章カバレッジ">文章カバレッジ</h2>
-
-<p>以前、<a href="https://azu.gitbooks.io/nodefest-technical-writing/content/" title="Introduction | 技術文書をソフトウェア開発する話">技術文書をソフトウェア開発する話</a>で<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>や<a href="https://www.gitbook.com/" title="GitBook · Writing made easy">GitBook</a>を使って文書を開発する方法についてお話しました。</p>
-
-<p>その時に、自然言語のチェックの自動化などはまだ色々考えられることがあるという話をしました。</p>
-
-<blockquote>
-<p>文書のテストはまだまだ色々できることがある<br>
-カバレッジを取るとかメトリクスを取るとか<br>
--- <a href="https://azu.gitbooks.io/nodefest-technical-writing/content/slide/100.html" title="まとめ1 | 技術文書をソフトウェア開発する話">まとめ1 | 技術文書をソフトウェア開発する話</a></p>
-</blockquote>
-
-<p>そこで文章のカバレッジというものを考えて実装してみました。</p>
-
-<p><a href="https://github.com/textlint/textlint" title="textlint">textlint</a>とコードカバレッジの仕組みを使ったものですが、こういうのをなんと呼べばいいのかよくわからなかったので、ここではとりあえず&quot;文章カバレッジ&quot;と読んでいます。</p>
-
-<p>textlintは全ての文に対してLintを実行するので命令網羅と近い感じがします。</p>
-
-<blockquote>
-<p>命令網羅（statement coverage：SC）<br>
-コード内のすべての命令が少なくとも1回は実行されるようにテストを設計する。欠陥検出力は弱い
--- <a href="http://www.itmedia.co.jp/im/articles/1111/07/news142.html" title="情報システム用語事典：カバレッジ基準（かばれっじきじゅん） - ITmedia エンタープライズ">情報システム用語事典：カバレッジ基準（かばれっじきじゅん） - ITmedia エンタープライズ</a></p>
-</blockquote>
-
-<p>よくよく考える仕組み的にカバレッジではないので、何か別の名前が必要な気がします。</p>
-
-<h3 id="カバレッジ">カバレッジ</h3>
-
-<p>具体例がないとイメージしにくいと思うので、<a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="azu/JavaScript-Plugin-Architecture">azu/JavaScript-Plugin-Architecture</a>を例にしてみます。</p>
-
-<p><a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="azu/JavaScript-Plugin-Architecture">JavaScript-Plugin-Architecture</a>という文書では今回作ったtextlintの文章カバレッジを表示しています。</p>
-
-<p><a href="https://codecov.io/github/azu/JavaScript-Plugin-Architecture?branch=master"><img src="https://codecov.io/github/azu/JavaScript-Plugin-Architecture/coverage.svg?branch=master" alt="codecov.io"></a></p>
-
-<p><img src="https://codecov.io/github/azu/JavaScript-Plugin-Architecture/branch.svg?branch=master" alt="coverage graph"></p>
-
-<p>textlintから既存のコードカバレッジのフォーマットである<a href="http://ltp.sourceforge.net/coverage/lcov/geninfo.1.php">lcov</a>を出力出来るようにしているので、Coverallsなどコードカバレッジサービスとそのまま連携することができます。</p>
-
-<ul>
-<li><a href="https://coveralls.io/">Coveralls - Test Coverage History &amp; Statistics</a></li>
-<li><a href="https://codecov.io/">Codecov - Code Coverage</a></li>
-</ul>
-
-<p>コマンドラインからもこのカバレッジを表示することができます。
-lcovファイルを渡すとそのカバレッジを表示してくれる<a href="https://github.com/azu/lcov-summary" title="lcov-summary">lcov-summary</a>というCLIを書いたのでそれを利用しています。</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh">npm run textlint:coverage
-
-&gt; javaScript-plugin-architecture@0.1.1 textlint:coverage /Users/azu/.ghq/github.com/azu/JavaScript-Plugin-Architecture
-&gt; summary-to-path <span class="p">|</span> xargs textlint -c coverage.textlintrc -f lcov <span class="p">|</span> lcov-summary
-
-
-Code Coverage Results:
-
- 96.83% <span class="o">(</span>61/63<span class="o">)</span> README.md
- 92.59% <span class="o">(</span>25/27<span class="o">)</span> ORGANIZATION.md
- 97.60% <span class="o">(</span>122/125<span class="o">)</span> ja/jQuery/README.md
- 96.45% <span class="o">(</span>299/310<span class="o">)</span> ja/ESLint/README.md
- 95.59% <span class="o">(</span>195/204<span class="o">)</span> ja/connect/README.md
- 96.38% <span class="o">(</span>293/304<span class="o">)</span> ja/gulp/README.md
-
-Total Coverage:  96.32%
-</code></pre></div>
-<h2 id="仕組み">仕組み</h2>
-
-<p>仕組みは意外と簡単で、既存のパーツを組み合わせて動くようにしました。</p>
-
-<p>textlintのLintの結果は&quot;compact&quot;, &quot;checkstyle&quot;, &quot;jslint-xml&quot;, &quot;junit&quot;, &quot;tap&quot;, &quot;pretty-error&quot;, &quot;json&quot;などの形式で出力できます。
-それらに加えて、コードカバレッジのフォーマットである<code>lcov</code>と<code>codecov</code>を作りました。</p>
-
-<ul>
-<li><a href="https://github.com/azu/textlint-formatter-codecov">azu/textlint-formatter-codecov</a></li>
-<li><a href="https://github.com/azu/textlint-formatter-lcov">azu/textlint-formatter-lcov</a></li>
-</ul>
-
-<p><a href="https://gist.github.com/codecov-io/96e1addb96856a9034c2" title="Codecov JSON">Codecov JSON</a>フォーマットは<a href="https://codecov.io/" title="Codecov">Codecov</a>用の形式ですが、他のコードカバレッジにはないメッセージ情報を含めることができます。</p>
-
-<p>これを利用すれば、Codecov上にカバレッジとメッセージ(Lintのエラーメッセージ)を表示することができます。</p>
-
-<p><a href="https://codecov.io/github/azu/JavaScript-Plugin-Architecture/ja/connect/README.md?ref=e2fabe23359c253760b48641ad464c79a4f483e9"><img src="http://efcl.info/wp-content/uploads/2016/01/12-1452563559.png" alt="architecuture"></a></p>
-
-<p>カバレッジの結果として</p>
-
-<ul>
-<li>textlintで問題がなかった行を1</li>
-<li>textlintで問題があった行を0</li>
-</ul>
-
-<p>としています。(マイナスとか小数点をサポートしてない場合もあるので1と0という風にしてます)</p>
-
-<h2 id="文章カバレッジのモチベーション">文章カバレッジのモチベーション</h2>
-
-<p>この仕組みのモチベーションについて書いておきます。</p>
-
-<p><a href="http://eslint.org/" title="ESLint">ESLint</a>や<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>などのLint系に共通する話ですが、LintはCIに入れるとユニットテストに比べて、スタイルに近いチェックが多いためCIを落としやすいです。</p>
-
-<p>厳しいスタイルのチェックをLintで行うと毎回のようにCIが落とすので、厳しめのルールは入れにくい気がしています。</p>
-
-<p>Lintはエディタなどの書く環境に統合してリアルタイムでチェックするのが一般的だと思いますが、そうした場合でも厳しめのルールを一つ入れるだけで大量のエラーがでるため書くモチベーションを奪ってしまうことがあります。</p>
-
-<p>この場合、FAIL/PASSという極端な結果ではなく、WARNINGやINFOというようなレベルを間に入れることで解決するように思えますが、そういった情報に慣れてしまうと無視してしまうのが人間です。</p>
-
-<p>そのため、警告などの情報を上手く扱える必要があると思っていました。カバレッジは百分率で値がでるので、そういう中間的な状態を扱いやすいと思います。</p>
-
-<p>これを利用すると普通に書いてて落としてしまうような厳しめのルールが導入しやすいと思いました。</p>
-
-<p>例えば、<a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="azu/JavaScript-Plugin-Architecture">azu/JavaScript-Plugin-Architecture</a>では通常全て通ってるべき<a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/master/.textlintrc" title=".textlintrc">.textlintrc</a>と厳しめのルールを採用した<a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/master/coverage.textlintrc" title="coverage.textlintrc">coverage.textlintrc</a>を使っています。</p>
-
-<p>カバレッジには<a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/master/coverage.textlintrc" title="coverage.textlintrc">coverage.textlintrc</a>を使ったtextlintの結果を<a href="https://codecov.io/" title="Codecov">Codecov</a>に送っています。</p>
-
-<p>こうすることで、普通に書いてると入れるのが難しいルールも取り入れやすくなり、後で<a href="https://codecov.io/" title="Codecov">Codecov</a>上で特定のファイルだけ妙に数値が落ちてることなどが発見できます。</p>
-
-<ul>
-<li><a href="https://codecov.io/github/azu/JavaScript-Plugin-Architecture?branch=master" title="azu/JavaScript-Plugin-Architecture@master">azu/JavaScript-Plugin-Architecture@master</a></li>
-</ul>
-
-<p>チェック結果を継続的に数値化して見ることが出来ることを実現したくて、そういう仕組みを持っている既存のコードカバレッジの仕組みに乗ったという感じです。</p>
-
-<p>なのでやっぱりカバレッジではない気はしています。</p>
-
-<p>多分これはJenkinsで静的解析の警告数レポートを出すのと似たような話なのだと思います。</p>
-
-<ul>
-<li><a href="http://d.hatena.ne.jp/suzukij/20120611/1339368249">Jenkinsを使って継続的に静的コード解析をさせる - suzukijの日記</a></li>
-<li><a href="http://labs.opentone.co.jp/?p=735">Jenkinsでカバレッジレポートや静的解析レポートを出力してみよう！Part1 | Opentone Labs.</a></li>
-</ul>
-
-<h2 id="使い方">使い方</h2>
-
-<p>使い方は単純でtextlintのformatterとして実装してあるので</p>
-
-<p>例えば、<a href="https://github.com/azu/textlint-formatter-lcov" title="azu/textlint-formatter-lcov">textlint-formatter-lcov</a>ならインストールして<code>-f lcov</code>と指定すればいいだけです。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -D textlint textlint-formatter-lcov
-$(npm bin)/textlint -f lcov README.md
-# lcov形式で結果が出力される
-$(npm bin)/textlint -f lcov README.md -o lcov.info
-# ファイルとして保存する
-</code></pre></div>
-<p><a href="https://codecov.io/" title="Codecov">Codecov</a>へカバレッジを送りたい場合<code>textlint-formatter-codecov</code>を使って</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -D textlint textlint-formatter-codecov codecov.io
-$(npm bin)/textlint -f codecov README.md | codecov
-</code></pre></div>
-<p>とするだけです。</p>
-
-<p>CodecovはPull Request毎にカバレッジを書いてくれるBotとかもあるので面白いです。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2016/01/12-1452597521.png" alt="codecov bot"></p>
-
-<ul>
-<li><a href="https://github.com/azu/JavaScript-Plugin-Architecture/pull/91" title="feat(coverage): add coverage for text by azu · Pull Request #91 · azu/JavaScript-Plugin-Architecture">feat(coverage): add coverage for text by azu · Pull Request #91 · azu/JavaScript-Plugin-Architecture</a></li>
-</ul>
-
-<h2 id="おわり">おわり</h2>
-
-<p><a href="https://github.com/textlint/textlint" title="textlint">textlint</a>を使って文章カバレッジ?を取る方法について書きました。</p>
-
-<ul>
-<li><a href="https://github.com/azu/textlint-formatter-codecov">azu/textlint-formatter-codecov</a></li>
-<li><a href="https://github.com/azu/textlint-formatter-lcov">azu/textlint-formatter-lcov</a></li>
-<li><a href="https://github.com/azu/lcov-summary" title="azu/lcov-summary">azu/lcov-summary</a></li>
-</ul>
-
-<p>最初は<a href="https://github.com/azu/textstat" title="textstat">textstat</a>を使ってメトリクスを継続的に取る方法を探していましたが、途中でコードカバレッジの仕組みをLinterにも持ってくれば面白いのではないかと気づきました。</p>
-
-<blockquote class="twitter-tweet" data-conversation="none" lang="en"><p lang="ja" dir="ltr">コードカバレッジを常に100%としてるプロジェクトって普通はないから、理想的な状態を表現したルールを100%として、コードカバレッジの%が理想に対する現実の%として表現できそうな感じ。&#10;&#10;Lintのルールは厳しくすると書くのが辛いから、理想と現実のルールは上手く分離できそう</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/684300797102800896">January 5, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>この仕組みは<a href="http://eslint.org/" title="ESLint">ESLint</a>とか他のLintでもlcov形式で出力すればできるので、Lintカバレッジレポートみたいなものなのかもしれません。</p>
-
-<p>Travis CIとかと連携してコミットに紐付いて特定の値を貯めることが出来るウェブサービスがあったらまた別の方法がとれるかもしれません。</p>
-
-<p>Google Analyticsとかで実現できそうですがあんまり使いやすくないです。</p>
-
-<ul>
-<li><a href="http://t32k.me/mol/log/gaer/" title="コマンドラインからGoogle Analyticsにデータを記録するGAERをつくった - MOL">コマンドラインからGoogle Analyticsにデータを記録するGAERをつくった - MOL</a></li>
-<li><a href="https://github.com/mattdesl/npm-install-analytics" title="mattdesl/npm-install-analytics">mattdesl/npm-install-analytics</a></li>
-</ul>
-
-<p><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/" title="Introduction | 技術文書をソフトウェア開発する話">技術文書をソフトウェア開発する話</a>でも話していましたが、文章に対するプログラミング言語のようなツールはまだまだ少ない印象です。
-(研究から出てるツールはあるけど、特定のユースケースをはみ出ると使えなくなる印象)</p>
-
-<p>文書もCIを回して開発するのがもっとあたりまえになってくると、もっと面白いことが色々起きるのではないかと思っています。</p>
  ]]></content>
  </entry>
  

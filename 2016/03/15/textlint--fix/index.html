@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        textlint 6.0リリース。--fixでの自動修正に対応 | Web Scratch
+        
+    </title>
+    <meta name="description" content="textlint 6.0をリリースしました。">
+    
+    <meta name="keywords" content="textlint,JavaScript,ReleaseNode" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="textlint 6.0リリース。--fixでの自動修正に対応">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/03/15/textlint--fix/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="textlint 6.0をリリースしました。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-03-15T20:33:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/02/24/textlint-online-demo/">
+
+
+
+
+
+<meta property="article:section" content="javascript">
+
+
+
+
+
+<meta property="article:tag" content="textlint">
+
+<meta property="article:tag" content="JavaScript">
+
+<meta property="article:tag" content="ReleaseNode">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 149
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 74
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/03/15/textlint--fix/">
+                textlint 6.0リリース。--fixでの自動修正に対応
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/03/06/ast-first-step/">
+                JavaScript ASTを始める最初の一歩
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/02/29/uruu_sushi/">
+                #uruu_sushi アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/02/24/textlint-online-demo/">
+                textlintの公式サイト(オンラインデモ)を作りました
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/03/15/textlint--fix/">
+    <h1 class="post-title">textlint 6.0リリース。--fixでの自動修正に対応</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年03月15日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-03-15-textlint--fix.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="https://textlint.github.io/" title="textlint">textlint</a> 6.0をリリースしました。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/releases/tag/6.0.1" title="Release 6.0: --fix to be stable · textlint/textlint">Release 6.0: --fix to be stable · textlint/textlint</a></li>
+</ul>
+
+<p>モジュールとして使っている場合に、細かな破壊的な変更があります。
+ツールとして使っている人は単純に<code>npm install textlint@6 -D</code>などでアップデートすれば動くと思います。</p>
+
+<p>textlint自体については以下を見てください。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/09/10/introduce-textlint/">textlintで日本語の文章をチェックする | Web Scratch</a></li>
+<li><a href="http://efcl.info/2015/12/30/textlint-preset/">ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch</a></li>
+</ul>
+
+<h2 id="--fixによる自動修正の対応"><code>--fix</code>による自動修正の対応</h2>
+
+<p><a href="https://github.com/textlint/textlint/releases/tag/5.5.3" title="5.5.3: --fix &amp;amp; --experimental support">5.5.3: --fix &amp; --experimental support</a>で<code>--fix</code>による自動修正機能を実験的にサポートしていました。</p>
+
+<p>6.0では<code>--fix</code>を<code>--experimental</code>フラグなしで利用できるようになりました。</p>
+
+<p>自動修正はルール側で対応が必要 かつ 原理的に自動修正が難しいルールもあると思うので、あくまでサポート的な機能です。</p>
+
+<p><a href="https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule">Wiki</a>にまとめてあるルールのうち、✔ fixableマークが付いてるものは対応しています。</p>
+
+<p>対応しているルールをfixableルールと呼んでいて、以下のバッジをつけています。</p>
+
+<p><a href="https://textlint.github.io/"><img src="https://img.shields.io/badge/textlint-fixable-green.svg?style=social" alt="textlint rule"></a></p>
+
+<p>現状では以下のようなルールが<code>--fix</code>に対応しています。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-prh" title="azu/textlint-rule-prh: textlint rule for prh.">azu/textlint-rule-prh: textlint rule for prh.</a></li>
+<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style" title="azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.">azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.</a></li>
+<li><a href="https://github.com/azu/textlint-rule-spellcheck-tech-word" title="textlint-rule-spellcheck-tech-word">azu/textlint-rule-spellcheck-tech-word</a></li>
+<li><a href="https://github.com/io-monad/textlint-rule-common-misspellings">io-monad/textlint-rule-common-misspellings: textlint rule to check common misspellings</a></li>
+<li><a href="https://github.com/io-monad/textlint-rule-general-novel-style-ja">io-monad/textlint-rule-general-novel-style-ja: textlint rule to follow general style of Japanese novels</a></li>
+<li><a href="https://github.com/nodaguti/textlint-rule-spellchecker">nodaguti/textlint-rule-spellchecker: textlint rule to check spellings with native spellchecker</a></li>
+<li><a href="https://github.com/nodaguti/textlint-rule-ginger">nodaguti/textlint-rule-ginger: textlint rule to check your English grammar with Ginger Proofreading</a></li>
+</ul>
+
+<p>fixableルールは<a href="http://efcl.info/2015/09/14/textlint-rule-prh/">prhと辞書を使った表記揺れの統一</a>や<a href="http://efcl.info/2015/10/19/textlint-plugin-JTF-style/">JTF日本語標準スタイルガイドを使った表記の統一</a>など、辞書ベースやスタイルの統一を簡単になるのが利点です。</p>
+
+<p>逆に表現的なものをチェックするルールは自動修正が難しく、頑張ってもサジェストのような推敲支援になると思います。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/11/07/nodefest-2015/" title="東京Node学園祭2015で技術文書をソフトウェア開発する話をしてきた | Web Scratch">東京Node学園祭2015で技術文書をソフトウェア開発する話をしてきた | Web Scratch</a></li>
+<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/slide/90.html" title="校正と推敲 | 技術文書をソフトウェア開発する話">校正と推敲 | 技術文書をソフトウェア開発する話</a></li>
+<li><a href="http://editor.hatenastaff.com/entry/2016/03/17/113000" title="編集は「自動化」されていく仕事なのか　編集者のためのイベント「編む庭 」レポ【前編】 - はてな編集部ブログ「編む庭」">編集は「自動化」されていく仕事なのか　編集者のためのイベント「編む庭 」レポ【前編】 - はてな編集部ブログ「編む庭」</a></li>
+</ul>
+
+<p><a href="https://github.com/textlint/textlint" title="textlint">textlint</a>は校正支援として始めたツールなので、まだ推敲支援のような要素は入っていません。
+以下のIssueでそのようなサジェストをどう扱うかについて話し合ってるので興味がある人は見てください。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/issues/158" title="Feature Request: Multiple fix results and interactive fix · Issue #158 · textlint/textlint">Feature Request: Multiple fix results and interactive fix · Issue #158 · textlint/textlint</a></li>
+</ul>
+
+<p>また<code>--fix</code>はread onlyなlintと違ってwrite処理であるため、バグを作りやすいです。
+自分もリリースしてからあるルールでバグがあることに気づいたので、そういうのテストする方法については以下で話し合っています。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/issues/136" title="Document: add &amp;#34;How to test your rule?&amp;#34; · Issue #136 · textlint/textlint">Document: add &quot;How to test your rule?&quot; · Issue #136 · textlint/textlint</a></li>
+</ul>
+
+<p>使用してバグを見つけたら、それは特定のルールのバグであるならそちらへ、そうでなくて<code>textlint</code>のバグであるならtextlintに報告してください。</p>
+
+<p>バグ報告の仕方については以下を参考にしてください。</p>
+
+<ul>
+<li><a href="https://gist.github.com/azu/913454a54ea8ef59ba30" title="textlint Bug Reporting">textlint Bug Reporting</a></li>
+<li><a href="https://github.com/textlint/textlint/blob/master/CONTRIBUTING.md#bug-reporting" title="textlint/CONTRIBUTING.md at master · textlint/textlint">textlint/CONTRIBUTING.md at master · textlint/textlint</a></li>
+</ul>
+
+<h2 id="fixableルール">Fixableルール</h2>
+
+<p>実際に<code>--fix</code>による自動修正の例を見てみます。</p>
+
+<p>このブログのリポジトリ対象にしてみます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">git clone https://github.com/efcl/efcl.github.io
+cd efcl.github.io
+</code></pre></div>
+<p>次に<code>textlint</code>とfixableに対応してる3つのルール/プリセットをインストールします。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style" title="azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.">azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.</a></li>
+<li><a href="https://github.com/azu/textlint-rule-spellcheck-tech-word" title="textlint-rule-spellcheck-tech-word">textlint-rule-spellcheck-tech-word</a></li>
+<li><a href="https://github.com/io-monad/textlint-rule-common-misspellings">io-monad/textlint-rule-common-misspellings: textlint rule to check common misspellings</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -D textlint textlint-rule-preset-jtf-style textlint-rule-spellcheck-tech-word textlint-rule-common-misspellings
+</code></pre></div>
+<p>インストールし終わったら、<code>.textlintrc</code>にインストールしたルールを使うように設定します。
+(<code>--rule</code>や<code>--preset</code>オプションでも指定できますが毎回やるのは面倒なので)</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="k">$(</span>npm bin<span class="k">)</span>/textlnt --init
+</code></pre></div>
+<p>というコマンドを叩くと、空の<code>.textlintrc</code>設定ファイルが作成されるので、編集して次のような設定をします。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;preset-jtf-style&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;spellcheck-tech-word&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;common-misspellings&quot;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>この状態でチェックしたいファイルを指定すれば<code>textlint</code>でLintすることができます。</p>
+
+<p>自分の今まで書いてきた全記事のうちMarkdownをこのルールでLintしてみます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$(npm bin)/textlint _posts/
+
+...
+✖ 6091 problems (6091 errors, 0 warnings)
+✓ 5639 fixable problems.
+Try to run: $ textlint --fix [file]
+</code></pre></div>
+<p><img src="http://efcl.info/wp-content/uploads/2016/03/16-1458133066.png" alt="result of linting"></p>
+
+<p>絶望的な数のエラーが表示されました…</p>
+
+<p>デフォルトのformatterである<code>-f stylish</code> または <code>-f pretty-error</code>では、
+Lintの結果にそのうち自動修正できるエラーの数を表示してくれます。</p>
+
+<p>この数値は実際に修正できる数とは必ずしも一致しません。ルール間は独立しているので、重複や衝突が存在しているためです。基本的には衝突しないように修正を逐次的に処理していく形になります。</p>
+
+<p>このエラーを実際に<code>--fix</code>で修正してみたいと思います。</p>
+
+<p>修正する前に、対象のファイルは必ず復元できるように、バックアップを取るかGitにコミットしておくなどしてください。
+また、<code>--dry-run</code>オプションを使うことで、実際にファイルの上書きはしないでどのような変更が行われるかを見ることができます。</p>
+
+<p>変更を比較する場合は <code>-f diff</code> でdiff表示をするformatterを利用すると分かりやすいです。
+(<code>--fix</code>は本当に逐次的に処理するので、ルールやファイルが多いと掛け算的に処理時間が増えます)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$(npm bin)/textlint _posts --fix --dry-run -f diff
+# 実際に変更は反映しないでdiffだけをみる
+
+....
+✔ Fixed 5713 problems
+✖ Remaining 73 problems
+</code></pre></div>
+<p><img src="http://efcl.info/wp-content/uploads/2016/03/16-1458133752.png" alt="result of fixing"></p>
+
+<p>✖ 6091 problemsのうち✔ Fixed 5713 problemsが自動で修正することができます。
+<code>--dry-run</code>で問題ないのが確認できたら、<code>--fix</code>のみにして上書き保存できます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$(npm bin)/textlint _posts --fix
+</code></pre></div>
+<p><img src="http://efcl.info/wp-content/uploads/2016/03/16-1458134174.png" alt="fix error"></p>
+
+<h2 id="textlint-v5からv6の変更点">textlint v5からv6の変更点</h2>
+
+<p><a href="http://efcl.info/2015/11/20/textlint5.0.0/" title="textlint 5.0.0">textlint 5.0.0までの変更点</a>はいぜん書いたので、5.0から6.0までにあった変更点を列挙してみます。</p>
+
+<h3 id="5.1.0"><a href="https://github.com/textlint/textlint/releases/tag/5.1.0" title="5.1.0">5.1.0</a></h3>
+
+<p><code>textlint-rule-preset</code>をサポートしました。
+ルールプリセットは個別のルールをまとめたモジュールという位置づけです。</p>
+
+<p>もちろん内蔵しているルール個別に設定を<code>.textlintrc</code>に書くことができるので、
+一つのルールに沢山のチェック機能を設けるよりも、個別のルールに分けてルールプリセットとして公開することを推奨しています。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/12/30/textlint-preset/" title="ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch">ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch</a></li>
+</ul>
+
+<h3 id="5.2.0"><a href="https://github.com/textlint/textlint/releases/tag/5.2.0" title="5.2.0">5.2.0</a></h3>
+
+<p><code>textlint-formatter-&lt;name&gt;</code>のようなモジュールを<code>--formatter &lt;name&gt;</code>という形で指定できるようになりました。</p>
+
+<p>これを利用したカバレッジを出力するformatterを公開しています。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-formatter-lcov">azu/textlint-formatter-lcov: textlint formatter for lcov format</a></li>
+<li><a href="https://github.com/azu/textlint-formatter-codecov">azu/textlint-formatter-codecov: textlint formatter for codecov json.</a></li>
+<li><a href="http://efcl.info/2016/01/12/textlint-coverage/" title="textlintで文章カバレッジレポートを継続的に見ていく | Web Scratch">textlintで文章カバレッジレポートを継続的に見ていく | Web Scratch</a></li>
+</ul>
+
+<p>formatterの作り方はドキュメントを見てください。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/blob/master/docs/formatter.md" title="textlint/formatter.md at master · textlint/textlint">textlint/formatter.md at master · textlint/textlint</a></li>
+</ul>
+
+<h3 id="5.3.0"><a href="https://github.com/textlint/textlint/releases/tag/5.3.0" title="5.3.0">5.3.0</a></h3>
+
+<p><code>--stdin-filename</code> をサポートしました。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">cat readme.md | textlint --format compact --stdin --stdin-filename readme.md
+</code></pre></div>
+<p>という感じで標準入力のテキストに対して擬似的な名前を付けることができます。
+(拡張子に対応した種類のファイルとしてtextlintが処理するため)</p>
+
+<p>この仕組はSublimeプラグインを作るのに使われています</p>
+
+<ul>
+<li><a href="https://github.com/joeybaker/sublimelinter-textlint" title="SublimeLinter-textlint">SublimeLinter-textlint</a></li>
+</ul>
+
+<h3 id="5.4.0"><a href="https://github.com/textlint/textlint/releases/tag/5.4.0" title="5.4.0">5.4.0</a></h3>
+
+<p><code>.textlintrc</code>ファイルを作成する<code>--init</code>オプションが追加されました。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">textlint --init
+</code></pre></div>
+<p>で空の<code>.textlintrc</code>ファイルを作成してくれます。</p>
+
+<p>まだ色々改良の余地があるので興味がある人は以下のIssueを見てください。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/issues/129" title="--init options: Create .textlintrc file · Issue #129 · textlint/textlint">--init options: Create .textlintrc file · Issue #129 · textlint/textlint</a></li>
+</ul>
+
+<h3 id="5.5.3"><a href="https://github.com/textlint/textlint/releases/tag/5.5.3" title="5.5.3">5.5.3</a></h3>
+
+<p><code>--fix</code>と<code>--experimental</code>を実験的にサポートしました。
+ここで実験的に追加した<code>--fix</code>は6.0.0で正式サポートとなります。</p>
+
+<h3 id="5.6.0"><a href="https://github.com/textlint/textlint/releases/tag/5.6.0" title="5.6.0">5.6.0</a></h3>
+
+<p>ルール開発者向けに<code>RuleError</code>が<code>index</code>プロパティをサポートしました。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ruleError</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">context</span><span class="p">.</span><span class="nx">RuleError</span><span class="p">(</span><span class="s2">&quot;Found rule error&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">index</span><span class="o">:</span> <span class="nx">paddingIndex</span> <span class="p">});</span>
+</code></pre></div>
+<p>正確なエラーの位置を簡単に指定できます。
+今まで通り、<code>column</code>と<code>line</code>の組み合わせでも問題ないですが、<code>column</code>単独の指定は<code>index</code>に書き換える事を推奨しています。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/blob/master/docs/rule.md#ruleerror" title="textlint/rule.md at master · textlint/textlint">textlint/rule.md at master · textlint/textlint</a></li>
+<li><a href="https://github.com/textlint/textlint/blob/master/docs/faq/failed-to-load-textlints-module.md" title="textlint/failed-to-load-textlints-module.md at master · textlint/textlint">textlint/failed-to-load-textlints-module.md at master · textlint/textlint</a></li>
+</ul>
+
+<p><a href="https://github.com/textlint/textlint-tester" title="textlint-tester">textlint-tester</a>でテストしている場合は、<code>column</code>単独の場合には警告を出してくれます。</p>
+
+<h2 id="5.7.0"><a href="https://github.com/textlint/textlint/releases/tag/5.7.0" title="5.7.0">5.7.0</a></h2>
+
+<p>5.7.0では一部formatterがエラーとそのエラーが自動修正できるかを出すようになりました。</p>
+
+<h2 id="6.0.0">6.0.0</h2>
+
+<p>6.0.0では</p>
+
+<ul>
+<li><code>--dry-run</code>のサポート(<code>--fix</code>と組み合わせて使います)</li>
+<li><code>--fix</code>からexperimentalフラグが外れました</li>
+<li><code>--fix</code>向けのformatterとして<code>-f diff</code>を追加しました</li>
+</ul>
+
+<p>モジュールとして使う場合に関連するものとして</p>
+
+<ul>
+<li><code>TextLintEngine#setRulesBaseDirectory</code> が削除されました</li>
+<li><code>TextFixEngine</code>が追加されました
+
+<ul>
+<li><code>--fix</code>における処理を扱うEngineです</li>
+</ul></li>
+<li><code>TextLintCore#setupProcessors</code>が追加されました
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/blob/master/docs/plugin.md" title="Processor">Processor</a>を設定するAPIです</li>
+</ul></li>
+</ul>
+
+<p>また内部をかなりリファクタリングして、</p>
+
+<ul>
+<li>CLI</li>
+<li>Engine</li>
+<li>Core</li>
+</ul>
+
+<p>の役割と関心を分離してディレクトリなどを切るようになりました。
+詳しくは以下のドキュメントに書かれています。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/blob/master/src/README.md" title="textlint/README.md at master · textlint/textlint">textlint/README.md at master · textlint/textlint</a></li>
+</ul>
+
+<p>結構長くなりましたが、5.0.0〜6.0.0の変更点は以上です。
+Breaking Changeはほとんどのユーザには関係ないものだと思います(実際使ってるコードはGitHub上にはなかった)</p>
+
+<h2 id="その他">その他</h2>
+
+<ul>
+<li><a href="http://io-monad.hatenablog.com/entry/2016/03/14/225800" title="文書校正ツール textlint の Chrome 拡張を作った - もなでぃっく">文書校正ツール textlint の Chrome 拡張を作った - もなでぃっく</a></li>
+<li><a href="https://chrome.google.com/webstore/detail/textlint-proofreader/hdongmdneapmhfblomidbafplpanpdmm?hl=ja&amp;gl=JP" title="textlint: 文章チェッカー - Chrome ウェブストア">textlint: 文章チェッカー - Chrome ウェブストア</a></li>
+</ul>
+
+<p>Chrome拡張として<code>textlint</code>を動かすものが出てきたので、Node.jsを入れなくても
+ブラウザでインストールしてGUIで設定できるので簡単に使うことができます。</p>
+
+<ul>
+<li><a href="https://github.com/Nkzn/textlint-prh-template" title="Nkzn/textlint-prh-template: A writing environment watched by textlint &amp;amp; prh">Nkzn/textlint-prh-template: A writing environment watched by textlint &amp; prh</a></li>
+</ul>
+
+<p>Atomプラグインとして<a href="https://github.com/1000ch/linter-textlint" title="linter-textlint">linter-textlint</a>を使う場合は上記のリポジトリが参考になるかもしれません。</p>
+
+<h2 id="開発メモ">開発メモ</h2>
+
+<p><code>--fix</code>は5.5から使えたのですが、色々APIデザインを変更する可能性があったのでexperimentalフラグを付けてリリースしました。</p>
+
+<p>浅いイテレーションをするには</p>
+
+<ul>
+<li>本体機能をテストしてもらいたいならbetaをとにかく出す</li>
+<li>プラグインに関係するエコシステム的な機能を試したいならexperimentalフラグ付きで出す</li>
+<li>プラグイン側は最新の本体でしか動かない変更を入れるならメジャーアップデート
+
+<ul>
+<li>本体バージョンとプラグインの参照するバージョンがズレているとユーザーはハマります</li>
+<li>なのでメジャーアップデートとするのが無難です</li>
+</ul></li>
+<li>プラグイン側が特定バージョン以降に依存するならpeerDependenciesを付ける</li>
+<li>npmのbetaとGitHubのprereleaseを使う
+
+<ul>
+<li><code>npm publish --tag beta</code>するalisを使っています</li>
+<li><a href="https://gist.github.com/azu/fb3ec88231235511858a">npm version publish alias - http://efcl.info/2015/04/08/npm-publish-pattern/</a></li>
+<li><a href="http://efcl.info/2015/04/08/npm-publish-pattern/">npm publishのパターン | Web Scratch</a></li>
+</ul></li>
+<li>フラグつき機能は、次のメジャーアップデートで外す</li>
+<li>testライブラリを作りdeprecatedはプラグイン作者に通知
+
+<ul>
+<li>テスト中はガンガン例外を投げて伝える</li>
+<li>textlintは<a href="https://github.com/textlint/textlint-tester" title="textlint-tester">textlint-tester</a>経由の実行時のみ例外を投げるUtilを持っています。</li>
+<li><a href="https://github.com/textlint/textlint/blob/master/src/util/throw-log.js" title="throw-log.js">throw-log.js</a></li>
+</ul></li>
+<li>本体とプラグインが同時にnpmのbetaになると辛い
+
+<ul>
+<li>βはsemverで<code>&gt;=</code>のような指定ができなくて、直書きする事になって辛いです</li>
+</ul></li>
+<li>experimentalフラグ付きで本体はstableリリースして、プラグインはstableな本体に依存させたbetaを出す</li>
+<li>プラグインがstableリリースする際はメジャーアップデート+peerDependenciesにする
+
+<ul>
+<li>この辺が<code>--experimental</code>フラグを作った理由です</li>
+</ul></li>
+</ul>
+
+<p>課題としては</p>
+
+<ul>
+<li>本体のBreaking Changeに依存したプラグインの変更をうまく扱う方法がない</li>
+<li>なので本体のBreaking Changeはなるべく小さく、単独でリリースする
+
+<ul>
+<li>プラグインがすぐに追従できるような変更の粒度を考える</li>
+</ul></li>
+</ul>
+
+<p>という感じになっています。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-03-15-textlint--fix.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["textlint","JavaScript","ReleaseNode"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=textlint">textlint</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=ReleaseNode">ReleaseNode</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

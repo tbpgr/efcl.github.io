@@ -711,7 +711,9 @@
         
         "Redux",
         
-        "security"
+        "security",
+        
+        "ReleaseNode"
         
     ]
 }
