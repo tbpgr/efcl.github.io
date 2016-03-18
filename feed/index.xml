@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-18T13:04:59+09:00</updated>
+ <updated>2016-03-18T13:06:52+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -300,6 +300,8 @@ Breaking Changeはほとんどのユーザには関係ないものだと思い�
 <li><a href="http://io-monad.hatenablog.com/entry/2016/03/14/225800" title="文書校正ツール textlint の Chrome 拡張を作った - もなでぃっく">文書校正ツール textlint の Chrome 拡張を作った - もなでぃっく</a></li>
 <li><a href="https://chrome.google.com/webstore/detail/textlint-proofreader/hdongmdneapmhfblomidbafplpanpdmm?hl=ja&amp;gl=JP" title="textlint: 文章チェッカー - Chrome ウェブストア">textlint: 文章チェッカー - Chrome ウェブストア</a></li>
 </ul>
+
+<p><img src="https://monosnap.com/file/LTo4HPrWD0k8fzfC8J9PRf0dNSJerG.png" alt="textlint on chrome"></p>
 
 <p>Chrome拡張として<code>textlint</code>を動かすものが出てきたので、Node.jsを入れなくても
 ブラウザでインストールしてGUIで設定できるので簡単に使うことができます。</p>
