@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-18T13:13:16+09:00</updated>
+ <updated>2016-03-18T13:20:41+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -257,9 +257,9 @@ Lintの結果にそのうち自動修正できるエラーの数を表示して�
 
 <p>5.7.0では一部formatterがエラーとそのエラーが自動修正できるかを出すようになりました。</p>
 
-<h2 id="6.0.0">6.0.0</h2>
+<h2 id="6.0"><a href="https://github.com/textlint/textlint/releases/tag/6.0.1" title="6.0">6.0</a></h2>
 
-<p>6.0.0では</p>
+<p>6.0では</p>
 
 <ul>
 <li><code>--dry-run</code>のサポート(<code>--fix</code>と組み合わせて使います)</li>
