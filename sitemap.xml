@@ -2,23 +2,29 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>http://efcl.info/</loc>
-        <lastmod>2016-03-18</lastmod>
+        <lastmod>2016-03-23</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>http://efcl.info/archives/</loc>
-        <lastmod>2016-03-18</lastmod>
+        <lastmod>2016-03-23</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>http://efcl.info/categories/</loc>
-        <lastmod>2016-03-18</lastmod>
+        <lastmod>2016-03-23</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>http://efcl.info/tags/</loc>
-        <lastmod>2016-03-18</lastmod>
+        <lastmod>2016-03-23</lastmod>
         <changefreq>weekly</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2016/03/22/match-index/</loc>
+        <lastmod>2016-03-22</lastmod>
+        <changefreq>never</changefreq>
     </url>
     
     <url>
@@ -1240,6 +1246,12 @@
     </url>
     
     <url>
+        <loc>http://efcl.info/wiki/</loc>
+        <lastmod>2013-07-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
         <loc>http://efcl.info/flvplayer_wrapper/</loc>
         <lastmod>2013-07-06</lastmod>
         <changefreq>never</changefreq>
@@ -1258,19 +1270,13 @@
     </url>
     
     <url>
-        <loc>http://efcl.info/niconicoapi/</loc>
-        <lastmod>2013-07-06</lastmod>
-        <changefreq>never</changefreq>
-    </url>
-    
-    <url>
         <loc>http://efcl.info/post-now-browsing-to-twitter/</loc>
         <lastmod>2013-07-06</lastmod>
         <changefreq>never</changefreq>
     </url>
     
     <url>
-        <loc>http://efcl.info/wiki/</loc>
+        <loc>http://efcl.info/niconicoapi/</loc>
         <lastmod>2013-07-06</lastmod>
         <changefreq>never</changefreq>
     </url>

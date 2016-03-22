@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2015-12-25T19:39:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -119,7 +119,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -250,6 +250,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -264,12 +270,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -343,7 +343,7 @@ var blog_categories = [
 <li><a href="https://github.com/blog/273-github-ribbons" title="GitHub Ribbons">GitHub Ribbons</a> 公式の解説</li>
 </ul>
 
-<h2 id="使い方">使い方</h2>
+<h2 id=">使い方</h2>
 
 <ul>
 <li>GitHub Repository</li>
@@ -353,7 +353,7 @@ var blog_categories = [
 
 <p>を入力してあげれば、そのままコピペ出来るGitHub RibbonのHTMLが出来上がるので後はコピペするだけです。</p>
 
-<h2 id="仕組み">仕組み</h2>
+<h2 id=">仕組み</h2>
 
 <p>このツール自体はコピペしてURLを書き換えとか毎回やるの面倒だなと思って作った程度ですが、
 もう一つの目的としては<a href="http://vuejs.org/2015/10/26/1.0.0-release/" title="Vue.js 1.0.0">Vue.js 1.0.0</a>を使ってみたかったというのがあります。</p>
@@ -409,7 +409,7 @@ Vue.jsというと2 wayのgetter/setterを使ったデータバインディン�
 <span class="kr">const</span> <span class="nx">emitter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UserStore</span><span class="p">();</span>
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">emitter</span><span class="p">;</span>
 </code></pre></div>
-<h3 id=".vue">.vue</h3>
+<h3 id="vue">.vue</h3>
 
 <p><code>.vue</code> はVue.jsが公式に提供してるBrowseryとWebpackから扱えるフォーマットで、HTML/CSS/JSを一つにまとめたファイルです。</p>
 
@@ -545,7 +545,7 @@ Vue.jsというと2 wayのgetter/setterを使ったデータバインディン�
 <p>このケバブケースで書かないといけないのが、警告もでなくてとても分かりにくい感じでした。
 (Reactの<code>className</code>とか、Riotの<a href="http://riotjs.com/ja/api/#tag" title="riot.tag">riot.tag</a>関数の制限とかも似た話ですが)</p>
 
-<h3 id="コンポーネントとデータ">コンポーネントとデータ</h3>
+<h3 id=">コンポーネントとデータ</h3>
 
 <p>ReactのPropsと同じですが、Vue.jsも<code>props</code>というの子コンポーネントで宣言してあげると、親コンポーネントから値を受け取れます。</p>
 
@@ -662,7 +662,7 @@ Vue.jsというと2 wayのgetter/setterを使ったデータバインディン�
 <li><a href="http://blog.mmmcorp.co.jp/blog/2015/12/03/vue-with-redux/" title="Vue.jsにreduxを載せた話 | MMMブログ">Vue.jsにreduxを載せた話 | MMMブログ</a></li>
 </ul>
 
-<h2 id="まとめ">まとめ</h2>
+<h2 id=">まとめ</h2>
 
 <ul>
 <li>React + Fluxみたいなデータの流れは実装ができるのか

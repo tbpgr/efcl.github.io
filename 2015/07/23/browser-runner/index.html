@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2015-07-23T09:06:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -121,7 +121,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -252,6 +252,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -266,12 +272,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -336,14 +336,14 @@ var blog_categories = [
 <p>コマンドライン または Nodeモジュールとして利用することができます。
 ブラウザはWebDriverに対応していれば何でも動きます。</p>
 
-<h2 id="作った目的">作った目的</h2>
+<h2 id=">作った目的</h2>
 
 <p>この<a href="https://github.com/azu/browser-runner" title="browser-runner">browser-runner</a>はローカルのHTMLにも対応しているのですが、
 PhantomJSであるHTMLにアクセスしたログを見たいときにわざわざJSを書く必要があるのが面倒だったのでこれを作りました。</p>
 
 <p>ローカルHTMLは自動的にローカルサーバを立てた上でアクセスするのでXHRなどもちゃんと動作するようになってます。</p>
 
-<h2 id="インストール">インストール</h2>
+<h2 id=">インストール</h2>
 
 <p>コマンドラインツールとして使う場合は <code>-g</code> オプション付きでインストール</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm install -g browser-runner
@@ -354,7 +354,7 @@ PhantomJSであるHTMLにアクセスしたログを見たいときにわざわ�
 <p>アクセスすると<code>console.log</code>の内容はそのまま標準出力に出してくれたりします。
 PhantomJSの場合は<em>phantomjs.log</em>あたりにも出力されます。</p>
 
-<h3 id="nodeモジュールとして使う">Nodeモジュールとして使う</h3>
+<h3 id="node">Nodeモジュールとして使う</h3>
 
 <p><a href="https://github.com/azu/browser-runner" title="browser-runner">browser-runner</a>はNodeモジュールとしても使えます。</p>
 
@@ -387,7 +387,7 @@ PhantomJSの場合は<em>phantomjs.log</em>あたりにも出力されます。<
 <li><a href="http://efcl.info/2015/05/14/reftest-runner/" title="ブラウザでビジュアルテストをするreftest-runnerを作った | Web Scratch">ブラウザでビジュアルテストをするreftest-runnerを作った | Web Scratch</a></li>
 </ul>
 
-<h3 id="類似">類似</h3>
+<h3 id=">類似</h3>
 
 <ul>
 <li><a href="https://github.com/juliangruber/browser-run" title="juliangruber/browser-run">juliangruber/browser-run</a>

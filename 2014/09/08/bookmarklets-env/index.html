@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2014-09-08T07:41:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -119,7 +119,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -250,6 +250,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -264,12 +270,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -329,7 +329,7 @@ var blog_categories = [
 
     </div>
     <div class="post-content">
-        <h2 id="ブックマークレットを作るコマンドラインツール">ブックマークレットを作るコマンドラインツール</h2>
+        <h2 id=">ブックマークレットを作るコマンドラインツール</h2>
 
 <p><a href="https://github.com/azu/bookmarkletter" title="azu/bookmarkletter">azu/bookmarkletter</a> という既存のJavaScriptからブックマークレットを作るコマンドラインツールを作りました。</p>
 
@@ -338,7 +338,7 @@ var blog_categories = [
 <p>Node.jsで書かれているので、npmからインストールできます。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm install bookmarkletter -g
 </code></pre></div>
-<h2 id="使い方">使い方</h2>
+<h2 id=">使い方</h2>
 
 <p>使い方は簡単で、ファイル名を渡すかパイプでJavaScriptコードを渡せば、<code>javascript:</code> から始まるブックマークレットとして使える文字列を返してくれます。</p>
 <div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>bookmarkletter code.js
@@ -365,7 +365,7 @@ javascript:(function(){var%20hello=function(){alert(document.title)};hello()}())
 </code></pre></div>
 <p>単純にスペースを失くすだけだと<code>;</code>がないためシンタックスエラーになってしまうからです。</p>
 
-<h2 id="仕組み">仕組み</h2>
+<h2 id=">仕組み</h2>
 
 <p><a href="https://github.com/azu/bookmarkletter" title="bookmarkletter">bookmarkletter</a> の仕組みについて簡単に解説します。
 やってることとしてはシンプルで以下の3つのことだけです。 </p>
@@ -380,7 +380,7 @@ javascript:(function(){var%20hello=function(){alert(document.title)};hello()}())
 <li><code>javascript:</code> という文字列を先頭につける</li>
 </ul>
 
-<h3 id="astを変換">ASTを変換</h3>
+<h3 id="ast">ASTを変換</h3>
 
 <p>ブックマークレットを実行した結果の変数がサイト上に残ったりすると良くないかもしれないので、まずはスクリプト全体を無名関数で囲んで即時実行させるように変換します。</p>
 
@@ -415,7 +415,7 @@ javascript:(function(){var%20hello=function(){alert(document.title)};hello()}())
 <p>ただ、現在普通のエディタは補完とか特にできないので、扱いにくいと思います。
 <a href="https://github.com/benjamn/ast-types/blob/master/def/core.js" title="ast-types/core.js at master · benjamn/ast-types">ast-types/core.js at master · benjamn/ast-types</a> の定義ファイルからTypeScriptのd.tsを吐き出せたら大分幸せになれそう。。</p>
 
-<h3 id="astを圧縮">ASTを圧縮</h3>
+<h3 id="ast">ASTを圧縮</h3>
 
 <p><a href="https://github.com/Constellation/esmangle" title="esmangle">esmangle</a> は <a href="https://github.com/mishoo/UglifyJS2" title="UglifyJS">UglifyJS</a> と同じようにJavaScriptのコードを圧縮するライブラリです。</p>
 
@@ -423,7 +423,7 @@ javascript:(function(){var%20hello=function(){alert(document.title)};hello()}())
 
 <p><a href="https://github.com/Constellation/esmangle" title="esmangle">esmangle</a>は変数名を短くしたり、短絡評価に置き換えたり、使ってないラベルを削除したりと色々です。</p>
 
-<h3 id="astからコードを出力">ASTからコードを出力</h3>
+<h3 id="ast">ASTからコードを出力</h3>
 
 <p>変換したASTからコードを生成するのは<a href="https://github.com/Constellation/escodegen" title="Escodegen">Escodegen</a>を使えばいいだけです。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">escodegen</span><span class="p">.</span><span class="nx">generate</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="p">{</span>
@@ -445,7 +445,7 @@ javascript:(function(){var%20hello=function(){alert(document.title)};hello()}())
 <p><code>bookmarkletter</code>はモジュールとして使うことも出来ます。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm install bookmarkletter
 </code></pre></div>
-<h3 id="モジュールとして使う">モジュールとして使う</h3>
+<h3 id=">モジュールとして使う</h3>
 
 <p>モジュールとして使う場合は単純にコード文字列を渡せば、ブックマークレット化したコードを返してくれます。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">bookmarkletter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;bookmarkletter&quot;</span><span class="p">);</span>
@@ -453,7 +453,7 @@ javascript:(function(){var%20hello=function(){alert(document.title)};hello()}())
 <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">bookmarkletter</span><span class="p">(</span><span class="nx">code</span><span class="p">);</span>
 <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="s2">&quot;javascript:(function(){var%20a=1}())&quot;</span><span class="p">);</span>
 </code></pre></div>
-<h3 id="オプション">オプション</h3>
+<h3 id=">オプション</h3>
 
 <p><code>bookmarkletter</code> 関数にはオプションオブジェクトを渡せます。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
@@ -468,11 +468,11 @@ javascript:(function(){var%20hello=function(){alert(document.title)};hello()}())
 <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">bookmarkletter</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
 <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="s2">&quot;javascript:(function(){var%20a=1}())&quot;</span><span class="p">);</span>
 </code></pre></div>
-<h2 id="ライセンス">ライセンス</h2>
+<h2 id=">ライセンス</h2>
 
 <p><a href="https://github.com/azu/bookmarkletter" title="azu/bookmarkletter">azu/bookmarkletter</a> のライセンスはMITです</p>
 
-<h2 id="参考にしたもの">参考にしたもの</h2>
+<h2 id=">参考にしたもの</h2>
 
 <p>無名関数で囲んだり、URLエンコードする文字などは<a href="https://github.com/chriszarate/bookmarkleter" title="chriszarate/bookmarkleter">chriszarate/bookmarkleter</a>を参考にしました。</p>
 

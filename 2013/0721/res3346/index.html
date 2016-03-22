@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2013-07-21T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -119,7 +119,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -250,6 +250,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -264,12 +270,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -329,7 +329,7 @@ var blog_categories = [
 
     </div>
     <div class="post-content">
-        <h1 id="はじめに">はじめに</h1>
+        <h1 id=">はじめに</h1>
 
 <p>久しぶりに、<a href="https://addons.mozilla.org/en-US/developers/docs/sdk/latest/" title="Add-on SDK">Add-on SDK</a>を触ってFirefoxのアドオンを作成したのでその時の環境作りについてメモです。</p>
 
@@ -398,7 +398,7 @@ Travis CIとかと似たような感じ?</p>
 <li>  <a href="http://onozaty.hatenablog.com/entry/2013/07/14/025618" title="Firefox 23 にて、Add-on SDKでもChrome URLを登録できる(XULなWindowsが使える)ようになる - Enjoy*Study">Firefox 23 にて、Add-on SDKでもChrome URLを登録できる(XULなWindowsが使える)ようになる &#8211; Enjoy*Study</a></li>
 </ul>
 
-<h2 id="開発環境">開発環境</h2>
+<h2 id=">開発環境</h2>
 
 <p>公式ドキュメントはまあまあ充実していますが、他のブログ等のリソースが少ない問題があります。(これはJetpackがたどってきた歴史やMozillaにも問題がある気がしますが)</p>
 
@@ -429,7 +429,7 @@ Parameters : -a &quot;path/to/addon-sdk/&quot; -w &quot;$ProjectFileDir$&quot;
 </code></pre></div>
 <p>WebStormのコンソールに結果が表示される(Console APIの内容も)ので、CLIを叩かなくても、runを繰り返せます。</p>
 
-<h3 id="addon-sdk-apiの補完">Addon SDK APIの補完</h3>
+<h3 id="addon-sdk-api">Addon SDK APIの補完</h3>
 
 <p>AddonSDKのソースコードを見るとわかります、<a href="https://github.com/mozilla/addon-sdk/tree/master/lib/sdk" title="addon-sdk / lib / sdk /">addon-sdk / lib / sdk /</a> にSDKで使えるモジュールが定義されています。</p>
 
@@ -536,7 +536,7 @@ Parameters : -a &quot;path/to/addon-sdk/&quot; -w &quot;$ProjectFileDir$&quot;
 
 <p>少なくてもエディタが何らかの補助をしてくれるなら、事故率は減るのでやっぱりキチンとしたXPCOMのJSDocが欲しいです。。</p>
 
-<h2 id="デバッグ">デバッグ</h2>
+<h2 id=">デバッグ</h2>
 
 <p>Addon SDKで作成したアドオンのデバッグは、Firefox buildinのデバッガを使って行う事ができます。<br>
 また、 <code>console.log()</code>等のConsole APIを使ったprintデバッグもできます。</p>
@@ -560,7 +560,7 @@ Parameters : -a &quot;path/to/addon-sdk/&quot; -w &quot;$ProjectFileDir$&quot;
 <li>  <a href="https://developer.mozilla.org/ja/docs/Tools/Debugger" title="デバッガ - Tools | MDN">デバッガ &#8211; Tools | MDN</a> デバッガーツールの画面説明</li>
 </ul>
 
-<h2 id="おわり">おわり</h2>
+<h2 id=">おわり</h2>
 
 <p>久々に、Addon SDKを触ってアドオンを作りましたが、デバッガやテスト環境、ある程度使い方がわかりやすいモジュールが揃っているので、アドオンを作る敷居は以前に比べれば低くなってきたかなと思います。<br>
 (デバッガー周りはまだ挙動不審なことが事がありますが)</p>

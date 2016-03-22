@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2015-01-11T18:17:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -119,7 +119,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -250,6 +250,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -264,12 +270,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -346,7 +346,7 @@ var blog_categories = [
 
 <hr>
 
-<h2 id="感想">感想</h2>
+<h2 id=">感想</h2>
 
 <p>1,2章はフロントのJavaScriptで、jQuery世界を例にjQueryでべったり書いてしまったものをどうやって分けていくかの話。</p>
 
@@ -373,7 +373,7 @@ var blog_categories = [
 </ul></li>
 </ul>
 
-<h2 id="tale-1:-terrible-tabs"><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html#tale-1-terrible-tabs" title="Tale 1: Terrible Tabs">Tale 1: Terrible Tabs</a></h2>
+<h2 id="tale-1-terrible-tabs"><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html#tale-1-terrible-tabs" title="Tale 1: Terrible Tabs">Tale 1: Terrible Tabs</a></h2>
 
 <p>jQuery世界のタブUIをリファクタリングする話</p>
 
@@ -542,7 +542,7 @@ var blog_categories = [
   <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
 <span class="p">});</span>
 </code></pre></div>
-<h2 id="tale-2:-cringey-carousels"><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html#tale-2-cringey-carousels" title="Tale 2: Cringey Carousels">Tale 2: Cringey Carousels</a></h2>
+<h2 id="tale-2-cringey-carousels"><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html#tale-2-cringey-carousels" title="Tale 2: Cringey Carousels">Tale 2: Cringey Carousels</a></h2>
 
 <p>第二章はjQueryで書かれたCarouselデザインのリファクタリング</p>
 
@@ -623,7 +623,7 @@ var blog_categories = [
 
 <p>色々あるけど、簡単なところからやっていこう</p>
 
-<h3 id="return-false;-the-anti-pattern">return false; the anti-pattern</h3>
+<h3 id="return-false-the-anti-pattern">return false; the anti-pattern</h3>
 
 <blockquote>
 <p><a href="http://fuelyourcoding.com/jquery-events-stop-misusing-return-false/" title="jQuery Events: Stop (Mis)Using Return False | Fuel Your Coding">jQuery Events: Stop (Mis)Using Return False | Fuel Your Coding</a></p>
@@ -640,7 +640,7 @@ var blog_categories = [
   <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
 <span class="p">});</span>
 </code></pre></div>
-<h3 id="on()-and-off()">on() and off()</h3>
+<h3 id="on-and-off">on() and off()</h3>
 
 <p>今は<code>click</code>じゃなくて<code>on</code>使え</p>
 
@@ -732,7 +732,7 @@ var blog_categories = [
 </code></pre></div>
 <p>何か消化不良なので今後追記されるのかな?</p>
 
-<h2 id="tale-3:-async-abominations"><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html#tale-3-async-abominations" title="Tale 3: Async Abominations">Tale 3: Async Abominations</a></h2>
+<h2 id="tale-3-async-abominations"><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html#tale-3-async-abominations" title="Tale 3: Async Abominations">Tale 3: Async Abominations</a></h2>
 
 <p>Nodeのアプリの話</p>
 
@@ -942,7 +942,7 @@ var blog_categories = [
   <span class="p">});</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="tale-4:-parsing-problems"><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html#tale-4-parsing-problems" title="Tale 4: Parsing Problems">Tale 4: Parsing Problems</a></h2>
+<h2 id="tale-4-parsing-problems"><a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html#tale-4-parsing-problems" title="Tale 4: Parsing Problems">Tale 4: Parsing Problems</a></h2>
 
 <p>CSVをパースしてEmailを送るプログラムの話</p>
 
@@ -1002,7 +1002,7 @@ var blog_categories = [
 
 <p>微妙に未完</p>
 
-<h2 id="tale-5:-the-fat-controller">Tale 5: The Fat Controller</h2>
+<h2 id="tale-5-the-fat-controller">Tale 5: The Fat Controller</h2>
 
 <p>まだ書かれてない</p>
 

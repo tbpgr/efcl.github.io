@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-18T14:02:05+09:00</updated>
+ <updated>2016-03-23T00:43:38+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,153 @@
  </author>
  
 
+ 
+ <entry>
+   <title>正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ</title>
+   <link href="http://efcl.info/2016/03/22/match-index/"/>
+   <updated>2016-03-22T20:05:00+09:00</updated>
+   <id>http://efcl.info/2016/03/22/match-index</id>
+   <content type="html"><![CDATA[ <p><a href="https://github.com/azu/match-index" title="match-index">match-index</a>という正規表現の補助JavaScriptライブラリを書きました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/match-index" title="azu/match-index: Get index of each capture.">azu/match-index: Get index of each capture.</a></li>
+</ul>
+
+<p>例えば、</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&quot;ABC ABC&quot;
+</code></pre></div>
+<p>という文字列から&quot;ABC&quot;という文字列とその位置(index)を取ろうとすると、非常に面倒な書き方をする必要があります。</p>
+
+<p><code>&quot;ABC ABC&quot;.match(/(ABC)/g)</code> では文字列は取れますが、<code>index</code>を取ることができません。
+これをやるには<code>match</code>ではなく、<code>g</code>フラグ付き正規表現と<code>exec</code>や<code>replace</code>を使ってやる必要があります。</p>
+
+<p>これを直感的に行う<code>String.prototype.matchAll</code>というProposalも存在しています。</p>
+
+<ul>
+<li><a href="https://github.com/tc39/String.prototype.matchAll#rationale" title="String.prototype.matchAll">String.prototype.matchAll</a></li>
+</ul>
+
+<p>今回はこの<code>matchAll</code>的なものと、キャプチャした内容と位置を取得出来る<code>matchCaptureGroupAll</code>をもった<a href="https://github.com/azu/match-index" title="match-index">match-index</a>というライブラリを書きました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/match-index" title="azu/match-index: Get index of each capture.">azu/match-index: Get index of each capture.</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">captureGroups</span> <span class="o">=</span> <span class="nx">matchCaptureGroupAll</span><span class="p">(</span><span class="s2">&quot;ABC ABC&quot;</span><span class="p">,</span> <span class="sr">/(ABC)/</span><span class="p">);</span>
+<span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">captureGroups</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="kr">const</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="nx">captureGroups</span><span class="p">;</span>
+<span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">text</span><span class="p">,</span> <span class="s2">&quot;ABC&quot;</span><span class="p">);</span>
+<span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">y</span><span class="p">.</span><span class="nx">text</span><span class="p">,</span> <span class="s2">&quot;ABC&quot;</span><span class="p">);</span>
+<span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">y</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="installation">Installation</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install match-index
+</code></pre></div>
+<p>でインストールできます。</p>
+
+<h2 id="usage">Usage</h2>
+
+<p><code>match-index</code> は２つの関数を持ってます。</p>
+
+<h3 id="matchcapturegroupall-text-regexp-matchcapturegroup"><code>matchCaptureGroupAll(text, regExp): MatchCaptureGroup</code></h3>
+
+<p><code>(</code>と<code>)</code>で囲まれた内容を配列で返してくれます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">[{</span>
+  <span class="nx">text</span> <span class="o">:</span> <span class="s2">&quot;strgin&quot;</span><span class="p">,</span>
+  <span class="nx">index</span><span class="o">:</span> <span class="mi">5</span> <span class="c1">// 開始位置</span>
+<span class="p">}]</span>
+</code></pre></div>
+<p>配列の中身は<code>text</code>と<code>index</code>という感じになっています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// get &quot;ABC&quot; and &quot;EFC that are captured by ( and )</span>
+<span class="kr">const</span> <span class="nx">captureGroups</span> <span class="o">=</span> <span class="nx">matchCaptureGroupAll</span><span class="p">(</span><span class="s2">&quot;ABC EFG&quot;</span><span class="p">,</span> <span class="sr">/(ABC).*?(EFG)/</span><span class="p">);</span>
+<span class="c1">// captureGroups is array of MatchAllGroup</span>
+<span class="cm">/**</span>
+<span class="cm"> * @typedef {Object} MatchAllGroup</span>
+<span class="cm"> * @property {Array} all</span>
+<span class="cm"> * @property {string} input</span>
+<span class="cm"> * @property {number} index</span>
+<span class="cm"> * @property {MatchCaptureGroup[]} captureGroups</span>
+<span class="cm"> */</span>
+<span class="nx">assert</span><span class="p">(</span><span class="nx">captureGroups</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="kr">const</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="nx">captureGroups</span><span class="p">;</span>
+<span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">text</span><span class="p">,</span> <span class="s2">&quot;ABC&quot;</span><span class="p">);</span>
+<span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">y</span><span class="p">.</span><span class="nx">text</span><span class="p">,</span> <span class="s2">&quot;EFG&quot;</span><span class="p">);</span>
+<span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">y</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+</code></pre></div>
+<p><code>matchCaptureGroupAll</code> は内部的に次に紹介する <code>matchAll</code> を使っています。.</p>
+
+<h3 id="matchall-text-regexp-matchallgroup"><code>matchAll(text, regExp): MatchAllGroup</code></h3>
+
+<p><code>matchAll()</code>は<a href="https://github.com/tc39/String.prototype.matchAll#rationale" title="String.prototype.matchAll">String.prototype.matchAll</a>と似たような感じですが、キャプチャに関する内容を<code>captureGroups</code>に保持する拡張をしています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="s1">&#39;test1test2&#39;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="sr">/t(e)(st\d?)/g</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">captureGroups</span> <span class="o">=</span> <span class="nx">matchAll</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">regexp</span><span class="p">);</span>
+<span class="c1">// captureGroups is array of `MatchAllGroup`</span>
+<span class="cm">/**</span>
+<span class="cm"> * @typedef {Object} MatchAllGroup</span>
+<span class="cm"> * @property {Array} all</span>
+<span class="cm"> * @property {string} input</span>
+<span class="cm"> * @property {number} index</span>
+<span class="cm"> * @property {MatchCaptureGroup[]} captureGroups</span>
+<span class="cm"> */</span>
+</code></pre></div>
+<h3 id=">問題点</h3>
+
+<p>これは実装上の問題で、多分正規表現ではなく<a href="http://blog.anatoo.jp/entry/2015/04/26/220026" title="パーサコンビネータ">パーサコンビネータ</a>とかで実装すればどうにかできると思いますが、<a href="https://github.com/azu/match-index" title="match-index">match-index</a>はネストしたキャプチャを正確に扱えないバグがあります。</p>
+
+<p>例えば、次の例は<code>(st(\d?))</code>がネストしているため、<code>index</code>の値がおかしくなっています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="s1">&#39;test1test2&#39;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="sr">/t(e)(st(\d?))/g</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">captureGroups</span> <span class="o">=</span> <span class="nx">matchAll</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">regexp</span><span class="p">);</span>
+<span class="c1">// captureGroups is array of `MatchAllGroup`</span>
+<span class="cm">/**</span>
+<span class="cm"> * @typedef {Object} MatchAllGroup</span>
+<span class="cm"> * @property {Array} all</span>
+<span class="cm"> * @property {string} input</span>
+<span class="cm"> * @property {number} index</span>
+<span class="cm"> * @property {MatchCaptureGroup[]} captureGroups</span>
+<span class="cm"> */</span>
+
+<span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">captureGroups</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="kr">const</span> <span class="p">[</span><span class="nx">test1</span><span class="p">,</span> <span class="nx">test2</span><span class="p">]</span> <span class="o">=</span> <span class="nx">captureGroups</span><span class="p">;</span>
+<span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">test1</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">test1</span><span class="p">.</span><span class="nx">input</span><span class="p">,</span> <span class="nx">text</span><span class="p">);</span>
+<span class="nx">assert</span><span class="p">.</span><span class="nx">deepEqual</span><span class="p">(</span><span class="nx">test1</span><span class="p">.</span><span class="nx">all</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;test1&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;st1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">]);</span>
+<span class="nx">assert</span><span class="p">.</span><span class="nx">deepEqual</span><span class="p">(</span><span class="nx">test1</span><span class="p">.</span><span class="nx">captureGroups</span><span class="p">,</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nx">index</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;e&#39;</span>
+    <span class="p">},</span> <span class="p">{</span>
+        <span class="nx">index</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;st1&#39;</span>
+    <span class="p">},</span> <span class="p">{</span>
+        <span class="nx">index</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="c1">// Limitation of capture nest</span>
+        <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span>
+    <span class="p">}</span>
+<span class="p">]);</span>
+</code></pre></div>
+<p>制限として受け止めれば使えますが、いい案が思いつかないので修正するPull Requestを募集しています…</p>
+
+<ul>
+<li><a href="https://github.com/azu/match-index" title="azu/match-index: Get index of each capture.">azu/match-index: Get index of each capture.</a></li>
+</ul>
+
+<p>このライブラリは<a href="https://github.com/azu/textlint-rule-preset-JTF-style" title="textlint-rule-preset-JTF-style">textlint-rule-preset-JTF-style</a>を<a href="http://efcl.info/2016/03/15/textlint--fix/" title="--fixでの自動修正に対応">--fixでの自動修正に対応</a>に対応するときに、もっと直感的にマッチしてその位置を取得する方法が欲しくて作りました。</p>
+
+<p>これにより書く効率は上がって、つねに<code>g</code>フラグで扱われるので、一度マッチしても最後までちゃんと繰り返しマッチするようになって、全てのエラーを出せるようになったので書いてよかったと思います。(<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>のようなLintの特性上、その行にある全部のエラーを出せた方がよいため)</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style" title="azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.">azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.</a></li>
+</ul>
+
+<p>小さなライブラリですが、先ほど書いたようなバグができたりするので正規表現は扱うのが結構難しいです…</p>
+
+<ul>
+<li><a href="http://blog.anatoo.jp/entry/2015/04/26/220026" title="JavaScriptでパーサコンビネータのコンセプトを理解する(「正規表現だけに頼ってはいけない」の続き) - id:anatooのブログ">JavaScriptでパーサコンビネータのコンセプトを理解する(「正規表現だけに頼ってはいけない」の続き) - id:anatooのブログ</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>textlint 6.0リリース。--fixでの自動修正に対応</title>
@@ -35,7 +182,7 @@
 <li><a href="http://efcl.info/2015/12/30/textlint-preset/">ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch</a></li>
 </ul>
 
-<h2 id="--fixによる自動修正の対応"><code>--fix</code>による自動修正の対応</h2>
+<h2 id="fix"><code>--fix</code>による自動修正の対応</h2>
 
 <p><a href="https://github.com/textlint/textlint/releases/tag/5.5.3" title="5.5.3: --fix &amp;amp; --experimental support">5.5.3: --fix &amp; --experimental support</a>で<code>--fix</code>による自動修正機能を実験的にサポートしていました。</p>
 
@@ -101,7 +248,7 @@
 <li><a href="https://github.com/textlint/textlint/blob/master/CONTRIBUTING.md#bug-reporting" title="textlint/CONTRIBUTING.md at master · textlint/textlint">textlint/CONTRIBUTING.md at master · textlint/textlint</a></li>
 </ul>
 
-<h2 id="fixableルール">Fixableルール</h2>
+<h2 id="fixable">Fixableルール</h2>
 
 <p>実際に<code>--fix</code>による自動修正の例を見てみます。</p>
 
@@ -172,11 +319,11 @@ Lintの結果にそのうち自動修正できるエラーの数を表示して�
 </code></pre></div>
 <p><img src="http://efcl.info/wp-content/uploads/2016/03/16-1458134174.png" alt="fix error"></p>
 
-<h2 id="textlint-v5からv6の変更点">textlint v5からv6の変更点</h2>
+<h2 id="textlint-v5-v6">textlint v5からv6の変更点</h2>
 
 <p><a href="http://efcl.info/2015/11/20/textlint5.0.0/" title="textlint 5.0.0">textlint 5.0.0までの変更点</a>については以前書いたので、5.0から6.0までにあった変更点を列挙してみます。</p>
 
-<h3 id="5.1.0"><a href="https://github.com/textlint/textlint/releases/tag/5.1.0" title="5.1.0">5.1.0</a></h3>
+<h3 id="5-1-0"><a href="https://github.com/textlint/textlint/releases/tag/5.1.0" title="5.1.0">5.1.0</a></h3>
 
 <p><code>textlint-rule-preset</code>をサポートしました。
 ルールプリセットは個別のルールをまとめたモジュールという位置づけです。</p>
@@ -188,7 +335,7 @@ Lintの結果にそのうち自動修正できるエラーの数を表示して�
 <li><a href="http://efcl.info/2015/12/30/textlint-preset/" title="ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch">ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch</a></li>
 </ul>
 
-<h3 id="5.2.0"><a href="https://github.com/textlint/textlint/releases/tag/5.2.0" title="5.2.0">5.2.0</a></h3>
+<h3 id="5-2-0"><a href="https://github.com/textlint/textlint/releases/tag/5.2.0" title="5.2.0">5.2.0</a></h3>
 
 <p><code>textlint-formatter-&lt;name&gt;</code>のようなモジュールを<code>--formatter &lt;name&gt;</code>という形で指定できるようになりました。</p>
 
@@ -206,7 +353,7 @@ Lintの結果にそのうち自動修正できるエラーの数を表示して�
 <li><a href="https://github.com/textlint/textlint/blob/master/docs/formatter.md" title="textlint/formatter.md at master · textlint/textlint">textlint/formatter.md at master · textlint/textlint</a></li>
 </ul>
 
-<h3 id="5.3.0"><a href="https://github.com/textlint/textlint/releases/tag/5.3.0" title="5.3.0">5.3.0</a></h3>
+<h3 id="5-3-0"><a href="https://github.com/textlint/textlint/releases/tag/5.3.0" title="5.3.0">5.3.0</a></h3>
 
 <p><code>--stdin-filename</code> をサポートしました。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">cat readme.md | textlint --format compact --stdin --stdin-filename readme.md
@@ -220,7 +367,7 @@ Lintの結果にそのうち自動修正できるエラーの数を表示して�
 <li><a href="https://github.com/joeybaker/sublimelinter-textlint" title="SublimeLinter-textlint">SublimeLinter-textlint</a></li>
 </ul>
 
-<h3 id="5.4.0"><a href="https://github.com/textlint/textlint/releases/tag/5.4.0" title="5.4.0">5.4.0</a></h3>
+<h3 id="5-4-0"><a href="https://github.com/textlint/textlint/releases/tag/5.4.0" title="5.4.0">5.4.0</a></h3>
 
 <p><code>.textlintrc</code>ファイルを作成する<code>--init</code>オプションが追加されました。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">textlint --init
@@ -233,12 +380,12 @@ Lintの結果にそのうち自動修正できるエラーの数を表示して�
 <li><a href="https://github.com/textlint/textlint/issues/129" title="--init options: Create .textlintrc file · Issue #129 · textlint/textlint">--init options: Create .textlintrc file · Issue #129 · textlint/textlint</a></li>
 </ul>
 
-<h3 id="5.5.3"><a href="https://github.com/textlint/textlint/releases/tag/5.5.3" title="5.5.3">5.5.3</a></h3>
+<h3 id="5-5-3"><a href="https://github.com/textlint/textlint/releases/tag/5.5.3" title="5.5.3">5.5.3</a></h3>
 
 <p><code>--fix</code>と<code>--experimental</code>を実験的にサポートしました。
 ここで実験的に追加した<code>--fix</code>は6.0.0で正式サポートとなります。</p>
 
-<h3 id="5.6.0"><a href="https://github.com/textlint/textlint/releases/tag/5.6.0" title="5.6.0">5.6.0</a></h3>
+<h3 id="5-6-0"><a href="https://github.com/textlint/textlint/releases/tag/5.6.0" title="5.6.0">5.6.0</a></h3>
 
 <p>ルール開発者向けに<code>RuleError</code>が<code>index</code>プロパティをサポートしました。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ruleError</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">context</span><span class="p">.</span><span class="nx">RuleError</span><span class="p">(</span><span class="s2">&quot;Found rule error&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">index</span><span class="o">:</span> <span class="nx">paddingIndex</span> <span class="p">});</span>
@@ -253,11 +400,11 @@ Lintの結果にそのうち自動修正できるエラーの数を表示して�
 
 <p><a href="https://github.com/textlint/textlint-tester" title="textlint-tester">textlint-tester</a>でテストしている場合は、<code>column</code>単独の場合には警告を出してくれます。</p>
 
-<h2 id="5.7.0"><a href="https://github.com/textlint/textlint/releases/tag/5.7.0" title="5.7.0">5.7.0</a></h2>
+<h2 id="5-7-0"><a href="https://github.com/textlint/textlint/releases/tag/5.7.0" title="5.7.0">5.7.0</a></h2>
 
 <p>5.7.0では一部formatterがエラーとそのエラーが自動修正できるかを出すようになりました。</p>
 
-<h2 id="6.0"><a href="https://github.com/textlint/textlint/releases/tag/6.0.1" title="6.0">6.0</a></h2>
+<h2 id="6-0"><a href="https://github.com/textlint/textlint/releases/tag/6.0.1" title="6.0">6.0</a></h2>
 
 <p>6.0では</p>
 
@@ -301,7 +448,7 @@ Lintの結果にそのうち自動修正できるエラーの数を表示して�
 <p>結構長くなりましたが、5.0.0〜6.0.0の変更点は以上です。
 Breaking Changeはほとんどのユーザには関係ないものだと思います(実際使ってるコードはGitHub上にはなかった)</p>
 
-<h2 id="その他">その他</h2>
+<h2 id=">その他</h2>
 
 <ul>
 <li><a href="http://io-monad.hatenablog.com/entry/2016/03/14/225800" title="文書校正ツール textlint の Chrome 拡張を作った - もなでぃっく">文書校正ツール textlint の Chrome 拡張を作った - もなでぃっく</a></li>
@@ -318,7 +465,7 @@ Breaking Changeはほとんどのユーザには関係ないものだと思い�
 
 <p>Atomプラグインとして<a href="https://github.com/1000ch/linter-textlint" title="linter-textlint">linter-textlint</a>を使う場合は上記のリポジトリが参考になるかもしれません。</p>
 
-<h2 id="開発メモ">開発メモ</h2>
+<h2 id=">開発メモ</h2>
 
 <p><code>--fix</code>は5.5から使えたのですが、色々APIデザインを変更する可能性があったのでexperimentalフラグを付けてリリースしました。</p>
 
@@ -386,7 +533,7 @@ Breaking Changeはほとんどのユーザには関係ないものだと思い�
 
 <p>この記事では、その取っ掛かりとなる案内を簡単にまとめたものです。</p>
 
-<h2 id="astとは">ASTとは</h2>
+<h2 id="ast">ASTとは</h2>
 
 <p><a href="http://azu.github.io/slide/JSojisan/#8"><img src="http://efcl.info/wp-content/uploads/2016/03/06-1457240557.png" alt="AST"></a></p>
 
@@ -447,7 +594,7 @@ JavaScriptの場合はJavaScriptオブジェクト(JSON)として表現されま
 <li><a href="http://azu.github.io/slide/tkbjs/js-ast-walker.html">JavaScript AST Walker</a></li>
 </ul>
 
-<h2 id="astのコミュニティ標準">ASTのコミュニティ標準</h2>
+<h2 id="ast">ASTのコミュニティ標準</h2>
 
 <p>ESTreeというデファクトスタンダードがあります(ES6までは定義されている)</p>
 
@@ -468,7 +615,7 @@ JavaScriptの場合はJavaScriptオブジェクト(JSON)として表現されま
 </ul></li>
 </ul>
 
-<h2 id="パーサ">パーサ</h2>
+<h2 id=">パーサ</h2>
 
 <ul>
 <li><a href="https://github.com/babel/babylon" title="babylon">Babylon</a>
@@ -505,7 +652,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <p>BabylonはEStreeの仕様外について積極的にサポートしているため、
 それらが必要な場合はBabylonを使うが、そうでないなら他のパーサの方が安定しています。</p>
 
-<h2 id="関連ツール">関連ツール</h2>
+<h2 id=">関連ツール</h2>
 
 <ul>
 <li><a href="http://astexplorer.net/" title="AST explorer">AST explorer</a>
@@ -515,7 +662,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 </ul></li>
 </ul>
 
-<h2 id="よくある流れ">よくある流れ</h2>
+<h2 id=">よくある流れ</h2>
 
 <ul>
 <li>パーサでコードをパースしてASTにする
@@ -549,11 +696,11 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li><a href="https://github.com/azu/ast-source" title="azu/ast-source: AST helper to transform source code.">azu/ast-source: AST helper to transform source code.</a></li>
 </ul>
 
-<h2 id="例)-evalの中身を解析したい">例) evalの中身を解析したい</h2>
+<h2 id="eval">例) evalの中身を解析したい</h2>
 
 <p>evalの中を取り出して安全に評価したいというケース</p>
 
-<h3 id="evalの中身">evalの中身</h3>
+<h3 id="eval">evalの中身</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">eval(&quot;var a = 20&quot;)
 </code></pre></div>
 <ul>
@@ -569,7 +716,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li>ブラックリストだと何を防止すればいいのかが難しい</li>
 </ul>
 
-<h3 id="解析のフェーズ">解析のフェーズ</h3>
+<h3 id=">解析のフェーズ</h3>
 
 <p>適当な考え方(正しいのかは自信ないけど)</p>
 
@@ -585,7 +732,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 
 <p>というような考え方でやるのがよくあるケースだと思います。</p>
 
-<h2 id="おわりに">おわりに</h2>
+<h2 id=">おわりに</h2>
 
 <p>上記のようなチェックツールを書くには、まず<a href="http://eslint.org/" title="ESLint">ESLint</a>のルールを見てみるのが参考になるはずです。</p>
 
@@ -672,7 +819,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<h2 id="仕様とセキュリティ---azu">仕様とセキュリティ - azu</h2>
+<h2 id="azu">仕様とセキュリティ - azu</h2>
 
 <p>セキュリティな問題のある仕様の変更や、
 現実の実装に合わせた仕様の定義とうような変更があったよ的な話をしました。</p>
@@ -705,7 +852,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li><a href="https://github.com/whatwg/html/commit/acae3df652b382e9f4f1d1b4dc7e08e2b00df821" title="Define security around Window, WindowProxy, and Location properly · whatwg/html@acae3df">Define security around Window, WindowProxy, and Location properly · whatwg/html@acae3df</a></li>
 </ul>
 
-<h2 id="node.js-と-es6-modules">Node.js と ES6 modules</h2>
+<h2 id="node-js-es6-modules">Node.js と ES6 modules</h2>
 
 <ul>
 <li><a href="https://github.com/nodejs/node-eps/pull/3" title="002: ES6 module interop by bmeck · Pull Request #3 · nodejs/node-eps">002: ES6 module interop by bmeck · Pull Request #3 · nodejs/node-eps</a></li>
@@ -728,7 +875,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<h2 id="どうやって脆弱性の探し方を学ぶのか">どうやって脆弱性の探し方を学ぶのか</h2>
+<h2 id=">どうやって脆弱性の探し方を学ぶのか</h2>
 
 <ul>
 <li>脆弱性の探し方はどうやって学ぶのか</li>
@@ -751,7 +898,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li>間に繋ぐような人が重要という話</li>
 </ul>
 
-<h2 id="おわり">おわり</h2>
+<h2 id=">おわり</h2>
 
 <p>セキュリティ寿司は久々な気がする。</p>
 
@@ -794,7 +941,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li><a href="http://azu.github.io/slide/2016/reject-sushi/textlint.html" title="3分でわかるtextlint">3分でわかるtextlint</a></li>
 </ul>
 
-<h2 id="デザイン">デザイン</h2>
+<h2 id=">デザイン</h2>
 
 <p><img src="https://textlint.github.io/media/logo/textlint-logo.png" alt="logo"></p>
 
@@ -851,7 +998,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 </ul></li>
 </ul>
 
-<h2 id="how-to-work-as-a-team-@-azu"><a href="http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html" title="How to work as a Team">How to work as a Team</a> @ azu</h2>
+<h2 id="how-to-work-as-a-team-azu"><a href="http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html" title="How to work as a Team">How to work as a Team</a> @ azu</h2>
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a> で発表したReact+Flux的な何かの意思決定と情報設計の話。  &quot;How to work as a Team&quot;  <a href="https://t.co/qM4iyipRFS">https://t.co/qM4iyipRFS</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702138441681637376">February 23, 2016</a></blockquote>
 
@@ -876,7 +1023,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 
 <p>また最近<a href="http://www.amazon.co.jp/dp/4802510012/" title="今日からはじめる情報設計">今日からはじめる情報設計</a>や<a href="http://www.amazon.co.jp/dp/B00EESW7OG/" title="エンジニアのための図解思考">エンジニアのための図解思考</a>的な本を読んでいたので、そういった情報の扱い方や表現という話も兼ねています。</p>
 
-<h2 id="rails-と-node.js-@-mizchi">Rails と Node.js @ mizchi</h2>
+<h2 id="rails-node-js-mizchi">Rails と Node.js @ mizchi</h2>
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">browserify-railsとtsify問題 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; サスケ (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/702089989887172609">February 23, 2016</a></blockquote>
 
@@ -889,7 +1036,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li>browserify-railsを使いたい理由は、Nodeを普段使わない人が多い環境でNodeの流儀をやってもらうとよくわからないことが多くてコストがある</li>
 </ul>
 
-<h2 id="http2-を前提とした-html+css-コンポーネントのレンダリングパス最適化-@-jxck">HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化 @ jxck</h2>
+<h2 id="http2-html-css-jxck">HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化 @ jxck</h2>
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a>   &quot;HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化について | <a href="https://t.co/Bb4j0utYux">https://t.co/Bb4j0utYux</a>&quot;  <a href="https://t.co/wQlZpQZBMj">https://t.co/wQlZpQZBMj</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702092500157145089">February 23, 2016</a></blockquote>
 
@@ -919,7 +1066,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li>このステータスコードの位置/変更/指定の問題は今後の課題になりそう(プログレッシブレスポンスするなら)</li>
 </ul>
 
-<h2 id="typescript-1.8のjavascriptをbundleしてくれる機能---kyo_ago">TypeScript 1.8のJavaScriptをbundleしてくれる機能 - kyo_ago</h2>
+<h2 id="typescript-1-8-javascript-bundle-kyo_ago">TypeScript 1.8のJavaScriptをbundleしてくれる機能 - kyo_ago</h2>
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">kyo_ago 「TypeScript 1.8のJavaScriptをbundleしてくれる機能」 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702099720164872192">February 23, 2016</a></blockquote>
 
@@ -933,7 +1080,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li>ちょこっとsystemjs用のものを加えると動かせる</li>
 </ul>
 
-<h2 id="javascriptの非同期処理/例外処理">JavaScriptの非同期処理/例外処理</h2>
+<h2 id="javascript">JavaScriptの非同期処理/例外処理</h2>
 
 <ul>
 <li>async/await
@@ -965,7 +1112,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 </ul></li>
 </ul>
 
-<h2 id="その他">その他</h2>
+<h2 id=">その他</h2>
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a> で発表しなかった「3分でわかるtextlint」のスライドです。自然言語Lintツールの現状  &quot;3分でわかるtextlint&quot;  <a href="https://t.co/wtHBxxIOok">https://t.co/wtHBxxIOok</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702133285934145536">February 23, 2016</a></blockquote>
 
@@ -1062,7 +1209,7 @@ Conclusion/Resolution
 <li><a href="https://tc39-mtg.doorkeeper.jp/" title="TC39 MTG Notes MTG | Doorkeeper">TC39 MTG Notes MTG | Doorkeeper</a></li>
 </ul>
 
-<h2 id="tc39ミーティングノートの修正方法">TC39ミーティングノートの修正方法</h2>
+<h2 id="tc39">TC39ミーティングノートの修正方法</h2>
 
 <p>ここでやっと本題ですが、ミーティングノートを読んでいると結構な頻度でtypoなどの間違いやリンク切れ、Markdownの構文ミスなどが見つかると思います。</p>
 
@@ -1074,7 +1221,7 @@ Conclusion/Resolution
 
 <p>typoを直すためにかなりの数コミットしたので跳ねてる…(まだtypoは残ってるのがあると思います…)</p>
 
-<h3 id="具体的な修正の送り方">具体的な修正の送り方</h3>
+<h3 id=">具体的な修正の送り方</h3>
 
 <p>やり方も何もないですが、Markdownファイルを修正して以下のリポジトリにPull Requestを送るだけです。</p>
 
@@ -1089,7 +1236,7 @@ Conclusion/Resolution
 
 <p>修正はまとめて一つのPull Requestで送ることが多いです。</p>
 
-<h3 id="修正箇所の見つけ方">修正箇所の見つけ方</h3>
+<h3 id=">修正箇所の見つけ方</h3>
 
 <p>結構、普通に見ていれば崩れている場所が見つかると思います。</p>
 
@@ -1105,7 +1252,7 @@ Conclusion/Resolution
 <p>リアルタイムに文字起こしてるようなきがするので、スペルチェッカーを通すだけでも結構なtypoが見つかります。
 (自分は英語に自信がないので、確実に間違ってるものだけ修正しています。もっと英語表現に詳しい方も修正送って欲しい…)</p>
 
-<h2 id="おわりに">おわりに</h2>
+<h2 id=">おわりに</h2>
 
 <p>ECMAScriptの新しいProposalを知りたいという場合は、適当なブログを見るよりもProposalを書いてる人たちの意見が見られるミーティングノートを見るのが確実です。</p>
 
@@ -1177,7 +1324,7 @@ D--&gt;&gt;A: Dashed open arrow
 
 <p>同期はDropboxなどを使ってファイル同期する仕組みがあり(競合した時にどっちを使うかを選択出来る)、上手く動いてていい感じです。</p>
 
-<h3 id="体験版">体験版</h3>
+<h3 id=">体験版</h3>
 
 <p>AppStoreで販売されていますが、<a href="http://happenapps.com/#quiver">公式サイト</a>の<a href="http://happenapps.com/downloads/QuiverFreeTrial.zip">Free Trial</a>から体験版をダウンロードできます。</p>
 
@@ -1218,7 +1365,7 @@ D--&gt;&gt;A: Dashed open arrow
 <p>そろそろ<a href="http://dayoneapp.com/2016/01/introducing-day-one-2/" title="Day One 2">Day One 2</a>が出るようですが、変換元はDayOne 1のみ対応しています。
 (DayOne 2は3カラムになっていて大分ビューアとしてよくなってそう…)</p>
 
-<h2 id="おわり">おわり</h2>
+<h2 id=">おわり</h2>
 
 <p>作者さんが以下のブログで書いてますが、ノートブック/メモアプリに求めるものってそういうものだよなーって感じがしたので使い始めました。</p>
 
@@ -1275,10 +1422,10 @@ D--&gt;&gt;A: Dashed open arrow
 </code></pre></div>
 <p>まだアルファベットしか対応してないです(日本語対応できるのか謎)。</p>
 
-<h2 id="インストール">インストール</h2>
+<h2 id=">インストール</h2>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-rule-unexpanded-acronym
 </code></pre></div>
-<h2 id="使い方">使い方</h2>
+<h2 id=">使い方</h2>
 
 <p><code>.textlintrc</code>で設定する場合は以下のように設定できます。
 (内容はデフォルト値になっています)</p>
@@ -1292,7 +1439,7 @@ D--&gt;&gt;A: Dashed open arrow
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id="設定">設定</h3>
+<h3 id=">設定</h3>
 
 <p>上記の設定で書いたように幾つかのオプションがあります。</p>
 
@@ -1324,7 +1471,7 @@ D--&gt;&gt;A: Dashed open arrow
 
 <p><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/slide/96.html" title="実験: 文章に対して文章でテスト | 技術文書をソフトウェア開発する話">実験: 文章に対して文章でテスト | 技術文書をソフトウェア開発する話</a>で似たような話をしていました</p>
 
-<h2 id="参考">参考</h2>
+<h2 id=">参考</h2>
 
 <p>RedPenの同様の機能を参考に実装しました。</p>
 
@@ -1361,7 +1508,7 @@ D--&gt;&gt;A: Dashed open arrow
 <h3 id="installation">Installation</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm install -g es-usage-rate
 </code></pre></div>
-<h3 id="使い方">使い方</h3>
+<h3 id=">使い方</h3>
 
 <p>例えば、<code>es-usage-rate</code>自体がどういう構文を使って書かれてるかを見てみてます。</p>
 
@@ -1481,7 +1628,7 @@ ImportNamespaceSpecifier<span class="p">|</span> <span class="m">1</span>  <span
 <li>format(Nodes) =&gt; result!</li>
 </ol>
 
-<h2 id="使われているes6の構文を見ていく">使われているES6の構文を見ていく</h2>
+<h2 id="es6">使われているES6の構文を見ていく</h2>
 
 <p>あるコードで、どれくらいES6の構文が使われているのか、またどういう構文の使用率が高いのか、
 ということを調べたくて<a href="https://github.com/azu/es-usage-rate" title="azu/es-usage-rate">es-usage-rate</a>を書きました。</p>
@@ -1916,690 +2063,13 @@ VariableDeclaration:const<span class="p">|</span><span class="m">1</span>  <span
 
 <p>この辺は題材によるので、色々なものを見てみると面白い発見があるかもしれません。</p>
 
-<h2 id="まとめ">まとめ</h2>
+<h2 id=">まとめ</h2>
 
 <ul>
 <li>コードを分解して解析する<a href="https://github.com/azu/es-usage-rate" title="azu/es-usage-rate">azu/es-usage-rate</a>を作った</li>
 <li>ES6のサンプルコードとして<a href="https://github.com/staltz/flux-challenge" title="staltz/flux-challenge: A frontend challenge to test UI architectures and solutions">staltz/flux-challenge: A frontend challenge to test UI architectures and solutions</a>を見た</li>
 <li>人/ライブラリによって使う機能が結構違うことがわかった</li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>JSer.info 5周年記念イベント アウトラインメモ</title>
-   <link href="http://efcl.info/2016/01/17/jserinfo-5years/"/>
-   <updated>2016-01-17T16:42:00+09:00</updated>
-   <id>http://efcl.info/2016/01/17/jserinfo-5years</id>
-   <content type="html"><![CDATA[ <p><a href="http://jser.connpass.com/event/24202/" title="JSer.info 5周年記念イベント">JSer.info 5周年記念イベント</a>を開催&amp;参加してきたのでメモ。</p>
-
-<p>スライドとかの概要は以下にも書いてあります。</p>
-
-<ul>
-<li><a href="http://jser.info/2016/01/16/jser-5years/">JSer.info 5周年記念イベントを開催しました - JSer.info</a></li>
-<li><a href="http://togetter.com/li/926573">JSer.info 5周年記念イベント - Togetterまとめ</a></li>
-</ul>
-
-<p>以下メモ書きです。</p>
-
-<h2 id="jser.info-5周年---@azu_re"><a href="http://azu.github.io/slide/2016/jser5years/jser.info.html" title="JSer.info 5周年">JSer.info 5周年</a> - @azu_re</h2>
-
-<p>5年間での総計は以下のような感じになりました。</p>
-
-<ul>
-<li>投稿記事数: 261</li>
-<li>毎週1回投稿: (261*7) / 365 ≒ 5(年)</li>
-<li>合計紹介URL数: 6312</li>
-</ul>
-
-<h2 id="javascript情報って何だっけ?---@azu_re"><a href="http://azu.github.io/slide/2016/jser5years/javascript-information.html">JavaScript情報って何だっけ?</a> - @azu_re</h2>
-
-<p>そもそもなんでJavaScriptについて知りたいのという話。
-後で別記事書くかも</p>
-
-<h2 id="angularの5年とこれから---@armorik83"><a href="https://speakerdeck.com/armorik83/angularfalse5nian-tokorekara" title="Angularの5年とこれから">Angularの5年とこれから</a> - @armorik83</h2>
-
-<ul>
-<li>Angularも変化が大きい</li>
-<li>フロントエンドの歴史とバインディングの歴史</li>
-<li>Ajax + jQueryを始めとすると技術</li>
-<li>Backbone.js MV*architectureの提案</li>
-<li>AngularJS双方向データバインディング
-
-<ul>
-<li>DI</li>
-<li>双方向データバインディング</li>
-</ul></li>
-<li>AngularJSの弱点の顕在化
-
-<ul>
-<li>冗長なDirty Checkingが問題視される</li>
-<li>React 仮想DOM</li>
-</ul></li>
-<li>Angular beta 0リリース
-
-<ul>
-<li><code>@input</code>、<code>@output</code>というAPI</li>
-<li>Component間のデータ、イベントバンディングを整合化</li>
-<li>下から来た情報をバブリングじゃなくて<code>output</code>という属性にいれて</li>
-</ul></li>
-<li>TypeScript前提、
-
-<ul>
-<li>型情報、型アノテーション</li>
-</ul></li>
-<li>Change Detection
-
-<ul>
-<li><a href="http://qiita.com/laco0416/items/78edd53f5da8ead02e75" title="Angular2のChange Detectionについて - Qiita">Angular2のChange Detectionについて - Qiita</a></li>
-</ul></li>
-<li><code>ngAnimate</code>
-
-<ul>
-<li>引き続きサポート</li>
-<li>スコープをコンポーネント内に限定出来る<code>Style</code></li>
-</ul></li>
-<li>AngularJSの互換性
-
-<ul>
-<li>ngUpdate
-
-<ul>
-<li>プロセスの名前</li>
-<li>Misko Hveryによるもの</li>
-</ul></li>
-<li>1.xのなかで2を使う方法</li>
-</ul></li>
-<li>Offline Compiled Template
-
-<ul>
-<li>独特なHTMLで表記できるAngular</li>
-</ul></li>
-<li>Angular Universal
-
-<ul>
-<li>ブラウザとNode.jsの両方で動くJS</li>
-<li>サーバサイドレンダリングをDOMRendererとServerDOMRendererの切り替えで出来る</li>
-<li>SEO対応とかも</li>
-</ul></li>
-<li>Web Workers
-
-<ul>
-<li>Angular 2のほぼ全てのコードをWeb Workers上で実行する仕組み</li>
-</ul></li>
-<li>AngularDart
-
-<ul>
-<li>Dartの資産</li>
-<li>Angular 2のマイクロタスクキュー Zone.js</li>
-<li>TypeScriptで利用可能になった Decorators構文</li>
-</ul></li>
-<li>情報源
-
-<ul>
-<li><a href="http://ng2-info.github.io/" title="Angular2 Info">Angular2 Info</a></li>
-</ul></li>
-<li>Angular 1のメンテンス期間
-
-<ul>
-<li>みんなが使わなくなるまでメンテする</li>
-</ul></li>
-</ul>
-
-<h2 id="webidlを見てみる---@takenspc"><a href="http://www.slideshare.net/takenspc/webidl" title="WebIDLを見てみる">WebIDLを見てみる</a>  - @Takenspc</h2>
-
-<ul>
-<li>ブラウザに実装されてるWeb IDLを見てみる</li>
-<li>ブラウザで使えるAPI: 沢山ある
-
-<ul>
-<li>新たなAPIが生まれる</li>
-<li>途中でAPIが変わる</li>
-</ul></li>
-<li>実際に使えるAPIは何なのか、知りたい</li>
-</ul>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">URL</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">);</span>
-<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">param</span> <span class="nx">of</span> <span class="nx">url</span><span class="p">.</span><span class="nx">searchParams</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">param</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">param</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">}</span>
-</code></pre></div>
-<ul>
-<li>ブラウザの実装とドキュメントが分離されてる
-
-<ul>
-<li>別々にメンテナンスされてる</li>
-</ul></li>
-<li>自分が欲しいと思っている粒度なのか頻度は別になってる</li>
-<li>ブラウザの実装ってだけが書いているのか?
-
-<ul>
-<li>誰かが何かを元に書いている</li>
-</ul></li>
-<li>各種ブラウザはWebIDLからインタフェースを機械生成している</li>
-<li>WebIDLがブラウザと仕様を結ぶもの。</li>
-<li>ブラウザと仕様での共通言語の1つ
-
-<ul>
-<li>共通言語なので比較が出来る</li>
-</ul></li>
-<li>WebIDLを比較して見てみるという話</li>
-<li>FirefoxでChromeでIDLの使い方が違う</li>
-<li>WebIDLを比較するには
-
-<ul>
-<li>継承や<code>[</code>　Extended attributes <code>]</code> をなどがある</li>
-<li>これらを正規化する必要がある</li>
-</ul></li>
-<li>まとめ
-
-<ul>
-<li>WebIDLはしようとブラウザーの共通言語の1つ</li>
-</ul></li>
-</ul>
-
-<h2 id="[ie8枠]-ぼくたちの愛したie8---@hasegawayosuke">[IE8枠] ぼくたちの愛したIE8 - @hasegawayosuke</h2>
-
-<ul>
-<li>XSSでalert出すためにJavaScriptを覚えた</li>
-<li>IE8のすごい機能</li>
-<li>XSSフィルター
-
-<ul>
-<li>リクエストとレスポンスを比較 スクリプトがあったら実行を阻止</li>
-<li>保守的なのに大胆な機能</li>
-<li>XSSフィルターを使ってXSS</li>
-</ul></li>
-<li>XDomainRequest
-
-<ul>
-<li>クロスオリジンで使えるXHRモドキ</li>
-</ul></li>
-<li>toStaticHTML
-
-<ul>
-<li>いい感じに安全なHTMLにしてくれる</li>
-<li>HTMLメールとかMarkdownなどで使える</li>
-<li>細かい指定ができない</li>
-<li>他のブラウザでは簡単な代替方法がない
-
-<ul>
-<li>DOMPurifyなど</li>
-<li>HTML5 iframe sandbox</li>
-</ul></li>
-<li>標準化もされていないのであんまり使われない</li>
-</ul></li>
-<li>X-Content-Type-Options
-
-<ul>
-<li>Content-Typeに従うようになる</li>
-<li>普通の挙動</li>
-</ul></li>
-<li>X-Frame-Options
-
-<ul>
-<li>クリックジャッキングへの対応</li>
-</ul></li>
-</ul>
-
-<h2 id="[ie8枠]-active-scripting---@makoto_kato">[IE8枠] <a href="http://www.slideshare.net/djraven/active-scripting" title="Active scripting">Active scripting</a> - @makoto_kato</h2>
-
-<ul>
-<li>IE4-8のアーキテクチャ
-
-<ul>
-<li>COM API</li>
-<li>Browser Helper Object(BHO) API for ブラウザ拡張</li>
-<li>プラガブルなプロトコル</li>
-</ul></li>
-<li>Active Scription
-
-<ul>
-<li>COM I/Fバインディングエンジン</li>
-<li>For Engine API</li>
-<li>For Host API - サードパーティでも使える</li>
-<li>IE3-8</li>
-<li>WSH</li>
-<li>IIS</li>
-<li>Office</li>
-</ul></li>
-<li>バックエンドも色々
-
-<ul>
-<li>MS
-
-<ul>
-<li>JScript</li>
-<li>VBScript</li>
-</ul></li>
-<li>3Party
-
-<ul>
-<li>Ruby</li>
-<li>Python</li>
-<li>Perl</li>
-<li>PHP</li>
-<li>etc..</li>
-</ul></li>
-<li>サードパーティアプリでIEのセキュリティホールを作れる</li>
-</ul></li>
-<li>COM Interfaces
-
-<ul>
-<li>IE IDispatchEx</li>
-</ul></li>
-</ul>
-
-<h2 id="非同期イベントがんばるぞい---@saneyuki_s">非同期イベントがんばるぞい - @saneyuki_s</h2>
-
-<ul>
-<li>イベント
-
-<ul>
-<li>Data</li>
-<li>Domain</li>
-<li>File I/O</li>
-<li>Net work I/O</li>
-<li>等色々イベントがある</li>
-</ul></li>
-<li>イベントの依存関係の管理が面倒問題</li>
-<li>FRP</li>
-<li>何でイベントを待ち受けられないの?</li>
-<li>Duality
-
-<ul>
-<li>PullとPush型</li>
-</ul></li>
-<li>イベントは何で<code>Observable&lt;T&gt;</code>にするのか
-
-<ul>
-<li>一回しか来ないイベント</li>
-<li>複数回来るイベント</li>
-</ul></li>
-<li>Promiseは基本的に1回のイベント(使い捨て)</li>
-<li>複数回のイベントに対応するためにObservableという考え方の話</li>
-<li>FRPとは?
-
-<ul>
-<li>FRPとRxは別の動物であるという話</li>
-<li>似たような仕組みだけど違うもの</li>
-</ul></li>
-<li>Jafar Husain
-
-<ul>
-<li>.NetのものをJSにもってきた</li>
-</ul></li>
-<li>イベント文字列を機械的に考えられるようになった
-
-<ul>
-<li>パースしてASTで処理出来るようなイベントの流れ</li>
-<li>イベントのgotoみたいなものじゃなくてもっと宣言的な流れ</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<ul>
-<li>How abstract RPC call
-
-<ul>
-<li>イベントをRPCのようなものだと考える</li>
-</ul></li>
-<li>RPCのコンセプト
-
-<ul>
-<li>Address どこへ</li>
-<li>Protocol どうやって</li>
-<li>Data type どういう値を渡して、どういう値を返すか</li>
-</ul></li>
-<li>根本的な哲学は再利用が可能である
-
-<ul>
-<li>ABC(Address &amp; Protocol &amp; Data typeと同じ)</li>
-</ul></li>
-<li>これはFlux
-
-<ul>
-<li>ActionとDispatcherと似た感じ</li>
-<li>Actionはイベントをオブジェクトとして名前を付けた感じ</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="react-on-現場---@mizchi">React on 現場 - @mizchi</h2>
-
-<ul>
-<li>あるいはModern JavaScript on Rails</li>
-</ul>
-
-<p>モダンJSとは</p>
-
-<ol>
-<li>npm/Browserify</li>
-<li>Babel/ES2015</li>
-<li>React/Fux</li>
-<li>Testable</li>
-<li>No more jQuery plugins</li>
-</ol>
-
-<p>という構成</p>
-
-<ul>
-<li>使われてないものを捨てるのは簡単</li>
-<li>でも使われてると書き換えないと行けないので辛い</li>
-</ul>
-
-<p>何か良くしてくれ - 方針</p>
-
-<ul>
-<li>再利用できるものと再利用出来るものを分ける</li>
-<li>エディタの書き換えへの挑戦
-
-<ul>
-<li>コード量が多い</li>
-<li>Kobitoとかやってたのでノウハウ活かせるかも</li>
-</ul></li>
-<li>破綻
-
-<ul>
-<li>分量</li>
-<li>ドメイン知識が色々必要</li>
-</ul></li>
-<li>教訓
-
-<ul>
-<li>仕様を理解してないものはコード書けない</li>
-<li>モジュールの境界面が明示されてないものは分解できない</li>
-</ul></li>
-<li>ゴールの設定
-
-<ul>
-<li>新規モジュールを負債を引き継ぐことなく受け入れられる環境</li>
-<li>Turbolinksが導入可能な初期化フロー
-
-<ul>
-<li>Turbolinkは初期化フローの制御ができてないと行けない</li>
-</ul></li>
-</ul></li>
-<li>やったこと
-
-<ul>
-<li>npmに依存ライブラリを集約
-
-<ul>
-<li>ライブラリごとに異なるCDNを参照</li>
-<li>オーバーヘッドが大きい</li>
-<li>どのライブラリを使ってるか分からない</li>
-</ul></li>
-<li>npmとbowerでライブラリの依存を解決
-
-<ul>
-<li>npmを優先的に使う</li>
-</ul></li>
-<li>Browserify導入
-
-<ul>
-<li>Sprocketsを捨てる</li>
-<li>Rails上のデファクトモジュールシステム</li>
-</ul></li>
-<li>Sprocketsの問題
-
-<ul>
-<li>ファイルスコープで返り値を持てない</li>
-<li>Nodeで動かない</li>
-<li>RubyとJSの問題切り分けられない</li>
-<li>JavaScriptのエコシステムに乗れない</li>
-<li>Sprocketsで動くJS系のgemメンテされない</li>
-</ul></li>
-<li>書き換える
-
-<ul>
-<li>分量が多い</li>
-<li>平行して開発している機能が沢山あってコンフリクトする</li>
-<li>スクリプトを書いて一発</li>
-<li>全てのモジュールをCommonJS形式に書き換えた</li>
-</ul></li>
-<li>Browserifyによって変わったこと
-
-<ul>
-<li>依存がそれぞれのファイルで完結した状態になる</li>
-<li>単体テスト可能な閉じた参照の提供</li>
-<li>名前空間の初期化順に左右されない</li>
-</ul></li>
-<li>gulp
-
-<ul>
-<li>browserify-rails
-
-<ul>
-<li>中ではbrowserify-incrementalを使ってる</li>
-</ul></li>
-</ul></li>
-<li>Babel
-
-<ul>
-<li>Babelのロード時間が長い</li>
-<li>プロセスを毎回立てると、毎回読み込みが起きてしまう</li>
-</ul></li>
-<li>テスト
-
-<ul>
-<li><code>require.cache</code></li>
-</ul></li>
-<li>React化
-
-<ul>
-<li>Qiitaのヘッダー</li>
-<li>Fluxの選定が面倒だったのでベタ書き</li>
-<li><a href="http://qiita.com/mizchi/items/79673c4d406cc85b44aa" title="redux への 不満を解消する為に, flumptというFlux実装を作った - Qiita">redux への 不満を解消する為に, flumptというFlux実装を作った - Qiita</a></li>
-<li>FluxはアプリケーションRootを管理するものが多いので、小さくPub/Subしたい</li>
-</ul></li>
-<li>react-unit
-
-<ul>
-<li>ReactのshaddlowRenderのラッパー</li>
-</ul></li>
-</ul></li>
-<li>まとめ
-
-<ul>
-<li>必要なのは「仕様理解」と「勇気」</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="javascript-discussion">JavaScript Discussion</h2>
-
-<p><a href="https://app.sli.do/event/0egbwyxz/ask"><img src="https://monosnap.com/file/z2VC0MmCQKox5DjQXlvOpNaYQjVhum.png" alt="discussion"></a></p>
-
-<ul>
-<li><a href="https://app.sli.do/event/0egbwyxz/ask" title="[JSer.info] JavaScript Discussion(JavaScriptの良い所/悪い所/気になる事)">[JSer.info] JavaScript Discussion(JavaScriptの良い所/悪い所/気になる事)</a></li>
-</ul>
-
-<p>を元に議論</p>
-
-<blockquote>
-<p>JSはいつ無くなるのか。</p>
-</blockquote>
-
-<p>ウェブが死ぬまで?</p>
-
-<blockquote>
-<p>モダンなJSの構成で開発したらこんなに良いことがありました！儲かりました！みたいな話が、もっと世の中に出回ると良いと思っています。</p>
-</blockquote>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">modern JavaScript に変えてサーバーの転送量が減った <a href="https://twitter.com/hashtag/jserinfo?src=hash">#jserinfo</a></p>&mdash; kiyoshi nomo (@kysnm) <a href="https://twitter.com/kysnm/status/688287820717281280">January 16, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote>
-<p>WebGLって流行るの？</p>
-</blockquote>
-
-<p>WebGLは使われるようになる。(WebGL自体というよりはそれを利用したものが使われてる)</p>
-
-<p>WebGL流行る = SVG流行る</p>
-
-<blockquote>
-<p>IE6,7,8 のサポートはもう切ってもいいですか……?</p>
-</blockquote>
-
-<ul>
-<li>プロダクトはプロダクト次第</li>
-<li>ライブラリは切る+shim入れれば動くという形にする例
-
-<ul>
-<li>サポート切るのはmajorアップデートなのか(コードは変化してないが)</li>
-</ul></li>
-</ul>
-
-<blockquote>
-<p>O.o とは何だったのか</p>
-</blockquote>
-
-<p>顔文字</p>
-
-<blockquote>
-<p>jQueryって皆使ってるの？バージョンは？</p>
-</blockquote>
-
-<p>jQuery自体を使ってる人が全体の半分以下ぐらい。</p>
-
-<p>バージョン</p>
-
-<ul>
-<li>9割が1.x系。</li>
-<li>1割が2.x/3.x系</li>
-</ul>
-
-<blockquote>
-<p>JavaScriptがコンパイル言語っぽくなってるのはどうやったら解決するのかな?</p>
-</blockquote>
-
-<p>ECMAScriptの新しい機能を試すのにビルドツールとかが必要みたいな話。
-いろんなところでビルドツールが必要になる。</p>
-
-<p>言語にマクロのような機能がないので、こういったTranspilerは仕様と実装の緩衝材となるため重要という話。</p>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">使用したフィードバックを渡せるので開発者と使用者の溝を埋めれる。だから現在のbabelによるトランスパイルが重要という考えすごい <a href="https://twitter.com/hashtag/jserinfo?src=hash">#jserinfo</a></p>&mdash; rChaser53 (@rChaser53) <a href="https://twitter.com/rChaser53/status/688299229157011457">January 16, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote>
-<p>hasegawayusuke さんへ electron XSS の怖いところを伝えて下さい</p>
-</blockquote>
-
-<p>ElectronでXSSが起きると、任意のコード実行ができてしまう問題について</p>
-
-<blockquote>
-<p>いつになったらFlashを超えられるのか。足りないものは何か？</p>
-</blockquote>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="ja" dir="ltr">JSがFlashを超えるのに足りないものはなにか？&#10;→GUIエディタがない&#10;それっぽいのはたまにぽつぽつでてくるけど大きくならない <a href="https://twitter.com/hashtag/jserinfo?src=hash">#jserinfo</a></p>&mdash; よしこ (@yoshiko_pg) <a href="https://twitter.com/yoshiko_pg/status/688299239495999488">January 16, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<h2 id="chrome-api-#jserinfo---kyo_ago"><a href="http://0-9.sakura.ne.jp/pub/lt/JSerInfo20160116/start.html" title="Chrome API #jserinfo">Chrome API #jserinfo</a> - kyo_ago</h2>
-
-<ul>
-<li>Chrome Extension/OSのAPIについて</li>
-</ul>
-
-<h2 id="railsのrailから解放される始めの一歩---joe-re"><a href="http://www.slideshare.net/masatonoguchi169/railsrails-57123076" title="RailsのRailから解放される始めの一歩">RailsのRailから解放される始めの一歩</a> - joe-re</h2>
-
-<ul>
-<li><a href="http://qiita.com/joe-re/items/1d5e1d0527cc439e03ef" title="Rails - フロントエンド開発における革命とビルドプロセスについて - Qiita">Rails - フロントエンド開発における革命とビルドプロセスについて - Qiita</a></li>
-<li>Sprockets捨てたい理由</li>
-<li>Railsのfingerprintの解決が難しい</li>
-<li>まだ app/asset に成果物を吐いてる</li>
-<li>Reduxはロックイン感があるので、<a href="https://facebook.github.io/flux/docs/flux-utils.html" title="Flux Utils">Flux Utils</a>を使うという話</li>
-</ul>
-
-<p><a href="http://joe-re.hatenablog.com/entry/2016/01/17/151923" title="JSer.info 5周年記念イベントに行ってきた(LTもした) #jserinfo - Please Drive Faster">JSer.info 5周年記念イベントに行ってきた(LTもした) #jserinfo - Please Drive Faster</a></p>
-
-<hr>
-
-<h2 id="node-eps---@yosuke_furukawa"><a href="https://speakerdeck.com/yosuke_furukawa/nodeeps" title="nodeeps // Speaker Deck">node-eps</a> - @yosuke_furukawa</h2>
-
-<ul>
-<li><a href="https://github.com/nodejs/node-eps" title="Node.js Enhancement Proposals">Node.js Enhancement Proposals</a>について</li>
-<li>C++ Streams</li>
-<li>ES6 Modules interop
-
-<ul>
-<li><a href="https://docs.google.com/presentation/d/1tXziuBheum53jk-FgtFkEUGKNVTdHzbpzhJLk7FatGc/present#slide=id.p" title="ES6/WhatWG Loader &amp;amp; Node - Google スライド">ES6/WhatWG Loader &amp; Node - Google スライド</a></li>
-<li>Node/ES6 どっちからも読めるようにするという</li>
-<li>JSのレイヤーじゃなくて、C++のレイヤーでfallbackさせてtryする</li>
-</ul></li>
-</ul>
-
-<h2 id="sc22-ecmascript-ad-hoc委員会---@azu_re"><a href="http://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.html" title="SC22 ECMAScript Ad hoc委員会">SC22 ECMAScript Ad hoc委員会</a> - @azu_re</h2>
-
-<p>ISO/IEC 16262であるECMASCript仕様の策定プロセスやどういう活動をしてるかという話。</p>
-
-<p><a href="http://azu.github.io/slide-what-is-ecmascript/" title="Introduction | ECMAScriptとは何か？">Introduction | ECMAScriptとは何か？</a>とはまた違う話です。</p>
-
-<h2 id="ava---@t_wada">AVA - @t_wada</h2>
-
-<ul>
-<li><a href="https://github.com/sindresorhus/ava" title="sindresorhus/ava: Futuristic test runner">sindresorhus/ava: Futuristic test runner</a>について</li>
-<li>sindresorhusのオピニオンが強い話</li>
-<li>後発のTest Runnerは独自性を求められる</li>
-<li>テストケースのネストはnon support</li>
-<li>代わりに並列性</li>
-<li>ネストではなくファイルを分けろという方針</li>
-<li>power-assertがビルトイン</li>
-</ul>
-
-<h2 id="ortcの話---jxck">ORTCの話 - jxck</h2>
-
-<ul>
-<li><a href="https://github.com/openpeer/ortc" title="openpeer/ortc">openpeer/ortc</a>のHTMLを修正してる話</li>
-<li>Bookflashの人がメイン
-
-<ul>
-<li>IETF系のプロトコルギークの人</li>
-<li>JavaScriptよくわからない</li>
-</ul></li>
-<li>PRしまくる日々
-
-<ul>
-<li>PRしまくってたら「お前の方が上手く(Example)書けると思うけど?」</li>
-</ul></li>
-<li>Exampleをどう書いていくのか
-
-<ul>
-<li>標準仕様なのでどう書けばいいのか</li>
-</ul></li>
-<li>将来的にWebRTCにマージ WebRTC NVになるかも</li>
-<li>Promiseも部分的に入ってる</li>
-<li>そもそもExampleの目的
-
-<ul>
-<li>APIの呼び出し方を例示する</li>
-<li>呼び出し順序を例示する</li>
-</ul></li>
-<li>参照される可能性が高い
-
-<ul>
-<li>本質はわかりやすく</li>
-<li>新しい機能を使うと記述が少なくて見やすい</li>
-<li>逆に「俺の知っているJSと違う」問題</li>
-</ul></li>
-<li>どれくらいのレベルで書くのか?
-
-<ul>
-<li>仕様をどれくらいのJavaScriptで書くのか</li>
-<li>仕様書を読む人のレベル想定</li>
-<li>ExampleはMSEdgeで動くレベルのAPIで書くか</li>
-<li>let、Arrow Function、module、async await</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<p>お疲れ様でした。</p>
  ]]></content>
  </entry>
  

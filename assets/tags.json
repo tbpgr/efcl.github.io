@@ -713,7 +713,9 @@
         
         "security",
         
-        "ReleaseNode"
+        "ReleaseNode",
+        
+        "RegExp"
         
     ]
 }

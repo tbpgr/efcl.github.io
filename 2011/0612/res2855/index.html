@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2011-06-12T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -115,7 +115,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -246,6 +246,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -260,12 +266,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -349,7 +349,7 @@ Thnak you, <em>Jan Odvarko.</em></p>
 <li>  <a href="http://www.janodvarko.cz/har/viewer/">HTTP Archive Viewer 2.0.10</a>(オンラインビューアー) </li>
 </ul>
 
-<h4 id="example-1:-simple-page-load">Example 1: Simple Page Load</h4>
+<h4 id="example-1-simple-page-load">Example 1: Simple Page Load</h4>
 
 <p>ここでは2つのリクエストが表示されています。<br>
 1つめのリクエストではページは16msで取得できていて、load event (赤いライン)は58msで発生している事がわかります。ログ上にマウスオーバーさせると詳細な表示がされます。</p>
@@ -372,7 +372,7 @@ Thnak you, <em>Jan Odvarko.</em></p>
 <p>2つ目のリクエスト(XHR)上でもマウスオーバーで詳細な情報が表示されています。<br>
 こちらでもload event を表していますが、こちらはXHRのリクエストからの相対値が表示されています。XHRが発生(Started)したのは403msなので 403 &#8211; 357 = 58msでload event が発生したことがわかります。(load eventはページの取得を見た方がわかりやすいからこう見る必要はない気がするけど)</p>
 
-<h4 id="example-2:-connection-limit">Example 2: Connection Limit</h4>
+<h4 id="example-2-connection-limit">Example 2: Connection Limit</h4>
 
 <p>各ブラウザは一つのページをダウンロードするのに同時接続制限あります。もし、同時接続の制限に達したとき、他のリソースは接続してるリソースが解放されるまでブラウザ内部のキューで待機させられます。<br>
 次の2つのページログを見ると、同時接続制限数の違いで8つの画像をロードするのにどれぐらいの違いがでるかがわかります。</p>
@@ -399,9 +399,9 @@ Firefoxではabout:configのnetwork.http.max-persistent-connections-per-server�
 
 <p>同じように#2のポップアップされる詳細のログを見てみると、Blocking(light-brown 色)はページを取得(DOM Loaded)した時から4.63s待たされていて、リソースの取得は2.22sかかり、6.85sで完了している事がわかります。</p>
 
-<h4 id="example-3:-pipelining">Example 3: Pipelining</h4>
+<h4 id="example-3-pipelining">Example 3: Pipelining</h4>
 
-<h1 id="2と同じページを使い、ブラウザのパイプライン処理がonとなっている場合を見てみる。">2と同じページを使い、ブラウザの<a href="https://developer.mozilla.org/ja/HTTP_Pipelining_FAQ">パイプライン処理</a>がONとなっている場合を見てみる。</h1>
+<h1 id="2-on">2と同じページを使い、ブラウザの<a href="https://developer.mozilla.org/ja/HTTP_Pipelining_FAQ">パイプライン処理</a>がONとなっている場合を見てみる。</h1>
 
 <div class="harPreviewBox">
 </div>
@@ -409,7 +409,7 @@ Firefoxではabout:configのnetwork.http.max-persistent-connections-per-server�
 <p>Firefox(3.6)でパイプライン処理が有効(network.http.pipelining == true)になっている場合を比べてみると、実際にはload eventが発生するまでにかかる時間が増えていることがわかります。<br>
 1から6の画像はそれぞれ異なる接続を利用していますが、7から8の画像は共有接続を利用してダウンロードしています。実際にどれと接続を共有しているかは明らかではありませんが(Firebugからそれを知るAPIはないため)、最後の2つの画像は接続を共有して合計時間を増加させているのは明らかです。</p>
 
-<h4 id="example-4:-persistent-connections">Example 4: Persistent Connections</h4>
+<h4 id="example-4-persistent-connections">Example 4: Persistent Connections</h4>
 
 <p>このテストはHTTP <em>Connection</em>ヘッダーの効果を現しています。このヘッダーは既存の接続が閉じられているか将来のリクエストのために保持されているのかをサーバーに教えるために使われます。<br>
 それぞれ<em>Keep-Alive</em> (default in HTTP/1.1) or <em>Close</em>でどのような違いが出るかを見てみましょう。</p>
@@ -432,7 +432,7 @@ Firefoxではabout:configのnetwork.http.max-persistent-connections-per-server�
 <li>  二つ目のログでは、ページダウンロードと<em>file1.php</em>のリクエストで接続が再利用されている事がわかります。しかし、他の接続ではConnection: closeなため、また接続を作り直す必要があります。 </li>
 </ul>
 
-<h4 id="example-5:-inline-scripts-block">Example 5: Inline Scripts Block</h4>
+<h4 id="example-5-inline-scripts-block">Example 5: Inline Scripts Block</h4>
 
 <p>インラインスクリプトがページのダウンロードをブロックすることはよく知られていますが、ネットワークの観点から見るとどのように見えるかを調べてしましょう。</p>
 
@@ -459,7 +459,7 @@ Firefox4からインラインスクリプトの実行タイミングが変わっ
 <p>特にこれをどうとらえるべきかについては元記事に記述はありませんでしたが、この例はリソースのダウンロード時間よりもload eventなどへブロックが発生している事が重要な気がします。<br>
 負荷が大きいインラインスクリプトやdocument.writeなどのブロッキングを誘発するものがある場合loadやDOMContentLoadedイベントの発生を遅くしてしまいます。そのためdocument.writeそのものを避けることや、load eventなどイベントリスナーにして実行させるなどした方がページの表示は速くなるかと思います。</p>
 
-<h4 id="example-6:-redirects">Example 6: Redirects</h4>
+<h4 id="example-6-redirects">Example 6: Redirects</h4>
 
 <p>これはネットパネルにて、リダイレクトがどのように見えるかを表示した例。</p>
 

@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2011-06-04T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -119,7 +119,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -250,6 +250,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -264,12 +270,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -343,7 +343,7 @@ var blog_categories = [
 
 <p><a href="http://efcl.info/wp-content/uploads/2011/06/image.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb.png" border="0" alt="image" width="240" height="96" /></a><a href="http://efcl.info/wp-content/uploads/2011/06/image1.png"><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb1.png" border="0" alt="image" width="240" height="154" /></a><a href="http://efcl.info/wp-content/uploads/2011/06/image2.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb2.png" border="0" alt="image" width="240" height="224" /></a><a href="http://efcl.info/wp-content/uploads/2011/06/image3.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb3.png" border="0" alt="image" width="240" height="183" /></a></p>
 
-<h3 id="niltranslatorの導入"><a href="https://github.com/azu/NILScript/tree/master/NILtranslator">NILtranslator</a>の導入</h3>
+<h3 id="niltranslator"><a href="https://github.com/azu/NILScript/tree/master/NILtranslator">NILtranslator</a>の導入</h3>
 
 <p><a href="http://lukewarm.s151.xrea.com/nilscript.html">NILScript</a>で実行するソフトウェアなので、<a href="http://lukewarm.s151.xrea.com/nilscript.html">NILScript</a>が必要です。(Autohotkeyみたいな形式だと思ってもらえば)<br>
 Githubに置いてあるので、<a href="https://github.com/azu/NILScript/archives/master">Secure source code hosting and collaborative development &#8211; GitHub</a>から<a href="https://github.com/azu/NILScript/zipball/master">zipファイル</a>でレポジトリごとダウンロードするのが単純です。<br>
@@ -357,7 +357,7 @@ Githubに置いてあるので、<a href="https://github.com/azu/NILScript/archi
 
 <p>&nbsp;</p>
 
-<h3 id="使い方と設定">使い方と設定</h3>
+<h3 id=">使い方と設定</h3>
 
 <p>翻訳は翻訳したい文字列を選択した状態で、クリップボードへのコピーか任意のショートカットで行う事ができます。</p>
 
@@ -365,7 +365,7 @@ Githubに置いてあるので、<a href="https://github.com/azu/NILScript/archi
 
 <p><a href="http://efcl.info/wp-content/uploads/2011/06/image4.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb4.png" border="0" alt="image" width="240" height="137" /></a></p>
 
-<h4 id="動作設定">動作設定</h4>
+<h4 id=">動作設定</h4>
 
 <p><a href="http://efcl.info/wp-content/uploads/2011/06/image5.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb5.png" border="0" alt="image" width="240" height="183" /></a></p>
 
@@ -399,12 +399,12 @@ Githubに置いてあるので、<a href="https://github.com/azu/NILScript/archi
 
 <p>*がついてるものはソフトウェアを再起動後に反映されることに注意</p>
 
-<h4 id="辞書について">辞書について</h4>
+<h4 id=">辞書について</h4>
 
 <p>辞書はそれぞれ設定できますが、英辞郎はローカルに英辞郎のデータベースファイルを用意する必要があります。<br>
 辞書は以下から選択できます。</p>
 
-<h4 id="対応辞書サービス">対応辞書サービス</h4>
+<h4 id=">対応辞書サービス</h4>
 
 <ul>
 <li>  <a href="http://www.kingsoft.jp/dictionary/">KingSoft辞書</a></li>
@@ -413,14 +413,14 @@ Githubに置いてあるので、<a href="https://github.com/azu/NILScript/archi
 
 <p><strong>英辞郎辞書は同梱していません</strong>のでご自分で購入する必要があります。 <a href="http://www.eijiro.jp/">http://www.eijiro.jp/</a></p>
 
-<h4 id="対応翻訳サービス">対応翻訳サービス</h4>
+<h4 id=">対応翻訳サービス</h4>
 
 <ul>
 <li>  <a href="http://translate.google.co.jp/">Google翻訳</a></li>
 <li>  <a href="http://www.excite.co.jp/world/">Excite翻訳</a></li>
 </ul>
 
-<h4 id="英辞郎辞書の導入">英辞郎辞書の導入</h4>
+<h4 id=">英辞郎辞書の導入</h4>
 
 <p>ローカルの英辞郎辞書を使うためには、英辞郎辞書をデータベース形式に変換する必要があります。<br>
 辞書の変換形式は<a href="https://github.com/edvakf/EijiroX">EijiroX</a>と全く同じものを使用しています。そのため<a href="http://d.hatena.ne.jp/edvakf/20101122/1290423802">EijiroXの利用方法</a>をよく読み、databaseというファイル名のデータベースファイルを生成してください。</p>
@@ -429,7 +429,7 @@ Githubに置いてあるので、<a href="https://github.com/azu/NILScript/archi
 
 <ol>
 <li> makedatabase.zip(Windows 用と書かれてるやつ)</li>
-<li> zipを展開してできたフォルダに英辞郎から取り出した英辞郎 (EIJI-*\<em>\</em>.TXT)、和英辞郎 (WAEI-***.TXT)、例辞郎 (REIJI-***.TXT)、略語郎 (RYAKU-***.TXT) の4つのtxtを入れる。</li>
+<li> zipを展開してできたフォルダに英辞郎から取り出した英辞郎 (EIJI-*\<em>*.TXT)、和英辞郎 (WAEI-***.TXT)、例辞郎 (REIJI-***.TXT)、略語郎 (RYAKU-**</em>.TXT) の4つのtxtを入れる。</li>
 <li> makedatabase.exeを実行(一時間以上かかる)</li>
 <li> databaseとdatabase.sqlができる。</li>
 <li> database.sqlは削除しても問題ない。databaseをdatabase.dbなど拡張子がdbとなるようにリネームする</li>
@@ -443,7 +443,7 @@ Githubに置いてあるので、<a href="https://github.com/azu/NILScript/archi
 
 <p>ポップアップの消滅時間はミリ秒で指定し、翻訳パネルの非表示になるまでの時間を決定できます。</p>
 
-<h4 id="パネルの設定">パネルの設定</h4>
+<h4 id=">パネルの設定</h4>
 
 <p><a href="http://efcl.info/wp-content/uploads/2011/06/image7.png"><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb7.png" border="0" alt="image" width="226" height="222" /></a></p>
 
@@ -452,13 +452,13 @@ Githubに置いてあるので、<a href="https://github.com/azu/NILScript/archi
 
 <p>パネルの透明度はアルファ値で指定できます。</p>
 
-<h4 id="一時的に無効にする">一時的に無効にする</h4>
+<h4 id=">一時的に無効にする</h4>
 
 <p><a href="http://efcl.info/wp-content/uploads/2011/06/image4.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border-width: 0px;" title="image" src="http://efcl.info/wp-content/uploads/2011/06/image_thumb4.png" border="0" alt="image" width="240" height="137" /></a></p>
 
 <p>アイコンの右クリックから→無効を選択すると一時的にショートカットやクリップボードへのコピーで翻訳パネルを出さないようにします。</p>
 
-<h4 id="翻訳パネルの表示を変更">翻訳パネルの表示を変更</h4>
+<h4 id=">翻訳パネルの表示を変更</h4>
 
 <p><span style="color: #0c111d;">パネルはIEエンジン(triden)で動いていて、divにサイトごとのIDが入るのでCSSで調整することができます。 <br />CSSファイルとSassファイルも同梱されているので、CSSを変更すれば、背景色や文字サイズなども変更できます。</span></p>
 
@@ -504,7 +504,7 @@ Githubに置いてあるので、<a href="https://github.com/azu/NILScript/archi
 
 <p>これで説明は終わりです。</p>
 
-<h3 id="おわりに">おわりに</h3>
+<h3 id=">おわりに</h3>
 
 <p>このソフトウェアは<a href="http://lukewarm.s151.xrea.com/nilscript.html">NILScript</a>で書かれていますが、UI部分でコードが少し増えましたが1000行程度でこのぐらいのものが作れてしまいます。</p>
 

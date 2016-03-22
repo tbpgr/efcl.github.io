@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2011-01-16T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -121,7 +121,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -252,6 +252,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -266,12 +272,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -333,13 +333,13 @@ var blog_categories = [
     <div class="post-content">
         <p>Tumblrをブログとして使うためにやるべき事</p>
 
-<h3 id="投稿用サブブログを作成">投稿用サブブログを作成</h3>
+<h3 id=">投稿用サブブログを作成</h3>
 
 <p>Tumblrはメインブログと、Create tumblelogから改めて作成するサブブログと分かれていて、メインブログは共同更新ができない感じになっています。なので、今後そういう可能性があるならばCreate tumblelogから改めてtumblelogを作成します。</p>
 
 <p><a href="http://journal.mycom.co.jp/series/tumblr/012/index.html" title="【連載】『Tumblr』のおさらい (12) 複数人でTumblelogを共同更新してみる | ネット | マイコミジャーナル">【連載】『Tumblr』のおさらい (12) 複数人でTumblelogを共同更新してみる | ネット | マイコミジャーナル</a></p>
 
-<h3 id="ドメイン">ドメイン</h3>
+<h3 id=">ドメイン</h3>
 
 <p>Tumblrは独自ドメインが使用できます。<br>
 特にドメインの制限はないので、DNSレコードでTumblrのIPアドレスを振って、「Info」 メニューの一番下にある 「Use a custom domain name」 にチェックして取得したドメインを設定するだけでOKです。<br>
@@ -349,7 +349,7 @@ var blog_categories = [
 <li>  <a href="http://hyper-text.org/archives/2009/04/tumblr_custom_domain.shtml" title="独自ドメインで Tumblr を使う | WWW WATCH">独自ドメインで Tumblr を使う | WWW WATCH</a></li>
 </ul>
 
-<h3 id="テーマ">テーマ</h3>
+<h3 id=">テーマ</h3>
 
 <p>Tumblrは元からテーマがいろいろと用意されているので、それらを見本にしていじるのが手っ取り早いです。<br>
 TumblrのテーマはHTMLの構造を自由にいじれるので、比較的自由度は高めだと思います。<br>
@@ -360,7 +360,7 @@ Autopagerizeが動かないと鈍器で殴られるので下を参考に対応�
 <li>  <a href="http://otsune.tumblr.com/post/334387549/autopagerize-tumblr" title="Autopagerizeが動かないtumblrなんて… - otsune tumblr まとめサイト 画像保管庫Q">Autopagerizeが動かないtumblrなんて… &#8211; otsune tumblr まとめサイト 画像保管庫Q</a></li>
 </ul>
 
-<h3 id="seoやアクセス解析や検索">SEOやアクセス解析や検索</h3>
+<h3 id="seo">SEOやアクセス解析や検索</h3>
 
 <p>まずはブログとして使うと外部からのリンクも多いと思うのでアクセス解析を入れます。<br>
 多分多くのテーマに{block:IfGoogleAnalyticsUACode}という<a href="http://www.google.com/intl/ja/analytics/" title="Google Analytics | 公式ウェブサイト">Google Analytics</a>のブロックがあると思うので、それを消してから<br>
@@ -401,7 +401,7 @@ Autopagerizeが動かないと鈍器で殴られるので下を参考に対応�
 <li>  <a href="http://www.socialblogr.com/2010/03/seo-on-tumblr-blog.html" title="SEO on Tumblr Blog | SocialBlogr">SEO on Tumblr Blog | SocialBlogr</a></li>
 </ul>
 
-<h3 id="最後に検索について">最後に検索について</h3>
+<h3 id=">最後に検索について</h3>
 
 <p>Tumblrの検索は日本語が通らない(タグでは通る)ので、何かしらの代用手段が必要になると思います。</p>
 
@@ -411,7 +411,7 @@ Autopagerizeが動かないと鈍器で殴られるので下を参考に対応�
 
 <p>これを打破するために<a href="http://trunk.ly/" title="Trunk.ly">Trunk.ly</a>というサービスを利用します。<a href="http://trunk.ly/" title="Trunk.ly">Trunk.ly</a>はTwitterやRSSからリンクを取り込んで検索する事ができるサービスです。検索対象にしたいTumblrのRSSを取り込めば、取り込んだ時点からの内容は検索が可能になります。日本語も通るかつ、記事中に出てきたリンク先も解析対象にするため検索の取りこぼしは少ないです。</p>
 
-<h3 id="tumblrをブログとして使うメリット">Tumblrをブログとして使うメリット</h3>
+<h3 id="tumblr">Tumblrをブログとして使うメリット</h3>
 
 <p>Tumblrはブログシステムとしても機能が十分にあり、他のブログシステムとは違ってReblogやLikeと言ったコミュニケーション機能が存在します。そうした反応を作りやすい仕組みになっているため、ブログより更新の障壁は低くなるかもしれません。<br>
 WordPressといった高機能なブログエンジンもありますが、無料で手軽に利用できるTumblrは選択肢としてあっても良いかもしれません。</p>

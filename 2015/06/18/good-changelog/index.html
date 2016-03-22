@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2015-06-18T11:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -119,7 +119,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -250,6 +250,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -264,12 +270,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -367,7 +367,7 @@ var blog_categories = [
 
 <p>(これを更に種類でグルーピングすると見やすくなる)</p>
 
-<h3 id="changelogの自動生成">ChangeLogの自動生成</h3>
+<h3 id="changelog">ChangeLogの自動生成</h3>
 
 <p>上記のChangeLogを見ているとコミットから自動生成できそうと考えるのが自然だと思います。</p>
 
@@ -390,7 +390,7 @@ var blog_categories = [
 
 <p>自動生成する場合は、どれだけ余計な情報を削るかが見やすいChangeLogに繋がると思います。</p>
 
-<h3 id="changelogの手書き">ChangeLogの手書き</h3>
+<h3 id="changelog">ChangeLogの手書き</h3>
 
 <p>ChangeLogを手書きするならGitHubの<a href="https://help.github.com/articles/creating-releases/" title="Releases">Releases</a>機能を使うのが楽だし、RSSなども自動でできるし良いと思います。</p>
 

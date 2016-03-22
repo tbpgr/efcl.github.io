@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2015-05-10T16:46:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -121,7 +121,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -252,6 +252,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -266,12 +272,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -338,7 +338,7 @@ Markdown支援的な機能が入ってるものは意外と多くない印象で
 <p>特に気になるのがタブインデントができなかったり、エディタ上のシンタックスハイライトが無かったりする所なので、
 それを適当に解消するGreasemonkeyスクリプトを書きました。</p>
 
-<h2 id="azu/codemirror-anywhere"><a href="https://github.com/azu/codemirror-anywhere" title="azu/codemirror-anywhere">azu/codemirror-anywhere</a></h2>
+<h2 id="azu-codemirror-anywhere"><a href="https://github.com/azu/codemirror-anywhere" title="azu/codemirror-anywhere">azu/codemirror-anywhere</a></h2>
 
 <p><a href="https://github.com/azu/codemirror-anywhere" title="azu/codemirror-anywhere">codemirror-anywhere</a> 名前の通り<code>&lt;textarea&gt;</code>を<a href="http://codemirror.net/" title="CodeMirror">CodeMirror</a>のエディタに切り替える事が出来るものです。</p>
 
@@ -350,20 +350,20 @@ Markdown支援的な機能が入ってるものは意外と多くない印象で
 
 <p><img src="http://gyazo.com/003a690ade95e7a84b3f06de1c0ac508.gif" alt="img3"></p>
 
-<h2 id="インストール">インストール</h2>
+<h2 id=">インストール</h2>
 
 <ul>
 <li><a href="https://github.com/azu/codemirror-anywhere/raw/master/codemirror-anywhere.user.js">codemirror-anywhere.user.js</a> からインストール</li>
 </ul>
 
-<h2 id="使い方">使い方</h2>
+<h2 id=">使い方</h2>
 
 <ol>
 <li><code>&lt;textarea&gt;</code> にフォーカス</li>
 <li>Cmd+E or Ctrl+Eでトグル</li>
 </ol>
 
-<h2 id="おわりに">おわりに</h2>
+<h2 id=">おわりに</h2>
 
 <p>ものすごく適当に書いたのですが、適当に動いてくれるので思ったより便利です。</p>
 

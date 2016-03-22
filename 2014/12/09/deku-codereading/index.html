@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2014-12-09T07:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -119,7 +119,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -250,6 +250,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -264,12 +270,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -344,7 +344,7 @@ var blog_categories = [
 
 <p>基本的なVirtual DOMの構造はあるので、そういう意味では読みやすいです。</p>
 
-<h2 id="基本的な使い方">基本的な使い方</h2>
+<h2 id=">基本的な使い方</h2>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">component</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;segmentio/deku&#39;</span><span class="p">);</span>
 
 <span class="c1">// Buttonのcomponentを作る</span>
@@ -384,7 +384,7 @@ var blog_categories = [
 <span class="c1">// bodyから取り除く</span>
 <span class="nx">scene</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
 </code></pre></div>
-<h2 id="lib/component">lib/component</h2>
+<h2 id="lib-component">lib/component</h2>
 
 <ul>
 <li>ユーザが触る感じのAPI定義をしてる場所</li>
@@ -414,7 +414,7 @@ var blog_categories = [
 <li><a href="https://medium.com/@cramforce/on-the-awesomeness-of-fn-displayname-9511933a714a" title="On the awesomeness of fn.displayName — Medium">On the awesomeness of fn.displayName — Medium</a></li>
 </ul>
 
-<h2 id="lib/node">lib/node</h2>
+<h2 id="lib-node">lib/node</h2>
 
 <p>Virtual DOM trees(長いの次からvTreeと書きます)を作る場所</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">component</span><span class="p">({</span>
@@ -426,7 +426,7 @@ var blog_categories = [
 <p>renderで渡ってくる<code>dom</code>という関数がvTreeを作る関数 = <code>render</code>メソッドの返り値はvTree。
 (本物のDOM Nodeではない)</p>
 
-<h3 id="lib/node/index.js">lib/node/index.js</h3>
+<h3 id="lib-node-index-js">lib/node/index.js</h3>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="cm">/**</span>
 <span class="cm"> * Create virtual DOM trees.</span>
 <span class="cm"> *</span>
@@ -499,14 +499,14 @@ vTreeを返す関数を定義していく。</p>
 <p>その<code>render</code>関数が返したvTreeを実際のHTMLにしていくのが
 <code>lib/renderer</code>で、Virtual DOMの要であるdiff/patchもここにある。</p>
 
-<h2 id="lib/renderer">lib/renderer</h2>
+<h2 id="lib-renderer">lib/renderer</h2>
 
 <p>レンダリングを担当する場所</p>
 
 <p><code>ComponentRenderer</code>や<code>Mount</code>で
 componentを受け取ってそれをレンダリングする(HTMLへ)</p>
 
-<h2 id="lib/renderer/component.js"><code>lib/renderer/component.js</code></h2>
+<h2 id="lib-renderer-component-js"><code>lib/renderer/component.js</code></h2>
 
 <p>レンダリングのmainとなる場所</p>
 
@@ -515,7 +515,7 @@ componentを受け取ってそれをレンダリングする(HTMLへ)</p>
 
 <p>実際にvTreeから<code>ElementNode</code>を取り出してDOMに変換していくのは、以下の<code>toElement</code>で行う。</p>
 
-<h3 id="componentrenderer.prototype.toelement"><code>ComponentRenderer.prototype.toElement</code></h3>
+<h3 id="componentrenderer-prototype-toelement"><code>ComponentRenderer.prototype.toElement</code></h3>
 
 <p><code>toElement</code> は以下の処理を行う</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">ElementNode =&gt; DOM Node
@@ -527,7 +527,7 @@ componentを受け取ってそれをレンダリングする(HTMLへ)</p>
 
 <p><code>ElementNode</code>はchildrenを持っていることもあるので再帰的に行ってDOM Nodeを作る</p>
 
-<h2 id="component/vtreeの関係">Component/vTreeの関係</h2>
+<h2 id="component-vtree">Component/vTreeの関係</h2>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Component</span><span class="p">({</span>
         <span class="c1">// @return vTree</span>
     <span class="nx">render</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -535,14 +535,14 @@ componentを受け取ってそれをレンダリングする(HTMLへ)</p>
     <span class="p">}</span>
 <span class="p">})</span>
 </code></pre></div>
-<h2 id="diff/patch">diff/patch</h2>
+<h2 id="diff-patch">diff/patch</h2>
 
 <p>Virtual DOMの本領であるdiff/patchもRendererにある。</p>
 
 <p>初期化する時に<code>toElement</code>でDOM Nodeを作るのと同時に、
 インスタンスに変更が起きたら<code>ComponentRenderer.prototype.queue</code>を呼ぶようにイベントを設定する。</p>
 
-<h3 id="componentrenderer.prototype.queue"><code>ComponentRenderer.prototype.queue</code></h3>
+<h3 id="componentrenderer-prototype-queue"><code>ComponentRenderer.prototype.queue</code></h3>
 
 <p>dekuはVue.jsのようにキューにためて一定のタイミングでViewのアップデートの処理を行う。</p>
 
@@ -553,7 +553,7 @@ componentを受け取ってそれをレンダリングする(HTMLへ)</p>
 
 <p>実際のdiff/patchでのDOM Nodeの更新をするのは<code>ComponentRenderer.prototype.update</code>で行われる</p>
 
-<h3 id="componentrenderer.prototype.update"><code>ComponentRenderer.prototype.update</code></h3>
+<h3 id="componentrenderer-prototype-update"><code>ComponentRenderer.prototype.update</code></h3>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="k">this</span><span class="p">.</span><span class="nx">previous</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">current</span><span class="p">;</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
   <span class="c1">// update the element to match.</span>
@@ -565,7 +565,7 @@ componentを受け取ってそれをレンダリングする(HTMLへ)</p>
 <p><code>diff</code>という名前だけど置換処理もそのまま行ってるので、patchの処理も含まれている。
 (今のところdiffの中間表現とかなく直接書き換えしてる、ここは実装変えそうな気がする)</p>
 
-<h3 id="lib/renderer/diff.js">lib/renderer/diff.js</h3>
+<h3 id="lib-renderer-diff-js">lib/renderer/diff.js</h3>
 
 <p><code>diff</code> はvTreeである<code>this.previous</code>と<code>this.current</code>の
 プロパティ(属性とかtextContentとか)を比較して、
@@ -575,7 +575,7 @@ componentを受け取ってそれをレンダリングする(HTMLへ)</p>
 
 <p>diff/patchについて詳しくは <a href="http://qiita.com/mizchi/items/d21bb598156821131b8c" title="AdventCalendar - segmentio/dekuのコード読んで自分でも仮想DOMのdiffアルゴリズムを書いてみた - Qiita">AdventCalendar - segmentio/dekuのコード読んで自分でも仮想DOMのdiffアルゴリズムを書いてみた - Qiita</a> を読みましょう。</p>
 
-<h2 id="lib/renderer/interactions.js"><code>lib/renderer/interactions.js</code></h2>
+<h2 id="lib-renderer-interactions-js"><code>lib/renderer/interactions.js</code></h2>
 
 <p>dekuでは<code>toElement</code>で実際のDOM Nodeにしたものへイベントを設定出来る</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">ButtonComponent</span> <span class="o">=</span> <span class="nx">component</span><span class="p">({</span>
@@ -594,12 +594,12 @@ componentを受け取ってそれをレンダリングする(HTMLへ)</p>
 
 <hr>
 
-<h2 id="感想">感想</h2>
+<h2 id=">感想</h2>
 
 <p>dekuのコードは読みやすいというよりは流れが見やすい感じがします。
 <code>diff</code>以外のところは結構素直に実装されていて、普通にコードを追っていくだけでどういう処理がされているか分かる感じです(実際実行しないで読めたので)</p>
 
-<h2 id="コードリーディングのツール">コードリーディングのツール</h2>
+<h2 id=">コードリーディングのツール</h2>
 
 <p><a href="http://www.jetbrains.com/webstorm/" title="WebStorm">WebStorm</a>を使って読みました。
 よくモジュール化されているので、定義元へのジャンプ等を使うとかなり読みやすいです。</p>
@@ -610,7 +610,7 @@ componentを受け取ってそれをレンダリングする(HTMLへ)</p>
 <li><a href="http://efcl.info/2014/08/27/floating-memo/" title="node-webkitで最前面に置けるMarkdownメモアプリを作った">node-webkitで最前面に置けるMarkdownメモアプリを作った</a></li>
 </ul>
 
-<h3 id="どこから読むか">どこから読むか</h3>
+<h3 id=">どこから読むか</h3>
 
 <p>Nodeモジュールを書き慣れている人は大体<code>index.js</code>を作ってるケースが多いです。
 dekuの場合も<a href="https://github.com/segmentio/deku/blob/master/index.js" title="deku/index.js">deku/index.js</a>というファイルがあり、以下のような1行があるだけです。</p>
@@ -642,7 +642,7 @@ dekuの場合も<a href="https://github.com/segmentio/deku/blob/master/index.js"
     ├── string.js
     └── tree.js
 </code></pre></div>
-<h3 id="よくわからない時はテストを見る">よくわからない時はテストを見る</h3>
+<h3 id=">よくわからない時はテストを見る</h3>
 
 <p>例えば、<a href="https://github.com/segmentio/deku/blob/8c11681775196ad337ddb3bb809882c815c1bfa1/lib/node/index.js#L49-53" title="lib/node/index.js">lib/node/index.js</a>を見ると、<code>dom(type, props, children)</code>関数で以下のようなif分岐があります。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// if you pass in a function, it&#39;s a `Component` constructor.</span>
@@ -679,7 +679,7 @@ dekuの場合も<a href="https://github.com/segmentio/deku/blob/master/index.js"
 <li><a href="https://github.com/segmentio/deku/issues" title="Issues · segmentio/deku">Issues · segmentio/deku</a></li>
 </ul>
 
-<h2 id="他のvirtual-dom">他のVirtual DOM</h2>
+<h2 id="virtual-dom">他のVirtual DOM</h2>
 
 <p>dekuはまだ0.0.2というレベルで、<code>diff.js</code>もまだ実装が変わりそうな気配があります。</p>
 

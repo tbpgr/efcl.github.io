@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2012-02-26T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -119,7 +119,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -250,6 +250,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -264,12 +270,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -366,7 +366,7 @@ var blog_categories = [
 <p><a href="http://atnd.org/events/25519">横浜JSTDDハンズオン</a>の方ではJsTestDriverを使ったハンズオンをしたのでその時のアウトラインメモ。<br>
 Twitterのまとめは <a href="https://yukar.in/note/ckFoT5">横浜JSTDDハンズオン #JSTDD つぶやきまとめ &#8211; Yukarin&#8217;Note</a> に</p>
 
-<h1 id="tddとは何か">TDDとは何か</h1>
+<h1 id="tdd">TDDとは何か</h1>
 
 <ul>
 <li>  プログラマが行うホワイトボックステスト</li>
@@ -389,7 +389,7 @@ Twitterのまとめは <a href="https://yukar.in/note/ckFoT5">横浜JSTDDハン�
 <li>  開発を始めるときは重要だけど、開発を進めるといらない</li>
 </ul>
 
-<h2 id="ドキュメントアプローチ">ドキュメントアプローチ</h2>
+<h2 id=">ドキュメントアプローチ</h2>
 
 <ul>
 <li>  ドキュメントの代わりにテストを書く</li>
@@ -397,20 +397,20 @@ Twitterのまとめは <a href="https://yukar.in/note/ckFoT5">横浜JSTDDハン�
 <li>  開発当初は微妙だけど、公開するにつれて重要になる。</li>
 </ul>
 
-<h2 id="品質的なアプローチ">品質的なアプローチ</h2>
+<h2 id=">品質的なアプローチ</h2>
 
 <ul>
 <li>  コードカバレッジは管理していく段階で重要になる</li>
 <li>  コードカバレッジを重視すると、ドキュメント的な役割がし難く。</li>
 </ul>
 
-<h2 id="結合テスト">結合テスト</h2>
+<h2 id=">結合テスト</h2>
 
 <p>Seleniumとかの話</p>
 
-<h1 id="jstestdriverのアーキテクチャ">JsTestDriverのアーキテクチャ</h1>
+<h1 id="jstestdriver">JsTestDriverのアーキテクチャ</h1>
 
-<h1 id="jstestdriverの使い方">JsTestDriverの使い方</h1>
+<h1 id="jstestdriver">JsTestDriverの使い方</h1>
 
 <h3 id="setup">setUp</h3>
 
@@ -426,11 +426,11 @@ Twitterのまとめは <a href="https://yukar.in/note/ckFoT5">横浜JSTDDハン�
 
 <p>各テストにはqueueという引数がわたってくる 非同期テストはとても面倒</p>
 
-<h2 id="sinon.js">sinon.js</h2>
+<h2 id="sinon-js">sinon.js</h2>
 
 <p>非同期テストを楽にするFakeテストができる</p>
 
-<h2 id="jstestdriverのエラーになりやすい所">JSTestDriverのエラーになりやすい所</h2>
+<h2 id="jstestdriver">JSTestDriverのエラーになりやすい所</h2>
 
 <ul>
 <li>  serverオプションに/を付けるとエラー</li>
@@ -438,7 +438,7 @@ Twitterのまとめは <a href="https://yukar.in/note/ckFoT5">横浜JSTDDハン�
 <li>  ブラウザでアクティブでないタブのsetTimeoutがゆっくりになるので、それぞれウィンドウで実行するのがよい</li>
 </ul>
 
-<h1 id="sinon.js">Sinon.js</h1>
+<h1 id="sinon-js">Sinon.js</h1>
 
 <p>トロイの木馬の手引きをしたスパイの名前が由来</p>
 

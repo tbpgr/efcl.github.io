@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2012-09-09T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -117,7 +117,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -248,6 +248,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -262,12 +268,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -347,7 +347,7 @@ var blog_categories = [
 
 <p>この記事は、WebStorm 1.0 から <a href="http://blog.jetbrains.com/webide/">WebStorm 5.0</a>までの変更や追加機能等を<a href="http://efcl.info/2010/1027/res2023/" title="最強のJavaScript IDE 「WebStorm」を使ってみた | Web scratch">最強のJavaScript IDE 「WebStorm」を使ってみた</a>をベースにまとめたものです。</p>
 
-<h3 id="購入方法">購入方法</h3>
+<h3 id=">購入方法</h3>
 
 <p>既に購入済みな方などは飛ばして大丈夫です。</p>
 
@@ -357,7 +357,7 @@ var blog_categories = [
 <li>  <a href="http://blog.jetbrains.com/blog/2012/09/03/back-to-school-sale-jetbrains-tools-for-up-to-50-off/" title="Back To School sale: JetBrains tools for up to 50% OFF! | JetBrains Company Blog">Back To School sale: JetBrains tools for up to 50% OFF! | JetBrains Company Blog</a></li>
 </ul>
 
-<h4 id="簡単な購入手順">簡単な購入手順</h4>
+<h4 id=">簡単な購入手順</h4>
 
 <ol>
 <li> カートに追加<br>
@@ -367,7 +367,7 @@ var blog_categories = [
 <li> ライセンス発行(結構時間掛かるので1日待ったりすることも多い)</li>
 </ol>
 
-<h4 id=" paypalを利用する場合"> PayPalを利用する場合</h4>
+<h4 id="paypal"> PayPalを利用する場合</h4>
 
 <p>3.のクレジット情報を入力する際に、下部にある&#8221;Change Payment&#8221;をクリックします。</p>
 
@@ -381,11 +381,11 @@ var blog_categories = [
 
 <p>&nbsp;</p>
 
-<h3 id="ここから本編の変更点などについて">ここから本編の変更点などについて</h3>
+<h3 id=">ここから本編の変更点などについて</h3>
 
 <p>最初に述べたように<a href="http://efcl.info/2010/1027/res2023/" title="最強のJavaScript IDE 「WebStorm」を使ってみた | Web scratch">最強のJavaScript IDE 「WebStorm」を使ってみた</a>との変更点等が主です。</p>
 
-<h4 id="コード補完機能">コード補完機能</h4>
+<h4 id=">コード補完機能</h4>
 
 <ul>
 <li>  現在のスコープなども補完候補の出現順番に影響 
@@ -417,7 +417,7 @@ var blog_categories = [
 </ul></li>
 </ul>
 
-<h4 id="コ－ド解析">コ－ド解析</h4>
+<h4 id=">コ－ド解析</h4>
 
 <ul>
 <li>  宣言元へのジャンプがAMDモジュールに対応 
@@ -440,7 +440,7 @@ var blog_categories = [
 </ul></li>
 </ul>
 
-<h4 id="言語やライブラリ">言語やライブラリ</h4>
+<h4 id=">言語やライブラリ</h4>
 
 <ul>
 <li>  Sass/Less/CoffeeScript/reST/Markdown(plugin)/Jade/JsTestDriver/Jasmine/Ext.js/Node.js/Dart(現在はplugin)などのサポート</li>
@@ -454,7 +454,7 @@ var blog_categories = [
 </ul></li>
 </ul>
 
-<h4 id="自動整形機能">自動整形機能</h4>
+<h4 id=">自動整形機能</h4>
 
 <ul>
 <li>  幾つか整形のオプションが追加された</li>
@@ -474,7 +474,7 @@ var blog_categories = [
 <li>  逆にletや分割代入等は <a href="http://azu.github.com/slide/webstorm/webstorm.html#slide36" title="ECMAScript 6 (Harmony)">ECMAScript 6 (Harmony)</a> でサポートされています</li>
 </ul>
 
-<h4 id="バージョン管理">バージョン管理</h4>
+<h4 id=">バージョン管理</h4>
 
 <ul>
 <li>  <a href="http://azu.github.com/slide/webstorm/webstorm.html#slide30" title="バージョン管理連携">バージョン管理連携 &#8211; WebStorm指南書</a></li>
@@ -487,7 +487,7 @@ var blog_categories = [
 </ul></li>
 </ul>
 
-<h4 id="テストフレームワーク">テストフレームワーク</h4>
+<h4 id=">テストフレームワーク</h4>
 
 <ul>
 <li>  プラグインだったJSTestDriver(JSTD)が統合、強化 
@@ -508,7 +508,7 @@ var blog_categories = [
 <li>  <a href="http://azu.github.com/slide/Kamakura/busterJS.html#slide27" title="JavaScript Testing FrameworkのBusterJSを使う">JavaScript Testing FrameworkのBusterJSを使う</a></li>
 </ul>
 
-<h4 id="javascriptデバッガー">JavaScriptデバッガー</h4>
+<h4 id="javascript">JavaScriptデバッガー</h4>
 
 <ul>
 <li>  JavaScriptデバッガーがFirefoxに加えて、Chromeに対応 
@@ -531,14 +531,14 @@ var blog_categories = [
 </ul></li>
 </ul>
 
-<h4 id="体験版">体験版</h4>
+<h4 id=">体験版</h4>
 
 <ul>
 <li>  <del>45日間</del> -&gt; 30日間</li>
 <li>  <a href="http://confluence.jetbrains.net/display/WI/Web+IDE+EAP">EAPビルド</a>のビルド毎の有効期間も30日なので、これに合わせたような気もする</li>
 </ul>
 
-<h4 id="他のideとの比較">他のIDEとの比較</h4>
+<h4 id="ide">他のIDEとの比較</h4>
 
 <p>JetBrains製のIDEにはPhpStorm/PyCharm/RubyMine/IntelliJ等がありますが、どれを買うべきか迷う場合は以下を参考にするといいです。<br>
 PhpStormはWebStormの上位製品で、IntelliJはPhpStormも含んでいるUltimateなので、ここであげられているWebStormの機能は他のIDEでも利用できます。</p>
@@ -548,7 +548,7 @@ PhpStormはWebStormの上位製品で、IntelliJはPhpStormも含んでいるUlt
 <li>  <a href="http://d.hatena.ne.jp/masanobuimai/20101227#1293454205">IDEAと他の製品のプラグインを比較してみた</a></li>
 </ul>
 
-<h4 id="おわりに">おわりに</h4>
+<h4 id=">おわりに</h4>
 
 <blockquote title="最強のJavaScript IDE 「WebStorm」を使ってみた | Web scratch" cite="http://efcl.info/2010/1027/res2023/">
   <p>

@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2014-05-06T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -117,7 +117,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -248,6 +248,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -262,12 +268,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -347,12 +347,12 @@ Mocha等でPromiseのテストを書くときに見落としを減らすため�
 <li>  <a href="http://efcl.info/2014/0314/res3708/" title="MochaがPromisesのテストをサポートしました | Web scratch">MochaがPromisesのテストをサポートしました | Web scratch</a></li>
 </ul>
 
-<h2 id="promiseのテストの難しさ">Promiseのテストの難しさ</h2>
+<h2 id="promise">Promiseのテストの難しさ</h2>
 
 <p>Promiseのテストについては<a href="https://github.com/azu/Promises-book" title="azu/promises-book">azu/promises-book</a>の<a href="http://azu.github.io/promises-book/#_chapter_3_promises" title="Chapter.3 - Promisesのテスト">Chapter.3 &#8211; Promisesのテスト</a>で詳しく書いているので、こちらを読んで欲しいのですが簡単にハマりどころを紹介します。<br>
 (間違いがあったりもっといい方法があったら<a href="https://github.com/azu/Promises-book/issues?state=open" title="Issues · azu/promises-book">Issues · azu/promises-book</a>にissue下さい)</p>
 
-<h3 id="必ず通ってしまうテスト">必ず通ってしまうテスト</h3>
+<h3 id=">必ず通ってしまうテスト</h3>
 
 <p>例えば、次のようなpromiseオブジェクトがRejectedされた時の結果をテストしたい場合、<br>
 必要最小限だと以下のように書いてしまうと思います。</p>
@@ -388,7 +388,7 @@ it("thenで落ちる条件を明示する", function () {
 <p>こうすることでfulfilledされた時は<code>failTest</code>が呼ばれるのでテストが意図したように落ちます。<br>
 (<a href="http://azu.github.io/promises-book/#mocha_support_promise" title="3.2. MochaのPromisesサポート">3.2. MochaのPromisesサポート</a>で詳しく解説してます)</p>
 
-<h3 id="promise-test-helperで書く"><a href="https://github.com/azu/promise-test-helper" title="promise-test-helper">promise-test-helper</a>で書く</h3>
+<h3 id="promise-test-helper"><a href="https://github.com/azu/promise-test-helper" title="promise-test-helper">promise-test-helper</a>で書く</h3>
 
 <p><a href="https://github.com/azu/promise-test-helper" title="promise-test-helper">promise-test-helper</a>ではpromiseオブジェクトがどちらの状態になるのかを明示するためのヘルパー関数を提供しています。</p>
 
@@ -414,7 +414,7 @@ it("should be failed", function () {
 <p>この場合は、fulfilledされた時点で自動でテストが落ちるようになるので、自動てテストが通ってしまうミスが減ると思います。<br>
 (一番の罠は<code>return</code>忘れですが…)</p>
 
-<h2 id="他のやり方">他のやり方</h2>
+<h2 id=">他のやり方</h2>
 
 <p><a href="http://azu.github.io/promises-book/#control_tests" title="3.3. 意図したテストを書くには">3.3. 意図したテストを書くには</a>のまとめでも簡単に触れていますが、<br>
 PromiseのテストでもMochaの<code>done</code>を使った方法も使えるので、そちらでもPromiseのテストが行えます。</p>

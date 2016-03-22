@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2014-12-18T01:14:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -121,7 +121,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -252,6 +252,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -266,12 +272,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -337,11 +337,11 @@ var blog_categories = [
 <li><a href="http://togetter.com/li/758927" title="#pxgridjs - Togetterまとめ">#pxgridjs - Togetterまとめ</a></li>
 </ul>
 
-<h2 id="アウトライン">アウトライン</h2>
+<h2 id=">アウトライン</h2>
 
 <p>詳しくは<a href="http://togetter.com/li/758927" title="#pxgridjs">#pxgridjs</a>を見るといいと思います。</p>
 
-<h3 id="faketimerの今後とsinonjsが分離した理由---@kyo_ago">fakeTimerの今後とsinonjsが分離した理由 -  @kyo_ago</h3>
+<h3 id="faketimer-sinonjs-kyo_ago">fakeTimerの今後とsinonjsが分離した理由 -  @kyo_ago</h3>
 
 <blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a> 「fakeTimerの今後とsinonjsが分離した理由」</p>&mdash; kyo ago (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/544127219413426177">December 14, 2014</a></blockquote>
 
@@ -352,7 +352,7 @@ var blog_categories = [
 <li>Sinon自体が結構闇実装が多いのでキレイなSinonが欲しい</li>
 </ul>
 
-<h3 id="fluxモジュールのpr送った話---@muddydixon">FluxモジュールのPR送った話 - @muddydixon</h3>
+<h3 id="flux-pr-muddydixon">FluxモジュールのPR送った話 - @muddydixon</h3>
 
 <blockquote>
 <p>資料: <a href="https://github.com/facebook/flux/pull/115" title="Select action type by muddydixon · Pull Request #115 · facebook/flux">Select action type by muddydixon · Pull Request #115 · facebook/flux</a></p>
@@ -374,7 +374,7 @@ var blog_categories = [
 <p><a href="https://github.com/facebook/flux/pull/115" title="Select action type by muddydixon · Pull Request #115 · facebook/flux">Select action type by muddydixon · Pull Request #115 · facebook/flux</a>というPRでは、イベントネームみたいにactionのtypeを指定出来るようにして、シンプルにそのtypeのコールバックを書けるようにしてる。
 (今までのやつだとコールバック内でswitchを並べる感じになってる <a href="http://facebook.github.io/flux/docs/todo-list.html#content" title="Flux | Application Architecture for Building User Interfaces">Flux | Application Architecture for Building User Interfaces</a> ) </p>
 
-<h3 id="react.js使ってみた---@-ama-ch">React.js使ってみた - @ ama-ch</h3>
+<h3 id="react-js-ama-ch">React.js使ってみた - @ ama-ch</h3>
 
 <blockquote>
 <p>資料:  <a href="https://gist.github.com/ama-ch/23fd010a086b82eb76e0" title="React.js使ってみた">React.js使ってみた</a></p>
@@ -385,7 +385,7 @@ var blog_categories = [
 <li>先駆者からの<a href="https://gist.github.com/ama-ch/23fd010a086b82eb76e0#comment-1358075" title="なみにDOMの追加削除の確認は、React.addons.Perf.start()、React.addons.Perf.stop()で該当箇所を囲んでR">回答</a>は<a href="https://gist.github.com/ama-ch/23fd010a086b82eb76e0#comment-1357966" title="gist:23fd010a086b82eb76e0">コメント欄</a>に</li>
 </ul>
 
-<h3 id="direct-proxyでobject.observeはpolyfillできるのか？">Direct ProxyでObject.observeはpolyfillできるのか？</h3>
+<h3 id="direct-proxy-object-observe-polyfill">Direct ProxyでObject.observeはpolyfillできるのか？</h3>
 
 <blockquote>
 <p>スライド: <a href="https://speakerdeck.com/hokaccha/direct-proxiesdeobject-dot-observefalse-polyfillhadekirufalseka" title="Direct ProxiesでObject.observeの Polyfillはできるのか // Speaker Deck">Direct ProxiesでObject.observeの Polyfillはできるのか // Speaker Deck</a></p>
@@ -399,7 +399,7 @@ var blog_categories = [
 <li>機能的に同じ事はできる(使い方が若干異なる)</li>
 </ul>
 
-<h3 id="fix-for-ie8-by-teppeis-·-pull-request-#17-·-jxck/assert-の話---@teppeis"><a href="https://github.com/Jxck/assert/pull/17" title="Fix for IE8 by teppeis · Pull Request #17 · Jxck/assert">Fix for IE8 by teppeis · Pull Request #17 · Jxck/assert</a> の話 - @teppeis</h3>
+<h3 id="fix-for-ie8-by-teppeis-pull-request-17-jxck-assert-teppeis"><a href="https://github.com/Jxck/assert/pull/17" title="Fix for IE8 by teppeis · Pull Request #17 · Jxck/assert">Fix for IE8 by teppeis · Pull Request #17 · Jxck/assert</a> の話 - @teppeis</h3>
 
 <blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a> twadaさんも言いづらいassertのpr話 by teppeis</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/545172188538490880">December 17, 2014</a></blockquote>
 
@@ -415,7 +415,7 @@ var blog_categories = [
 <li>とりあえず<a href="https://github.com/defunctzombie/commonjs-assert" title="defunctzombie/commonjs-assert">defunctzombie/commonjs-assert</a>にもIE8対応のPRを送る?</li>
 </ul>
 
-<h3 id="ブラウザのキーイベント---@k_kinzal">ブラウザのキーイベント - @k_kinzal</h3>
+<h3 id="k_kinzal">ブラウザのキーイベント - @k_kinzal</h3>
 
 <blockquote>
 <p>資料:  <a href="https://docs.google.com/spreadsheet/lv?key=0AgmiuHBYwYUVdHA3bzJSaWxLb29VS3VWcjBrUU9EVlE&amp;usp=sharing" title="kecode.map - Google Docs">kecode.map - Google Docs</a></p>
@@ -437,7 +437,7 @@ var blog_categories = [
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<h3 id="web-componentsがjqueryくらい簡単に使えるようになるのか---@nakajmg">Web ComponentsがjQueryくらい簡単に使えるようになるのか -  @nakajmg</h3>
+<h3 id="web-components-jquery-nakajmg">Web ComponentsがjQueryくらい簡単に使えるようになるのか -  @nakajmg</h3>
 
 <ul>
 <li>Web Componentsは普通の人が使える難易度のものなのか?</li>
@@ -455,7 +455,7 @@ var blog_categories = [
 <li>頭いい人がそれをベースに作ったライブラリを使う世界になるのでは?</li>
 </ul>
 
-<h3 id="#javascript忘年会---azu">#JavaScript忘年会 - azu</h3>
+<h3 id="javascript-azu">#JavaScript忘年会 - azu</h3>
 
 <blockquote>
 <p>スライド:  <a href="http://azu.github.io/slide/pixelgrid/forget-js.html" title="#JavaScript忘年会">#JavaScript忘年会</a></p>
@@ -465,7 +465,7 @@ var blog_categories = [
 
 <p>フェードアウト気味のものから、<a href="https://github.com/vowsjs/vows" title="vows">vows</a> みたいに予想に反して最近活発になってたりしたものもありました。</p>
 
-<h3 id="serviceworkerはsameoriginを超えられるのか---azu">ServiceWorkerはSameOriginを超えられるのか - azu</h3>
+<h3 id="serviceworker-sameorigin-azu">ServiceWorkerはSameOriginを超えられるのか - azu</h3>
 
 <blockquote>
 <p>スライド:  <a href="http://azu.github.io/slide/pixelgrid/serviceworker-cors.html" title="ServiceWorkerはSameOriginを超えられるのか">ServiceWorkerはSameOriginを超えられるのか</a></p>
@@ -477,7 +477,7 @@ var blog_categories = [
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<h3 id="画面遷移の管理どうしてますか?---@kyosuke">画面遷移の管理どうしてますか? - @kyosuke</h3>
+<h3 id="kyosuke">画面遷移の管理どうしてますか? - @kyosuke</h3>
 
 <blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/pxgridjs?src=hash">#pxgridjs</a> テキストベースの画面遷移図管理ツールが欲しいという話</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/545183736480808960">December 17, 2014</a></blockquote>
 
@@ -497,7 +497,7 @@ var blog_categories = [
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<h3 id="contenteditableとペーストのバグ---@ykhs">ContentEditableとペーストのバグ - @ykhs</h3>
+<h3 id="contenteditable-ykhs">ContentEditableとペーストのバグ - @ykhs</h3>
 
 <ul>
 <li><a href="http://ckeditor.com/" title="CKEditor.com | The best web text editor for everyone">CKEditor</a>でペースト時に起きる謎のバグ</li>
@@ -527,7 +527,7 @@ var blog_categories = [
 <li><a href="http://please-sleep.cou929.nu/how-to-report-bugs-of-browser.html" title="ブラウザのバグを見つけたときにやること - Please Sleep">ブラウザのバグを見つけたときにやること - Please Sleep</a></li>
 </ul>
 
-<h3 id="その他">その他</h3>
+<h3 id=">その他</h3>
 
 <p>MS</p>
 
@@ -553,7 +553,7 @@ var blog_categories = [
 <li>ES6 moduleがあやふやな時代に作られたのでしょうがないところはある</li>
 </ul>
 
-<h2 id="メモ">メモ</h2>
+<h2 id=">メモ</h2>
 
 <blockquote class="twitter-tweet" data-partner="tweetdeck"><p>MacbookProのモニタがリアルタイムグリッチエディタになった <a href="http://t.co/nsMlcKKixo">pic.twitter.com/nsMlcKKixo</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/545220045656182784">December 17, 2014</a></blockquote>
 

@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2014-07-21T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -121,7 +121,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -252,6 +252,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -266,12 +272,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -339,7 +339,7 @@ var blog_categories = [
 <li><a href="https://github.com/Constellation/ldrfullfeed" title="Constellation/ldrfullfeed">Constellation/ldrfullfeed</a></li>
 </ul>
 
-<h2 id="greasemonkey2.0">Greasemonkey2.0</h2>
+<h2 id="greasemonkey2-0">Greasemonkey2.0</h2>
 
 <p>Greasemonkey2.0ではFirefoxの変更に合わせて、セキュリティ周りの変更がありました。
 それにより、色々なGreasemonkeyがそのままだと動かなくなっています。</p>
@@ -357,7 +357,7 @@ var blog_categories = [
 <li>unsafeWindowの挙動が変わった(Firefox側の変更)</li>
 </ul>
 
-<h2 id="@grant-none"><code>@grant none</code></h2>
+<h2 id="grant-none"><code>@grant none</code></h2>
 
 <ul>
 <li><a href="http://wiki.greasespot.net/@grant" title="@grant - GreaseSpot Wiki">@grant - GreaseSpot Wiki</a></li>
@@ -393,7 +393,7 @@ greasemonkey_grant file.user.js
 </code></pre></div>
 <p>のようなコメント形式で使ってるAPI一覧を得られます。</p>
 
-<h3 id="@grant-noneの挙動"><code>@grant none</code>の挙動</h3>
+<h3 id="grant-none"><code>@grant none</code>の挙動</h3>
 
 <p><code>@grant none</code> はpage contextで実行されるため<code>GM_*関数</code>は使えません。
 ブックマークレットと同じようなものなので、<code>GM_関数</code>が必要ない場合はこれをつかったほうが楽です。</p>
@@ -404,7 +404,7 @@ greasemonkey_grant file.user.js
 <p>そのためサイト間をまたいだりしないGreasemonkeyは、これをつかって <code>@grant none</code> で動かせるケースが多いでしょう。
 (APIを叩く場合は大抵クロスドメイン跨ぐので無理かも)</p>
 
-<h4 id="実例">実例</h4>
+<h4 id=">実例</h4>
 
 <p><a href="http://d.hatena.ne.jp/zaknak/20080909/1220936155" title="livedoor Reader で NG word フィルター を実現する Greasemonkey - zaknakの日記">livedoor Reader で NG word フィルター を実現する Greasemonkey - zaknakの日記</a> で公開されていた
 LDRのNGフィルタをするGreasemonkeyは<code>GM_*関数</code>が必要なかったので、 <code>@grant none</code>で動くように修正しました</p>
@@ -413,7 +413,7 @@ LDRのNGフィルタをするGreasemonkeyは<code>GM_*関数</code>が必要な�
 <li><a href="https://github.com/azu/LDR-NG" title="azu/LDR-NG">azu/LDR-NG</a></li>
 </ul>
 
-<h2 id="unsafewindowの挙動">unsafeWindowの挙動</h2>
+<h2 id="unsafewindow">unsafeWindowの挙動</h2>
 
 <p>もう一つの大きな変更が、<code>unsafeWindow</code>周りの挙動です</p>
 
@@ -462,7 +462,7 @@ window(page context)からそのイベントが発火してメソッドを呼ぶ
 <p>この辺はProxy APIでラップしたwindowとかを作れば自動的にいけるんじゃないかと思って、<a href="https://github.com/azu/Greasemonkey-unsafeWindow-Proxy" title="azu/Greasemonkey-unsafeWindow-Proxy">azu/Greasemonkey-unsafeWindow-Proxy</a>
 というのを書いてたんですが、何かよくわからなくなって放置してます。</p>
 
-<h4 id="実例">実例</h4>
+<h4 id=">実例</h4>
 
 <p>ldr_keyhack_jkc+nとLDRFullFeedはこの <code>exportFunction</code> を使って修正してあります。</p>
 
@@ -471,7 +471,7 @@ window(page context)からそのイベントが発火してメソッドを呼ぶ
 <li><a href="https://github.com/Constellation/ldrfullfeed" title="Constellation/ldrfullfeed">Constellation/ldrfullfeed</a></li>
 </ul>
 
-<h2 id="最近のgreasemonkey">最近のGreasemonkey</h2>
+<h2 id="greasemonkey">最近のGreasemonkey</h2>
 
 <p>箇条書きで最近のGreasemonkey</p>
 
@@ -536,7 +536,7 @@ npm run watch <span class="c"># 監視 + ビルド</span>
 <p>ファイルサイズが大きくなりやすいですが、管理しやすいし各スクリプトで<a href="https://github.com/azu/show-diff-from-release/blob/4aecc1279e6d23600b99a139ea14437480153bac/package.json#L26" title="show-diff-from-release/package.json at 4aecc1279e6d23600b99a139ea14437480153bac · azu/show-diff-from-release">共通モジュール</a>が簡単にできたりするので、
 自分用に書く場合は圧倒的に楽になると思います。</p>
 
-<h2 id="まとめ">まとめ</h2>
+<h2 id=">まとめ</h2>
 
 <ul>
 <li>Greasemonkey 2.0(Firefox30)で色々破壊的な変更が起きた

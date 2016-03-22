@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2014-04-01T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -117,7 +117,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -248,6 +248,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -262,12 +268,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -333,63 +333,41 @@ var blog_categories = [
 <li><a href="http://togetter.com/li/649498" title="#寿司js - Togetterまとめ">#寿司js &#8211; Togetterまとめ</a></li>
 </ul>
 
-<hr />
-
+<p><hr />
 <div class="kwout" style="text-align: center;"><a href="http://azu.github.io/slide/sushijs/"><img src="http://kwout.com/cutout/a/pt/sa/z8p.jpg" alt="http://azu.github.io/slide/sushijs/" title="Promises Starter" width="600" height="317" style="border: none;" /></a>
 <p style="margin-top: 10px; text-align: center;"><a href="http://azu.github.io/slide/sushijs/">Promises Starter</a></p>
 </div>
-
 <p><a href="http://azu.github.io/slide/sushijs/" title="Promises Starter">Promises Starter</a>ではPromiseの基本的な部分だけなので、<code>Pormise.all</code>等実際に使うと便利的な話は入れてないです。</p>
-
 <p>PromiseのAPIの概要、Promiseの状態の種類、基本的なresolve/rejectの流れ、XHRの例、エラーハンドリングについてがメインな感じです。</p>
-
 <p>続きはウェブで ということで、今<a href="https://github.com/azu/Promises-book" title="azu/promises-book">azu/promises-book</a>というものを書いているので、<br />
 ここが分かりにくいとかここが間違ってるとか、こういうこと書いたほうがいいとかあったらフィードバックお願いします。</p>
-
 <p>まだ全然書き途中なのですが、書いていく内容については<a href="https://github.com/azu/promises-book/pull/1" title="[WIP] この書籍で扱う内容について by azu · Pull Request #1 · azu/promises-book">[WIP] この書籍で扱う内容について by azu · Pull Request #1 · azu/promises-book</a>や<a href="https://gitter.im/azu/promises-book" title="azu/promises-book - Gitter">azu/promises-book &#8211; Gitter</a>等で議論できればなーと思います</p>
-
 <p><a href="https://gitter.im/azu/promises-book"><img src="https://badges.gitter.im/azu/promises-book.png" alt="Gitter chat" /></a></p>
-
 <p>Gitterにチャットルームもあるのでそちらに適当に書き殴っていってもいいと思います。</p>
-
 <hr />
-
 <p>戻って寿司.jsのアウトライン</p>
-
 <blockquote class="twitter-tweet" lang="en"><p>この雰囲気でLTするのか。。<a href="https://twitter.com/search?q=%23%E5%AF%BF%E5%8F%B8JS&amp;src=hash">#寿司JS</a> <a href="http://t.co/90D5DAx8JD">pic.twitter.com/90D5DAx8JD</a></p>
 <p>&mdash; Kazuhito Hokamura (@hokaccha) <a href="https://twitter.com/hokaccha/statuses/450573522016813056">March 31, 2014</a></p></blockquote>
-
 <p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
 <h2><a href="http://azu.github.io/slide/sushijs/" title="Promises Starter">Promises Starter</a> &#8211; azu</h2>
-
 <blockquote>
 <p><a href="http://azu.github.io/slide/sushijs/" title="Promises Starter">Promises Starter</a>
 </p></blockquote>
-
 <p>最初に自分がPromiseについて発表しました</p>
-
 <blockquote class="twitter-tweet" lang="en"><p>これが寿司js <a href="https://twitter.com/search?q=%23%E5%AF%BF%E5%8F%B8js&amp;src=hash">#寿司js</a> <a href="http://t.co/9Go3dzMZvL">pic.twitter.com/9Go3dzMZvL</a></p>
 <p>&mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/statuses/450578369902436352">March 31, 2014</a></p></blockquote>
-
 <p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
 <blockquote class="twitter-tweet" lang="en"><p>これが <a href="https://twitter.com/search?q=%23%E5%AF%BF%E5%8F%B8JS&amp;src=hash">#寿司JS</a> <a href="http://t.co/ciQbyxikB7">pic.twitter.com/ciQbyxikB7</a></p>
 <p>&mdash; Kazuhito Hokamura (@hokaccha) <a href="https://twitter.com/hokaccha/statuses/450578388973916161">March 31, 2014</a></p></blockquote>
-
 <p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
 <hr />
-
 <h2>git pullした時にbowerとか変更があった時にどうする問題 &#8211; yosuke_furukawa</h2>
-
 <ul>
 <li><a href="http://yosuke-furukawa.hatenablog.com/entry/2014/03/31/125131" title="git pullでファイルに変更があったら特定のコマンドを実行する。 - from scratch">git pullでファイルに変更があったら特定のコマンドを実行する。 &#8211; from scratch</a>
 <ul>
 <li>特定のファイルに変更があったらinstallし直す</li>
 </ul>
-
-<p></li>
+</li>
 <li>Rakeとかで何かする時は、とりあえずinstallしてからやってしまう方法
 <ul>
 <li>既にモジュールがあるなら何も置きないので、そこまで問題にならない</li>

@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2014-01-23T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -117,7 +117,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -248,6 +248,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -262,12 +268,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -344,7 +344,7 @@ var blog_categories = [
 
 <p>(この場合のデフォルトとは、gulp側に自動的にcoffeeという拡張子をみて何かする処理がないということ)</p>
 
-<h2 id="coffeescriptでgulpfileを書く">CoffeeScriptでgulpfileを書く</h2>
+<h2 id="coffeescript-gulpfile">CoffeeScriptでgulpfileを書く</h2>
 
 <p>サンプルは以下に置いてあります。</p>
 
@@ -408,7 +408,7 @@ var blog_categories = [
 <li>  <a href="https://github.com/gulpjs/gulp/tree/master/docs" title="gulp/docs at master · gulpjs/gulp">gulp/docs at master · gulpjs/gulp</a></li>
 </ul>
 
-<h2 id="仕組み">仕組み</h2>
+<h2 id=">仕組み</h2>
 
 <p>最初に <code>js</code> という拡張子についてしか、 gulp側には定義されてないと言いましたが、<br>
 <code>gulpfile.coffee</code> の <code>coffee</code> という拡張子はどうやって認識してるのでしょうか?</p>

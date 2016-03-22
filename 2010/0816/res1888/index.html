@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2010-08-16T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -123,7 +123,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -254,6 +254,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -268,12 +274,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -337,7 +337,7 @@ var blog_categories = [
 直感的に言うと、WSH + AutoHotKeyみたいな感じというのが分かりやすいかな。<br>
 できることなど細かい事は<a href="http://lukewarm.s151.xrea.com/nilscript.html">NILScript</a>のページやDocを読んでもらうとして、SpiderMonkey(JavaScript 1.8.1ベース)を使った処理系なのでFirefoxと同じJavaScriptの文法で、エクスプローラでのバッチ処理やキーバインドの変更などWSHやAutoHotKeyで行っていたような事が<strong>JavaScript</strong>で書けます。</p>
 
-<h3 id="使い方">使い方</h3>
+<h3 id=">使い方</h3>
 
 <p><a href="http://lukewarm.s151.xrea.com/nilscript.html">NILScript</a>のページからnil.zipをダウンロードして、適当な場所に解凍します。<br>
 解凍して出てくるng.exe(コンソールあり)とngw.exe(コンソールなし)のどちらかに、NILScriptのスクリプトファイルである<em>.ngファイルを渡すと実行されます。(WSHだとng = Cscript ,ngw = Wscript みたいな感じ)<br>
@@ -371,7 +371,7 @@ var blog_categories = [
 特にエクスプローラなどのファイル操作周りはWSHより簡単に書けるので、簡易なバッチ処理を書きやすい。<br>
 次はngスクリプトの書き方を見ていきます。</p>
 
-<h3 id="書き方">書き方</h3>
+<h3 id=">書き方</h3>
 
 <p>ドキュメントはダウンロードしたnilフォルダにdocというフォルダがあり、その中にユニット(機能)毎のドキュメントが書いてあります。<br>
 いろいろあるので何から見れば良いか迷いますが、まずは<em>readme.txtを開いてみると、NILScriptには大きく分けて、<br>
@@ -425,7 +425,7 @@ _readme.txtの●ユニットスクリプト機能にも書いてありますが
 <p>サンプルを見ていくと大体雰囲気は使えめると思いますが、まだまだ文例が足りないのでハマる事があります。<br>
 くだらないものを書いてもどんどん公開して、いろんな書き方が見られるようになるともっと使いやすいものになると思います！</p>
 
-<h3 id="作例">作例</h3>
+<h3 id=">作例</h3>
 
 <p><strong>追記:現在は<a href="https://github.com/azu/NILScript/wiki" title="Home - NILScript - GitHub">Home &#8211; NILScript &#8211; GitHub</a>にほとんどのスクリプト置いてあります</strong></p>
 
@@ -499,7 +499,7 @@ OAuth.jsとかも一緒くたにしてるので、分離する方法はまた後
 
 <p>本当はユニットスクリプトやプラグインにした方が良いんだけどやり方がイマイチ分からなかったのでincludeにしてみた。</p>
 
-<h3 id="まとめ">まとめ</h3>
+<h3 id=">まとめ</h3>
 
 <p>良いところ</p>
 

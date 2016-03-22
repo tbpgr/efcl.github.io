@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2013-12-28T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -115,7 +115,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -246,6 +246,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -260,12 +266,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -328,7 +328,7 @@ var blog_categories = [
         <p>R言語のIDEである<a href="http://www.rstudio.com/" title="RStudio">RStudio</a>ではR言語に特化した<a href="http://www.rstudio.com/ide/docs/authoring/using_markdown" title="R Markdown">R Markdown</a>というMarkdownの拡張が使えますが、<br>
 このプレビューで表示されるHTMLはデフォルトだとちょっと味気ない感じです。</p>
 
-<h2 id="rstudioのプレビューcssを変更する">RStudioのプレビューCSSを変更する</h2>
+<h2 id="rstudio-css">RStudioのプレビューCSSを変更する</h2>
 
 <p>RStudioからのRmd(RMarkdown)のプレビューのカスタム方法は以下に書いてあります。</p>
 
@@ -348,7 +348,7 @@ var blog_categories = [
 
 <p><img src="http://efcl.info/wp-content/uploads/2013/12/RStudio-Preview-HTML-2013-12-28-16-43-21.jpg" alt="RStudio Preview HTML 2013 12 28 16 43 21" title="RStudio: Preview HTML 2013-12-28 16-43-21.jpg" border="0" width="600" height="383" /></p>
 
-<h2 id="markdownパッケージの場合">markdownパッケージの場合</h2>
+<h2 id="markdown">markdownパッケージの場合</h2>
 
 <p>markdown自体にはstylesheetを設定するオプションもあるので、RStudioからではなく普通にスクリプトから利用する場合は、以下のように設定することが出来ます。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">options(markdown.HTML.stylesheet=&quot;~/.R/my.css&quot;)

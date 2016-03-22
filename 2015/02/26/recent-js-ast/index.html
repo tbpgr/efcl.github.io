@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2015-02-26T11:54:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -117,7 +117,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -248,6 +248,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -262,12 +268,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -417,7 +417,7 @@ Esprimaと相互参照するIssueも多く、ライブラリとしては別で�
 
 <p>進行中の仕様なので実験してIssueとかを立てたりするのは、歓迎されると思うので後述する<a href="https://github.com/estree/estree" title="estree/estree">ESTree</a>と共に見ていくのがいいと思います。</p>
 
-<h2 id="jquery-foundation-adopts-esprima-|-official-jquery-blog"><a href="http://blog.jquery.com/2015/01/26/jquery-foundation-adopts-esprima/" title="jQuery Foundation adopts Esprima | Official jQuery Blog">jQuery Foundation adopts Esprima | Official jQuery Blog</a></h2>
+<h2 id="jquery-foundation-adopts-esprima-official-jquery-blog"><a href="http://blog.jquery.com/2015/01/26/jquery-foundation-adopts-esprima/" title="jQuery Foundation adopts Esprima | Official jQuery Blog">jQuery Foundation adopts Esprima | Official jQuery Blog</a></h2>
 
 <p>2015年1月26日 上記の記事で書かれているように、<a href="https://github.com/ariya/esprima">ariya/esprima</a>が<a href="https://github.com/jquery/esprima">jquery/esprima</a>へとリポジトリが移管されました。</p>
 
@@ -425,7 +425,7 @@ Esprimaと相互参照するIssueも多く、ライブラリとしては別で�
 
 <p>Esprimaのプロジェクトリーダは変わらずAriyaです。</p>
 
-<h2 id="[2015-01]-最近のastパーサの動き"><a href="http://azu.github.io/slide/crosushi/shift-ast.html">[2015-01] 最近のASTパーサの動き</a></h2>
+<h2 id="2015-01-ast"><a href="http://azu.github.io/slide/crosushi/shift-ast.html">[2015-01] 最近のASTパーサの動き</a></h2>
 
 <p>ここまでのASTの話をパーサ中心にまとめたスライドです。</p>
 
@@ -437,7 +437,7 @@ Esprimaと相互参照するIssueも多く、ライブラリとしては別で�
 
 <hr>
 
-<h2 id="jquery-foundationの手腕">jQuery Foundationの手腕</h2>
+<h2 id="jquery-foundation">jQuery Foundationの手腕</h2>
 
 <p>先ほども書いていましたが、JavaScriptのパーサで最も使われてるEsprimaがjQuery Foundationに移管されました。</p>
 
@@ -514,7 +514,7 @@ Esprimaと相互参照するIssueも多く、ライブラリとしては別で�
 
 <p>パーサの実装に関わる人が仕様を決めるオープンなコミュニティができたことで、今後パーサ間でどのようなASTを吐くかのズレなどが少なくなっていくと思います。(少なくともECMAScriptの範囲では)</p>
 
-<h2 id="estreeとshift-astの目的の違い">ESTreeとShift ASTの目的の違い</h2>
+<h2 id="estree-shift-ast">ESTreeとShift ASTの目的の違い</h2>
 
 <p><a href="https://github.com/shapesecurity/shift-spec" title="Shift AST Specification">Shift AST Specification</a>と<a href="https://github.com/estree/estree" title="estree/estree">ESTree</a>はどちらもASTの仕様を決めているのでどちらも同じように見えます。この２つの違いは何でしょうか?</p>
 
@@ -554,7 +554,7 @@ Esprimaと相互参照するIssueも多く、ライブラリとしては別で�
 
 <p>そのため、<a href="https://github.com/sebmck" title="sebmck">@sebmck</a>も先ほど紹介した<a href="https://github.com/estree/estree" title="estree/estree">ESTree</a>でのASTの標準化にも関わっていて、特に<a href="https://github.com/estree/estree/blob/master/es6.md" title="estree/es6.md at master · estree/estree">ES6</a>や<a href="https://github.com/estree/estree/blob/master/experimental.md" title="estree/experimental.md at master · estree/estree">ES7+</a>を中心にコミットされています。</p>
 
-<h2 id="おまけ:-mdast">おまけ: <a href="https://github.com/wooorm/mdast" title="wooorm/mdast">mdast</a></h2>
+<h2 id="mdast">おまけ: <a href="https://github.com/wooorm/mdast" title="wooorm/mdast">mdast</a></h2>
 
 <p>これはJavaScriptのASTではありませんが、MarkdownをパースしてASTにしてくれる<a href="https://github.com/wooorm/mdast" title="wooorm/mdast">mdast</a>が最近公開されています。</p>
 
@@ -563,7 +563,7 @@ ASTからMarkdown文字列を生成することもできるので、Markdownツ�
 
 <hr>
 
-<h2 id="今後の見どころ">今後の見どころ</h2>
+<h2 id=">今後の見どころ</h2>
 
 <p>2015年2月26日現在のAST周りの動きについて書きましたが、まだまだ決めるべきことは色々あると思います。</p>
 

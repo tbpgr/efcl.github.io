@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2014-06-29T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -121,7 +121,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -252,6 +252,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -266,12 +272,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -351,7 +351,7 @@ var blog_categories = [
 <li>  <a href="https://github.com/azu/quickstart-example" title="azu/quickstart-example">azu/quickstart-example</a></li>
 </ul>
 
-<h2 id="ビルド">ビルド</h2>
+<h2 id=">ビルド</h2>
 
 <p>ビルドする場合はBroserifyと同じようにentry point(始まりとなるjsファイル)を指定してビルドするだけです。</p>
 
@@ -367,7 +367,7 @@ browserifyとquickstartそれぞれのビルドが以下のように出来るよ
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm run build-q # build with quickstart
 npm run build-b # build with browserify
 </code></pre></div>
-<h3 id="ビルドオプション">ビルドオプション</h3>
+<h3 id=">ビルドオプション</h3>
 
 <p><a href="https://github.com/spotify/quickstart#command-line-interface" title="command line interface">command line interface</a>で幾つかビルドオプションが設定できます。(オプションファイルを用意して指定もできる)</p>
 
@@ -391,7 +391,7 @@ npm run build-b # build with browserify
 <li>  <a href="http://azu.github.io/slide/tkbjs/js-ast-walker.html" title="JavaScript AST Walker">JavaScript AST Walker</a></li>
 </ul>
 
-<h2 id="ローダ">ローダ</h2>
+<h2 id=">ローダ</h2>
 
 <p>これが、<a href="http://spotify.github.io/quickstart/" title="QuickStart">QuickStart</a>のメイン機能だと思っているのですが、<br>
 QuickStartは自身をローダとして使うことが出来ます。</p>
@@ -411,7 +411,7 @@ QuickStartは自身をローダとして使うことが出来ます。</p>
 
 <p>そして実際にアクセスした時に、<code>package.json</code>の<code>main</code>等を解析して動的に<code>require</code>で使ってるモジュールを解決していきます。(AMDみたいに動的ロードじゃなくて最初のフェーズで全部やるはず)</p>
 
-<h3 id="ローダとsource-map">ローダとSource Map</h3>
+<h3 id="source-map">ローダとSource Map</h3>
 
 <p>ローダとして使った場合、Source Mapの生成も動的に行います。(自動的に有効になるようです)</p>
 
@@ -437,7 +437,7 @@ npm run watch # == broserify -d
 
 <p>というイメージが近い感じがします。</p>
 
-<h2 id="まとめ">まとめ</h2>
+<h2 id=">まとめ</h2>
 
 <p>CommonJSで書いたものをビルドしてブラウザで実行出来るようにビルドするツールは<a href="https://github.com/michaelficarra/commonjs-everywhere" title="michaelficarra/commonjs-everywhere">michaelficarra/commonjs-everywhere</a>や<a href="http://browserify.org/" title="Browserify">Browserify</a>等があります。</p>
 

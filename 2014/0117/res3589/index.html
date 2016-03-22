@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2014-01-17T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -117,7 +117,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -248,6 +248,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -262,12 +268,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -331,7 +331,7 @@ var blog_categories = [
 
 <p><a href="http://www.cross-party.com/" title="CROSS 2014 | エンジニアサポートCROSS2014">CROSS 2014 | エンジニアサポートCROSS2014</a> に参加してきたメモ</p>
 
-<h2 id="アセンブラ短歌×バイナリかるた"><a href="http://www.cross-party.com/programs/tanka/" title="アセンブラ短歌×バイナリかるた">アセンブラ短歌×バイナリかるた</a></h2>
+<h2 id="><a href="http://www.cross-party.com/programs/tanka/" title="アセンブラ短歌×バイナリかるた">アセンブラ短歌×バイナリかるた</a></h2>
 
 <ul>
 <li>  バイナリカルタで8枚とれた</li>
@@ -339,7 +339,7 @@ var blog_categories = [
 
 <hr>
 
-<h2 id="実況解説つき！ペアプロでわかるjavascriptテスト入門"><a href="http://www.cross-party.com/programs/pairpro/" title="実況解説つき！ペアプロでわかるJavaScriptテスト入門">実況解説つき！ペアプロでわかるJavaScriptテスト入門</a></h2>
+<h2 id="javascript"><a href="http://www.cross-party.com/programs/pairpro/" title="実況解説つき！ペアプロでわかるJavaScriptテスト入門">実況解説つき！ペアプロでわかるJavaScriptテスト入門</a></h2>
 
 <p>ペアプロ + 解説実況</p>
 
@@ -348,7 +348,7 @@ var blog_categories = [
 <li>  jQueryのコード</li>
 </ul>
 
-<h2 id="テンプレート">テンプレート</h2>
+<h2 id=">テンプレート</h2>
 
 <ul>
 <li>  <a href="https://github.com/kyo-ago/cross2014" title="kyo-ago/cross2014">kyo-ago/cross2014</a></li>
@@ -365,7 +365,7 @@ var blog_categories = [
 <li>  expect.js</li>
 </ul>
 
-<h2 id="javascriptのテスト">JavaScriptのテスト</h2>
+<h2 id="javascript">JavaScriptのテスト</h2>
 
 <ul>
 <li>  少し前は書きにくいと言われてたけどツールが発達した</li>
@@ -375,14 +375,14 @@ var blog_categories = [
 <li>  <code>window.testInit</code> というのをsetupでテストダブルしておく</li>
 </ul>
 
-<h3 id="sinon.js"><a href="http://sinonjs.org/" title="Sinon.JS">Sinon.JS</a></h3>
+<h3 id="sinon-js"><a href="http://sinonjs.org/" title="Sinon.JS">Sinon.JS</a></h3>
 
 <ul>
 <li>  <a href="http://ja.wikipedia.org/wiki/%E3%83%86%E3%82%B9%E3%83%88%E3%83%80%E3%83%96%E3%83%AB" title="テストダブル">テストダブル</a>に合わせた実装がある</li>
 <li>  Fakeという機能が強力</li>
 </ul>
 
-<h2 id="非同期コードのテスト2.js">非同期コードのテスト2.js</h2>
+<h2 id="2-js">非同期コードのテスト2.js</h2>
 
 <ul>
 <li>  sinonのFakeTimerを使ってsetTimeoutをテストする</li>
@@ -391,13 +391,13 @@ var blog_categories = [
 <li>  mochaのdoneでの非同期テストは実際に非同期で待つのでその分テスト時間は増える</li>
 </ul>
 
-<h2 id="ajaxのテスト-3.js">Ajaxのテスト 3.js</h2>
+<h2 id="ajax-3-js">Ajaxのテスト 3.js</h2>
 
 <ul>
 <li>  実際のXHRをFakeしてレスポンスを作って返す</li>
 </ul>
 
-<h2 id="テスト文を日本語で書ける">テスト文を日本語で書ける</h2>
+<h2 id=">テスト文を日本語で書ける</h2>
 
 <ul>
 <li>  日本語書ける場合は書いてもいいぐらいな感じ</li>
@@ -406,7 +406,7 @@ var blog_categories = [
 
 <hr>
 
-<h1 id="言語cross"><a href="http://www.cross-party.com/programs/lang/" title="言語CROSS">言語CROSS</a></h1>
+<h1 id="cross"><a href="http://www.cross-party.com/programs/lang/" title="言語CROSS">言語CROSS</a></h1>
 
 <h3 id="delphi">Delphi</h3>
 
@@ -423,7 +423,7 @@ var blog_categories = [
 <li>  RADなので、簡単にUIを作れる</li>
 </ul>
 
-<h4 id="言語">言語</h4>
+<h4 id=">言語</h4>
 
 <ul>
 <li>  Delphiといった場合は開発環境</li>
@@ -441,7 +441,7 @@ var blog_categories = [
 <li>  -&gt; 2つが手を組んだのがClojure</li>
 </ul>
 
-<h4 id="clojureにはcarやcdrがない">clojureにはcarやcdrがない</h4>
+<h4 id="clojure-car-cdr">clojureにはcarやcdrがない</h4>
 
 <ul>
 <li>  わかりにくいものをなくて読みやすくする</li>
@@ -511,7 +511,7 @@ var blog_categories = [
 <li>  Smalltalk = Objective-C &#8211; C</li>
 </ul>
 
-<h2 id="課題に対して各実装をしていく">課題に対して各実装をしていく</h2>
+<h2 id=">課題に対して各実装をしていく</h2>
 
 <ul>
 <li>  じゃんけんに対する関数を定義していく課題</li>
@@ -528,7 +528,7 @@ var blog_categories = [
 <li>  じゃんけんも関係性さえあれば、簡単に書ける</li>
 </ul>
 
-<h4 id="論理型プログラミング">論理型プログラミング</h4>
+<h4 id=">論理型プログラミング</h4>
 
 <ul>
 <li>  JavaScriptは最も誤解された言語と言われてたけど、場所が見つかって突然復活した</li>
@@ -572,7 +572,7 @@ var blog_categories = [
 <li>  メソッド単位でバイトコードができて、バージョン履歴もIDEに含まれてる</li>
 </ul>
 
-<h2 id="smalltalkのお題">Smalltalkのお題</h2>
+<h2 id="smalltalk">Smalltalkのお題</h2>
 
 <ul>
 <li>  実行中の全てのオブジェクトを取得をするには</li>
@@ -613,7 +613,7 @@ var blog_categories = [
 <li>  ﾅｲﾖｰ</li>
 </ul>
 
-<h2 id="haskellのお題-&#8211;-数式パーサの実装">Haskellのお題 &#8211; 数式パーサの実装</h2>
+<h2 id="haskell-8211">Haskellのお題 &#8211; 数式パーサの実装</h2>
 
 <ul>
 <li>  文字列のパースについて</li>
@@ -676,7 +676,7 @@ var blog_categories = [
 
 <hr>
 
-<h2 id="おわりに">おわりに</h2>
+<h2 id=">おわりに</h2>
 
 <ul>
 <li>  バイナリカルタなんだかんだ一番よかった感じがする。</li>

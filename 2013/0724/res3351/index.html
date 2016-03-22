@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2013-07-24T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -115,7 +115,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -246,6 +246,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -260,12 +266,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -325,19 +325,19 @@ var blog_categories = [
 
     </div>
     <div class="post-content">
-        <h1 id="testing-casual-talks-#1">Testing Casual Talks #1</h1>
+        <h1 id="testing-casual-talks-1">Testing Casual Talks #1</h1>
 
 <p><a href="http://atnd.org/events/40914" title="Testing Casual Talks #1 : ATND">Testing Casual Talks #1 : ATND</a></p>
 
 <p>UST : <a href="http://www.ustream.tv/recorded/36287187" title="DeNA Technology Seminar DeNA Technology Seminar ">DeNA Technology Seminar DeNA Technology Seminar </a></p>
 
-<h2 id="software-engineer-in-test-at-dena-&#8211;-@ikasam_a">Software Engineer in Test at DeNA &#8211; @ikasam_a</h2>
+<h2 id="software-engineer-in-test-at-dena-8211-ikasam_a">Software Engineer in Test at DeNA &#8211; @ikasam_a</h2>
 
 <blockquote>
 <p><a href="http://www.slideshare.net/masaki/software-engineer-in-test-at-dena" title="Software Engineer in Test at DeNA">Software Engineer in Test at DeNA</a> </p>
 </blockquote>
 
-<h3 id="swet(software-engineer-in-test)">SWET(Software Engineer in Test)</h3>
+<h3 id="swet-software-engineer-in-test">SWET(Software Engineer in Test)</h3>
 
 <ul>
 <li>  テストに関する開発者の役割</li>
@@ -356,13 +356,13 @@ The SET or Software Engineer in Test is also a developer role except their focus
 <li>  <a href="http://googletesting.blogspot.jp/2011/02/how-google-tests-software-part-two.html" title="Google Testing Blog: How Google Tests Software - Part Two">Google Testing Blog: How Google Tests Software &#8211; Part Two</a></li>
 </ul>
 
-<h3 id="開発者の生産性を向上">開発者の生産性を向上</h3>
+<h3 id=">開発者の生産性を向上</h3>
 
 <ul>
 <li>  たんぽぽチーム みたいに、プロダクティビティを向上させる役割 </li>
 </ul>
 
-<h3 id="なぜswetになったか">なぜSWETになったか</h3>
+<h3 id="swet">なぜSWETになったか</h3>
 
 <ul>
 <li>  普通のWeb/組み込み/アプリを書いてた</li>
@@ -406,7 +406,7 @@ The SET or Software Engineer in Test is also a developer role except their focus
 </ul></li>
 </ul>
 
-<h3 id="mobage-プラットフォームのテスト">mobage プラットフォームのテスト</h3>
+<h3 id="mobage">mobage プラットフォームのテスト</h3>
 
 <ul>
 <li>  インターフェースは全てテスト</li>
@@ -417,28 +417,28 @@ The SET or Software Engineer in Test is also a developer role except their focus
 </ul></li>
 </ul>
 
-<h4 id="作ったもの">作ったもの</h4>
+<h4 id=">作ったもの</h4>
 
 <ul>
 <li>  テスト用のブラウザゲームの作成</li>
 <li>  スマートフォンのブラウザエミュレータの作成</li>
 </ul>
 
-<h3 id="グレイボックステスト">グレイボックステスト</h3>
+<h3 id=">グレイボックステスト</h3>
 
 <ul>
 <li>  ブラックボックスとホワイトボックステストの混ぜ</li>
 <li>  それぞれのテスト方式ではできないところまでできる</li>
 </ul>
 
-<h3 id="テストコード">テストコード</h3>
+<h3 id=">テストコード</h3>
 
 <ul>
 <li>  テストコードはキレイに</li>
 <li>  読みやすい/書きやすい/メンテナンスしやすい</li>
 </ul>
 
-<h3 id="まとめ">まとめ</h3>
+<h3 id=">まとめ</h3>
 
 <ul>
 <li>  E2Eテストをベース</li>
@@ -446,7 +446,7 @@ The SET or Software Engineer in Test is also a developer role except their focus
 <li>  SWET</li>
 </ul>
 
-<h3 id="q.a-何の生産性?">Q.A 何の生産性?</h3>
+<h3 id="q-a">Q.A 何の生産性?</h3>
 
 <p>Q. プロダクトコードのリファクタリングとテストコードのリファクタリングは違う、という感覚があるのか？</p>
 
@@ -454,20 +454,20 @@ The SET or Software Engineer in Test is also a developer role except their focus
 
 <hr>
 
-<h2 id="how-to-make-easy-and-casual-ci-management-&#8211;-@mrkn">How to make easy and casual CI management &#8211; @mrkn</h2>
+<h2 id="how-to-make-easy-and-casual-ci-management-8211-mrkn">How to make easy and casual CI management &#8211; @mrkn</h2>
 
 <ul>
 <li>  Cookpad</li>
 </ul>
 
-<h3 id="おさらい">おさらい</h3>
+<h3 id=">おさらい</h3>
 
 <ul>
 <li>  3ヶ月で1000個もテストが増えていた</li>
 <li>  台数を増やして、実行時間減らした</li>
 </ul>
 
-<h3 id="今回">今回</h3>
+<h3 id=">今回</h3>
 
 <ul>
 <li>  13177 examplesあるけど10分以内に終わる</li>
@@ -475,14 +475,14 @@ The SET or Software Engineer in Test is also a developer role except their focus
 <li>  テストは増え続けてる…</li>
 </ul>
 
-<h3 id="開発プロセス">開発プロセス</h3>
+<h3 id=">開発プロセス</h3>
 
 <ul>
 <li>  <a href="https://github.com/cookpad/chanko" title="cookpad/chanko">cookpad/chanko</a> を使ってプレでためして、正式にマージする</li>
 <li>  一つの巨大なアプリケーションなので、テストも一緒に増えている</li>
 </ul>
 
-<h3 id="一つのアプリから、複数のアプリに分ける">一つのアプリから、複数のアプリに分ける</h3>
+<h3 id=">一つのアプリから、複数のアプリに分ける</h3>
 
 <ul>
 <li>  一つの巨大なアプリではなく複数のアプリに分ける</li>
@@ -500,7 +500,7 @@ The SET or Software Engineer in Test is also a developer role except their focus
 <li>  CookPadのCI管理は2人でやってる</li>
 </ul>
 
-<h3 id="ci管理体制">CI管理体制</h3>
+<h3 id="ci">CI管理体制</h3>
 
 <ul>
 <li>  管理する人以外もCIのJobsとかいじれるようにしたい</li>
@@ -516,20 +516,20 @@ The SET or Software Engineer in Test is also a developer role except their focus
 
 <hr>
 
-<h2 id="私にとってのテスト-&#8211;-@t_wada">私にとってのテスト &#8211; @t_wada</h2>
+<h2 id="8211-t_wada">私にとってのテスト &#8211; @t_wada</h2>
 
 <blockquote>
 <p><a href="http://www.slideshare.net/t_wada/testing-casual-twada" title="私にとってのテスト">私にとってのテスト</a> </p>
 </blockquote>
 
-<h3 id="品質とは何か?">品質とは何か?</h3>
+<h3 id=">品質とは何か?</h3>
 
 <ul>
 <li>  &#8220;品質とは誰かにとっての価値である&#8221;</li>
 <li>  なんとか <code>bility</code> はたくさんある</li>
 </ul>
 
-<h3 id="質">質</h3>
+<h3 id=">質</h3>
 
 <ul>
 <li>  「品質」っちゅうから難しく聞こえてしまうんや。「質」と言えば皆わかってくれる。」</li>
@@ -542,7 +542,7 @@ The SET or Software Engineer in Test is also a developer role except their focus
 <li>  2つのものを見比べた時に、どちらが質がいいのか</li>
 </ul>
 
-<h3 id="tddの「t」">TDDの「T」</h3>
+<h3 id="tdd-t">TDDの「T」</h3>
 
 <ul>
 <li>  TDDの目標は「動作すべききれいなコード」</li>
@@ -562,28 +562,28 @@ The SET or Software Engineer in Test is also a developer role except their focus
 </ul></li>
 </ul>
 
-<h3 id="tddでの良いテスト">TDDでの良いテスト</h3>
+<h3 id="tdd">TDDでの良いテスト</h3>
 
 <ul>
 <li>  Independent / 独立している事</li>
 <li>  Repeatable / 繰り返し可能である事</li>
 </ul>
 
-<h3 id="才能と技術">才能と技術</h3>
+<h3 id=">才能と技術</h3>
 
 <ul>
 <li>  テストと品質</li>
 <li>  テストは技術</li>
 </ul>
 
-<h4 id="シンプルさ">シンプルさ</h4>
+<h4 id=">シンプルさ</h4>
 
 <ul>
 <li>  全く同じ動きをするコードがあるとき、シンプルな方が優れてる</li>
 <li>  技術でシンプル差を求めていく</li>
 </ul>
 
-<h3 id="私にとってtddとは">私にとってTDDとは</h3>
+<h3 id="tdd">私にとってTDDとは</h3>
 
 <ul>
 <li>  凡人が技術で頑張るための事</li>
@@ -596,7 +596,7 @@ The SET or Software Engineer in Test is also a developer role except their focus
 
 <hr>
 
-<h2 id="casual-ci-server-&#8211;-@r7kamura">Casual CI Server &#8211; @r7kamura</h2>
+<h2 id="casual-ci-server-8211-r7kamura">Casual CI Server &#8211; @r7kamura</h2>
 
 <blockquote>
 <p><a href="https://speakerdeck.com/r7kamura/casual-ci-server" title="Casual CI Server // Speaker Deck">Casual CI Server // Speaker Deck</a> </p>
@@ -654,7 +654,7 @@ The SET or Software Engineer in Test is also a developer role except their focus
 
 <hr>
 
-<h2 id="devqut!-&#8211;-@snsk">DevQUT! &#8211; @snsk</h2>
+<h2 id="devqut-8211-snsk">DevQUT! &#8211; @snsk</h2>
 
 <blockquote>
 <p><a href="http://d.hatena.ne.jp/shinsuku/20130511" title="2013-05-11 - tokyo Software Testing Day OUT,">2013-05-11 &#8211; tokyo Software Testing Day OUT,</a> </p>
@@ -675,7 +675,7 @@ The SET or Software Engineer in Test is also a developer role except their focus
 </ul></li>
 </ul>
 
-<h3 id="壁を壊そう">壁を壊そう</h3>
+<h3 id=">壁を壊そう</h3>
 
 <ul>
 <li>  DevQUT=Dev+QA+User+Tools</li>
@@ -683,13 +683,13 @@ The SET or Software Engineer in Test is also a developer role except their focus
 
 <hr>
 
-<h2 id="serverspecによるテスト駆動サーバ構築＋ci-&#8211;-@gosukenator">serverspecによるテスト駆動サーバ構築＋CI &#8211; @gosukenator</h2>
+<h2 id="serverspec-ci-8211-gosukenator">serverspecによるテスト駆動サーバ構築＋CI &#8211; @gosukenator</h2>
 
 <ul>
 <li>  Puppetとかそういうツールがでてきたのでサーバをテストする自然な流れ</li>
 </ul>
 
-<h3 id="サーバのテスト">サーバのテスト</h3>
+<h3 id=">サーバのテスト</h3>
 
 <ul>
 <li>  SSHとLocalのひな形を生成してくれる</li>
@@ -705,7 +705,7 @@ The SET or Software Engineer in Test is also a developer role except their focus
 
 <p>テスト駆動なサーバ構築 + CI</p>
 
-<h2 id="おわりに">おわりに</h2>
+<h2 id=">おわりに</h2>
 
 <ul>
 <li>  メモ : Mou</li>

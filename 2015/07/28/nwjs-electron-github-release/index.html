@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2015-07-28T09:26:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -123,7 +123,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -254,6 +254,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -268,12 +274,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -341,7 +341,7 @@ var blog_categories = [
 
 <p>つまり、git tagを付けてgit pushすれば、自動的にアプリのバイナリができあがるという感じです。</p>
 
-<h2 id="github-release向けのzip">GitHub Release向けのzip</h2>
+<h2 id="github-release-zip">GitHub Release向けのzip</h2>
 
 <p>GitHub Releaseにアップロードできるファイルの種類は決まっているので、
 NW.js/Electronアプリのパッケージング(.exeや.appなど)をしたものをzipとしてまとめる必要があります。</p>
@@ -377,7 +377,7 @@ NW.js/Electronアプリのパッケージング(.exeや.appなど)をしたも�
 
 <p>参考: <a href="http://qiita.com/nyanchu/items/15d514d9b9f87e5c0a29" title="30分で出来る、JavaScript (Electron) でデスクトップアプリを作って配布するまで - Qiita">30分で出来る、JavaScript (Electron) でデスクトップアプリを作って配布するまで - Qiita</a></p>
 
-<h2 id="githubへアップロード">GitHubへアップロード</h2>
+<h2 id="github">GitHubへアップロード</h2>
 
 <p>ここまでで、パッケージングしたzipファイルが各OS毎にできあがりました。</p>
 
@@ -446,7 +446,7 @@ travis setup releases
 
 <p>などを見てみて下さい(基本的にパスが違うぐらいで同じです)</p>
 
-<h2 id="おわりに">おわりに</h2>
+<h2 id=">おわりに</h2>
 
 <ul>
 <li><a href="https://github.com/azu/nw-zip-builder">azu/nw-zip-builder</a></li>

@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2010-06-28T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -121,7 +121,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -252,6 +252,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -266,12 +272,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -344,7 +344,7 @@ OOPPはWindows と Linuxで導入されましたが、環境によっては逆�
 具体的に言えば、Windowsでの<strong>音量ミキサ</strong>(プロセスごとに音量を設定する)や<strong>myspeed</strong>(ブラウザ上のFlashの再生速度を変更する)などのソフトウェアはプロセスが分離されたことで上手く動かなくなったりします。<br>
 (音量ミキサの場合は&#8221;Plugin Container for Firefox&#8221;というプロセスの音量を設定することでなんとかなるかも)</p>
 
-<h3 id="ooppの無効化">OOPPの無効化</h3>
+<h3 id="oopp">OOPPの無効化</h3>
 
 <p>ロケーションバーに<a href="http://wiki.mozilla.gr.jp/wiki.cgi?page=aboutconfig">about:config</a>と入力して、<em>dom.ipc.plugins.enabled</em>と入力するとOOPPの有効無効の有無を決める設定が出てきます。<br>
 <a href="http://efcl.info/wp-content/uploads/2010/06/ss-2010-06-28-1.png"><img class="alignnone size-medium wp-image-1812" title="ss-2010-06-28-1" src="http://efcl.info/wp-content/uploads/2010/06/ss-2010-06-28-1-300x119.png" alt="" width="300" height="119" /></a></p>

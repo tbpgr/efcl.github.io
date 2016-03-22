@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2011-03-26T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -121,7 +121,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -252,6 +252,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -266,12 +272,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -337,7 +337,7 @@ var blog_categories = [
 Greasemonkeyからフォークしてるので、Greasemonkey向けに書かれたスクリプト自体の互換性は問題ないです。<br>
 逆にScriptishの新APIを使ったものはGreasemonkeyでは動かない事があるぐらいだと思います。</p>
 
-<h3 id="環境の移行方法">環境の移行方法</h3>
+<h3 id=">環境の移行方法</h3>
 
 <p><a href="https://github.com/erikvold/scriptish/wiki/How-To%3A--Manually-transfer-user-scripts-from-Greasemonkey-to-Scriptish">How To: Manually transfer user scripts from Greasemonkey to Scriptish &#8211; GitHub</a><br>
 に手動での環境移行手順が書かれています。<br>
@@ -372,7 +372,7 @@ Greasemonkeyからフォークしてるので、Greasemonkey向けに書かれ�
 <li>  <a href="https://github.com/azu/NILScript/blob/master/utilityTools/Greasemonkey/GreasemonkeyToScriptish.ng">utilityTools/Greasemonkey/GreasemonkeyToScriptish.ng at master from azu/NILScript &#8211; GitHub</a></li>
 </ul>
 
-<h3 id="dropboxフォルダでスクリプト管理">Dropboxフォルダでスクリプト管理</h3>
+<h3 id="dropbox">Dropboxフォルダでスクリプト管理</h3>
 
 <p>これを期にGreasemonkeyスクリプトのファイル自体をDropboxで共有しようと思ったので、移行手順の1の時にDropboxにgm_scriptsフォルダを移して、プロファイルフォルダにscriptish_scriptsへのシンボリックリンクを作りました。<br>
 Windowsだとmklinkとかコマンドラインがややこしいので、<a href="http://schinagl.priv.at/nt/hardlinkshellext/hardlinkshellext.html">Link Shell Extension</a>を使ってシンボリックリンクを張りました。</p>

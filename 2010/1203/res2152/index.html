@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2010-12-03T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -119,7 +119,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -250,6 +250,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -264,12 +270,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -347,7 +347,7 @@ var blog_categories = [
 <p>例えば、あるプロジェクトにjQueryやprototype.jsなどの複数のライブラリが入ってて、あるページではjQuery又あるページではprototype.jsと使い分けていた場合に、そのページでどっちを使うか関係なくプロジェクト内に両方とも入ってるため、どちらも補完候補に現れてしまっていた。このときに、そのページではjQueryだけを使う事にしてjQueryだけを補完候補に追加する機能が&#8221;JavaScript Libraries&#8221;という訳です。<br>
 前置きが長くなりましたが、&#8221;JavaScript Libraries&#8221;の機能はそういう感じでこれを応用するとプロジェクトに関係ない所にあるJavaScriptファイルを補完候補に加える事ができます。これが今回説明するところ。</p>
 
-<h3 id="補完候補の書き方">補完候補の書き方</h3>
+<h3 id=">補完候補の書き方</h3>
 
 <p>まずは補完対象に加えたい関数や単語などを書いたJavaScriptファイルを作成します。今回はFirebugにあるConsole APIとGreasemonkey APIを補完に加えたいので、それぞれ関数などのインタフェースを書いていきます。</p>
 
@@ -373,7 +373,7 @@ JavaScriptやDOMのネイティブメソッドもWebStorm内で同じように�
 
 <p><a href="http://efcl.info/wp-content/uploads/2010/12/ss-2010-12-03-5.png"><img class="size-medium wp-image-2154" title="ss-2010-12-03-5" src="http://efcl.info/wp-content/uploads/2010/12/ss-2010-12-03-5-300x103.png" alt="" width="300" height="103" /></a><figcaption class="wp-caption-text">補完の様子</figcaption></figure> <figure id="attachment_2155" style="width: 300px;" class="wp-caption alignnone"><a href="http://efcl.info/wp-content/uploads/2010/12/ss-2010-12-03-6.png"><img class="size-medium wp-image-2155" title="ss-2010-12-03-6" src="http://efcl.info/wp-content/uploads/2010/12/ss-2010-12-03-6-300x153.png" alt="Quick Documentation Look-up" width="300" height="153" /></a><figcaption class="wp-caption-text">Quick Documentation Look-up機能(ポップアップ版)</figcaption></figure> <figure id="attachment_2156" style="width: 300px;" class="wp-caption alignnone"><a href="http://efcl.info/wp-content/uploads/2010/12/ss-2010-12-03-7.png"><img class="size-medium wp-image-2156" title="ss-2010-12-03-7" src="http://efcl.info/wp-content/uploads/2010/12/ss-2010-12-03-7-300x69.png" alt="" width="300" height="69" /></a><figcaption class="wp-caption-text">サイドバーにも表示できる</figcaption></figure> </p>
 
-<h3 id="補完候補を追加">補完候補を追加</h3>
+<h3 id=">補完候補を追加</h3>
 
 <p>補完対象を書いたJavaScriptファイルを作成したら、適当なフォルダにまとめてFile | IDE Settings | Project Settings -&gt; JavaScript -&gt;Libraries -&gt; Add… からそのフォルダを指定すると補完候補をまとめたパッケージが作成できます。</p>
 

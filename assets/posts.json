@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ",
+            "url": "http://efcl.info/2016/03/22/match-index/",
+            "date": "2016-03-22T20:05:00+09:00"
+        },
+        
+        {
             "title": "textlint 6.0リリース。--fixでの自動修正に対応",
             "url": "http://efcl.info/2016/03/15/textlint--fix/",
             "date": "2016-03-15T20:33:00+09:00"
@@ -1220,6 +1226,12 @@
         },
         
         {
+            "title": "まとめ記事一覧",
+            "url": "http://efcl.info/wiki/",
+            "date": "2013-07-06T00:00:00+09:00"
+        },
+        
+        {
             "title": "ニコニコ動画とflvplayer_wrapperの履歴",
             "url": "http://efcl.info/flvplayer_wrapper/",
             "date": "2013-07-06T00:00:00+09:00"
@@ -1238,20 +1250,14 @@
         },
         
         {
-            "title": "ニコニコ動画のAPIまとめ",
-            "url": "http://efcl.info/niconicoapi/",
-            "date": "2013-07-06T00:00:00+09:00"
-        },
-        
-        {
             "title": "Post Now browsing to Twitterの解説",
             "url": "http://efcl.info/post-now-browsing-to-twitter/",
             "date": "2013-07-06T00:00:00+09:00"
         },
         
         {
-            "title": "まとめ記事一覧",
-            "url": "http://efcl.info/wiki/",
+            "title": "ニコニコ動画のAPIまとめ",
+            "url": "http://efcl.info/niconicoapi/",
             "date": "2013-07-06T00:00:00+09:00"
         },
         

@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2014-07-28T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -119,7 +119,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -250,6 +250,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -264,12 +270,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -346,7 +346,7 @@ derequireがされなくなりました。</p>
 <p>そもそも<a href="https://github.com/calvinmetcalf/derequire" title="derequire">derequire</a>とは何かというと、
 requireという関数を使うライブラリ等との衝突を避けるためにリネーム処理をするモジュールのことです。</p>
 
-<h2 id="v4とv5のstandaloneオプションの違い">v4とv5のstandaloneオプションの違い</h2>
+<h2 id="v4-v5-standalone">v4とv5のstandaloneオプションの違い</h2>
 
 <p>例として<a href="https://github.com/azu/get-html-title" title="azu/get-html-title">azu/get-html-title</a>を
 standaloneなライブラリとしてビルドしたいと思います。</p>
@@ -399,11 +399,11 @@ browserify -s getHTMLTitle index.js
 </code></pre></div>
 <p><code>require</code>がそのまま残っていることがわかると思います。</p>
 
-<h3 id="なぜderequireしていたのか">なぜderequireしていたのか</h3>
+<h3 id="derequire">なぜderequireしていたのか</h3>
 
 <p><code>require</code> という関数を持つライブラリなどと衝突するのを回避するため(require.jsとか?)</p>
 
-<h3 id="なぜderequireしなくなったか">なぜderequireしなくなったか</h3>
+<h3 id="derequire">なぜderequireしなくなったか</h3>
 
 <p>遅い。</p>
 
@@ -413,7 +413,7 @@ browserify -s getHTMLTitle index.js
 <li><a href="https://github.com/substack/node-browserify/issues/633" title="Standalone option makes browserify 10x slower · Issue #633 · substack/node-browserify">Standalone option makes browserify 10x slower · Issue #633 · substack/node-browserify</a></li>
 </ul>
 
-<h3 id="これからもderequireしたい">これからもderequireしたい</h3>
+<h3 id="derequire">これからもderequireしたい</h3>
 
 <ul>
 <li><a href="https://github.com/substack/node-browserify" title="substack/node-browserify">substack/node-browserify</a></li>

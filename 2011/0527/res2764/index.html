@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2011-05-27T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -115,7 +115,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -246,6 +246,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -260,12 +266,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -329,7 +329,7 @@ var blog_categories = [
 
 <p>有名な企業やライブラリはコーディングルールも公開している事が多いので適当にまとめてみました</p>
 
-<h3 id="javascript-style-guide-&#8211;-mdc-docs"><a href="https://developer.mozilla.org/ja/JavaScript_style_guide">JavaScript style guide &#8211; MDC Docs</a></h3>
+<h3 id="javascript-style-guide-8211-mdc-docs"><a href="https://developer.mozilla.org/ja/JavaScript_style_guide">JavaScript style guide &#8211; MDC Docs</a></h3>
 
 <p>Mozilla/Firefox向けのものなので、一部ECMAScriptの範囲を超えたものも含まれています。<br>
 多くの人が見ていると思うので、見たことない人は一度読んでみるといいです。</p>
@@ -344,14 +344,14 @@ Googleのコーディングルールですが、ルールを並べるだけで�
 
 <p><a href="https://github.com/jscs-dev/node-jscs#preset" title="jscs-dev/node-jscs">jscs</a>にこのコーディングルールをチェックするプリセットが用意されています。</p>
 
-<h3 id="jquery-core-style-guidelines-&#8211;-jquery-javascript-library"><a href="http://docs.jquery.com/JQuery_Core_Style_Guidelines">JQuery Core Style Guidelines &#8211; jQuery JavaScript Library</a></h3>
+<h3 id="jquery-core-style-guidelines-8211-jquery-javascript-library"><a href="http://docs.jquery.com/JQuery_Core_Style_Guidelines">JQuery Core Style Guidelines &#8211; jQuery JavaScript Library</a></h3>
 
 <p>jQuery Coreのコーディングルール。<br>
 Typeチェックの仕方についても触れている。</p>
 
 <p><a href="https://github.com/jscs-dev/node-jscs#preset" title="jscs-dev/node-jscs">jscs</a>にこのコーディングルールをチェックするプリセットが用意されています。</p>
 
-<h3 id="airbnb/javascript"><a href="https://github.com/airbnb/javascript" title="airbnb/javascript">airbnb/javascript</a></h3>
+<h3 id="airbnb-javascript"><a href="https://github.com/airbnb/javascript" title="airbnb/javascript">airbnb/javascript</a></h3>
 
 <p><a href="https://github.com/mitsuruog/javacript-style-guide" title="mitsuruog/javacript-style-guide">mitsuruog/javacript-style-guide</a> (日本語訳)</p>
 
@@ -361,7 +361,7 @@ Typeチェックの仕方についても触れている。</p>
 
 <p><a href="https://github.com/jscs-dev/node-jscs#preset" title="jscs-dev/node-jscs">jscs</a>にこのコーディングルールをチェックするプリセットが用意されています。</p>
 
-<h3 id="felix&#8217;s-node.js-style-guide"><a href="http://nodeguide.com/style.html">Felix&#8217;s Node.js Style Guide</a></h3>
+<h3 id="felix-8217-s-node-js-style-guide"><a href="http://nodeguide.com/style.html">Felix&#8217;s Node.js Style Guide</a></h3>
 
 <p><a href="http://popkirby.github.com/contents/nodeguide/style.html">Felix&#8217;s Node.js Style Guide(和訳)</a>(日本語版)<br>
 Node.jsにおけるコーディングルール。(公式なものではない。no official document)<br>
@@ -383,7 +383,7 @@ Node.jsに限らず、クライアントサイドJavaScriptに置いても参考
 Appleによるコーディングのガイドライン。<br>
 &#8220;JavaScriptのベストプラクティス&#8221;でコーディングで気をつける事について触れている。</p>
 
-<h3 id="the-webkit-open-source-project-&#8211;-webkit-coding-style-guidelines"><a href="http://www.webkit.org/coding/coding-style.html">The WebKit Open Source Project &#8211; WebKit Coding Style Guidelines</a></h3>
+<h3 id="the-webkit-open-source-project-8211-webkit-coding-style-guidelines"><a href="http://www.webkit.org/coding/coding-style.html">The WebKit Open Source Project &#8211; WebKit Coding Style Guidelines</a></h3>
 
 <p>JavaScriptではありませんが、Webkitにおけるコーディングルール。<br>
 ホワイトスペースやLine breakingの所はJavaScriptの場合でも参考になる。<br>
@@ -393,13 +393,13 @@ uupaaさんがこれをベースに一部分を変更した感じで使ってる
 <li>  <a href="http://code.google.com/p/uupaa-js/wiki/CodingStyle">CodingStyle &#8211; uupaa-js &#8211; JavaScript Coding Style Guide &#8211; JavaScript Library for Casual Creator &#8211; Google Project Hosting</a></li>
 </ul>
 
-<h3 id="サイボウズで学んだこと-&#8211;-it戦記"><a href="http://d.hatena.ne.jp/amachang/20100917/1284700700">サイボウズで学んだこと &#8211; IT戦記</a></h3>
+<h3 id="8211-it"><a href="http://d.hatena.ne.jp/amachang/20100917/1284700700">サイボウズで学んだこと &#8211; IT戦記</a></h3>
 
 <p>amachangによるもの。<br>
 大規模 JavaScript 開発におけるルールや命名規則、デバッグ、パフォーマンスについて触れています。<br>
 コーディングルールを整えてどのように実践したかについて参考になります。</p>
 
-<h3 id="javascriptパターン-(オライリー本)"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4873114888/book042-22/ref=nosim/">JavaScriptパターン</a> (オライリー本)</h3>
+<h3 id="javascript"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4873114888/book042-22/ref=nosim/">JavaScriptパターン</a> (オライリー本)</h3>
 
 <p>この書籍の<a href="http://efcl.info/adiary/JavaScriptPatterns/Chapter2Essentials">Chapter 2. Essentials</a>において、JavaScriptのコーディングルールが紹介されています。<br>
 また避けるべき事やどう書くべきなのかについてもかなり深く書かれています。</p>
@@ -408,7 +408,7 @@ uupaaさんがこれをベースに一部分を変更した感じで使ってる
 そのため、書き方に不安を持ってる人はなぜダメなのかについても触れている<a href="http://cou929.nu/data/google_javascript_style_guide/">Google JavaScript Style Guide 和訳</a>を読むのがよいと思います。(読みやすい日本語版もあるしね)<br>
 コーディングルールはコードに一貫性を持つためにあると思います。頻繁にルールを変える必要はないと思いますが、必ずしもそのルールが、その時の(実行環境|JavaScript)において最適な書き方ではない場合もあります。そういうときはルールの更新をしましょう。</p>
 
-<h3 id="おまけ">おまけ</h3>
+<h3 id=">おまけ</h3>
 
 <p>自分の場合は<a href="http://www.jetbrains.com/webstorm/">WebStorm</a>の<a href="http://efcl.info/2010/1027/res2023/">自動整形</a>に任せている(といっても膨大なルール設定があるため、上記で紹介したコーディングルールを自動化できる)ので、基本的にはIDE任せという書き方にしています。<br>
 セミコロン忘れなどについてはcomplete current statement機能(<a href="http://blog.livedoor.jp/okashi1/archives/51751259.html"> [WebStorm]Complete Current Statementがとても便利な件(・∀・)</a>)を使ったり、<a href="http://www.jetbrains.com/webstorm/">WebStorm</a>のシンタックスチェックはかなり優秀なのでエラーも書いてる途中で発見しやすいです。<br>

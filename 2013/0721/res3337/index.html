@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2013-07-21T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -115,7 +115,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -246,6 +246,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -260,12 +266,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -336,7 +336,7 @@ var blog_categories = [
 
 <p>Yeti自体は数年前からあって、<a href="http://www.thecssninja.com/javascript/bunyip" title="Bunyip">Bunyip</a>とかでもインスパイアされてたりします。</p>
 
-<h2 id="動かしてみる">動かしてみる</h2>
+<h2 id=">動かしてみる</h2>
 
 <p>QUnitやJasmine、Mocha等好きなものが使えますが、今回は<a href="http://visionmedia.github.io/mocha/" title="Mocha">Mocha</a>のテストを動かしてみます。</p>
 
@@ -354,7 +354,7 @@ var blog_categories = [
 <li>  <a href="https://github.com/azu/yeti-setup" title="azu/yeti-setup">azu/yeti-setup</a></li>
 </ul>
 
-<h3 id="インストール">インストール</h3>
+<h3 id=">インストール</h3>
 
 <p>Node環境は各自作っておいて下さい。</p>
 
@@ -368,7 +368,7 @@ npm install -g yeti
 </code></pre></div>
 <p>これで必要なものは揃いました。</p>
 
-<h3 id="テストのセットアップ">テストのセットアップ</h3>
+<h3 id=">テストのセットアップ</h3>
 
 <p>先ほど、<a href="https://github.com/yeoman/generator-mocha#readme" title="Mocha generator">Mocha generator</a>をインストールしたので、 <code>$yo mocha</code> というコマンドが使えるようになっています。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">yo mocha
@@ -388,7 +388,7 @@ npm install -g yeti
 </code></pre></div>
 <p>試しに、 <code>test/index.html</code> にアクセスするとmochaのテストが動くことがわかります。</p>
 
-<h3 id="yetiでテストの実行">Yetiでテストの実行</h3>
+<h3 id="yeti">Yetiでテストの実行</h3>
 
 <p>一番、単純なオプションなしの <code>yeti</code> コマンドを使ってみます。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">yeti test/*.html
@@ -408,7 +408,7 @@ Waiting for agents to connect at http://192.168.1.3:9000
 ✓ Agent completed: Chrome (28.0.1500.71) / Mac OS
 ✓ 1 tests passed! (0.29 seconds)
 </code></pre></div>
-<h4 id="yeti-&#8211;server">yeti &#8211;server</h4>
+<h4 id="yeti-8211-server">yeti &#8211;server</h4>
 
 <p><code>yeti --server</code> を使うと、先にブラウザをキャプチャしておいて、 <code>yeti</code> コマンドを実行した段階で、テストが実行されて結果が表示されます。</p>
 
@@ -419,7 +419,7 @@ Waiting for agents to connect at http://192.168.1.3:9000
 ✓ Agent completed: Chrome (28.0.1500.71) / Mac OS
 ✓ 1 tests passed! (0.21 seconds)
 </code></pre></div>
-<h4 id=".yeti.json">.yeti.json</h4>
+<h4 id="yeti-json">.yeti.json</h4>
 
 <p>毎回、実行するテスト用HTMLを指定するのは面倒なので、<br>
 <code>.yeti.json</code> という設定ファイルを作ってそこに書いておくことができます。</p>
@@ -442,7 +442,7 @@ Waiting for agents to connect at http://192.168.1.3:9000
 </code></pre></div>
 <p>を実行するだけで、上記の事と同様の結果が得られます。</p>
 
-<h3 id="sauce-labs連携で色んなブラウザで実行させる">Sauce Labs連携で色んなブラウザで実行させる</h3>
+<h3 id="sauce-labs">Sauce Labs連携で色んなブラウザで実行させる</h3>
 
 <p><a href="https://saucelabs.com/home" title="Sauce Labs: Mobile and Web App Testing Tools For Developers">Sauce Labs</a> と連携する事で、iOS等のモバイルも含めた色々なブラウザでテストをCLIから動かすことができます。(実行はSauce Labs側でされるのでローカルには該当ブラウザはいらない)</p>
 
@@ -452,7 +452,7 @@ Waiting for agents to connect at http://192.168.1.3:9000
 <li>  <a href="http://www.okuryu.com/2013/05/31/testing-javascript-yeti-saucelabs-webdriver.html" title="Testing JavaScript with Yeti and Sauce Labs WebDriver — Ryuichi Okumura">Testing JavaScript with Yeti and Sauce Labs WebDriver — Ryuichi Okumura</a></li>
 </ul>
 
-<h4 id="sauce-connect-のインストール"><a href="https://saucelabs.com/docs/connect" title="Sauce Connect">Sauce Connect</a> のインストール</h4>
+<h4 id="sauce-connect"><a href="https://saucelabs.com/docs/connect" title="Sauce Connect">Sauce Connect</a> のインストール</h4>
 
 <p>Sauce Labs連携をするには<a href="https://saucelabs.com/docs/connect" title="Sauce Connect">Sauce Connect</a>を使う必要があります。</p>
 
@@ -478,7 +478,7 @@ Waiting for agents to connect at http://192.168.1.3:9000
 </code></pre></div>
 <p>このファイルを作成した状態で、Sauce Labs連携を行います。</p>
 
-<h4 id="sauce-labsでテストを動かす">Sauce Labsでテストを動かす</h4>
+<h4 id="sauce-labs">Sauce Labsでテストを動かす</h4>
 
 <p>簡単にまとめると以下の様な手順でテストを実行します。</p>
 
@@ -516,7 +516,7 @@ Found 1 file to test.
 <li>  <a href="http://www.yuiblog.com/blog/2013/04/11/yeti-0-2-21-released/" title="Yeti 0.2.21 Released - YUI Blog">Yeti 0.2.21 Released &#8211; YUI Blog</a></li>
 </ul>
 
-<h2 id="おわり">おわり</h2>
+<h2 id=">おわり</h2>
 
 <p><a href="https://github.com/yui/yeti" title="yui/yeti">Yeti</a> は比較的シンプルな感じで、<a href="https://github.com/airportyh/testem" title="airportyh/testem">Testem</a> と似てる部分はありますが、よりシンプルな感じです。</p>
 

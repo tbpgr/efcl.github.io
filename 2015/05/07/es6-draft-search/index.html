@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2015-05-07T08:35:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -119,7 +119,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -250,6 +250,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -264,12 +270,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -353,7 +353,7 @@ Rev38とわかるようにドラフトは38回ぐらい更新されていて、�
 
 <hr>
 
-<h2 id="revごとの差分管理">Revごとの差分管理</h2>
+<h2 id="rev">Revごとの差分管理</h2>
 
 <p><a href="http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts" title="harmony:specification_drafts [ES Wiki]">harmony:specification_drafts [ES Wiki]</a>に全てのRevのファイル(doc or pdf)が公開されています。</p>
 
@@ -369,7 +369,7 @@ Rev38とわかるようにドラフトは38回ぐらい更新されていて、�
 
 <p>これに関連して色々なツールを書いているのですが、それらは<a href="https://github.com/meta-ecmascript" title="Meta ECMAScript">Meta ECMAScript</a>にまとめてあります。</p>
 
-<h2 id="ドラフトのメタデータ">ドラフトのメタデータ</h2>
+<h2 id=">ドラフトのメタデータ</h2>
 
 <p>まずはドラフトのダウンロードですが、まずドラフトのURLとそれが&quot;Rev何&quot;なのかの情報が必要です。</p>
 
@@ -381,7 +381,7 @@ Rev38とわかるようにドラフトは38回ぐらい更新されていて、�
 
 <p>GitHubだと<code>tsv</code>や<code>csv</code>はそのままインクリメンタルサーチできるので<a href="https://github.com/meta-ecmascript/es6-spec-changelog/blob/master/es6-spec-changelog.tsv" title="es6-spec-changelog/es6-spec-changelog.tsv at master · meta-ecmascript/es6-spec-changelog">es6-spec-changelog.tsv</a>とかも置いてあります。</p>
 
-<h2 id="ドラフトのダウンロード">ドラフトのダウンロード</h2>
+<h2 id=">ドラフトのダウンロード</h2>
 
 <p>上記のメタリポジトリからJSONでドラフト一覧のURLが取れるようになったので、</p>
 
@@ -396,7 +396,7 @@ Rev38とわかるようにドラフトは38回ぐらい更新されていて、�
 <li><a href="https://github.com/meta-ecmascript/download-es6-spec" title="meta-ecmascript/download-es6-spec">meta-ecmascript/download-es6-spec</a></li>
 </ul>
 
-<h2 id="doc-to-txt?">doc to txt?</h2>
+<h2 id="doc-to-txt">doc to txt?</h2>
 
 <p>docファイルをテキストファイルにしたいのですが、docファイルはそのままだと上手く扱えないので、</p>
 
@@ -428,7 +428,7 @@ Rev38とわかるようにドラフトは38回ぐらい更新されていて、�
 <li>rev毎にtagも貼ってあります</li>
 </ul>
 
-<h2 id="diff検索用リポジトリ">Diff検索用リポジトリ</h2>
+<h2 id="diff">Diff検索用リポジトリ</h2>
 
 <p><a href="https://github.com/meta-ecmascript/es6-draft-revision">meta-ecmascript/es6-draft-revision</a>はテキストファイルの変更履歴としてES6ドラフトの変更履歴が取れるので、後は通常のGit検索と同じテクニックを使ってドラフトの差分が検索できるようになると思います。</p>
 
@@ -441,7 +441,7 @@ Rev38とわかるようにドラフトは38回ぐらい更新されていて、�
 
 <p><code>git log -S</code>でコミットの差分に含まれてる内容を検索したりできます。</p>
 
-<h3 id="classのメソッドの例">classのメソッドの例</h3>
+<h3 id="class">classのメソッドの例</h3>
 
 <p>先ほども例に上げた、classのmethod定義が列挙されなくなったRevを変更履歴から特定してみましょう。</p>
 
@@ -533,14 +533,14 @@ Date:   Mon May <span class="m">4</span> 14:20:12 <span class="m">2015</span> +0
 </code></pre></div>
 <p>最初に答えが書いてありましたが、答えと同じくRev32で変更されていたことが発見できました。</p>
 
-<h3 id="疑問">疑問</h3>
+<h3 id=">疑問</h3>
 
 <p><a href="http://efcl.info/2015/05/06/this-is-es6-module/" title="ES6 moduleのtop levelにある`this`の値は何になるのか? | Web Scratch">ES6 moduleのtop levelにある<code>this</code>の値は何になるのか? | Web Scratch</a>でも書いてたけど、<code>git log -G</code>で改行無視して複数行に跨いだ検索が上手くいかない…(pcre拡張はいれてあるのに…) リポジトリのデータがおかしい可能性はある。。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">git log --perl-regexp -i -G &quot;GetThisBinding(.|\n)*?Return UNDEFINED&quot;
 </code></pre></div>
 <p>Gitのdiff検索テクニックもっと知りたい…</p>
 
-<h3 id="まとめ">まとめ</h3>
+<h3 id=">まとめ</h3>
 
 <p><a href="https://github.com/meta-ecmascript" title="Meta ECMAScript">Meta ECMAScript</a></p>
 

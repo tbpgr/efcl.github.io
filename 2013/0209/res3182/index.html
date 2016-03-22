@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2013-02-09T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -115,7 +115,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -246,6 +246,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -260,12 +266,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -335,7 +335,7 @@ var blog_categories = [
 <li>  <del>Frontrend Vol.4 powered by CyberAgent, Inc. に回答するとスライドがある</del></li>
 </ul>
 
-<h2 id="javascript-development-tools-–-javascript開発の効率アップ-&#8211;-layzie">JavaScript Development Tools – JavaScript開発の効率アップ &#8211; Layzie</h2>
+<h2 id="javascript-development-tools-javascript-8211-layzie">JavaScript Development Tools – JavaScript開発の効率アップ &#8211; Layzie</h2>
 
 <ul>
 <li>  JavaScript開発に役立つGUI</li>
@@ -358,7 +358,7 @@ var blog_categories = [
 <li>  Profile</li>
 </ul>
 
-<h3 id="chorme://net-internals">chorme://net-internals</h3>
+<h3 id="chorme-net-internals">chorme://net-internals</h3>
 
 <ul>
 <li>  SPDYなどの通信を見られる</li>
@@ -450,11 +450,11 @@ var blog_categories = [
 
 <p>Nodefront という類似なCLIもある</p>
 
-<h2 id="jquery-performance-tips-–-jqueryにおける高速化-&#8211;-@pocotan001">jQuery Performance Tips – jQueryにおける高速化 &#8211; @pocotan001</h2>
+<h2 id="jquery-performance-tips-jquery-8211-pocotan001">jQuery Performance Tips – jQueryにおける高速化 &#8211; @pocotan001</h2>
 
 <p>マシンの仕事を少なくすることが、高速なプログラムになる</p>
 
-<h3 id="jqueryライクを保ってパフォーマンスチューニング">jQueryライクを保ってパフォーマンスチューニング</h3>
+<h3 id="jquery">jQueryライクを保ってパフォーマンスチューニング</h3>
 
 <ul>
 <li>  ファイルサイズ</li>
@@ -462,7 +462,7 @@ var blog_categories = [
 <li>  リフロー影響</li>
 </ul>
 
-<h3 id="ファイルサイズ">ファイルサイズ</h3>
+<h3 id=">ファイルサイズ</h3>
 
 <ul>
 <li>  jQuery 1.9と 2.0をIEの条件コメントで読み込むものを分ける</li>
@@ -477,7 +477,7 @@ var blog_categories = [
 <li>  警告の詳しい内容はGithubに</li>
 </ul>
 
-<h3 id="jquery-セレクタ">jQuery セレクタ</h3>
+<h3 id="jquery">jQuery セレクタ</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$(&quot;#target p&quot;);
 </code></pre></div>
 <p><code>$(&quot;#target&quot;).find(&quot;p&quot;)</code></p>
@@ -492,7 +492,7 @@ var blog_categories = [
 <p>次のように分けるか、<code>:first-child</code> を使う</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$(&#39;#tareget).find(&#39;p&#39;).first();
 </code></pre></div>
-<h3 id="リフロー">リフロー</h3>
+<h3 id=">リフロー</h3>
 
 <p>HTML &#8211; DOM &#8211; レンダーツリー &#8211; CSSOM &#8211; CSS</p>
 
@@ -518,14 +518,14 @@ var blog_categories = [
 <p>同じリフローが起きる処理を2回呼んだ場合は、ブラウザがクッションを挟んで1度に済ませたりする</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$(&#39;p&#39;).css(&#39;margin&#39; , &#39;5px&#39;);
 </code></pre></div>
-<h4 id="リフローのトリガー">リフローのトリガー</h4>
+<h4 id=">リフローのトリガー</h4>
 
 <ul>
 <li>  ユーザー入力</li>
 <li>  positionの変更</li>
 </ul>
 
-<h3 id="リフローを減らす">リフローを減らす</h3>
+<h3 id=">リフローを減らす</h3>
 
 <ul>
 <li>  hideにしてから変更すればリペイントはまとまる</li>
@@ -541,7 +541,7 @@ var blog_categories = [
 
 <p>JS -&gt; 表示 -&gt;</p>
 
-<h3 id="ボトルネックを解消をする">ボトルネックを解消をする</h3>
+<h3 id=">ボトルネックを解消をする</h3>
 
 <ul>
 <li>  描画コストの高いCSS</li>
@@ -549,7 +549,7 @@ var blog_categories = [
 <li>  ループ</li>
 </ul>
 
-<h4 id="chrome-cannaryを使う">Chrome Cannaryを使う</h4>
+<h4 id="chrome-cannary">Chrome Cannaryを使う</h4>
 
 <ul>
 <li>  cannaryにしかない機能もある</li>
@@ -565,14 +565,14 @@ var blog_categories = [
 </ul></li>
 </ul>
 
-<h3 id="jqueryアニメーションとcss3">jQueryアニメーションとCSS3</h3>
+<h3 id="jquery-css3">jQueryアニメーションとCSS3</h3>
 
 <ul>
 <li>  CSSのほうがネイティブに近いので基本的には早い</li>
 <li>  requestAnimationFrame</li>
 </ul>
 
-<h3 id="まびく">まびく</h3>
+<h3 id=">まびく</h3>
 
 <p>処理を間引いて行う</p>
 
@@ -581,7 +581,7 @@ var blog_categories = [
 <li>  debounce</li>
 </ul>
 
-<h3 id="その他">その他</h3>
+<h3 id=">その他</h3>
 
 <ul>
 <li>  スタイルの変更を末端要素で影響範囲を抑える</li>
@@ -593,16 +593,16 @@ var blog_categories = [
 </ul></li>
 </ul>
 
-<h2 id="javascript-–-テストしやすいjavascriptとテストについて-&#8211;-cssradar">Javascript – テストしやすいJavaScriptとテストについて &#8211; CSSRADAR</h2>
+<h2 id="javascript-javascript-8211-cssradar">Javascript – テストしやすいJavaScriptとテストについて &#8211; CSSRADAR</h2>
 
 <ul>
 <li>  テストしやすいJavaScriptとは</li>
 <li>  ユニットテストツールとは</li>
 </ul>
 
-<h3 id="テストしやすいjavascriptとは">テストしやすいJavaScriptとは</h3>
+<h3 id="javascript">テストしやすいJavaScriptとは</h3>
 
-<h4 id="ベストプラクティス">ベストプラクティス</h4>
+<h4 id=">ベストプラクティス</h4>
 
 <ul>
 <li>  オブジェクト指向JavaScript</li>
@@ -611,7 +611,7 @@ var blog_categories = [
 <li>  ユニットテスト</li>
 </ul>
 
-<h3 id="リファクタリングを前提に考える">リファクタリングを前提に考える</h3>
+<h3 id=">リファクタリングを前提に考える</h3>
 
 <ul>
 <li>  リファクタリングをする前提で書く</li>
@@ -619,7 +619,7 @@ var blog_categories = [
 <li>  ロジックにもデザインがある</li>
 </ul>
 
-<h3 id="テストしずらいコードを見ていく">テストしずらいコードを見ていく</h3>
+<h3 id=">テストしずらいコードを見ていく</h3>
 
 <ul>
 <li>  テストしにくいコードからテストしやすいコードを学ぶ</li>
@@ -644,14 +644,14 @@ var blog_categories = [
 <li>  これをリファクタリングしていく</li>
 </ul>
 
-<h3 id="テスト駆動リファクタリング">テスト駆動リファクタリング</h3>
+<h3 id=">テスト駆動リファクタリング</h3>
 
 <ul>
 <li>  テストはデザイン</li>
 <li>  パターンはよくある問題の解決する</li>
 </ul>
 
-<h3 id="リファクタリング">リファクタリング</h3>
+<h3 id=">リファクタリング</h3>
 
 <ul>
 <li>  まずは、テストコードからアプリケーションコードへアクセスできるようにする</li>
@@ -667,7 +667,7 @@ var blog_categories = [
 <li>  setupで、ユーザーの入力を入れて、teardownでユーザーの入力を消す</li>
 </ul>
 
-<h3 id="テストツール">テストツール</h3>
+<h3 id=">テストツール</h3>
 
 <h4 id="jasmine">Jasmine</h4>
 
@@ -701,7 +701,7 @@ var blog_categories = [
 <li>  ヘッドレスブラウザ &#8211; test runnerとして使う</li>
 </ul>
 
-<h4 id="grunt.js">Grunt.js</h4>
+<h4 id="grunt-js">Grunt.js</h4>
 
 <ul>
 <li>  ビルドツールで自動化</li>
@@ -713,7 +713,7 @@ var blog_categories = [
 <li>  テストで学ぶJavaScript</li>
 </ul>
 
-<h2 id="q&amp;a">Q&amp;A</h2>
+<h2 id="q-amp-a">Q&amp;A</h2>
 
 <ul>
 <li>  チームの他の人がテストしたがらない場合に何から始めるか? 
@@ -724,7 +724,7 @@ var blog_categories = [
 </ul></li>
 </ul>
 
-<h2 id="jquery-to-backbone-–-アーキテクチャを意識したjavascript入門-&#8211;-ahomu">jQuery to Backbone – アーキテクチャを意識したJavaScript入門 &#8211; ahomu</h2>
+<h2 id="jquery-to-backbone-javascript-8211-ahomu">jQuery to Backbone – アーキテクチャを意識したJavaScript入門 &#8211; ahomu</h2>
 
 <ul>
 <li>  jQueryについて</li>
@@ -734,7 +734,7 @@ var blog_categories = [
 
 <p>jQuery replace backboneではなく、フォーカスを移すイメージ</p>
 
-<h3 id="backbone.js">Backbone.js</h3>
+<h3 id="backbone-js">Backbone.js</h3>
 
 <ul>
 <li>  軽量で短く</li>
@@ -749,7 +749,7 @@ var blog_categories = [
 <li>  プラグインが豊富</li>
 </ul>
 
-<h3 id="jqueryが解決しない問題">jQueryが解決しない問題</h3>
+<h3 id="jquery">jQueryが解決しない問題</h3>
 
 <ul>
 <li>  アプリケーションコードの肥大化</li>
@@ -759,7 +759,7 @@ var blog_categories = [
 
 <p>これをBackboneを使いつつ上手く解決していく</p>
 
-<h3 id="mv*">MV*</h3>
+<h3 id="mv">MV*</h3>
 
 <ul>
 <li>  TodoMVC 
@@ -770,14 +770,14 @@ var blog_categories = [
 </ul></li>
 </ul>
 
-<h3 id="backbone.js">Backbone.js</h3>
+<h3 id="backbone-js">Backbone.js</h3>
 
 <ul>
 <li>  やさしい構造をサポート</li>
 <li>  Model/View/Router</li>
 </ul>
 
-<h3 id="デザインパターン">デザインパターン</h3>
+<h3 id=">デザインパターン</h3>
 
 <ul>
 <li>  デザインパターンから一般的なパターンを学ぶ</li>
@@ -811,7 +811,7 @@ var blog_categories = [
 <li>  Pub/Sub &#8211; 3者</li>
 </ul>
 
-<h3 id="jquery-to-backbone.js">jQuery to Backbone.js</h3>
+<h3 id="jquery-to-backbone-js">jQuery to Backbone.js</h3>
 
 <p>View</p>
 
@@ -858,34 +858,34 @@ var blog_categories = [
 <li>  テンプレートの分離</li>
 </ul>
 
-<h3 id="モジューラーjavascript">モジューラーJavaScript</h3>
+<h3 id="javascript">モジューラーJavaScript</h3>
 
 <ul>
 <li>  依存性の低さによる変更のひしゃすさ</li>
 <li>  継続的なメンテナンス性がアップする</li>
 </ul>
 
-<h3 id="modelとcollection">ModelとCollection</h3>
+<h3 id="model-collection">ModelとCollection</h3>
 
 <ul>
 <li>  CollectionはModelsを束ねるもの</li>
 <li>  new Model()</li>
 </ul>
 
-<h3 id="collectionのソート">Collectionのソート</h3>
+<h3 id="collection">Collectionのソート</h3>
 
 <ul>
 <li>  collectionのcomparatorにソート条件を書く</li>
 <li>  <code>sort</code> にイベントをつけておいて、sortされたらrenderメソッドを呼ぶようにする</li>
 </ul>
 
-<h3 id="アーキテクチャを考えるためのbackbone.js">アーキテクチャを考えるためのBackbone.js</h3>
+<h3 id="backbone-js">アーキテクチャを考えるためのBackbone.js</h3>
 
 <ul>
 <li>  アーキテクチャを実際の実装から学べる</li>
 </ul>
 
-<h3 id="その他">その他</h3>
+<h3 id=">その他</h3>
 
 <ul>
 <li>  Marionette 
@@ -897,7 +897,7 @@ var blog_categories = [
 <li>  Thorax</li>
 </ul>
 
-<h3 id="q&amp;a">Q&amp;A</h3>
+<h3 id="q-amp-a">Q&amp;A</h3>
 
 <ul>
 <li>  Backbone.js 使ってよかったどうか? 

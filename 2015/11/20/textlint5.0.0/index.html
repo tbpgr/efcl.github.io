@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2015-11-20T22:09:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -115,7 +115,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -246,6 +246,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -260,12 +266,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -344,7 +344,7 @@ var blog_categories = [
 <li><a href="https://github.com/textlint/textlint/compare/4.0.0...5.0.0" title="Comparing 4.0.0...5.0.0 · textlint/textlint">Comparing 4.0.0...5.0.0 · textlint/textlint</a></li>
 </ul>
 
-<h2 id="変更点">変更点</h2>
+<h2 id=">変更点</h2>
 
 <h3 id="breaking-change">Breaking Change</h3>
 
@@ -365,7 +365,7 @@ var blog_categories = [
       <span class="c1">// result.messages</span>
 <span class="p">});</span>
 </code></pre></div>
-<h3 id="新しい機能">新しい機能</h3>
+<h3 id=">新しい機能</h3>
 
 <p><strong>Warning</strong> <a href="https://github.com/textlint/textlint/issues/44" title="#44">#44</a></p>
 
@@ -471,7 +471,7 @@ no-start-duplicated-conjunction |     5.911 |     3.4%
 
 <p>一つでもRejectedとなったPromiseがある場合に失敗したと判断してエラーを出します。(<code>Promise.all</code>をしているだけです)</p>
 
-<h3 id="非同期の使い道">非同期の使い道</h3>
+<h3 id=">非同期の使い道</h3>
 
 <p>ほぼ同じ機構を持つESLintが非同期対応してないことからも分かりますが、普通にLintする場合は非同期APIがなくても問題ないです。</p>
 
@@ -521,7 +521,7 @@ Lint結果に従いリファクタリングしていくとセンテンスは短�
 <p><a href="https://github.com/efcl/efcl.github.io/pull/120" title="textlint 5.0.0について by azu · Pull Request #120 · efcl/efcl.github.io">この記事もno-doubled-joshiでチェック</a>しながら書かれています。
 ただ、適当に書くと色々指摘されるので、気軽に書きたいブログとかだとやかましいかもしれないですね。</p>
 
-<h3 id="ルールの仕組み">ルールの仕組み</h3>
+<h3 id=">ルールの仕組み</h3>
 
 <p>このルールは<a href="https://github.com/azu/sentence-splitter" title="azu/sentence-splitter">sentence-splitter</a>を使ってパラグラフをセンテンスに分解し、<a href="https://github.com/takuyaa/kuromoji.js" title="kuromoji.js">kuromoji.js</a>を使ってセンテンスを形態素解析して品詞をチェックすることでチェックしています。</p>
 
@@ -563,7 +563,7 @@ Lint結果に従いリファクタリングしていくとセンテンスは短�
 
 <hr>
 
-<h2 id="その他">その他</h2>
+<h2 id=">その他</h2>
 
 <p>Atomプラグインである<a href="https://github.com/1000ch/linter-textlint" title="linter-textlint">linter-textlint</a>もtextlint 5.0.0に対応しています。</p>
 
@@ -629,7 +629,7 @@ Lint結果に従いリファクタリングしていくとセンテンスは短�
 </code></pre></div>
 <p><a href="https://github.com/azu/textstat" title="textstat">textstat</a>も<a href="https://github.com/azu/textstat#create-rule">ルールはJavaScript</a>で簡単に書けるので、気になった部分を数値として出してみると面白いかもしれません。</p>
 
-<h2 id="今後">今後</h2>
+<h2 id=">今後</h2>
 
 <p>形態素解析を使ったルールも書けるようになったので、初期にやりたかった事は大体できた気がします。</p>
 

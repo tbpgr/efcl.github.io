@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2014-09-22T23:25:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -121,7 +121,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -252,6 +252,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -266,12 +272,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -340,7 +340,7 @@ var blog_categories = [
 <li><a href="https://www.xenophy.com/sencha-blog/11578" title="iOS 8 に Apple の HTML5 への愛を見た | 株式会社ゼノフィ">iOS 8 に Apple の HTML5 への愛を見た | 株式会社ゼノフィ</a></li>
 </ul>
 
-<h2 id="sourcemapとastの問題点">SourceMapとASTの問題点</h2>
+<h2 id="sourcemap-ast">SourceMapとASTの問題点</h2>
 
 <blockquote class="twitter-tweet" lang="en"><p>これが <a href="https://twitter.com/hashtag/DOMQuery%E5%AF%BF%E5%8F%B8?src=hash">#DOMQuery寿司</a> です <a href="http://t.co/o4qpKqrKYT">pic.twitter.com/o4qpKqrKYT</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/513999410615689216">September 22, 2014</a></blockquote>
 
@@ -421,7 +421,7 @@ var blog_categories = [
 <p>このようにASTを連続的に扱う場合にもそれを扱う定番的な方法が決まっていないため、あやふやな状態が出てくるのが多段SourceMapと似ているねという話をしてきました。
 (AST自体も<a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API" title="Parser API">Parser API</a>がベースとなっているだけで、細かい所に扱いの違いがあります - 主にES6)</p>
 
-<h4 id="その他">その他</h4>
+<h4 id=">その他</h4>
 
 <ul>
 <li>最近(ES6)のASTってどうなの?
@@ -447,7 +447,7 @@ var blog_categories = [
 </ul></li>
 </ul>
 
-<h2 id="power-assertのデモサイトを作った話">power-assertのデモサイトを作った話</h2>
+<h2 id="power-assert">power-assertのデモサイトを作った話</h2>
 
 <blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/DOMQuery%E5%AF%BF%E5%8F%B8?src=hash">#DOMQuery寿司</a> power-assert デモについて <a href="http://t.co/vep82qnyEJ">pic.twitter.com/vep82qnyEJ</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/514007886825938944">September 22, 2014</a></blockquote>
 
@@ -494,7 +494,7 @@ var blog_categories = [
 
 <p>後、さきほどの<a href="http://docs.ractivejs.org/latest/mustaches" title="Mustache">Mustache</a>テンプレートをベースにした最近話題の<a href="https://github.com/ractivejs/ractive/tree/dev/src/virtualdom" title="virtualdom">virtualdom</a>実装を持っていることも面白いかもしれません。</p>
 
-<h3 id="その他">その他</h3>
+<h3 id=">その他</h3>
 
 <ul>
 <li>Vue.js データバインディングのため大量のdataを入れるとそこで処理に時間がかかる
@@ -522,7 +522,7 @@ var blog_categories = [
 </ul></li>
 </ul>
 
-<h2 id="その他のその他">その他のその他</h2>
+<h2 id=">その他のその他</h2>
 
 <ul>
 <li>CSS <code>:visited</code>

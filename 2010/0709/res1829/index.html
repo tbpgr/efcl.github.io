@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2010-07-09T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -125,7 +125,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -256,6 +256,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -270,12 +276,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -344,7 +344,7 @@ SIMがないとOSを変えるときiPhoneをアクティベーションできな
 SIMなしでiPhone3G(OS3.1.2)を起動すると&#8221;<strong>SIMカードが挿入されていません</strong>&#8220;(&#8220;NO SIM card installed&#8221;)というダイアログがrespring毎にでて大変うっとうしいので、まずはそれが出ないように<strong>機内モードをON</strong>にする。<br>
 なぜか機内モードをONするとSIMが入ってないというアラートが出なくなるのと、機内モードでもwifiは動くので丁度良い。(<a href="http://twitter.com/azu_re/status/17583551461">SIMなし</a>表記の書き換えとかしようとしてたけど飛行機マークになるので必要なくなった)</p>
 
-<h3 id="iphoneの音楽プレーヤー">iPhoneの音楽プレーヤー</h3>
+<h3 id="iphone">iPhoneの音楽プレーヤー</h3>
 
 <p>iPhoneに音楽を転送する方法を考えてみると以下の3つぐらいになる。</p>
 
@@ -357,7 +357,7 @@ SIMなしでiPhone3G(OS3.1.2)を起動すると&#8221;<strong>SIMカードが挿
 <p>iTunes以外の転送ソフトウェアは<a href="http://ja.wikipedia.org/wiki/IPod%E7%AE%A1%E7%90%86%E3%82%BD%E3%83%95%E3%83%88">iPod管理ソフト &#8211; Wikipedia</a>が詳しい。<br>
 前者2つはiPod.appに登録されるので、iPod.appや関連するアプリで再生できるが、ファイルをそのまま転送した場合はiPod.appでは再生できないので他のプレイヤーアプリが必要となる。</p>
 
-<h3 id="itunesを使って運用">iTunesを使って運用</h3>
+<h3 id="itunes">iTunesを使って運用</h3>
 
 <p>iTunes自体は重くて使いにくいが、やはり標準と言うことで補助ソフトがたくさんあるためライブラリの構築はiTunesで行うのが最適そうです。自分のやっている手順を適当に書いてみる</p>
 
@@ -389,20 +389,20 @@ beaTunes2はアーティスト名の表記揺れやデットリンクやアル�
 
 <p>後はiPhoneと同期すればiPod.appに反映します。</p>
 
-<h3 id="iphoneで再生">iPhoneで再生</h3>
+<h3 id="iphone">iPhoneで再生</h3>
 
 <p>iPhoneで同期した音楽を再生するのにはiPod.appや他のアプリなどが使えます。<br>
 しかしどのアプリもiPhoneアプリで<strong>アルバム</strong>の最後の曲が終わったら自動で隣の<strong>アルバム</strong>へみたいな事ができなくて若干困ってる。(最後の曲が終わると停止してしまう)<br>
 プレイリストを作って聞けという方針なのか謎ですが、プレイリストの作りやすいアプリだと<a href="http://appshopper.com/music/amp-music-player">Amp Music Player</a>あたりがお勧めです。<br>
 是非上の事が解決できる方法が合ったら教えて下さい。</p>
 
-<h3 id="pc上での再生">PC上での再生</h3>
+<h3 id="pc">PC上での再生</h3>
 
 <p>PC上での再生は元々フォルダ管理したものがそのまま使えるので、以前と同じ環境で聞くこともできます。<br>
 せっかくiTunesでライブラリを構築したのでそれを利用して聞きたいと思います。そこで使えるのが<a href="http://www.getmusicbee.com/">MusicBee &#8211; Music Manager and Player</a>という音楽プレイヤーです。iTunesからライブラリをインポートしたり、iPhoneとも同期できたりするので、人によってはiTunes自体が不必要になるかも知れません(アートワーク周りはiTunesが補助ソフトが多くていい)<br>
 <a href="http://www.getmusicbee.com/">MusicBee </a>自体も軽量で使いやすいプレイヤーなので、そのまま使えるのは魅力的だと思います。</p>
 
-<h3 id="itunesを使わない運用">iTunesを使わない運用</h3>
+<h3 id="itunes">iTunesを使わない運用</h3>
 
 <p>脱獄向けです。<br>
 簡単に書くとフォルダごとそのままiPhoneに転送して、どうにかしてiPhoneでそのフォルダに入ってる曲を聴くというものです。<br>

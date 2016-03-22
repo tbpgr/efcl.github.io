@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2015-07-27T09:05:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -121,7 +121,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -252,6 +252,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -266,12 +272,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -335,13 +335,13 @@ var blog_categories = [
 
 <p>一言で説明するならば、<a href="http://efcl.info/2015/05/04/pdf-annotation-markdown/" title="PDFを見ながらMarkdownでメモを取れるアプリを書いた | Web Scratch">PDFを見ながらMarkdownでメモを取れるアプリを書いた</a>の動画版です。</p>
 
-<h2 id="インストール">インストール</h2>
+<h2 id=">インストール</h2>
 
 <p><a href="https://github.com/azu/video-transcript-note/releases/latest">latest binary</a>から最新のバイナリを落として起動すればいけるはずです。</p>
 
 <p>Linuxも多分動くんだと思いますが、何か妙にバイナリが大きいかったので<a href="https://github.com/azu/video-transcript-note/blob/6b803d7081b863570cd638e20fc1a67a397c4a61/package.json#L21">ビルド</a>からは外してます。(適当に修正PRでも下さい)</p>
 
-<h2 id="機能">機能</h2>
+<h2 id=">機能</h2>
 
 <p><img src="http://monosnap.com/image/0B7VE8sHjR7ZojNUWDs0u5z8ZZCwRl.png" alt="screenshot"></p>
 
@@ -387,7 +387,7 @@ var blog_categories = [
 <p>などで字幕付きの動画を見てみるのが早いのかもしれないですね。
 (<a href="https://github.com/azu/video-transcript-note" title="video-transcript-note">video-transcript-note</a>にダウンロード機能はないです)</p>
 
-<h2 id="仕組み">仕組み</h2>
+<h2 id=">仕組み</h2>
 
 <p>基本的にHTML5 Videoの機能にそのまま乗っかっています。</p>
 

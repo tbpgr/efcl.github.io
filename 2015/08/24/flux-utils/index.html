@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2015-08-24T09:23:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -121,7 +121,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -252,6 +252,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -266,12 +272,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -396,7 +396,7 @@ var blog_categories = [
 </code></pre></div>
 <hr>
 
-<h4 id="余談:ファイルサイズ">余談:ファイルサイズ</h4>
+<h4 id=">余談:ファイルサイズ</h4>
 
 <p>Flux Utilsを含む前後の<a href="https://github.com/facebook/flux" title="facebook/flux">facebook/flux</a>のファイルサイズは以下のような感じです。</p>
 
@@ -419,7 +419,7 @@ var blog_categories = [
 </code></pre></div>
 <hr>
 
-<h2 id="flux-+-reactなアプリ作成の流れ">Flux + Reactなアプリ作成の流れ</h2>
+<h2 id="flux-react">Flux + Reactなアプリ作成の流れ</h2>
 
 <p>ここからは<a href="https://github.com/azu/hatebu-mydata-search" title="azu/hatebu-mydata-search">azu/hatebu-mydata-search</a>がどういう順番で作成したかに沿った流れで書いていきます。</p>
 
@@ -432,7 +432,7 @@ CSSは<a href="http://cssnext.io/" title="cssnext">cssnext</a>と<a href="http:/
 <li><a href="https://github.com/azu/hatebu-mydata-search/commit/101d6310659d4d8b701e9cfffa14fafde351a7b3" title="setup devlopment env · azu/hatebu-mydata-search@101d631">setup devlopment env · azu/hatebu-mydata-search@101d631</a></li>
 </ul>
 
-<h3 id="ステートレスコンポーネント">ステートレスコンポーネント</h3>
+<h3 id=">ステートレスコンポーネント</h3>
 
 <p>コミットをそこまでキレイに分けてないので上記のコミットに含まれてますが、まずはステートレスなReact Componentを作成していくようにしています。
 (React Componentで<code>this.state</code>を使わないと考えれば書きやすいと思います)</p>
@@ -530,7 +530,7 @@ CSSは<a href="http://cssnext.io/" title="cssnext">cssnext</a>と<a href="http:/
 <li><a href="http://suitcss.github.io/" title="SUIT CSS: style tools for UI components">SUIT CSS: style tools for UI components</a></li>
 </ul>
 
-<h3 id="flux-utilsの導入">Flux Utilsの導入</h3>
+<h3 id="flux-utils">Flux Utilsの導入</h3>
 
 <p>コンポーネントが揃ったらボタンを押したらデータを読み込むみたいな動きをつけていくので、ここでやっとFluxを導入します。</p>
 
@@ -721,7 +721,7 @@ CSSは<a href="http://cssnext.io/" title="cssnext">cssnext</a>と<a href="http:/
     <span class="k">return</span> <span class="nx">one</span> <span class="o">===</span> <span class="nx">two</span><span class="p">;</span>
   <span class="p">}</span>
 </code></pre></div>
-<h4 id="stateがimmutable?">StateがImmutable?</h4>
+<h4 id="state-immutable">StateがImmutable?</h4>
 
 <p>ここで最初の方にも書いてたFlux UtilsがなぜImmutable前提と言えるのかという話をしておきます。</p>
 
@@ -745,7 +745,7 @@ CSSは<a href="http://cssnext.io/" title="cssnext">cssnext</a>と<a href="http:/
 </code></pre></div>
 <p>このstateはImmutableであるというのは、stateが汚れたりしないのでいいところもありますが、逆に<code>setState</code>のような無理やりstateを変えたいという時に結構面倒な事があります。</p>
 
-<h3 id="ローカルストレージからの復元">ローカルストレージからの復元</h3>
+<h3 id=">ローカルストレージからの復元</h3>
 
 <p><a href="https://github.com/azu/hatebu-mydata-search" title="azu/hatebu-mydata-search">azu/hatebu-mydata-search</a>でも一つ遭遇して、このアプリでは取得済みのブックマークやユーザー名などはIndexedDBに保存しています。</p>
 
@@ -802,7 +802,7 @@ CSSは<a href="http://cssnext.io/" title="cssnext">cssnext</a>と<a href="http:/
 
 <p>ストレージから復元もActionでやったほうが例外的なルールもなくなるので真っ当な設計だと思います。</p>
 
-<h2 id="まとめ">まとめ</h2>
+<h2 id=">まとめ</h2>
 
 <p><a href="https://gist.github.com/azu/e0274b703ef97226b0db" title="flux-utilsについて">flux-utilsについて</a>でも書いていましたが、特に<code>MapStore</code>などは<a href="http://flowtype.org/" title="Flow">Flow</a>やTypeScriptといった型付き言語だと使いやすいような形となっています。
 そういったものと一緒にFlux Utilsを使うといろんな人がいても書き方がかなり統一されるような感じがします。</p>

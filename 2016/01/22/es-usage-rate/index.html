@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2016-01-22T13:09:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -119,7 +119,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -250,6 +250,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -264,12 +270,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -351,7 +351,7 @@ var blog_categories = [
 <h3 id="installation">Installation</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm install -g es-usage-rate
 </code></pre></div>
-<h3 id="使い方">使い方</h3>
+<h3 id=">使い方</h3>
 
 <p>例えば、<code>es-usage-rate</code>自体がどういう構文を使って書かれてるかを見てみてます。</p>
 
@@ -471,7 +471,7 @@ ImportNamespaceSpecifier<span class="p">|</span> <span class="m">1</span>  <span
 <li>format(Nodes) =&gt; result!</li>
 </ol>
 
-<h2 id="使われているes6の構文を見ていく">使われているES6の構文を見ていく</h2>
+<h2 id="es6">使われているES6の構文を見ていく</h2>
 
 <p>あるコードで、どれくらいES6の構文が使われているのか、またどういう構文の使用率が高いのか、
 ということを調べたくて<a href="https://github.com/azu/es-usage-rate" title="azu/es-usage-rate">es-usage-rate</a>を書きました。</p>
@@ -906,7 +906,7 @@ VariableDeclaration:const<span class="p">|</span><span class="m">1</span>  <span
 
 <p>この辺は題材によるので、色々なものを見てみると面白い発見があるかもしれません。</p>
 
-<h2 id="まとめ">まとめ</h2>
+<h2 id=">まとめ</h2>
 
 <ul>
 <li>コードを分解して解析する<a href="https://github.com/azu/es-usage-rate" title="azu/es-usage-rate">azu/es-usage-rate</a>を作った</li>

@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2011-08-20T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -125,7 +125,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -256,6 +256,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -270,12 +276,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -343,13 +343,13 @@ var blog_categories = [
 
 <p><span style="font-size: 18px; font-weight: bold;">第3回 ブラウザー勉強会</span></p>
 
-<h2 id="午前の部-:コミュニティー-セッション">午前の部 :コミュニティー セッション</h2>
+<h2 id=">午前の部 :コミュニティー セッション</h2>
 
-<h3 id="ショートセッション-:-kyo_ago -(http://tech.kayac.com/) 「testで始まる物語（ストーリー）-qunit-cuiの紹介」-{#kyo_agohttp:tech.kayac.comtestqunitcui}">ショートセッション : kyo_ago  (<a href="http://tech.kayac.com/)%E2%80%A8%E3%80%8CTest%E3%81%A7%E5%A7%8B%E3%81%BE%E3%82%8B%E7%89%A9%E8%AA%9E%EF%BC%88%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AA%E3%83%BC%EF%BC%89">http://tech.kayac.com/) 「Testで始まる物語（ストーリー）</a> QUnit CUIの紹介」 {#kyo_agohttp:tech.kayac.comtestqunitcui}</h3>
+<h3 id="kyo_ago-http-tech-kayac-com-test-qunit-cui-kyo_agohttp-tech-kayac-comtestqunitcui">ショートセッション : kyo_ago  (<a href="http://tech.kayac.com/)%E2%80%A8%E3%80%8CTest%E3%81%A7%E5%A7%8B%E3%81%BE%E3%82%8B%E7%89%A9%E8%AA%9E%EF%BC%88%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AA%E3%83%BC%EF%BC%89">http://tech.kayac.com/) 「Testで始まる物語（ストーリー）</a> QUnit CUIの紹介」 {#kyo_agohttp:tech.kayac.comtestqunitcui}</h3>
 
 <p>[<a href="http://www.ustream.tv/recorded/16762261">Ustream</a>] [<a href="http://jsrun.it/kyo_ago/browserws3">発表資料</a>]</p>
 
-<h4 id="jquery-plugin-testフレームワーク-{#jqueryplugintest}">jQuery Plugin testフレームワーク {#jqueryplugintest}</h4>
+<h4 id="jquery-plugin-test-jqueryplugintest">jQuery Plugin testフレームワーク {#jqueryplugintest}</h4>
 
 <ul>
 <li>  非同期実行されるコードのテストが面倒</li>
@@ -377,7 +377,7 @@ var blog_categories = [
 
 <hr>
 
-<h3 id="ショートセッション-:-はせがわようすけ-「using-win32-api-inside-chrome-extension」-{#usingwin32apiinsidechromeextensionbrowserws}">ショートセッション : はせがわようすけ 「Using Win32 API inside Chrome Extension」 {#usingwin32apiinsidechromeextensionbrowserws}</h3>
+<h3 id="using-win32-api-inside-chrome-extension-usingwin32apiinsidechromeextensionbrowserws">ショートセッション : はせがわようすけ 「Using Win32 API inside Chrome Extension」 {#usingwin32apiinsidechromeextensionbrowserws}</h3>
 
 <p>[<a href="http://www.ustream.tv/recorded/16762480">Ustream</a>] [<a href="http://utf-8.jp/public/20110820/chrome.pptx">発表資料</a>]</p>
 
@@ -388,7 +388,7 @@ var blog_categories = [
 <li>  マニフェストとリソース</li>
 </ul>
 
-<h4 id="chrome-extentionの制約を超える-{#chromeextention}">Chrome Extentionの制約を超える {#chromeextention}</h4>
+<h4 id="chrome-extention-chromeextention">Chrome Extentionの制約を超える {#chromeextention}</h4>
 
 <p>NPAPI DLL &#8211; プラグインを書くためのもの</p>
 
@@ -408,7 +408,7 @@ var blog_categories = [
 <li>  化石のようなもの</li>
 </ul>
 
-<h4 id="npwin32-{#npwin32}">NPWIN32 {#npwin32}</h4>
+<h4 id="npwin32-npwin32">NPWIN32 {#npwin32}</h4>
 
 <p>何でも使える汎用DLL * JavaScriptから何でもできる</p>
 
@@ -423,7 +423,7 @@ var blog_categories = [
 
 <hr>
 
-<h3 id="ライトニング-トーク-:-normalian-さん-(http://d.hatena.ne.jp/waritohutsu/)-{#normalianhttp:d.hatena.ne.jpwaritohutsu}">ライトニング トーク : normalian さん (<a href="http://d.hatena.ne.jp/waritohutsu/">http://d.hatena.ne.jp/waritohutsu/</a>) {#normalianhttp:d.hatena.ne.jpwaritohutsu}</h3>
+<h3 id="normalian-http-d-hatena-ne-jp-waritohutsu-normalianhttp-d-hatena-ne-jpwaritohutsu">ライトニング トーク : normalian さん (<a href="http://d.hatena.ne.jp/waritohutsu/">http://d.hatena.ne.jp/waritohutsu/</a>) {#normalianhttp:d.hatena.ne.jpwaritohutsu}</h3>
 
 <p>[<a href="http://www.ustream.tv/recorded/16762671">Ustream</a>] [発表資料]</p>
 
@@ -436,9 +436,9 @@ var blog_categories = [
 <li><p>HTMl5の対応状況の差異</p></li>
 </ul>
 
-<h4 id="jquery-&amp;-modernizr-{#jquerymodernizr}">jQuery &amp; Modernizr {#jquerymodernizr}</h4>
+<h4 id="jquery-amp-modernizr-jquerymodernizr">jQuery &amp; Modernizr {#jquerymodernizr}</h4>
 
-<h4 id="jquery-{#jquery}">jQuery {#jquery}</h4>
+<h4 id="jquery-jquery">jQuery {#jquery}</h4>
 
 <ul>
 <li>  jQuery Core</li>
@@ -447,7 +447,7 @@ var blog_categories = [
 <li>  jQuery Validate</li>
 </ul>
 
-<h5 id="modernizr-{#modernizr}">Modernizr {#modernizr}</h5>
+<h5 id="modernizr-modernizr">Modernizr {#modernizr}</h5>
 
 <ul>
 <li>  ブラウザのHTML5対応度合いの確認</li>
@@ -492,13 +492,13 @@ var blog_categories = [
 <li>Sleipnir Mobile &#8211; タブグループ機能 -  面倒くさい工程</li>
 </ul>
 
-<h4 id="まとめ">まとめ</h4>
+<h4 id=">まとめ</h4>
 
 <p>様式は落ち着かないだろう。</p>
 
 <hr>
 
-<h3 id="google-chromeはエンタープライズの夢をみるか-:-hebikuzure-{#googlechrome:hebikuzure}">Google Chromeはエンタープライズの夢をみるか : Hebikuzure {#googlechrome:hebikuzure}</h3>
+<h3 id="google-chrome-hebikuzure-googlechrome-hebikuzure">Google Chromeはエンタープライズの夢をみるか : Hebikuzure {#googlechrome:hebikuzure}</h3>
 
 <p>[<a href="http://www.ustream.tv/recorded/16763031">Ustream</a>] [<a href="http://www.slideshare.net/hebikuzure/chrome-gpo-availability">発表資料</a>]</p>
 
@@ -510,7 +510,7 @@ var blog_categories = [
 
 <p>管理者が投げ捨てる可能性</p>
 
-<h4 id="chrome-にはグループポリシー機能がある-{#chrome}">Chrome にはグループポリシー機能がある {#chrome}</h4>
+<h4 id="chrome-chrome">Chrome にはグループポリシー機能がある {#chrome}</h4>
 
 <p>(Windows版について) <strong><a href="http://www.chromium.org/administrators">Documentation for Administrators &#8211; The Chromium Projects</a></strong></p>
 
@@ -546,15 +546,15 @@ var blog_categories = [
 <p>グループポリシーのテンプレート(ADM,ADMX)が配布されているので、グループポリシーの追加ができる。<br>
 PolicyDefinitionsというフォルダーにコピーする事で入れることでも読み込める</p>
 
-<h4 id="q&amp;a-{#qa}">Q&amp;A {#qa}</h4>
+<h4 id="q-amp-a-qa">Q&amp;A {#qa}</h4>
 
 <ul>
 <li>  セキュリティアップデートも無効にできる</li>
 </ul>
 
-<h2 id="午後の部-:-テーマ-セッション-「ブラウザーと-web-が描く『夢』」-{#web}">午後の部 : テーマ セッション 「ブラウザーと Web が描く『夢』」 {#web}</h2>
+<h2 id="web-web">午後の部 : テーマ セッション 「ブラウザーと Web が描く『夢』」 {#web}</h2>
 
-<h3 id="加藤-誠さん-(mozilla-japan) 「openness,-innovation,-and-opportunity」-{#mozillajapanopennessinnovationandopportunity}">加藤 誠さん (Mozilla Japan) 「Openness, Innovation, and Opportunity」 {#mozillajapanopennessinnovationandopportunity}</h3>
+<h3 id="mozilla-japan-openness-innovation-and-opportunity-mozillajapanopennessinnovationandopportunity">加藤 誠さん (Mozilla Japan) 「Openness, Innovation, and Opportunity」 {#mozillajapanopennessinnovationandopportunity}</h3>
 
 <p>[<a href="http://www.ustream.tv/recorded/16764957">Ustream</a>] [<a href="http://www.slideshare.net/djraven/openness-innovation-and-opptunity">発表資料</a>]</p>
 
@@ -578,7 +578,7 @@ PolicyDefinitionsというフォルダーにコピーする事で入れること
 
 <p>などがLabの範囲</p>
 
-<h4 id="design-challenge-{#designchallenge}">Design Challenge {#designchallenge}</h4>
+<h4 id="design-challenge-designchallenge">Design Challenge {#designchallenge}</h4>
 
 <ul>
 <li>  特定のテーマでデザインやモックでアイデアを募る</li>
@@ -586,7 +586,7 @@ PolicyDefinitionsというフォルダーにコピーする事で入れること
 <li>  実装ではなく、あくまでもアイデア</li>
 </ul>
 
-<h4 id="test-pilot-{#testpilot}">Test Pilot {#testpilot}</h4>
+<h4 id="test-pilot-testpilot">Test Pilot {#testpilot}</h4>
 
 <ul>
 <li>  ユーザーのブラウザ利用データーを取得して解析 
@@ -601,7 +601,7 @@ PolicyDefinitionsというフォルダーにコピーする事で入れること
 
 <p>&nbsp;</p>
 
-<h4 id="prospector-{#prospector}">Prospector {#prospector}</h4>
+<h4 id="prospector-prospector">Prospector {#prospector}</h4>
 
 <ul>
 <li>  ユーザーが目的のサイトにたどり着くためのUXの模索</li>
@@ -612,7 +612,7 @@ PolicyDefinitionsというフォルダーにコピーする事で入れること
 
 <p>ソーシャルネットワークとの結合</p>
 
-<h4 id="q&amp;a-{#qa}">Q&amp;A {#qa}</h4>
+<h4 id="q-amp-a-qa">Q&amp;A {#qa}</h4>
 
 <p>アップデートスピードが早くなったのはなんで? * Webの流れが早くなってる</p>
 
@@ -630,7 +630,7 @@ PolicyDefinitionsというフォルダーにコピーする事で入れること
 <li>  ユーザーからのフィードバック次第になる。</li>
 </ul>
 
-<h3 id="daniel-davis-さん-(opera-japan) 「ブラウザの未来：html5の先には？」-{#danieldavisoperajapanhtml5}">Daniel Davis さん (Opera Japan) 「ブラウザの未来：HTML5の先には？」 {#danieldavisoperajapanhtml5}</h3>
+<h3 id="daniel-davis-opera-japan-html5-danieldavisoperajapanhtml5">Daniel Davis さん (Opera Japan) 「ブラウザの未来：HTML5の先には？」 {#danieldavisoperajapanhtml5}</h3>
 
 <p>[<a href="http://www.ustream.tv/recorded/16765907">Ustream</a>] [発表資料]</p>
 
@@ -638,7 +638,7 @@ PolicyDefinitionsというフォルダーにコピーする事で入れること
 
 <p>未来的なものを想像しても、洋服や建物が変化していない。</p>
 
-<h4 id="more-than-html5-{#morethanhtml5}">More than HTML5 {#morethanhtml5}</h4>
+<h4 id="more-than-html5-morethanhtml5">More than HTML5 {#morethanhtml5}</h4>
 
 <p><strong>Device APIs</strong></p>
 
@@ -649,7 +649,7 @@ PolicyDefinitionsというフォルダーにコピーする事で入れること
 
 <p>逆にカメラにブラウザが乗ることもあり得る</p>
 
-<h4 id="more-like-a-platform-{#morelikeaplatform}">More like a platform {#morelikeaplatform}</h4>
+<h4 id="more-like-a-platform-morelikeaplatform">More like a platform {#morelikeaplatform}</h4>
 
 <p>Web on TV * ブラウザが載ってるTVも増えている * ブラウザはWebを見るためではなく、Appとして利用されてる * 多くのメーカーはSVGでUIを使ってる(レンダリングエンジンがブラウザ)</p>
 
@@ -678,7 +678,7 @@ PolicyDefinitionsというフォルダーにコピーする事で入れること
 
 <p>再生だけではなく、作成もブラウザで? * contenteditable * 今はまだ非力</p>
 
-<h4 id="ネイティブよりウェブ?">ネイティブよりウェブ?</h4>
+<h4 id=">ネイティブよりウェブ?</h4>
 
 <ul>
 <li>  JavaScriptは早く、パワフルになった</li>
@@ -691,14 +691,14 @@ PolicyDefinitionsというフォルダーにコピーする事で入れること
 </ul></li>
 </ul>
 
-<h4 id="未来の予想は人によって違う">未来の予想は人によって違う</h4>
+<h4 id=">未来の予想は人によって違う</h4>
 
 <ul>
 <li>  ウェブはひとつの団体にコントロールされないのが重要</li>
 <li>  コントロールされないウェブは未来も一緒に作る</li>
 </ul>
 
-<h4 id="q&amp;a-{#qa}">Q&amp;A {#qa}</h4>
+<h4 id="q-amp-a-qa">Q&amp;A {#qa}</h4>
 
 <p>ブラウザがいろいろなものに乗った場合、それぞれに対して最適なUIは異なるが、それを上手くやる工夫</p>
 
@@ -707,7 +707,7 @@ PolicyDefinitionsというフォルダーにコピーする事で入れること
 <li>  ブラウザを一番下において、その上に何かをかぶせて作らせれば異なるものに対して拡張を作りやすい。</li>
 </ul>
 
-<h3 id="春日井-良隆さん-(日本マイクロソフト株式会社-uxエバンジェリスト) 「マイクロソフトにとってのwebって？」-{#uxweb}">春日井 良隆さん (日本マイクロソフト株式会社 UXエバンジェリスト) 「マイクロソフトにとってのWebって？」 {#uxweb}</h3>
+<h3 id="ux-web-uxweb">春日井 良隆さん (日本マイクロソフト株式会社 UXエバンジェリスト) 「マイクロソフトにとってのWebって？」 {#uxweb}</h3>
 
 <p>[<a href="http://www.ustream.tv/recorded/16766640">Ustream</a>] [<a href="http://www.slideshare.net/ykasugai/web-8931345">発表資料</a>]</p>
 

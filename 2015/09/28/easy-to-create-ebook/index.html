@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2015-09-28T18:15:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -119,7 +119,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -250,6 +250,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -264,12 +270,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -329,7 +329,7 @@ var blog_categories = [
 
     </div>
     <div class="post-content">
-        <h2 id="電子書籍開発環境">電子書籍開発環境</h2>
+        <h2 id=">電子書籍開発環境</h2>
 
 <div class="kwout" style="text-align: center;"><a href="http://azu.github.io/slide/niku_sushi/ebook_development.html"><img src="http://kwout.com/cutout/a/94/x9/4x5_bor.jpg" alt="http://azu.github.io/slide/niku_sushi/ebook_development.html" title="Markdownで書く電子書籍開発環境" width="600" height="225" style="border: none;" /></a><p style="margin-top: 10px; text-align: center;"><a href="http://azu.github.io/slide/niku_sushi/ebook_development.html">Markdownで書く電子書籍開発環境</a></p></div>
 
@@ -339,7 +339,7 @@ var blog_categories = [
 
 <p>どのように表記揺れなどやコードの間違いを防ぎながら、書籍を開発していくかについて書いているので詳しくは上記のスライドを見て下さい。(スライドの下へスクロールすると文章版が載ってます)</p>
 
-<h2 id="スターターキット">スターターキット</h2>
+<h2 id=">スターターキット</h2>
 
 <p>上記の設定をすぐに使えるようにスターターキット的なものを作りました。</p>
 
@@ -353,7 +353,7 @@ var blog_categories = [
 <li><a href="https://www.gitbook.com/book/azu/gitbook-starter-kit/details" title="GitBook Starter Kit - GitBook">GitBook Starter Kit - GitBook</a></li>
 </ul>
 
-<h3 id="インストール">インストール</h3>
+<h3 id=">インストール</h3>
 
 <p>利用するときは以下のように3つのコマンドを叩くだけで準備が完了します。
 (事前にNode.jsを入れておいて下さい)</p>
@@ -366,7 +366,7 @@ npm install
 <div class="highlight"><pre><code class="language-text" data-lang="text">rm .git
 git init
 </code></pre></div>
-<h3 id="使い方">使い方</h3>
+<h3 id=">使い方</h3>
 
 <p><a href="https://github.com/azu/gitbook-starter-kit">README.md</a>にも使い方などは書いてありますが、<code>npm start</code>をするだけでブラウザで書籍のプレビューが行えます。(今後変わるかもしれないのでREADME.mdの方を見て下さい)</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm start
@@ -378,7 +378,7 @@ open http://localhost:4000/
 <p><a href="http://manual.calibre-ebook.com/cli/ebook-convert.html" title="ebook-convert">ebook-convert</a>が必要になるので、面倒な場合は<a href="https://www.gitbook.com/">GitBook.com</a>で<a href="https://help.gitbook.com/github/index.html" title="GitHub Integration | Documentation">GitHub Integration</a>をすれば、GitBook.comに自動的にPDFなどが生成されます。
 (このIntegrationはFirefoxだと設定できないバグがある気がします)</p>
 
-<h3 id="文章を書く">文章を書く</h3>
+<h3 id=">文章を書く</h3>
 
 <p>gitbook-starter-kitでは以下のようなディレクトリ構造になっています。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">.
@@ -401,7 +401,7 @@ open http://localhost:4000/
 <p>追加した後はデフォルトで自動的にリロードされるようになっています。
 (<code>npm start</code>を叩きなおしても良い)</p>
 
-<h2 id="テスト">テスト</h2>
+<h2 id=">テスト</h2>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm test
 </code></pre></div>
 <p>npm testで以下のテストが実行されます。</p>
@@ -423,7 +423,7 @@ open http://localhost:4000/
 <div class="highlight"><pre><code class="language-text" data-lang="text">gem install travis
 travis init node.js
 </code></pre></div>
-<h2 id="表記揺れのテスト">表記揺れのテスト</h2>
+<h2 id=">表記揺れのテスト</h2>
 
 <p><a href="http://azu.github.io/slide/niku_sushi/ebook_development.html" title="Markdownで書く電子書籍開発環境">Markdownで書く電子書籍開発環境</a>でもプロジェクト固有のルールで表記揺れのチェックが必要になる話を書いています。</p>
 
@@ -439,7 +439,7 @@ travis init node.js
 
 <p>Atomと<a href="https://github.com/1000ch/linter-textlint" title="1000ch/linter-textlint">1000ch/linter-textlint</a>を使うと保存する毎に表記揺れのチェックができるので、特に決まったエディタがないならAtomを使ってみるといいかもしれません(Markdownは書きやすいので)</p>
 
-<h2 id="おわりに">おわりに</h2>
+<h2 id=">おわりに</h2>
 
 <p>今<a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="JavaScript-Plugin-Architecture">JavaScript-Plugin-Architecture</a>という電子書籍を書いてて作った文章を書く環境について紹介しました。</p>
 

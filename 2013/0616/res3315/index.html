@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2013-06-16T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -115,7 +115,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -246,6 +246,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -260,12 +266,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -333,7 +333,7 @@ var blog_categories = [
 
 <p>に書いてあることなので、こちらを読むのが楽だと思います。</p>
 
-<h2 id="xctoolのインストール"><a href="https://github.com/facebook/xctool" title="facebook/xctool · GitHub">xctool</a>のインストール</h2>
+<h2 id="xctool"><a href="https://github.com/facebook/xctool" title="facebook/xctool · GitHub">xctool</a>のインストール</h2>
 
 <p>homebrewでインストールするのがお手軽です</p>
 
@@ -342,7 +342,7 @@ var blog_categories = [
 </pre>
 </div>
 
-<h2 id="oclintのインストール"><a href="http://oclint.org/" title="OCLint, A static source code analysis tool to improve quality and reduce defects for C, C++ and Objective-C">OCLint</a>のインストール</h2>
+<h2 id="oclint"><a href="http://oclint.org/" title="OCLint, A static source code analysis tool to improve quality and reduce defects for C, C++ and Objective-C">OCLint</a>のインストール</h2>
 
 <ul>
 <li>  <a href="http://oclint.org/downloads.html" title="OCLint - Downloads">OCLint &#8211; Downloads</a></li>
@@ -354,7 +354,7 @@ var blog_categories = [
 <li>  <a href="http://docs.oclint.org/en/dev/intro/installation.html#option-1-directly-add-to-path" title="OCLint - 0.7dev Documentation - Installation">OCLint &#8211; 0.7dev Documentation &#8211; Installation</a></li>
 </ul>
 
-<h2 id="連携方法">連携方法</h2>
+<h2 id=">連携方法</h2>
 
 <p>OCLintはOCLint単体でLintもできますが、xctoolの<a href="https://github.com/facebook/xctool" title="Reporters">Reporters</a>にはOCLintに使える <code>json-compilation-database</code> というフォーマットが用意されます。</p>
 
@@ -379,7 +379,7 @@ xctool -reporter json-compilation-database:compile_commands.json test
 # -i is include , -e is exclude
 oclint-json-compilation-database -i Lib/ -e Tests/ | sed &#39;s/(.*.m{1,2}:[0-9]*:[0-9]*:)/1 warning:/&#39;
 </code></pre></div>
-<h2 id="何が嬉しいの?">何が嬉しいの?</h2>
+<h2 id=">何が嬉しいの?</h2>
 
 <ul>
 <li>  よくわかりません</li>
@@ -419,7 +419,7 @@ OCLintのwarningをXcodeのエディタ上に表示することができます�
 <li>  <a href="https://github.com/oclint/oclint" title="oclint/oclint · GitHub">oclint/oclint · GitHub</a></li>
 </ul>
 
-<h2 id="おまけ">おまけ</h2>
+<h2 id=">おまけ</h2>
 
 <ul>
 <li>  OCLintはLinuxでも動く</li>

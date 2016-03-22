@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2014-04-11T00:00:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/03/06/ast-first-step/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/02/29/uruu_sushi/">
 
 
 
@@ -119,7 +119,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 149
+    "count" : 150
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -250,6 +250,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/03/15/textlint--fix/">
                 textlint 6.0リリース。--fixでの自動修正に対応
             </a>
@@ -264,12 +270,6 @@ var blog_categories = [
         <li>
             <a href="/2016/02/29/uruu_sushi/">
                 #uruu_sushi アウトラインメモ
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/02/24/textlint-online-demo/">
-                textlintの公式サイト(オンラインデモ)を作りました
             </a>
         </li>
         
@@ -347,7 +347,7 @@ var blog_categories = [
 <li>  <strong>Browserify</strong></li>
 </ul>
 
-<h2 id="前回やったこと">前回やったこと</h2>
+<h2 id=">前回やったこと</h2>
 
 <p>まずは前回紹介したgulp + power-assertのプロジェクトを元にやっていきます。</p>
 
@@ -368,7 +368,7 @@ $ npm install -g gulp
 </code></pre></div>
 <p>今回は、これに<a href="https://github.com/airportyh/testem" title="airportyh/testem">testem</a>を使ってブラウザでも同じpower-assertを使ったテストが動くようにしたいと思います。</p>
 
-<h2 id="testemを使ったブラウザ対応"><a name="testem">Testemを使ったブラウザ対応</a></h2>
+<h2 id="testem"><a name="testem">Testemを使ったブラウザ対応</a></h2>
 
 <p>ブラウザでpower-assertを実行するには、次のようなものが必要です。</p>
 
@@ -455,7 +455,7 @@ $ npm install -g gulp
 
 <p>これでブラウザでのテスト準備は完了です。</p>
 
-<h3 id="testemの実行">Testemの実行</h3>
+<h3 id="testem">Testemの実行</h3>
 
 <p>設定が面倒くさい分実行は簡単で<code>testem</code>とすると、ブラウザを受付状態になるので、後はテストしたいブラウザでアクセスするだけです。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$ testem
@@ -476,7 +476,7 @@ $ npm install -g gulp
 </ul></li>
 </ul>
 
-<h3 id="ハイブリッドテスト">ハイブリッドテスト</h3>
+<h3 id=">ハイブリッドテスト</h3>
 
 <p>最初に書いたテストコードでは<code>require</code>を使ってpower-assertを読み込んでいたので、そのままでは実行時エラーになります。</p>
 
@@ -531,7 +531,7 @@ browserifyによるnode.jsのコードの変換 + power-assert化を行ってく
 
 <p>今度は<a href="https://github.com/karma-runner/karma" title="Karma">Karma</a>を使ってブラウザテストしてみましょう。</p>
 
-<h3 id="karma-+-browserify"><a name="karma-browserify"></a><a href="https://github.com/karma-runner/karma" title="Karma">Karma</a> + Browserify</h3>
+<h3 id="karma-browserify"><a name="karma-browserify"></a><a href="https://github.com/karma-runner/karma" title="Karma">Karma</a> + Browserify</h3>
 
 <blockquote>
 <p><a href="https://github.com/azu/power-assert-karma-seed" title="azu/power-assert-karma-seed">azu/power-assert-karma-seed</a> </p>
@@ -550,7 +550,7 @@ browserifyによるnode.jsのコードの変換 + power-assert化を行ってく
 <li>  <a href="https://github.com/cjohansen/karma-browserifast" title="karma-browserifast">karma-browserifast</a></li>
 </ul>
 
-<h4 id="karmaを使ったプロジェクト設定">Karmaを使ったプロジェクト設定</h4>
+<h4 id="karma">Karmaを使ったプロジェクト設定</h4>
 
 <p>まずは必要なものをインストールします(数が多いので<a href="https://github.com/azu/power-assert-karma-seed/blob/master/package.json" title="package.json">package.json</a>を見るといいです)</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm install -g karma-cli
@@ -623,7 +623,7 @@ preprocessors: {
 
 <hr>
 
-<h2 id="デバッグ">デバッグ</h2>
+<h2 id=">デバッグ</h2>
 
 <p>さきほどからsourcemapによるデバッグが可能 ということが書いてありますが、<br>
 sourcemapとは何かが気になる人は下記などを見るといいでしょう。</p>
@@ -661,7 +661,7 @@ sourcemapとは何かが気になる人は下記などを見るといいでし�
 
 <hr>
 
-<h2 id="まとめ">まとめ</h2>
+<h2 id=">まとめ</h2>
 
 <p>この記事では、以下の事について解説しました。</p>
 
