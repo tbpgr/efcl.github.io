@@ -1246,12 +1246,6 @@
     </url>
     
     <url>
-        <loc>http://efcl.info/wiki/</loc>
-        <lastmod>2013-07-06</lastmod>
-        <changefreq>never</changefreq>
-    </url>
-    
-    <url>
         <loc>http://efcl.info/flvplayer_wrapper/</loc>
         <lastmod>2013-07-06</lastmod>
         <changefreq>never</changefreq>
@@ -1270,13 +1264,19 @@
     </url>
     
     <url>
+        <loc>http://efcl.info/niconicoapi/</loc>
+        <lastmod>2013-07-06</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    
+    <url>
         <loc>http://efcl.info/post-now-browsing-to-twitter/</loc>
         <lastmod>2013-07-06</lastmod>
         <changefreq>never</changefreq>
     </url>
     
     <url>
-        <loc>http://efcl.info/niconicoapi/</loc>
+        <loc>http://efcl.info/wiki/</loc>
         <lastmod>2013-07-06</lastmod>
         <changefreq>never</changefreq>
     </url>

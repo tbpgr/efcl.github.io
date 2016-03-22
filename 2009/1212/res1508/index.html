@@ -401,7 +401,7 @@ GAEではローカルでテストするためにSDKにサーバがあるので�
 
 <p>と打ち込むとアップロードが始まります。</p>
 
-<p>そして<a href="http://%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%90%8D.appspot.com/%E3%81%AB%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%97%E3%81%A6%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E6%99%82%E3%81%A8%E5%90%8C%E3%81%98%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%8C%E8%A1%A8%E7%A4%BA%E3%81%95%E3%82%8C%E3%82%8C%E3%81%B0%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%AF%E6%88%90%E5%8A%9F%E3%81%A7%E3%81%99%E3%80%82">http://アプリケーション名.appspot.com/にアクセスしてテストの時と同じページが表示されればアップロードは成功です。</a></p>
+<p>そしてhttp://アプリケーション名.appspot.com/にアクセスしてテストの時と同じページが表示されればアップロードは成功です。</p>
 
 <h3 id=">実際にプロキシとして使用する</h3>
 
@@ -424,14 +424,14 @@ GAEではローカルでテストするためにSDKにサーバがあるので�
 
 <p>ここにあるnsTwitterFox.jsを編集します。</p>
 
-<p>var TWITTER_API_URL = &#8220;<a href="http://%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%90%8D.appspot.com/api/&amp;#8221">http://アプリケーション名.appspot.com/api/&amp;#8221</a>;;</p>
+<p>var TWITTER_API_URL = &#8220;http://アプリケーション名.appspot.com/api/&#8221;;</p>
 
 <p>と変更すると、GAE上で動いているプロキシを通してAPIにアクセスすることができます。<br>
 基本的にAPIのURL指定を変更できるソフトなら同じ方法でプロキシを通してアクセスできる。</p>
 
 <p>海外のクライアントだとAPIを指定できるソフトも多いです。</p>
 
-<p><a href="http://getspaz.com/">Spaz</a>の場合だと設定画面にBase API URLを指定できるので、同じように<a href="http://%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%90%8D.appspot.com/api/%E3%82%92%E5">http://アプリケーション名.appspot.com/api/を�</a>��れればプロキシ経由で使用できます。<br>
+<p><a href="http://getspaz.com/">Spaz</a>の場合だと設定画面にBase API URLを指定できるので、同じようにhttp://アプリケーション名.appspot.com/api/を入れればプロキシ経由で使用できます。<br>
 <a href="http://efcl.info/wp-content/uploads/2009/12/sshot-2009-12-12-2.png"><img class="alignnone size-medium wp-image-1512" title="sshot-2009-12-12-2" src="http://efcl.info/wp-content/uploads/2009/12/sshot-2009-12-12-2-300x182.png" alt="sshot-2009-12-12-2" width="300" height="182" /></a></p>
 
 <p><br class="spacer_" /></p>

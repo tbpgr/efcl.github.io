@@ -1226,12 +1226,6 @@
         },
         
         {
-            "title": "まとめ記事一覧",
-            "url": "http://efcl.info/wiki/",
-            "date": "2013-07-06T00:00:00+09:00"
-        },
-        
-        {
             "title": "ニコニコ動画とflvplayer_wrapperの履歴",
             "url": "http://efcl.info/flvplayer_wrapper/",
             "date": "2013-07-06T00:00:00+09:00"
@@ -1250,14 +1244,20 @@
         },
         
         {
+            "title": "ニコニコ動画のAPIまとめ",
+            "url": "http://efcl.info/niconicoapi/",
+            "date": "2013-07-06T00:00:00+09:00"
+        },
+        
+        {
             "title": "Post Now browsing to Twitterの解説",
             "url": "http://efcl.info/post-now-browsing-to-twitter/",
             "date": "2013-07-06T00:00:00+09:00"
         },
         
         {
-            "title": "ニコニコ動画のAPIまとめ",
-            "url": "http://efcl.info/niconicoapi/",
+            "title": "まとめ記事一覧",
+            "url": "http://efcl.info/wiki/",
             "date": "2013-07-06T00:00:00+09:00"
         },
         
