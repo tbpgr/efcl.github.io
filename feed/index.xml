@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-23T00:57:01+09:00</updated>
+ <updated>2016-03-23T19:03:52+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -87,7 +87,7 @@
 <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">y</span><span class="p">.</span><span class="nx">text</span><span class="p">,</span> <span class="s2">&quot;EFG&quot;</span><span class="p">);</span>
 <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">y</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
 </code></pre></div>
-<p><code>matchCaptureGroupAll</code> は内部的に次に紹介する <code>matchAll</code> を使っています。.</p>
+<p><code>matchCaptureGroupAll</code> は内部的に次に紹介する <code>matchAll</code> を使っています…</p>
 
 <h3 id="matchall-text-regexp-matchallgroup"><code>matchAll(text, regExp): MatchAllGroup</code></h3>
 
@@ -95,7 +95,6 @@
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="s1">&#39;test1test2&#39;</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="sr">/t(e)(st\d?)/g</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">captureGroups</span> <span class="o">=</span> <span class="nx">matchAll</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">regexp</span><span class="p">);</span>
-<span class="c1">// captureGroups is array of `MatchAllGroup`</span>
 <span class="cm">/**</span>
 <span class="cm"> * @typedef {Object} MatchAllGroup</span>
 <span class="cm"> * @property {Array} all</span>
