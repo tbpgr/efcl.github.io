@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-25T12:43:36+09:00</updated>
+ <updated>2016-03-25T13:53:12+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -26,7 +26,7 @@
 <li><a href="https://github.com/azu/jsdoc-to-assert">azu/jsdoc-to-assert: JSDoc to assert</a></li>
 </ul>
 
-<p>ライブラリの<a href="https://github.com/azu/jsdoc-to-assert" title="jsdoc-to-assert">jsdoc-to-assert</a>の方は、JavaScript ASTのコメントから<code>assert</code>の文字列を作り出しくれるだけのシンプルなものです。</p>
+<p>ライブラリの<a href="https://github.com/azu/jsdoc-to-assert" title="jsdoc-to-assert">jsdoc-to-assert</a>の方は、JavaScript ASTのコメントから<code>assert</code>の文字列を作り出すだけのシンプルなものです。</p>
 
 <p>実際に使う場合は、Babelのプラグインとして<a href="https://github.com/azu/babel-plugin-jsdoc-to-assert" title="babel-plugin-jsdoc-to-assert">babel-plugin-jsdoc-to-assert</a>を使い、コードを変換してランタイムassertを追加させます。</p>
 
