@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-25T12:39:18+09:00</updated>
+ <updated>2016-03-25T12:43:36+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -58,9 +58,10 @@
 </code></pre></div>
 <p>これを<a href="https://github.com/azu/babel-plugin-jsdoc-to-assert" title="babel-plugin-jsdoc-to-assert">babel-plugin-jsdoc-to-assert</a>では次のように変換してassert処理を追加しています。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="cm">/**</span>
-<span class="cm"> * @param {number} param - this is a param.</span>
+<span class="cm"> * @param {number} a - this is a param.</span>
 <span class="cm"> * @param {string} b - this is a param.</span>
 <span class="cm"> * @param {string[]} c - this is a param.</span>
+<span class="cm"> * @param {boolean} [d] - this is a optional.</span>
 <span class="cm"> */</span>
 <span class="kd">function</span> <span class="nx">myFunc</span><span class="p">(</span><span class="nx">param</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">a</span> <span class="o">===</span> <span class="s1">&#39;number&#39;</span><span class="p">);</span>
