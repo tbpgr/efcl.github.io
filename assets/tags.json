@@ -715,7 +715,11 @@
         
         "ReleaseNode",
         
-        "RegExp"
+        "RegExp",
+        
+        "Type",
+        
+        "Babel"
         
     ]
 }
