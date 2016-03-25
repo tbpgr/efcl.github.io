@@ -355,7 +355,7 @@ var refute = require(&quot;refute&quot;)(assert);
 </code></pre></div>
 <p>初期化の方法からもわかるように、内部的に<code>assert</code>を使っていて判定を逆転させているだけです。</p>
 
-<h3 id=">実行例</h3>
+<h3 id="実行例">実行例</h3>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">refute</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;refute&quot;</span><span class="p">)(</span><span class="nx">assert</span><span class="p">);</span>
 <span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;refute-test&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
@@ -381,7 +381,7 @@ var refute = require(&quot;refute&quot;)(assert);
     <span class="p">});</span>
 <span class="p">});</span>
 </code></pre></div>
-<h3 id="power-assert"><a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a>との連携</h3>
+<h3 id="power-assertとの連携"><a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a>との連携</h3>
 
 <p><code>refute</code>は<a href="https://github.com/twada/power-assert" title="power-assert">power-assert</a>とも一緒に使うこともできます。</p>
 
@@ -421,7 +421,7 @@ var refute = require(&quot;refute&quot;)(assert);
 
 <hr>
 
-<h2 id=">おわりに</h2>
+<h2 id="おわりに">おわりに</h2>
 
 <p><a href="https://github.com/azu/refute" title="azu/refute">azu/refute</a>はコンセプトの証明的な感じなので、あんまり実用的ではないかもしれませんが、
 <code>assert.not</code>と違い<code>refute</code>という否定版があるとテスト書くときに迷いが減るので自分はこの考え方が結構好きです。</p>

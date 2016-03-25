@@ -429,7 +429,7 @@ addButton.addEventListener("click",function(){
     document.getElementById("files").addEventListener("DOMNodeInserted",function(e) { ...
 </pre>
 
-<h1 id="files-domnodeinserted-paste">files 要素内に新しいテキストエリアが追加されると、DOMNodeInsertedイベントが発火するので、非同期で追加されたテキストエリアに関しても、最初に作成したpasteイベントをつけることができる。</h1>
+<h1 id="files-要素内に新しいテキストエリアが追加されると、domnodeinsertedイベントが発火するので、非同期で追加されたテキストエリアに関しても、最初に作成したpasteイベントをつけることができる。">files 要素内に新しいテキストエリアが追加されると、DOMNodeInsertedイベントが発火するので、非同期で追加されたテキストエリアに関しても、最初に作成したpasteイベントをつけることができる。</h1>
 
 <p>この時に前と同様にDOMNodeInserted内で自分自身をremoveEventListenerしておく。<br>
 DOMNodeInsertedとかドキュメントがあんまり見当たらない。</p>

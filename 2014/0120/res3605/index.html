@@ -332,7 +332,7 @@ var blog_categories = [
         <p><a href="http://efcl.info/2014/0119/res3594/" title="YoutubeとVimeoの検索結果のRSSをまとめてOPMLで取得できるサイトを作った | Web scratch">YoutubeとVimeoの検索結果のRSSをまとめてOPMLで取得できるサイトを作った | Web scratch</a> で公開した<br>
 <a href="http://azu.github.io/tech-video-rss-searcher/" title="Tech Video RSS Searcher">Tech Video RSS Searcher</a> はbrowserifyを使って作ったので、その辺の開発フローについての記事です。</p>
 
-<h2 id="browserify"><a href="https://github.com/substack/node-browserify" title="substack/node-browserify">browserify</a> って何?</h2>
+<h2 id="browserify-って何"><a href="https://github.com/substack/node-browserify" title="substack/node-browserify">browserify</a> って何?</h2>
 
 <p><a href="http://browserify.org/"><img src="http://efcl.info/wp-content/uploads/2014/01/687474703a2f2f737562737461636b2e6e65742f696d616765732f62726f777365726966795f6c6f676f2e706e67.png" alt="687474703a2f2f737562737461636b2e6e65742f696d616765732f62726f777365726966795f6c6f676f2e706e67" title="687474703a2f2f737562737461636b2e6e65742f696d616765732f62726f777365726966795f6c6f676f2e706e67.png" border="0" width="499" height="222" /></a></p>
 
@@ -443,11 +443,11 @@ npmで公開されているnode.js向けのモジュールも一緒に変換し�
 <li>  browserifyでビルドしたもののデバッグ</li>
 </ul>
 
-<h1 id="browserify">browserifyでのクライアントサイド開発</h1>
+<h1 id="browserifyでのクライアントサイド開発">browserifyでのクライアントサイド開発</h1>
 
 <p>実際に作ったものは <a href="https://github.com/azu/tech-video-rss-searcher/" title="azu/tech-video-rss-searcher">azu/tech-video-rss-searcher</a> に公開してあります。</p>
 
-<h2 id="commonjs-browserify">CommonJS以外のモジュールをbrowserifyで使う</h2>
+<h2 id="commonjs以外のモジュールをbrowserifyで使う">CommonJS以外のモジュールをbrowserifyで使う</h2>
 
 <p>今回、npm以外のモジュールとしてはbower経由で<a href="http://www.ractivejs.org/" title="Ractive.js">Ractive.js</a>を使っただけでしたが、そのままでは<code>&lt;script&gt;</code>で読み込んで使うことを想定した作りになっているため、nodeスタイルで書いたコードから使いにくいです。(<code>require(&quot;ractive&quot;)</code>で使えない)</p>
 
@@ -462,7 +462,7 @@ npmで公開されているnode.js向けのモジュールも一緒に変換し�
 </pre>
 </div>
 
-<h3 id=">例</h3>
+<h3 id="例">例</h3>
 
 <p>リポジトリの<a href="https://github.com/azu/tech-video-rss-searcher/blob/gh-pages/bower.json#L16" title="bower.json">bower.json</a>を見ると <code>ractive</code> をインストールしています。</p>
 
@@ -486,7 +486,7 @@ npmで公開されているnode.js向けのモジュールも一緒に変換し�
 
 <p>最近は<a href="http://blog.jquery.com/2014/01/16/jquery-1-11-0-rc1-and-2-1-0-rc1-released/" title="jQuery">jQuery</a>等もnpmでインストールできますが、ブラウザ向けのライブラリがnpmでも公開されてるものはそこまで多くないので、ライブラリを使おうと思ったら恐らくこういう変換モジュールをかませる必要がでてくると思います。</p>
 
-<h2 id="npm-browserify">npmで公開してるものをbrowserifyで使う</h2>
+<h2 id="npmで公開してるものをbrowserifyで使う">npmで公開してるものをbrowserifyで使う</h2>
 
 <p>次はbrowserifyの機能としてよく紹介されてると思いますが、<br>
 npm経由でインストールしたnode向けに書かれたモジュールもbrowserifyでは変換することができます。</p>
@@ -498,14 +498,14 @@ npm経由でインストールしたnode向けに書かれたモジュールもb
 <p>既に公開されてるnodeモジュールを使うこともそうですが、<br>
 npmに関するツールは充実しているので、作ってるウェブアプリのロジックをライブラリとして切り出してnpmで公開して使うような事がやりやすいです。</p>
 
-<h3 id=">例</h3>
+<h3 id="例">例</h3>
 
 <p>今回のアプリでは、<a href="http://ja.wikipedia.org/wiki/Outline_Processor_Markup_Language" title="OPML">OPML</a>形式で出力したかったので、<br>
 そのOPML形式に変換する部分だけを<a href="https://github.com/azu/opml-generator" title=" opml-generator.js">opml-generator.js</a>というnodeモジュールを作って使っています。</p>
 
 <p><a href="https://github.com/azu/opml-generator" title=" opml-generator.js">opml-generator.js</a>はただのNode.jsで動く文字列処理をするようなライブラリなので、他のNodeプロジェクトでも使えますし、今回のアプリも<a href="https://github.com/azu/tech-video-rss-searcher/blob/db4b6f5a03186985d668ec8b150ff0ca00b6e786/package.json#L7" title="dependencies">dependencies</a>として読み込みbrowserifyで変換して利用しています。</p>
 
-<h2 id="browserify-beefy-or-gulp">browserifyでのビルドサイクル(beefy or gulp)</h2>
+<h2 id="browserifyでのビルドサイクル-beefy-or-gulp">browserifyでのビルドサイクル(beefy or gulp)</h2>
 
 <p>browserifyのデメリット?としてブラウザで実行するにはビルドが必要です。</p>
 
@@ -573,7 +573,7 @@ npmに関するツールは充実しているので、作ってるウェブア�
 
 <hr>
 
-<h2 id="browserify">browserifyでビルドしたもののデバッグ</h2>
+<h2 id="browserifyでビルドしたもののデバッグ">browserifyでビルドしたもののデバッグ</h2>
 
 <p>先ほどから何回か出てきていますが、browserifyでは <code>--debug -d</code> オプションを付けることでsource mapも一緒に吐き出してくれます。(beefy、gulp-browserifyにもそれぞれオプションで指定出来ます)</p>
 
@@ -606,7 +606,7 @@ npmに関するツールは充実しているので、作ってるウェブア�
 
 <p><a href="http://azu.github.io/tech-video-rss-searcher/" title="Tech Video RSS Searcher">Tech Video RSS Searcher</a> ではbeefyを使って、上記のようにWebStormからデバッグしていましたが、特に問題なくブレークポイントを貼ってチェックしたりできて変換フェーズがあるといってもそこまで問題はない感じでした。</p>
 
-<h2 id=">おわりに</h2>
+<h2 id="おわりに">おわりに</h2>
 
 <p>この記事では <a href="https://github.com/substack/node-browserify" title="substack/node-browserify">browserify</a> をつかったウェブアプリの開発フローについて書きました。</p>
 
@@ -631,7 +631,7 @@ npmに関するツールは充実しているので、作ってるウェブア�
 
 <p>ビルドにかかる時間の省略やキャッシュ的にも、依存する外部ライブラリは開発するソースとは別々のbundle.jsとして生成するなどの方法(<code>--noparse</code> というオプションもある)を取れるかもしれません。(その辺についてはやった人が書くといいよ!)</p>
 
-<h2 id=">今度こそおわりに</h2>
+<h2 id="今度こそおわりに">今度こそおわりに</h2>
 
 <p><a href="https://github.com/substack/node-browserify" title="substack/node-browserify">browserify</a> はとっつきにくいイメージがありますが、触ると楽しいです。</p>
 

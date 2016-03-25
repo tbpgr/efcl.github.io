@@ -329,7 +329,7 @@ var blog_categories = [
 
     </div>
     <div class="post-content">
-        <h2 id=">ルビ翻訳</h2>
+        <h2 id="ルビ翻訳">ルビ翻訳</h2>
 
 <p>タイトルで分かる方は分かるかもしれませんが、いわゆるルビ翻訳をするものを書きました。</p>
 
@@ -359,7 +359,7 @@ make install
 
 <p>やってることとしては<a href="http://www.namazu.org/%7Etsuchiya/sdic/data/gene.html" title="GENE95 辞書">GENE95 辞書</a>から辞書をダウンロードして、辞書ファイルを<code>data/gene95/gene.txt</code>にUTF-8にエンコードして置いて、<code>node tools/dict-to-json.js</code>すれば辞書のJSON版が作れるので、これをビルドして使ってます。</p>
 
-<h2 id=">使い方</h2>
+<h2 id="使い方">使い方</h2>
 
 <p>翻訳したい場所を Alt + クリック(選択範囲)を作れば、その周辺を翻訳してくれます。</p>
 
@@ -367,7 +367,7 @@ make install
 
 <p>元の文章とルビが一緒だと見にくいので、安直にちょっと文字サイズを大きくしてます。</p>
 
-<h2 id=">仕組み</h2>
+<h2 id="仕組み">仕組み</h2>
 
 <p>文章を単語で区切って、辞書とマッチするかを何百も繰り返して、<code>&lt;ruby&gt;</code>タグにDOMを書き換えるだけです。</p>
 

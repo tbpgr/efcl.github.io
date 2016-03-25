@@ -331,7 +331,7 @@ var blog_categories = [
     <div class="post-content">
         <p>Twitter API proxyをGoogle App Engine上で動かす方法</p>
 
-<h3 id=">プロキシの必要性</h3>
+<h3 id="プロキシの必要性">プロキシの必要性</h3>
 
 <p>プロキシを経由してAPIにアクセスすると何がいいのか</p>
 
@@ -345,7 +345,7 @@ var blog_categories = [
 
 <p>要はAPI使用回数を増やせるよって話。</p>
 
-<h3 id=">必要なもの</h3>
+<h3 id="必要なもの">必要なもの</h3>
 
 <ul>
 <li>  <a href="https://appengine.google.com/" target="_blank">Google App Engine</a>のアカウント</li>
@@ -370,14 +370,14 @@ Pythonは<a href="http://www.python.jp/Zope/download/pythoncore">2.5</a>が推�
 これらのファイルを先ほど作成した<strong>アプリケーションID名のフォルダ</strong>を作りその中に入れておきます。(これは説明を統一するためなので絶対必要な操作ではないかも)<br>
 アプリケーションのIDがtwitproxyならtwitproxyというフォルダを作りその中に入れる。</p>
 
-<h3 id=">ファイルの編集</h3>
+<h3 id="ファイルの編集">ファイルの編集</h3>
 
 <p>ダウンロードしたapp.yamlを編集する必要があります。<br>
 一行目のアプリケーション名を先ほど控えてた自分が作成したGoogle App EngineのアプリケーションIDに変更します。</p>
 
 <pre>application: アプリケーションのID</pre>
 
-<h3 id="amp">テスト&amp;アップロード</h3>
+<h3 id="テスト-amp-アップロード">テスト&amp;アップロード</h3>
 
 <p>Pythonが入っていれば、コマンドプロンプトでPythonと打ち込むとバージョンが表示されます。(エラーになる場合はPython周りがおかしい)<br>
 まずは動くかどうかをテストします。<br>
@@ -391,7 +391,7 @@ GAEではローカルでテストするためにSDKにサーバがあるので�
 この上でTwitterクライアントのAPIURLを<a href="http://localhost:8080/api/">http://localhost:8080/api/</a> にして使えるか確認できるといいです。<br>
 <a href="http://d.hatena.ne.jp/intheflight/20090611/p1">Google App Engineを使ったTwitterBotの作り方 &#8211; 星屑日記</a> を詳しく読むといいかも。</p>
 
-<h4 id=">アップロード</h4>
+<h4 id="アップロード">アップロード</h4>
 
 <p>次に編集したファイルをGAEにアップロードします。<br>
 先ほど同様にコマンドプロンプト上から</p>
@@ -403,7 +403,7 @@ GAEではローカルでテストするためにSDKにサーバがあるので�
 
 <p>そしてhttp://アプリケーション名.appspot.com/にアクセスしてテストの時と同じページが表示されればアップロードは成功です。</p>
 
-<h3 id=">実際にプロキシとして使用する</h3>
+<h3 id="実際にプロキシとして使用する">実際にプロキシとして使用する</h3>
 
 <ul>
 <li>  <a href="https://addons.mozilla.org/ja/firefox/addon/5081">Echofon for Twitter (Formerly TwitterFox)</a></li>

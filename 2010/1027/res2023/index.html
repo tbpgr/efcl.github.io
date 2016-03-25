@@ -341,13 +341,13 @@ WebStorm</a>はHTML(5)+CSS+JavaScriptに対応してるIDEで、Windows, Mac OS�
 <li>  <strong><a href="http://efcl.info/2012/0909/res3111/" title="改めて最強のJavaScript IDE 「WebStorm」についてまとめてみた(改訂版)">この記事の続編(アップデート版)を書きました</a></strong></li>
 </ul>
 
-<h3 id=">特徴</h3>
+<h3 id="特徴">特徴</h3>
 
 <p>とにかく膨大な機能が載ってるので全てを紹介するのは無理があるため、凄いと思ったところを掻い摘んで紹介。<br>
 主にJavaScriptを書くエディタとして使っていますが、CSSやHTMLも普通のIDEより書きやすいです。<br>
 基本的に<a href="http://www.jetbrains.com/webstorm/">WebStorm</a>で日本語に関する問題は少なめです。一部IMEの変換候補が出てくる場所がずれたり、プラグインで日本語がダメだったりするものがありますが、殆ど問題ではない程度です。文字コードはShift_JIS(windowsだとwindows-31j)も対応しているので問題にはならないと思います。</p>
 
-<h4 id=">優秀なコード補完機能</h4>
+<h4 id="優秀なコード補完機能">優秀なコード補完機能</h4>
 
 <p>WebStormはソースコードを自動的にコ－ド解析(静的解析?)してるようで、JavaScriptの構造を認識してコード補完を行えます。<br>
 例えば@teramakoさんが<a href="http://d.hatena.ne.jp/teramako/20090205/p1">Komodo Edit が面白い</a>で言っていたような</p>
@@ -372,7 +372,7 @@ container.obj = (function(){
 
 <p>JavaScript以外のHTMLタグやCSSも補完を行え、1つのファイルにHTML、JavaScriptなどが混在していた場合も正しく認識して補完が行える。<a href="http://www.jetbrains.com/webstorm/features/">HTML, CSS, JavaScript editing in an intelligent environment :: WebStorm Features</a>で特徴がいろいろ紹介されています。</p>
 
-<h4 id=">コ－ド解析による良さ</h4>
+<h4 id="コ－ド解析による良さ">コ－ド解析による良さ</h4>
 
 <p>&nbsp;<figure id="attachment_2028" style="width: 300px;" class="wp-caption alignnone"></p>
 
@@ -384,7 +384,7 @@ container.obj = (function(){
 <a href="http://efcl.info/wp-content/uploads/2010/10/ss-2010-10-27-6.png"><img class="alignnone size-medium wp-image-2027" title="ss-2010-10-27-6" src="http://efcl.info/wp-content/uploads/2010/10/ss-2010-10-27-6-204x300.png" alt="" width="204" height="300" /></a><br>
 後、文法が間違ってる場合などは警告なども表示できその設定も警告レベルから決められてかなり細かな指定が行えます。(JSLintみたいなもの?)</p>
 
-<h4 id=">自動整形機能</h4>
+<h4 id="自動整形機能">自動整形機能</h4>
 
 <p>個人的にIDEと言ったらコードの自動整形機能です。CodeメニューのReformat codeから実行できます。(ショートカットからもできる)<br>
 自動整形のルールはOptionのCode Styleからかなり細かく設定できるので、自分ルールに合わせて整形させる事ができます。</p>
@@ -398,14 +398,14 @@ container.obj = (function(){
 
 <p>&nbsp;</p>
 
-<h4 id="e4x">E4X対応</h4>
+<h4 id="e4x対応">E4X対応</h4>
 
 <p>Firefoxユーザー向けですが、構文解析がE4Xの記法に対応しています。<br>
 普通なら上記の自動整形でE4Xが混じってると崩れてしまって残念になりますが、E4Xもちゃんと扱えるので崩れません。<br>
 Firefox向けのコード、Greasemonkeyなどを書く人に使ってもらいたいところ。<br>
 (分割代入の記法にはまだ対応してなかったのはちょっぴり残念)</p>
 
-<h4 id=">標準でバージョン管理機能がある</h4>
+<h4 id="標準でバージョン管理機能がある">標準でバージョン管理機能がある</h4>
 
 <p>&nbsp;</p>
 
@@ -420,12 +420,12 @@ Firefox向けのコード、Greasemonkeyなどを書く人に使ってもらい�
 デフォルトだと差分やrevertがができるLocal Historyが機能しますが、外部のバージョン管理ソフトと連携してSVN、Gitが使用できます。(Mercurialは標準ではなく<a href="http://plugins.intellij.net/plugin/?webide&amp;id=4624">hg4idea-luciad</a>プラグインによって使用できます)<br>
 コミットやpushなどはIDE上からその場でできて、マージや差分表示などもできるので結構便利です。</p>
 
-<h4 id="javascript">JavaScriptデバッガー</h4>
+<h4 id="javascriptデバッガー">JavaScriptデバッガー</h4>
 
 <p><a href="http://www.jetbrains.com/webstorm/documentation/index.html">Local JavaScript debugging</a>で紹介されてるようにFirefoxアドオンと連携したIDE上で動くデバッガが付いています。<br>
 他にもFirebugと連携して機能するプラグインなどもあったりしてFirefoxとの親和性は少し高め。</p>
 
-<h3 id=">使い勝手</h3>
+<h3 id="使い勝手">使い勝手</h3>
 
 <p>他の機能紹介は<a href="http://www.jetbrains.com/webstorm/features/">WebStorm Features</a>やヘルプなどを見てもらうとして、使った感覚としてはそこまで重くは無いです。<br>
 起動はIDEらしくちょっとかかりますが(コード解析もあったりするので)、太ったEmacsの起動を我慢できるなら問題ない。<br>
@@ -464,7 +464,7 @@ Vimのキーバインドは標準ではなくプラグインの<a href="http://p
 <li>  <a href="http://www.jetbrains.com/ab_index.html">JetBrains</a>のIDEは大体形が同じ(扱える言語が違う)なので、他の種類のIDEのノウハウが使えることもある。</li>
 </ul>
 
-<h3 id=">プラグイン</h3>
+<h3 id="プラグイン">プラグイン</h3>
 
 <ul>
 <li>  <a href="http://plugins.intellij.net/?webide">JetBrains Plugin Repository</a></li>
@@ -487,7 +487,7 @@ Mercurial統合のプラグイン<br>
 <li>  デフォルトで入ってるスペルチェッカーは日本語に反応してうるさいので無効にした。</li>
 </ul>
 
-<h3 id=">よく分かってないこと</h3>
+<h3 id="よく分かってないこと">よく分かってないこと</h3>
 
 <p>やり方があったら教えて欲しいです。</p>
 
@@ -499,7 +499,7 @@ Mercurial統合のプラグイン<br>
 <li>  他の<a href="http://www.jetbrains.com/ab_index.html">JetBrains</a>IDEのプラグインの入れ方がよく分からない(対応してないだけ?)</li>
 </ul>
 
-<h3 id=">感想</h3>
+<h3 id="感想">感想</h3>
 
 <p>とにかく機能が多くて、まだまだ使いきれない感じでさらにもうすぐ2.0がリリースされるので成長も早いIDEだと思います。<br>
 <a href="http://www.jetbrains.com/webstorm/download/index.html">体験版</a>が45日間と長いと思ったけど、1ヶ月使ってもまだ底が見えないので妥当な日数だと分かった。<br>

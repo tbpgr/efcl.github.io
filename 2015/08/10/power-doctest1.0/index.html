@@ -349,7 +349,7 @@ var blog_categories = [
 
 <p>実行機能はやっぱりとても複雑で、Nodeだけでも結構制御が大変なので、単純に<code>assert</code>に変換して後は他のツールと組み合わせて実行できるような形がいいかなと思いました。</p>
 
-<h2 id=">使い方</h2>
+<h2 id="使い方">使い方</h2>
 
 <p><a href="https://github.com/azu/power-doctest" title="azu/power-doctest">azu/power-doctest</a></p>
 
@@ -405,7 +405,7 @@ browserify -D -r power-assert powered-example.js &gt; build.js
 
 <p>ただ、今の所実行面のサポートがなんにもないので、なんか上手い方法が欲しくなりそうな感じですね。</p>
 
-<h2 id=">仕組み</h2>
+<h2 id="仕組み">仕組み</h2>
 
 <p>仕組み的にはASTを変換するということには全く変わりがないですが、変換の役割をはっきりさせたり、ASTを変換する部分以外を抽象化することで変換に集中しやすくするためのライブラリを書きました。</p>
 

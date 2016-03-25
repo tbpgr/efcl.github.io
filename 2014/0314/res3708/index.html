@@ -337,7 +337,7 @@ var blog_categories = [
 <li>  他のPromisesテストのアプローチ</li>
 </ul>
 
-<h2 id="promises">Promisesのテストの書き方がどう変わるの?</h2>
+<h2 id="promisesのテストの書き方がどう変わるの">Promisesのテストの書き方がどう変わるの?</h2>
 
 <p>例えば、以下のようなpromiseオブジェクトを返す関数をテストしたいと思います。</p>
 
@@ -350,7 +350,7 @@ var blog_categories = [
 
 <p>このpromiseオブジェクトは、resolveするので、<code>.then</code> の第一引数で指定した<code>onFulfilled</code> コールバックに <code>true</code> という値を渡すようになってます。</p>
 
-<h3 id=">今までのテストの書き方</h3>
+<h3 id="今までのテストの書き方">今までのテストの書き方</h3>
 
 <p>この<code>getSuccessPromise</code>を 1.18.0より以前は以下のように書くことでテストをしていました。</p>
 
@@ -386,7 +386,7 @@ var blog_categories = [
 </pre>
 </div>
 
-<h2 id="promises">promisesのテストサポート</h2>
+<h2 id="promisesのテストサポート">promisesのテストサポート</h2>
 
 <p>これがどのように書けるようになったかというと、公式のドキュメントにも載ってるのでそちらも参考にして欲しいのですが、以下のように書けるようになりました。</p>
 
@@ -416,7 +416,7 @@ var blog_categories = [
 <p><a href="https://github.com/azu/mocha-support-promise" title="azu/mocha-support-promise">azu/mocha-support-promise</a> </p>
 </blockquote>
 
-<h2 id=">その他</h2>
+<h2 id="その他">その他</h2>
 
 <p>このテスト内で promiseオブジェクトをreturn してテストできるものとしては<a href="http://docs.busterjs.org/en/latest/" title="Buster.JS">Buster.JS</a>等があります。<br>
 (他にpromisesをサポートしてるフレームワークとかあるかな?)</p>

@@ -333,7 +333,7 @@ var blog_categories = [
 
     </div>
     <div class="post-content">
-        <h2 id="github">GitHubでのリリース</h2>
+        <h2 id="githubでのリリース">GitHubでのリリース</h2>
 
 <p>前回、GitHubのRelease機能ついて書きましたが、これはリリースする側の自動化等についてでした。</p>
 
@@ -357,7 +357,7 @@ JavaScriptのライブラリ等のリリース情報をどう追っていくか�
 
 <p>そのため、流れだけを見たい人はさいごの<strong>まとめ</strong>を見るといいでしょう。</p>
 
-<h2 id="watch">リポジトリをWatchする</h2>
+<h2 id="リポジトリをwatchする">リポジトリをWatchする</h2>
 
 <p>GitHubではリポジトリをStar/Watchすることが出来ます。</p>
 
@@ -379,7 +379,7 @@ JavaScriptのライブラリ等のリリース情報をどう追っていくか�
 <p><a href="https://github.com/azu/github-reader" title="azu/github-reader">github-reader</a>ではGrowlで通知出来るようになってるので、
 Growlにひたすら流して気になったものが見えたら見に行くという感じの使い方をしています。</p>
 
-<h2 id="follow">人をFollowする</h2>
+<h2 id="人をfollowする">人をFollowする</h2>
 
 <p>GitHubではTwitterのように人をフォローすることができるので、気になるリポジトリのOwnerをフォローするといいでしょう。</p>
 
@@ -391,7 +391,7 @@ Growlにひたすら流して気になったものが見えたら見に行くと
 <p><a href="https://github.com/azu/github-reader" title="azu/github-reader">github-reader</a> はWatchしたリポジトリのイベントと
 フォローした人のイベントを混ぜているので、基本的に一緒に眺めています。(主にGrowl通知なのは変わらない)</p>
 
-<h3 id="star">人のStarをフォローする</h3>
+<h3 id="人のstarをフォローする">人のStarをフォローする</h3>
 
 <p>人のイベントは先ほども書いたようにコミット等の細かいものから、Starを付けたリポジトリなど多種多様です。</p>
 
@@ -400,7 +400,7 @@ Starに関しては<a href="http://starseeker.so/" title="starseeker">starseeker
 
 <p>ここから先はGitHubのReleaseの追い方、つまりライブラリのリリースの追い方の話です。</p>
 
-<h2 id="github-relase-rss">GitHub RelaseをRSSで見る</h2>
+<h2 id="github-relaseをrssで見る">GitHub RelaseをRSSで見る</h2>
 
 <p>先ほどGitHubの<strong>Watch</strong>機能でリポジトリのイベント通知が来ることを紹介しました。
 このイベントには<a href="https://developer.github.com/v3/activity/events/types/#releaseevent" title="ReleaseEvent">ReleaseEvent</a>も含まれていますが、大量のイベントの一つなので埋もれてしまいます。</p>
@@ -427,7 +427,7 @@ Starに関しては<a href="http://starseeker.so/" title="starseeker">starseeker
 <p>tagが付けられるとReleaseが自動的に作られるので、基本的にどちらも同じです。
 しかし、Releaseの方はリリースノートを本文に含めてくれるので、基本的に<code>releases.atom</code>を購読するほうがいいでしょう。</p>
 
-<h3 id="release">Releaseをワンクリックで購読</h3>
+<h3 id="releaseをワンクリックで購読">Releaseをワンクリックで購読</h3>
 
 <p>GitHubのWatchとStarはワンクリックで出来るので、Greasemonkeyを使ってRSSもワンクリックで購読出来るようにしています。</p>
 
@@ -456,7 +456,7 @@ node get_token.js XXX | pbcopy
 
 <p>というややこしい手順です…</p>
 
-<h4 id="github-feedly">GitHub専用Feedly</h4>
+<h4 id="github専用feedly">GitHub専用Feedly</h4>
 
 <p>普段使ってるRSSリーダで購読していってもいいのですが、リリースノート書いてるリポジトリは少ないので、バージョン番号ばかりが流れてくるRSSが殆どです。</p>
 
@@ -471,7 +471,7 @@ GitHub Releaseを購読する専用のFeedlyアカウントを作ってそこに
 
 <p>これなら適当な流量で流れてくるので、リポジトリのイベントだけをみてた時に比べるとかなり見落としは減った気がします。</p>
 
-<h2 id="release-changelog">ReleaseからCHANGELOGを見る</h2>
+<h2 id="releaseからchangelogを見る">ReleaseからCHANGELOGを見る</h2>
 
 <p>先ほども書いていたように、GitHub Releaseにリリースノートをちゃんと書いてくれるリポジトリはまだまだ少ないです。</p>
 
@@ -487,7 +487,7 @@ GitHub Releaseを購読する専用のFeedlyアカウントを作ってそこに
 
 <p>CHANGELOGファイルがあるなら、Releaseページにリンクを表示するというシンプルなものです。</p>
 
-<h2 id="release-diff">Releaseから前回のバージョンとのDiffをみる</h2>
+<h2 id="releaseから前回のバージョンとのdiffをみる">Releaseから前回のバージョンとのDiffをみる</h2>
 
 <p>リリースノートもない、CHANGELOGファイルもないというパターンは、どういうコミットがあったのかを見るぐらいしかありません(Issue等に書いてあることもありますが)</p>
 
@@ -517,7 +517,7 @@ GitHub Releaseを購読する専用のFeedlyアカウントを作ってそこに
 
 <hr>
 
-<h1 id=">まとめ</h1>
+<h1 id="まとめ">まとめ</h1>
 
 <p>だらだら書いたので分かりにくいですが、まとめると以下のような感じです。</p>
 

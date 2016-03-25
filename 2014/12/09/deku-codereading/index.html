@@ -344,7 +344,7 @@ var blog_categories = [
 
 <p>基本的なVirtual DOMの構造はあるので、そういう意味では読みやすいです。</p>
 
-<h2 id=">基本的な使い方</h2>
+<h2 id="基本的な使い方">基本的な使い方</h2>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">component</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;segmentio/deku&#39;</span><span class="p">);</span>
 
 <span class="c1">// Buttonのcomponentを作る</span>
@@ -527,7 +527,7 @@ componentを受け取ってそれをレンダリングする(HTMLへ)</p>
 
 <p><code>ElementNode</code>はchildrenを持っていることもあるので再帰的に行ってDOM Nodeを作る</p>
 
-<h2 id="component-vtree">Component/vTreeの関係</h2>
+<h2 id="component-vtreeの関係">Component/vTreeの関係</h2>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Component</span><span class="p">({</span>
         <span class="c1">// @return vTree</span>
     <span class="nx">render</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -594,12 +594,12 @@ componentを受け取ってそれをレンダリングする(HTMLへ)</p>
 
 <hr>
 
-<h2 id=">感想</h2>
+<h2 id="感想">感想</h2>
 
 <p>dekuのコードは読みやすいというよりは流れが見やすい感じがします。
 <code>diff</code>以外のところは結構素直に実装されていて、普通にコードを追っていくだけでどういう処理がされているか分かる感じです(実際実行しないで読めたので)</p>
 
-<h2 id=">コードリーディングのツール</h2>
+<h2 id="コードリーディングのツール">コードリーディングのツール</h2>
 
 <p><a href="http://www.jetbrains.com/webstorm/" title="WebStorm">WebStorm</a>を使って読みました。
 よくモジュール化されているので、定義元へのジャンプ等を使うとかなり読みやすいです。</p>
@@ -610,7 +610,7 @@ componentを受け取ってそれをレンダリングする(HTMLへ)</p>
 <li><a href="http://efcl.info/2014/08/27/floating-memo/" title="node-webkitで最前面に置けるMarkdownメモアプリを作った">node-webkitで最前面に置けるMarkdownメモアプリを作った</a></li>
 </ul>
 
-<h3 id=">どこから読むか</h3>
+<h3 id="どこから読むか">どこから読むか</h3>
 
 <p>Nodeモジュールを書き慣れている人は大体<code>index.js</code>を作ってるケースが多いです。
 dekuの場合も<a href="https://github.com/segmentio/deku/blob/master/index.js" title="deku/index.js">deku/index.js</a>というファイルがあり、以下のような1行があるだけです。</p>
@@ -642,7 +642,7 @@ dekuの場合も<a href="https://github.com/segmentio/deku/blob/master/index.js"
     ├── string.js
     └── tree.js
 </code></pre></div>
-<h3 id=">よくわからない時はテストを見る</h3>
+<h3 id="よくわからない時はテストを見る">よくわからない時はテストを見る</h3>
 
 <p>例えば、<a href="https://github.com/segmentio/deku/blob/8c11681775196ad337ddb3bb809882c815c1bfa1/lib/node/index.js#L49-53" title="lib/node/index.js">lib/node/index.js</a>を見ると、<code>dom(type, props, children)</code>関数で以下のようなif分岐があります。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// if you pass in a function, it&#39;s a `Component` constructor.</span>
@@ -679,7 +679,7 @@ dekuの場合も<a href="https://github.com/segmentio/deku/blob/master/index.js"
 <li><a href="https://github.com/segmentio/deku/issues" title="Issues · segmentio/deku">Issues · segmentio/deku</a></li>
 </ul>
 
-<h2 id="virtual-dom">他のVirtual DOM</h2>
+<h2 id="他のvirtual-dom">他のVirtual DOM</h2>
 
 <p>dekuはまだ0.0.2というレベルで、<code>diff.js</code>もまだ実装が変わりそうな気配があります。</p>
 

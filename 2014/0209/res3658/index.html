@@ -327,7 +327,7 @@ var blog_categories = [
 
     </div>
     <div class="post-content">
-        <h2 id=">はじめに</h2>
+        <h2 id="はじめに">はじめに</h2>
 
 <p>毎日新しいJavaScriptライブラリが登場していると思いますが、それらがどういう実装になっているかを知ることはライブラリを使う以上に大事かもしれません。</p>
 
@@ -341,7 +341,7 @@ var blog_categories = [
 
 <p>今回は<a href="http://vuejs.org/" title="Vue.js">Vue.js</a>というAngularJSやKnockoutのようなViewとModelのデータバインディグを行うライブラリを例に、データバインディグはどうやっているのかを2つの方法で調べてみたいと思います。</p>
 
-<h2 id=">コードをステップで見ていく</h2>
+<h2 id="コードをステップで見ていく">コードをステップで見ていく</h2>
 
 <p>これはよく見る方法で皆さんもやったことがあると思います。</p>
 
@@ -381,7 +381,7 @@ var demo = new Vue({<br />
 
 <p>以下は実際に見ていった動画です</p>
 
-<h2 id=">勘であてる</h2>
+<h2 id="勘であてる">勘であてる</h2>
 
 <p>もう一つ短時間で探す方法として、その機能(今回はデータバインディグ)に使われそうなメソッドや名前で検索してしまう方法です。</p>
 
@@ -432,7 +432,7 @@ $ npm install -g grasp<br />
 
 <p>でインストールしておきます。</p>
 
-<h3 id="object-defineproperty">Object.definePropertyを呼び出し箇所を検索</h3>
+<h3 id="object-definepropertyを呼び出し箇所を検索">Object.definePropertyを呼び出し箇所を検索</h3>
 
 <p><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" title="Object.defineProperty">Object.defineProperty</a> は</p>
 
@@ -485,7 +485,7 @@ grasp -e 'Object.defineProperty(__,__,__)' src/*<br />
 
 <p>後は、見つけた場所を実際に見ていくといった感じです。</p>
 
-<h3 id="object-defineproperty-alias">Object.definePropertyのaliasを検索する</h3>
+<h3 id="object-definepropertyのaliasを検索する">Object.definePropertyのaliasを検索する</h3>
 
 <p>今回は直接 <code>Object.defineProperty</code> を使っていたので問題無いですが、<br>
 <code>Object.defineProperty</code> は長いのでライブラリの内部では以下のようなエイリアスを貼って使っているかもしれません。</p>
@@ -563,7 +563,7 @@ grasp -s 'var-dec[init=member[obj=#Object][prop=(#defineProperty)]]' test.js<br 
 <p>例えば、<a href="http://www.ractivejs.org/" title="Ractive.js">Ractive.js</a>のように<a href="https://github.com/RactiveJS/Ractive/wiki/Array-modification#performance-and-ui-benefits" title="Array modification · RactiveJS/Ractive Wiki">Array modification · RactiveJS/Ractive Wiki</a>ハックを使ったり、AngularJSは<a href="http://projects.mariusgundersen.net/JSconf2013/#/angular-dirty" title="Dirty checking">Dirty checking</a>というやり方をしている等やり方的に幾つかでてくると思うので、<br>
 ステップ実行やドキュメントから探したりした方が効率が良さそうです。</p>
 
-<h3 id=">その他</h3>
+<h3 id="その他">その他</h3>
 
 <p>今回紹介した方法以外にも、最近のライブラリならある程度モジュールでファイルが別れてるはずなので、ファイル名をヒントに探すとか、<br>
 GithubやStackOverFlowで検索するとかやり口はいくらでもあります。</p>
@@ -571,7 +571,7 @@ GithubやStackOverFlowで検索するとかやり口はいくらでもありま�
 <p>今回ターゲットにした<a href="http://vuejs.org/" title="Vue.js">Vue.js</a>もCommonnJSで書かれていて、<a href="https://github.com/component/component" title="component">component</a>を使ってファイルをビルド出来るようにしてました。<br>
 (ビルド環境も面白くて、Gruntを使っている感じでしたが、内部でgulp pluginである<a href="https://github.com/yyx990803/gulp-component" title="gulp-component">gulp-component</a>を使ったりしてた)</p>
 
-<h2 id=">おわりに</h2>
+<h2 id="おわりに">おわりに</h2>
 
 <p>この記事では、JavaScriptのライブラリの実装を見ていく2つの方法について書きました。</p>
 

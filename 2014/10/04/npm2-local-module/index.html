@@ -325,7 +325,7 @@ var blog_categories = [
 
     </div>
     <div class="post-content">
-        <h2 id=">概要</h2>
+        <h2 id="概要">概要</h2>
 
 <p>npm 1.xの時はローカルにあるディレクトリへの相対パスを<code>dependency</code>フィールドで指定できなかった。</p>
 
@@ -344,7 +344,7 @@ var blog_categories = [
 
 <p>要はプロジェクトに依存したUtilsとかを定義するのに便利という話。</p>
 
-<h2 id=">ローカルモジュールの作成</h2>
+<h2 id="ローカルモジュールの作成">ローカルモジュールの作成</h2>
 
 <p>今回のサンプルプロジェクトは以下においてあります。</p>
 
@@ -388,7 +388,7 @@ var blog_categories = [
 <p>こうすることでインストールする時以下のような警告がでなくなります。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">No repository field.
 </code></pre></div>
-<h2 id=">ローカルモジュールの使い方</h2>
+<h2 id="ローカルモジュールの使い方">ローカルモジュールの使い方</h2>
 
 <p>作ったローカルモジュールは普通にnpmでインストールすることが出来ます。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">npm</span> <span class="nx">install</span> <span class="o">--</span><span class="nx">save</span> <span class="nx">local_modules</span><span class="o">/</span><span class="nx">example</span><span class="o">-</span><span class="nx">utils</span>
@@ -409,7 +409,7 @@ var blog_categories = [
 <span class="p">};</span>
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">main</span><span class="p">;</span>
 </code></pre></div>
-<h3 id=">ローカルモジュールの注意点</h3>
+<h3 id="ローカルモジュールの注意点">ローカルモジュールの注意点</h3>
 
 <p>ローカルモジュールは<code>npm install</code>をすると<code>node_modules</code>にコピーされます。
 そのため、ローカルモジュールを更新した場合は自動では反映されません。
@@ -417,7 +417,7 @@ var blog_categories = [
 
 <p>後、名前の衝突が起きるかもしれないので、分かりやすいprefixをつけるといいのかもしれません。</p>
 
-<h2 id=">ローカルモジュールの利点</h2>
+<h2 id="ローカルモジュールの利点">ローカルモジュールの利点</h2>
 
 <p>ローカルモジュールを使うことで、
 <code>require(&#39;../../../utils/log.js&#39;);</code> のような相対パスを辿る必要がなくなります。

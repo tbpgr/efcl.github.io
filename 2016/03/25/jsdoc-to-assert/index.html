@@ -351,7 +351,7 @@ var blog_categories = [
 <li><a href="https://github.com/azu/azu/issues/73" title="JSDoc to assertに変換するツールが欲しい · Issue #73 · azu/azu">JSDoc to assertに変換するツールが欲しい · Issue #73 · azu/azu</a></li>
 </ul>
 
-<h2 id=">変換例</h2>
+<h2 id="変換例">変換例</h2>
 
 <p>例えば次のような関数とJSDocがあったとします。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="cm">/**</span>
@@ -389,12 +389,12 @@ var blog_categories = [
 <li><a href="https://github.com/azu/jsdoc-to-assert/issues/1" title="Optional arguments support · Issue #1 · azu/jsdoc-to-assert">Optional arguments support · Issue #1 · azu/jsdoc-to-assert</a></li>
 </ul>
 
-<h2 id=">使い方</h2>
+<h2 id="使い方">使い方</h2>
 
-<h3 id=">インストール</h3>
+<h3 id="インストール">インストール</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm install babel-plugin-jsdoc-to-assert
 </code></pre></div>
-<h3 id=">設定</h3>
+<h3 id="設定">設定</h3>
 
 <p>Babelプラグインなので、Babelと共に利用するために<code>.babelrc</code>を設定します。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">{
@@ -420,7 +420,7 @@ var blog_categories = [
 <p><code>jsdoc-to-assert</code>の変換は含めずにビルドする場合は<code>production</code>を設定してビルドすれば、適応されずにすみます。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">NODE_ENV=production babel src --out-dir lib --source-maps
 </code></pre></div>
-<h2 id=">仕組み</h2>
+<h2 id="仕組み">仕組み</h2>
 
 <p><a href="https://github.com/azu/jsdoc-to-assert" title="jsdoc-to-assert">jsdoc-to-assert</a>はコメント(leadingComments Node)を<code>assert</code>などのコード片に変換するだけです。</p>
 

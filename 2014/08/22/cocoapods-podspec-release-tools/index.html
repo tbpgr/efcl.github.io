@@ -346,7 +346,7 @@ gemとかnpmとかCPANみたいな立ち位置のツールです。</p>
 <li><a href="http://guides.cocoapods.org/syntax/podspec.html" title="CocoaPods Guides - Podspec Syntax Reference">CocoaPods Guides - Podspec Syntax Reference</a></li>
 </ul>
 
-<h2 id=">アップデートプロセス</h2>
+<h2 id="アップデートプロセス">アップデートプロセス</h2>
 
 <p>podspecファイルに一度書いたクラスのパスやメタ情報はあんまり更新しないのでいいですが、
 <code>s.version      = &#39;3.1.0&#39;</code> というようなバージョン情報はアップデートの度に更新しないと行けません。</p>
@@ -370,13 +370,13 @@ gemとかnpmとかCPANみたいな立ち位置のツールです。</p>
 <li>podspecバージョンの表示</li>
 </ul>
 
-<h3 id=">インストール</h3>
+<h3 id="インストール">インストール</h3>
 
 <p>cocoapodsがrubyなので、rubyで書くべきなんですが時間がなかったのでnodeで書きました。
 (他の実装みても何か正規表現でバージョン取り出してたのでまあいいかなとか思ってしまった)</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm install -g podspec-bump
 </code></pre></div>
-<h2 id=">使い方</h2>
+<h2 id="使い方">使い方</h2>
 
 <p>デフォルトでは、実行したディレクトリにある<code>*.podspec</code>ファイルを自動で選択してくれます。
 特定のファイルを指定したい場合は<code>-p</code>で指定出来ます。</p>
@@ -421,7 +421,7 @@ Usage: podspec-bump &lt;increment&gt; [options]
 </code></pre></div>
 <p>これを応用すれば、コマンドを組み合わせて、podspecの更新を公開するまでが自動化できると思います。</p>
 
-<h3 id="pod-trunk">pod trunkの自動化</h3>
+<h3 id="pod-trunkの自動化">pod trunkの自動化</h3>
 
 <p>先ほど書いていた自動化の例です。</p>
 
@@ -442,7 +442,7 @@ pod trunk push
 
 <p><a href="https://github.com/azu/podspec-bump" title="azu/podspec-bump">azu/podspec-bump</a> からContributing募集しています。</p>
 
-<h2 id=">おわりに</h2>
+<h2 id="おわりに">おわりに</h2>
 
 <p>最近を小さいライブラリを書いては公開するのを繰り返してるので、
 このpodspecのアップデートをする作業がとても面倒だったので作ってみました。</p>

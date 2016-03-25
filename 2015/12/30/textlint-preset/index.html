@@ -361,7 +361,7 @@ var blog_categories = [
 <li><a href="http://efcl.info/2015/09/10/introduce-textlint/" title="textlintで日本語の文章をチェックする | Web Scratch">textlintで日本語の文章をチェックする | Web Scratch</a></li>
 </ul>
 
-<h2 id=">インストール</h2>
+<h2 id="インストール">インストール</h2>
 
 <p>textlint本体と2つのプリセットをインストールしてみます。</p>
 
@@ -380,14 +380,14 @@ var blog_categories = [
 </ul>
 <div class="highlight"><pre><code class="language-sh" data-lang="sh">npm i -D textlint textlint-rule-preset-japanese textlint-rule-preset-jtf-style
 </code></pre></div>
-<h2 id=">使い方</h2>
+<h2 id="使い方">使い方</h2>
 
 <p>プリセットをコマンドラインから指定することで設定ファイルなしに利用することもできます。</p>
 <div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="k">$(</span>npm bin<span class="k">)</span>/textlint --preset preset-japanese --preset preset-jtf-style README.md
 </code></pre></div>
 <p>逆にこの場合はルール毎の設定ができないので、設定ファイルである<code>.textlintrc</code>を使ってみます。</p>
 
-<h3 id=">設定ファイル</h3>
+<h3 id="設定ファイル">設定ファイル</h3>
 
 <p>サンプルリポジトリを以下に置いておきます。</p>
 
@@ -419,7 +419,7 @@ var blog_categories = [
 </code></pre></div>
 <p><img src="https://monosnap.com/file/tndweS7k0ZsrVz8yN3olPvD3l2rbTx.png" alt="result"></p>
 
-<h3 id=">もっとルールを加える</h3>
+<h3 id="もっとルールを加える">もっとルールを加える</h3>
 
 <p>プリセットとルールは併用可能なので、プリセットにないルールは自分で追加していくといいと思います。</p>
 
@@ -429,7 +429,7 @@ var blog_categories = [
 <li><a href="http://efcl.info/2015/09/14/textlint-rule-prh/" title="textlint + prhで表記ゆれを検出する | Web Scratch">textlint + prhで表記ゆれを検出する | Web Scratch</a></li>
 </ul>
 
-<h3 id=">もっと優しい使い方</h3>
+<h3 id="もっと優しい使い方">もっと優しい使い方</h3>
 
 <p>Node.jsやGitなどに慣れてない人は以下を参考にしてください。
 (プリセットではなくルールベースですが、プリセットとルールの使い方はだいたい同じです)</p>
@@ -441,7 +441,7 @@ var blog_categories = [
 
 <p><img src="https://gyazo.com/430f92606e5f5bdb06e0583001a9a2b0.gif" alt="preview"></p>
 
-<h2 id=">プリセットの作り方</h2>
+<h2 id="プリセットの作り方">プリセットの作り方</h2>
 
 <p>プリセットの作り方は以下のドキュメントを参考にしてください。</p>
 

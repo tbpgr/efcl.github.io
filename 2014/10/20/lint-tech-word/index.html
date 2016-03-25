@@ -329,7 +329,7 @@ var blog_categories = [
 
     </div>
     <div class="post-content">
-        <h1 id="wz-editor">WZ EDITORの用語統一辞書</h1>
+        <h1 id="wz-editorの用語統一辞書">WZ EDITORの用語統一辞書</h1>
 
 <p>以前、WZ EDITORの用語統一辞書のパーサを書いていましたが、
 これを少し改善して<a href="https://gist.github.com/inao/f55e8232e150aee918b9" title="WEB+DB PRESS表記ルール">WEB+DB PRESS表記ルール</a>が解釈できるようになったので、
@@ -340,7 +340,7 @@ var blog_categories = [
 <li><a href="https://github.com/azu/wzeditor-word-rules-parser" title="azu/wzeditor-word-rules-parser">azu/wzeditor-word-rules-parser</a></li>
 </ul>
 
-<h2 id="codemirror">CodeMirrorでスペルチェック</h2>
+<h2 id="codemirrorでスペルチェック">CodeMirrorでスペルチェック</h2>
 
 <p><a href="https://github.com/azu/wzeditor-word-rules-parser" title="azu/wzeditor-word-rules-parser">azu/wzeditor-word-rules-parser</a>のパーサを使って<a href="https://gist.github.com/inao/f55e8232e150aee918b9" title="WEB+DB PRESS表記ルール">WEB+DB PRESS表記ルール</a>等の
 WZ EDITORの用語統一辞書をスペルチェックとして使えるCodeMirrorアドオンを書きました。</p>
@@ -363,7 +363,7 @@ WZ EDITORの用語統一辞書をスペルチェックとして使えるCodeMirr
 
 <p>ちゃんとやろうとするなら、<a href="http://atl.recruit-tech.co.jp/blog/1860/" title="RedPen">RedPen</a>みたいに形態素解析をしたりしてトークンからちゃんと頑張らないといけない気がしますが、単語レベルだと正規表現でもそこそこなんとかなる感じがします。(前後の単語ぐらいしかできなくて、文脈はよめないので限界ありますが)</p>
 
-<h3 id=">導入方法</h3>
+<h3 id="導入方法">導入方法</h3>
 
 <p><a href="https://github.com/azu/wzeditor-word-rules-parser" title="azu/wzeditor-word-rules-parser">azu/wzeditor-word-rules-parser</a>でWZ EDITORの用語統一辞書をパースすると、以下の様なマッチする<code>pattern</code>と置換結果が入った<code>expected</code>があるオブジェクトが生成されるので、それを<code>registerSpellDictionary</code>で登録します。</p>
 
@@ -399,7 +399,7 @@ WZ EDITORの用語統一辞書をスペルチェックとして使えるCodeMirr
 <p>まだ、本当にプレーンなテキストじゃないと使いにくい気がします。
 Markdownで書いても記法やリンクなどがLintに引っかかってくるので。</p>
 
-<h2 id=">目的</h2>
+<h2 id="目的">目的</h2>
 
 <p>元々は<a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a>で確認に使おうと思ってWZ EDITORの辞書のパーサを書きましたが大して使ってなかったです。</p>
 

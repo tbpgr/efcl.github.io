@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-25T11:46:21+09:00</updated>
+ <updated>2016-03-25T12:23:37+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -43,7 +43,7 @@
 <li><a href="https://github.com/azu/azu/issues/73" title="JSDoc to assertに変換するツールが欲しい · Issue #73 · azu/azu">JSDoc to assertに変換するツールが欲しい · Issue #73 · azu/azu</a></li>
 </ul>
 
-<h2 id=">変換例</h2>
+<h2 id="変換例">変換例</h2>
 
 <p>例えば次のような関数とJSDocがあったとします。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="cm">/**</span>
@@ -81,12 +81,12 @@
 <li><a href="https://github.com/azu/jsdoc-to-assert/issues/1" title="Optional arguments support · Issue #1 · azu/jsdoc-to-assert">Optional arguments support · Issue #1 · azu/jsdoc-to-assert</a></li>
 </ul>
 
-<h2 id=">使い方</h2>
+<h2 id="使い方">使い方</h2>
 
-<h3 id=">インストール</h3>
+<h3 id="インストール">インストール</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm install babel-plugin-jsdoc-to-assert
 </code></pre></div>
-<h3 id=">設定</h3>
+<h3 id="設定">設定</h3>
 
 <p>Babelプラグインなので、Babelと共に利用するために<code>.babelrc</code>を設定します。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">{
@@ -112,7 +112,7 @@
 <p><code>jsdoc-to-assert</code>の変換は含めずにビルドする場合は<code>production</code>を設定してビルドすれば、適応されずにすみます。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">NODE_ENV=production babel src --out-dir lib --source-maps
 </code></pre></div>
-<h2 id=">仕組み</h2>
+<h2 id="仕組み">仕組み</h2>
 
 <p><a href="https://github.com/azu/jsdoc-to-assert" title="jsdoc-to-assert">jsdoc-to-assert</a>はコメント(leadingComments Node)を<code>assert</code>などのコード片に変換するだけです。</p>
 
@@ -326,7 +326,7 @@
 <li><a href="http://efcl.info/2015/12/30/textlint-preset/">ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch</a></li>
 </ul>
 
-<h2 id="fix"><code>--fix</code>による自動修正の対応</h2>
+<h2 id="fixによる自動修正の対応"><code>--fix</code>による自動修正の対応</h2>
 
 <p><a href="https://github.com/textlint/textlint/releases/tag/5.5.3" title="5.5.3: --fix &amp;amp; --experimental support">5.5.3: --fix &amp; --experimental support</a>で<code>--fix</code>による自動修正機能を実験的にサポートしていました。</p>
 
@@ -392,7 +392,7 @@
 <li><a href="https://github.com/textlint/textlint/blob/master/CONTRIBUTING.md#bug-reporting" title="textlint/CONTRIBUTING.md at master · textlint/textlint">textlint/CONTRIBUTING.md at master · textlint/textlint</a></li>
 </ul>
 
-<h2 id="fixable">Fixableルール</h2>
+<h2 id="fixableルール">Fixableルール</h2>
 
 <p>実際に<code>--fix</code>による自動修正の例を見てみます。</p>
 
@@ -463,7 +463,7 @@ Lintの結果にそのうち自動修正できるエラーの数を表示して�
 </code></pre></div>
 <p><img src="http://efcl.info/wp-content/uploads/2016/03/16-1458134174.png" alt="fix error"></p>
 
-<h2 id="textlint-v5-v6">textlint v5からv6の変更点</h2>
+<h2 id="textlint-v5からv6の変更点">textlint v5からv6の変更点</h2>
 
 <p><a href="http://efcl.info/2015/11/20/textlint5.0.0/" title="textlint 5.0.0">textlint 5.0.0までの変更点</a>については以前書いたので、5.0から6.0までにあった変更点を列挙してみます。</p>
 
@@ -592,7 +592,7 @@ Lintの結果にそのうち自動修正できるエラーの数を表示して�
 <p>結構長くなりましたが、5.0.0〜6.0.0の変更点は以上です。
 Breaking Changeはほとんどのユーザには関係ないものだと思います(実際使ってるコードはGitHub上にはなかった)</p>
 
-<h2 id=">その他</h2>
+<h2 id="その他">その他</h2>
 
 <ul>
 <li><a href="http://io-monad.hatenablog.com/entry/2016/03/14/225800" title="文書校正ツール textlint の Chrome 拡張を作った - もなでぃっく">文書校正ツール textlint の Chrome 拡張を作った - もなでぃっく</a></li>
@@ -609,7 +609,7 @@ Breaking Changeはほとんどのユーザには関係ないものだと思い�
 
 <p>Atomプラグインとして<a href="https://github.com/1000ch/linter-textlint" title="linter-textlint">linter-textlint</a>を使う場合は上記のリポジトリが参考になるかもしれません。</p>
 
-<h2 id=">開発メモ</h2>
+<h2 id="開発メモ">開発メモ</h2>
 
 <p><code>--fix</code>は5.5から使えたのですが、色々APIデザインを変更する可能性があったのでexperimentalフラグを付けてリリースしました。</p>
 
@@ -677,7 +677,7 @@ Breaking Changeはほとんどのユーザには関係ないものだと思い�
 
 <p>この記事では、その取っ掛かりとなる案内を簡単にまとめたものです。</p>
 
-<h2 id="ast">ASTとは</h2>
+<h2 id="astとは">ASTとは</h2>
 
 <p><a href="http://azu.github.io/slide/JSojisan/#8"><img src="http://efcl.info/wp-content/uploads/2016/03/06-1457240557.png" alt="AST"></a></p>
 
@@ -738,7 +738,7 @@ JavaScriptの場合はJavaScriptオブジェクト(JSON)として表現されま
 <li><a href="http://azu.github.io/slide/tkbjs/js-ast-walker.html">JavaScript AST Walker</a></li>
 </ul>
 
-<h2 id="ast">ASTのコミュニティ標準</h2>
+<h2 id="astのコミュニティ標準">ASTのコミュニティ標準</h2>
 
 <p>ESTreeというデファクトスタンダードがあります(ES6までは定義されている)</p>
 
@@ -759,7 +759,7 @@ JavaScriptの場合はJavaScriptオブジェクト(JSON)として表現されま
 </ul></li>
 </ul>
 
-<h2 id=">パーサ</h2>
+<h2 id="パーサ">パーサ</h2>
 
 <ul>
 <li><a href="https://github.com/babel/babylon" title="babylon">Babylon</a>
@@ -796,7 +796,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <p>BabylonはEStreeの仕様外について積極的にサポートしているため、
 それらが必要な場合はBabylonを使うが、そうでないなら他のパーサの方が安定しています。</p>
 
-<h2 id=">関連ツール</h2>
+<h2 id="関連ツール">関連ツール</h2>
 
 <ul>
 <li><a href="http://astexplorer.net/" title="AST explorer">AST explorer</a>
@@ -806,7 +806,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 </ul></li>
 </ul>
 
-<h2 id=">よくある流れ</h2>
+<h2 id="よくある流れ">よくある流れ</h2>
 
 <ul>
 <li>パーサでコードをパースしてASTにする
@@ -840,11 +840,11 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li><a href="https://github.com/azu/ast-source" title="azu/ast-source: AST helper to transform source code.">azu/ast-source: AST helper to transform source code.</a></li>
 </ul>
 
-<h2 id="eval">例) evalの中身を解析したい</h2>
+<h2 id="例-evalの中身を解析したい">例) evalの中身を解析したい</h2>
 
 <p>evalの中を取り出して安全に評価したいというケース</p>
 
-<h3 id="eval">evalの中身</h3>
+<h3 id="evalの中身">evalの中身</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">eval(&quot;var a = 20&quot;)
 </code></pre></div>
 <ul>
@@ -860,7 +860,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li>ブラックリストだと何を防止すればいいのかが難しい</li>
 </ul>
 
-<h3 id=">解析のフェーズ</h3>
+<h3 id="解析のフェーズ">解析のフェーズ</h3>
 
 <p>適当な考え方(正しいのかは自信ないけど)</p>
 
@@ -876,7 +876,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 
 <p>というような考え方でやるのがよくあるケースだと思います。</p>
 
-<h2 id=">おわりに</h2>
+<h2 id="おわりに">おわりに</h2>
 
 <p>上記のようなチェックツールを書くには、まず<a href="http://eslint.org/" title="ESLint">ESLint</a>のルールを見てみるのが参考になるはずです。</p>
 
@@ -963,7 +963,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<h2 id="azu">仕様とセキュリティ - azu</h2>
+<h2 id="仕様とセキュリティ-azu">仕様とセキュリティ - azu</h2>
 
 <p>セキュリティな問題のある仕様の変更や、
 現実の実装に合わせた仕様の定義とうような変更があったよ的な話をしました。</p>
@@ -996,7 +996,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li><a href="https://github.com/whatwg/html/commit/acae3df652b382e9f4f1d1b4dc7e08e2b00df821" title="Define security around Window, WindowProxy, and Location properly · whatwg/html@acae3df">Define security around Window, WindowProxy, and Location properly · whatwg/html@acae3df</a></li>
 </ul>
 
-<h2 id="node-js-es6-modules">Node.js と ES6 modules</h2>
+<h2 id="node-js-と-es6-modules">Node.js と ES6 modules</h2>
 
 <ul>
 <li><a href="https://github.com/nodejs/node-eps/pull/3" title="002: ES6 module interop by bmeck · Pull Request #3 · nodejs/node-eps">002: ES6 module interop by bmeck · Pull Request #3 · nodejs/node-eps</a></li>
@@ -1019,7 +1019,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<h2 id=">どうやって脆弱性の探し方を学ぶのか</h2>
+<h2 id="どうやって脆弱性の探し方を学ぶのか">どうやって脆弱性の探し方を学ぶのか</h2>
 
 <ul>
 <li>脆弱性の探し方はどうやって学ぶのか</li>
@@ -1042,7 +1042,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li>間に繋ぐような人が重要という話</li>
 </ul>
 
-<h2 id=">おわり</h2>
+<h2 id="おわり">おわり</h2>
 
 <p>セキュリティ寿司は久々な気がする。</p>
 
@@ -1085,7 +1085,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li><a href="http://azu.github.io/slide/2016/reject-sushi/textlint.html" title="3分でわかるtextlint">3分でわかるtextlint</a></li>
 </ul>
 
-<h2 id=">デザイン</h2>
+<h2 id="デザイン">デザイン</h2>
 
 <p><img src="https://textlint.github.io/media/logo/textlint-logo.png" alt="logo"></p>
 
@@ -1167,7 +1167,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 
 <p>また最近<a href="http://www.amazon.co.jp/dp/4802510012/" title="今日からはじめる情報設計">今日からはじめる情報設計</a>や<a href="http://www.amazon.co.jp/dp/B00EESW7OG/" title="エンジニアのための図解思考">エンジニアのための図解思考</a>的な本を読んでいたので、そういった情報の扱い方や表現という話も兼ねています。</p>
 
-<h2 id="rails-node-js-mizchi">Rails と Node.js @ mizchi</h2>
+<h2 id="rails-と-node-js-mizchi">Rails と Node.js @ mizchi</h2>
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">browserify-railsとtsify問題 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; サスケ (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/702089989887172609">February 23, 2016</a></blockquote>
 
@@ -1180,7 +1180,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li>browserify-railsを使いたい理由は、Nodeを普段使わない人が多い環境でNodeの流儀をやってもらうとよくわからないことが多くてコストがある</li>
 </ul>
 
-<h2 id="http2-html-css-jxck">HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化 @ jxck</h2>
+<h2 id="http2-を前提とした-html-css-コンポーネントのレンダリングパス最適化-jxck">HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化 @ jxck</h2>
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a>   &quot;HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化について | <a href="https://t.co/Bb4j0utYux">https://t.co/Bb4j0utYux</a>&quot;  <a href="https://t.co/wQlZpQZBMj">https://t.co/wQlZpQZBMj</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702092500157145089">February 23, 2016</a></blockquote>
 
@@ -1210,7 +1210,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li>このステータスコードの位置/変更/指定の問題は今後の課題になりそう(プログレッシブレスポンスするなら)</li>
 </ul>
 
-<h2 id="typescript-1-8-javascript-bundle-kyo_ago">TypeScript 1.8のJavaScriptをbundleしてくれる機能 - kyo_ago</h2>
+<h2 id="typescript-1-8のjavascriptをbundleしてくれる機能-kyo_ago">TypeScript 1.8のJavaScriptをbundleしてくれる機能 - kyo_ago</h2>
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">kyo_ago 「TypeScript 1.8のJavaScriptをbundleしてくれる機能」 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702099720164872192">February 23, 2016</a></blockquote>
 
@@ -1224,7 +1224,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <li>ちょこっとsystemjs用のものを加えると動かせる</li>
 </ul>
 
-<h2 id="javascript">JavaScriptの非同期処理/例外処理</h2>
+<h2 id="javascriptの非同期処理-例外処理">JavaScriptの非同期処理/例外処理</h2>
 
 <ul>
 <li>async/await
@@ -1256,7 +1256,7 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 </ul></li>
 </ul>
 
-<h2 id=">その他</h2>
+<h2 id="その他">その他</h2>
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a> で発表しなかった「3分でわかるtextlint」のスライドです。自然言語Lintツールの現状  &quot;3分でわかるtextlint&quot;  <a href="https://t.co/wtHBxxIOok">https://t.co/wtHBxxIOok</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702133285934145536">February 23, 2016</a></blockquote>
 
@@ -1353,7 +1353,7 @@ Conclusion/Resolution
 <li><a href="https://tc39-mtg.doorkeeper.jp/" title="TC39 MTG Notes MTG | Doorkeeper">TC39 MTG Notes MTG | Doorkeeper</a></li>
 </ul>
 
-<h2 id="tc39">TC39ミーティングノートの修正方法</h2>
+<h2 id="tc39ミーティングノートの修正方法">TC39ミーティングノートの修正方法</h2>
 
 <p>ここでやっと本題ですが、ミーティングノートを読んでいると結構な頻度でtypoなどの間違いやリンク切れ、Markdownの構文ミスなどが見つかると思います。</p>
 
@@ -1365,7 +1365,7 @@ Conclusion/Resolution
 
 <p>typoを直すためにかなりの数コミットしたので跳ねてる…(まだtypoは残ってるのがあると思います…)</p>
 
-<h3 id=">具体的な修正の送り方</h3>
+<h3 id="具体的な修正の送り方">具体的な修正の送り方</h3>
 
 <p>やり方も何もないですが、Markdownファイルを修正して以下のリポジトリにPull Requestを送るだけです。</p>
 
@@ -1380,7 +1380,7 @@ Conclusion/Resolution
 
 <p>修正はまとめて一つのPull Requestで送ることが多いです。</p>
 
-<h3 id=">修正箇所の見つけ方</h3>
+<h3 id="修正箇所の見つけ方">修正箇所の見つけ方</h3>
 
 <p>結構、普通に見ていれば崩れている場所が見つかると思います。</p>
 
@@ -1396,7 +1396,7 @@ Conclusion/Resolution
 <p>リアルタイムに文字起こしてるようなきがするので、スペルチェッカーを通すだけでも結構なtypoが見つかります。
 (自分は英語に自信がないので、確実に間違ってるものだけ修正しています。もっと英語表現に詳しい方も修正送って欲しい…)</p>
 
-<h2 id=">おわりに</h2>
+<h2 id="おわりに">おわりに</h2>
 
 <p>ECMAScriptの新しいProposalを知りたいという場合は、適当なブログを見るよりもProposalを書いてる人たちの意見が見られるミーティングノートを見るのが確実です。</p>
 
@@ -1468,7 +1468,7 @@ D--&gt;&gt;A: Dashed open arrow
 
 <p>同期はDropboxなどを使ってファイル同期する仕組みがあり(競合した時にどっちを使うかを選択出来る)、上手く動いてていい感じです。</p>
 
-<h3 id=">体験版</h3>
+<h3 id="体験版">体験版</h3>
 
 <p>AppStoreで販売されていますが、<a href="http://happenapps.com/#quiver">公式サイト</a>の<a href="http://happenapps.com/downloads/QuiverFreeTrial.zip">Free Trial</a>から体験版をダウンロードできます。</p>
 
@@ -1509,7 +1509,7 @@ D--&gt;&gt;A: Dashed open arrow
 <p>そろそろ<a href="http://dayoneapp.com/2016/01/introducing-day-one-2/" title="Day One 2">Day One 2</a>が出るようですが、変換元はDayOne 1のみ対応しています。
 (DayOne 2は3カラムになっていて大分ビューアとしてよくなってそう…)</p>
 
-<h2 id=">おわり</h2>
+<h2 id="おわり">おわり</h2>
 
 <p>作者さんが以下のブログで書いてますが、ノートブック/メモアプリに求めるものってそういうものだよなーって感じがしたので使い始めました。</p>
 
@@ -1566,10 +1566,10 @@ D--&gt;&gt;A: Dashed open arrow
 </code></pre></div>
 <p>まだアルファベットしか対応してないです(日本語対応できるのか謎)。</p>
 
-<h2 id=">インストール</h2>
+<h2 id="インストール">インストール</h2>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-rule-unexpanded-acronym
 </code></pre></div>
-<h2 id=">使い方</h2>
+<h2 id="使い方">使い方</h2>
 
 <p><code>.textlintrc</code>で設定する場合は以下のように設定できます。
 (内容はデフォルト値になっています)</p>
@@ -1583,7 +1583,7 @@ D--&gt;&gt;A: Dashed open arrow
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id=">設定</h3>
+<h3 id="設定">設定</h3>
 
 <p>上記の設定で書いたように幾つかのオプションがあります。</p>
 
@@ -1615,7 +1615,7 @@ D--&gt;&gt;A: Dashed open arrow
 
 <p><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/slide/96.html" title="実験: 文章に対して文章でテスト | 技術文書をソフトウェア開発する話">実験: 文章に対して文章でテスト | 技術文書をソフトウェア開発する話</a>で似たような話をしていました</p>
 
-<h2 id=">参考</h2>
+<h2 id="参考">参考</h2>
 
 <p>RedPenの同様の機能を参考に実装しました。</p>
 

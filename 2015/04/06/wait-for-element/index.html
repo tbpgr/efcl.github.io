@@ -337,12 +337,12 @@ var blog_categories = [
     <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Found #js-element&quot;</span><span class="p">);</span>
 <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">console</span><span class="p">));</span>
 </code></pre></div>
-<h2 id=">インストール</h2>
+<h2 id="インストール">インストール</h2>
 
 <p>npm からインストールできます。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm install wait-for-element.js
 </code></pre></div>
-<h3 id=">使い方</h3>
+<h3 id="使い方">使い方</h3>
 
 <p><code>waitForElement(selector, [timeout])</code> という感じで使います。
 <code>waitForElement()</code>はPromiseを返すので、見つかった<code>then</code>で登録したコールバックが呼ばれて、見つからなかったら<code>catch</code>が呼ばれるという感じです。</p>
@@ -363,7 +363,7 @@ var blog_categories = [
 
 <p><a href="http://requirebin.com/?gist=ed965c96630535f6ed96"><img src="http://requirebin.com/badge.png" alt="view on requirebin"></a></p>
 
-<h3 id=">依存</h3>
+<h3 id="依存">依存</h3>
 
 <ul>
 <li>Promise API</li>
@@ -397,7 +397,7 @@ var blog_categories = [
 </code></pre></div>
 <p>何か色々新しめのAPIを使ってる感じがしますが、実際のwait-for-element.jsの使いドコロとしてはGreasemonkeyやブラウザ拡張などだと思うので、基本的にpolyfillなくても良い場合が多そうな気がします。</p>
 
-<h2 id=">テスト</h2>
+<h2 id="テスト">テスト</h2>
 
 <p>テストは以下のように実行できますが、Test Runnerには<a href="https://github.com/airportyh/testem">testem</a>を使っています。(最近メンテナが増えたのでリリースが増えた)</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm test

@@ -369,7 +369,7 @@ var blog_categories = [
 
 <p>この記事では、E2Eテストフレームワークである<a href="https://github.com/groupon-testium/testium" title="Testium">Testium</a>の紹介とどうやってリファクタリングするかについて紹介します。</p>
 
-<h2 id="testium"><a href="https://github.com/groupon-testium/testium" title="Testium">Testium</a>とは</h2>
+<h2 id="testiumとは"><a href="https://github.com/groupon-testium/testium" title="Testium">Testium</a>とは</h2>
 
 <p><a href="https://github.com/groupon-testium/testium" title="Testium">Testium</a>はWebDriver APIを使いブラウザを操作して出来るテストフレームワークです。同様のツールとして以下のようなものがあります。</p>
 
@@ -432,7 +432,7 @@ var blog_categories = [
 <p>面白いところとしては、デフォルトでテストが失敗した時にスクリーンショットが保存されてるようになっています。
 また、スクリーンショット同士の比較してのテストするAPIも持っているため、画面が変化してないかのチェック等も可能です。</p>
 
-<h3 id="testium">Testiumを動かしてみよう</h3>
+<h3 id="testiumを動かしてみよう">Testiumを動かしてみよう</h3>
 
 <p><a href="https://github.com/groupon-testium/testium" title="Testium">Testium</a>を最小構成(といいつつpower-assert入ってる)で動かすサンプルを作ったので、それを見ながら解説します。</p>
 
@@ -510,7 +510,7 @@ mocha --require intelli-espower-loader test/
 </code></pre></div>
 <p><img src="http://monosnap.com/image/hwVhdEMWlrgafoUNOq8hUKOePaFRNH.png" alt="Success tests"></p>
 
-<h3 id="chrome">chromeでテストする</h3>
+<h3 id="chromeでテストする">chromeでテストする</h3>
 
 <p>先ほどはデフォルトのphantomjsでテストを実行しましたが、chromeなどでもテストを動かせます。</p>
 
@@ -547,11 +547,11 @@ browser = &quot;chrome&quot;
 <div class="highlight"><pre><code class="language-text" data-lang="text">[app]
 port=0
 </code></pre></div>
-<h3 id=">補足</h3>
+<h3 id="補足">補足</h3>
 
 <p>またTestiumは全ての<a href="https://code.google.com/p/selenium/wiki/JsonWireProtocol" title="WebDriver">WebDriver API</a>ラッパが実装されてないので、足りないものは<a href="https://github.com/groupon-testium/webdriver-http-sync" title="webdriver-http-sync">webdriver-http-sync</a>に一覧があるので実装してみるといいかもしれません。</p>
 
-<h2 id="e2e">E2Eテストとリファクタリング</h2>
+<h2 id="e2eテストとリファクタリング">E2Eテストとリファクタリング</h2>
 
 <p><a href="https://github.com/coding-kata"><img src="https://avatars0.githubusercontent.com/u/10607142?v=3&amp;s=200" alt="coding-kata"></a></p>
 
@@ -611,7 +611,7 @@ port=0
 
 <p>jQueryで書いたコードをどうやってリファクタリングするかは<a href="http://efcl.info/2015/01/11/refactoring-tales/" title="The Refactoring Tales - JavaScriptのリファクタリング本を読んだ | Web Scratch">The Refactoring Tales - JavaScriptのリファクタリング本を読んだ | Web Scratch</a>で書いた<a href="http://javascriptplayground.com/the-refactoring-tales/refactoring-tales.html" title="The Refactoring Tales">The Refactoring Tales</a>を読んでみるのもいいかもしれません。</p>
 
-<h2 id=">おわりに</h2>
+<h2 id="おわりに">おわりに</h2>
 
 <p>まだ、足りない機能や<del>日本語をWebDriver API経由での入力が上手く行かないバグ等</del>(直った)もありますが、Protractorに比べると設定ファイルや実行するために覚える必要があることが少なくて済むのでいいなーという感じがします。</p>
 

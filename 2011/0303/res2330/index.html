@@ -331,13 +331,13 @@ var blog_categories = [
     <div class="post-content">
         <p>自分が書いたJavaScriptのコードスニペットに対してどのコードが早いのかベンチマークを比較することができるWebサービスである<a href="http://jsperf.com/" title="jsPerf">jsPerf</a>の紹介と使い方。JavaScriptでは同じ機能を実現するための方法は様々であり、どのコードが優れているのかを調べる方法としてプロファイラなどを利用することがあります。しかし、JavaScriptはブラウザ毎によっても速度が変わることが多いため、ブラウザ依存のツールだと比較しにくくなるため、ブラウザ上でテストコードを実行し、それらのベンチマークを簡単に記録、比較できるサービスが<a href="http://jsperf.com/" title="jsPerf">jsPerf</a>です。</p>
 
-<h4 id="jsperf">jsPerfの比較方法</h4>
+<h4 id="jsperfの比較方法">jsPerfの比較方法</h4>
 
 <p>jsPerfの内部では<span style="font-family: Arial;"><a title="[http://benchmarkjs.com/]로 이동합니다." href="http://benchmarkjs.com/" target="_blank">Benchmark JS</a>というベンチマークライブラリが使用されています。(</span>jsPerfの運営者が作成している)<br>
 jsPerfの計測方法は一定時間内にどれくらいコードスニペット部が実行できたのかで比較します。そのため数値が大きいほどパフォーマンスがよい(=一定時間で多く実行できる)となります。<br>
 ブラウザ固有のテストやライブラリを読み込んでのテストも行うことができます。</p>
 
-<h4 id=">使用方法</h4>
+<h4 id="使用方法">使用方法</h4>
 
 <p><span style="font-family: Arial;"><a title="[http://jsperf.com]로 이동합니다." href="http://jsperf.com/" target="_blank"><a href="http://jsperf.com">http://jsperf.com</a></a>にアクセスします。<br />過去に他のユーザーが比較した結果は</span><a href="http://jsperf.com/browse" title="Browse test cases · jsPerf">Browse test cases · jsPerf</a>から見ることができます。<br>
 Googleのsite:検索を使って事前に行おうとしている比較があるかを検索するといいかもしれません。<br>
