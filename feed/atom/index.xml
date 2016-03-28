@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-28T21:48:56+09:00</updated>
+ <updated>2016-03-28T23:02:09+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -221,6 +221,8 @@
 
 <ul>
 <li>ディレクトリと関係なく全てが同一オリジン in <code>file://</code></li>
+<li>Chrome 45では修正が入ってる: <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=455882" title="Issue 455882 - chromium - Treat file:// URLs as having unique origin - Monorail">Issue 455882 - chromium - Treat file:// URLs as having unique origin - Monorail</a></li>
+<li>Electronもそのうち直る?</li>
 </ul></li>
 <li>悪意のあるファイル in <code>file://</code>
 
