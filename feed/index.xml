@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-25T13:53:12+09:00</updated>
+ <updated>2016-03-28T21:48:56+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,316 @@
  </author>
  
 
+ 
+ <entry>
+   <title>Shibuya.XSS techtalk #7 アウトラインメモ</title>
+   <link href="http://efcl.info/2016/03/28/shibuyaxss/"/>
+   <updated>2016-03-28T21:41:00+09:00</updated>
+   <id>http://efcl.info/2016/03/28/shibuyaxss</id>
+   <content type="html"><![CDATA[ <p><a href="http://shibuyaxss.connpass.com/event/28232/" title="Shibuya.XSS techtalk #7">Shibuya.XSS techtalk #7</a>に参加してきたのでメモ</p>
+
+<hr>
+
+<h2 id="超絶技巧-csrf-mala">超絶技巧 CSRF - mala</h2>
+
+<ul>
+<li>CSRFについて</li>
+<li>クロスサイトでリクエストを強制する脆弱性
+
+<ul>
+<li>書き込み</li>
+<li>パスワードの削除</li>
+</ul></li>
+<li>未だによくある
+
+<ul>
+<li>XSSは正しく書いていれば防げる</li>
+<li>CSRFは未だによくある</li>
+</ul></li>
+<li>CSRFは事後対処になりやすい
+
+<ul>
+<li>投票とか掲示板とか事後対処になりやすい</li>
+<li>リスクの高いCSRFの紹介</li>
+</ul></li>
+<li>アカウント乗っ取り
+
+<ul>
+<li>危険なCSRF</li>
+<li>パスワードの変更</li>
+<li>メールアドレスの変更</li>
+</ul></li>
+<li>連携アカウント追加
+
+<ul>
+<li>OAuth2.0 + stateパラメータで防げる</li>
+</ul></li>
+<li>いろんなものにCSRFする
+
+<ul>
+<li>JSONやXMLを送る</li>
+<li>form enctype=text/plainを使う</li>
+<li>CSRFでmemcached protocolとして解釈可能なものをCSRFで送れる</li>
+</ul></li>
+<li>HTML Form protocol attach
+
+<ul>
+<li>Cross-Protocl スクリプトアタック</li>
+<li>よくあるportはブロックされる</li>
+<li>NoSQLサーバとかはブロックされてないので、攻撃出来ることがある</li>
+</ul></li>
+<li>昔との違い
+
+<ul>
+<li>バイナリをアップロード出来るようになってる</li>
+<li>multipart/form-dataをCSRF =&gt; 可能</li>
+<li>CORSのプリフライト対象外</li>
+</ul></li>
+<li>デモ
+
+<ul>
+<li>Memcachedにform経由で書き込むデモ</li>
+<li>アプロケーションに任意のデータを書き込んだ任意のコード実行みたいなことができてしまう</li>
+</ul></li>
+<li>認証を突破するCSRF
+
+<ul>
+<li>Redisだとパスワードをかけられる</li>
+<li>Redisのパスワード認証
+
+<ul>
+<li>パスワードが既知だと同じ</li>
+</ul></li>
+</ul></li>
+<li>CSRFで突破できる認証
+
+<ul>
+<li>CSRFはレスポンスが取れない</li>
+<li>チャレンジ&amp;レスポンス系は突破できない</li>
+</ul></li>
+<li>ミドルウェアへのCSRF対策
+
+<ul>
+<li>隔離するものはちゃんと隔離する</li>
+<li>退職者向けバックドアは残さない</li>
+</ul></li>
+<li>Well-known port
+
+<ul>
+<li><a href="https://fetch.spec.whatwg.org/#port-blocking" title="3.5 Port blocking">3.5 Port blocking</a></li>
+<li>Fetch APIで定義されてる</li>
+<li>コレ以外はブロックされないので、CSRF経由での攻撃ができる</li>
+</ul></li>
+<li>プロセス間でやり取りする場合は相互認証をちゃんとやる</li>
+<li>Cross protocolなCSRF + xhr.send(blob)でバイナリを送れる :new:
+
+<ul>
+<li>新しい脆弱性は生まれるかも</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="pathでxssする技術-masato-kinugawa">PATHでXSSする技術 - Masato Kinugawa</h2>
+
+<ul>
+<li><code>https://host/path?key=a#b</code></li>
+<li>クエリとかハッシュ以外もXSSに使える</li>
+<li><code>$_SERVER</code> 
+
+<ul>
+<li>PHP</li>
+<li><code>REQUEST_URI</code>
+
+<ul>
+<li>Firefox, Chrome</li>
+<li>IEはリダイレクトするとなぜがPATHの部分がエスケープされない</li>
+</ul></li>
+</ul></li>
+<li>その他のパスでのXSS
+
+<ul>
+<li>RPO(Relative Path Overwrite)
+
+<ul>
+<li>相対パスを上書きを引き起こすXSS</li>
+</ul></li>
+</ul></li>
+<li><code>location.pathname</code>
+
+<ul>
+<li>パスを取得するためのプロパティ
+
+<ul>
+<li><code>&#39;=()</code>などはエスケープされない</li>
+</ul></li>
+</ul></li>
+<li><a href="http://shibuya.vulnerabledoma.in/jizen" title="Shibuya.XSS JIZEN-GAKUSHU Challenge">Shibuya.XSS JIZEN-GAKUSHU Challenge</a>
+
+<ul>
+<li>解説</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;img class=&quot;log&quot; src=&quot;/payloadLogger?url=&#39;</span> <span class="o">+</span> <span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span> <span class="o">+</span> <span class="s2">&quot;//&quot;</span> <span class="o">+</span> <span class="nx">location</span><span class="p">.</span><span class="nx">host</span> <span class="o">+</span> <span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span> <span class="o">+</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">)</span> <span class="o">+</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&quot;&gt;&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<ul>
+<li><code>aaa/..%2F</code></li>
+<li>IE
+
+<ul>
+<li>iframe経由でドキュメントモードを古い動作をあえて呼び出す</li>
+<li>親のドキュメントモードがiframeにも継承される
+
+<ul>
+<li><a href="https://msdn.microsoft.com/en-us/library/gg622935(v=vs.85).aspx" title="Understanding the Compatibility view list (Windows)">Understanding the Compatibility view list (Windows)</a></li>
+<li>互換性</li>
+</ul></li>
+<li>AllowEncodeedSlashedの動作を利用してパス先頭に<code>javascript:</code>を書く</li>
+<li><a href="http://shibuya.vulnerabledoma.in/jizen" title="Shibuya.XSS JIZEN-GAKUSHU Challenge">Shibuya.XSS JIZEN-GAKUSHU Challenge</a></li>
+</ul></li>
+<li>IE
+
+<ul>
+<li><code>http</code>から<code>mshtml</code>へreplaceStateができる</li>
+<li>SafariもBlob+replaceStateができる</li>
+</ul></li>
+</ul>
+
+<p>事前課題</p>
+
+<ul>
+<li><a href="https://twitter.com/kinugawamasato/status/713307732628021248" title="Masato Kinugawa on Twitter: &amp;#34;Dear XSSer, two XSS challenges are here. Can you solve it? :) https://t.co/xyi8qoyJBL https://t.co/jhiZMDZh1l&amp;#34;">Masato Kinugawa on Twitter: &quot;Dear XSSer, two XSS challenges are here. Can you solve it? :) https://t.co/xyi8qoyJBL https://t.co/jhiZMDZh1l&quot;</a></li>
+</ul>
+
+<hr>
+
+<h2 id="electronのセキュリティの話-hasegawa">Electronのセキュリティの話 - hasegawa</h2>
+
+<ul>
+<li>Electron vs. CSP
+
+<ul>
+<li>レンダラにCSPを適用しても</li>
+<li><code>webview</code>タグ内で任意コード実行ができる</li>
+<li>CSPでは(Electronの)XSSを防げない</li>
+</ul></li>
+<li>WebViewタグを使わないでXSSするパターン
+
+<ul>
+<li>レンダラ内は同一オリジン以外のリソースは禁止</li>
+<li>外部リソースを<code>innerHTML</code>で読ませれも発火しない</li>
+<li>表示されるページと同じオリジンなら可能</li>
+<li><code>innerHTML = &lt;iframe src=&quot;&lt;同じオリジン&gt;&quot;&gt;</code>はいける</li>
+<li><code>file://</code>で悪意があるものがあれば、任意コード実行できそう</li>
+</ul></li>
+<li>同一オリジン
+
+<ul>
+<li>ディレクトリと関係なく全てが同一オリジン in <code>file://</code></li>
+</ul></li>
+<li>悪意のあるファイル in <code>file://</code>
+
+<ul>
+<li>事前にダウンロード</li>
+<li>ファイルサーバを立ち上げて、<code>file://</code>なものを用意しておくと同一オリジンとして認識される</li>
+</ul></li>
+<li>実行できてもNodeの機能が実行できない
+
+<ul>
+<li><code>window.open</code>でNodeを有効にしたウィンドウを開ける</li>
+<li>XSSがあると何でも実行できる</li>
+</ul></li>
+<li>Electronのnodeモジュール探索パス
+
+<ul>
+<li>アプリ外のパスも探索パスとなる</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="http-こいつの-話-shibuya-xss-moe-yagihashoo">http://こいつの:話@shibuya.xss.moe/ - yagihashoo</h2>
+
+<ul>
+<li>パスワード認証の話</li>
+<li>URI
+
+<ul>
+<li>RFC2396で定義、RFC3986で改定される</li>
+<li>RFC1738 URL</li>
+</ul></li>
+<li>各ブラウザの対応状況
+
+<ul>
+<li>IE/Edge以外は大体何か動く</li>
+<li>FirefoxとSafariとかは警告がでて確認される</li>
+<li>Opera PWがマスクされるパターン</li>
+</ul></li>
+<li>Firefox
+
+<ul>
+<li>URLの履歴がそのまま表示される</li>
+</ul></li>
+<li>ベーシック認証をしてるサイトからログアウトできない
+
+<ul>
+<li>ブラウザを終了するしかない</li>
+<li>もう一度同じURLでアクセスするとダイアログはでない</li>
+</ul></li>
+<li>各種ルータの管理画面ハック
+
+<ul>
+<li>管理画面はXSSとかCSRFがよくある</li>
+<li>XSSの条件
+
+<ul>
+<li>ログイン済み</li>
+<li>XSSが発言するURLが既知</li>
+<li>ユーザがわなページを踏む</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="firefoxの話-llamakko_cafe">Firefoxの話 - llamakko_cafe</h2>
+
+<ul>
+<li>脆弱性を探す前に
+
+<ul>
+<li>ブラウザの脆弱性探しはハードル高そう</li>
+<li>どんなものが脆弱性</li>
+<li>どんなところに脆弱性</li>
+</ul></li>
+<li>ブラウザの脆弱性?
+
+<ul>
+<li>パッと浮かぶものがあまりない</li>
+<li>引き出しが少ないと脆弱性結びつけるのが難しい</li>
+<li><a href="http://jvndb.jvn.jp/ja/contents/2015/JVNDB-2015-006323.html" title="JVNDB-2015-006323 - JVN iPedia - 脆弱性対策情報データベース">JVNDB-2015-006323 - JVN iPedia - 脆弱性対策情報データベース</a></li>
+</ul></li>
+<li>脆弱性を探す前に
+
+<ul>
+<li>Firefoxセキュリティアドバイザリ</li>
+<li>脆弱性の一覧があって、ソースも見える</li>
+</ul></li>
+<li><a href="http://jvndb.jvn.jp/ja/contents/2015/JVNDB-2015-006413.html" title="JVNDB-2015-006413 - JVN iPedia - 脆弱性対策情報データベース">JVNDB-2015-006413 - JVN iPedia - 脆弱性対策情報データベース</a>
+
+<ul>
+<li>data および view-source URIを通じたクロスサイト読み取り攻撃</li>
+</ul></li>
+<li>Firefoxの脆弱性を見つけたきっかけ
+
+<ul>
+<li>「戻るボタンを押すのがめんどうくさくてhistory.backしてた」</li>
+</ul></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>JSDocをランタイムassertに変換するBabelプラグインを書いた</title>
@@ -1533,103 +1843,6 @@ D--&gt;&gt;A: Dashed open arrow
 
 <p>タイトルで移行したと書いてますが、DayOneも併用はしていてDayOneには書捨て的なメモを書いたりしてます(今日何したとか)。
 日にちをまたいで書く必要があるメモがQuiver、その場その場でいいのはDayOneみたいな感じの使い分けをしています。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>未知の頭字語を見つけるtextlintルール</title>
-   <link href="http://efcl.info/2016/01/22/textlint-unexpanded-acronym/"/>
-   <updated>2016-01-22T20:10:00+09:00</updated>
-   <id>http://efcl.info/2016/01/22/textlint-unexpanded-acronym</id>
-   <content type="html"><![CDATA[ <p><a href="https://github.com/azu/textlint-rule-unexpanded-acronym" title="textlint-rule-unexpanded-acronym">textlint-rule-unexpanded-acronym</a>という<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>ルールを書きました。</p>
-
-<p>textlint自体については以下を参照してください。</p>
-
-<ul>
-<li><a href="http://efcl.info/2015/09/10/introduce-textlint/">textlintで日本語の文章をチェックする | Web Scratch</a></li>
-<li><a href="http://efcl.info/2015/12/30/textlint-preset/">ルールプリセットを使ってお手軽にtextlint入門 | Web Scratch</a></li>
-</ul>
-
-<h2 id="textlint-rule-unexpanded-acronym"><a href="https://github.com/azu/textlint-rule-unexpanded-acronym" title="textlint-rule-unexpanded-acronym">textlint-rule-unexpanded-acronym</a></h2>
-
-<p>textlint-rule-unexpanded-acronymが見つけるのは未知の<a href="https://ja.wikipedia.org/wiki/%E9%A0%AD%E5%AD%97%E8%AA%9E" title="頭字語">頭字語</a>です。</p>
-
-<blockquote>
-<p>頭字語（とうじご）とは、主にヨーロッパ言語のアルファベットにおける略語の一種で、複数の単語から構成された合成語の頭文字を繋げて作られた語のこと。</p>
-</blockquote>
-
-<ul>
-<li>OSS: Open Source Software</li>
-<li>IEEE: Institute of Electrical and Electronics Engineers</li>
-</ul>
-
-<p>みたいな短縮された単語です。</p>
-
-<p>頭字語がいきなり説明なしに出てきた場合に、最後までそれがなんの略語なのかわからないと意味が分からない文章になってしまいます。</p>
-
-<p>そのため、頭字語がでてきたらその元となった単語が文章中にでてきているかをチェックするルールです。</p>
-
-<p>例えば、以下のような文章ではOSSがOpen Source Softwareの略であることを説明してないのでエラーとなります。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">OSS開発を行う人には色々なタイプがいるはずだ。
-</code></pre></div>
-<p>まだアルファベットしか対応してないです(日本語対応できるのか謎)。</p>
-
-<h2 id="インストール">インストール</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-rule-unexpanded-acronym
-</code></pre></div>
-<h2 id="使い方">使い方</h2>
-
-<p><code>.textlintrc</code>で設定する場合は以下のように設定できます。
-(内容はデフォルト値になっています)</p>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;unexpanded-acronym&quot;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;min_acronym_len&quot;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-            <span class="nt">&quot;max_acronym_len&quot;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-            <span class="nt">&quot;ignore_acronyms&quot;</span> <span class="p">:</span> <span class="p">[]</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="設定">設定</h3>
-
-<p>上記の設定で書いたように幾つかのオプションがあります。</p>
-
-<ul>
-<li><code>min_acronym_len</code>(default:<code>3</code>): 指定した文字数以上の頭字語をチェック対象とします。</li>
-<li><code>max_acronym_len</code>(default:<code>5</code>): 指定した文字数以下の頭字語をチェック対象とします。</li>
-<li><code>ignore_acronyms</code>(default:<code>[]</code>): 無視する頭字語を指定できます。</li>
-</ul>
-
-<p><code>min_acronym_len</code> 以上 <code>max_acronym_len</code> 以下の文字数をチェックするので、デフォルトでは3-5文字の頭字語だけがチェックされます。</p>
-
-<p>また、OSSというような説明しなくても分かるであろう頭字語を無視するオプションもあります。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">{
-    &quot;rules&quot;: {
-        &quot;unexpanded-acronym&quot; : {
-            // AB is ignore, ABC is recognized.
-            &quot;min_acronym_len&quot; : 3,
-            // GREEEEEEN is ignore
-            &quot;max_acronym_len&quot; : 5,
-            // OSS is ignore
-            &quot;ignore_acronyms&quot; : [&quot;OSS&quot;]
-        }
-    }
-}
-</code></pre></div>
-<h3 id="todo">TODO</h3>
-
-<p>日本語も対応できると良さそうだけど、普通に難しそうな気がする。</p>
-
-<p><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/slide/96.html" title="実験: 文章に対して文章でテスト | 技術文書をソフトウェア開発する話">実験: 文章に対して文章でテスト | 技術文書をソフトウェア開発する話</a>で似たような話をしていました</p>
-
-<h2 id="参考">参考</h2>
-
-<p>RedPenの同様の機能を参考に実装しました。</p>
-
-<ul>
-<li><a href="http://redpen.cc/docs/latest/index.html#unexpandedacronym" title="UnexpandedAcronym">RedPen UnexpandedAcronym</a></li>
-</ul>
  ]]></content>
  </entry>
  

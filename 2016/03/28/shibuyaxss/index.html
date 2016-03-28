@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Shibuya.XSS techtalk #7 アウトラインメモ | Web Scratch
+        
+    </title>
+    <meta name="description" content="Shibuya.XSS techtalk #7に参加してきたのでメモ">
+    
+    <meta name="keywords" content="Browser,XSS,security" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="Shibuya.XSS techtalk #7 アウトラインメモ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/03/28/shibuyaxss/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="Shibuya.XSS techtalk #7に参加してきたのでメモ">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-03-28T21:41:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/03/25/jsdoc-to-assert/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/03/22/match-index/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/03/15/textlint--fix/">
+
+
+
+
+
+<meta property="article:section" content="イベント">
+
+
+
+
+
+<meta property="article:tag" content="Browser">
+
+<meta property="article:tag" content="XSS">
+
+<meta property="article:tag" content="security">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 151
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 75
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/03/28/shibuyaxss/">
+                Shibuya.XSS techtalk #7 アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/03/25/jsdoc-to-assert/">
+                JSDocをランタイムassertに変換するBabelプラグインを書いた
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/03/22/match-index/">
+                正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/03/15/textlint--fix/">
+                textlint 6.0リリース。--fixでの自動修正に対応
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/03/28/shibuyaxss/">
+    <h1 class="post-title">Shibuya.XSS techtalk #7 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年03月28日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-03-28-shibuyaxss.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="http://shibuyaxss.connpass.com/event/28232/" title="Shibuya.XSS techtalk #7">Shibuya.XSS techtalk #7</a>に参加してきたのでメモ</p>
+
+<hr>
+
+<h2 id="超絶技巧-csrf-mala">超絶技巧 CSRF - mala</h2>
+
+<ul>
+<li>CSRFについて</li>
+<li>クロスサイトでリクエストを強制する脆弱性
+
+<ul>
+<li>書き込み</li>
+<li>パスワードの削除</li>
+</ul></li>
+<li>未だによくある
+
+<ul>
+<li>XSSは正しく書いていれば防げる</li>
+<li>CSRFは未だによくある</li>
+</ul></li>
+<li>CSRFは事後対処になりやすい
+
+<ul>
+<li>投票とか掲示板とか事後対処になりやすい</li>
+<li>リスクの高いCSRFの紹介</li>
+</ul></li>
+<li>アカウント乗っ取り
+
+<ul>
+<li>危険なCSRF</li>
+<li>パスワードの変更</li>
+<li>メールアドレスの変更</li>
+</ul></li>
+<li>連携アカウント追加
+
+<ul>
+<li>OAuth2.0 + stateパラメータで防げる</li>
+</ul></li>
+<li>いろんなものにCSRFする
+
+<ul>
+<li>JSONやXMLを送る</li>
+<li>form enctype=text/plainを使う</li>
+<li>CSRFでmemcached protocolとして解釈可能なものをCSRFで送れる</li>
+</ul></li>
+<li>HTML Form protocol attach
+
+<ul>
+<li>Cross-Protocl スクリプトアタック</li>
+<li>よくあるportはブロックされる</li>
+<li>NoSQLサーバとかはブロックされてないので、攻撃出来ることがある</li>
+</ul></li>
+<li>昔との違い
+
+<ul>
+<li>バイナリをアップロード出来るようになってる</li>
+<li>multipart/form-dataをCSRF =&gt; 可能</li>
+<li>CORSのプリフライト対象外</li>
+</ul></li>
+<li>デモ
+
+<ul>
+<li>Memcachedにform経由で書き込むデモ</li>
+<li>アプロケーションに任意のデータを書き込んだ任意のコード実行みたいなことができてしまう</li>
+</ul></li>
+<li>認証を突破するCSRF
+
+<ul>
+<li>Redisだとパスワードをかけられる</li>
+<li>Redisのパスワード認証
+
+<ul>
+<li>パスワードが既知だと同じ</li>
+</ul></li>
+</ul></li>
+<li>CSRFで突破できる認証
+
+<ul>
+<li>CSRFはレスポンスが取れない</li>
+<li>チャレンジ&amp;レスポンス系は突破できない</li>
+</ul></li>
+<li>ミドルウェアへのCSRF対策
+
+<ul>
+<li>隔離するものはちゃんと隔離する</li>
+<li>退職者向けバックドアは残さない</li>
+</ul></li>
+<li>Well-known port
+
+<ul>
+<li><a href="https://fetch.spec.whatwg.org/#port-blocking" title="3.5 Port blocking">3.5 Port blocking</a></li>
+<li>Fetch APIで定義されてる</li>
+<li>コレ以外はブロックされないので、CSRF経由での攻撃ができる</li>
+</ul></li>
+<li>プロセス間でやり取りする場合は相互認証をちゃんとやる</li>
+<li>Cross protocolなCSRF + xhr.send(blob)でバイナリを送れる :new:
+
+<ul>
+<li>新しい脆弱性は生まれるかも</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="pathでxssする技術-masato-kinugawa">PATHでXSSする技術 - Masato Kinugawa</h2>
+
+<ul>
+<li><code>https://host/path?key=a#b</code></li>
+<li>クエリとかハッシュ以外もXSSに使える</li>
+<li><code>$_SERVER</code> 
+
+<ul>
+<li>PHP</li>
+<li><code>REQUEST_URI</code>
+
+<ul>
+<li>Firefox, Chrome</li>
+<li>IEはリダイレクトするとなぜがPATHの部分がエスケープされない</li>
+</ul></li>
+</ul></li>
+<li>その他のパスでのXSS
+
+<ul>
+<li>RPO(Relative Path Overwrite)
+
+<ul>
+<li>相対パスを上書きを引き起こすXSS</li>
+</ul></li>
+</ul></li>
+<li><code>location.pathname</code>
+
+<ul>
+<li>パスを取得するためのプロパティ
+
+<ul>
+<li><code>&#39;=()</code>などはエスケープされない</li>
+</ul></li>
+</ul></li>
+<li><a href="http://shibuya.vulnerabledoma.in/jizen" title="Shibuya.XSS JIZEN-GAKUSHU Challenge">Shibuya.XSS JIZEN-GAKUSHU Challenge</a>
+
+<ul>
+<li>解説</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;img class=&quot;log&quot; src=&quot;/payloadLogger?url=&#39;</span> <span class="o">+</span> <span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span> <span class="o">+</span> <span class="s2">&quot;//&quot;</span> <span class="o">+</span> <span class="nx">location</span><span class="p">.</span><span class="nx">host</span> <span class="o">+</span> <span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span> <span class="o">+</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">)</span> <span class="o">+</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&quot;&gt;&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<ul>
+<li><code>aaa/..%2F</code></li>
+<li>IE
+
+<ul>
+<li>iframe経由でドキュメントモードを古い動作をあえて呼び出す</li>
+<li>親のドキュメントモードがiframeにも継承される
+
+<ul>
+<li><a href="https://msdn.microsoft.com/en-us/library/gg622935(v=vs.85).aspx" title="Understanding the Compatibility view list (Windows)">Understanding the Compatibility view list (Windows)</a></li>
+<li>互換性</li>
+</ul></li>
+<li>AllowEncodeedSlashedの動作を利用してパス先頭に<code>javascript:</code>を書く</li>
+<li><a href="http://shibuya.vulnerabledoma.in/jizen" title="Shibuya.XSS JIZEN-GAKUSHU Challenge">Shibuya.XSS JIZEN-GAKUSHU Challenge</a></li>
+</ul></li>
+<li>IE
+
+<ul>
+<li><code>http</code>から<code>mshtml</code>へreplaceStateができる</li>
+<li>SafariもBlob+replaceStateができる</li>
+</ul></li>
+</ul>
+
+<p>事前課題</p>
+
+<ul>
+<li><a href="https://twitter.com/kinugawamasato/status/713307732628021248" title="Masato Kinugawa on Twitter: &amp;#34;Dear XSSer, two XSS challenges are here. Can you solve it? :) https://t.co/xyi8qoyJBL https://t.co/jhiZMDZh1l&amp;#34;">Masato Kinugawa on Twitter: &quot;Dear XSSer, two XSS challenges are here. Can you solve it? :) https://t.co/xyi8qoyJBL https://t.co/jhiZMDZh1l&quot;</a></li>
+</ul>
+
+<hr>
+
+<h2 id="electronのセキュリティの話-hasegawa">Electronのセキュリティの話 - hasegawa</h2>
+
+<ul>
+<li>Electron vs. CSP
+
+<ul>
+<li>レンダラにCSPを適用しても</li>
+<li><code>webview</code>タグ内で任意コード実行ができる</li>
+<li>CSPでは(Electronの)XSSを防げない</li>
+</ul></li>
+<li>WebViewタグを使わないでXSSするパターン
+
+<ul>
+<li>レンダラ内は同一オリジン以外のリソースは禁止</li>
+<li>外部リソースを<code>innerHTML</code>で読ませれも発火しない</li>
+<li>表示されるページと同じオリジンなら可能</li>
+<li><code>innerHTML = &lt;iframe src=&quot;&lt;同じオリジン&gt;&quot;&gt;</code>はいける</li>
+<li><code>file://</code>で悪意があるものがあれば、任意コード実行できそう</li>
+</ul></li>
+<li>同一オリジン
+
+<ul>
+<li>ディレクトリと関係なく全てが同一オリジン in <code>file://</code></li>
+</ul></li>
+<li>悪意のあるファイル in <code>file://</code>
+
+<ul>
+<li>事前にダウンロード</li>
+<li>ファイルサーバを立ち上げて、<code>file://</code>なものを用意しておくと同一オリジンとして認識される</li>
+</ul></li>
+<li>実行できてもNodeの機能が実行できない
+
+<ul>
+<li><code>window.open</code>でNodeを有効にしたウィンドウを開ける</li>
+<li>XSSがあると何でも実行できる</li>
+</ul></li>
+<li>Electronのnodeモジュール探索パス
+
+<ul>
+<li>アプリ外のパスも探索パスとなる</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="http-こいつの-話-shibuya-xss-moe-yagihashoo">http://こいつの:話@shibuya.xss.moe/ - yagihashoo</h2>
+
+<ul>
+<li>パスワード認証の話</li>
+<li>URI
+
+<ul>
+<li>RFC2396で定義、RFC3986で改定される</li>
+<li>RFC1738 URL</li>
+</ul></li>
+<li>各ブラウザの対応状況
+
+<ul>
+<li>IE/Edge以外は大体何か動く</li>
+<li>FirefoxとSafariとかは警告がでて確認される</li>
+<li>Opera PWがマスクされるパターン</li>
+</ul></li>
+<li>Firefox
+
+<ul>
+<li>URLの履歴がそのまま表示される</li>
+</ul></li>
+<li>ベーシック認証をしてるサイトからログアウトできない
+
+<ul>
+<li>ブラウザを終了するしかない</li>
+<li>もう一度同じURLでアクセスするとダイアログはでない</li>
+</ul></li>
+<li>各種ルータの管理画面ハック
+
+<ul>
+<li>管理画面はXSSとかCSRFがよくある</li>
+<li>XSSの条件
+
+<ul>
+<li>ログイン済み</li>
+<li>XSSが発言するURLが既知</li>
+<li>ユーザがわなページを踏む</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="firefoxの話-llamakko_cafe">Firefoxの話 - llamakko_cafe</h2>
+
+<ul>
+<li>脆弱性を探す前に
+
+<ul>
+<li>ブラウザの脆弱性探しはハードル高そう</li>
+<li>どんなものが脆弱性</li>
+<li>どんなところに脆弱性</li>
+</ul></li>
+<li>ブラウザの脆弱性?
+
+<ul>
+<li>パッと浮かぶものがあまりない</li>
+<li>引き出しが少ないと脆弱性結びつけるのが難しい</li>
+<li><a href="http://jvndb.jvn.jp/ja/contents/2015/JVNDB-2015-006323.html" title="JVNDB-2015-006323 - JVN iPedia - 脆弱性対策情報データベース">JVNDB-2015-006323 - JVN iPedia - 脆弱性対策情報データベース</a></li>
+</ul></li>
+<li>脆弱性を探す前に
+
+<ul>
+<li>Firefoxセキュリティアドバイザリ</li>
+<li>脆弱性の一覧があって、ソースも見える</li>
+</ul></li>
+<li><a href="http://jvndb.jvn.jp/ja/contents/2015/JVNDB-2015-006413.html" title="JVNDB-2015-006413 - JVN iPedia - 脆弱性対策情報データベース">JVNDB-2015-006413 - JVN iPedia - 脆弱性対策情報データベース</a>
+
+<ul>
+<li>data および view-source URIを通じたクロスサイト読み取り攻撃</li>
+</ul></li>
+<li>Firefoxの脆弱性を見つけたきっかけ
+
+<ul>
+<li>「戻るボタンを押すのがめんどうくさくてhistory.backしてた」</li>
+</ul></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-03-28-shibuyaxss.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Browser","XSS","security"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Browser">Browser</a></li>
+                
+                <li><a href="/tags/?q=XSS">XSS</a></li>
+                
+                <li><a href="/tags/?q=security">security</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

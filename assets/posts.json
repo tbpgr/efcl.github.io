@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "Shibuya.XSS techtalk #7 アウトラインメモ",
+            "url": "http://efcl.info/2016/03/28/shibuyaxss/",
+            "date": "2016-03-28T21:41:00+09:00"
+        },
+        
+        {
             "title": "JSDocをランタイムassertに変換するBabelプラグインを書いた",
             "url": "http://efcl.info/2016/03/25/jsdoc-to-assert/",
             "date": "2016-03-25T10:37:00+09:00"
