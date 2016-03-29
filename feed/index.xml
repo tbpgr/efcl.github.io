@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-29T11:20:42+09:00</updated>
+ <updated>2016-03-29T16:25:46+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -201,6 +201,8 @@
 <hr>
 
 <h2 id="electronのセキュリティの話-hasegawa">Electronのセキュリティの話 - hasegawa</h2>
+
+<p>スライド: <a href="http://utf-8.jp/public/2016/0328/shibuyaxss.pdf" title="shibuyaxss.pdf">Electronのはなし</a></p>
 
 <ul>
 <li>Electron vs. CSP
