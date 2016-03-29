@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-28T23:02:09+09:00</updated>
+ <updated>2016-03-29T11:20:42+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -24,6 +24,8 @@
 <hr>
 
 <h2 id="超絶技巧-csrf-mala">超絶技巧 CSRF - mala</h2>
+
+<p>スライド: <a href="https://speakerdeck.com/mala/shibuya-dot-xss-techtalk-number-7" title="超絶技巧CSRF / Shibuya.XSS techtalk #7 // Speaker Deck">超絶技巧CSRF / Shibuya.XSS techtalk #7 // Speaker Deck</a></p>
 
 <ul>
 <li>CSRFについて</li>
