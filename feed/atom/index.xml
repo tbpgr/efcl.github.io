@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-30T10:51:03+09:00</updated>
+ <updated>2016-03-30T11:05:38+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -296,6 +296,8 @@
 <hr>
 
 <h2 id="firefoxの話-llamakko_cafe">Firefoxの話 - llamakko_cafe</h2>
+
+<p>関連: <a href="http://blog.vuln.jp/2016/01/firefox5000.html" title="晴れのちバグ( ꒪⌓꒪): Firefoxのバグを見つけて5000ドルの報奨金をもらった話">晴れのちバグ( ꒪⌓꒪): Firefoxのバグを見つけて5000ドルの報奨金をもらった話</a></p>
 
 <ul>
 <li>脆弱性を探す前に
