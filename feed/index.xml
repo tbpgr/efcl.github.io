@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-03-30T11:05:38+09:00</updated>
+ <updated>2016-04-05T23:50:19+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,554 @@
  </author>
  
 
+ 
+ <entry>
+   <title>Node学園 20時限目 アウトラインメモ</title>
+   <link href="http://efcl.info/2016/04/05/tng20/"/>
+   <updated>2016-04-05T23:43:00+09:00</updated>
+   <id>http://efcl.info/2016/04/05/tng20</id>
+   <content type="html"><![CDATA[ <p><a href="http://nodejs.connpass.com/event/29235/" title="Node学園 20時限目">Node学園 20時限目</a>に参加したきたのメモ。</p>
+
+<h2 id="「eslintの話」-by-mysticatea">「eslintの話」 by @mysticatea</h2>
+
+<ul>
+<li>ESLint 12-3% ぐらいのルールを書いた</li>
+<li>JSHintにプラグイン機能が追加するという話はあったけどならなかった</li>
+<li>ESLintの特徴
+
+<ul>
+<li>ASTベースでプラグインという特性</li>
+<li>開発者が貢献するのが簡単
+
+<ul>
+<li>コントリビューションガイド</li>
+</ul></li>
+</ul></li>
+<li>開発体制
+
+<ul>
+<li>機能に関しては Reviewer以上</li>
+<li>バグに関しては Commier 以上が確認してマージ</li>
+<li>隔週の金曜日にリリース</li>
+</ul></li>
+<li>ESLint 3.0.0
+
+<ul>
+<li>Stage 4に到達した構文</li>
+<li>Auto FixはIDEと連携して選択式の適応へ
+
+<ul>
+<li>アグレッシブなFixは同時に適応できない問題</li>
+</ul></li>
+<li>Globベースの設定ファイル
+
+<ul>
+<li>RootにGlob的なファイルを置いてカスケードする</li>
+</ul></li>
+<li>より良いカスタムパーサーAPI
+
+<ul>
+<li>babel-eslintがしょっちゅう壊れる</li>
+<li>patchアップデートで壊れる</li>
+</ul></li>
+<li>より良いスタイルルール
+
+<ul>
+<li>indentルールをどうかする</li>
+<li>スタイルルールセットみたいな統一感がない</li>
+</ul></li>
+<li>TypeScriptサポート
+
+<ul>
+<li>ESLintがTypeScriptを扱えるようにする</li>
+<li><a href="https://github.com/eslint/typescript-eslint-parser" title="eslint/typescript-eslint-parser: A TypeScript parser that produces output compatible with ESLint">eslint/typescript-eslint-parser: A TypeScript parser that produces output compatible with ESLint</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="「amebafresh-tvの話」-by-ahomu">「amebafresh.tvの話」 by @ahomu</h2>
+
+<p>スライド: <a href="http://s.aho.mu/160405-node_school/#" title="Client Side of なんちゃらfresh.tv">Client Side of なんちゃらfresh.tv</a></p>
+
+<ul>
+<li>■■■■fresh.tv</li>
+<li>クライアントサイドの話</li>
+<li>SSRについて
+
+<ul>
+<li>Socket.IO</li>
+<li>HLS</li>
+</ul></li>
+<li>ウェブクライアント
+
+<ul>
+<li>React + Fluxible</li>
+</ul></li>
+<li>サーバ
+
+<ul>
+<li>nignx -&gt; node(クライアントサーバ) -&gt; golang(APIサーバ)</li>
+</ul></li>
+<li>サーバサイドレンダリング
+
+<ul>
+<li>コンポーネント</li>
+<li>サーバサイドレンダリング</li>
+<li>テンプレをクライアント/サーバで共有するのがメイン</li>
+<li>JavaScriptのみでレンダリングだと、クリティカルレンダリングパスが長くなる
+
+<ul>
+<li>初期表示を短くするためのサーバーサイドレンダリング</li>
+</ul></li>
+<li>Fluxible
+
+<ul>
+<li>Flux : fluxible</li>
+</ul></li>
+<li>Rendering
+
+<ul>
+<li>react</li>
+</ul></li>
+<li>Routing
+
+<ul>
+<li>Fluxible</li>
+</ul></li>
+<li>Data Loading
+
+<ul>
+<li>fetchrはサーバ用のService Middlewareとクライント用のProxy Requestを使ってやる</li>
+<li>クライアントとサーバでそれぞれ同じコードだけど、リクエストはProxyで実体は異なる</li>
+</ul></li>
+</ul></li>
+<li>Flux
+
+<ul>
+<li>コンポーネントはスマートUI気味</li>
+<li>必要に応じてStoreに移していく</li>
+<li>他のコンポーネントと共有しないUIの状態はStateを使う</li>
+<li>開発速度を優先した感じ</li>
+<li><code>Context</code>を注入してバケツリレーを回避</li>
+</ul></li>
+<li>SPAについて
+
+<ul>
+<li>メリット
+
+<ul>
+<li>画面遷移が早くなる</li>
+</ul></li>
+<li>デメリット
+
+<ul>
+<li>ブラザナビゲーションを破壊してしまう</li>
+</ul></li>
+</ul></li>
+<li>ウェブサイトは本当にSPAにするべきか
+
+<ul>
+<li>ユーザー操作がリンクをクリックする感じなら、SPAにする意味はそこまでないのでは?</li>
+<li>ウェブアプリ的な(一ページに滞在する必要があるもの)はSPAが良い</li>
+<li>ブラウザのナビゲーションは自分で色々で責任を持つ必要があるので大変</li>
+</ul></li>
+<li>PinP(Picture in Picture)が要件にあったから
+
+<ul>
+<li>この要件があったのでSPAにした</li>
+</ul></li>
+<li>SPAの注意
+
+<ul>
+<li>ルーティング後の画面遷移
+
+<ul>
+<li>読み終わったら、データを画面に反映するべき</li>
+</ul></li>
+<li>スクロール(0,0)もルーティングが終わってから移動する</li>
+<li>ブラウザバックは即座に表示
+
+<ul>
+<li>ブラウザバックなら情報は既知 = キャッシュを使う</li>
+<li>Routing処理が発生してもfetchはスキップ
+
+<ul>
+<li>ここはルーティングで</li>
+</ul></li>
+</ul></li>
+<li>7gogo</li>
+<li>某巨大サービス</li>
+</ul></li>
+<li>ディレクトリ
+
+<ul>
+<li>コンポーネント毎にディレクトリを切ってる </li>
+</ul></li>
+<li>Componentについて
+
+<ul>
+<li>プロジェクト固有のレイヤーで、ここはCSSで上書きOKという感じになってる</li>
+<li>日々デザインは変わるのでゆるめな感じの作り</li>
+</ul></li>
+<li>CSS
+
+<ul>
+<li>SUIT CSS + BEM</li>
+</ul></li>
+<li>コンポーネントはガンガン切る
+
+<ul>
+<li>shouldComponentUpdateを信じて細分化した</li>
+</ul></li>
+<li>CSSの今後
+
+<ul>
+<li><a href="http://bradfrost.com/blog/post/atomic-web-design/" title="Atomic Design | Brad Frost">Atomic Design | Brad Frost</a></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="「vue-jsの最近の話」-by-kazupon">「vue.jsの最近の話」 by @kazupon</h2>
+
+<p>スライド: <a href="https://speakerdeck.com/kazupon/vue-dot-js-recent-trends" title="Vue.js Recent Trends // Speaker Deck">Vue.js Recent Trends // Speaker Deck</a></p>
+
+<p>(雑談をしていたのでメモできてない)</p>
+
+<h2 id="「nodebotsの話」-by-n0bisuke">「Nodebotsの話」 by @n0bisuke</h2>
+
+<p>スライド: <a href="https://speakerdeck.com/n0bisuke/nodebotsfalsehua-nodexue-yuan-20shi-xian-mu-number-tng20-20fen" title="NodeBotsの話 (Node学園20時限目 #tng20 : 20分) // Speaker Deck">NodeBotsの話 (Node学園20時限目 #tng20 : 20分) // Speaker Deck</a></p>
+
+<ul>
+<li>JavaScriptでハードウェアを操作</li>
+<li>konashi</li>
+<li>mesh</li>
+<li>ハードウェアの機能をNode.jsで制御する
+
+<ul>
+<li>noble</li>
+<li>BT</li>
+</ul></li>
+<li>GPIO
+
+<ul>
+<li>npmにもライブラリがある</li>
+</ul></li>
+<li>NodeBots
+
+<ul>
+<li>JavaScriptでハードウェアを制御するコミュニティ</li>
+</ul></li>
+<li>Node.jsでハードウェアを制御する方法
+
+<ul>
+<li>Cylon.js
+
+<ul>
+<li>Arduinoを制御する</li>
+</ul></li>
+<li>johnny-five
+
+<ul>
+<li>Arduinoなどのハードウェア制御</li>
+<li>こっちを使って始めるのがいいという話</li>
+</ul></li>
+</ul></li>
+<li>始め方
+
+<ul>
+<li>NodeSchool</li>
+<li>workshoperの中にNodeBot Workshopがある</li>
+<li>これを使ってjohnny-fiveの基礎を学ぶことができる</li>
+<li>ハードウェアがなくても始めることができるよという話</li>
+<li>回路図とかも書かれてる</li>
+<li>日本語訳を書いてる最中
+
+<ul>
+<li>ハードウェアも選定したWorkShopの準備中</li>
+</ul></li>
+<li>Arduino Uno R3を使うのが安心</li>
+<li>Genuino 101というもIntellからでてきた
+
+<ul>
+<li>Arduino互換</li>
+</ul></li>
+<li>Tessel 2
+
+<ul>
+<li>Node.jsからの利用を最初から想定しているボード</li>
+<li>no ぎてき</li>
+</ul></li>
+</ul></li>
+<li>PR</li>
+</ul>
+
+<hr>
+
+<h2 id="「option-tでエラーハンドリング」-by-saneyuki">「option-tでエラーハンドリング」 by @saneyuki</h2>
+
+<ul>
+<li>try-catch</li>
+<li>エラーの種類(2種類)
+
+<ul>
+<li>バグが起こすエラー</li>
+<li>回復できるエラー</li>
+</ul></li>
+<li>バグは回復できるのか?
+
+<ul>
+<li>できるわけない</li>
+<li>バグは回復してはいけない</li>
+<li>開発者に通知するべき</li>
+<li>これをtry-catchをがんばっては行けない</li>
+<li>プログラムの整合性が壊れてしまう</li>
+<li>さっさとクラッシュさせて通知する</li>
+</ul></li>
+<li>Type
+
+<ul>
+<li>TypeScriptの型を見るとerrorは<code>any</code>型になってしまう</li>
+</ul></li>
+<li>回復可能なエラー
+
+<ul>
+<li>DOMのエラーとか回復可能なエラーはある</li>
+<li><code>throw-abilty</code> JSDocとかにある</li>
+<li>けどツールはちゃんとそこをチェック出来るものは少ない</li>
+</ul></li>
+<li><a href="http://joeduffyblog.com/2016/02/07/the-error-model/" title="Joe Duffy - The Error Model">Joe Duffy - The Error Model</a>
+
+<ul>
+<li>シグネチャで縛らないと開発者はスルーしてしまう</li>
+<li>エラーを投げ売るかはどうやって表現するか</li>
+</ul></li>
+<li>Iteratorを拡張したエラー型
+
+<ul>
+<li>エラーを投げうる(返しうる)という型</li>
+<li>Optional</li>
+<li>GoLangのようなエラーハンドリング</li>
+</ul></li>
+<li>エラーをとりあえず全てキャッチになげる
+
+<ul>
+<li>キャッチでクラッシュさせる</li>
+</ul></li>
+<li>Obsevable on ES.next
+
+<ul>
+<li>正常系 =&gt; onNext</li>
+<li>エラー =&gt; error = Observableも止まる
+
+<ul>
+<li>エラーですぐとめる</li>
+</ul></li>
+</ul></li>
+<li><code>uncughException</code>
+
+<ul>
+<li>エラーをダンプしてプロセスをちゃんと落とす(回復しようと努力しない)</li>
+<li><code>process.exit()</code></li>
+</ul></li>
+<li>option-t
+
+<ul>
+<li><a href="http://saneyukis.hatenablog.com/entry/2016/03/14/223518" title="option-tにResult&amp;lt;T, E&amp;gt;型を実装した（簡易報告版） - snyk_s log">option-tにResult<T, E>型を実装した（簡易報告版） - snyk_s log</a></li>
+<li><code>Either&lt;A, B&gt;</code></li>
+<li>RustのResultを持ってきたnpmモジュール</li>
+</ul></li>
+<li>関数型パッピーなライブラリ
+
+<ul>
+<li>Rustのドキュメントを読め</li>
+</ul></li>
+<li>まとめ
+
+<ul>
+<li>try-catchを基本的に使うな 
+
+<ul>
+<li>例外はあるけど、自分の制御内ではできるだけ使わない</li>
+</ul></li>
+<li>関数にtry-catchを起こし込めてちゃんと型を書いて制御する</li>
+<li>バグを回復させてはいけない</li>
+<li><code>throwable</code>かどうかはシグネチャとして担保する
+
+<ul>
+<li>関数がエラーを投げるかどうかという事を書くべき</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="「oracleがnode-jsをやり始めたというのだが！」-by-charlier_shoe">「OracleがNode.jsをやり始めたというのだが！」 by @charlier_shoe</h2>
+
+<ul>
+<li>Old IT
+
+<ul>
+<li>一枚岩アーキテクチャの上にJava EEを載せるみたいな</li>
+<li>簡単に止めることができない</li>
+</ul></li>
+<li>New IT
+
+<ul>
+<li>軽量なサービス軍で構成</li>
+<li>サービスごとに自主的にやってる</li>
+</ul></li>
+<li>Node Cloud
+
+<ul>
+<li>Cloud上のNode.jsのランタイム</li>
+<li>アプリケーションコンテナクラウド</li>
+</ul></li>
+<li>JET
+
+<ul>
+<li><a href="http://www.oracle.com/webfolder/technetwork/jet/index.html" title="Home">Home</a></li>
+<li>JQuery</li>
+<li>JQuery UI</li>
+<li>Knockout</li>
+<li>RequireJS</li>
+<li>Hammer</li>
+</ul></li>
+<li>Oracle初のOSS！
+
+<ul>
+<li><a href="https://github.com/oracle/oraclejet/blob/master/CONTRIBUTING.md" title="oraclejet/CONTRIBUTING.md at master · oracle/oraclejet">oraclejet/CONTRIBUTING.md at master · oracle/oraclejet</a></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="ひたすら楽してディープラーニング-yujiosaka">ひたすら楽してディープラーニング -yujiosaka</h2>
+
+<p>スライド: <a href="https://speakerdeck.com/yujiosaka/hitasurale-sitedeipuraningu" title="ひたすら楽してディープラーニング // Speaker Deck">ひたすら楽してディープラーニング // Speaker Deck</a></p>
+
+<ul>
+<li>機械学習</li>
+<li>はじめてのパターン認識
+
+<ul>
+<li>ニューラルネットワークに壁</li>
+</ul></li>
+<li>kaggle
+
+<ul>
+<li>minstの分類</li>
+<li>新しいalgorithmがでると大体これで試される</li>
+</ul></li>
+<li><a href="http://neuralnetworksanddeeplearning.com/" title="Neural networks and deep learning">Neural networks and deep learning</a>
+
+<ul>
+<li>Python -&gt; CoffeeScript -&gt; ES6</li>
+</ul></li>
+<li>パーセプトロンモデル
+
+<ul>
+<li>滑らかになる</li>
+</ul></li>
+<li>数式
+
+<ul>
+<li>普段使ってるプログラミング言語に落としてみるとわかりやすくなる</li>
+</ul></li>
+<li>教科書にない問題
+
+<ul>
+<li>桁あふれの問題</li>
+</ul></li>
+<li>ライブラリ高機能
+
+<ul>
+<li>Pythonのライブラリが高機能過ぎて、JavaScriptで再実装するのが難しい</li>
+<li>自動微分</li>
+<li>Pythonに詳しくなってきた</li>
+</ul></li>
+<li>リポジトリ
+
+<ul>
+<li><a href="https://github.com/yujiosaka/js-mind" title="yujiosaka/js-mind: Deep Learning Library Written in ES2015.">yujiosaka/js-mind: Deep Learning Library Written in ES2015.</a></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="node-jsでble機器を制御">Node.jsでBLE機器を制御</h2>
+
+<ul>
+<li>BLE</li>
+<li>振らないと止まらない目覚まし</li>
+</ul>
+
+<hr>
+
+<h2 id="雑談">雑談</h2>
+
+<p>@t_wada さんと<a href="http://efcl.info/2016/03/25/jsdoc-to-assert/" title="JSDocをランタイムassertに変換するBabelプラグインを書いた | Web Scratch">JSDocをランタイムassertに変換するBabelプラグインを書いた | Web Scratch</a>についての話をした。</p>
+
+<p><a href="https://github.com/azu/babel-plugin-jsdoc-to-assert" title="babel-plugin-jsdoc-to-assert">babel-plugin-jsdoc-to-assert</a>を使うとテストの時に例外を投げるケースが出てきてしまうけど、そういう時はどうするのが正しいの?という話</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="cm">/**</span>
+<span class="cm"> * @param {number} a - this is a param.</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">myFunc</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>をテストするコードとして以下のようなものを書くと、<a href="https://github.com/azu/babel-plugin-jsdoc-to-assert" title="babel-plugin-jsdoc-to-assert">babel-plugin-jsdoc-to-assert</a>を使っているときは例外を投げる。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">it(&quot;should x&quot;, function(){
+    myFunc(&quot;string&quot;);// {number}を受取るはずなので例外を投げる
+});
+</code></pre></div>
+<p>この時のテストコードとしてはどうするのが正解なのかという話をした。</p>
+
+<p>t_wada 「これは型違反例外なので、キャッチして処理するのが正解」</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should x&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">try</span><span class="p">{</span>
+        <span class="nx">myFunc</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">);</span>
+        <span class="nx">fail</span><span class="p">(</span><span class="s2">&quot;ここにきたらおかしいので例外を投げる __ いわゆるunreachable&quot;</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span>
+        <span class="nx">assert</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s2">&quot;AssertionError&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>という感じにやるのが良いという話だった。</p>
+
+<p>Nodeの<a href="https://nodejs.org/api/assert.html#assert_assert_fail_actual_expected_message_operator" title="assert.fail(actual, expected, message, operator)">assert.fail(actual, expected, message, operator)</a>は普通のfailじゃないので使えないという話や<code>assert.throws</code>のAPIも何か使いにくいという話をした。</p>
+
+<p>後、今は<code>console.assert</code>使ってるけどブラウザ、Nodeで挙動違うから<a href="https://github.com/codemix/babel-plugin-typecheck" title="babel-plugin-typecheck">babel-plugin-typecheck</a>みたいにif throwするとかになるよなー的な話(ライブラリなしとする場合)</p>
+
+<hr>
+
+<p>@ahomu @pocotan001 さんと</p>
+
+<blockquote>
+<p>Component/index.sg.js : コンポーネントのスタイルガイド<br>
+<a href="http://s.aho.mu/160405-node_school/#33">http://s.aho.mu/160405-node_school/#33</a></p>
+</blockquote>
+
+<p>の話とCSSの設計の話をした。</p>
+
+<p>CSSのスタイルガイドをプロダクトにいれて動かしてる話はあんまり見たことないのでもっと読みたいです！</p>
+
+<p>CSSはcssnext(PostCSS)な感じ。</p>
+
+<p>CSSの原則的な規約とそこを破った方が楽な部分のバランスの話。</p>
+
+<p>(SUIT CSSの考えなどでいくと)親が孫の要素(コンポーネントをまたいだ要素)に対してスタイルを当てるのは原則に反するが、そこは多少破っても問題が起きた時にどこが問題なのかが特定できればいいという話(少なくても親は一定となるという話だと思う)。</p>
+
+<p>後は何にCSSの(グローバル)変数を使ってるかという話をした</p>
+
+<ul>
+<li>色</li>
+<li>フォント</li>
+<li>コンポーネント間の幅</li>
+<li>高さ</li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>Shibuya.XSS techtalk #7 アウトラインメモ</title>
@@ -1745,114 +2293,6 @@ Conclusion/Resolution
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?&#39;http&#39;:&#39;https&#39;;if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+&#39;://platform.twitter.com/widgets.js&#39;;fjs.parentNode.insertBefore(js,fjs);}}(document, &#39;script&#39;, &#39;twitter-wjs&#39;);</script></p>
 
 <p><a href="http://ecmascript-daily.github.io/" title="ECMAScript Daily">ECMAScript Daily</a>はPull Requestで誰でも記事を追加できるので興味がある人は<a href="https://github.com/ecmascript-daily/ecmascript-daily.github.com/blob/master/CONTRIBUTING.md" title="Contributing Guideline">Contributing Guideline</a>を見てください！</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>メモアプリをDayOneからQuiverに移行した</title>
-   <link href="http://efcl.info/2016/02/03/quiver/"/>
-   <updated>2016-02-03T20:28:00+09:00</updated>
-   <id>http://efcl.info/2016/02/03/quiver</id>
-   <content type="html"><![CDATA[ <p>メモアプリとしてEvernote、OneNote、<a href="https://github.com/azu/markdown-finder">ファイルベースのMarkdown管理アプリ</a>、DayOneなどを使っていました。</p>
-
-<p>EvernoteとOneNoteはメモ機能は強いですが、あんまり気軽に書けるような感じじゃないのでピンときませんでした。
-(画像やテーブルは便利ですが、Markdownみたいなプレーンなテキストじゃないのも微妙な点)</p>
-
-<p>そのため、<a href="https://github.com/azu/markdown-finder">ファイルベースのMarkdown管理アプリ</a>などを作ったりしましたが、UIを作りこまないとあんまり使いやすくないということが分かったので、途中で飽きてました。</p>
-
-<p>DayOneは気軽にMarkdownで書けて、iOSアプリもできがいいのは素晴らしいですが、検索機能が微妙でした。
-(書くのはいいが、見るのが難しい)</p>
-
-<p>最近Quiverというアプリを見つけて、これを使うようになりました。</p>
-
-<h2 id="quiver">Quiver</h2>
-
-<ul>
-<li>AppStore: <a href="https://itunes.apple.com/jp/app/quiver-programmers-notebook/id866773894?mt=12" title="Quiver: The Programmer&amp;#39;s Notebook">Quiver: The Programmer&#39;s Notebook</a></li>
-<li>Homepage: <a href="http://happenapps.com/#quiver">http://happenapps.com/#quiver</a></li>
-<li><a href="https://github.com/HappenApps/Quiver/wiki" title="Home · HappenApps/Quiver Wiki">Home · HappenApps/Quiver Wiki</a></li>
-</ul>
-
-<p>Quiverは<a href="http://jupyter.org/" title="Jupyter Notebook">Jupyter Notebook</a>のようにセルの概念を持っていて、Text(リッチテキスト)、Markdown、Code、Latex、Diagramsのセルがあります。</p>
-
-<p>セルが分かれているので、Markdownで書きながらエディタ部分に画像をTextセルで埋め込んだりできます。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2016/02/03-1454497208.png" alt="quiver"></p>
-
-<p>また、<a href="https://github.com/HappenApps/Quiver/wiki/Getting-Started#diagram-cell" title="Diagram Cell">Diagram Cell</a>ではシーケンスを書いたりできます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">Title: Here is a title
-A-&gt;B: Normal line
-B--&gt;C: Dashed line
-C-&gt;&gt;D: Open arrow
-D--&gt;&gt;A: Dashed open arrow
-</code></pre></div>
-<p>検索も全文検索が数千ファイルでちゃんと機能してるので問題ない感じです。</p>
-
-<p>どういう機能があるかは以下を見るのがいいと思います。</p>
-
-<ul>
-<li><a href="https://github.com/HappenApps/Quiver/wiki/Getting-Started" title="Getting Started · HappenApps/Quiver Wiki">Getting Started · HappenApps/Quiver Wiki</a></li>
-</ul>
-
-<p>同期はDropboxなどを使ってファイル同期する仕組みがあり(競合した時にどっちを使うかを選択出来る)、上手く動いてていい感じです。</p>
-
-<h3 id="体験版">体験版</h3>
-
-<p>AppStoreで販売されていますが、<a href="http://happenapps.com/#quiver">公式サイト</a>の<a href="http://happenapps.com/downloads/QuiverFreeTrial.zip">Free Trial</a>から体験版をダウンロードできます。</p>
-
-<p>また、GitHub Issueでやり取りしてるβ版でも試すことができます。</p>
-
-<ul>
-<li><a href="https://github.com/HappenApps/Quiver/issues/361" title="Quiver 3.0.1 Beta · Issue #361 · HappenApps/Quiver">Quiver 3.0.1 Beta · Issue #361 · HappenApps/Quiver</a></li>
-</ul>
-
-<h2 id="dayone-to-quiver">DayOne to Quiver</h2>
-
-<p>Quiverはデータフォーマットがきちんと定義されていて、公開されています。</p>
-
-<ul>
-<li><a href="https://github.com/HappenApps/Quiver/wiki/Quiver-Data-Format" title="Quiver Data Format · HappenApps/Quiver Wiki">Quiver Data Format · HappenApps/Quiver Wiki</a></li>
-</ul>
-
-<p>そのため、他のノートアプリからのimport/exportツールが色々と用意されています。</p>
-
-<ul>
-<li><a href="https://github.com/HappenApps/Quiver/wiki/Import-Scripts">Import Scripts · HappenApps/Quiver Wiki</a></li>
-<li><a href="https://github.com/HappenApps/Quiver/wiki/Export-Scripts">Export Scripts · HappenApps/Quiver Wiki</a></li>
-</ul>
-
-<p>先ほど書いたように元々はDayOneを使っていたので、DayOneからQuiver形式に変換するツールを書きました。</p>
-
-<ul>
-<li><a href="https://github.com/azu/dayone-to-quiver" title="azu/dayone-to-quiver - JavaScript">azu/dayone-to-quiver - JavaScript</a></li>
-</ul>
-
-<p>DayOne の<code>Journal.dayone</code>ファイルをQuiverのNotebook形式に変換できます。</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>npm install -g dayone-to-quiver
-<span class="nv">$ </span>dayone-to-quiver --entry Journal.dayone --output output.qvnotebook
-
-    --entry path to Journal.dayone
-    --output output path
-</code></pre></div>
-<p>そろそろ<a href="http://dayoneapp.com/2016/01/introducing-day-one-2/" title="Day One 2">Day One 2</a>が出るようですが、変換元はDayOne 1のみ対応しています。
-(DayOne 2は3カラムになっていて大分ビューアとしてよくなってそう…)</p>
-
-<h2 id="おわり">おわり</h2>
-
-<p>作者さんが以下のブログで書いてますが、ノートブック/メモアプリに求めるものってそういうものだよなーって感じがしたので使い始めました。</p>
-
-<ul>
-<li><a href="http://yaoganglian.com/2015/12/06/What-is-Quiver/" title="What is Quiver? | Yaogang Lian">What is Quiver? | Yaogang Lian</a></li>
-</ul>
-
-<p>フォーマットがわかりやすいので、他のいいものがでてきたら変換ツールを書けばいいかなーという感じです。</p>
-
-<p><a href="http://www.ulyssesapp.com/mac/" title="Ulysses">Ulysses</a>や<a href="http://b00st.io/" title="Boostnote">Boostnote</a>がUI的に近い系統だと思いますが、その辺のフォーマットとかに不安が出てきてしまいイマイチ使うことができなかった。</p>
-
-<p>エディタ部分が<a href="https://ace.c9.io/" title="Ace - The High Performance Code Editor for the Web">Ace</a>なのはやっぱり好きではないけど、ぎりぎり許容範囲という感じの動作です。動作的な作りこみなら<a href="http://www.ulyssesapp.com/mac/" title="Ulysses">Ulysses</a>がやっぱりできがいいと思います。</p>
-
-<p>タイトルで移行したと書いてますが、DayOneも併用はしていてDayOneには書捨て的なメモを書いたりしてます(今日何したとか)。
-日にちをまたいで書く必要があるメモがQuiver、その場その場でいいのはDayOneみたいな感じの使い分けをしています。</p>
  ]]></content>
  </entry>
  

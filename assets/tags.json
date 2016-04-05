@@ -719,7 +719,9 @@
         
         "Type",
         
-        "Babel"
+        "Babel",
+        
+        "ESLint"
         
     ]
 }
