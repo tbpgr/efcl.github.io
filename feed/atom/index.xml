@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-05T23:50:19+09:00</updated>
+ <updated>2016-04-06T00:22:18+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -22,6 +22,8 @@
    <content type="html"><![CDATA[ <p><a href="http://nodejs.connpass.com/event/29235/" title="Node学園 20時限目">Node学園 20時限目</a>に参加したきたのメモ。</p>
 
 <h2 id="「eslintの話」-by-mysticatea">「eslintの話」 by @mysticatea</h2>
+
+<p>スライド: <a href="https://docs.google.com/presentation/d/1OeKTQieBBTp4dQz8irIM-DxXS-0gUixC1hlOZbfIkqs/edit?usp=sharing" title="ESLint Past and Future - Google スライド">ESLint Past and Future - Google スライド</a></p>
 
 <ul>
 <li>ESLint 12-3% ぐらいのルールを書いた</li>
