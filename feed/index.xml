@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-06T00:22:18+09:00</updated>
+ <updated>2016-04-06T00:25:43+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -335,7 +335,7 @@
 
 <ul>
 <li>シグネチャで縛らないと開発者はスルーしてしまう</li>
-<li>エラーを投げ売るかはどうやって表現するか</li>
+<li>エラーを投げうるかはどうやって表現するか</li>
 </ul></li>
 <li>Iteratorを拡張したエラー型
 
@@ -365,7 +365,7 @@
 <li>エラーをダンプしてプロセスをちゃんと落とす(回復しようと努力しない)</li>
 <li><code>process.exit()</code></li>
 </ul></li>
-<li>option-t
+<li><a href="https://www.npmjs.com/package/option-t" title="option-t">option-t</a>
 
 <ul>
 <li><a href="http://saneyukis.hatenablog.com/entry/2016/03/14/223518" title="option-tにResult&amp;lt;T, E&amp;gt;型を実装した（簡易報告版） - snyk_s log">option-tにResult<T, E>型を実装した（簡易報告版） - snyk_s log</a></li>
@@ -385,7 +385,7 @@
 <ul>
 <li>例外はあるけど、自分の制御内ではできるだけ使わない</li>
 </ul></li>
-<li>関数にtry-catchを起こし込めてちゃんと型を書いて制御する</li>
+<li>関数にtry-catchをおし込めてちゃんと型を書いて制御する</li>
 <li>バグを回復させてはいけない</li>
 <li><code>throwable</code>かどうかはシグネチャとして担保する
 
@@ -560,6 +560,13 @@
 <li>フォント</li>
 <li>コンポーネント間の幅</li>
 <li>高さ</li>
+</ul>
+
+<p>自分の今の考えをそのまま書き出してるのを以下のリポジトリでやってる。
+React + CSSのコンポーネント志向とドメイン的なJavaScriptの設計的な題材でやってる。</p>
+
+<ul>
+<li><a href="https://github.com/azu/presentation-annotator" title="azu/presentation-annotator: viewing presentation and annotate.">azu/presentation-annotator: viewing presentation and annotate.</a></li>
 </ul>
  ]]></content>
  </entry>
