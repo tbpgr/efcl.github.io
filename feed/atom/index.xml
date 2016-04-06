@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-06T00:25:43+09:00</updated>
+ <updated>2016-04-06T10:15:58+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -42,7 +42,7 @@
 
 <ul>
 <li>機能に関しては Reviewer以上</li>
-<li>バグに関しては Commier 以上が確認してマージ</li>
+<li>バグに関しては Committer 以上が確認してマージ</li>
 <li>隔週の金曜日にリリース</li>
 </ul></li>
 <li>ESLint 3.0.0
