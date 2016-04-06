@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-06T10:15:58+09:00</updated>
+ <updated>2016-04-06T15:44:39+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -32,6 +32,7 @@
 
 <ul>
 <li>ASTベースでプラグインという特性</li>
+<li>(以前書いたプラグインの仕組み: <a href="https://azu.gitbooks.io/javascript-plugin-architecture/content/ja/ESLint/index.html" title="ESLint | JavaScript Plugin Architecture">ESLint | JavaScript Plugin Architecture</a>)</li>
 <li>開発者が貢献するのが簡単
 
 <ul>
@@ -300,6 +301,8 @@
 <hr>
 
 <h2 id="「option-tでエラーハンドリング」-by-saneyuki">「option-tでエラーハンドリング」 by @saneyuki</h2>
+
+<p>スライド: <a href="http://www.slideshare.net/saneyuki/dont-use-try-catch-in-javascript" title="Don’t use try catch in JavaScript">Don’t use try catch in JavaScript</a></p>
 
 <ul>
 <li>try-catch</li>
