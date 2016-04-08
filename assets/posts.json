@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "textlintの設定をnpmにあげて使い回す",
+            "url": "http://efcl.info/2016/04/08/textlint-sharable-config/",
+            "date": "2016-04-08T21:51:00+09:00"
+        },
+        
+        {
             "title": "Node学園 20時限目 アウトラインメモ",
             "url": "http://efcl.info/2016/04/05/tng20/",
             "date": "2016-04-05T23:43:00+09:00"

@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-06T15:44:39+09:00</updated>
+ <updated>2016-04-08T22:32:21+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,115 @@
  </author>
  
 
+ 
+ <entry>
+   <title>textlintの設定をnpmにあげて使い回す</title>
+   <link href="http://efcl.info/2016/04/08/textlint-sharable-config/"/>
+   <updated>2016-04-08T21:51:00+09:00</updated>
+   <id>http://efcl.info/2016/04/08/textlint-sharable-config</id>
+   <content type="html"><![CDATA[ <p>textlint <a href="https://github.com/textlint/textlint/releases/tag/6.2.0" title="6.2.0">6.2.0</a>でSharable Configの機能を追加しました。</p>
+
+<p>これは<code>.textlintrc</code>の中身をnpmパッケージとして公開して、使うときは<code>textlint --config @azu/textlint-config</code> のようにパッケージを指定して使えるという機能です。</p>
+
+<p>簡単にいうと設定を共有する機能です。</p>
+
+<p>ESLintのやつと基本的に同じですが、ESLintと違って<code>&quot;extend&quot;</code>での設定ファイルの継承は対応してません。
+多分JavaScriptとしてやった方が良さそうな気がしていて実装してないです。(いい案があればIssueに下さい)</p>
+
+<p><code>.textlintrc</code>はJavaScriptとして以下のような感じで書くことができます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span> 
+    <span class="nx">rules</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="p">}</span>
+ <span class="p">};</span>
+</code></pre></div>
+<ul>
+<li><a href="http://qiita.com/hokaccha/items/6a132af7a28ffd4e9690">ESLintの設定をscoped packageでnpmにあげて使い回す - Qiita</a></li>
+<li><a href="http://qiita.com/mysticatea/items/dc35ced6bd5e782f50cd">共有設定でらくらく ESLint - Qiita</a></li>
+</ul>
+
+<p>設定ファイルを公開する場合は<code>main</code>のスクリプトに<code>.textlintrc</code>の設定をJavaScriptで書いてexportするだけです。</p>
+
+<p>例えば、<a href="https://github.com/azu/textlint-config-readme">azu/textlint-config-readme: Sharable config for textlint</a>は以下のファイルをpackage.jsonの&quot;main&quot;に指定しているだけです。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">rules</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;no-todo&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">&quot;no-dead-link&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">&quot;alex&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">&quot;write-good&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">&quot;rousseau&quot;</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p><code>pacakge.json</code>は次の通り</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;@azu/textlint-config-readme&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;repository&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;git+https://github.com/azu/textlint-config-readme.git&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;azu&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;azuciao@gmail.com&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;homepage&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/azu/textlint-config-readme&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;MIT&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;src/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;lib/&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;bugs&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/azu/textlint-config-readme/issues&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;textlint config module for writing readme&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;main&quot;</span><span class="p">:</span> <span class="s2">&quot;textlint-config.js&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;directories&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;textlint -c ./textlint-config.js ./*.md&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;keywords&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;textlint&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;config&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;textlint-rule-alex&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.0.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;textlint-rule-common-misspellings&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.0.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;textlint-rule-no-dead-link&quot;</span><span class="p">:</span> <span class="s2">&quot;^0.2.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;textlint-rule-no-todo&quot;</span><span class="p">:</span> <span class="s2">&quot;^2.0.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;textlint-rule-rousseau&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.4.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;textlint-rule-write-good&quot;</span><span class="p">:</span> <span class="s2">&quot;^0.1.4&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;textlint&quot;</span><span class="p">:</span> <span class="s2">&quot;^6.2.0&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>使うときは</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -D @azu/textlint-config-readme textlint
+</code></pre></div>
+<p>でインストールして</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$(npm bin)/textlint --config @azu/textlint-config-readme README.md
+</code></pre></div>
+<p><code>--config</code>にパッケージ名を指定するだけです。</p>
+
+<p>具体的には以下を見てみてください。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-config-readme">azu/textlint-config-readme: Sharable config for textlint</a>
+
+<ul>
+<li>README.mdのチェック用のルールを適当にまとめた</li>
+</ul></li>
+<li><a href="https://github.com/textlint/textlint/blob/master/docs/configuring.md#sharable-configuration">textlint/configuring.md at master · textlint/textlint</a></li>
+</ul>
+
+<p>Scoped module(<code>@azu/abc</code>のような形式)も対応してるので、自分の名前空間なら気軽に公開できて便利です。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/04/30/npm-namespace/" title="npmで名前空間を持ったモジュールを公開する方法(scoped modules) | Web Scratch">npmで名前空間を持ったモジュールを公開する方法(scoped modules) | Web Scratch</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>Node学園 20時限目 アウトラインメモ</title>
@@ -2153,158 +2262,6 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <p>発表しなかった<a href="http://azu.github.io/slide/2016/reject-sushi/textlint.html" title="3分でわかるtextlint">3分でわかるtextlint</a>のスライド。</p>
 
 <p><a href="http://textlint.github.io/" title="textlint - pluggable linting tool for text and markdown">textlint - pluggable linting tool for text and markdown</a>のサイトがDeku v2 + Reduxで動いていて、Reduxを最初に試す場合はDekuと組み合わせたほうがわかりやすよという話をした。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>ECMAScript, TC39 Meeting Notesの読み方と修正方法</title>
-   <link href="http://efcl.info/2016/02/12/tc39-meeting-notes/"/>
-   <updated>2016-02-12T11:12:00+09:00</updated>
-   <id>http://efcl.info/2016/02/12/tc39-meeting-notes</id>
-   <content type="html"><![CDATA[ <p>ECMAScriptは毎年リリースの方針となったため、最新の仕様を管理している<a href="https://github.com/tc39/ecma262" title="tc39/ecma262">tc39/ecma262</a>には毎日のようにコミットされています。</p>
-
-<p>ECMAScriptのリリース方針についてなどは以下を参照してください。</p>
-
-<ul>
-<li><a href="http://efcl.info/2015/10/18/ecmascript-paper/" title="ECMAScriptの仕様策定に関するカンニングペーパー | Web Scratch">ECMAScriptの仕様策定に関するカンニングペーパー | Web Scratch</a></li>
-</ul>
-
-<p>これらの最新の変更が反映されたLiving Standardなものは以下のURLで公開されています。</p>
-
-<ul>
-<li><a href="https://tc39.github.io/ecma262/">tc39.github.io/ecma262/</a></li>
-</ul>
-
-<p>また、Proposalを元にECMAScript 2016に<a href="http://jser.info/2016/02/01/es2016/">入る機能は既に決まっています</a>。
-何か新しく入るのかは以下の記事を見てみてください。</p>
-
-<ul>
-<li><a href="http://jser.info/2016/02/01/es2016/#%E5%A4%89%E6%9B%B4%E3%82%92%E7%9F%A5%E3%82%8B%E6%96%B9%E6%B3%95" title="ECMAScript 2016 features &amp;amp; changes - JSer.info">ECMAScript 2016 features &amp; changes - JSer.info</a></li>
-</ul>
-
-<p>&quot;どこで&quot;決まっているのかというと2ヶ月に1回行われているTC39のミーティングです。(物理的に集合してF2Fでやる)</p>
-
-<ul>
-<li><a href="https://github.com/tc39/tc39-notes/blob/master/es7/2016-01/2016-01-27.md#ecma-262402-2016-end-game" title="ECMA-262/402 2016 End-Game">ECMA-262/402 2016 End-Game</a>
-
-<ul>
-<li>具体的に「ES2016に入る機能は今回のミーティングでStage 4となったものがそうだ」と決まった</li>
-</ul></li>
-</ul>
-
-<p>小さな修正などは直接GitHubで議論して終わることがありますが、TC39としての意志が求められる新しい機能の追加や互換性のない修正などはTC39のミーティングを通して判断されます。</p>
-
-<ul>
-<li>ProposalのStageをあげるあげない</li>
-<li>ProposalをStage 0として追加するかどうか</li>
-<li>後方互換性のない変更を加えるか</li>
-<li>現実との互換性のためにAnnex Bへ仕様を追加するか</li>
-</ul>
-
-<p>などはここで議論された結果が仕様へ反映されます。
-(大体はGitHub Issueで議論後、Pull Requestを出した状態で実際のミーティングに持ち込まれてる)</p>
-
-<p>そのため、仕様/Proposalへどういう変更をどういう理由で加えるかというのはこのミーティングノートを見れば大体分かります。</p>
-
-<ul>
-<li><a href="https://github.com/tc39/tc39-notes" title="tc39/tc39-notes: These are the notes I take at TC39 Meetings, with Markdown formatting">tc39/tc39-notes</a>
-
-<ul>
-<li><a href="https://github.com/rwaldron/tc39-notes" title="rwaldron/tc39-notes">rwaldron/tc39-notes</a>が元リポジトリ</li>
-</ul></li>
-<li><a href="https://github.com/tc39/ecma262/pulls?q=is%3Apr+is%3Aclosed" title="Pull Requests · tc39/ecma262">Pull Requests · tc39/ecma262</a>
-
-<ul>
-<li>あわせてPull Requestを見るのが早い</li>
-</ul></li>
-</ul>
-
-<p>ミーティングノートは3日分がワンセットなのでちょっと多いですが、数時間あれば読める感じです。
-ちゃんとテーマごとに議論の区切りと結論が書いてあるので、気になるものだけみるならすぐ読めると思います。</p>
-
-<p>例えば、先ほどの<a href="https://github.com/tc39/tc39-notes/blob/master/es7/2016-01/2016-01-27.md#ecma-262402-2016-end-game" title="ECMA-262/402 2016 End-Game">ECMA-262/402 2016 End-Game</a>なら、結論が&quot;Conclusion/Resolution&quot;にわかりやすく書いてあります。</p>
-
-<p>口語表現が多くてよく分からなかったら(自分は大抵そうなります)、結論からさかのぼって読むといい気がします。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">ECMA-262/402 2016 End-Game  
-
-AWB: slide (Key dates)  
-BT: the way I want to do this, at the march meeting I want us to approve what is in master, or a snapshot. I don&#39;t want to make minor tech or editorial changes. I will make fixes if major issues exist, but otherwise I wish we can leave it as is. Leaving it as a tag  
-...  
-Conclusion/Resolution
-   30 days before the next meeting, the final draft will be provided
-   next meeting we will vote to make it ES2016
-   start the out-patent review process, you may need to alert your organizations
-</code></pre></div>
-<p>自分は<a href="https://twitter.com/search?f=realtime&amp;q=%20%23TC39MTG" title="#TC39MTG">#TC39MTG</a>というハッシュタグをつけて読んでいます。</p>
-
-<ul>
-<li><a href="https://tc39-mtg.doorkeeper.jp/" title="TC39 MTG Notes MTG | Doorkeeper">TC39 MTG Notes MTG | Doorkeeper</a></li>
-</ul>
-
-<h2 id="tc39ミーティングノートの修正方法">TC39ミーティングノートの修正方法</h2>
-
-<p>ここでやっと本題ですが、ミーティングノートを読んでいると結構な頻度でtypoなどの間違いやリンク切れ、Markdownの構文ミスなどが見つかると思います。</p>
-
-<p>間違いを見つけた時は<a href="https://github.com/rwaldron/tc39-notes" title="rwaldron/tc39-notes">rwaldron/tc39-notes</a>に普通にPull Requestで修正を送りましょうという話です。</p>
-
-<p>特に<a href="https://github.com/rwaldron/tc39-notes/pull/41">今回はtypoの数が多かった</a>ので、積極的に修正を送ると他の読む人が幸せになれます。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2016/02/12-1455276798.png" alt="contributing"></p>
-
-<p>typoを直すためにかなりの数コミットしたので跳ねてる…(まだtypoは残ってるのがあると思います…)</p>
-
-<h3 id="具体的な修正の送り方">具体的な修正の送り方</h3>
-
-<p>やり方も何もないですが、Markdownファイルを修正して以下のリポジトリにPull Requestを送るだけです。</p>
-
-<ul>
-<li><a href="https://github.com/rwaldron/tc39-notes" title="rwaldron/tc39-notes">rwaldron/tc39-notes</a></li>
-</ul>
-
-<p>注意点としてはこのミーティングノートを管理している<a href="https://github.com/rwaldron" title="rwaldron">@rwaldron</a>さんは、結構Pull Requestを見逃すことがあるのでmentionを本文に入れておいたほうが確実です。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">/cc @rwaldron
-</code></pre></div>
-<p>また、数日反応がなかったら<code>ping @rwaldron</code>などとコメントするといいかもしれません。</p>
-
-<p>修正はまとめて一つのPull Requestで送ることが多いです。</p>
-
-<h3 id="修正箇所の見つけ方">修正箇所の見つけ方</h3>
-
-<p>結構、普通に見ていれば崩れている場所が見つかると思います。</p>
-
-<ul>
-<li>MarkdownのCodeBlockが壊れてる</li>
-<li>インデントが揃ってない</li>
-<li><code>----</code> が余計にある</li>
-<li><code>-</code> だけが残ってる</li>
-<li>リンク切れ</li>
-<li>typo</li>
-</ul>
-
-<p>リアルタイムに文字起こしてるようなきがするので、スペルチェッカーを通すだけでも結構なtypoが見つかります。
-(自分は英語に自信がないので、確実に間違ってるものだけ修正しています。もっと英語表現に詳しい方も修正送って欲しい…)</p>
-
-<h2 id="おわりに">おわりに</h2>
-
-<p>ECMAScriptの新しいProposalを知りたいという場合は、適当なブログを見るよりもProposalを書いてる人たちの意見が見られるミーティングノートを見るのが確実です。</p>
-
-<p>ちょっと長いですが、一次情報を見ればモチベーションなどもわかるし、なんとなく見てても面白いのでおすすめです。(Conclusionだけ見ても色々分かります)</p>
-
-<p>少なくてもBabelで<code>Stage X preset</code>を使ってる人は一度見るといいかと思います。(ミーティングノートにも度々Babelの話はでてきます)</p>
-
-<p>Angular 2を使ってる人も<a href="https://github.com/wycats/javascript-decorators">Stage 1のDecorators</a>の上に<a href="http://ecmascript-daily.github.io/2016/01/28/stage0-descorator-related">Stage 0のDecorators関連Proposal</a>があることなどを知るために見ておくべきです。</p>
-
-<blockquote>
-<p>情報の伝達が早い順で並べるとTwitter &gt; GitHub &gt; その他という感じです。<br>
--- <a href="http://jser.info/2016/02/01/es2016/#%E5%A4%89%E6%9B%B4%E3%82%92%E7%9F%A5%E3%82%8B%E6%96%B9%E6%B3%95" title="ECMAScript 2016 features &amp;amp; changes - JSer.info">ECMAScript 2016 features &amp; changes - JSer.info</a></p>
-</blockquote>
-
-<p>こうしてミーティングノートや<a href="https://github.com/tc39/ecma262" title="tc39/ecma262: Status, process, and documents for ECMA262">tc39/ecma262</a>を見て集めた&quot;その他&quot;の情報を、適当なブログである<a href="http://ecmascript-daily.github.io/" title="ECMAScript Daily">ECMAScript Daily</a>に更新しています。</p>
-
-<p><a href="https://twitter.com/ecmascriptdaily" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @ecmascriptdaily</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?&#39;http&#39;:&#39;https&#39;;if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+&#39;://platform.twitter.com/widgets.js&#39;;fjs.parentNode.insertBefore(js,fjs);}}(document, &#39;script&#39;, &#39;twitter-wjs&#39;);</script></p>
-
-<p><a href="http://ecmascript-daily.github.io/" title="ECMAScript Daily">ECMAScript Daily</a>はPull Requestで誰でも記事を追加できるので興味がある人は<a href="https://github.com/ecmascript-daily/ecmascript-daily.github.com/blob/master/CONTRIBUTING.md" title="Contributing Guideline">Contributing Guideline</a>を見てください！</p>
  ]]></content>
  </entry>
  
