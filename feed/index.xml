@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-09T13:30:57+09:00</updated>
+ <updated>2016-04-13T23:19:56+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,120 @@
  </author>
  
 
+ 
+ <entry>
+   <title>Bikeshed.js アウトラインメモ</title>
+   <link href="http://efcl.info/2016/04/13/bikeshedjs/"/>
+   <updated>2016-04-13T23:11:00+09:00</updated>
+   <id>http://efcl.info/2016/04/13/bikeshedjs</id>
+   <content type="html"><![CDATA[ <p><a href="http://connpass.com/event/29019/" title="Bikeshed.js - connpass">Bikeshed.js - connpass</a>に参加したメモ</p>
+
+<hr>
+
+<h2 id="『let-vs-const』-yosuke_furukawa">『let vs. const』 @yosuke_furukawa</h2>
+
+<ul>
+<li>Effective Java</li>
+<li>気持ちはImmutable</li>
+<li>スレッドがないJavaScriptだと微妙</li>
+<li><code>const</code> だけで防げるのか
+
+<ul>
+<li>const + <code>Object.freeze</code></li>
+<li>Map+SetとかもImmutableではないのでimmutable.jsなどを使う必要がある</li>
+</ul></li>
+<li>やる意味
+
+<ul>
+<li><code>prefer-const</code></li>
+<li>let使うときはforでぶん回す時ぐらい</li>
+<li>逆にletつかているところを見ると注意して見るようになった</li>
+<li>やりたいことはconst 強制 =&gt; 初学者のミスを減らせる</li>
+</ul></li>
+<li>基本的には <code>const</code> を使う</li>
+</ul>
+
+<hr>
+
+<h2 id="セミコロン付けるつけない-yoshiko_pg">セミコロン付けるつけない - @yoshiko_pg</h2>
+
+<ul>
+<li>付ける人が殆ど</li>
+</ul>
+
+<hr>
+
+<p><a href="https://app.sli.do/event/rewvfpmz/ask" title="Bikeshed.js">Bikeshed.js</a>のボードを見ながら自転車置場の議論をした。</p>
+
+<p>インデントとか改行位置とかスタイルの話が殆どだった。</p>
+
+<p>自分は設計においてこういうどっちでもいいような議論が多くあると思ってるので、JavaScriptとCSSの設計についてのスライドを用意したけど使わなかったので忘れる。</p>
+
+<ul>
+<li><a href="http://azu.github.io/slide/2016/bikeshedjs/javascript-read-write-stack.html">Read/Write Stack | JavaScriptアーキテクチャ</a></li>
+<li><a href="http://azu.github.io/slide/2016/bikeshedjs/component-css-architecture.html">コンポーネントとCSSのアーキテクチャ</a></li>
+</ul>
+
+<hr>
+
+<h2 id="power-assertがツールになった話-twada">power-assertがツールになった話 - twada</h2>
+
+<ul>
+<li><a href="https://github.com/power-assert-js/power-assert/issues/43" title="power-assert make `assert()` of assert module silent · Issue #43 · power-assert-js/power-assert">power-assert make <code>assert()</code> of assert module silent · Issue #43 · power-assert-js/power-assert</a></li>
+</ul>
+
+<p>のissueでは、</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">assert</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">name</span> <span class="o">===</span> <span class="s2">&quot;string&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="s2">&quot;Hello &quot;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>のようなコードをプロダクション側(テストではない)に書いてた時に、<code>assert()</code>の中身がpower-assert化(位置情報などを含んだオブジェクトを返す)されてしまい、常に<code>assert(object)</code>をパスしてしまうという問題。</p>
+
+<p>これは、次のように<code>power-assert</code>が使われていれば解決すること。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;power-assert&quot;</span><span class="p">);</span>
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">assert</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">name</span> <span class="o">===</span> <span class="s2">&quot;string&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="s2">&quot;Hello &quot;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>そのため、<code>require(&quot;assert&quot;)</code>　を <code>require(&quot;power-assert&quot;)</code> するものが同時に行われればいいということで、<a href="https://www.npmjs.com/package/babel-plugin-empower-assert" title="babel-plugin-empower-assert">babel-plugin-empower-assert</a>というプラグインができた。</p>
+
+<p>しかし、このプラグインはあくまでオプトインなので、既存の<code>babel-plugin-espower</code>だけを使ってる人は自分で以下のように追加する必要がある。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
+  <span class="s2">&quot;presets&quot;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;env&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;development&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;plugins&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;babel-plugin-empower-assert&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;babel-plugin-espower&quot;</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>毎回2つのプラグインをいれるのは面倒だということで、<a href="https://github.com/twada/babel-preset-power-assert" title="babel-preset-power-assert">babel-preset-power-assert</a>という2つのプラグインをまとめたpresetsが追加された。</p>
+
+<p>これにより、<code>require(&quot;power-assert&quot;)</code>ではなく、ただの<code>require(&quot;assert&quot;)</code>もpower-assert化された状態でassertionが行えるようになった。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
+  <span class="s2">&quot;env&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;development&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;presets&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;babel-preset-power-assert&quot;</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>コード上からはNode.jsのassertモジュールに見えるけど、Babelによってpower-assertモジュールに差し替えられるため、power-assertはライブラリではなくツールになったという話。</p>
+
+<hr>
+
+<p>おわり</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>textlintの設定をnpmにあげて使い回す</title>
@@ -2115,153 +2229,6 @@ Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じ
 <ul>
 <li><a href="http://efcl.info/tags/?q=textlint" title="タグ一覧 | Web Scratch">textlint - タグ一覧 | Web Scratch</a></li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>#reject_sushi でReactとチーム開発について話してきた</title>
-   <link href="http://efcl.info/2016/02/23/reject-sushi/"/>
-   <updated>2016-02-23T23:05:00+09:00</updated>
-   <id>http://efcl.info/2016/02/23/reject-sushi</id>
-   <content type="html"><![CDATA[ <p><a href="http://reactjs-meetup.connpass.com/event/26229/" title="React.js meetup #3">React.js meetup #3</a>に参加できなかったので<a href="https://twitter.com/search?f=tweets&amp;vertical=default&amp;q=reject_sushi&amp;src=typd" title="reject_sushi">#reject_sushi</a>に参加してきました。</p>
-
-<ul>
-<li><a href="http://togetter.com/li/942101" title="#reject_sushi - Togetterまとめ">#reject_sushi - Togetterまとめ</a></li>
-</ul>
-
-<hr>
-
-<ul>
-<li><a href="https://facebook.github.io/draft-js/" title="Draft.js | Rich Text Editor Framework for React">Draft.js | Rich Text Editor Framework for React</a>
-
-<ul>
-<li>©年号を見る感じ結構前から実装してそう</li>
-</ul></li>
-</ul>
-
-<h2 id="how-to-work-as-a-team-azu"><a href="http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html" title="How to work as a Team">How to work as a Team</a> @ azu</h2>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a> で発表したReact+Flux的な何かの意思決定と情報設計の話。  &quot;How to work as a Team&quot;  <a href="https://t.co/qM4iyipRFS">https://t.co/qM4iyipRFS</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702138441681637376">February 23, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>自分はチーム開発でReact + 何かを採用するときにどういうフローで話を進めていってるかについてを話しました。
-まだ結論はないですが、Flux的な何かを採用したからといって設計がすごく簡単になるという話ではないです。</p>
-
-<p>またStoreはただの入れ物的な使い方をした場合に、ドメイン層はActionCreator的な部分が持つのか、それはどうやって扱うのかという部分がふわふわしているという話になりました。</p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">StoreはただのViewのためのStateという感じ。<br>その場合にドメイン層をどこに書くかが皆迷うところ。 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702105875771555840">February 23, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>なんとなくのレイヤー分けは見えてきていますが、それを説明するのにはまだ何か(サンプル?実例?体系化?)が足りてないのかなーという印象です。</p>
-
-<p>以下のスライドも見てみると面白いかもしれません。</p>
-
-<ul>
-<li><a href="http://www.slideshare.net/saneyuki/my-thoughy-about-beyond-flux" title="My thought about beyond flux">My thought about beyond flux</a></li>
-</ul>
-
-<p>また最近<a href="http://www.amazon.co.jp/dp/4802510012/" title="今日からはじめる情報設計">今日からはじめる情報設計</a>や<a href="http://www.amazon.co.jp/dp/B00EESW7OG/" title="エンジニアのための図解思考">エンジニアのための図解思考</a>的な本を読んでいたので、そういった情報の扱い方や表現という話も兼ねています。</p>
-
-<h2 id="rails-と-node-js-mizchi">Rails と Node.js @ mizchi</h2>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">browserify-railsとtsify問題 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; サスケ (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/702089989887172609">February 23, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<ul>
-<li>Node.jsのエコシステムにビルドを寄せる話</li>
-<li>browserify-railsに寄せると楽</li>
-<li>だけどtsifyが標準出力ではStreamを使うため browserify-railsと相性が悪い。</li>
-<li>browserify-railsを使いたい理由は、Nodeを普段使わない人が多い環境でNodeの流儀をやってもらうとよくわからないことが多くてコストがある</li>
-</ul>
-
-<h2 id="http2-を前提とした-html-css-コンポーネントのレンダリングパス最適化-jxck">HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化 @ jxck</h2>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a>   &quot;HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化について | <a href="https://t.co/Bb4j0utYux">https://t.co/Bb4j0utYux</a>&quot;  <a href="https://t.co/wQlZpQZBMj">https://t.co/wQlZpQZBMj</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702092500157145089">February 23, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<ul>
-<li><a href="https://blog.jxck.io/entries/2016-02-15/loading-css-over-http2.html" title="HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化について | blog.jxck.io">HTTP2 を前提とした HTML+CSS コンポーネントのレンダリングパス最適化について | blog.jxck.io</a></li>
-<li>コンポーネント+CSSで送れると、サーバ側が全部のリソースが揃う前にレスポンスを返すことが出来る様になる</li>
-<li>lengthは決まってないと行けないけど、例外としてTransfer-Encoding: chunkedを使う</li>
-<li>= プログレッシブレスポンス?</li>
-</ul>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">プログレッシブレスポンスができるようになるそれようの仕組みがサーバで流行るのでは。<br>それってJSPで見た話だ！！！ <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702093276040433664">February 23, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>この時の問題点</p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">HTTPはステータスコードを最初に返す必要があり、それを途中で変更できない。<br>ステータスコードは1行目問題はPushでも起きる<br>なのでプログレッシブレスポンスの場合は、CSSはpushしておいてchunkedで送ると <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702094414600994816">February 23, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<ul>
-<li>ステータスコードコードが最初に決まってないと行けない</li>
-<li>プログレッシブレスポンスだとこれがやっかいなりそう</li>
-<li>動画を全部読まないとシークできなかった話と似ている</li>
-<li>このステータスコードの位置/変更/指定の問題は今後の課題になりそう(プログレッシブレスポンスするなら)</li>
-</ul>
-
-<h2 id="typescript-1-8のjavascriptをbundleしてくれる機能-kyo_ago">TypeScript 1.8のJavaScriptをbundleしてくれる機能 - kyo_ago</h2>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">kyo_ago 「TypeScript 1.8のJavaScriptをbundleしてくれる機能」 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702099720164872192">February 23, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<ul>
-<li><a href="https://github.com/Microsoft/TypeScript/wiki/What&#x27;s-new-in-TypeScript#concatenate-amd-and-system-modules-with---outfile" title="Concatenate AMD and System modules with --outFile">Concatenate AMD and System modules with --outFile</a></li>
-<li><a href="https://blogs.msdn.microsoft.com/typescript/2016/02/22/announcing-typescript-1-8-2/" title="Announcing TypeScript 1.8 | TypeScript">Announcing TypeScript 1.8 | TypeScript</a></li>
-<li>循環参照を避けるためbundleするのはimport/exportのみ?</li>
-<li><code>require</code>は動的ロードとして扱われてる</li>
-<li>ちょこっとsystemjs用のものを加えると動かせる</li>
-</ul>
-
-<h2 id="javascriptの非同期処理-例外処理">JavaScriptの非同期処理/例外処理</h2>
-
-<ul>
-<li>async/await
-
-<ul>
-<li>try/catchでハンドリングしないと行けないのは複雑になる可能性</li>
-<li>GoLangのように多値を返すアプローチで解決できなかったのか</li>
-<li><a href="http://saneyukis.hatenablog.com/entry/2015/03/22/184823" title="Option/Maybeとかで解決していることを、さながらgolangのようにES6のdestructuring assignmentで解決する - snyk_s log">Option/Maybeとかで解決していることを、さながらgolangのようにES6のdestructuring assignmentで解決する - snyk_s log</a></li>
-</ul></li>
-<li>WebComponents
-
-<ul>
-<li>名前がでかすぎて何から手を出せばいいのかよくわからなくなる問題</li>
-<li>Polymerは何か別のものになってしまった</li>
-<li>明らかに大事だけど流行るには何かが足りない</li>
-<li>コンポーネント間の関係をどう管理するのか問題</li>
-</ul></li>
-</ul>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「Web Componentをどこから始めればいいのか分からない」<br>「Web Componentという名前が良くなかった。それぞれの仕様にフォーカスするべきだったのでは」 <a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702118804793356288">February 23, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script> 
-
-<ul>
-<li>ECMAScriptにEventEmitter的なのが欲しい
-
-<ul>
-<li>DOM Eventを通るのはなんか</li>
-</ul></li>
-</ul>
-
-<h2 id="その他">その他</h2>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/reject_sushi?src=hash">#reject_sushi</a> で発表しなかった「3分でわかるtextlint」のスライドです。自然言語Lintツールの現状  &quot;3分でわかるtextlint&quot;  <a href="https://t.co/wtHBxxIOok">https://t.co/wtHBxxIOok</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/702133285934145536">February 23, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>発表しなかった<a href="http://azu.github.io/slide/2016/reject-sushi/textlint.html" title="3分でわかるtextlint">3分でわかるtextlint</a>のスライド。</p>
-
-<p><a href="http://textlint.github.io/" title="textlint - pluggable linting tool for text and markdown">textlint - pluggable linting tool for text and markdown</a>のサイトがDeku v2 + Reduxで動いていて、Reduxを最初に試す場合はDekuと組み合わせたほうがわかりやすよという話をした。</p>
  ]]></content>
  </entry>
  
