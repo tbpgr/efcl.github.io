@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-15T23:30:27+09:00</updated>
+ <updated>2016-04-15T23:39:06+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -180,7 +180,11 @@ power-assertは開発ビルド(テスト中)にしか必要ないので、<code>
 
 <p>そのため、power-assertは開発用のライブラリからツールという位置づけに変わったという話でした。</p>
 
-<p>ここまでを適応したバージョン</p>
+<p>サンプルプロジェクト</p>
+
+<ul>
+<li><a href="https://github.com/azu/power-assert-as-tool-demo" title="azu/power-assert-as-tool-demo: babel + power-assert preset demo project.">azu/power-assert-as-tool-demo: babel + power-assert preset demo project.</a></li>
+</ul>
 
 <h2 id="おまけ">おまけ</h2>
 
