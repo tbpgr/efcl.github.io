@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-15T23:06:51+09:00</updated>
+ <updated>2016-04-15T23:09:44+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -37,7 +37,7 @@
 
 <p>理由としては、Babel@6からは設定(ファイル)を必ず必要とするので、<a href="https://github.com/power-assert-js/espower-babel" title="espower-babel">espower-babel</a>をかませる分、柔軟性がなくなったり余計な処理が起きて遅くなるためです。</p>
 
-<p>代わりに<a href="https://www.npmjs.com/package/babel-register" title="babel-register">babel-register</a>と<a href="https://github.com/power-assert-js/babel-preset-power-assert" title="babel-preset-power-assert">babel-preset-power-assert</a>. and <a href="https://github.com/power-assert-js/babel-preset-power-assert" title="babel-preset-power-assert">babel-preset-power-assert</a>を直接使って、通常のBabelの設定としてpower-assertを導入する方法を推奨しています。</p>
+<p>代わりに<a href="https://www.npmjs.com/package/babel-register" title="babel-register">babel-register</a>と<a href="https://github.com/power-assert-js/babel-preset-power-assert" title="babel-preset-power-assert">babel-preset-power-assert</a>を直接使って、開発時のBabelのビルド設定としてpower-assertを導入する方法を推奨しています。</p>
 
 <p>以下は、power-assert + Mocha + Babel環境を新規インストールする場合の手順ですが、espower-babelからの移行は<a href="https://github.com/power-assert-js/migrate-espower-babel-to-babel-preset-power-assert" title="migrate-espower-babel-to-babel-preset-power-assert">migrate-espower-babel-to-babel-preset-power-assert</a>を使うことで同様のことができるようにしてあります。</p>
 
