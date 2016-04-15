@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-15T23:14:12+09:00</updated>
+ <updated>2016-04-15T23:15:35+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -24,7 +24,7 @@
 <ul>
 <li><a href="https://github.com/power-assert-js/espower-babel" title="espower-babel">espower-babel</a>は役目を終えたので、Deprecated</li>
 <li>Babel + power-assertは<a href="https://github.com/power-assert-js/babel-preset-power-assert" title="babel-preset-power-assert">babel-preset-power-assert</a>を使う</li>
-<li>コード上は<code>require(&quot;power-assert&quot;)</code>と<code>require(&quot;assert&quot;)</code> どちらでもpower-assert化できるようになった</li>
+<li>コード上は<code>require(&quot;power-assert&quot;)</code>でも、<code>require(&quot;assert&quot;)</code>でもpower-assert化できるようになった</li>
 </ul>
 
 <h2 id="espower-babelは非推奨へ"><a href="https://github.com/power-assert-js/espower-babel" title="espower-babel">espower-babel</a>は非推奨へ</h2>
