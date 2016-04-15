@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-15T23:09:44+09:00</updated>
+ <updated>2016-04-15T23:11:00+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -48,7 +48,8 @@
 $ cd &lt;該当プロジェクトrootへ&gt;
 $ migrate-espower-babel-to-babel-preset-power-assert
 </code></pre></div>
-<p>でマイグレーションしてくれます。</p>
+<p>でマイグレーションしてくれます。
+(自分のプロジェクトでのespower-babelの設定を移行するのに書いたので、人によっては構成が違うため動かないかもしれません。その場合はPull Requestをいただけると助かります。</p>
 
 <hr>
 
