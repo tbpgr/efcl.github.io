@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-15T23:21:27+09:00</updated>
+ <updated>2016-04-15T23:25:09+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -84,9 +84,9 @@ $ migrate-espower-babel-to-babel-preset-power-assert
 <h3 id="babelrcを作成"><code>.babelrc</code>を作成</h3>
 
 <p>Babelの設定をするために、<code>.babelrc</code>を次のように作成します。
-power-assertは開発中(テスト中)にしか必要ないので、<code>env</code>で振り分けしておきます。
-<code>env</code>は<code>NODE_ENV</code>によって振り分けされます。 <code>NODE_ENV=production &lt;コマンド&gt;</code>のような感じで指定して環境によって必要がプラグインなどを分けることができます。
-何も指定していない場合は`<code>NODE_ENV=development</code></p>
+power-assertは開発ビルド(テスト中)にしか必要ないので、<code>env</code>で振り分けしておきます。
+<code>env</code>は<code>NODE_ENV</code>によって振り分けされます。 <code>NODE_ENV=production &lt;コマンド&gt;</code>のような感じで環境変数を指定し、必要なプラグインを分けることができます。
+何も指定していない場合は`<code>NODE_ENV=development</code>と同じになります。</p>
 <div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
   <span class="nt">&quot;presets&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">&quot;es2015&quot;</span>
