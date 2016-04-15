@@ -11,7 +11,7 @@
     </title>
     <meta name="description" content="3行まとめ">
     
-    <meta name="keywords" content="power-assert,JavaScript,testing" />
+    <meta name="keywords" content="power-assert,JavaScript,testing,babel" />
     
     <meta name="author" content="azu">
     <!-- Icons -->
@@ -60,6 +60,8 @@
 <meta property="article:tag" content="JavaScript">
 
 <meta property="article:tag" content="testing">
+
+<meta property="article:tag" content="babel">
 
 
     <script>
@@ -332,7 +334,7 @@ var blog_categories = [
 <ul>
 <li><a href="https://github.com/power-assert-js/espower-babel" title="espower-babel">espower-babel</a>は役目を終えたので、Deprecated</li>
 <li>Babel + power-assertは<a href="https://github.com/power-assert-js/babel-preset-power-assert" title="babel-preset-power-assert">babel-preset-power-assert</a>を使う</li>
-<li>コード上は<code>require(&quot;power-assert&quot;)</code>でも、<code>require(&quot;assert&quot;)</code>でもpower-assert化できるようになった</li>
+<li>コード上は<code>require(&quot;power-assert&quot;)</code>と<code>require(&quot;assert&quot;)</code> どちらでもpower-assert化できるようになった</li>
 </ul>
 
 <h2 id="espower-babelは非推奨へ"><a href="https://github.com/power-assert-js/espower-babel" title="espower-babel">espower-babel</a>は非推奨へ</h2>
@@ -393,7 +395,8 @@ $ migrate-espower-babel-to-babel-preset-power-assert
 
 <p>Babelの設定をするために、<code>.babelrc</code>を次のように作成します。
 power-assertは開発中(テスト中)にしか必要ないので、<code>env</code>で振り分けしておきます。
-(<code>NODE_ENV</code>によって振り分けされるます。 <code>NODE_ENV=production &lt;コマンド&gt;</code>のような感じで指定して環境によって必要がプラグインなどを分けることができます)</p>
+<code>env</code>は<code>NODE_ENV</code>によって振り分けされます。 <code>NODE_ENV=production &lt;コマンド&gt;</code>のような感じで指定して環境によって必要がプラグインなどを分けることができます。
+何も指定していない場合は`<code>NODE_ENV=development</code></p>
 <div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
   <span class="nt">&quot;presets&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">&quot;es2015&quot;</span>
@@ -600,7 +603,7 @@ power-assertは開発中(テスト中)にしか必要ないので、<code>env</c
                 class="edit-on-github-label"></span>修正リクエストをする</a>
         <nav class="tags"
              id="js-post-tags"
-             data-post-tags='["power-assert","JavaScript","testing"]'>
+             data-post-tags='["power-assert","JavaScript","testing","babel"]'>
             <span>タグ:</span>
             <ul>
                 
@@ -609,6 +612,8 @@ power-assertは開発中(テスト中)にしか必要ないので、<code>env</c
                 <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
                 
                 <li><a href="/tags/?q=testing">testing</a></li>
+                
+                <li><a href="/tags/?q=babel">babel</a></li>
                 
             </ul>
         </nav>
