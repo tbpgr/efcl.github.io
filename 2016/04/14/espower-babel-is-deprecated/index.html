@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        power-assert + babel as a development tool | Web Scratch
+        
+    </title>
+    <meta name="description" content="3行まとめ">
+    
+    <meta name="keywords" content="power-assert,JavaScript,testing" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="power-assert + babel as a development tool">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/04/14/espower-babel-is-deprecated/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="3行まとめ">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-04-14T19:55:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/04/13/bikeshedjs/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/04/08/textlint-sharable-config/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/04/05/tng20/">
+
+
+
+
+
+<meta property="article:section" content="javascript">
+
+
+
+
+
+<meta property="article:tag" content="power-assert">
+
+<meta property="article:tag" content="JavaScript">
+
+<meta property="article:tag" content="testing">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 153
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 77
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/04/14/espower-babel-is-deprecated/">
+                power-assert + babel as a development tool
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/04/13/bikeshedjs/">
+                Bikeshed.js アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/04/08/textlint-sharable-config/">
+                textlintの設定をnpmにあげて使い回す
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/04/05/tng20/">
+                Node学園 20時限目 アウトラインメモ
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/04/14/espower-babel-is-deprecated/">
+    <h1 class="post-title">power-assert + babel as a development tool</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年04月14日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-04-14-espower-babel-is-deprecated.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <h2 id="3行まとめ">3行まとめ</h2>
+
+<ul>
+<li><a href="https://github.com/power-assert-js/espower-babel" title="espower-babel">espower-babel</a>は役目を終えたので、Deprecated</li>
+<li>Babel + power-assertは<a href="https://github.com/power-assert-js/babel-preset-power-assert" title="babel-preset-power-assert">babel-preset-power-assert</a>を使う</li>
+<li>コード上は<code>require(&quot;power-assert&quot;)</code>でも、<code>require(&quot;assert&quot;)</code>でもpower-assert化できるようになった</li>
+</ul>
+
+<h2 id="espower-babelは非推奨へ"><a href="https://github.com/power-assert-js/espower-babel" title="espower-babel">espower-babel</a>は非推奨へ</h2>
+
+<p>Babel + Mocha + power-assertの組み合わせを出来るだけ設定ファイルなどを作らずに使える<a href="https://github.com/power-assert-js/espower-babel" title="espower-babel">espower-babel</a>というモジュールを書いていましたが、役目を終えたので非推奨(deprecated)にしました。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/05/10/espower-babel3.0.0/" title="テストコードをES6+power-assertで書けるespower-babel 3.0.0リリース | Web Scratch">テストコードをES6+power-assertで書けるespower-babel 3.0.0リリース | Web Scratch</a></li>
+</ul>
+
+<p>理由としては、Babel@6からは設定(ファイル)を必ず必要とするので、<a href="https://github.com/power-assert-js/espower-babel" title="espower-babel">espower-babel</a>をかませる分、柔軟性がなくなったり余計な処理が起きて遅くなるためです。</p>
+
+<p>代わりに<a href="https://www.npmjs.com/package/babel-register" title="babel-register">babel-register</a>と<a href="https://github.com/power-assert-js/babel-preset-power-assert" title="babel-preset-power-assert">babel-preset-power-assert</a>. and <a href="https://github.com/power-assert-js/babel-preset-power-assert" title="babel-preset-power-assert">babel-preset-power-assert</a>を直接使って、通常のBabelの設定としてpower-assertを導入する方法を推奨しています。</p>
+
+<p>以下は、power-assert + Mocha + Babel環境を新規インストールする場合の手順ですが、espower-babelからの移行は<a href="https://github.com/power-assert-js/migrate-espower-babel-to-babel-preset-power-assert" title="migrate-espower-babel-to-babel-preset-power-assert">migrate-espower-babel-to-babel-preset-power-assert</a>を使うことで同様のことができるようにしてあります。</p>
+
+<ul>
+<li><a href="https://github.com/power-assert-js/migrate-espower-babel-to-babel-preset-power-assert" title="migrate-espower-babel-to-babel-preset-power-assert">migrate-espower-babel-to-babel-preset-power-assert</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ npm i -g migrate-espower-babel-to-babel-preset-power-assert
+$ cd &lt;該当プロジェクトrootへ&gt;
+$ migrate-espower-babel-to-babel-preset-power-assert
+</code></pre></div>
+<p>でマイグレーションしてくれます。</p>
+
+<hr>
+
+<p>新規で、power-assert + Mocha + Babel環境(ランタイム変換)を導入する手順です。</p>
+
+<p>サンプルプロジェクト</p>
+
+<ul>
+<li><a href="https://github.com/azu/power-assert-as-tool-demo" title="azu/power-assert-as-tool-demo">azu/power-assert-as-tool-demo</a></li>
+</ul>
+
+<h2 id="インストール">インストール</h2>
+
+<h3 id="必要なモジュールをインストール">必要なモジュールをインストール</h3>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">npm i -D power-assert mocha babel-register babel-preset-power-assert babel-preset-es2015
+</code></pre></div>
+<p>mochaからテストを実行する際にBabelの変換をするので、<code>babel-register</code>と以下の2つのpresetをインストールします。</p>
+
+<ul>
+<li>babel-preset-es2015
+
+<ul>
+<li>ES2015の変換を行うpreset</li>
+</ul></li>
+<li>babel-preset-power-assert
+
+<ul>
+<li>power-assert関連のpreset</li>
+</ul></li>
+</ul>
+
+<h3 id="babelrcを作成"><code>.babelrc</code>を作成</h3>
+
+<p>Babelの設定をするために、<code>.babelrc</code>を次のように作成します。
+power-assertは開発中(テスト中)にしか必要ないので、<code>env</code>で振り分けしておきます。
+(<code>NODE_ENV</code>によって振り分けされるます。 <code>NODE_ENV=production &lt;コマンド&gt;</code>のような感じで指定して環境によって必要がプラグインなどを分けることができます)</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&quot;presets&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;es2015&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;env&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;development&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;presets&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;power-assert&quot;</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="mocha-optsを作成"><code>mocha.opts</code>を作成</h3>
+
+<p>Mochaの設定をする<code>mocha.opts</code>を作成します。</p>
+
+<p><code>test/mocha.opts</code> に以下のように書くだけです。設定ファイルとして作らないで、引数に渡すだけでいいかもしれません。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">--compilers js:babel-register
+</code></pre></div>
+<p>こうすることで、Mochaのテスト実行時はBabelによる変換がランタイムで行われます。</p>
+
+<h2 id="テストを書く">テストを書く</h2>
+
+<p>次のような足し算をするコードを書いてみます。</p>
+
+<p><code>add.js</code>:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">assert</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">x</span> <span class="o">===</span> <span class="s2">&quot;number&quot;</span><span class="p">);</span>
+    <span class="nx">assert</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">y</span> <span class="o">===</span> <span class="s2">&quot;number&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>これをテストするコードを<code>assert</code>モジュールを使って書いてみます。</p>
+
+<p><code>add-test.js</code></p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// require(&quot;power-assert&quot;) じゃなくて assert でもいい</span>
+<span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
+<span class="kr">import</span> <span class="nx">add</span> <span class="nx">from</span> <span class="s2">&quot;../src/add&quot;</span><span class="p">;</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should return x + y&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span><span class="c1">// &lt;= Wrong</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><code>$ mocha</code>という感じでテストを実行してみると、このテストは<code>3 == 5</code>となっているので失敗します。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2016/04/14-1460632719.png" alt="power-assert result"></p>
+
+<p>テストを失敗すると、power-assertにより構造的な結果が表示されています。
+<code>.babelrc</code>の設定にもとづいて変換する際に<code>babel-preset-power-assert</code>が次の2つのことをやっています。</p>
+
+<ol>
+<li><code>require(&quot;assert&quot;)</code>を<code>require(&quot;power-assert&quot;)</code>に書き換える</li>
+<li><code>assert</code>関数などに仕込みをして、失敗した時に情報をいっぱい表示できるようにする
+
+<ul>
+<li>こちらは今までもやっていたこと</li>
+</ul></li>
+</ol>
+
+<p>これにより、<code>require(&quot;power-assert&quot;)</code>ではなく、ただの<code>require(&quot;assert&quot;)</code>もpower-assert化された状態でassertionが行えるようになっています。</p>
+
+<p>通常今までは、テストコードのみ<code>require(&quot;power-assert&quot;)</code>をして、アプリケーションコード側では<code>require(&quot;assert&quot;)</code>をしていたと思います。</p>
+
+<p>例えば、この<code>add.js</code>の例では引数のチェックに<code>assert</code>を使っています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js">    <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;arguments should be type of number&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">add</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+</code></pre></div>
+<p>これもMocha経由で実行してみると、ただの<code>assert(typeof x === &quot;number&quot;);</code>もpower-assert化されています。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2016/04/14-1460633294.png" alt="assert to be power-asssert"></p>
+
+<p>これはどういうことになるかというと、コード上でライブラリとして<code>require(&quot;power-assert&quot;)</code>と読み込む必要がなくなり、ツールとしてpower-assertが動くようになった事を意味します。</p>
+
+<p>なので、<code>power-assert</code>を使わなくなった時はツール(具体的には<code>babelrc</code>から)power-assertを外すだけで、コードは一切変更しなくても良くなったということです。</p>
+
+<p>そのため、power-assertは開発用のライブラリからツールという位置づけに変わったという話でした。</p>
+
+<p>ここまでを適応したバージョン</p>
+
+<h2 id="おまけ">おまけ</h2>
+
+<p>アプリケーションに<code>assert</code>を書くようになったと言っても、今回の<code>add(x ,y)</code>のように決まりきったような引数のチェックを毎回書くのは大変です。</p>
+
+<p>先ほどの<code>add.js</code>は次のような感じでテストすることができます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
+<span class="kr">import</span> <span class="nx">add</span> <span class="nx">from</span> <span class="s2">&quot;../src/add&quot;</span><span class="p">;</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should return x + y&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;arguments should be type of number&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="nx">add</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">);</span>
+
+            <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;unreachable line&quot;</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">assert</span><span class="p">.</span><span class="nx">AssertionError</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>引数の型違反例外(<code>assert.AssertionError</code>)もテストされていることが分かります。</p>
+
+<p>JSDocから自動でランタイムAssertionを追加してくれる<a href="https://github.com/azu/babel-plugin-jsdoc-to-assert" title="babel-plugin-jsdoc-to-assert">babel-plugin-jsdoc-to-assert</a>を使うことで、<code>add.js</code>から型チェック的な<code>assert</code>は取り除けます。</p>
+
+<ul>
+<li><a href="http://efcl.info/2016/03/25/jsdoc-to-assert/" title="JSDocをランタイムassertに変換するBabelプラグインを書いた | Web Scratch">JSDocをランタイムassertに変換するBabelプラグインを書いた | Web Scratch</a></li>
+</ul>
+
+<p>具体的には<code>presets</code>に<a href="https://github.com/azu/babel-preset-jsdoc-to-assert" title="azu/babel-preset-jsdoc-to-assert: Babel plugin for jsdoc-to-assert">babel-preset-jsdoc-to-assert</a>を追加して、JSDocを書くだけです。</p>
+<div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gd">--- a/.babelrc</span>
+<span class="gi">+++ b/.babelrc</span>
+<span class="gu">@@ -5,6 +5,7 @@</span>
+   &quot;env&quot;: {
+     &quot;development&quot;: {
+       &quot;presets&quot;: [
+<span class="gi">+        &quot;jsdoc-to-assert&quot;,</span>
+         &quot;power-assert&quot;
+       ]
+     }
+
+<span class="gh">diff --git a/src/add.js b/src/add.js</span>
+<span class="gh">index 4748ae3..5cc3b9c 100644</span>
+<span class="gd">--- a/src/add.js</span>
+<span class="gi">+++ b/src/add.js</span>
+<span class="gu">@@ -1,7 +1,9 @@</span>
+ &quot;use strict&quot;;
+<span class="gd">-const assert = require(&quot;assert&quot;);</span>
+<span class="gi">+/**</span>
+<span class="gi">+ * @param {number} x</span>
+<span class="gi">+ * @param {number} y</span>
+<span class="gi">+ * @returns {Number}</span>
+<span class="gi">+ */</span>
+ export default function add(x, y) {
+<span class="gd">-    assert(typeof x === &quot;number&quot;);</span>
+<span class="gd">-    assert(typeof y === &quot;number&quot;);</span>
+     return x + y;
+<span class="gd">-}</span>
+</code></pre></div>
+<p>変更したコミット:</p>
+
+<ul>
+<li><a href="https://github.com/azu/power-assert-as-tool-demo/pull/1" title="feat(babel): use jsdoc-to-assert by azu · Pull Request #1 · azu/power-assert-as-tool-demo">feat(babel): use jsdoc-to-assert by azu · Pull Request #1 · azu/power-assert-as-tool-demo</a></li>
+</ul>
+
+<p><a href="https://github.com/azu/babel-preset-jsdoc-to-assert" title="azu/babel-preset-jsdoc-to-assert: Babel plugin for jsdoc-to-assert">babel-preset-jsdoc-to-assert</a>もpower-assert化できるといいのですが、Babelの変換の仕組み上難しいのでまだできてません。</p>
+
+<p>また、<code>assert</code>をアプリケーション側で使っていた際に、プロダクションビルドからは取り除きたいということがあります。その場合はunassertを使えば、取り除けるので便利です。</p>
+
+<ul>
+<li><a href="https://github.com/twada/unassert">twada/unassert: Encourage reliable programming by writing assertions in production code, and compiling them away from release</a></li>
+<li><a href="https://github.com/twada/babel-plugin-unassert">twada/babel-plugin-unassert: Babel plugin to encourage reliable programming by writing assertions in production code, and compiling them away from release.</a></li>
+</ul>
+
+<p>変更したコミット:</p>
+
+<ul>
+<li><a href="https://github.com/azu/power-assert-as-tool-demo/pull/2" title="feat(babel): add unassert in NODE_ENV=production building by azu · Pull Request #2 · azu/power-assert-as-tool-demo">feat(babel): add unassert in NODE_ENV=production building by azu · Pull Request #2 · azu/power-assert-as-tool-demo</a></li>
+</ul>
+
+<p>ここまでを全部適応した最終的な<code>.bebelrc</code>は次のような形になっています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
+  <span class="s2">&quot;presets&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&quot;es2015&quot;</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;env&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;development&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;presets&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;jsdoc-to-assert&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;power-assert&quot;</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;production&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;plugins&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;babel-plugin-unassert&quot;</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><a href="https://github.com/azu/power-assert-as-tool-demo" title="azu/power-assert-as-tool-demo: babel + power-assert preset demo project.">azu/power-assert-as-tool-demo: babel + power-assert preset demo project.</a></li>
+</ul>
+
+<h2 id="おわり">おわり</h2>
+
+<ul>
+<li>espower-babelはBebel5以下における解だったので、役目はひとまず終わり</li>
+<li>普通にコンパイル言語と同じように、デバッグ時のみ情報量の多いassertの適応、プロダクションビルド時は取り除くということができるようになった</li>
+<li><a href="https://ja.wikipedia.org/wiki/%E3%83%9B%E3%83%BC%E3%82%A2%E8%AB%96%E7%90%86" title="ホーア論理">ホーア論理</a>的な事前条件は<code>assert</code>やJSDocで、事後条件はテストで保証するみたいなことはやりやすくなった</li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-04-14-espower-babel-is-deprecated.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["power-assert","JavaScript","testing"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=power-assert">power-assert</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=testing">testing</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

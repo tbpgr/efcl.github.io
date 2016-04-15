@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "power-assert + babel as a development tool",
+            "url": "http://efcl.info/2016/04/14/espower-babel-is-deprecated/",
+            "date": "2016-04-14T19:55:00+09:00"
+        },
+        
+        {
             "title": "Bikeshed.js アウトラインメモ",
             "url": "http://efcl.info/2016/04/13/bikeshedjs/",
             "date": "2016-04-13T23:11:00+09:00"
