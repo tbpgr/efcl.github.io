@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-15T23:25:09+09:00</updated>
+ <updated>2016-04-15T23:30:27+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -86,7 +86,7 @@ $ migrate-espower-babel-to-babel-preset-power-assert
 <p>Babelの設定をするために、<code>.babelrc</code>を次のように作成します。
 power-assertは開発ビルド(テスト中)にしか必要ないので、<code>env</code>で振り分けしておきます。
 <code>env</code>は<code>NODE_ENV</code>によって振り分けされます。 <code>NODE_ENV=production &lt;コマンド&gt;</code>のような感じで環境変数を指定し、必要なプラグインを分けることができます。
-何も指定していない場合は`<code>NODE_ENV=development</code>と同じになります。</p>
+何も指定していない場合は<code>NODE_ENV=development</code>と同じになります。</p>
 <div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
   <span class="nt">&quot;presets&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">&quot;es2015&quot;</span>
@@ -156,11 +156,21 @@ power-assertは開発ビルド(テスト中)にしか必要ないので、<code>
 <p>通常今までは、テストコードのみ<code>require(&quot;power-assert&quot;)</code>をして、アプリケーションコード側では<code>require(&quot;assert&quot;)</code>をしていたと思います。</p>
 
 <p>例えば、この<code>add.js</code>の例では引数のチェックに<code>assert</code>を使っています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">assert</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">x</span> <span class="o">===</span> <span class="s2">&quot;number&quot;</span><span class="p">);</span>
+    <span class="nx">assert</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">y</span> <span class="o">===</span> <span class="s2">&quot;number&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>なので、次のようなコードを書くと例外を投げるのでテストは失敗します。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js">    <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;arguments should be type of number&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
         <span class="nx">add</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">);</span>
     <span class="p">});</span>
 </code></pre></div>
-<p>これもMocha経由で実行してみると、ただの<code>assert(typeof x === &quot;number&quot;);</code>もpower-assert化されています。</p>
+<p>今までは、ただの<code>assert()</code>だったので、大した情報はでませんでした。
+しかし、これもMocha経由で実行してみると、<code>assert(typeof x === &quot;number&quot;);</code>がpower-assert化されています。</p>
 
 <p><img src="http://efcl.info/wp-content/uploads/2016/04/14-1460633294.png" alt="assert to be power-asssert"></p>
 
