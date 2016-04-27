@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-28T00:04:55+09:00</updated>
+ <updated>2016-04-28T02:46:48+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -32,6 +32,10 @@
 <p><img src="http://azu.github.io/slide/2016/child_process_sushi/img/almin-architecture-flux.png" alt="almin"></p>
 
 <p>JavaScriptでもウェブアプリやElectronでのアプリのような、APIを叩いて表示して終わりじゃなくて、ドメインモデルの生存期間が長いものが増えてきているのでその辺を考えていこうという話でした。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="und" dir="ltr">🍣 <a href="https://twitter.com/hashtag/child_process_sushi?src=hash">#child_process_sushi</a> <a href="https://t.co/CSuqQoDrWj">pic.twitter.com/CSuqQoDrWj</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/725281910373511172">April 27, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <h2 id="pathでのxss-kyo_ago">PathでのXSS - kyo_ago</h2>
 
