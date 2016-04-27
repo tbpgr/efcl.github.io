@@ -187,4 +187,4 @@ JavaScriptでもウェブアプリやElectronでのアプリのような、API�
 
 ----
 
-Child Process forkおめでとうございます。
+Child Processおめでとうございます。
