@@ -721,7 +721,9 @@
         
         "Babel",
         
-        "ESLint"
+        "ESLint",
+        
+        "Almin"
         
     ]
 }
