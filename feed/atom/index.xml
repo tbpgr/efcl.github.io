@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-28T09:42:45+09:00</updated>
+ <updated>2016-04-28T10:09:35+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -36,6 +36,12 @@
 <blockquote class="twitter-tweet" data-lang="en"><p lang="und" dir="ltr">🍣 <a href="https://twitter.com/hashtag/child_process_sushi?src=hash">#child_process_sushi</a> <a href="https://t.co/CSuqQoDrWj">pic.twitter.com/CSuqQoDrWj</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/725281910373511172">April 27, 2016</a></blockquote>
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>ログ</p>
+
+<ul>
+<li><a href="http://togetter.com/li/968216" title="#child_process_sushi - Togetterまとめ">#child_process_sushi - Togetterまとめ</a></li>
+</ul>
 
 <h2 id="pathでのxss-kyo_ago">PathでのXSS - kyo_ago</h2>
 
@@ -223,6 +229,10 @@
 </ul>
 
 <h2 id="ビルド職人を減らしたいという話-vvakame">ビルド職人を減らしたいという話 -- vvakame</h2>
+
+<blockquote>
+<p>スライド: <a href="https://gist.github.com/vvakame/45ca8f051e54702071eb88bb1dd8b46e" title="ビルド職人.md">ビルド職人.md</a></p>
+</blockquote>
 
 <ul>
 <li>設定を共有したい</li>
