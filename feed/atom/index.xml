@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-28T10:09:35+09:00</updated>
+ <updated>2016-04-28T11:21:48+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -261,10 +261,12 @@
 <li>ES6時代に対応したdeepEqualが必要</li>
 <li>無限Iteratorとかどうするの?</li>
 <li>ESLintでキャキャやってるのすごいね</li>
-<li>npm3+dedupe+バージョン違い競合+Browserifyの辛い話
+<li>npm3+dedupe+依存モジュールのバージョン違い競合(estraverseとか?)+Browserifyの辛い話
 
 <ul>
 <li>ESLintとpower-assertでdudupeの問題が起こることもある</li>
+<li>バージョン違いが存在するとネストしてインストールされる</li>
+<li>ネストしてインストールされたモジュールをBrowserifyに食べさせるとなぜか絶対パスがビルドファイル内にでてくる、2つ分のファイルが読み込まれたり、dedupeできなかった問題がおきる</li>
 <li>後ろ向きな理由でJSHintを使ってる話</li>
 </ul></li>
 </ul>
