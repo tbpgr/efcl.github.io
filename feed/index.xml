@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-05-02T14:47:59+09:00</updated>
+ <updated>2016-05-02T14:49:20+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -23,7 +23,7 @@
 
 <p>前述した<a href="https://astexplorer.net/" title="AST explorer">AST explorer</a>の場合だと、ESLint@1とESLint@2両方に対応したPlaygroundを作りたいため、一つのプロジェクトに両方のバージョンをインストールする必要があるという話です。ローカルパッケージ</p>
 
-<p>他にも、同じライブラリでもβ版は別の名前空間(<code>require(&quot;name-spaace&quot;)</code>)で使って試したいというケースもあると思います。</p>
+<p>他にも、同じライブラリでもβ版は別の名前空間(<code>require(&quot;other-name-space&quot;)</code>)で使って試したいというケースもあると思います。</p>
 
 <ul>
 <li><a href="http://ja.stackoverflow.com/questions/9191/%E5%90%8C%E4%B8%80npm%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E5%90%8D%E3%81%AE%E8%A4%87%E6%95%B0%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AF%E3%81%A7%E3%81%8D%E3%81%BE%E3%81%99%E3%81%8B" title="javascript - 同一npmパッケージ名の複数のバージョンをサブディレクトリにインストールすることはできますか? - スタック・オーバーフロー">javascript - 同一npmパッケージ名の複数のバージョンをサブディレクトリにインストールすることはできますか? - スタック・オーバーフロー</a></li>
