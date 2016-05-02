@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "npmで同じライブラリの複数バージョンをインストールして使う方法",
+            "url": "http://efcl.info/2016/05/02/npm-package-mixed-multiple-versions-demo/",
+            "date": "2016-05-02T14:12:00+09:00"
+        },
+        
+        {
             "title": "#child_process_sushi でJavaScriptアーキテクチャについて話してきた",
             "url": "http://efcl.info/2016/04/27/child_process_sushi/",
             "date": "2016-04-27T23:40:00+09:00"

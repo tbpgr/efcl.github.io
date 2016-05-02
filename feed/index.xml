@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-04-28T11:21:48+09:00</updated>
+ <updated>2016-05-02T14:35:14+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,115 @@
  </author>
  
 
+ 
+ <entry>
+   <title>npmで同じライブラリの複数バージョンをインストールして使う方法</title>
+   <link href="http://efcl.info/2016/05/02/npm-package-mixed-multiple-versions-demo/"/>
+   <updated>2016-05-02T14:12:00+09:00</updated>
+   <id>http://efcl.info/2016/05/02/npm-package-mixed-multiple-versions-demo</id>
+   <content type="html"><![CDATA[ <p><a href="https://github.com/fkling/astexplorer/pull/107/files#diff-b9cfc7f2cdf78a7f4b91a753d10865a2R52" title="Add support for ESLint v2 by Daniel15 · Pull Request #107 · fkling/astexplorer">Add support for ESLint v2 by Daniel15 · Pull Request #107 · fkling/astexplorer</a>で、一つのプロジェクト内で複数のバージョンの同じライブラリを使う面白い方法が使われてたのでメモです。</p>
+
+<p>上記の<a href="https://astexplorer.net/" title="AST explorer">AST explorer</a>の場合だと、ESLint@1とESLint@2両方に対応したPlaygroundを作りたいため、一つのプロジェクトに両方のバージョンをインストールする必要があるという話です。ローカルパッケージ</p>
+
+<p>他にも、同じライブラリでもβ版は別の名前空間(<code>require(&quot;name-spaace&quot;)</code>)で使って試したいというケースもあると思います。</p>
+
+<ul>
+<li><a href="http://ja.stackoverflow.com/questions/9191/%E5%90%8C%E4%B8%80npm%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E5%90%8D%E3%81%AE%E8%A4%87%E6%95%B0%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AF%E3%81%A7%E3%81%8D%E3%81%BE%E3%81%99%E3%81%8B" title="javascript - 同一npmパッケージ名の複数のバージョンをサブディレクトリにインストールすることはできますか? - スタック・オーバーフロー">javascript - 同一npmパッケージ名の複数のバージョンをサブディレクトリにインストールすることはできますか? - スタック・オーバーフロー</a></li>
+</ul>
+
+<p>ブラウザだとちょっとファイルサイズ的に避けたい気がしますが、<code>jQuery@1</code>と<code>jquery@3</code>を混在させて使うプロジェクトとかにも応用できそうな気がします。</p>
+
+<h2 id="やり方">やり方</h2>
+
+<p>サンプルプロジェクトは以下においてあります。</p>
+
+<ul>
+<li><a href="https://github.com/azu/npm-package-mixed-multiple-versions-demo" title="azu/npm-package-mixed-multiple-versions-demo: Demo project for mixing multiple version of the same npm package in a project.">azu/npm-package-mixed-multiple-versions-demo: Demo project for mixing multiple version of the same npm package in a project.</a></li>
+</ul>
+
+<p>このプロジェクトのゴールは<code>lodash@3</code>と<code>lodash@4</code>を同時にひとつのプロジェクトで使うことです(実用性は置いておきます)</p>
+
+<h2 id="1-それぞれのバージョンのローカルパッケージを作る">1. それぞれのバージョンのローカルパッケージを作る</h2>
+
+<p>npm@2 からは<a href="https://docs.npmjs.com/files/package.json#local-paths" title="Local Paths">Local Paths</a>を依存関係として定義することができます。</p>
+
+<p>簡単にいうと、相対パスで指定したディレクトリをモジュールとして<code>dependencies</code>に追加できる機能です。</p>
+
+<ul>
+<li><a href="http://efcl.info/2014/10/04/npm2-local-module/" title="npm 2.0.0でローカルパッケージを使ってrequire(&amp;#39;../../../&amp;#39;)を回避する | Web Scratch">npm 2.0.0でローカルパッケージを使ってrequire(&#39;../../../&#39;)を回避する | Web Scratch</a></li>
+</ul>
+
+<p>これを使って、<code>lodash@3</code>と<code>lodash@4</code>のローカルパッケージを作ります。</p>
+
+<p><a href="https://github.com/azu/npm-package-mixed-multiple-versions-demo">サンプルプロジェクト</a>を見るのが分かりやすいですが、<code>lodash3</code>と<code>lodash4</code>というディレクトリを手動で作って、それぞれ<code>npm init</code>して<code>main</code>に<code>index.js</code>を指定しただけのモジュールです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">packages
+├── lodash3
+│   ├── index.js
+│   └── package.json
+└── lodash4
+    ├── index.js
+    ├── node_modules
+    │   └── lodash
+    └── package.json
+</code></pre></div>
+<p><code>index.js</code>には以下のようにlodashをexportしているだけです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// lodash@3
+module.exports = require(&quot;lodash&quot;);
+</code></pre></div>
+<ul>
+<li><a href="https://github.com/azu/npm-package-mixed-multiple-versions-demo/blob/master/packages/lodash3/index.js" title="packages/lodash3/index.js">packages/lodash3/index.js</a></li>
+</ul>
+
+<p>lodash3のモジュールで<code>require(&quot;lodash&quot;)</code>したのは<a href="https://github.com/azu/npm-package-mixed-multiple-versions-demo/blob/62745c4ee969da1672a6c4c84b929e6946da0e21/packages/lodash3/package.json#L9" title="packages/lodash3/package.json">packages/lodash3/package.json</a>で依存関係に定義されている<code>lodash</code>なので、<code>lodash@3</code>がexportされているという事になります。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;lodash3&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;lodash@3&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;main&quot;</span><span class="p">:</span> <span class="s2">&quot;index.js&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;azu&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;MIT&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;lodash&quot;</span><span class="p">:</span> <span class="s2">&quot;^3.0.0&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="2-ローカルパッケージをインストールする">2. ローカルパッケージをインストールする</h2>
+
+<p>後は、プロジェクトに<a href="https://docs.npmjs.com/files/package.json#local-paths" title="Local Paths">Local Paths</a>を使って作った<code>lodash3</code>と<code>lodash4</code>の依存を定義するだけです。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">npm i -S packages/lodash3 packages/lodash4
+</code></pre></div>
+<p>でインストールできます。
+npmのバージョンによって<code>npm i -S</code>でちゃんと相対パスにならないバグがありますが、直接以下のように書けば同じ結果が得られます。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json">  <span class="s2">&quot;dependencies&quot;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&quot;lodash3&quot;</span><span class="p">:</span> <span class="s2">&quot;file:packages/lodash3&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;lodash4&quot;</span><span class="p">:</span> <span class="s2">&quot;file:packages/lodash4&quot;</span>
+  <span class="p">}</span>
+</code></pre></div>
+<h2 id="3-それぞれのバージョンを使う">3. それぞれのバージョンを使う</h2>
+
+<p>後は、プロジェクトから<code>require(&quot;lodash3&quot;)</code>のような感じで<code>require</code>して使うだけです。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">lodash3</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;lodash3&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">lodash4</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;lodash4&quot;</span><span class="p">);</span>
+
+<span class="nx">assert</span><span class="p">(</span><span class="nx">lodash3</span><span class="p">.</span><span class="nx">VERSION</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s2">&quot;3&quot;</span><span class="p">));</span>
+<span class="nx">assert</span><span class="p">(</span><span class="nx">lodash4</span><span class="p">.</span><span class="nx">VERSION</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s2">&quot;4&quot;</span><span class="p">));</span>
+</code></pre></div>
+<p>lodashには<code>.VERSION</code>にバージョン番号が入ってるので、それぞれ@3と@4のバージョンが読み込めてることが確認できます。</p>
+
+<h2 id="おわり">おわり</h2>
+
+<p>ローカルパッケージを使って、一つのプロジェクト内で複数バージョンのnpmパッケージを使い分ける方法を紹介しました。</p>
+
+<p><a href="https://github.com/fkling/astexplorer" title="astexplorer">astexplorer</a>みたいなツール系だと結構実用的な感じで、普通のウェブサイトとかプロダクトならまあ最新のバージョン使おうって感じです。
+(ワークアラウンドとして覚えておくと便利なことがあるかもしれないという感じです)</p>
+
+<ul>
+<li>サンプル: <a href="https://github.com/azu/npm-package-mixed-multiple-versions-demo" title="azu/npm-package-mixed-multiple-versions-demo: Demo project for mixing multiple version of the same npm package in a project.">azu/npm-package-mixed-multiple-versions-demo: Demo project for mixing multiple version of the same npm package in a project.</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>#child_process_sushi でJavaScriptアーキテクチャについて話してきた</title>
@@ -2344,229 +2453,6 @@ Breaking Changeはほとんどのユーザには関係ないものだと思い�
 </ul>
 
 <p>という感じになっています。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>JavaScript ASTを始める最初の一歩</title>
-   <link href="http://efcl.info/2016/03/06/ast-first-step/"/>
-   <updated>2016-03-06T12:39:00+09:00</updated>
-   <id>http://efcl.info/2016/03/06/ast-first-step</id>
-   <content type="html"><![CDATA[ <p>何かJavaScriptのソースコードを機械的にチェックするためのツールを作りたいという場合に、JavaScriptのASTというものを触る必要が出てくると思います。</p>
-
-<p>この記事では、その取っ掛かりとなる案内を簡単にまとめたものです。</p>
-
-<h2 id="astとは">ASTとは</h2>
-
-<p><a href="http://azu.github.io/slide/JSojisan/#8"><img src="http://efcl.info/wp-content/uploads/2016/03/06-1457240557.png" alt="AST"></a></p>
-
-<p>AST(Abstract Syntax Tree)はコードをパースした抽象構文木のこと。
-JavaScriptの場合はJavaScriptオブジェクト(JSON)として表現されます。</p>
-
-<p>コード:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-</code></pre></div>
-<p>AST:</p>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&quot;range&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="mi">0</span><span class="p">,</span>
-    <span class="mi">10</span>
-  <span class="p">],</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Program&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;body&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;range&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="mi">0</span><span class="p">,</span>
-        <span class="mi">10</span>
-      <span class="p">],</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VariableDeclaration&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;declarations&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;range&quot;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="mi">4</span><span class="p">,</span>
-            <span class="mi">9</span>
-          <span class="p">],</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VariableDeclarator&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;range&quot;</span><span class="p">:</span> <span class="p">[</span>
-              <span class="mi">4</span><span class="p">,</span>
-              <span class="mi">5</span>
-            <span class="p">],</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Identifier&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;a&quot;</span>
-          <span class="p">},</span>
-          <span class="nt">&quot;init&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;range&quot;</span><span class="p">:</span> <span class="p">[</span>
-              <span class="mi">8</span><span class="p">,</span>
-              <span class="mi">9</span>
-            <span class="p">],</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Literal&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="nt">&quot;raw&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">],</span>
-      <span class="nt">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;var&quot;</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="nt">&quot;sourceType&quot;</span><span class="p">:</span> <span class="s2">&quot;module&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-<ul>
-<li><a href="http://azu.github.io/slide/JSojisan/">カジュアルJavaScript AST</a></li>
-<li><a href="http://azu.github.io/slide/tkbjs/js-ast-walker.html">JavaScript AST Walker</a></li>
-</ul>
-
-<h2 id="astのコミュニティ標準">ASTのコミュニティ標準</h2>
-
-<p>ESTreeというデファクトスタンダードがあります(ES6までは定義されている)</p>
-
-<ul>
-<li><a href="https://github.com/estree/estree" title="estree/estree: The ESTree Spec">estree/estree: The ESTree Spec</a></li>
-</ul>
-
-<p>経緯: <a href="http://efcl.info/2015/02/26/recent-js-ast/" title="[2015-02] 最近のJavaScript AST標準化の動き | Web Scratch">[2015-02] 最近のJavaScript AST標準化の動き | Web Scratch</a></p>
-
-<ul>
-<li><code>token</code>、<code>range</code>、コメントのいち情報周りの扱いがパーサによって異なる</li>
-<li>ESTreeで定義されているASTの範囲内ならどのパーサでも殆ど同じ
-
-<ul>
-<li>注意: <code>Literal</code>やGeneratorに関してパーサ間で解釈が異なるため議論中です</li>
-<li><a href="https://github.com/estree/estree/issues/120" title="Proposal to potentially incorporate changes to existing nodes · Issue #120 · estree/estree">Proposal to potentially incorporate changes to existing nodes · Issue #120 · estree/estree</a></li>
-<li>ポータブルな実装をしようとした時にハマるかもしれないので注意</li>
-</ul></li>
-</ul>
-
-<h2 id="パーサ">パーサ</h2>
-
-<ul>
-<li><a href="https://github.com/babel/babylon" title="babylon">Babylon</a>
-
-<ul>
-<li>Babelで使われてるAcorn派生のパーサ</li>
-<li>まだ<a href="http://azu.github.io/slide-what-is-ecmascript/slide/12.html" title="TC39 Process: Stage | ECMAScriptとは何か？">仕様として入るか分からないStage</a>の構文も対応している</li>
-<li>注意: 逆にESTree仕様外の拡張もしているため、ESTree互換ではないです。</li>
-</ul></li>
-<li><a href="http://esprima.org/" title="Esprima">Esprima</a>
-
-<ul>
-<li><a href="https://github.com/benjamn/ast-types" title="ast-types">ast-types</a></li>
-</ul></li>
-<li><a href="https://github.com/ternjs/acorn" title="Acorn">Acorn</a></li>
-<li><a href="https://github.com/eslint/espree" title="espree">espree</a>
-
-<ul>
-<li><a href="http://eslint.org/" title="ESLint">ESLint</a>で使われてるパーサ</li>
-<li>AcornベースでEsprimaのtokenとの互換性を持っているパーサ</li>
-</ul></li>
-</ul>
-
-<p>どのパーサもいろんなツールで使われてる実績があります。
-Esprimaで試して、何か足りないならAcorn -&gt; Babylonという感じでやるのが良いと思います。</p>
-
-<p>大きく分けると以下の2系統になっています。</p>
-
-<ul>
-<li>Esprima</li>
-<li>Acorn</li>
-</ul>
-
-<p>BabylonはEStreeの仕様外について積極的にサポートしているため、
-それらが必要な場合はBabylonを使うが、そうでないなら他のパーサの方が安定しています。</p>
-
-<h2 id="関連ツール">関連ツール</h2>
-
-<ul>
-<li><a href="http://astexplorer.net/" title="AST explorer">AST explorer</a>
-
-<ul>
-<li>AST見るのに便利</li>
-</ul></li>
-</ul>
-
-<h2 id="よくある流れ">よくある流れ</h2>
-
-<ul>
-<li>パーサでコードをパースしてASTにする
-
-<ul>
-<li><a href="https://github.com/babel/babylon" title="babylon">babylon</a>、<a href="http://esprima.org/" title="Esprima">Esprima</a>、<a href="https://github.com/ternjs/acorn" title="Acorn">Acorn</a>、<a href="https://github.com/eslint/espree" title="espree">espree</a></li>
-</ul></li>
-<li>ASTをtraverseして処理(変換、チェック)する
-
-<ul>
-<li><a href="https://github.com/estools/estraverse" title="estraverse">estraverse</a>、<a href="https://github.com/benjamn/ast-types#ast-traversal" title="ast-types">ast-types</a>、<a href="https://github.com/babel/babel/tree/master/packages/babel-traverse" title="babel-traverse">babel-traverse</a></li>
-<li><a href="https://github.com/Rich-Harris/estree-walker" title="estree-walker">estree-walker</a>、<a href="https://github.com/estools/esrecurse" title="esrecurse">esrecurse</a></li>
-<li>どのライブラリもほぼおなじものを持っている</li>
-</ul></li>
-<li>ASTからJSのコードを生成する(チェックのみの場合は不要)
-
-<ul>
-<li><a href="https://github.com/estools/escodegen" title="escodegen">escodegen</a>、<a href="https://www.npmjs.com/package/babel-generator" title="babel-generator">babel-generator</a>を使う</li>
-<li>ジェネレータはパーサと合わせたツールが必要</li>
-<li>Esprimaならescodegen、babelならbabel-generator</li>
-</ul></li>
-</ul>
-
-<p>Parser、Traverser、Generatorは基本的にセットで同じ系統のツールを使う形になります。</p>
-
-<p>そういうのを考えるのが面倒なので、そこを抽象化するライブラリを作ったりしていました。
-コンセプトの証明的なものなので、実用的に使う場合は未対応の部分があると思います。(維持コストが高い)
-コントリビュートは歓迎です。</p>
-
-<ul>
-<li><a href="https://github.com/azu/ast-source" title="azu/ast-source: AST helper to transform source code.">azu/ast-source: AST helper to transform source code.</a></li>
-</ul>
-
-<h2 id="例-evalの中身を解析したい">例) evalの中身を解析したい</h2>
-
-<p>evalの中を取り出して安全に評価したいというケース</p>
-
-<h3 id="evalの中身">evalの中身</h3>
-<div class="highlight"><pre><code class="language-text" data-lang="text">eval(&quot;var a = 20&quot;)
-</code></pre></div>
-<ul>
-<li><a href="http://kitak.hatenablog.jp/entry/2014/11/15/233649" title="JSのASTを扱うライブラリをつかって、不要なeval呼び出しを除くコードを書いてみた - kitak.blog">JSのASTを扱うライブラリをつかって、不要なeval呼び出しを除くコードを書いてみた - kitak.blog</a></li>
-</ul>
-
-<p>のようにパースして、evalの中身を取り出すことが可能。</p>
-
-<ul>
-<li>何かを防ぐという仕組みから連想できるものはホワイトリスト</li>
-<li>ホワイトリストでevalの中で使えるプロパティの名前などを制限する</li>
-<li>未知のプロパティを見つけらたらその弾く?</li>
-<li>ブラックリストだと何を防止すればいいのかが難しい</li>
-</ul>
-
-<h3 id="解析のフェーズ">解析のフェーズ</h3>
-
-<p>適当な考え方(正しいのかは自信ないけど)</p>
-
-<ol>
-<li>evalのなかを取り出す</li>
-<li>evalのなかのコードをパースする</li>
-<li><strong>安全な部分</strong>だけを取り出す</li>
-<li>安全な部分で評価する</li>
-</ol>
-
-<p><strong>安全な部分</strong> が何かを決める必要がありそう。
-安全でないことが分かったら実行は諦める。</p>
-
-<p>というような考え方でやるのがよくあるケースだと思います。</p>
-
-<h2 id="おわりに">おわりに</h2>
-
-<p>上記のようなチェックツールを書くには、まず<a href="http://eslint.org/" title="ESLint">ESLint</a>のルールを見てみるのが参考になるはずです。</p>
-
-<p>書き換えをしたい場合はそのまま書き換えるとASTのTree内で不整合が起きて大変になります。
-<a href="https://github.com/facebook/jscodeshift" title="jscodeshift">jscodeshift</a>や<a href="https://github.com/benjamn/ast-types#ast-traversal" title="ast-types">ast-types</a>などのライブラリが使えないか検討してみてください。</p>
-
-<p>また、同様の機能を持つツールがどういうライブラリを使っているかを調べてみるのが近道になるはずです。
-例えば、モジュールbundleツールの<a href="https://github.com/rollup/rollup" title="rollup">rollup</a>は<a href="https://github.com/Rich-Harris/magic-string" title="magic-string">magic-string</a>というライブラリで文字列の操作をしていることが分かります。</p>
-
-<p>現在のASTの状況はESTreeより先のデファクトがないため新しい構文を扱おうとすると色々考えることが出てきます。
-そういった時には<a href="https://github.com/azu/ast-source" title="ast-source">ast-source</a>のような抽象層が必要になってくるかもしれません。</p>
  ]]></content>
  </entry>
  
