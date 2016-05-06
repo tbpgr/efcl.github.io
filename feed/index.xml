@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-05-06T15:33:38+09:00</updated>
+ <updated>2016-05-06T15:36:04+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -125,6 +125,8 @@
 <ul>
 <li><a href="https://github.com/azu/analyze-desumasu-dearu" title="azu/analyze-desumasu-dearu: 文の敬体(ですます調)、常体(である調)を解析するJavaScriptライブラリ">azu/analyze-desumasu-dearu: 文の敬体(ですます調)、常体(である調)を解析するJavaScriptライブラリ</a></li>
 </ul>
+
+<p>(本当は<a href="https://github.com/azu/textlint-rule-no-mix-dearu-desumasu/issues/4" title="textlint-rule-no-mix*ed*-dearu-desumasu">textlint-rule-no-mix*ed*-dearu-desumasu</a>の方がESLint的なルール名として正しい…)</p>
  ]]></content>
  </entry>
  
