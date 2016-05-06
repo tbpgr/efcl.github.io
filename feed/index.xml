@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-05-06T15:36:04+09:00</updated>
+ <updated>2016-05-06T16:12:38+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -16,9 +16,9 @@
  
  <entry>
    <title>敬体(ですます調)と常体(である調)の表記を統一するtextlintルール</title>
-   <link href="http://efcl.info/2016/05/06/no-mixed-dearu-desumasu-3.0/"/>
+   <link href="http://efcl.info/2016/05/06/no-mixed-dearu-desumasu-2.0/"/>
    <updated>2016-05-06T15:21:00+09:00</updated>
-   <id>http://efcl.info/2016/05/06/no-mixed-dearu-desumasu-3.0</id>
+   <id>http://efcl.info/2016/05/06/no-mixed-dearu-desumasu-2.0</id>
    <content type="html"><![CDATA[ <p><a href="http://textlint.github.io/" title="textlint">textlint</a>向けのルールとして敬体(ですます調)と常体(である調)を一つの文書内でどちらを使うか統一する<a href="https://github.com/azu/textlint-rule-no-mix-dearu-desumasu" title="textlint-rule-no-mix-dearu-desumasu">textlint-rule-no-mix-dearu-desumasu</a>というルールを書きました。</p>
 
 <p>初期からあったのですが、<a href="https://github.com/takuyaa/kuromoji.js" title="kuromoji.js">kuromoji.js</a>で<a href="https://github.com/azu/textlint-rule-no-mix-dearu-desumasu/releases/tag/2.0.0">形態素解析した結果</a>をベースとしたり、明示的にどちらを<a href="https://github.com/azu/textlint-rule-no-mix-dearu-desumasu/releases/tag/2.2.0">優先するかのオプション</a>を追加したので改めて紹介します。</p>
