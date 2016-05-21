@@ -352,6 +352,9 @@ var blog_categories = [
 </code></pre></div>
 <h2 id="オプション">オプション</h2>
 
+<p>追記(2016-05-22): デフォルトでは <code>strict: false</code> にしています。
+<code>strict:false</code>では少し緩めで文末のチェックのみ限定しているので、文中のチェックを入れたい場合は<code>strict: true</code>をオプションに加える必要があります。</p>
+
 <p>このルールでは、本文、見出し、箇条書きをそれぞれ独立してチェックし、その項目内で表記が混在していないかを見つけます。
 なので、本文と見出しの間で表記が混在するのは問題ありません。</p>
 
@@ -376,7 +379,9 @@ var blog_categories = [
         <span class="s2">&quot;no-mix-dearu-desumasu&quot;</span><span class="o">:</span> <span class="p">{</span>
              <span class="s2">&quot;preferInHeader&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="c1">// &quot;である&quot; or &quot;ですます&quot;</span>
              <span class="s2">&quot;preferInBody&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>   <span class="c1">// &quot;である&quot; or &quot;ですます&quot;</span>
-             <span class="s2">&quot;preferInList&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>    <span class="c1">// &quot;である&quot; or &quot;ですます&quot;</span>
+             <span class="s2">&quot;preferInList&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>    <span class="c1">// &quot;である&quot; or &quot;ですます&quot;</span>
+             <span class="c1">// 文末以外でも、敬体(ですます調)と常体(である調)を厳しくチェックするかどうか</span>
+             <span class="s2">&quot;strict&quot;</span><span class="o">:</span> <span class="kc">false</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -384,9 +389,10 @@ var blog_categories = [
 <p>例えば、以下の例だと</p>
 
 <ul>
-<li>見出しは&quot;自動&quot;(多く使われてる表記に統一を促す</li>
+<li>見出しは&quot;自動&quot;(多く使われてる表記に統一を促す)</li>
 <li>本文は&quot;ですます&quot;</li>
 <li>箇条書きは&quot;である&quot;</li>
+<li>Strict modeでチェック</li>
 </ul>
 
 <p>というルールでチェックします。</p>
@@ -395,7 +401,9 @@ var blog_categories = [
         <span class="s2">&quot;no-mix-dearu-desumasu&quot;</span><span class="o">:</span> <span class="p">{</span>
              <span class="s2">&quot;preferInHeader&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="c1">// &quot;である&quot; or &quot;ですます&quot;</span>
              <span class="s2">&quot;preferInBody&quot;</span><span class="o">:</span> <span class="s2">&quot;ですます&quot;</span><span class="p">,</span><span class="c1">// &quot;である&quot; or &quot;ですます&quot;</span>
-             <span class="s2">&quot;preferInList&quot;</span><span class="o">:</span> <span class="s2">&quot;である&quot;</span>    <span class="c1">// &quot;である&quot; or &quot;ですます&quot;</span>
+             <span class="s2">&quot;preferInList&quot;</span><span class="o">:</span> <span class="s2">&quot;である&quot;</span><span class="p">,</span>    <span class="c1">// &quot;である&quot; or &quot;ですます&quot;</span>
+             <span class="c1">// 文末以外でも、敬体(ですます調)と常体(である調)を厳しくチェックするかどうか</span>
+             <span class="s2">&quot;strict&quot;</span><span class="o">:</span> <span class="kc">true</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
