@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "Reactで条件によって出したり消したりするコンポーネントを書いた",
+            "url": "http://efcl.info/2016/05/31/react-toggle-pattern/",
+            "date": "2016-05-31T20:38:00+09:00"
+        },
+        
+        {
             "title": "textlintでAsciidoc/Asciidoctorをサポートするプラグイン",
             "url": "http://efcl.info/2016/05/08/textlint-support-asciidoc-loose/",
             "date": "2016-05-08T20:24:00+09:00"

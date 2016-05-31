@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Reactで条件によって出したり消したりするコンポーネントを書いた | Web Scratch
+        
+    </title>
+    <meta name="description" content="&lt;TogglePattern /&gt; というコンポーネントを書きました。">
+    
+    <meta name="keywords" content="React,JavaScript" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="Reactで条件によって出したり消したりするコンポーネントを書いた">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/05/31/react-toggle-pattern/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="&lt;TogglePattern /&gt; というコンポーネントを書きました。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-05-31T20:38:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/05/08/textlint-support-asciidoc-loose/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/05/06/no-mixed-dearu-desumasu-2.0/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/05/02/npm-package-mixed-multiple-versions-demo/">
+
+
+
+
+
+<meta property="article:section" content="javascript">
+
+
+
+
+
+<meta property="article:tag" content="React">
+
+<meta property="article:tag" content="JavaScript">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 155
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 78
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/05/31/react-toggle-pattern/">
+                Reactで条件によって出したり消したりするコンポーネントを書いた
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/05/08/textlint-support-asciidoc-loose/">
+                textlintでAsciidoc/Asciidoctorをサポートするプラグイン
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/05/06/no-mixed-dearu-desumasu-2.0/">
+                敬体(ですます調)と常体(である調)の表記を統一するtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/05/02/npm-package-mixed-multiple-versions-demo/">
+                npmで同じライブラリの複数バージョンをインストールして使う方法
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/05/31/react-toggle-pattern/">
+    <h1 class="post-title">Reactで条件によって出したり消したりするコンポーネントを書いた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年05月31日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-05-31-react-toggle-pattern.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><code>&lt;TogglePattern /&gt;</code> というコンポーネントを書きました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/react-toggle-pattern" title="azu/react-toggle-pattern: React Component that provide toggle pattern">azu/react-toggle-pattern: React Component that provide toggle pattern</a></li>
+</ul>
+
+<p>名前の通りトグルするボタンとかを実装するのを想定して作りましたが、
+もっと汎用的にパターンマッチ的な感じの制御ができるようになってます(A/Bテスト的なやつにも使えそう)</p>
+
+<p>使い方は、<code>children</code>に表示が切り替わる要素を置く形で書くようになっています。
+(こういう親になるコンポーネントってなんというのだろう?)</p>
+
+<p>次の例では<code>isEditing</code>の値が</p>
+
+<ul>
+<li><code>true</code>ならば<code>LeaveEditingButton</code>が表示</li>
+<li><code>false</code>ならば<code>EnterEditingButton</code>が表示</li>
+</ul>
+
+<p>という形になっています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span><span class="nx">TogglePattern</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;react-toggle-pattern&quot;</span><span class="p">;</span>
+<span class="kr">class</span> <span class="nx">ToggleButton</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">TogglePattern</span> <span class="nx">isEditing</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">isEditing</span><span class="p">}</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">LeaveEditingButton</span> <span class="nx">isEditing</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span> <span class="o">/&gt;</span>
+                <span class="o">&lt;</span><span class="nx">EnterEditingButton</span> <span class="nx">isEditing</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span> <span class="o">/&gt;</span>
+            <span class="o">&lt;</span><span class="err">/TogglePattern&gt;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>プログラム的に書くと以下の事をやっているのと同じです。
+ViewからできるだけIf文を消すために、<code>TogglePattern</code>のような宣言的に書けるようにしています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">toggleButton</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">isEditing</span> 
+                     <span class="o">?</span> <span class="o">&lt;</span><span class="nx">LeaveEditingButton</span> <span class="o">/&gt;</span>
+                     <span class="o">:</span> <span class="o">&lt;</span><span class="nx">EnterEditingButton</span> <span class="o">/&gt;</span>
+</code></pre></div>
+<p>条件が1つだけならORかANDなのか気にしなくていいですが、<code>&lt;TogglePattern /&gt;</code>は複数条件にも対応しています。
+<code>&lt;TogglePattern /&gt;</code>は<code>&lt;ToggleOrPattern /&gt;</code>のエイリアスです。</p>
+
+<p><strong>OR</strong></p>
+
+<p>OR条件で表示を制御したい場合は<code>&lt;ToggleOrPattern /&gt;</code>が利用できます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">ToggleOrPattern</span> <span class="nx">a</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">LeaveEditingButton</span> <span class="nx">a</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span> <span class="nx">b</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">EnterEditingButton</span> <span class="nx">a</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="err">/ToggleOrPattern&gt;</span>
+</code></pre></div>
+<p>両方共条件を満たしているので、両方とも表示します。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;TogglePattern ToggleOrPattern&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">LeaveEditingButton</span> <span class="nx">a</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span> <span class="nx">b</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">EnterEditingButton</span> <span class="nx">a</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="err">/div&gt;</span>
+</code></pre></div>
+<p><strong>AND</strong></p>
+
+<p>AND条件で表示を制御したい場合は<code>&lt;ToggleAndPattern /&gt;</code>が利用できます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">ToggleAndPattern</span> <span class="nx">a</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span> <span class="nx">b</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">LeaveEditingButton</span> <span class="nx">a</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span> <span class="nx">b</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">EnterEditingButton</span> <span class="nx">a</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="err">/ToggleAndPattern&gt;</span>
+</code></pre></div>
+<p>これはAND条件でマッチするのは <code>LeaveEditingButton</code> だけなので、次のような結果になります。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">LeaveEditingButton</span> <span class="nx">a</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span> <span class="nx">b</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span> <span class="o">/&gt;</span>
+</code></pre></div>
+<p>条件の値には真偽値以外も使えます。
+次の例では<code>pattern</code>に指定した文字列と一致するものが表示されます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">TogglePattern</span> <span class="nx">pattern</span><span class="o">=</span><span class="s2">&quot;one&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">ComponentX</span> <span class="nx">pattern</span><span class="o">=</span><span class="s2">&quot;one&quot;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">ComponentY</span> <span class="nx">pattern</span><span class="o">=</span><span class="s2">&quot;two&quot;</span><span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="err">/TogglePattern&gt;</span>
+</code></pre></div>
+<p>なので、結果は<code>&lt;ComponentY /&gt;</code>となります。</p>
+
+<h2 id="実装">実装</h2>
+
+<p>実装は大した事はやってないですが、テストを<a href="https://github.com/airbnb/enzyme" title="enzyme">enzyme</a>で書いています。
+普通にReact Componentのテストを書けるので面白い感じがします。</p>
+
+<ul>
+<li><a href="https://github.com/azu/react-toggle-pattern/blob/master/test/react-toggle-pattern-test.js" title="react-toggle-pattern/react-toggle-pattern-test.js at master · azu/react-toggle-pattern">react-toggle-pattern/react-toggle-pattern-test.js at master · azu/react-toggle-pattern</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-05-31-react-toggle-pattern.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["React","JavaScript"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=React">React</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>
