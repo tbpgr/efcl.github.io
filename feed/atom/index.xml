@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-05-31T20:58:45+09:00</updated>
+ <updated>2016-06-06T22:41:01+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,257 @@
  </author>
  
 
+ 
+ <entry>
+   <title>JavaScript Plugin Architectureというプラグイン設計について学ぶ無料の電子書籍を書いた</title>
+   <link href="http://efcl.info/2016/06/06/JavaScript-Plugin-Architecture/"/>
+   <updated>2016-06-06T09:36:00+09:00</updated>
+   <id>http://efcl.info/2016/06/06/JavaScript-Plugin-Architecture</id>
+   <content type="html"><![CDATA[ <p><a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="JavaScript Plugin Architecture">JavaScript Plugin Architecture</a>というJavaScriptにおけるプラグイン設計についての電子書籍を書きました。</p>
+
+<p>この書籍はJavaScriptのライブラリやツールにおけるプラグインアーキテクチャについて見ていく事を目的としたものです。</p>
+
+<p>以下の形式で読むことができます。</p>
+
+<ul>
+<li><a href="https://azu.gitbooks.io/javascript-plugin-architecture/content/">Web版</a></li>
+<li><a href="https://www.gitbook.com/download/pdf/book/azu/javascript-plugin-architecture">PDF形式</a> - <a href="https://github.com/azu/JavaScript-Plugin-Architecture/issues/106">レンダリングに難あり</a></li>
+<li><a href="https://www.gitbook.com/download/epub/book/azu/javascript-plugin-architecture">ePub形式</a></li>
+<li><a href="https://www.gitbook.com/download/mobi/book/azu/javascript-plugin-architecture">Mobi形式</a></li>
+</ul>
+
+<p><a href="https://github.com/azu/JavaScript-Plugin-Architecture">GitHub</a>上にソースコードも公開されているでので直接Markdownファイルを読むこともできます。
+Markdownよりは<a href="https://azu.gitbooks.io/javascript-plugin-architecture/content/">Web版</a>の方が見やすいのでそちらをオススメします。</p>
+
+<p>Twitterのハッシュタグは<a href="https://twitter.com/search?f=tweets&amp;q=%23js_plugin_book&amp;src=typd" title="Twitter #js_plugin_book">#js_plugin_book</a></p>
+
+<p>更新情報は<a href="https://github.com/azu/JavaScript-Plugin-Architecture/releases.atom">RSS</a>や<a href="https://github.com/azu/JavaScript-Plugin-Architecture/releases">リリースノート</a>から見ることができます。</p>
+
+<h2 id="v1-0-0">v1.0.0</h2>
+
+<p>最初に<a href="https://github.com/azu/JavaScript-Plugin-Architecture/issues?q=label%3Aproposal+is%3Aclosed">書くと決めたプラグインアーキテクチャ</a>が揃ったので<a href="https://github.com/azu/JavaScript-Plugin-Architecture/releases/tag/1.0.0" title="1.0.0">1.0.0</a>としてリリースしました。
+<a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a>の時と同じく、継続的に更新できる仕組みを色々入れてあるので新しいプラグインアーキテクチャのProposalが出たら書いていく感じになると思います。</p>
+
+<ul>
+<li><a href="http://efcl.info/2014/0623/res3943/" title="JavaScript Promiseの本を書きました | Web Scratch">JavaScript Promiseの本を書きました | Web Scratch</a></li>
+</ul>
+
+<p>このツール/ライブラリで使われてるプラグインの仕組みは面白いというようなものがあれば、ProposalをIssueに書いてみてください。
+<a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/master/CONTRIBUTING.md" title="CONTRIBUTING.md">CONTRIBUTING.md</a>にProposalの書き方を載せています。</p>
+
+<h2 id="はじめに">はじめに</h2>
+
+<p>JavaScriptの世界では1つの大きなライブラリよりも小さいなものを組み合わせていくようなスタイルが多く見られます。
+小さなものを組み合わせて作るためには、プラグインと呼ばれるような拡張の仕組みが必要となります。
+またそのようなプラグインがたくさんあるエコシステムの土台を作るには、プラグインアーキテクチャが重要になると言えます。</p>
+
+<blockquote>
+<p>ソフトウェアの構造に「プラグイン機構」を設け、ユーザコミュニティから開発者コミュニティへの質的な転換を図るのは、ソフトウェア設計からエコシステム設計へとつながる<br>
+-- <a href="http://t-wada.hatenablog.jp/entry/active-oss-development-vs-simplicity" title="OSS開発の活発さの維持と良いソフトウェア設計の間には緊張関係があるのだろうか? - t-wadaのブログ">OSS開発の活発さの維持と良いソフトウェア設計の間には緊張関係があるのだろうか? - t-wadaのブログ</a></p>
+</blockquote>
+
+<p>この書籍では、JavaScriptにおけるプラグインアーキテクチャやそのエコシステムを形成してるライブラリやツールなどの実装を学ぶことが目的となっています。</p>
+
+<p>何も断りなしにECMAScript 2015で書いてるので、JavaScriptの文法の説明は基本的にしてないのでご了承ください。</p>
+
+<h2 id="この書籍の内容について">この書籍の内容について</h2>
+
+<p>現状の書籍の概要をまとめてると以下のようなライブラリやツールについて書かれています。
+大体の章は<a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/master/CONTRIBUTING.md#proposal%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9" title="Proposal">Proposal</a>に沿って書いていたので、次のような項目になっています。</p>
+
+<ul>
+<li>どう書ける?</li>
+<li>どういう仕組み?</li>
+<li>実装してみよう</li>
+<li>どういう用途に向いている?</li>
+<li>どういう用途に向いていない?</li>
+<li>この仕組みを使っているもの</li>
+<li>エコシステム</li>
+</ul>
+
+<h3 id="jquery"><a href="https://azu.gitbooks.io/javascript-plugin-architecture/content/ja/jQuery/README.md">jQuery</a></h3>
+
+<p>jQueryのプラグインについて解説しています。
+<code>&lt;script&gt;</code>タグをベースとしたプラグインアーキテクチャについて解説しています。</p>
+
+<h3 id="eslint"><a href="https://azu.gitbooks.io/javascript-plugin-architecture/content/ja/ESLint/README.md">ESLint</a></h3>
+
+<p>ESLintのルールを拡張する仕組みについて解説しています。
+ESLintではJavaScriptのコードをパースして作成されたASTを元にコードのLintを行います。
+実際にESLintのルールを解釈できる小さな実装を作りながらプラグインの仕組みについて学びます。</p>
+
+<h3 id="connect"><a href="https://azu.gitbooks.io/javascript-plugin-architecture/content/ja/connect/README.md">Connect</a></h3>
+
+<p>Connectの <strong>middleware</strong> と呼ばれるプラグインアーキテクチャについて解説しています。
+Node.js以外においても<em>Rack</em>などHTTPサーバーでよく見られるプラグインを使った階層構造について学びます。</p>
+
+<h3 id="gulp"><a href="https://azu.gitbooks.io/javascript-plugin-architecture/content/ja/gulp/README.md">gulp</a></h3>
+
+<p><strong>タスク自動化ツール</strong>として知られるgulpのプラグインアーキテクチャについて解説しています。
+gulpではデータの流れとして既存のNode.js Streamを使い、そこで流すデータとしてvinylオブジェクトを利用します。
+実際にgulpプラグインを書きながら、gulpのプラグインの仕組みについて学びます。</p>
+
+<h3 id="redux"><a href="https://azu.gitbooks.io/javascript-plugin-architecture/content/ja/Redux/README.md">Redux</a></h3>
+
+<p>アプリケーションのStateを管理ライブラリのReduxのプラグインアーキテクチャについて解説しています。
+Reduxでは <strong>Middleware</strong> と呼ばれる拡張の仕組みを持っていますが、Connectとの類似点や相違点があります。
+小さなReduxの実装を作りながら <strong>Middleware</strong> の仕組みについて学びます。</p>
+
+<h2 id="contributing">Contributing</h2>
+
+<p>この書籍は無料で読むことができ、同時に修正や新しいページを書く権利があります。</p>
+
+<p><a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>に、書籍で扱うべきプラグインアーキテクチャのProposalの書き方や
+Pull Request、コミットのやりかたなどが書かれています。</p>
+
+<p>間違いやライブラリのアップデートへの追従など何かあれば、IssueやPull Requestをよろしくお願いします。</p>
+
+<p>ソースコードは全てGitHubに公開されています。</p>
+
+<ul>
+<li><a href="https://github.com/azu/JavaScript-Plugin-Architecture">azu/JavaScript-Plugin-Architecture</a></li>
+</ul>
+
+<h2 id="license">License</h2>
+
+<p>MIT/CC BY-NC © azu</p>
+
+<ul>
+<li>コードはMITライセンスで利用できます</li>
+<li>文章は<a href="http://creativecommons.org/licenses/by-nc/4.0/" title="CC BY-NC 4.0">CC BY-NC 4.0</a>で利用できます</li>
+</ul>
+
+<h2 id="もう一つの目的">もう一つの目的</h2>
+
+<p>この書籍のテーマ先ほど書いたようにプラグインの仕組みについて学ぶという目的を持っています。
+しかし、この書籍を書くことにした目的はまた別にあります。</p>
+
+<p>以下のIssueがこの書籍の起点となっています。</p>
+
+<ul>
+<li><a href="https://github.com/azu/azu/issues/60" title="色々なプラグイン機構のパターン · Issue #60 · azu/azu">色々なプラグイン機構のパターン · Issue #60 · azu/azu</a></li>
+</ul>
+
+<p>このIssueよりさらに前に、電子書籍の開発環境について考えるというIssueが半分の目的です。</p>
+
+<blockquote>
+<p>目的: もっと気軽に書ける電子書籍
+もっと簡単に色々自動化できる電子書籍の書き方についてを考える。</p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/azu/azu/issues/42">[Markdown] 電子書籍開発環境 · Issue #42 · azu/azu</a></li>
+</ul>
+
+<p>この書籍を書きながら考えた電子書籍のセットアップや継続的な開発については以下などで発表しています。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/09/28/easy-to-create-ebook/">今すぐ電子書籍(技術書)を書き始める方法と文章の自動チェック | Web Scratch</a></li>
+<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/">Introduction | 技術文書をソフトウェア開発する話</a></li>
+</ul>
+
+<p>いつもどおり<a href="http://azu.github.io/promises-book/#about-author">手段と目的が逆転</a>しているので、
+<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>の開発を進めるためにこの書籍を開発していた部分も大きいです。</p>
+
+<p>textlintで日本語の文章をチェックするために論文やRedPenなど既存のLinterを参考に色々なルールを実装しましたが、ルールの実験場として<a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="JavaScript Plugin Architecture">JavaScript Plugin Architecture</a>を使っていました。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule" title="Collection of textlint rule · textlint/textlint Wiki">Collection of textlint rule · textlint/textlint Wiki</a></li>
+</ul>
+
+<p>自分が実装するtextlintのルールはfalse positiveにならない事を目標にしています。
+そのルールに問題ないかを測ることができ、ある程度量があり、自由にいじれる文章が欲しかったので<a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="JavaScript Plugin Architecture">JavaScript Plugin Architecture</a>を書いていた部分もあります。</p>
+
+<p>なので、JavaScript Plugin Architectureの<a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/master/.textlintrc" title=".textlintrc">.textlintrc</a>はいろんなルールが詰め込まれています。
+(後で整理してプリセットとか作るかもしれません。)</p>
+
+<p><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/">技術文書をソフトウェア開発する話</a>でも書いてましたが、自然言語はプログラミング言語と違って正解がないので、汎用的なルールを作るのは結構難しいです。</p>
+
+<blockquote>
+<p>自然言語処理のほとんどの技術は形態素解析が正しく行われていることを前提に設計されているので、
+(中略) 文字レベルで誤った日本語入力に対する校正の大部分は当面困難と予想する。
+残念ながら誤った日本語入力に対する形態素解析の研究はきわめて少ないのが現状
+-- <a href="%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E6%8A%80%E8%A1%93%E3%81%AE%E7%8F%BE%E7%8A%B6%E3%81%A8%E5%B1%95%E6%9C%9B">https://ipsj.ixsq.nii.ac.jp/ej/index.php?action=pages_view_main&amp;active_action=repository_view_main_item_snippet&amp;index_id=8404&amp;pn=1&amp;count=20&amp;order=7&amp;lang=japanese&amp;page_id=13&amp;block_id=8</a></p>
+</blockquote>
+
+<p>とか書かれてるぐらいなので、textlintではルールを簡単に作って公開できる所に注力しています。
+オレオレ<a href="http://efcl.info/2015/09/10/introduce-textlint/">ルール</a>、<a href="http://efcl.info/2016/04/08/textlint-sharable-config/">設定</a>や<a href="http://efcl.info/2015/12/30/textlint-preset/">プリセット</a>などをどんどん公開するといいです。</p>
+
+<p>また、textlint自体もデフォルトでルールを持っていなかったり、プラガブルな実装になっています。</p>
+
+<p>ルールを処理する仕組みはESLintと同じですが、<a href="https://github.com/textlint/textlint/blob/master/docs/plugin.md">パーサ</a>、<a href="https://github.com/textlint/textlint/blob/master/docs/rule.md">ルール</a>、ルールのエラーを無視する範囲を決める<a href="https://github.com/textlint/textlint/blob/master/docs/filter-rule.md">フィルタールール</a>、<a href="https://github.com/textlint/textlint/blob/master/src/messages/MessageProcessManager.js">フィルター実現するロジック</a>、<a href="https://github.com/textlint/textlint-formatter">出力フォーマッター</a>など大部分がプラガブルな実装です。</p>
+
+<ul>
+<li><a href="https://azu.gitbooks.io/javascript-plugin-architecture/content/ja/ESLint/" title="ESLint · JavaScript Plugin Architecture">ESLint · JavaScript Plugin Architecture</a></li>
+</ul>
+
+<p>そういうプラグインの実装方法についても<a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="JavaScript Plugin Architecture">JavaScript Plugin Architecture</a>では書いているので、興味がある人は見てみてください。</p>
+
+<h3 id="継続的に書く">継続的に書く</h3>
+
+<p>継続的に書くにはやっぱりCIを回してテストしないと辛いので、JavaScript Plugin Architectureでは次のようなテストが走っています。</p>
+
+<ul>
+<li>サンプルコードのテスト
+
+<ul>
+<li>Mochaで動かすユニットテスト</li>
+<li><a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/dee986289576598d7f9725d84ab3ba4dcb961d57/package.json#L28">https://github.com/azu/JavaScript-Plugin-Architecture/blob/dee986289576598d7f9725d84ab3ba4dcb961d57/package.json#L28</a></li>
+</ul></li>
+<li>サンプルコードの実行テスト
+
+<ul>
+<li><code>*-example.js</code>は単独で実行できるというルールにして実行させてエラーにならないかテスト</li>
+<li><a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/dee986289576598d7f9725d84ab3ba4dcb961d57/package.json#L27">https://github.com/azu/JavaScript-Plugin-Architecture/blob/dee986289576598d7f9725d84ab3ba4dcb961d57/package.json#L27</a></li>
+</ul></li>
+<li>textlint
+
+<ul>
+<li>文章のチェック</li>
+<li><a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/dee986289576598d7f9725d84ab3ba4dcb961d57/package.json#L26">https://github.com/azu/JavaScript-Plugin-Architecture/blob/dee986289576598d7f9725d84ab3ba4dcb961d57/package.json#L26</a></li>
+</ul></li>
+<li>ESLint
+
+<ul>
+<li>サンプルコードのスタイルチェック</li>
+<li>インラインコードブロックで埋め込んだサンプルコードのチェック</li>
+</ul></li>
+<li>文章のカバレッジ
+
+<ul>
+<li><a href="http://efcl.info/2016/01/12/textlint-coverage/" title="textlintで文章カバレッジレポートを継続的に見ていく | Web Scratch">textlintで文章カバレッジレポートを継続的に見ていく | Web Scratch</a></li>
+<li><a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/dee986289576598d7f9725d84ab3ba4dcb961d57/package.json#L32">https://github.com/azu/JavaScript-Plugin-Architecture/blob/dee986289576598d7f9725d84ab3ba4dcb961d57/package.json#L32</a></li>
+</ul></li>
+</ul>
+
+<p>この辺をすぐ使えるGitBookのスターターキットも公開してるので興味がある人は触ってみると面白いかもしれません。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/09/28/easy-to-create-ebook/" title="今すぐ電子書籍(技術書)を書き始める方法と文章の自動チェック | Web Scratch">今すぐ電子書籍(技術書)を書き始める方法と文章の自動チェック | Web Scratch</a></li>
+</ul>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p><a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="JavaScript Plugin Architecture">JavaScript Plugin Architecture</a>をひとまずリリースしました。
+世の中にはまだまだおもしろいプラグインの仕組みがあるので、面白いものがあったら<a href="https://github.com/azu/JavaScript-Plugin-Architecture/blob/master/CONTRIBUTING.md#proposal%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9" title="Proposal">Proposal</a>のIssueを書いていただけると更新される気がします。</p>
+
+<p>JavaScriptのライブラリを書くときにいろんなプラグインの仕組みをぱっと読めるものがあると便利なので、
+他にも面白い仕組みの話を追加してくれる人も募集中です。</p>
+
+<p>最近、プラガブルな<a href="https://github.com/azu/bellows-logger">ロガーライブラリ</a>を実装していて、<a href="https://azu.gitbooks.io/javascript-plugin-architecture/content/ja/connect/index.html" title="Connect · JavaScript Plugin Architecture">Connect · JavaScript Plugin Architecture</a>や<a href="https://github.com/azu/JavaScript-Plugin-Architecture/issues/101">Web Audio API</a>を参考にしたので、こういうのがあると便利です。</p>
+
+<p>今現在、電子書籍を書く環境は簡単に揃います。
+ブログでは収まらなそうなちょっとした内容を電子書籍という体裁でまとめてみたりすると面白いかもしれません。</p>
+
+<blockquote>
+<p>技術書は一日で書き終わらない
+途中で飽きてしまう問題
+-- <a href="https://azu.gitbooks.io/nodefest-technical-writing/content/slide/25.html" title="技術書を書く環境はできたが… | 技術文書をソフトウェア開発する話">技術書を書く環境はできたが… | 技術文書をソフトウェア開発する話</a></p>
+</blockquote>
+
+<p>今はまた別のJavaScript本を書いていますが、継続的に文書開発できる環境についてはまだまだ考える事が多そうです。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>Reactで条件によって出したり消したりするコンポーネントを書いた</title>
@@ -1751,326 +2002,6 @@ React + CSSのコンポーネント志向とドメイン的なJavaScriptの設�
 
 <ul>
 <li><a href="https://github.com/azu/presentation-annotator" title="azu/presentation-annotator: viewing presentation and annotate.">azu/presentation-annotator: viewing presentation and annotate.</a></li>
-</ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>Shibuya.XSS techtalk #7 アウトラインメモ</title>
-   <link href="http://efcl.info/2016/03/28/shibuyaxss/"/>
-   <updated>2016-03-28T21:41:00+09:00</updated>
-   <id>http://efcl.info/2016/03/28/shibuyaxss</id>
-   <content type="html"><![CDATA[ <p><a href="http://shibuyaxss.connpass.com/event/28232/" title="Shibuya.XSS techtalk #7">Shibuya.XSS techtalk #7</a>に参加してきたのでメモ</p>
-
-<hr>
-
-<h2 id="超絶技巧-csrf-mala">超絶技巧 CSRF - mala</h2>
-
-<p>スライド: <a href="https://speakerdeck.com/mala/shibuya-dot-xss-techtalk-number-7" title="超絶技巧CSRF / Shibuya.XSS techtalk #7 // Speaker Deck">超絶技巧CSRF / Shibuya.XSS techtalk #7 // Speaker Deck</a></p>
-
-<ul>
-<li>CSRFについて</li>
-<li>クロスサイトでリクエストを強制する脆弱性
-
-<ul>
-<li>書き込み</li>
-<li>パスワードの削除</li>
-</ul></li>
-<li>未だによくある
-
-<ul>
-<li>XSSは正しく書いていれば防げる</li>
-<li>CSRFは未だによくある</li>
-</ul></li>
-<li>CSRFは事後対処になりやすい
-
-<ul>
-<li>投票とか掲示板とか事後対処になりやすい</li>
-<li>リスクの高いCSRFの紹介</li>
-</ul></li>
-<li>アカウント乗っ取り
-
-<ul>
-<li>危険なCSRF</li>
-<li>パスワードの変更</li>
-<li>メールアドレスの変更</li>
-</ul></li>
-<li>連携アカウント追加
-
-<ul>
-<li>OAuth2.0 + stateパラメータで防げる</li>
-</ul></li>
-<li>いろんなものにCSRFする
-
-<ul>
-<li>JSONやXMLを送る</li>
-<li>form enctype=text/plainを使う</li>
-<li>CSRFでmemcached protocolとして解釈可能なものをCSRFで送れる</li>
-</ul></li>
-<li>HTML Form protocol attach
-
-<ul>
-<li>Cross-Protocl スクリプトアタック</li>
-<li>よくあるportはブロックされる</li>
-<li>NoSQLサーバとかはブロックされてないので、攻撃出来ることがある</li>
-</ul></li>
-<li>昔との違い
-
-<ul>
-<li>バイナリをアップロード出来るようになってる</li>
-<li>multipart/form-dataをCSRF =&gt; 可能</li>
-<li>CORSのプリフライト対象外</li>
-</ul></li>
-<li>デモ
-
-<ul>
-<li>Memcachedにform経由で書き込むデモ</li>
-<li>アプロケーションに任意のデータを書き込んだ任意のコード実行みたいなことができてしまう</li>
-</ul></li>
-<li>認証を突破するCSRF
-
-<ul>
-<li>Redisだとパスワードをかけられる</li>
-<li>Redisのパスワード認証
-
-<ul>
-<li>パスワードが既知だと同じ</li>
-</ul></li>
-</ul></li>
-<li>CSRFで突破できる認証
-
-<ul>
-<li>CSRFはレスポンスが取れない</li>
-<li>チャレンジ&amp;レスポンス系は突破できない</li>
-</ul></li>
-<li>ミドルウェアへのCSRF対策
-
-<ul>
-<li>隔離するものはちゃんと隔離する</li>
-<li>退職者向けバックドアは残さない</li>
-</ul></li>
-<li>Well-known port
-
-<ul>
-<li><a href="https://fetch.spec.whatwg.org/#port-blocking" title="3.5 Port blocking">3.5 Port blocking</a></li>
-<li>Fetch APIで定義されてる</li>
-<li>コレ以外はブロックされないので、CSRF経由での攻撃ができる</li>
-</ul></li>
-<li>プロセス間でやり取りする場合は相互認証をちゃんとやる</li>
-<li>Cross protocolなCSRF + xhr.send(blob)でバイナリを送れる :new:
-
-<ul>
-<li>新しい脆弱性は生まれるかも</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="pathでxssする技術-masato-kinugawa">PATHでXSSする技術 - Masato Kinugawa</h2>
-
-<p>スライド: <a href="https://speakerdeck.com/masatokinugawa/shibuya-dot-xss-techtalk-number-7" title="明日から使える?! PATHでXSSする技術/ Shibuya.XSS techtalk #7 // Speaker Deck">明日から使える?! PATHでXSSする技術/ Shibuya.XSS techtalk #7 // Speaker Deck</a></p>
-
-<ul>
-<li><code>https://host/path?key=a#b</code></li>
-<li>クエリとかハッシュ以外もXSSに使える</li>
-<li><code>$_SERVER</code> 
-
-<ul>
-<li>PHP</li>
-<li><code>REQUEST_URI</code>
-
-<ul>
-<li>Firefox, Chrome</li>
-<li>IEはリダイレクトするとなぜがPATHの部分がエスケープされない</li>
-</ul></li>
-</ul></li>
-<li>その他のパスでのXSS
-
-<ul>
-<li>RPO(Relative Path Overwrite)
-
-<ul>
-<li>相対パスを上書きを引き起こすXSS</li>
-</ul></li>
-</ul></li>
-<li><code>location.pathname</code>
-
-<ul>
-<li>パスを取得するためのプロパティ
-
-<ul>
-<li><code>&#39;=()</code>などはエスケープされない</li>
-</ul></li>
-</ul></li>
-<li><a href="http://shibuya.vulnerabledoma.in/jizen" title="Shibuya.XSS JIZEN-GAKUSHU Challenge">Shibuya.XSS JIZEN-GAKUSHU Challenge</a>
-
-<ul>
-<li>解説</li>
-</ul></li>
-</ul>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;img class=&quot;log&quot; src=&quot;/payloadLogger?url=&#39;</span> <span class="o">+</span> <span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span> <span class="o">+</span> <span class="s2">&quot;//&quot;</span> <span class="o">+</span> <span class="nx">location</span><span class="p">.</span><span class="nx">host</span> <span class="o">+</span> <span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span> <span class="o">+</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">)</span> <span class="o">+</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&quot;&gt;&#39;</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
-<ul>
-<li><code>aaa/..%2F</code></li>
-<li>IE
-
-<ul>
-<li>iframe経由でドキュメントモードを古い動作をあえて呼び出す</li>
-<li>親のドキュメントモードがiframeにも継承される
-
-<ul>
-<li><a href="https://msdn.microsoft.com/en-us/library/gg622935(v=vs.85).aspx" title="Understanding the Compatibility view list (Windows)">Understanding the Compatibility view list (Windows)</a></li>
-<li>互換性</li>
-</ul></li>
-<li>AllowEncodeedSlashedの動作を利用してパス先頭に<code>javascript:</code>を書く</li>
-<li><a href="http://shibuya.vulnerabledoma.in/jizen" title="Shibuya.XSS JIZEN-GAKUSHU Challenge">Shibuya.XSS JIZEN-GAKUSHU Challenge</a></li>
-</ul></li>
-<li>IE
-
-<ul>
-<li><code>http</code>から<code>mshtml</code>へreplaceStateができる</li>
-<li>SafariもBlob+replaceStateができる</li>
-</ul></li>
-</ul>
-
-<p>事前課題</p>
-
-<ul>
-<li><a href="https://twitter.com/kinugawamasato/status/713307732628021248" title="Masato Kinugawa on Twitter: &amp;#34;Dear XSSer, two XSS challenges are here. Can you solve it? :) https://t.co/xyi8qoyJBL https://t.co/jhiZMDZh1l&amp;#34;">Masato Kinugawa on Twitter: &quot;Dear XSSer, two XSS challenges are here. Can you solve it? :) https://t.co/xyi8qoyJBL https://t.co/jhiZMDZh1l&quot;</a></li>
-</ul>
-
-<hr>
-
-<h2 id="electronのセキュリティの話-hasegawa">Electronのセキュリティの話 - hasegawa</h2>
-
-<p>スライド: <a href="http://utf-8.jp/public/2016/0328/shibuyaxss.pdf" title="shibuyaxss.pdf">Electronのはなし</a></p>
-
-<ul>
-<li>Electron vs. CSP
-
-<ul>
-<li>レンダラにCSPを適用しても</li>
-<li><code>webview</code>タグ内で任意コード実行ができる</li>
-<li>CSPでは(Electronの)XSSを防げない</li>
-</ul></li>
-<li>WebViewタグを使わないでXSSするパターン
-
-<ul>
-<li>レンダラ内は同一オリジン以外のリソースは禁止</li>
-<li>外部リソースを<code>innerHTML</code>で読ませれも発火しない</li>
-<li>表示されるページと同じオリジンなら可能</li>
-<li><code>innerHTML = &lt;iframe src=&quot;&lt;同じオリジン&gt;&quot;&gt;</code>はいける</li>
-<li><code>file://</code>で悪意があるものがあれば、任意コード実行できそう</li>
-</ul></li>
-<li>同一オリジン
-
-<ul>
-<li>ディレクトリと関係なく全てが同一オリジン in <code>file://</code></li>
-<li>Chrome 45では修正が入ってる: <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=455882" title="Issue 455882 - chromium - Treat file:// URLs as having unique origin - Monorail">Issue 455882 - chromium - Treat file:// URLs as having unique origin - Monorail</a></li>
-<li>Electronもそのうち直る?</li>
-</ul></li>
-<li>悪意のあるファイル in <code>file://</code>
-
-<ul>
-<li>事前にダウンロード</li>
-<li>ファイルサーバを立ち上げて、<code>file://</code>なものを用意しておくと同一オリジンとして認識される</li>
-</ul></li>
-<li>実行できてもNodeの機能が実行できない
-
-<ul>
-<li><code>window.open</code>でNodeを有効にしたウィンドウを開ける</li>
-<li>XSSがあると何でも実行できる</li>
-</ul></li>
-<li>Electronのnodeモジュール探索パス
-
-<ul>
-<li>アプリ外のパスも探索パスとなる</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="http-こいつの-話-shibuya-xss-moe-yagihashoo">http://こいつの:話@shibuya.xss.moe/ - yagihashoo</h2>
-
-<ul>
-<li>パスワード認証の話</li>
-<li>URI
-
-<ul>
-<li>RFC2396で定義、RFC3986で改定される</li>
-<li>RFC1738 URL</li>
-</ul></li>
-<li>各ブラウザの対応状況
-
-<ul>
-<li>IE/Edge以外は大体何か動く</li>
-<li>FirefoxとSafariとかは警告がでて確認される</li>
-<li>Opera PWがマスクされるパターン</li>
-</ul></li>
-<li>Firefox
-
-<ul>
-<li>URLの履歴がそのまま表示される</li>
-</ul></li>
-<li>ベーシック認証をしてるサイトからログアウトできない
-
-<ul>
-<li>ブラウザを終了するしかない</li>
-<li>もう一度同じURLでアクセスするとダイアログはでない</li>
-</ul></li>
-<li>各種ルータの管理画面ハック
-
-<ul>
-<li>管理画面はXSSとかCSRFがよくある</li>
-<li>XSSの条件
-
-<ul>
-<li>ログイン済み</li>
-<li>XSSが発言するURLが既知</li>
-<li>ユーザがわなページを踏む</li>
-</ul></li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="firefoxの話-llamakko_cafe">Firefoxの話 - llamakko_cafe</h2>
-
-<p>関連: <a href="http://blog.vuln.jp/2016/01/firefox5000.html" title="晴れのちバグ( ꒪⌓꒪): Firefoxのバグを見つけて5000ドルの報奨金をもらった話">晴れのちバグ( ꒪⌓꒪): Firefoxのバグを見つけて5000ドルの報奨金をもらった話</a></p>
-
-<ul>
-<li>脆弱性を探す前に
-
-<ul>
-<li>ブラウザの脆弱性探しはハードル高そう</li>
-<li>どんなものが脆弱性</li>
-<li>どんなところに脆弱性</li>
-</ul></li>
-<li>ブラウザの脆弱性?
-
-<ul>
-<li>パッと浮かぶものがあまりない</li>
-<li>引き出しが少ないと脆弱性結びつけるのが難しい</li>
-<li><a href="http://jvndb.jvn.jp/ja/contents/2015/JVNDB-2015-006323.html" title="JVNDB-2015-006323 - JVN iPedia - 脆弱性対策情報データベース">JVNDB-2015-006323 - JVN iPedia - 脆弱性対策情報データベース</a></li>
-</ul></li>
-<li>脆弱性を探す前に
-
-<ul>
-<li>Firefoxセキュリティアドバイザリ</li>
-<li>脆弱性の一覧があって、ソースも見える</li>
-</ul></li>
-<li><a href="http://jvndb.jvn.jp/ja/contents/2015/JVNDB-2015-006413.html" title="JVNDB-2015-006413 - JVN iPedia - 脆弱性対策情報データベース">JVNDB-2015-006413 - JVN iPedia - 脆弱性対策情報データベース</a>
-
-<ul>
-<li>data および view-source URIを通じたクロスサイト読み取り攻撃</li>
-</ul></li>
-<li>Firefoxの脆弱性を見つけたきっかけ
-
-<ul>
-<li>「戻るボタンを押すのがめんどうくさくてhistory.backしてた」</li>
-</ul></li>
 </ul>
  ]]></content>
  </entry>
