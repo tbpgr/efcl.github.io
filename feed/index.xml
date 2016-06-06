@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-06-06T22:46:32+09:00</updated>
+ <updated>2016-06-06T22:47:21+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -135,7 +135,7 @@ Pull Request、コミットのやりかたなどが書かれています。</p>
 
 <h2 id="もう一つの目的">もう一つの目的</h2>
 
-<p>この書籍のテーマ先ほど書いたようにプラグインの仕組みについて学ぶという目的を持っています。
+<p>この書籍のテーマは、先ほど書いたようにプラグインの仕組みについて学ぶという目的を持っています。
 しかし、この書籍を書くことにした目的はまた別にあります。</p>
 
 <p>以下のIssueがこの書籍の起点となっています。</p>
@@ -144,7 +144,7 @@ Pull Request、コミットのやりかたなどが書かれています。</p>
 <li><a href="https://github.com/azu/azu/issues/60" title="色々なプラグイン機構のパターン · Issue #60 · azu/azu">色々なプラグイン機構のパターン · Issue #60 · azu/azu</a></li>
 </ul>
 
-<p>このIssueよりさらに前に、電子書籍の開発環境について考えるというIssueが半分の目的です。</p>
+<p>このIssueよりさらに前に、電子書籍の開発環境について考えるというIssueが目的の半分です。</p>
 
 <blockquote>
 <p>目的: もっと気軽に書ける電子書籍
