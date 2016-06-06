@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-06-06T22:41:01+09:00</updated>
+ <updated>2016-06-06T22:46:32+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -19,7 +19,7 @@
    <link href="http://efcl.info/2016/06/06/JavaScript-Plugin-Architecture/"/>
    <updated>2016-06-06T09:36:00+09:00</updated>
    <id>http://efcl.info/2016/06/06/JavaScript-Plugin-Architecture</id>
-   <content type="html"><![CDATA[ <p><a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="JavaScript Plugin Architecture">JavaScript Plugin Architecture</a>というJavaScriptにおけるプラグイン設計についての電子書籍を書きました。</p>
+   <content type="html"><![CDATA[ <p><a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="JavaScript Plugin Architecture">JavaScript Plugin Architecture</a>というJavaScriptのプラグイン設計についての電子書籍を書きました。</p>
 
 <p>この書籍はJavaScriptのライブラリやツールにおけるプラグインアーキテクチャについて見ていく事を目的としたものです。</p>
 
