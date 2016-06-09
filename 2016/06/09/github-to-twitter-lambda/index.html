@@ -397,7 +397,7 @@ lambdaとdynamodbは毎月無料枠があるので、基本的にこのlambda fu
 <li><code>role</code> はApexのドキュメントに書かれてるようにlambdaの実行するRoleです
 
 <ul>
-<li>後述するpolicyを指定しています。</li>
+<li>後述するpolicyを持ったRoleを作って指定しています。</li>
 </ul></li>
 <li><code>environment</code>は環境変数的な感じですが、ここにToken類を入れています。
 
@@ -417,7 +417,7 @@ lambdaとdynamodbは毎月無料枠があるので、基本的にこのlambda fu
 </code></pre></div>
 <h3 id="lambda-role-policy">Lambda role policy</h3>
 
-<p>Lambda(<code>role&quot;: &quot;arn:aws:iam::xxxxxxxxxxxx&quot;</code>)のroleに指定するpolicyは以下のような感じになってます。
+<p>Lambda(<code>role&quot;: &quot;arn:aws:iam::xxxxxxxxxxxx&quot;</code>)のroleは次のpolicyをもたせています。
 <code>&quot;lambda:*&quot;</code>と<code>&quot;cloudwatch:*&quot;</code>があればとりあえず動く気がします。</p>
 <div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
     <span class="nt">&quot;Version&quot;</span><span class="p">:</span> <span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
