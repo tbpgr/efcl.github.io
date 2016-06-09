@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-06-09T12:41:04+09:00</updated>
+ <updated>2016-06-09T12:45:51+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -170,6 +170,7 @@ npm test
 <li><a href="http://www.misuzilla.org/Distribution/TweetIrcGateway/" title="TweetIrcGateway">TweetIrcGateway</a>っぽい</li>
 <li>それぞれのコンテキストにあった読みやすさがあるので、読みやすい場所に読みたいものを置く</li>
 <li>そういう土管ツールが簡単につくれるともっと良さそう</li>
+<li><a href="http://hoist.io/" title="hoist.io">hoist.io</a> とかそういうサービスの類</li>
 </ul>
  ]]></content>
  </entry>
