@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-06-08T20:50:50+09:00</updated>
+ <updated>2016-06-09T12:26:52+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,165 @@
  </author>
  
 
+ 
+ <entry>
+   <title>lambdaでGitHubのアクティビティをTwitterで読む用のBotを作った</title>
+   <link href="http://efcl.info/2016/06/09/github-to-twitter-lambda/"/>
+   <updated>2016-06-09T09:52:00+09:00</updated>
+   <id>http://efcl.info/2016/06/09/github-to-twitter-lambda</id>
+   <content type="html"><![CDATA[ <p>タイトルどおりですが、<a href="https://aws.amazon.com/jp/lambda/" title="AWS Lambda">AWS Lambda</a>を使って、GitHubのWatchやアクティビティをTwitterに投げるBotを書きました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/github-to-twitter-lambda" title="azu/github-to-twitter-lambda: Lambda bot that fetch own GitHub notifications/events and post to Twitter.">azu/github-to-twitter-lambda: Lambda bot that fetch own GitHub notifications/events and post to Twitter.</a></li>
+</ul>
+
+<p>こんな感じでTwitterにGitHubの<a href="https://github.com/notifications">Notification</a>(Watch)、<a href="https://github.com/">アクティビティ</a>が流れます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2016/06/09-1465433692.png" alt="on Twitter"></p>
+
+<p><strong>注意</strong>: メインで使ってるGitHubアカウントのPersonal Tokenを使うとそのアカウントのNotificationとタイムラインが流れるので、privateの情報とかもなげられてしまうので注意です。</p>
+
+<p>ローカルだけで完結したい場合は以下のようなクライアントで動くタイプのものを利用したほうが良いです。</p>
+
+<ul>
+<li><a href="https://github.com/azu/github-reader" title="azu/github-reader: [node-webkit] GitHub client app - Viewer for Notifications and News Feed.">azu/github-reader: [node-webkit] GitHub client app - Viewer for Notifications and News Feed.</a></li>
+</ul>
+
+<p>GitHubのWatchやアクティビティは読むのが困難なデザインなので、基本読み飛ばしていいTwitterにまとめてしまうと楽な感じがしたので作りました。</p>
+
+<p>自分が関係するような見逃したくない情報は、別の方法で見たほうがいいと思います。</p>
+
+<ul>
+<li><a href="https://github.com/pulls">Pull Requests</a></li>
+<li><a href="https://github.com/issues">Issues</a></li>
+<li><a href="https://github.com/issues/assigned">Issues assigned</a></li>
+<li><a href="http://blog.h13i32maru.jp/entry/2016/06/08/090000">JasperというGitHub Issue Readerを作りました - maru source</a></li>
+<li><a href="http://efcl.info/2015/07/30/github-issue-manager/">自分に関係するGitHub Issueを一覧できるアプリを書いた | Web Scratch</a></li>
+</ul>
+
+<p>導入はREADME通りにやっても動かない場合がありそうなので、そこは頑張って…(Pull Request下さい)</p>
+
+<h2 id="必要なもの">必要なもの</h2>
+
+<ul>
+<li><a href="https://github.com/apex/apex" title="Apex">Apex</a>のインストール</li>
+<li>GitHub token(情報元)</li>
+<li>Twitter token(ポスト先)</li>
+<li>AWSのアカウント</li>
+<li>lambda</li>
+<li>dynamodb</li>
+</ul>
+
+<h2 id="インストール">インストール</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text"> git clone https://github.com/azu/github-to-twitter-lambda.git
+cd github-to-twitter-lambda/functions/notifications
+npm install
+npm run init
+# dynamodbのテーブルを作る
+</code></pre></div>
+<p>dynamodbをロックファイル代わりというか、前回実行した時間の記録だけに使っています。
+lambdaとdynamodbは毎月無料枠があるので、基本的にこのBotでかかる費用は $0から$1以内になる感じです。</p>
+
+<h3 id="config">Config</h3>
+
+<p>サンプルの設定があるのでコピーして編集します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">cp project.example.json project.json
+</code></pre></div>
+<ul>
+<li><code>role</code> はApexのドキュメントに書かれてるようにlambdaの実行するRoleです
+
+<ul>
+<li>後述するpolicyを指定しています。</li>
+</ul></li>
+<li><code>environment</code>は環境変数的な感じですが、ここにToken類を入れています。
+
+<ul>
+<li>実行時に環境変数でも行けるはず</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">    &quot;role&quot;: &quot;arn:aws:iam::xxxxxxxxxxxx&quot;,
+    &quot;defaultEnvironment&quot;: &quot;dev&quot;,
+    &quot;environment&quot;: {
+        &quot;GITHUB_TOKEN&quot;: &quot;GitHub Person token need repo/notification/user&quot;,
+        &quot;TWITTER_CONSUMER_KEY&quot;: &quot;app key&quot;,
+        &quot;TWITTER_CONSUMER_SECRET&quot;: &quot;app secret&quot;,
+        &quot;TWITTER_ACCESS_TOKEN_KEY&quot;: &quot;token key&quot;,
+        &quot;TWITTER_ACCESS_TOKEN_SECRET&quot;: &quot;token  secret&quot;
+    }
+</code></pre></div>
+<h3 id="lambda-role-policy">Lambda role policy</h3>
+
+<p>Lambda(<code>role&quot;: &quot;arn:aws:iam::xxxxxxxxxxxx&quot;</code>)のroleに指定するpolicyは以下のような感じになってます。
+<code>&quot;lambda:*&quot;</code>と<code>&quot;cloudwatch:*&quot;</code>があればとりあえず動く気がします。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;Version&quot;</span><span class="p">:</span> <span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Statement&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;Action&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;dynamodb:*&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lambda:*&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;logs:*&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;cloudwatch:*&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;autoscaling:Describe*&quot;</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;Effect&quot;</span><span class="p">:</span> <span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;Resource&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="deploy">Deploy</h3>
+
+<p><a href="https://github.com/apex/apex" title="Apex">Apex</a>を使ってデプロイします。
+<code>aws configure</code> とかで awsのAPIキーとかを設定しておかないと当然デプロイできません。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">apex deploy notifications
+</code></pre></div>
+<p>詳細は<a href="https://github.com/apex/apex" title="Apex">Apex</a>のドキュメントや以下を見て下さい。</p>
+
+<ul>
+<li><a href="http://dev.classmethod.jp/cloud/aws/how-to-manage-aws-lambda-functions-with-apex/" title="ApexでAWS Lambdaファンクションを管理する ｜ Developers.IO">ApexでAWS Lambdaファンクションを管理する ｜ Developers.IO</a></li>
+</ul>
+
+<h3 id="test">Test</h3>
+
+<p>ローカルでdry-runしたい場合は test.js というのがあるのでそれを実行するといけます(実際にpostはしない)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">cd functions/notifications
+npm test
+</code></pre></div>
+<p><a href="https://github.com/apex/apex" title="Apex">Apex</a>を使って、手元からlambdaを叩いてテストもできます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">apex invoke notifications
+</code></pre></div>
+<h3 id="cron">Cron</h3>
+
+<p>lambdaはデフォルトだと１回実行して終わりなので繰り返し実行することでBotとして動かします
+(lambdaの実行回数による料金は基本無料枠で納まります)</p>
+
+<p><a href="https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/with-scheduled-events.html" title="スケジュールされたイベントでの AWS Lambda の使用 - AWS Lambda">スケジュールされたイベントでの AWS Lambda の使用 - AWS Lambda</a>を使うことで、Cron的に繰り返し実行を設定できます。</p>
+
+<p>自分は2分に一度とかに設定しています。</p>
+
+<p><img src="https://monosnap.com/file/lhJghW8bwKJmTZ3iDugi4B7eklRn5Z.png" alt="image"></p>
+
+<h2 id="まとめ">まとめ</h2>
+
+<ul>
+<li>GitHubのWatchは破綻してる</li>
+<li>GitHub -&gt; Twitter</li>
+<li>TwitterでGitHubを読めるようにした</li>
+<li>Slackは未読に厳しい</li>
+<li>未読を読み飛ばしやすいのはやっぱりTwitterかRSSリーダー</li>
+<li>RSSリーダーもコンテキストが異なる物量には弱い
+
+<ul>
+<li>RSSリーダーはリリースノートだけに絞ってる</li>
+<li><a href="http://efcl.info/2014/07/30/find-github-release/" title="GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch">GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch</a></li>
+</ul></li>
+<li><a href="http://www.misuzilla.org/Distribution/TweetIrcGateway/" title="TweetIrcGateway">TweetIrcGateway</a>っぽい</li>
+<li>それぞれのコンテキストにあった読みやすさがあるので、読みやすい場所に読みたいものを置く</li>
+<li>そういう土管ツールが簡単につくれるともっと良さそう</li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>JavaScript Plugin Architectureというプラグイン設計について学ぶ無料の電子書籍を書いた</title>
@@ -1442,566 +1601,6 @@ power-assertは開発ビルド(テスト中)にしか必要ないので、<code>
 
 <ul>
 <li><a href="http://efcl.info/2015/04/30/npm-namespace/" title="npmで名前空間を持ったモジュールを公開する方法(scoped modules) | Web Scratch">npmで名前空間を持ったモジュールを公開する方法(scoped modules) | Web Scratch</a></li>
-</ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>Node学園 20時限目 アウトラインメモ</title>
-   <link href="http://efcl.info/2016/04/05/tng20/"/>
-   <updated>2016-04-05T23:43:00+09:00</updated>
-   <id>http://efcl.info/2016/04/05/tng20</id>
-   <content type="html"><![CDATA[ <p><a href="http://nodejs.connpass.com/event/29235/" title="Node学園 20時限目">Node学園 20時限目</a>に参加したきたのメモ。</p>
-
-<h2 id="「eslintの話」-by-mysticatea">「eslintの話」 by @mysticatea</h2>
-
-<p>スライド: <a href="https://docs.google.com/presentation/d/1OeKTQieBBTp4dQz8irIM-DxXS-0gUixC1hlOZbfIkqs/edit?usp=sharing" title="ESLint Past and Future - Google スライド">ESLint Past and Future - Google スライド</a></p>
-
-<ul>
-<li>ESLint 12-3% ぐらいのルールを書いた</li>
-<li>JSHintにプラグイン機能が追加するという話はあったけどならなかった</li>
-<li>ESLintの特徴
-
-<ul>
-<li>ASTベースでプラグインという特性</li>
-<li>(以前書いたプラグインの仕組み: <a href="https://azu.gitbooks.io/javascript-plugin-architecture/content/ja/ESLint/index.html" title="ESLint | JavaScript Plugin Architecture">ESLint | JavaScript Plugin Architecture</a>)</li>
-<li>開発者が貢献するのが簡単
-
-<ul>
-<li>コントリビューションガイド</li>
-</ul></li>
-</ul></li>
-<li>開発体制
-
-<ul>
-<li>機能に関しては Reviewer以上</li>
-<li>バグに関しては Committer 以上が確認してマージ</li>
-<li>隔週の金曜日にリリース</li>
-</ul></li>
-<li>ESLint 3.0.0
-
-<ul>
-<li>Stage 4に到達した構文</li>
-<li>Auto FixはIDEと連携して選択式の適応へ
-
-<ul>
-<li>アグレッシブなFixは同時に適応できない問題</li>
-</ul></li>
-<li>Globベースの設定ファイル
-
-<ul>
-<li>RootにGlob的なファイルを置いてカスケードする</li>
-</ul></li>
-<li>より良いカスタムパーサーAPI
-
-<ul>
-<li>babel-eslintがしょっちゅう壊れる</li>
-<li>patchアップデートで壊れる</li>
-</ul></li>
-<li>より良いスタイルルール
-
-<ul>
-<li>indentルールをどうかする</li>
-<li>スタイルルールセットみたいな統一感がない</li>
-</ul></li>
-<li>TypeScriptサポート
-
-<ul>
-<li>ESLintがTypeScriptを扱えるようにする</li>
-<li><a href="https://github.com/eslint/typescript-eslint-parser" title="eslint/typescript-eslint-parser: A TypeScript parser that produces output compatible with ESLint">eslint/typescript-eslint-parser: A TypeScript parser that produces output compatible with ESLint</a></li>
-</ul></li>
-</ul></li>
-</ul>
-
-<h2 id="「amebafresh-tvの話」-by-ahomu">「amebafresh.tvの話」 by @ahomu</h2>
-
-<p>スライド: <a href="http://s.aho.mu/160405-node_school/#" title="Client Side of なんちゃらfresh.tv">Client Side of なんちゃらfresh.tv</a></p>
-
-<ul>
-<li>■■■■fresh.tv</li>
-<li>クライアントサイドの話</li>
-<li>SSRについて
-
-<ul>
-<li>Socket.IO</li>
-<li>HLS</li>
-</ul></li>
-<li>ウェブクライアント
-
-<ul>
-<li>React + Fluxible</li>
-</ul></li>
-<li>サーバ
-
-<ul>
-<li>nignx -&gt; node(クライアントサーバ) -&gt; golang(APIサーバ)</li>
-</ul></li>
-<li>サーバサイドレンダリング
-
-<ul>
-<li>コンポーネント</li>
-<li>サーバサイドレンダリング</li>
-<li>テンプレをクライアント/サーバで共有するのがメイン</li>
-<li>JavaScriptのみでレンダリングだと、クリティカルレンダリングパスが長くなる
-
-<ul>
-<li>初期表示を短くするためのサーバーサイドレンダリング</li>
-</ul></li>
-<li>Fluxible
-
-<ul>
-<li>Flux : fluxible</li>
-</ul></li>
-<li>Rendering
-
-<ul>
-<li>react</li>
-</ul></li>
-<li>Routing
-
-<ul>
-<li>Fluxible</li>
-</ul></li>
-<li>Data Loading
-
-<ul>
-<li>fetchrはサーバ用のService Middlewareとクライント用のProxy Requestを使ってやる</li>
-<li>クライアントとサーバでそれぞれ同じコードだけど、リクエストはProxyで実体は異なる</li>
-</ul></li>
-</ul></li>
-<li>Flux
-
-<ul>
-<li>コンポーネントはスマートUI気味</li>
-<li>必要に応じてStoreに移していく</li>
-<li>他のコンポーネントと共有しないUIの状態はStateを使う</li>
-<li>開発速度を優先した感じ</li>
-<li><code>Context</code>を注入してバケツリレーを回避</li>
-</ul></li>
-<li>SPAについて
-
-<ul>
-<li>メリット
-
-<ul>
-<li>画面遷移が早くなる</li>
-</ul></li>
-<li>デメリット
-
-<ul>
-<li>ブラザナビゲーションを破壊してしまう</li>
-</ul></li>
-</ul></li>
-<li>ウェブサイトは本当にSPAにするべきか
-
-<ul>
-<li>ユーザー操作がリンクをクリックする感じなら、SPAにする意味はそこまでないのでは?</li>
-<li>ウェブアプリ的な(一ページに滞在する必要があるもの)はSPAが良い</li>
-<li>ブラウザのナビゲーションは自分で色々で責任を持つ必要があるので大変</li>
-</ul></li>
-<li>PinP(Picture in Picture)が要件にあったから
-
-<ul>
-<li>この要件があったのでSPAにした</li>
-</ul></li>
-<li>SPAの注意
-
-<ul>
-<li>ルーティング後の画面遷移
-
-<ul>
-<li>読み終わったら、データを画面に反映するべき</li>
-</ul></li>
-<li>スクロール(0,0)もルーティングが終わってから移動する</li>
-<li>ブラウザバックは即座に表示
-
-<ul>
-<li>ブラウザバックなら情報は既知 = キャッシュを使う</li>
-<li>Routing処理が発生してもfetchはスキップ
-
-<ul>
-<li>ここはルーティングで</li>
-</ul></li>
-</ul></li>
-<li>7gogo</li>
-<li>某巨大サービス</li>
-</ul></li>
-<li>ディレクトリ
-
-<ul>
-<li>コンポーネント毎にディレクトリを切ってる </li>
-</ul></li>
-<li>Componentについて
-
-<ul>
-<li>プロジェクト固有のレイヤーで、ここはCSSで上書きOKという感じになってる</li>
-<li>日々デザインは変わるのでゆるめな感じの作り</li>
-</ul></li>
-<li>CSS
-
-<ul>
-<li>SUIT CSS + BEM</li>
-</ul></li>
-<li>コンポーネントはガンガン切る
-
-<ul>
-<li>shouldComponentUpdateを信じて細分化した</li>
-</ul></li>
-<li>CSSの今後
-
-<ul>
-<li><a href="http://bradfrost.com/blog/post/atomic-web-design/" title="Atomic Design | Brad Frost">Atomic Design | Brad Frost</a></li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="「vue-jsの最近の話」-by-kazupon">「vue.jsの最近の話」 by @kazupon</h2>
-
-<p>スライド: <a href="https://speakerdeck.com/kazupon/vue-dot-js-recent-trends" title="Vue.js Recent Trends // Speaker Deck">Vue.js Recent Trends // Speaker Deck</a></p>
-
-<p>(雑談をしていたのでメモできてない)</p>
-
-<h2 id="「nodebotsの話」-by-n0bisuke">「Nodebotsの話」 by @n0bisuke</h2>
-
-<p>スライド: <a href="https://speakerdeck.com/n0bisuke/nodebotsfalsehua-nodexue-yuan-20shi-xian-mu-number-tng20-20fen" title="NodeBotsの話 (Node学園20時限目 #tng20 : 20分) // Speaker Deck">NodeBotsの話 (Node学園20時限目 #tng20 : 20分) // Speaker Deck</a></p>
-
-<ul>
-<li>JavaScriptでハードウェアを操作</li>
-<li>konashi</li>
-<li>mesh</li>
-<li>ハードウェアの機能をNode.jsで制御する
-
-<ul>
-<li>noble</li>
-<li>BT</li>
-</ul></li>
-<li>GPIO
-
-<ul>
-<li>npmにもライブラリがある</li>
-</ul></li>
-<li>NodeBots
-
-<ul>
-<li>JavaScriptでハードウェアを制御するコミュニティ</li>
-</ul></li>
-<li>Node.jsでハードウェアを制御する方法
-
-<ul>
-<li>Cylon.js
-
-<ul>
-<li>Arduinoを制御する</li>
-</ul></li>
-<li>johnny-five
-
-<ul>
-<li>Arduinoなどのハードウェア制御</li>
-<li>こっちを使って始めるのがいいという話</li>
-</ul></li>
-</ul></li>
-<li>始め方
-
-<ul>
-<li>NodeSchool</li>
-<li>workshoperの中にNodeBot Workshopがある</li>
-<li>これを使ってjohnny-fiveの基礎を学ぶことができる</li>
-<li>ハードウェアがなくても始めることができるよという話</li>
-<li>回路図とかも書かれてる</li>
-<li>日本語訳を書いてる最中
-
-<ul>
-<li>ハードウェアも選定したWorkShopの準備中</li>
-</ul></li>
-<li>Arduino Uno R3を使うのが安心</li>
-<li>Genuino 101というもIntellからでてきた
-
-<ul>
-<li>Arduino互換</li>
-</ul></li>
-<li>Tessel 2
-
-<ul>
-<li>Node.jsからの利用を最初から想定しているボード</li>
-<li>no ぎてき</li>
-</ul></li>
-</ul></li>
-<li>PR</li>
-</ul>
-
-<hr>
-
-<h2 id="「option-tでエラーハンドリング」-by-saneyuki">「option-tでエラーハンドリング」 by @saneyuki</h2>
-
-<p>スライド: <a href="http://www.slideshare.net/saneyuki/dont-use-try-catch-in-javascript" title="Don’t use try catch in JavaScript">Don’t use try catch in JavaScript</a></p>
-
-<ul>
-<li>try-catch</li>
-<li>エラーの種類(2種類)
-
-<ul>
-<li>バグが起こすエラー</li>
-<li>回復できるエラー</li>
-</ul></li>
-<li>バグは回復できるのか?
-
-<ul>
-<li>できるわけない</li>
-<li>バグは回復してはいけない</li>
-<li>開発者に通知するべき</li>
-<li>これをtry-catchをがんばっては行けない</li>
-<li>プログラムの整合性が壊れてしまう</li>
-<li>さっさとクラッシュさせて通知する</li>
-</ul></li>
-<li>Type
-
-<ul>
-<li>TypeScriptの型を見るとerrorは<code>any</code>型になってしまう</li>
-</ul></li>
-<li>回復可能なエラー
-
-<ul>
-<li>DOMのエラーとか回復可能なエラーはある</li>
-<li><code>throw-abilty</code> JSDocとかにある</li>
-<li>けどツールはちゃんとそこをチェック出来るものは少ない</li>
-</ul></li>
-<li><a href="http://joeduffyblog.com/2016/02/07/the-error-model/" title="Joe Duffy - The Error Model">Joe Duffy - The Error Model</a>
-
-<ul>
-<li>シグネチャで縛らないと開発者はスルーしてしまう</li>
-<li>エラーを投げうるかはどうやって表現するか</li>
-</ul></li>
-<li>Iteratorを拡張したエラー型
-
-<ul>
-<li>エラーを投げうる(返しうる)という型</li>
-<li>Optional</li>
-<li>GoLangのようなエラーハンドリング</li>
-</ul></li>
-<li>エラーをとりあえず全てキャッチになげる
-
-<ul>
-<li>キャッチでクラッシュさせる</li>
-</ul></li>
-<li>Obsevable on ES.next
-
-<ul>
-<li>正常系 =&gt; onNext</li>
-<li>エラー =&gt; error = Observableも止まる
-
-<ul>
-<li>エラーですぐとめる</li>
-</ul></li>
-</ul></li>
-<li><code>uncughException</code>
-
-<ul>
-<li>エラーをダンプしてプロセスをちゃんと落とす(回復しようと努力しない)</li>
-<li><code>process.exit()</code></li>
-</ul></li>
-<li><a href="https://www.npmjs.com/package/option-t" title="option-t">option-t</a>
-
-<ul>
-<li><a href="http://saneyukis.hatenablog.com/entry/2016/03/14/223518" title="option-tにResult&amp;lt;T, E&amp;gt;型を実装した（簡易報告版） - snyk_s log">option-tにResult<T, E>型を実装した（簡易報告版） - snyk_s log</a></li>
-<li><code>Either&lt;A, B&gt;</code></li>
-<li>RustのResultを持ってきたnpmモジュール</li>
-</ul></li>
-<li>関数型パッピーなライブラリ
-
-<ul>
-<li>Rustのドキュメントを読め</li>
-</ul></li>
-<li>まとめ
-
-<ul>
-<li>try-catchを基本的に使うな 
-
-<ul>
-<li>例外はあるけど、自分の制御内ではできるだけ使わない</li>
-</ul></li>
-<li>関数にtry-catchをおし込めてちゃんと型を書いて制御する</li>
-<li>バグを回復させてはいけない</li>
-<li><code>throwable</code>かどうかはシグネチャとして担保する
-
-<ul>
-<li>関数がエラーを投げるかどうかという事を書くべき</li>
-</ul></li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="「oracleがnode-jsをやり始めたというのだが！」-by-charlier_shoe">「OracleがNode.jsをやり始めたというのだが！」 by @charlier_shoe</h2>
-
-<ul>
-<li>Old IT
-
-<ul>
-<li>一枚岩アーキテクチャの上にJava EEを載せるみたいな</li>
-<li>簡単に止めることができない</li>
-</ul></li>
-<li>New IT
-
-<ul>
-<li>軽量なサービス軍で構成</li>
-<li>サービスごとに自主的にやってる</li>
-</ul></li>
-<li>Node Cloud
-
-<ul>
-<li>Cloud上のNode.jsのランタイム</li>
-<li>アプリケーションコンテナクラウド</li>
-</ul></li>
-<li>JET
-
-<ul>
-<li><a href="http://www.oracle.com/webfolder/technetwork/jet/index.html" title="Home">Home</a></li>
-<li>JQuery</li>
-<li>JQuery UI</li>
-<li>Knockout</li>
-<li>RequireJS</li>
-<li>Hammer</li>
-</ul></li>
-<li>Oracle初のOSS！
-
-<ul>
-<li><a href="https://github.com/oracle/oraclejet/blob/master/CONTRIBUTING.md" title="oraclejet/CONTRIBUTING.md at master · oracle/oraclejet">oraclejet/CONTRIBUTING.md at master · oracle/oraclejet</a></li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="ひたすら楽してディープラーニング-yujiosaka">ひたすら楽してディープラーニング -yujiosaka</h2>
-
-<p>スライド: <a href="https://speakerdeck.com/yujiosaka/hitasurale-sitedeipuraningu" title="ひたすら楽してディープラーニング // Speaker Deck">ひたすら楽してディープラーニング // Speaker Deck</a></p>
-
-<ul>
-<li>機械学習</li>
-<li>はじめてのパターン認識
-
-<ul>
-<li>ニューラルネットワークに壁</li>
-</ul></li>
-<li>kaggle
-
-<ul>
-<li>minstの分類</li>
-<li>新しいalgorithmがでると大体これで試される</li>
-</ul></li>
-<li><a href="http://neuralnetworksanddeeplearning.com/" title="Neural networks and deep learning">Neural networks and deep learning</a>
-
-<ul>
-<li>Python -&gt; CoffeeScript -&gt; ES6</li>
-</ul></li>
-<li>パーセプトロンモデル
-
-<ul>
-<li>滑らかになる</li>
-</ul></li>
-<li>数式
-
-<ul>
-<li>普段使ってるプログラミング言語に落としてみるとわかりやすくなる</li>
-</ul></li>
-<li>教科書にない問題
-
-<ul>
-<li>桁あふれの問題</li>
-</ul></li>
-<li>ライブラリ高機能
-
-<ul>
-<li>Pythonのライブラリが高機能過ぎて、JavaScriptで再実装するのが難しい</li>
-<li>自動微分</li>
-<li>Pythonに詳しくなってきた</li>
-</ul></li>
-<li>リポジトリ
-
-<ul>
-<li><a href="https://github.com/yujiosaka/js-mind" title="yujiosaka/js-mind: Deep Learning Library Written in ES2015.">yujiosaka/js-mind: Deep Learning Library Written in ES2015.</a></li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="node-jsでble機器を制御">Node.jsでBLE機器を制御</h2>
-
-<ul>
-<li>BLE</li>
-<li>振らないと止まらない目覚まし</li>
-</ul>
-
-<hr>
-
-<h2 id="雑談">雑談</h2>
-
-<p>@t_wada さんと<a href="http://efcl.info/2016/03/25/jsdoc-to-assert/" title="JSDocをランタイムassertに変換するBabelプラグインを書いた | Web Scratch">JSDocをランタイムassertに変換するBabelプラグインを書いた | Web Scratch</a>についての話をした。</p>
-
-<p><a href="https://github.com/azu/babel-plugin-jsdoc-to-assert" title="babel-plugin-jsdoc-to-assert">babel-plugin-jsdoc-to-assert</a>を使うとテストの時に例外を投げるケースが出てきてしまうけど、そういう時はどうするのが正しいの?という話</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="cm">/**</span>
-<span class="cm"> * @param {number} a - this is a param.</span>
-<span class="cm"> */</span>
-<span class="kd">function</span> <span class="nx">myFunc</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">//...</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>をテストするコードとして以下のようなものを書くと、<a href="https://github.com/azu/babel-plugin-jsdoc-to-assert" title="babel-plugin-jsdoc-to-assert">babel-plugin-jsdoc-to-assert</a>を使っているときは例外を投げる。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">it(&quot;should x&quot;, function(){
-    myFunc(&quot;string&quot;);// {number}を受取るはずなので例外を投げる
-});
-</code></pre></div>
-<p>この時のテストコードとしてはどうするのが正解なのかという話をした。</p>
-
-<p>t_wada 「これは型違反例外なので、キャッチして処理するのが正解」</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should x&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
-    <span class="k">try</span><span class="p">{</span>
-        <span class="nx">myFunc</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">);</span>
-        <span class="nx">fail</span><span class="p">(</span><span class="s2">&quot;ここにきたらおかしいので例外を投げる __ いわゆるunreachable&quot;</span><span class="p">);</span>
-    <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span>
-        <span class="nx">assert</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s2">&quot;AssertionError&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">});</span>
-</code></pre></div>
-<p>という感じにやるのが良いという話だった。</p>
-
-<p>Nodeの<a href="https://nodejs.org/api/assert.html#assert_assert_fail_actual_expected_message_operator" title="assert.fail(actual, expected, message, operator)">assert.fail(actual, expected, message, operator)</a>は普通のfailじゃないので使えないという話や<code>assert.throws</code>のAPIも何か使いにくいという話をした。</p>
-
-<p>後、今は<code>console.assert</code>使ってるけどブラウザ、Nodeで挙動違うから<a href="https://github.com/codemix/babel-plugin-typecheck" title="babel-plugin-typecheck">babel-plugin-typecheck</a>みたいにif throwするとかになるよなー的な話(ライブラリなしとする場合)</p>
-
-<hr>
-
-<p>@ahomu @pocotan001 さんと</p>
-
-<blockquote>
-<p>Component/index.sg.js : コンポーネントのスタイルガイド<br>
-<a href="http://s.aho.mu/160405-node_school/#33">http://s.aho.mu/160405-node_school/#33</a></p>
-</blockquote>
-
-<p>の話とCSSの設計の話をした。</p>
-
-<p>CSSのスタイルガイドをプロダクトにいれて動かしてる話はあんまり見たことないのでもっと読みたいです！</p>
-
-<p>CSSはcssnext(PostCSS)な感じ。</p>
-
-<p>CSSの原則的な規約とそこを破った方が楽な部分のバランスの話。</p>
-
-<p>(SUIT CSSの考えなどでいくと)親が孫の要素(コンポーネントをまたいだ要素)に対してスタイルを当てるのは原則に反するが、そこは多少破っても問題が起きた時にどこが問題なのかが特定できればいいという話(少なくても親は一定となるという話だと思う)。</p>
-
-<p>後は何にCSSの(グローバル)変数を使ってるかという話をした</p>
-
-<ul>
-<li>色</li>
-<li>フォント</li>
-<li>コンポーネント間の幅</li>
-<li>高さ</li>
-</ul>
-
-<p>自分の今の考えをそのまま書き出してるのを以下のリポジトリでやってる。
-React + CSSのコンポーネント志向とドメイン的なJavaScriptの設計的な題材でやってる。</p>
-
-<ul>
-<li><a href="https://github.com/azu/presentation-annotator" title="azu/presentation-annotator: viewing presentation and annotate.">azu/presentation-annotator: viewing presentation and annotate.</a></li>
 </ul>
  ]]></content>
  </entry>

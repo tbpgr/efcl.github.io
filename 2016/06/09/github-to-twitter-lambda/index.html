@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        lambdaでGitHubのアクティビティをTwitterで読む用のBotを作った | Web Scratch
+        
+    </title>
+    <meta name="description" content="タイトルどおりですが、AWS Lambdaを使って、GitHubのWatchやアクティビティをTwitterに投げるBotを書きました。">
+    
+    <meta name="keywords" content="AWS,lambda,Twitter,GitHub,bot" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="lambdaでGitHubのアクティビティをTwitterで読む用のBotを作った">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/06/09/github-to-twitter-lambda/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="タイトルどおりですが、AWS Lambdaを使って、GitHubのWatchやアクティビティをTwitterに投げるBotを書きました。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-06-09T09:52:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/06/06/JavaScript-Plugin-Architecture/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/05/31/react-toggle-pattern/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/05/08/textlint-support-asciidoc-loose/">
+
+
+
+
+
+<meta property="article:section" content="javascript">
+
+
+
+
+
+<meta property="article:tag" content="AWS">
+
+<meta property="article:tag" content="lambda">
+
+<meta property="article:tag" content="Twitter">
+
+<meta property="article:tag" content="GitHub">
+
+<meta property="article:tag" content="bot">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 157
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 78
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 2
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/06/09/github-to-twitter-lambda/">
+                lambdaでGitHubのアクティビティをTwitterで読む用のBotを作った
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/06/06/JavaScript-Plugin-Architecture/">
+                JavaScript Plugin Architectureというプラグイン設計について学ぶ無料の電子書籍を書いた
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/05/31/react-toggle-pattern/">
+                Reactで条件によって出したり消したりするコンポーネントを書いた
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/05/08/textlint-support-asciidoc-loose/">
+                textlintでAsciidoc/Asciidoctorをサポートするプラグイン
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/06/09/github-to-twitter-lambda/">
+    <h1 class="post-title">lambdaでGitHubのアクティビティをTwitterで読む用のBotを作った</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年06月09日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-06-09-github-to-twitter-lambda.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p>タイトルどおりですが、<a href="https://aws.amazon.com/jp/lambda/" title="AWS Lambda">AWS Lambda</a>を使って、GitHubのWatchやアクティビティをTwitterに投げるBotを書きました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/github-to-twitter-lambda" title="azu/github-to-twitter-lambda: Lambda bot that fetch own GitHub notifications/events and post to Twitter.">azu/github-to-twitter-lambda: Lambda bot that fetch own GitHub notifications/events and post to Twitter.</a></li>
+</ul>
+
+<p>こんな感じでTwitterにGitHubの<a href="https://github.com/notifications">Notification</a>(Watch)、<a href="https://github.com/">アクティビティ</a>が流れます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2016/06/09-1465433692.png" alt="on Twitter"></p>
+
+<p><strong>注意</strong>: メインで使ってるGitHubアカウントのPersonal Tokenを使うとそのアカウントのNotificationとタイムラインが流れるので、privateの情報とかもなげられてしまうので注意です。</p>
+
+<p>ローカルだけで完結したい場合は以下のようなクライアントで動くタイプのものを利用したほうが良いです。</p>
+
+<ul>
+<li><a href="https://github.com/azu/github-reader" title="azu/github-reader: [node-webkit] GitHub client app - Viewer for Notifications and News Feed.">azu/github-reader: [node-webkit] GitHub client app - Viewer for Notifications and News Feed.</a></li>
+</ul>
+
+<p>GitHubのWatchやアクティビティは読むのが困難なデザインなので、基本読み飛ばしていいTwitterにまとめてしまうと楽な感じがしたので作りました。</p>
+
+<p>自分が関係するような見逃したくない情報は、別の方法で見たほうがいいと思います。</p>
+
+<ul>
+<li><a href="https://github.com/pulls">Pull Requests</a></li>
+<li><a href="https://github.com/issues">Issues</a></li>
+<li><a href="https://github.com/issues/assigned">Issues assigned</a></li>
+<li><a href="http://blog.h13i32maru.jp/entry/2016/06/08/090000">JasperというGitHub Issue Readerを作りました - maru source</a></li>
+<li><a href="http://efcl.info/2015/07/30/github-issue-manager/">自分に関係するGitHub Issueを一覧できるアプリを書いた | Web Scratch</a></li>
+</ul>
+
+<p>導入はREADME通りにやっても動かない場合がありそうなので、そこは頑張って…(Pull Request下さい)</p>
+
+<h2 id="必要なもの">必要なもの</h2>
+
+<ul>
+<li><a href="https://github.com/apex/apex" title="Apex">Apex</a>のインストール</li>
+<li>GitHub token(情報元)</li>
+<li>Twitter token(ポスト先)</li>
+<li>AWSのアカウント</li>
+<li>lambda</li>
+<li>dynamodb</li>
+</ul>
+
+<h2 id="インストール">インストール</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text"> git clone https://github.com/azu/github-to-twitter-lambda.git
+cd github-to-twitter-lambda/functions/notifications
+npm install
+npm run init
+# dynamodbのテーブルを作る
+</code></pre></div>
+<p>dynamodbをロックファイル代わりというか、前回実行した時間の記録だけに使っています。
+lambdaとdynamodbは毎月無料枠があるので、基本的にこのBotでかかる費用は $0から$1以内になる感じです。</p>
+
+<h3 id="config">Config</h3>
+
+<p>サンプルの設定があるのでコピーして編集します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">cp project.example.json project.json
+</code></pre></div>
+<ul>
+<li><code>role</code> はApexのドキュメントに書かれてるようにlambdaの実行するRoleです
+
+<ul>
+<li>後述するpolicyを指定しています。</li>
+</ul></li>
+<li><code>environment</code>は環境変数的な感じですが、ここにToken類を入れています。
+
+<ul>
+<li>実行時に環境変数でも行けるはず</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">    &quot;role&quot;: &quot;arn:aws:iam::xxxxxxxxxxxx&quot;,
+    &quot;defaultEnvironment&quot;: &quot;dev&quot;,
+    &quot;environment&quot;: {
+        &quot;GITHUB_TOKEN&quot;: &quot;GitHub Person token need repo/notification/user&quot;,
+        &quot;TWITTER_CONSUMER_KEY&quot;: &quot;app key&quot;,
+        &quot;TWITTER_CONSUMER_SECRET&quot;: &quot;app secret&quot;,
+        &quot;TWITTER_ACCESS_TOKEN_KEY&quot;: &quot;token key&quot;,
+        &quot;TWITTER_ACCESS_TOKEN_SECRET&quot;: &quot;token  secret&quot;
+    }
+</code></pre></div>
+<h3 id="lambda-role-policy">Lambda role policy</h3>
+
+<p>Lambda(<code>role&quot;: &quot;arn:aws:iam::xxxxxxxxxxxx&quot;</code>)のroleに指定するpolicyは以下のような感じになってます。
+<code>&quot;lambda:*&quot;</code>と<code>&quot;cloudwatch:*&quot;</code>があればとりあえず動く気がします。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;Version&quot;</span><span class="p">:</span> <span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Statement&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;Action&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;dynamodb:*&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lambda:*&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;logs:*&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;cloudwatch:*&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;autoscaling:Describe*&quot;</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;Effect&quot;</span><span class="p">:</span> <span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;Resource&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="deploy">Deploy</h3>
+
+<p><a href="https://github.com/apex/apex" title="Apex">Apex</a>を使ってデプロイします。
+<code>aws configure</code> とかで awsのAPIキーとかを設定しておかないと当然デプロイできません。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">apex deploy notifications
+</code></pre></div>
+<p>詳細は<a href="https://github.com/apex/apex" title="Apex">Apex</a>のドキュメントや以下を見て下さい。</p>
+
+<ul>
+<li><a href="http://dev.classmethod.jp/cloud/aws/how-to-manage-aws-lambda-functions-with-apex/" title="ApexでAWS Lambdaファンクションを管理する ｜ Developers.IO">ApexでAWS Lambdaファンクションを管理する ｜ Developers.IO</a></li>
+</ul>
+
+<h3 id="test">Test</h3>
+
+<p>ローカルでdry-runしたい場合は test.js というのがあるのでそれを実行するといけます(実際にpostはしない)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">cd functions/notifications
+npm test
+</code></pre></div>
+<p><a href="https://github.com/apex/apex" title="Apex">Apex</a>を使って、手元からlambdaを叩いてテストもできます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">apex invoke notifications
+</code></pre></div>
+<h3 id="cron">Cron</h3>
+
+<p>lambdaはデフォルトだと１回実行して終わりなので繰り返し実行することでBotとして動かします
+(lambdaの実行回数による料金は基本無料枠で納まります)</p>
+
+<p><a href="https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/with-scheduled-events.html" title="スケジュールされたイベントでの AWS Lambda の使用 - AWS Lambda">スケジュールされたイベントでの AWS Lambda の使用 - AWS Lambda</a>を使うことで、Cron的に繰り返し実行を設定できます。</p>
+
+<p>自分は2分に一度とかに設定しています。</p>
+
+<p><img src="https://monosnap.com/file/lhJghW8bwKJmTZ3iDugi4B7eklRn5Z.png" alt="image"></p>
+
+<h2 id="まとめ">まとめ</h2>
+
+<ul>
+<li>GitHubのWatchは破綻してる</li>
+<li>GitHub -&gt; Twitter</li>
+<li>TwitterでGitHubを読めるようにした</li>
+<li>Slackは未読に厳しい</li>
+<li>未読を読み飛ばしやすいのはやっぱりTwitterかRSSリーダー</li>
+<li>RSSリーダーもコンテキストが異なる物量には弱い
+
+<ul>
+<li>RSSリーダーはリリースノートだけに絞ってる</li>
+<li><a href="http://efcl.info/2014/07/30/find-github-release/" title="GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch">GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch</a></li>
+</ul></li>
+<li><a href="http://www.misuzilla.org/Distribution/TweetIrcGateway/" title="TweetIrcGateway">TweetIrcGateway</a>っぽい</li>
+<li>それぞれのコンテキストにあった読みやすさがあるので、読みやすい場所に読みたいものを置く</li>
+<li>そういう土管ツールが簡単につくれるともっと良さそう</li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-06-09-github-to-twitter-lambda.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["AWS","lambda","Twitter","GitHub","bot"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=AWS">AWS</a></li>
+                
+                <li><a href="/tags/?q=lambda">lambda</a></li>
+                
+                <li><a href="/tags/?q=Twitter">Twitter</a></li>
+                
+                <li><a href="/tags/?q=GitHub">GitHub</a></li>
+                
+                <li><a href="/tags/?q=bot">bot</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>
