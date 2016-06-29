@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-06-30T01:45:44+09:00</updated>
+ <updated>2016-06-30T01:47:34+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -75,7 +75,7 @@
 <p>話を戻して、ECMAScriptの仕様策定は<a href="https://tc39.github.io/process-document/" title="The TC39 Process">プロセス</a>や<a href="https://github.com/tc39/tc39-notes/">ミーティングの議事録</a>などが公開されています。
 これは、透明性を確保するためでもあり、開発者からのフィードバックを得やすい環境を作るためだとも考えられます(GitHubでやっているのもそういう理由があると思います)</p>
 
-<p>そういった策定プロセスのパターンランゲージというES2015のEditor Allen Wirfs-Brockさんが公開しているので読んでみると面白いかもしれません。</p>
+<p>そういった策定プロセスのパターンランゲージをAllen Wirfs-Brockさん(ES2015 Editor)が公開しているので読んでみると面白いかもしれません。</p>
 
 <ul>
 <li><a href="http://wirfs-brock.com/allen/files/papers/standpats-asianplop2016.pdf">Microsoft Word - standpats-asianplop-final.docx - standpats-asianplop2016.pdf</a></li>
