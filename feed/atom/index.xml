@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-06-18T20:22:58+09:00</updated>
+ <updated>2016-06-30T00:15:26+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,86 @@
  </author>
  
 
+ 
+ <entry>
+   <title>Node学園 21時限目でECMAScript as a Living Standardという発表をした</title>
+   <link href="http://efcl.info/2016/06/29/node-ecmascript/"/>
+   <updated>2016-06-29T23:32:00+09:00</updated>
+   <id>http://efcl.info/2016/06/29/node-ecmascript</id>
+   <content type="html"><![CDATA[ <p><a href="http://nodejs.connpass.com/event/34104/" title="Node学園 21時限目 -ES Modules Meetup-">Node学園 21時限目 -ES Modules Meetup-</a>で<a href="http://azu.github.io/slide/2016/node-es/ecmascript.html" title="ECMAScript as a Living Standard">ECMAScript as a Living Standard</a>という発表をしてきました。</p>
+
+<p><a href="http://azu.github.io/slide/2016/node-es/ecmascript.html"><img src="https://monosnap.com/file/sWmJQbTd7YAKkFvPog7xozpPtHMOKF.png" alt="ECMAScript as a Living Standard"></a></p>
+
+<ul>
+<li>スライド: <a href="http://azu.github.io/slide/2016/node-es/ecmascript.html" title="ECMAScript as a Living Standard">ECMAScript as a Living Standard</a></li>
+</ul>
+
+<p>ECMAScriptの仕様策定は大きなプロジェクトですが、
+大部分の作業がGitHub上で見られる形でやり取りされています。</p>
+
+<p>そのため、大きなGitHubプロジェクトでそこまで変わらない感覚で見ることができ、
+また標準仕様を作るのでフォーマルなやり取りもあります。</p>
+
+<ul>
+<li><a href="https://github.com/tc39/proposals">tc39/proposals: Tracking ECMAScript Proposals</a></li>
+<li><a href="https://github.com/tc39/ecma262">tc39/ecma262: Status, process, and documents for ECMA262</a></li>
+<li><a href="https://github.com/tc39/tc39-notes/">tc39/tc39-notes: These are the notes I take at TC39 Meetings, with Markdown formatting</a></li>
+</ul>
+
+<p>GitHubで常に最新の仕様が公開されていて、ECMAScriptもHTMLなどと同じようなLiving Standardの形になっています。</p>
+
+<ul>
+<li><a href="https://tc39.github.io/ecma262/" title="ECMAScript® 2017 Language Specification">tc39.github.io/ecma262/</a></li>
+</ul>
+
+<p>そのため、ES2015やES2016といったものは基本的にはスナップショット的な仕様となります。
+仕様として参照する場合はLiving Standardの方を見るケースが増えてくると思います。
+この策定プロセスの変化と早いリリースのベースとなる仕様はES2015で作成されました。</p>
+
+<p>その中でJavaScriptを学ぶ書籍やコンテンツも常にアップデートできる形でないとズレがでてきてしまうことがあります。
+それをどうにかしたいのもあり、ES2015以降をベースとしたJavaScriptの入門書を書き始めました。</p>
+
+<p>プログラミングをやったことがあるが、JavaScriptはよくわからないという人が読むと良さそうな本を目指しています。</p>
+
+<p><a href="https://github.com/asciidwango/js-primer" title="asciidwango/js-primer: JavaScriptの入門書"><img src="http://azu.github.io/slide/2016/node-es/img/js-primer.png" alt="Image"></a></p>
+
+<ul>
+<li><a href="https://github.com/asciidwango/js-primer" title="asciidwango/js-primer: JavaScriptの入門書">asciidwango/js-primer: JavaScriptの入門書</a></li>
+</ul>
+
+<p>まだ書き始めたばかりであるため、中身が殆どありません。
+しかし、書いてる段階から公開することにも意味があると思うので公開しています。</p>
+
+<p>この辺は最初から知っておいた方がいい！というものなどがありましたら、Issueに書いてもらったり、ハッシュタグ<a href="https://twitter.com/intent/tweet?hashtags=jsprimer">#jsprimer</a>をつけてつぶやいてもらうと嬉しいです。</p>
+
+<p>全体としては、基本文法とユースケースの2種類に大きく分けていて、基本文法などを学んでユースケースで実際にJavaScriptで何か書いてみるという流れにしています。
+(ECMAScript本というわけではないです)</p>
+
+<ul>
+<li><a href="https://github.com/asciidwango/js-primer/issues/6" title="[meta] 全体的な設計/ユースケース一覧 · Issue #6 · asciidwango/js-primer">[meta] 全体的な設計/ユースケース一覧 · Issue #6 · asciidwango/js-primer</a></li>
+</ul>
+
+<p>話を戻して、ECMAScriptの仕様策定は<a href="https://tc39.github.io/process-document/" title="The TC39 Process">プロセス</a>や<a href="https://github.com/tc39/tc39-notes/">ミーティングの議事録</a>などが公開されています。
+これは、透明性を確保するためでもあり、開発者からのフィードバックを得やすい環境を作るためだとも考えられます(GitHubでやっているのもそういう理由があると思います)</p>
+
+<p>そういった策定プロセスのパターンランゲージというES2015のEditor Allen Wirfs-Brockさんが公開しているので読んでみると面白いかもしれません。</p>
+
+<ul>
+<li><a href="http://wirfs-brock.com/allen/files/papers/standpats-asianplop2016.pdf">Microsoft Word - standpats-asianplop-final.docx - standpats-asianplop2016.pdf</a></li>
+<li>自分のメモ: <a href="https://gist.github.com/azu/47082cbcaf7cc7b2b2f2075afad1b025">プログラミング言語標準化のパターン</a></li>
+</ul>
+
+<p>現在のECMAScriptの情報は殆どGitHubで見ることができ、追うときには策定プロセスなどを知っておくと理解がしやすくなると思います。</p>
+
+<p>ECMAScriptのニュースは以下のサイトでやっているので、Proposalの進捗や更新内容などを知りたい人は<a href="https://ecmascript-daily.github.io/" title="ECMAScript Daily">ECMAScript Daily</a>を見てみてください。</p>
+
+<ul>
+<li><a href="https://ecmascript-daily.github.io/" title="ECMAScript Daily">ECMAScript Daily</a></li>
+</ul>
+
+<p><a href="http://azu.github.io/slide/2016/node-es/ecmascript.html" title="ECMAScript as a Living Standard">ECMAScript as a Living Standard</a>では、ECMAScriptを見ていくことは大きなGitHubプロジェクトを見るのとそこまで変わらないよという話をしました。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>AWS lambdaでGitHubのアクティビティをTwitterで読む用に投稿する</title>
@@ -1495,115 +1575,6 @@ power-assertは開発ビルド(テスト中)にしか必要ないので、<code>
 <hr>
 
 <p>おわり</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>textlintの設定をnpmにあげて使い回す</title>
-   <link href="http://efcl.info/2016/04/08/textlint-sharable-config/"/>
-   <updated>2016-04-08T21:51:00+09:00</updated>
-   <id>http://efcl.info/2016/04/08/textlint-sharable-config</id>
-   <content type="html"><![CDATA[ <p>textlint <a href="https://github.com/textlint/textlint/releases/tag/6.2.0" title="6.2.0">6.2.0</a>でSharable Configの機能を追加しました。</p>
-
-<p>これは<code>.textlintrc</code>の中身をnpmパッケージとして公開して、使うときは<code>textlint --config @azu/textlint-config</code> のようにパッケージを指定して使えるという機能です。</p>
-
-<p>簡単にいうと設定を共有する機能です。</p>
-
-<p>ESLintのやつと基本的に同じですが、ESLintと違って<code>&quot;extend&quot;</code>での設定ファイルの継承は対応してません。
-多分JavaScriptとしてやった方が良さそうな気がしていて実装してないです。(いい案があればIssueに下さい)</p>
-
-<p><code>.textlintrc</code>はJavaScriptとして以下のような感じで書くことができます。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span> 
-    <span class="nx">rules</span> <span class="o">:</span> <span class="p">{</span>
-    <span class="p">}</span>
- <span class="p">};</span>
-</code></pre></div>
-<ul>
-<li><a href="http://qiita.com/hokaccha/items/6a132af7a28ffd4e9690">ESLintの設定をscoped packageでnpmにあげて使い回す - Qiita</a></li>
-<li><a href="http://qiita.com/mysticatea/items/dc35ced6bd5e782f50cd">共有設定でらくらく ESLint - Qiita</a></li>
-</ul>
-
-<p>設定ファイルを公開する場合は<code>main</code>のスクリプトに<code>.textlintrc</code>の設定をJavaScriptで書いてexportするだけです。</p>
-
-<p>例えば、<a href="https://github.com/azu/textlint-config-readme">azu/textlint-config-readme: Sharable config for textlint</a>は以下のファイルをpackage.jsonの&quot;main&quot;に指定しているだけです。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">rules</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;no-todo&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">&quot;no-dead-link&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">&quot;alex&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">&quot;write-good&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">&quot;rousseau&quot;</span><span class="o">:</span> <span class="kc">true</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-<p><code>pacakge.json</code>は次の通り</p>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;@azu/textlint-config-readme&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;repository&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;git&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;git+https://github.com/azu/textlint-config-readme.git&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;azu&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;azuciao@gmail.com&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;homepage&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/azu/textlint-config-readme&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;MIT&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">&quot;src/&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;lib/&quot;</span>
-  <span class="p">],</span>
-  <span class="nt">&quot;bugs&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/azu/textlint-config-readme/issues&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.2&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;textlint config module for writing readme&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;main&quot;</span><span class="p">:</span> <span class="s2">&quot;textlint-config.js&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;directories&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;textlint -c ./textlint-config.js ./*.md&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;keywords&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">&quot;textlint&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;config&quot;</span>
-  <span class="p">],</span>
-  <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;textlint-rule-alex&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.0.1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;textlint-rule-common-misspellings&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.0.1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;textlint-rule-no-dead-link&quot;</span><span class="p">:</span> <span class="s2">&quot;^0.2.0&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;textlint-rule-no-todo&quot;</span><span class="p">:</span> <span class="s2">&quot;^2.0.0&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;textlint-rule-rousseau&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.4.1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;textlint-rule-write-good&quot;</span><span class="p">:</span> <span class="s2">&quot;^0.1.4&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;textlint&quot;</span><span class="p">:</span> <span class="s2">&quot;^6.2.0&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>使うときは</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -D @azu/textlint-config-readme textlint
-</code></pre></div>
-<p>でインストールして</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$(npm bin)/textlint --config @azu/textlint-config-readme README.md
-</code></pre></div>
-<p><code>--config</code>にパッケージ名を指定するだけです。</p>
-
-<p>具体的には以下を見てみてください。</p>
-
-<ul>
-<li><a href="https://github.com/azu/textlint-config-readme">azu/textlint-config-readme: Sharable config for textlint</a>
-
-<ul>
-<li>README.mdのチェック用のルールを適当にまとめた</li>
-</ul></li>
-<li><a href="https://github.com/textlint/textlint/blob/master/docs/configuring.md#sharable-configuration">textlint/configuring.md at master · textlint/textlint</a></li>
-</ul>
-
-<p>Scoped module(<code>@azu/abc</code>のような形式)も対応してるので、自分の名前空間なら気軽に公開できて便利です。</p>
-
-<ul>
-<li><a href="http://efcl.info/2015/04/30/npm-namespace/" title="npmで名前空間を持ったモジュールを公開する方法(scoped modules) | Web Scratch">npmで名前空間を持ったモジュールを公開する方法(scoped modules) | Web Scratch</a></li>
-</ul>
  ]]></content>
  </entry>
  
