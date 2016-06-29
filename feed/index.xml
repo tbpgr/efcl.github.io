@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-06-30T00:15:26+09:00</updated>
+ <updated>2016-06-30T01:45:44+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -30,8 +30,8 @@
 <p>ECMAScriptの仕様策定は大きなプロジェクトですが、
 大部分の作業がGitHub上で見られる形でやり取りされています。</p>
 
-<p>そのため、大きなGitHubプロジェクトでそこまで変わらない感覚で見ることができ、
-また標準仕様を作るのでフォーマルなやり取りもあります。</p>
+<p>そのため、大きなGitHubプロジェクトとそこまで変わらない感覚で見ることができます。
+また標準仕様を作るのでConsensusを取ったり、フォーマルなやり取りもあります。</p>
 
 <ul>
 <li><a href="https://github.com/tc39/proposals">tc39/proposals: Tracking ECMAScript Proposals</a></li>
