@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-06-30T10:43:18+09:00</updated>
+ <updated>2016-06-30T21:24:58+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -105,7 +105,8 @@ $(npm bin)/textlint --config @azu/textlint-config-readme README.md
 <h2 id="breaking-change">Breaking Change</h2>
 
 <p>textlint 7.0 ではいくつか破壊的な変更はありますが、ユーザーには影響ないと思います。
-ルールを書いている人は</p>
+ルールを書いている人は<a href="https://github.com/textlint/textlint/releases/tag/7.0.0" title="Release 7.0.0 · textlint/textlint">Release 7.0.0 · textlint/textlint</a>をみてください。
+メッセージの出力順を変更しているのでテストが落ちている可能性があります。</p>
 
 <h3 id="drop-node-js-0-12-support">Drop Node.js 0.12 support</h3>
 
