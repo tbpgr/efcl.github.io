@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "textlint 7.0リリース、フィルタールールの追加",
+            "url": "http://efcl.info/2016/06/30/textlint7.0/",
+            "date": "2016-06-30T10:15:00+09:00"
+        },
+        
+        {
             "title": "Node学園 21時限目でECMAScript as a Living Standardという発表をした",
             "url": "http://efcl.info/2016/06/29/node-ecmascript/",
             "date": "2016-06-29T23:32:00+09:00"

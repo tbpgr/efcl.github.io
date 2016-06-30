@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        textlint 7.0リリース、フィルタールールの追加 | Web Scratch
+        
+    </title>
+    <meta name="description" content="textlint 7.0をリリースしました。">
+    
+    <meta name="keywords" content="textlint,JavaScript" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="textlint 7.0リリース、フィルタールールの追加">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/06/30/textlint7.0/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="textlint 7.0をリリースしました。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-06-30T10:15:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/06/29/node-ecmascript/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/06/09/github-to-twitter-lambda/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/06/06/JavaScript-Plugin-Architecture/">
+
+
+
+
+
+<meta property="article:section" content="textlint">
+
+
+
+
+
+<meta property="article:tag" content="textlint">
+
+<meta property="article:tag" content="JavaScript">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 157
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 79
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 3
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/06/30/textlint7.0/">
+                textlint 7.0リリース、フィルタールールの追加
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/06/29/node-ecmascript/">
+                Node学園 21時限目でECMAScript as a Living Standardという発表をした
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/06/09/github-to-twitter-lambda/">
+                AWS lambdaでGitHubのアクティビティをTwitterで読む用に投稿する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/06/06/JavaScript-Plugin-Architecture/">
+                JavaScript Plugin Architectureというプラグイン設計について学ぶ無料の電子書籍を書いた
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/06/30/textlint7.0/">
+    <h1 class="post-title">textlint 7.0リリース、フィルタールールの追加</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年06月30日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-06-30-textlint7.0.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="https://github.com/textlint/textlint" title="textlint">textlint</a> 7.0をリリースしました。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/releases/tag/7.0.0" title="Release 7.0.0 · textlint/textlint">Release 7.0.0 · textlint/textlint</a></li>
+</ul>
+
+<p>前回: <a href="http://efcl.info/2016/03/15/textlint--fix/" title="textlint 6.0リリース。--fixでの自動修正に対応 | Web Scratch">textlint 6.0リリース。--fixでの自動修正に対応 | Web Scratch</a></p>
+
+<h2 id="追加した機能">追加した機能</h2>
+
+<h3 id="filter-rule">Filter rule</h3>
+
+<p>フィルタールールが追加されました。
+フィルタールールはルールエラーを無視するためのルールを定義できるものです。</p>
+
+<p>たとえば、<a href="https://github.com/textlint/textlint-filter-rule-comments">textlint-filter-rule-comments</a>ではESLintなどで見かける、この部分は無視して！ということを文章中に書くことができます。</p>
+
+<p>MarkdownだとコメントがHTMLコメントを使い <code>&lt;!-- textlint-disable --&gt;</code> と <code>&lt;!-- textlint-enable --&gt;</code> で囲みます。
+(Re:Viewなどはコメント記法があるのでそちらを利用できます)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;!-- textlint-disable --&gt;
+
+この部分はtextlintのチェックでエラーがあっても無視される
+
+&lt;!-- textlint-enable --&gt;
+</code></pre></div>
+<p>この<code>textlint-filter-rule-comments</code>を有効にするには、他のルールと同じくnpmでインストールします。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -D textlint-filter-rule-comments
+# or
+npm install -g textlint-filter-rule-comments
+</code></pre></div>
+<p>そして、<code>.textlintrc</code>の<code>filters</code>フィールドを作ってそこへ追加します。</p>
+
+<p><code>textlint-filter-rule-comments</code>の<code>textlint-filter-rule-</code>は省略できるので<code>comments</code>だけで問題ありません。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&quot;filters&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;comments&quot;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>もう一つの例として、特定のNodeを全部無視する<a href="https://github.com/textlint/textlint-filter-rule-node-types">textlint-filter-rule-node-types</a>というフィルタールールがあります。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -D textlint-filter-rule-node-types
+</code></pre></div>
+<p>のようにインストールしておき、次のように設定を書いて有効にします。
+そうすると、<code>&quot;nodeTypes&quot;</code>で指定したNode typeのエラーが全て無視されます。
+この例では<code>BlockQuote</code> nodeは全てtextlintのチェック対象から除外されます。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&quot;filters&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;node-types&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;nodeTypes&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;BlockQuote&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;very-nice-rule&quot;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>指定できる<code>nodeTypes</code>は <a href="https://github.com/textlint/textlint/blob/master/docs/txtnode.md#type">https://github.com/textlint/textlint/blob/master/docs/txtnode.md#type</a> を参照してください。</p>
+
+<p>フィルタールールも自分で作る事ができます。
+フィルタールールの作り方について詳しくはドキュメントを参照してください。
+既存のルールにAPIが一つ増えたぐらいの違いしかありません。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/blob/master/docs/filter-rule.md" title="textlint/filter-rule.md at master · textlint/textlint">textlint/filter-rule.md at master · textlint/textlint</a></li>
+</ul>
+
+<h3 id="sharable-config">Sharable Config</h3>
+
+<p>これは<a href="http://efcl.info/2016/04/08/textlint-sharable-config/" title="textlintの設定をnpmにあげて使い回す | Web Scratch">textlintの設定をnpmにあげて使い回す | Web Scratch</a>で紹介した機能です。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -D @azu/textlint-config-readme textlint
+$(npm bin)/textlint --config @azu/textlint-config-readme README.md
+</code></pre></div>
+<p>で、<code>.textlintrc</code>の設定をnpmパッケージとして配布されているものを利用できます。</p>
+
+<h3 id="ast-explorer-for-textlint"><a href="https://textlint.github.io/astexplorer/" title="AST explorer for textlint">AST explorer for textlint</a></h3>
+
+<p>主にルール開発者向けですが、textlintの扱うASTをみたり、その場でルールを書いてためせるplaygroundサイトを追加しました。</p>
+
+<p><a href="https://textlint.github.io/astexplorer/"><img src="https://raw.githubusercontent.com/textlint/textlint/master/docs/resources/ast-explorer.png" alt="ast-explorer for textlint"></a></p>
+
+<p>JavaScript ASTで有名な<a href="http://astexplorer.net/">AST explorer</a>のtextlint版です。
+ルールを書いてみたい人は、これを使って文章がどのようなASTになるかを眺めてみるといいと思います。</p>
+
+<h2 id="breaking-change">Breaking Change</h2>
+
+<p>textlint 7.0 ではいくつか破壊的な変更はありますが、ユーザーには影響ないと思います。
+ルールを書いている人は</p>
+
+<h3 id="drop-node-js-0-12-support">Drop Node.js 0.12 support</h3>
+
+<p>またtexltint 7.0からはNode.0.12のサポートを終了し、Node.js 4.0.0 &gt;=がサポート環境となります。(0.12でも動くけどいつの間にか動かなくなる事があります)</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-06-30-textlint7.0.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["textlint","JavaScript"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=textlint">textlint</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

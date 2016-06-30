@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-06-30T01:47:34+09:00</updated>
+ <updated>2016-06-30T10:43:18+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,105 @@
  </author>
  
 
+ 
+ <entry>
+   <title>textlint 7.0リリース、フィルタールールの追加</title>
+   <link href="http://efcl.info/2016/06/30/textlint7.0/"/>
+   <updated>2016-06-30T10:15:00+09:00</updated>
+   <id>http://efcl.info/2016/06/30/textlint7.0</id>
+   <content type="html"><![CDATA[ <p><a href="https://github.com/textlint/textlint" title="textlint">textlint</a> 7.0をリリースしました。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/releases/tag/7.0.0" title="Release 7.0.0 · textlint/textlint">Release 7.0.0 · textlint/textlint</a></li>
+</ul>
+
+<p>前回: <a href="http://efcl.info/2016/03/15/textlint--fix/" title="textlint 6.0リリース。--fixでの自動修正に対応 | Web Scratch">textlint 6.0リリース。--fixでの自動修正に対応 | Web Scratch</a></p>
+
+<h2 id="追加した機能">追加した機能</h2>
+
+<h3 id="filter-rule">Filter rule</h3>
+
+<p>フィルタールールが追加されました。
+フィルタールールはルールエラーを無視するためのルールを定義できるものです。</p>
+
+<p>たとえば、<a href="https://github.com/textlint/textlint-filter-rule-comments">textlint-filter-rule-comments</a>ではESLintなどで見かける、この部分は無視して！ということを文章中に書くことができます。</p>
+
+<p>MarkdownだとコメントがHTMLコメントを使い <code>&lt;!-- textlint-disable --&gt;</code> と <code>&lt;!-- textlint-enable --&gt;</code> で囲みます。
+(Re:Viewなどはコメント記法があるのでそちらを利用できます)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;!-- textlint-disable --&gt;
+
+この部分はtextlintのチェックでエラーがあっても無視される
+
+&lt;!-- textlint-enable --&gt;
+</code></pre></div>
+<p>この<code>textlint-filter-rule-comments</code>を有効にするには、他のルールと同じくnpmでインストールします。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -D textlint-filter-rule-comments
+# or
+npm install -g textlint-filter-rule-comments
+</code></pre></div>
+<p>そして、<code>.textlintrc</code>の<code>filters</code>フィールドを作ってそこへ追加します。</p>
+
+<p><code>textlint-filter-rule-comments</code>の<code>textlint-filter-rule-</code>は省略できるので<code>comments</code>だけで問題ありません。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&quot;filters&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;comments&quot;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>もう一つの例として、特定のNodeを全部無視する<a href="https://github.com/textlint/textlint-filter-rule-node-types">textlint-filter-rule-node-types</a>というフィルタールールがあります。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -D textlint-filter-rule-node-types
+</code></pre></div>
+<p>のようにインストールしておき、次のように設定を書いて有効にします。
+そうすると、<code>&quot;nodeTypes&quot;</code>で指定したNode typeのエラーが全て無視されます。
+この例では<code>BlockQuote</code> nodeは全てtextlintのチェック対象から除外されます。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&quot;filters&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;node-types&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;nodeTypes&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;BlockQuote&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;very-nice-rule&quot;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>指定できる<code>nodeTypes</code>は <a href="https://github.com/textlint/textlint/blob/master/docs/txtnode.md#type">https://github.com/textlint/textlint/blob/master/docs/txtnode.md#type</a> を参照してください。</p>
+
+<p>フィルタールールも自分で作る事ができます。
+フィルタールールの作り方について詳しくはドキュメントを参照してください。
+既存のルールにAPIが一つ増えたぐらいの違いしかありません。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/blob/master/docs/filter-rule.md" title="textlint/filter-rule.md at master · textlint/textlint">textlint/filter-rule.md at master · textlint/textlint</a></li>
+</ul>
+
+<h3 id="sharable-config">Sharable Config</h3>
+
+<p>これは<a href="http://efcl.info/2016/04/08/textlint-sharable-config/" title="textlintの設定をnpmにあげて使い回す | Web Scratch">textlintの設定をnpmにあげて使い回す | Web Scratch</a>で紹介した機能です。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -D @azu/textlint-config-readme textlint
+$(npm bin)/textlint --config @azu/textlint-config-readme README.md
+</code></pre></div>
+<p>で、<code>.textlintrc</code>の設定をnpmパッケージとして配布されているものを利用できます。</p>
+
+<h3 id="ast-explorer-for-textlint"><a href="https://textlint.github.io/astexplorer/" title="AST explorer for textlint">AST explorer for textlint</a></h3>
+
+<p>主にルール開発者向けですが、textlintの扱うASTをみたり、その場でルールを書いてためせるplaygroundサイトを追加しました。</p>
+
+<p><a href="https://textlint.github.io/astexplorer/"><img src="https://raw.githubusercontent.com/textlint/textlint/master/docs/resources/ast-explorer.png" alt="ast-explorer for textlint"></a></p>
+
+<p>JavaScript ASTで有名な<a href="http://astexplorer.net/">AST explorer</a>のtextlint版です。
+ルールを書いてみたい人は、これを使って文章がどのようなASTになるかを眺めてみるといいと思います。</p>
+
+<h2 id="breaking-change">Breaking Change</h2>
+
+<p>textlint 7.0 ではいくつか破壊的な変更はありますが、ユーザーには影響ないと思います。
+ルールを書いている人は</p>
+
+<h3 id="drop-node-js-0-12-support">Drop Node.js 0.12 support</h3>
+
+<p>またtexltint 7.0からはNode.0.12のサポートを終了し、Node.js 4.0.0 &gt;=がサポート環境となります。(0.12でも動くけどいつの間にか動かなくなる事があります)</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>Node学園 21時限目でECMAScript as a Living Standardという発表をした</title>
@@ -1461,120 +1560,6 @@ power-assertは開発ビルド(テスト中)にしか必要ないので、<code>
 <li><a href="https://ja.wikipedia.org/wiki/%E3%83%9B%E3%83%BC%E3%82%A2%E8%AB%96%E7%90%86" title="ホーア論理">ホーア論理</a>的な事前条件は<code>assert</code>やJSDocで、事後条件はテストで保証するみたいなことはやりやすくなった</li>
 <li>コード量や実行速度はそこまで変わらずにチェックできることが色々増えた</li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>Bikeshed.js アウトラインメモ</title>
-   <link href="http://efcl.info/2016/04/13/bikeshedjs/"/>
-   <updated>2016-04-13T23:11:00+09:00</updated>
-   <id>http://efcl.info/2016/04/13/bikeshedjs</id>
-   <content type="html"><![CDATA[ <p><a href="http://connpass.com/event/29019/" title="Bikeshed.js - connpass">Bikeshed.js - connpass</a>に参加したメモ</p>
-
-<hr>
-
-<h2 id="『let-vs-const』-yosuke_furukawa">『let vs. const』 @yosuke_furukawa</h2>
-
-<ul>
-<li>Effective Java</li>
-<li>気持ちはImmutable</li>
-<li>スレッドがないJavaScriptだと微妙</li>
-<li><code>const</code> だけで防げるのか
-
-<ul>
-<li>const + <code>Object.freeze</code></li>
-<li>Map+SetとかもImmutableではないのでimmutable.jsなどを使う必要がある</li>
-</ul></li>
-<li>やる意味
-
-<ul>
-<li><code>prefer-const</code></li>
-<li>let使うときはforでぶん回す時ぐらい</li>
-<li>逆にletつかているところを見ると注意して見るようになった</li>
-<li>やりたいことはconst 強制 =&gt; 初学者のミスを減らせる</li>
-</ul></li>
-<li>基本的には <code>const</code> を使う</li>
-</ul>
-
-<hr>
-
-<h2 id="セミコロン付けるつけない-yoshiko_pg">セミコロン付けるつけない - @yoshiko_pg</h2>
-
-<ul>
-<li>付ける人が殆ど</li>
-</ul>
-
-<hr>
-
-<p><a href="https://app.sli.do/event/rewvfpmz/ask" title="Bikeshed.js">Bikeshed.js</a>のボードを見ながら自転車置場の議論をした。</p>
-
-<p>インデントとか改行位置とかスタイルの話が殆どだった。</p>
-
-<p>自分は設計においてこういうどっちでもいいような議論が多くあると思ってるので、JavaScriptとCSSの設計についてのスライドを用意したけど使わなかったので忘れる。</p>
-
-<ul>
-<li><a href="http://azu.github.io/slide/2016/bikeshedjs/javascript-read-write-stack.html">Read/Write Stack | JavaScriptアーキテクチャ</a></li>
-<li><a href="http://azu.github.io/slide/2016/bikeshedjs/component-css-architecture.html">コンポーネントとCSSのアーキテクチャ</a></li>
-</ul>
-
-<hr>
-
-<h2 id="power-assertがツールになった話-twada">power-assertがツールになった話 - twada</h2>
-
-<ul>
-<li><a href="https://github.com/power-assert-js/power-assert/issues/43" title="power-assert make `assert()` of assert module silent · Issue #43 · power-assert-js/power-assert">power-assert make <code>assert()</code> of assert module silent · Issue #43 · power-assert-js/power-assert</a></li>
-</ul>
-
-<p>のissueでは、</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
-<span class="kr">export</span> <span class="kd">function</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">assert</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">name</span> <span class="o">===</span> <span class="s2">&quot;string&quot;</span><span class="p">);</span>
-    <span class="k">return</span> <span class="s2">&quot;Hello &quot;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>のようなコードをプロダクション側(テストではない)に書いてた時に、<code>assert()</code>の中身がpower-assert化(位置情報などを含んだオブジェクトを返す)されてしまい、常に<code>assert(object)</code>をパスしてしまうという問題。</p>
-
-<p>これは、次のように<code>power-assert</code>が使われていれば解決すること。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;power-assert&quot;</span><span class="p">);</span>
-<span class="kr">export</span> <span class="kd">function</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">assert</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">name</span> <span class="o">===</span> <span class="s2">&quot;string&quot;</span><span class="p">);</span>
-    <span class="k">return</span> <span class="s2">&quot;Hello &quot;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>そのため、<code>require(&quot;assert&quot;)</code>　を <code>require(&quot;power-assert&quot;)</code> するものが同時に行われればいいということで、<a href="https://www.npmjs.com/package/babel-plugin-empower-assert" title="babel-plugin-empower-assert">babel-plugin-empower-assert</a>というプラグインができた。</p>
-
-<p>しかし、このプラグインはあくまでオプトインなので、既存の<code>babel-plugin-espower</code>だけを使ってる人は自分で以下のように追加する必要がある。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
-  <span class="s2">&quot;presets&quot;</span><span class="o">:</span> <span class="p">[</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;env&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;development&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;plugins&quot;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s2">&quot;babel-plugin-empower-assert&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;babel-plugin-espower&quot;</span>
-      <span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>毎回2つのプラグインをいれるのは面倒だということで、<a href="https://github.com/twada/babel-preset-power-assert" title="babel-preset-power-assert">babel-preset-power-assert</a>という2つのプラグインをまとめたpresetsが追加された。</p>
-
-<p>これにより、<code>require(&quot;power-assert&quot;)</code>ではなく、ただの<code>require(&quot;assert&quot;)</code>もpower-assert化された状態でassertionが行えるようになった。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
-  <span class="s2">&quot;env&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;development&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;presets&quot;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s2">&quot;babel-preset-power-assert&quot;</span>
-      <span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>コード上からはNode.jsのassertモジュールに見えるけど、Babelによってpower-assertモジュールに差し替えられるため、power-assertはライブラリではなくツールになったという話。</p>
-
-<hr>
-
-<p>おわり</p>
  ]]></content>
  </entry>
  
