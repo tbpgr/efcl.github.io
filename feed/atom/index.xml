@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-07-06T21:35:22+09:00</updated>
+ <updated>2016-07-06T22:17:45+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -19,7 +19,7 @@
    <link href="http://efcl.info/2016/07/06/eslint-with-textlint/"/>
    <updated>2016-07-06T20:24:00+09:00</updated>
    <id>http://efcl.info/2016/07/06/eslint-with-textlint</id>
-   <content type="html"><![CDATA[ <p>今、<a href="https://github.com/asciidwango/js-primer" title="js-primer">js-primer</a>を書いていて、この本ではいろんなものをテストできる常体にして開発しています。</p>
+   <content type="html"><![CDATA[ <p>今、<a href="https://github.com/asciidwango/js-primer" title="js-primer">js-primer</a>を書いていて、この本ではいろんなものをテストできる状態にして開発しています。</p>
 
 <p>詳しくは<a href="https://github.com/asciidwango/js-primer/blob/master/CONTRIBUTING.md" title="CONTRIBUTING.md">CONTRIBUTING.md</a>に書いていますが、今のところ次のようなテストが常に回っています。(CONTRIBUTINGもお待ちしています)</p>
 
