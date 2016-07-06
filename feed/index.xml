@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-07-06T21:09:49+09:00</updated>
+ <updated>2016-07-06T21:35:22+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -126,7 +126,7 @@ bookTitle = &quot;上書き&quot;; // TypeError: invalid assignment to const `bo
 
 <p>そういうことを繰り返しを行うことで文章やコードの質を上げる方法を取っています。(<a href="https://textlint.github.io/">textlint</a>を入れたところで文章の質が上がるわけではないです)</p>
 
-<p>まあ、一発でテストが通った文章とか不安になるでしょ。</p>
+<p>まあ、一発でテストが通った文章とか不安になるのと同じ感覚です。</p>
  ]]></content>
  </entry>
  
