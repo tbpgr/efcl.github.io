@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "MarkdownのコードブロックをESLintでチェックするtextlintルール",
+            "url": "http://efcl.info/2016/07/06/eslint-with-textlint/",
+            "date": "2016-07-06T20:24:00+09:00"
+        },
+        
+        {
             "title": "textlint 7.0リリース、フィルタールールの追加",
             "url": "http://efcl.info/2016/06/30/textlint7.0/",
             "date": "2016-06-30T10:15:00+09:00"

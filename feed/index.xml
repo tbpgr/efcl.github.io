@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-06-30T21:24:58+09:00</updated>
+ <updated>2016-07-06T21:09:49+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,122 @@
  </author>
  
 
+ 
+ <entry>
+   <title>MarkdownのコードブロックをESLintでチェックするtextlintルール</title>
+   <link href="http://efcl.info/2016/07/06/eslint-with-textlint/"/>
+   <updated>2016-07-06T20:24:00+09:00</updated>
+   <id>http://efcl.info/2016/07/06/eslint-with-textlint</id>
+   <content type="html"><![CDATA[ <p>今、<a href="https://github.com/asciidwango/js-primer" title="js-primer">js-primer</a>を書いていて、この本ではいろんなものをテストできる常体にして開発しています。</p>
+
+<p>詳しくは<a href="https://github.com/asciidwango/js-primer/blob/master/CONTRIBUTING.md" title="CONTRIBUTING.md">CONTRIBUTING.md</a>に書いていますが、今のところ次のようなテストが常に回っています。(CONTRIBUTINGもお待ちしています)</p>
+
+<ul>
+<li>GitBookのビルドテスト</li>
+<li><a href="https://textlint.github.io/">textlint</a>による文章のLint</li>
+<li><a href="http://eslint.org/" title="ESLint">ESLint</a>によるコードのLint</li>
+<li><a href="https://textlint.github.io/">textlint</a> + <a href="http://eslint.org/" title="ESLint">ESLint</a>によるMarkdown中のインラインコードブロックのLint</li>
+<li>Markdown中のインラインコードブロックへのDocTest</li>
+<li><a href="http://mochajs.org/" title="Mocha">Mocha</a>による<code>*-test.js</code>ファイルのユニットテスト</li>
+<li><code>*-example.js</code>がJavaScriptとして実行できるかのテスト</li>
+<li><code>*-invalid.js</code>がJavaScriptとして実行できないかのテスト</li>
+</ul>
+
+<p>JavaScriptを学ぶ本なので、大量のサンプルコードがでてくるのですが、そのサンプルコードが常に正しくある必要があります。
+そのため、いろんな方向からテストして間違っているサンプルコードを含めないようにしています(逆に間違っていることをテストする仕組みもあります)</p>
+
+<p>サンプルコードは大きく分けると、文章中にコードブロックで直接書くインラインコードと外部ファイルとして作成して読み込むコードがあります。</p>
+
+<ul>
+<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/slide/61.html" title="サンプルコード | 技術文書をソフトウェア開発する話">サンプルコード | 技術文書をソフトウェア開発する話</a></li>
+</ul>
+
+<p>インラインコードは、ESLintでスタイルのチェックや<a href="https://github.com/azu/power-doctest" title="doctest">doctest</a>を行い実行結果のテストをしています。</p>
+
+<p>以前話した方法ではESLintの<a href="https://github.com/eslint/eslint-plugin-markdown" title="eslint-plugin-markdown">eslint-plugin-markdown</a>を使い、インラインコードをESLintでチェックしていました。</p>
+
+<ul>
+<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/slide/67.html" title="インラインコードのLint | 技術文書をソフトウェア開発する話">インラインコードのLint | 技術文書をソフトウェア開発する話</a></li>
+</ul>
+
+<p>普通なら正しいコードしか出てこないので問題ないのですが、入門書という位置づけであるため次のような間違ったコードも解説として登場します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">そして、一度`const`で宣言された変数には再代入できなくなります。
+そのため、次のコードでは`bookTitle`を上書きしようとして`TypeError`となります。
+
+```js
+const bookTitle = &quot;JavaScriptの本&quot;;
+bookTitle = &quot;上書き&quot;; // TypeError: invalid assignment to const `bookTitle&#39;
+```
+
+一般に変数への再代入は「変数の値は最初に定義した値と常に同じである」という参照透過性を壊すため、
+バグを発生させやすい要因として知られています。
+</code></pre></div>
+<p>via <a href="https://asciidwango.github.io/js-primer/basic/variables/" title="変数と宣言 · JavaScriptの入門書 #jsprimer">変数と宣言 · JavaScriptの入門書 #jsprimer</a></p>
+
+<p><a href="https://github.com/eslint/eslint-plugin-markdown" title="eslint-plugin-markdown">eslint-plugin-markdown</a>では<code>js</code>がついたコードブロックが自動でチェックされてしまうため、このコードブロック自体を無視して欲しいという書き方ができません。
+(コードの中でESLintを <code>eslint-disable</code> はできるが表示されてしまう)</p>
+
+<p>そのため、Markdownのレベルでコードブロックを無視できるような仕組みが必要になりました。</p>
+
+<h2 id="textlint-rule-eslint"><a href="https://github.com/azu/textlint-rule-eslint" title="textlint-rule-eslint">textlint-rule-eslint</a></h2>
+
+<p><a href="https://textlint.github.io/">textlint</a>は7.0からフィルタールールという機能を持っていて、このフィルタールールである<a href="https://github.com/textlint/textlint-filter-rule-comments" title="textlint-filter-rule-comments">textlint-filter-rule-comments</a>を使えば次のような形で無視する領域を作ることができます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;!-- textlint-disable --&gt;
+
+この部分はtextlintのチェックでエラーがあっても無視される
+
+&lt;!-- textlint-enable --&gt;
+</code></pre></div>
+<ul>
+<li><a href="http://efcl.info/2016/06/30/textlint7.0/" title="textlint 7.0リリース、フィルタールールの追加 | Web Scratch">textlint 7.0リリース、フィルタールールの追加 | Web Scratch</a></li>
+</ul>
+
+<p>つまり、textlintのルールとしてESLintを動かすことができれば、textlintとしてコードブロックを無視する = ESLintのチェックしないコードブロックを作れるので<a href="https://github.com/azu/textlint-rule-eslint" title="textlint-rule-eslint">textlint-rule-eslint</a>を作りました。
+(プラグインの<a href="https://azu.gitbooks.io/javascript-plugin-architecture/content/ja/ESLint/">アーキテクチャとかも似てる</a>ので10分ぐらいでできた)</p>
+
+<p>これでインラインコードと外部ファイルのJavaScriptにESLintを適応することができるので、インデントがずれてないかやSyntaxがおかしくないかなどのチェックをすることができるようになっています。
+(逆にベストプラクティス的なルールは引っかかりまくるので外しています…)</p>
+
+<h3 id="おまけ">おまけ</h3>
+
+<p>後、最近入れた面白いテストとしてdoctestライクなものをテストとして入れています。</p>
+
+<p><code>*-example.js</code>のJavaScriptファイルとMarkdownのインラインコードブロックを対象にDocTestが実行されています。</p>
+
+<p>次のように<code>// =&gt; 値</code>というコメントを書いた部分に対してDocTestが実行されます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span> <span class="c1">// =&gt; 42</span>
+</code></pre></div>
+<p>これにより、サンプルコードのコメントに書いた評価結果と実際の出力が一致するかをテストしてる感じです。</p>
+
+<p>色々テストを入れているのは、いい文章といいコードは同時に書くのが難しいというのもあります。
+そのため、とにかく機械的に落とせる部分は落とせるようにしています。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">色々コードを考えて書いた結果、文章がダメだとCIが落ちる</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/749461790744977408">July 3, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">読みやすい文章と読みやすいコードは同時に書くのが難しい  &quot;[WIP] 条件分岐の実装 by azu · Pull Request #‌69 · asciidwango/js-primer&quot;  <a href="https://t.co/UJ41KV5Ttk">https://t.co/UJ41KV5Ttk</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/749462503889833984">July 3, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>後、機械的にチェックする利点の話は以下の文章を読むと面白いかもしれません。</p>
+
+<blockquote>
+<p>ツールによる検査の利点
+<a href="http://qiita.com/takahi-i/items/a8b994ef17fd66fe6237" title="文書執筆の指南書で解説されている問題点を RedPen で発見する - Qiita">文書執筆の指南書で解説されている問題点を RedPen で発見する - Qiita</a></p>
+</blockquote>
+
+<p>リポジトリをWatchしていると分かるかもしれませんが、書く前に<a href="https://github.com/asciidwango/js-primer/issues" title="Issues · asciidwango/js-primer">Issues · asciidwango/js-primer</a>にどういう方針にするか、どういうサンプルコードがあると話がし易いかなどの設計をすることが多いです。
+(なので適当にコメントしてくれると参考になります)</p>
+
+<p>書きながら考えることも多いのですが、その場合はごちゃごちゃした文章ができて大体CIが落ち始めます。そこで機械的なチェックやPull Requestを出して自分でレビューする(PRも勝手にコメントくれると嬉しい)と少しはまともになります。</p>
+
+<p>そういうことを繰り返しを行うことで文章やコードの質を上げる方法を取っています。(<a href="https://textlint.github.io/">textlint</a>を入れたところで文章の質が上がるわけではないです)</p>
+
+<p>まあ、一発でテストが通った文章とか不安になるでしょ。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>textlint 7.0リリース、フィルタールールの追加</title>
@@ -1272,295 +1388,6 @@ npmのバージョンによって<code>npm i -S</code>でちゃんと相対パ�
 <hr>
 
 <p>Child Processおめでとうございます。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>power-assert + babel as a development tool</title>
-   <link href="http://efcl.info/2016/04/14/espower-babel-is-deprecated/"/>
-   <updated>2016-04-14T19:55:00+09:00</updated>
-   <id>http://efcl.info/2016/04/14/espower-babel-is-deprecated</id>
-   <content type="html"><![CDATA[ <h2 id="3行まとめ">3行まとめ</h2>
-
-<ul>
-<li><a href="https://github.com/power-assert-js/espower-babel" title="espower-babel">espower-babel</a>は役目を終えたので、Deprecated</li>
-<li>Babel + power-assertは<a href="https://github.com/power-assert-js/babel-preset-power-assert" title="babel-preset-power-assert">babel-preset-power-assert</a>を使う</li>
-<li>コード上は<code>require(&quot;power-assert&quot;)</code>と<code>require(&quot;assert&quot;)</code> どちらでもpower-assert化できるようになった</li>
-</ul>
-
-<h2 id="espower-babelは非推奨へ"><a href="https://github.com/power-assert-js/espower-babel" title="espower-babel">espower-babel</a>は非推奨へ</h2>
-
-<p>Babel + Mocha + power-assertの組み合わせを出来るだけ設定ファイルなどを作らずに使える<a href="https://github.com/power-assert-js/espower-babel" title="espower-babel">espower-babel</a>というモジュールを書いていましたが、役目を終えたので非推奨(deprecated)にしました。</p>
-
-<ul>
-<li><a href="http://efcl.info/2015/05/10/espower-babel3.0.0/" title="テストコードをES6+power-assertで書けるespower-babel 3.0.0リリース | Web Scratch">テストコードをES6+power-assertで書けるespower-babel 3.0.0リリース | Web Scratch</a></li>
-</ul>
-
-<p>理由としては、Babel@6からは設定(ファイル)を必ず必要とするので、<a href="https://github.com/power-assert-js/espower-babel" title="espower-babel">espower-babel</a>をかませる分、柔軟性がなくなったり余計な処理が起きて遅くなるためです。</p>
-
-<p>代わりに<a href="https://www.npmjs.com/package/babel-register" title="babel-register">babel-register</a>と<a href="https://github.com/power-assert-js/babel-preset-power-assert" title="babel-preset-power-assert">babel-preset-power-assert</a>を直接使って、開発時のBabelのビルド設定としてpower-assertを導入する方法を推奨しています。</p>
-
-<p>以下は、power-assert + Mocha + Babel環境を新規インストールする場合の手順ですが、espower-babelからの移行は<a href="https://github.com/power-assert-js/migrate-espower-babel-to-babel-preset-power-assert" title="migrate-espower-babel-to-babel-preset-power-assert">migrate-espower-babel-to-babel-preset-power-assert</a>を使うことで同様のことができるようにしてあります。</p>
-
-<ul>
-<li><a href="https://github.com/power-assert-js/migrate-espower-babel-to-babel-preset-power-assert" title="migrate-espower-babel-to-babel-preset-power-assert">migrate-espower-babel-to-babel-preset-power-assert</a></li>
-</ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ npm i -g migrate-espower-babel-to-babel-preset-power-assert
-$ cd &lt;該当プロジェクトrootへ&gt;
-$ migrate-espower-babel-to-babel-preset-power-assert
-</code></pre></div>
-<p>でマイグレーションしてくれます。
-(自分のプロジェクトをespower-babelから移行するのに書いたので、人により構成が違うため動かないかもしれません。その場合はPull Requestをいただけると助かります。)</p>
-
-<hr>
-
-<p>新規で、power-assert + Mocha + Babel環境(ランタイム変換)を導入する手順です。</p>
-
-<p>サンプルプロジェクト</p>
-
-<ul>
-<li><a href="https://github.com/azu/power-assert-as-tool-demo" title="azu/power-assert-as-tool-demo">azu/power-assert-as-tool-demo</a></li>
-</ul>
-
-<h2 id="設定方法">設定方法</h2>
-
-<h3 id="必要なモジュールをインストール">必要なモジュールをインストール</h3>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh">npm i -D power-assert mocha babel-register babel-preset-power-assert babel-preset-es2015
-</code></pre></div>
-<p>mochaからテストを実行する際にBabelの変換をするので、<code>babel-register</code>と以下の2つのpresetをインストールします。</p>
-
-<ul>
-<li>babel-preset-es2015
-
-<ul>
-<li>ES2015の変換を行うpreset</li>
-</ul></li>
-<li>babel-preset-power-assert
-
-<ul>
-<li>power-assert関連のpreset</li>
-</ul></li>
-</ul>
-
-<h3 id="babelrcを作成"><code>.babelrc</code>を作成</h3>
-
-<p>Babelの設定をするために、<code>.babelrc</code>を次のように作成します。
-power-assertは開発ビルド(テスト中)にしか必要ないので、<code>env</code>で振り分けしておきます。
-<code>env</code>は<code>NODE_ENV</code>によって振り分けされます。 <code>NODE_ENV=production &lt;コマンド&gt;</code>のような感じで環境変数を指定し、必要なプラグインを分けることができます。
-何も指定していない場合は<code>NODE_ENV=development</code>と同じになります。</p>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&quot;presets&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">&quot;es2015&quot;</span>
-  <span class="p">],</span>
-  <span class="nt">&quot;env&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;development&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;presets&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;power-assert&quot;</span>
-      <span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="mocha-optsを作成"><code>mocha.opts</code>を作成</h3>
-
-<p>Mochaの設定をする<code>mocha.opts</code>を作成します。</p>
-
-<p><code>test/mocha.opts</code> に以下のように書くだけです。設定ファイルとして作らないで、引数に渡すだけでいいかもしれません。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">--compilers js:babel-register
-</code></pre></div>
-<p>こうすることで、Mochaのテスト実行時はBabelによる変換がランタイムで行われます。</p>
-
-<h2 id="テストを書く">テストを書く</h2>
-
-<p>次のような足し算をするコードを書いてみます。</p>
-
-<p><code>add.js</code>:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
-<span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">assert</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">x</span> <span class="o">===</span> <span class="s2">&quot;number&quot;</span><span class="p">);</span>
-    <span class="nx">assert</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">y</span> <span class="o">===</span> <span class="s2">&quot;number&quot;</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>これをテストするコードを<code>assert</code>モジュールを使って書いてみます。</p>
-
-<p><code>add-test.js</code></p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// require(&quot;power-assert&quot;) じゃなくて assert でもいい</span>
-<span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
-<span class="kr">import</span> <span class="nx">add</span> <span class="nx">from</span> <span class="s2">&quot;../src/add&quot;</span><span class="p">;</span>
-<span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should return x + y&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-        <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span><span class="c1">// &lt;= Wrong</span>
-    <span class="p">});</span>
-<span class="p">});</span>
-</code></pre></div>
-<p><code>$ mocha</code>という感じでテストを実行してみると、このテストは<code>3 == 5</code>となっているので失敗します。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2016/04/14-1460632719.png" alt="power-assert result"></p>
-
-<p>テストを失敗すると、power-assertにより構造的な結果が表示されています。
-<code>.babelrc</code>の設定にもとづいて変換する際に<code>babel-preset-power-assert</code>が次の2つのことをやっています。</p>
-
-<ol>
-<li><code>require(&quot;assert&quot;)</code>を<code>require(&quot;power-assert&quot;)</code>に書き換える</li>
-<li><code>assert</code>関数などに仕込みをして、失敗した時に情報をいっぱい表示できるようにする
-
-<ul>
-<li>こちらは今までもやっていたこと</li>
-</ul></li>
-</ol>
-
-<p>これにより、<code>require(&quot;power-assert&quot;)</code>ではなく、ただの<code>require(&quot;assert&quot;)</code>もpower-assert化された状態でassertionが行えるようになっています。</p>
-
-<p>通常今までは、テストコードのみ<code>require(&quot;power-assert&quot;)</code>をして、アプリケーションコード側では<code>require(&quot;assert&quot;)</code>をしていたと思います。</p>
-
-<p>例えば、この<code>add.js</code>の例では引数のチェックに<code>assert</code>を使っています。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
-<span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">assert</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">x</span> <span class="o">===</span> <span class="s2">&quot;number&quot;</span><span class="p">);</span>
-    <span class="nx">assert</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">y</span> <span class="o">===</span> <span class="s2">&quot;number&quot;</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>なので、次のようなコードを書くと例外を投げるのでテストは失敗します。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js">    <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;arguments should be type of number&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="nx">add</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">);</span>
-    <span class="p">});</span>
-</code></pre></div>
-<p>今までは、ただの<code>assert()</code>だったので、大した情報はでませんでした。
-しかし、これもMocha経由で実行してみると、<code>assert(typeof x === &quot;number&quot;);</code>がpower-assert化されています。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2016/04/14-1460633294.png" alt="assert to be power-asssert"></p>
-
-<p>これはどういうことになるかというと、コード上でライブラリとして<code>require(&quot;power-assert&quot;)</code>と読み込む必要がなくなり、ツールとしてpower-assertが動くようになった事を意味します。</p>
-
-<p>なので、<code>power-assert</code>を使わなくなった時はツール(具体的には<code>babelrc</code>から)power-assertを外すだけで、コードは一切変更しなくても良くなったということです。</p>
-
-<p>そのため、power-assertは開発用のライブラリからツールという位置づけに変わったという話でした。</p>
-
-<p>サンプルプロジェクト</p>
-
-<ul>
-<li><a href="https://github.com/azu/power-assert-as-tool-demo" title="azu/power-assert-as-tool-demo: babel + power-assert preset demo project.">azu/power-assert-as-tool-demo: babel + power-assert preset demo project.</a></li>
-</ul>
-
-<h2 id="おまけ">おまけ</h2>
-
-<p>アプリケーションに<code>assert</code>を書くようになったと言っても、今回の<code>add(x ,y)</code>のように決まりきったような引数のチェックを毎回書くのは大変です。</p>
-
-<p>先ほどの<code>add.js</code>は次のような感じでテストすることができます。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
-<span class="kr">import</span> <span class="nx">add</span> <span class="nx">from</span> <span class="s2">&quot;../src/add&quot;</span><span class="p">;</span>
-<span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should return x + y&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-        <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
-    <span class="p">});</span>
-    <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;arguments should be type of number&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="k">try</span> <span class="p">{</span>
-            <span class="nx">add</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">);</span>
-
-            <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;unreachable line&quot;</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">assert</span><span class="p">.</span><span class="nx">AssertionError</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">});</span>
-<span class="p">});</span>
-</code></pre></div>
-<p>引数の型違反例外(<code>assert.AssertionError</code>)もテストされていることが分かります。</p>
-
-<p>JSDocから自動でランタイムAssertionを追加してくれる<a href="https://github.com/azu/babel-plugin-jsdoc-to-assert" title="babel-plugin-jsdoc-to-assert">babel-plugin-jsdoc-to-assert</a>を使うことで、<code>add.js</code>から型チェック的な<code>assert</code>は取り除けます。</p>
-
-<ul>
-<li><a href="http://efcl.info/2016/03/25/jsdoc-to-assert/" title="JSDocをランタイムassertに変換するBabelプラグインを書いた | Web Scratch">JSDocをランタイムassertに変換するBabelプラグインを書いた | Web Scratch</a></li>
-</ul>
-
-<p>具体的には<code>presets</code>に<a href="https://github.com/azu/babel-preset-jsdoc-to-assert" title="azu/babel-preset-jsdoc-to-assert: Babel plugin for jsdoc-to-assert">babel-preset-jsdoc-to-assert</a>を追加して、JSDocを書くだけです。</p>
-<div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gd">--- a/.babelrc</span>
-<span class="gi">+++ b/.babelrc</span>
-<span class="gu">@@ -5,6 +5,7 @@</span>
-   &quot;env&quot;: {
-     &quot;development&quot;: {
-       &quot;presets&quot;: [
-<span class="gi">+        &quot;jsdoc-to-assert&quot;,</span>
-         &quot;power-assert&quot;
-       ]
-     }
-
-<span class="gh">diff --git a/src/add.js b/src/add.js</span>
-<span class="gh">index 4748ae3..5cc3b9c 100644</span>
-<span class="gd">--- a/src/add.js</span>
-<span class="gi">+++ b/src/add.js</span>
-<span class="gu">@@ -1,7 +1,9 @@</span>
- &quot;use strict&quot;;
-<span class="gd">-const assert = require(&quot;assert&quot;);</span>
-<span class="gi">+/**</span>
-<span class="gi">+ * @param {number} x</span>
-<span class="gi">+ * @param {number} y</span>
-<span class="gi">+ * @returns {Number}</span>
-<span class="gi">+ */</span>
- export default function add(x, y) {
-<span class="gd">-    assert(typeof x === &quot;number&quot;);</span>
-<span class="gd">-    assert(typeof y === &quot;number&quot;);</span>
-     return x + y;
-<span class="gd">-}</span>
-</code></pre></div>
-<p>変更したコミット:</p>
-
-<ul>
-<li><a href="https://github.com/azu/power-assert-as-tool-demo/pull/1" title="feat(babel): use jsdoc-to-assert by azu · Pull Request #1 · azu/power-assert-as-tool-demo">feat(babel): use jsdoc-to-assert by azu · Pull Request #1 · azu/power-assert-as-tool-demo</a></li>
-</ul>
-
-<p><a href="https://github.com/azu/babel-preset-jsdoc-to-assert" title="azu/babel-preset-jsdoc-to-assert: Babel plugin for jsdoc-to-assert">babel-preset-jsdoc-to-assert</a>もpower-assert化できるといいのですが、Babelの変換の仕組み上難しいのでまだできてません。</p>
-
-<p>また、<code>assert</code>をアプリケーション側で使っていた際に、プロダクションビルドからは取り除きたいということがあります。その場合はunassertを使えば、取り除けるので便利です。</p>
-
-<ul>
-<li><a href="https://github.com/twada/unassert">twada/unassert: Encourage reliable programming by writing assertions in production code, and compiling them away from release</a></li>
-<li><a href="https://github.com/twada/babel-plugin-unassert">twada/babel-plugin-unassert: Babel plugin to encourage reliable programming by writing assertions in production code, and compiling them away from release.</a></li>
-</ul>
-
-<p>変更したコミット:</p>
-
-<ul>
-<li><a href="https://github.com/azu/power-assert-as-tool-demo/pull/2" title="feat(babel): add unassert in NODE_ENV=production building by azu · Pull Request #2 · azu/power-assert-as-tool-demo">feat(babel): add unassert in NODE_ENV=production building by azu · Pull Request #2 · azu/power-assert-as-tool-demo</a></li>
-</ul>
-
-<p>ここまでを全部適応した最終的な<code>.bebelrc</code>は次のような形になっています。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
-  <span class="s2">&quot;presets&quot;</span><span class="o">:</span> <span class="p">[</span>
-    <span class="s2">&quot;es2015&quot;</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;env&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;development&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;presets&quot;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s2">&quot;jsdoc-to-assert&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;power-assert&quot;</span>
-      <span class="p">]</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;production&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;plugins&quot;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s2">&quot;babel-plugin-unassert&quot;</span>
-      <span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<ul>
-<li><a href="https://github.com/azu/power-assert-as-tool-demo" title="azu/power-assert-as-tool-demo: babel + power-assert preset demo project.">azu/power-assert-as-tool-demo: babel + power-assert preset demo project.</a></li>
-</ul>
-
-<h2 id="おわり">おわり</h2>
-
-<ul>
-<li>espower-babelはBebel5以下における解だったので、役目はひとまず終わり</li>
-<li>普通にコンパイル言語と同じように、デバッグ時のみ情報量の多いassertの適応、プロダクションビルド時は取り除くということができるようになった</li>
-<li><a href="https://ja.wikipedia.org/wiki/%E3%83%9B%E3%83%BC%E3%82%A2%E8%AB%96%E7%90%86" title="ホーア論理">ホーア論理</a>的な事前条件は<code>assert</code>やJSDocで、事後条件はテストで保証するみたいなことはやりやすくなった</li>
-<li>コード量や実行速度はそこまで変わらずにチェックできることが色々増えた</li>
-</ul>
  ]]></content>
  </entry>
  
