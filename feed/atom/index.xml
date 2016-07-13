@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-07-13T10:06:28+09:00</updated>
+ <updated>2016-07-13T11:53:20+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -31,6 +31,12 @@
 <a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="azu/JavaScript-Plugin-Architecture: JavaScriptプラグインアーキテクチャの本">JavaScript-Plugin-Architecture: JavaScriptプラグインアーキテクチャの本</a>で実験していたルールをまとめたプリセットになっています。</p>
 
 <p>そのため、実際に適応した状態で書けることは確認した内容がベースです。一部オプションで設定をゆるくしたり、<a href="https://github.com/textlint/textlint-filter-rule-comments" title="textlint-filter-rule-comments">textlint-filter-rule-comments</a>などで無視する必要がある部分もありますが、許容範囲な感じでした。</p>
+
+<p>そもそもなんでこういうツールが必要なのかについては以下のスライドを参照してください。</p>
+
+<ul>
+<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/" title="Introduction | 技術文書をソフトウェア開発する話">Introduction | 技術文書をソフトウェア開発する話</a></li>
+</ul>
 
 <h2 id="インストール">インストール</h2>
 
@@ -63,14 +69,14 @@ npm install textlint-rule-preset-ja-technical-writing -D
 <p>最新のものとは異なる場合があるので、詳細は<a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing" title="textlint-rule-preset-ja-technical-writing">textlint-rule-preset-ja-technical-writing</a>を参照してください。</p>
 
 <p>また、ルールの大部分は読みにくさを排除してシンプルな文章にするためのものが中心です。
-技術文書には小説のような言い回しなどは不要であるため、できるだけわかりやすく簡潔な表現をするためのものです。</p>
+技術文書では、できるだけわかりやすく簡潔な表現をした方が良いです。</p>
 
 <ul>
 <li><a href="http://qiita.com/azu/items/60764ed6f415d3c748bf" title="文書執筆の指南書で解説されている問題点を textlint で発見する - Qiita">文書執筆の指南書で解説されている問題点を textlint で発見する - Qiita</a></li>
 <li><a href="http://qiita.com/takahi-i/items/a8b994ef17fd66fe6237" title="文書執筆の指南書で解説されている問題点を RedPen で発見する - Qiita">文書執筆の指南書で解説されている問題点を RedPen で発見する - Qiita</a></li>
 </ul>
 
-<p>上記の記事では技術文書の指南書で解説されている文書の問題点とそれに対するルールがまとめられています。
+<p>上記の記事では技術文書の問題点とそれに対するルールがまとめられています。
 このプリセットも大部分は上記の記事で解説している内容が反映されています。</p>
 
 <ul>
