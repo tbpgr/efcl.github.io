@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-07-06T22:17:45+09:00</updated>
+ <updated>2016-07-13T10:06:28+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,306 @@
  </author>
  
 
+ 
+ <entry>
+   <title>技術文書を書くためのtextlint校正ルールセット</title>
+   <link href="http://efcl.info/2016/07/13/textlint-rule-preset-ja-technical-writing/"/>
+   <updated>2016-07-13T09:33:00+09:00</updated>
+   <id>http://efcl.info/2016/07/13/textlint-rule-preset-ja-technical-writing</id>
+   <content type="html"><![CDATA[ <p>技術文書向けの<a href="https://textlint.github.io/">textlint</a>ルールプリセットを作りました。</p>
+
+<ul>
+<li><a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing" title="textlint-ja/textlint-rule-preset-ja-technical-writing: 技術文書向けのtextlintルールプリセット">textlint-ja/textlint-rule-preset-ja-technical-writing: 技術文書向けのtextlintルールプリセット</a></li>
+</ul>
+
+<p>今、書いている<a href="https://github.com/asciidwango/js-primer" title="js-primer">js-primer</a>で使用しています。</p>
+
+<p>元々,
+<a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="azu/JavaScript-Plugin-Architecture: JavaScriptプラグインアーキテクチャの本">JavaScript-Plugin-Architecture: JavaScriptプラグインアーキテクチャの本</a>で実験していたルールをまとめたプリセットになっています。</p>
+
+<p>そのため、実際に適応した状態で書けることは確認した内容がベースです。一部オプションで設定をゆるくしたり、<a href="https://github.com/textlint/textlint-filter-rule-comments" title="textlint-filter-rule-comments">textlint-filter-rule-comments</a>などで無視する必要がある部分もありますが、許容範囲な感じでした。</p>
+
+<h2 id="インストール">インストール</h2>
+
+<p>通常の<a href="http://efcl.info/2015/12/30/textlint-preset/" title="ルールプリセット">ルールプリセット</a>と入れ方は同じです。</p>
+
+<p>プリセットをインストールします</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># package.jsonがないなら npm init
+npm install textlint-rule-preset-ja-technical-writing -D
+</code></pre></div>
+<p><code>.textlintrc</code>ファイルに以下の設定を追加します。
+(<code>.textlinrc</code>ファイルがないなら <code>$(npm bin)/textlint --init</code>)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">{
+    &quot;rules&quot;: {
+        &quot;preset-ja-technical-writing&quot;: true
+    }
+}
+</code></pre></div>
+<p>これで<a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing" title="textlint-rule-preset-ja-technical-writing">textlint-rule-preset-ja-technical-writing</a>を使ってLintができるようになります。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$(npm bin)/textlint README.md
+</code></pre></div>
+<ul>
+<li><a href="https://github.com/textlint/textlint/blob/master/docs/getting-started.md">textlint/getting-started.md at master · textlint/textlint</a></li>
+<li><a href="http://blog.kymmt.com/entry/textlint">テキストの校正用に textlint を導入してみた - blog.kymmt.com</a></li>
+</ul>
+
+<h2 id="ルール一覧">ルール一覧</h2>
+
+<p>現時点では以下のルールが含まれています。</p>
+
+<p>最新のものとは異なる場合があるので、詳細は<a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing" title="textlint-rule-preset-ja-technical-writing">textlint-rule-preset-ja-technical-writing</a>を参照してください。</p>
+
+<p>また、ルールの大部分は読みにくさを排除してシンプルな文章にするためのものが中心です。
+技術文書には小説のような言い回しなどは不要であるため、できるだけわかりやすく簡潔な表現をするためのものです。</p>
+
+<ul>
+<li><a href="http://qiita.com/azu/items/60764ed6f415d3c748bf" title="文書執筆の指南書で解説されている問題点を textlint で発見する - Qiita">文書執筆の指南書で解説されている問題点を textlint で発見する - Qiita</a></li>
+<li><a href="http://qiita.com/takahi-i/items/a8b994ef17fd66fe6237" title="文書執筆の指南書で解説されている問題点を RedPen で発見する - Qiita">文書執筆の指南書で解説されている問題点を RedPen で発見する - Qiita</a></li>
+</ul>
+
+<p>上記の記事では技術文書の指南書で解説されている文書の問題点とそれに対するルールがまとめられています。
+このプリセットも大部分は上記の記事で解説している内容が反映されています。</p>
+
+<ul>
+<li>1文の長さは90文字以下とする</li>
+<li>カンマは1文中に3つまで</li>
+<li>読点は1文中に3つまで</li>
+<li>連続できる最大の漢字長は5文字まで</li>
+<li>漢数字と算用数字を使い分けます</li>
+<li>「ですます調」、「である調」を統一します</li>
+<li>文末の句点記号として「。」を使います</li>
+<li>二重否定は使用しない</li>
+<li>ら抜き言葉を使用しない</li>
+<li>同じ表現から文を開始しすぎない</li>
+<li>逆接の接続助詞「が」を連続して使用しない</li>
+<li>同じ接続詞を連続して使用しない</li>
+<li>同じ助詞を連続して使用しない</li>
+<li>UTF8-MAC 濁点を使用しない</li>
+<li>感嘆符!！、感嘆符?？を使用しない</li>
+<li>半角カナを使用しない</li>
+<li>弱い日本語表現の利用を使用しない</li>
+<li>同一の単語を間違えて連続しているのをチェックする</li>
+<li>よくある日本語の誤用をチェックする</li>
+</ul>
+
+<!-- tocstop -->
+
+<h3 id="1文の長さは90文字以下とする">1文の長さは90文字以下とする</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/textlint-rule-sentence-length">https://github.com/azu/textlint-rule-sentence-length</a></p>
+</blockquote>
+
+<p>長過ぎる文は読みにくさに繋がるため、適切な単位で文を区切ってください。</p>
+
+<h3 id="カンマは1文中に3つまで">カンマは1文中に3つまで</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/textlint-rule-max-comma">https://github.com/azu/textlint-rule-max-comma</a></p>
+</blockquote>
+
+<p>カンマ（,）の多用は、文が長くなっている可能性があります。</p>
+
+<h3 id="読点は1文中に3つまで">読点は1文中に3つまで</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/textlint-rule-max-ten">https://github.com/azu/textlint-rule-max-ten</a></p>
+</blockquote>
+
+<p>読点（、）の多用は、文が長くなっている可能性があります。</p>
+
+<h3 id="連続できる最大の漢字長は5文字まで">連続できる最大の漢字長は5文字まで</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/textlint-rule-max-kanji-continuous-len">https://github.com/azu/textlint-rule-max-kanji-continuous-len</a></p>
+</blockquote>
+
+<p>漢字同士が連続していると読みにくさにつながります。
+助詞を入れるなどして漢字だけで文章を書かないようにします。</p>
+
+<p>長い漢字の固有名詞は <code>allow</code> オプションに記述して回避します。</p>
+
+<h3 id="漢数字と算用数字を使い分けます">漢数字と算用数字を使い分けます</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/textlint-rule-preset-JTF-style">https://github.com/azu/textlint-rule-preset-JTF-style</a></p>
+</blockquote>
+
+<p>数量を表現し、数を数えられるものは算用数字を使用します。任意の数に置き換えても通用する語句がこれに該当します。</p>
+
+<p>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。</p>
+
+<h3 id="「ですます調」、「である調」を統一します">「ですます調」、「である調」を統一します</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/textlint-rule-no-mix-dearu-desumasu">https://github.com/azu/textlint-rule-no-mix-dearu-desumasu</a></p>
+</blockquote>
+
+<ul>
+<li>見出しは自動</li>
+<li>本文はですます調</li>
+<li>箇条書きはである調</li>
+</ul>
+
+<p>文体は見出し、本文、箇条書きの中では統一した表記にします。</p>
+
+<h3 id="文末の句点記号として「。」を使います">文末の句点記号として「。」を使います</h3>
+
+<blockquote>
+<p><a href="https://github.com/textlint-ja/textlint-rule-ja-no-mixed-period">https://github.com/textlint-ja/textlint-rule-ja-no-mixed-period</a></p>
+</blockquote>
+
+<p>文末には「。」を使い文を区切ります。</p>
+
+<p>「。」のつけ忘れのチェックや「:」で文を区切らないようにします。</p>
+
+<h3 id="二重否定は使用しない">二重否定は使用しない</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/textlint-rule-no-double-negative-ja">https://github.com/azu/textlint-rule-no-double-negative-ja</a></p>
+</blockquote>
+
+<p>二重否定は使用しません。</p>
+
+<h3 id="ら抜き言葉を使用しない">ら抜き言葉を使用しない</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/textlint-rule-no-dropping-the-ra">https://github.com/azu/textlint-rule-no-dropping-the-ra</a></p>
+</blockquote>
+
+<p>ら抜き言葉は使用しません。</p>
+
+<h3 id="同じ表現から文を開始しすぎない">同じ表現から文を開始しすぎない</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/textlint-rule-no-start-duplicated-conjunction">https://github.com/azu/textlint-rule-no-start-duplicated-conjunction</a></p>
+</blockquote>
+
+<p>同じ表現から文を開始している場合、同じことを繰り返し説明している場合があります。</p>
+
+<p>箇条書きなどで同じ表現から開始したいは<a href="https://github.com/textlint/textlint-filter-rule-comments" title="textlint-filter-rule-comments">textlint-filter-rule-comments</a>を使い回避してください。</p>
+
+<h3 id="逆接の接続助詞「が」を連続して使用しない">逆接の接続助詞「が」を連続して使用しない</h3>
+
+<blockquote>
+<p><a href="https://github.com/takahashim/textlint-rule-no-doubled-conjunctive-particle-ga">https://github.com/takahashim/textlint-rule-no-doubled-conjunctive-particle-ga</a></p>
+</blockquote>
+
+<p>逆接の接続助詞「が」は、特に否定の意味ではなくても安易に使われてしまいがちです。</p>
+
+<p>同一文中に複数回出現していないかをチェックします。</p>
+
+<h3 id="同じ接続詞を連続して使用しない">同じ接続詞を連続して使用しない</h3>
+
+<blockquote>
+<p><a href="https://github.com/takahashim/textlint-rule-no-doubled-conjunction">https://github.com/takahashim/textlint-rule-no-doubled-conjunction</a></p>
+</blockquote>
+
+<h3 id="同じ助詞を連続して使用しない">同じ助詞を連続して使用しない</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/textlint-rule-no-doubled-joshi">https://github.com/azu/textlint-rule-no-doubled-joshi</a></p>
+</blockquote>
+
+<p>同じ助詞が連続して書かれているとどこに助詞がかかっているのかがわかりにくくなります。</p>
+
+<blockquote>
+<p>材料不足で代替素材で製品を作った。</p>
+</blockquote>
+
+<h3 id="utf8-mac-濁点を使用しない">UTF8-MAC 濁点を使用しない</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/textlint-rule-no-nfd">https://github.com/azu/textlint-rule-no-nfd</a></p>
+</blockquote>
+
+<p>文章中にUTF8-MAC 濁点は不要です。
+ファイルからコピー＆ペーストした文字である場合があります。</p>
+
+<h3 id="感嘆符-！、感嘆符-？を使用しない">感嘆符!！、感嘆符?？を使用しない</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/textlint-rule-no-exclamation-question-mark">https://github.com/azu/textlint-rule-no-exclamation-question-mark</a></p>
+</blockquote>
+
+<p>技術文書では感情的な表現はあまり使用するべきではありません。</p>
+
+<p>特定の感嘆符または感嘆符を使用する場合は、オプションで許可して利用してください。
+デフォルトでは全て禁止しています。</p>
+
+<h3 id="半角カナを使用しない">半角カナを使用しない</h3>
+
+<blockquote>
+<p><a href="https://github.com/azu/textlint-rule-no-hankaku-kana">https://github.com/azu/textlint-rule-no-hankaku-kana</a></p>
+</blockquote>
+
+<p>全角カタカナを使用してください。</p>
+
+<h3 id="弱い日本語表現の利用を使用しない">弱い日本語表現の利用を使用しない</h3>
+
+<blockquote>
+<p><a href="https://github.com/textlint-ja/textlint-rule-ja-no-weak-phrase">https://github.com/textlint-ja/textlint-rule-ja-no-weak-phrase</a></p>
+</blockquote>
+
+<p><code>〜かもしれない</code> 等の弱い表現を使用しない。</p>
+
+<h3 id="同一の単語を間違えて連続しているのをチェックする">同一の単語を間違えて連続しているのをチェックする</h3>
+
+<blockquote>
+<p><a href="https://github.com/textlint-ja/textlint-rule-ja-no-successive-word">https://github.com/textlint-ja/textlint-rule-ja-no-successive-word</a></p>
+</blockquote>
+
+<p>同一の単語(形態素解析したtoken)が連続している場合は誤字の可能性があります。</p>
+
+<p>誤字でない場合は、<a href="https://github.com/textlint-ja/textlint-rule-ja-no-successive-word/issues/new">Issue報告</a>してください。</p>
+
+<h3 id="よくある日本語の誤用をチェックする">よくある日本語の誤用をチェックする</h3>
+
+<blockquote>
+<p><a href="https://github.com/textlint-ja/textlint-rule-ja-no-abusage">https://github.com/textlint-ja/textlint-rule-ja-no-abusage</a></p>
+</blockquote>
+
+<p>日本語や技術表現における漢字の誤用などをチェックするルールです。</p>
+
+<hr>
+
+<h2 id="類似ルール">類似ルール</h2>
+
+<p>ルール的にもJTFスタイルガイドと似ている部分は多いです。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style">azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.</a></li>
+<li><a href="http://efcl.info/2015/10/19/textlint-plugin-JTF-style/">JTF日本語標準スタイルガイドのルールセットで文章をチェックできるtextlintプリセット | Web Scratch</a></li>
+</ul>
+
+<p><a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing" title="textlint-rule-preset-ja-technical-writing">textlint-rule-preset-ja-technical-writing</a>では、単純な辞書での一致ではなく、形態素解析をしているルールが多いです。
+(JTF-styleは正規表現で頑張った感じ)</p>
+
+<p>JTFスタイルガイドは名前の通りスタイル周りも含めていますが、<a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing" title="textlint-rule-preset-ja-technical-writing">textlint-rule-preset-ja-technical-writing</a>では含まれていません。</p>
+
+<p>スタイル周り(スペースの入れ方)については、別のプリセットを作っているのでそちらを参照してください。</p>
+
+<ul>
+<li><a href="https://github.com/textlint-ja/textlint-rule-spacing" title="textlint-ja/textlint-rule-spacing: スペース周りのスタイルを扱うtextlintルール集">textlint-ja/textlint-rule-spacing: スペース周りのスタイルを扱うtextlintルール集</a></li>
+</ul>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://github.com/continuous-manual-writing/writing-guideline/blob/master/writing-standard.md" title="writing-guideline/writing-standard.md at master · continuous-manual-writing/writing-guideline">writing-guideline/writing-standard.md at master · continuous-manual-writing/writing-guideline</a></li>
+</ul>
+
+<h2 id="コミュニティ">コミュニティ</h2>
+
+<p>textlintの日本語周りについて話せるコミュニティが<a href="https://gitter.im/textlint-ja/textlint-ja"><img src="https://badges.gitter.im/textlint-ja/textlint-ja.svg" alt="Gitter"></a>にあります。
+Organizationなっているので、日本語関係のルールを置きたい場合も言ってもらえれば対応できます。</p>
+
+<ul>
+<li><a href="https://github.com/textlint-ja/textlint-ja">textlint-ja/textlint-ja: textlintの日本語コミュニティ</a></li>
+<li><a href="https://gitter.im/textlint-ja/textlint-ja">textlint-ja/textlint-ja - Gitter</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>MarkdownのコードブロックをESLintでチェックするtextlintルール</title>
@@ -1109,285 +1409,6 @@ npmのバージョンによって<code>npm i -S</code>でちゃんと相対パ�
 <ul>
 <li>サンプル: <a href="https://github.com/azu/npm-package-mixed-multiple-versions-demo" title="azu/npm-package-mixed-multiple-versions-demo: Demo project for mixing multiple version of the same npm package in a project.">azu/npm-package-mixed-multiple-versions-demo: Demo project for mixing multiple version of the same npm package in a project.</a></li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>#child_process_sushi でJavaScriptアーキテクチャについて話してきた</title>
-   <link href="http://efcl.info/2016/04/27/child_process_sushi/"/>
-   <updated>2016-04-27T23:40:00+09:00</updated>
-   <id>http://efcl.info/2016/04/27/child_process_sushi</id>
-   <content type="html"><![CDATA[ <p><a href="https://twitter.com/search?f=tweets&amp;vertical=default&amp;q=%20%23child_process_sushi" title="#child_process_sushi">#child_process_sushi</a>で最近やってたJavaScriptの設計の話をしてきた。</p>
-
-<ul>
-<li><a href="http://azu.github.io/slide/2016/child_process_sushi/almin-javascript-architecture.html" title="Almin.js | JavaScriptアーキテクチャ">Almin.js | JavaScriptアーキテクチャ</a></li>
-</ul>
-
-<p>Fluxとかで上半分は皆やるようになったけど、ドメインモデルとかFluxの場合にビジネスロジックとかをどこに書くとかはまだ未成熟な気がしているので、そのパターンを考えてて<a href="https://github.com/almin/almin" title="Almin.js">Almin.js</a>というのを書いたという話をした。</p>
-
-<p>Almin自体は大した実装ではないので、サンプルとかドキュメントとしてパターンについて学べるものを書いていきたいイメージ。(このアーキテクチャ話自体は、色々な言語で繰り返しやっては言語が廃れて、パターンがちょっと違う形で残るというのを繰り返している by @t_wada)</p>
-
-<p><img src="http://azu.github.io/slide/2016/child_process_sushi/img/almin-architecture-flux.png" alt="almin"></p>
-
-<p>JavaScriptでもウェブアプリやElectronでのアプリのような、APIを叩いて表示して終わりじゃなくて、ドメインモデルの生存期間が長いものが増えてきているのでその辺を考えていこうという話でした。</p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="und" dir="ltr">🍣 <a href="https://twitter.com/hashtag/child_process_sushi?src=hash">#child_process_sushi</a> <a href="https://t.co/CSuqQoDrWj">pic.twitter.com/CSuqQoDrWj</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/725281910373511172">April 27, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>ログ</p>
-
-<ul>
-<li><a href="http://togetter.com/li/968216" title="#child_process_sushi - Togetterまとめ">#child_process_sushi - Togetterまとめ</a></li>
-</ul>
-
-<h2 id="pathでのxss-kyo_ago">PathでのXSS - kyo_ago</h2>
-
-<blockquote>
-<p><a href="https://speakerdeck.com/masatokinugawa/shibuya-dot-xss-techtalk-number-7" title="明日から使える?! PATHでXSSする技術/ Shibuya.XSS techtalk #7 // Speaker Deck">明日から使える?! PATHでXSSする技術/ Shibuya.XSS techtalk #7 // Speaker Deck</a></p>
-</blockquote>
-
-<p>の話</p>
-
-<ul>
-<li>外部からIEのドキュメントモードを落として表示できるという話</li>
-<li>iframe以外でIEのドキュメントモードをダウングレードする方法があったらすごい</li>
-</ul>
-
-<h2 id="angular2でニッチなやつ-83">Angular2でニッチなやつ - 83</h2>
-
-<ul>
-<li>Upgrading from 1.x</li>
-<li>実際にこれをやってる話</li>
-<li>Angular 1から2に上げていくパターン</li>
-<li>2にあげたものが1のコンポーネントを使うことができる
-
-<ul>
-<li>実際にやると死ぬので大変</li>
-</ul></li>
-<li>npmとして名前が違うので2と1は両方パッケージとして入る</li>
-<li>upgrade adaptorというものがあり、これからBootStrapをよぶ必要がある</li>
-<li>Angular 1
-
-<ul>
-<li>Service
-
-<ul>
-<li>いろんな機能を持ってる</li>
-</ul></li>
-<li>Directive
-
-<ul>
-<li>コンポーネント</li>
-</ul></li>
-</ul></li>
-<li>Angular 2
-
-<ul>
-<li>コンポーネントの方は移行完了した</li>
-</ul></li>
-<li>進捗80%で止まりそうな要因はuirouterの移行。</li>
-<li>1.xで動いてるrouterなので、2.xに移行するときのボトルネックになる
-
-<ul>
-<li>1.x -&gt; 2.x -- 2.xのルーターの世界になる</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h1 id="広告の話-jxck">広告の話 - Jxck</h1>
-
-<ul>
-<li>HTTP2はRFCが出た</li>
-<li>実装 から 使う話になってきた</li>
-<li>現状の問題
-
-<ul>
-<li>AD問題</li>
-<li>TLSの問題</li>
-<li>ロードバランスの話</li>
-</ul></li>
-<li>ADの問題
-
-<ul>
-<li><a href="https://speakerdeck.com/suzuken/deisupureiguang-gao-falseji-chu-tosekiyuritei" title="ディスプレイ広告の基礎とセキュリティ // Speaker Deck">ディスプレイ広告の基礎とセキュリティ // Speaker Deck</a></li>
-<li>mixed contentの問題</li>
-<li>たまに　HTTP で出してくる</li>
-<li>コレがおきる業界図</li>
-<li>広告主 -&gt; メディア</li>
-<li>iframeの入れ子の問題</li>
-<li>一番外はHTTPSは保証</li>
-<li>中の広告がmixed contentになってることが多い</li>
-<li>mixed contentをreportする方法がない</li>
-<li>中の広告まで全部制御できてないと全部HTTPSにならない</li>
-<li><a href="https://hacks.mozilla.org/2015/09/subresource-integrity-in-firefox-43/">https://hacks.mozilla.org/2015/09/subresource-integrity-in-firefox-43/</a></li>
-<li>CORSが必要</li>
-<li>入れ子になった中のドメインの内容も推測出来てしまうので、CORSが必要
-
-<ul>
-<li>仕様的にはそっちは許可されてない</li>
-</ul></li>
-</ul></li>
-<li>次回はCAの話</li>
-</ul>
-
-<hr>
-
-<h1 id="almin-js-javascriptアーキテクチャ-azu"><a href="http://azu.github.io/slide/2016/child_process_sushi/almin-javascript-architecture.html" title="Almin.js | JavaScriptアーキテクチャ">Almin.js | JavaScriptアーキテクチャ</a> - azu</h1>
-
-<ul>
-<li>Fluxとかで上半分は皆できるようになったけどドメインモデルについてはまだ未成熟</li>
-</ul>
-
-<p><img src="http://azu.github.io/slide/2016/child_process_sushi/img/almin-architecture-flux.png" alt="almin"></p>
-
-<ul>
-<li><a href="https://github.com/almin/almin" title="Almin.js">Almin.js</a>はその辺を考える土台とパターンとサンプルを用意するプロジェクト
-
-<ul>
-<li>実装自体はFluxと大体同じ</li>
-<li>DDDとかその辺をちゃんと実装してオープンソースで読めるものがまだ少ない(JavaScriptだと特に)</li>
-</ul></li>
-<li>考えて設計して、考えるコードを書く状況をクライアントサイドJavaScriptでも作っていきたい</li>
-<li>アーキテクチャは毒
-
-<ul>
-<li>この話も何週目 - 世界は繰り返す</li>
-</ul></li>
-<li>フロントエンド/クライアントサイドでは、バックエンド/サーバサイドよりもオブジェクトの生存期間が長い
-
-<ul>
-<li>Gmailのメモリリークの話</li>
-<li>クライアントサイドではモデルの生存する時間が数日単位とかある</li>
-</ul></li>
-<li>この辺の知見はC#がやっぱり多い(クライアントサイドであるため)</li>
-<li>言語は死んでもパターンは残るのがパターンは強い</li>
-<li>JavaScriptの影響を受けてiOS/Androidでも似たような話がでてたり面白い。</li>
-<li>Repositoryと言ってた部分はrelayとかが代わりになったり(サーバサイドとの透過的な扱い)しそう</li>
-<li>初期化時にRepositoryとか全部のシングルトンを集めたものを作ってそれを扱うフレームワーク的にすれば、依存関係とかは常に逆になるので気にしなくてよくなりそう
-
-<ul>
-<li>Alminはフレームワークにはしたくなかったのでアプリ側でLocatorとかで似たような事を書いてたり</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h1 id="node-js-v6-会長">Node.js v6 - 会長</h1>
-
-<ul>
-<li><a href="https://speakerdeck.com/yosuke_furukawa/eater" title="eater // Speaker Deck">eater // Speaker Deck</a></li>
-<li>テスト = プロセス分離</li>
-<li>mockを始末しなくてもプロセスが死んだら死ぬ</li>
-<li>テストの時にmockの解放忘れでテストが落ちるのが死ぬ</li>
-<li>Async/Syncが混ざって</li>
-<li>node test.js で動く</li>
-<li>TJ氏
-
-<ul>
-<li><a href="https://github.com/visionmedia/expresso">https://github.com/visionmedia/expresso</a></li>
-<li>ファイルシステムとかテスト間で依存してるやつがいると死ぬ</li>
-<li>RSpecとかみたいのは並列で実行するために、データベースとかも</li>
-</ul></li>
-<li>ブラウザ</li>
-<li>eater
-
-<ul>
-<li>モック前提</li>
-<li>基本は1ファイル1モック</li>
-<li>サブテスト</li>
-</ul></li>
-<li>deprecatedメッセージでもテスト落ちる</li>
-<li>Node.jsにはログの共通インターフェースがない問題</li>
-<li>「immutableとか言ってるそうやったらmockできなくなるんじゃないの」</li>
-</ul>
-
-<h2 id="testのassertをastで数えるのやつ-teppis">testのassertをASTで数えるのやつ - teppis</h2>
-
-<ul>
-<li><a href="http://teppeis.hatenablog.com/entry/2014/12/esplan-new-testing-utility-counting-assertoins-statically" title="おまえは今まで実行したassertの回数を覚えているのか？あるいは新しいアサーションユーティリティのご提案 - teppeis blog">おまえは今まで実行したassertの回数を覚えているのか？あるいは新しいアサーションユーティリティのご提案 - teppeis blog</a>
-
-<ul>
-<li>変換しないと意味が分からないコードを書くのはなんか違うのでは</li>
-</ul></li>
-<li><a href="https://www.jfrog.com/video/artifactory-npm-support/" title="JFrog - Artifactory NPM Support">JFrog - Artifactory NPM Support</a>
-
-<ul>
-<li>月 98$ で SaaS</li>
-<li>Mavenとかのホスティングとかいろんなパッケージのホステイングできる</li>
-<li>npmのregistryとして登録するProxyとして</li>
-</ul></li>
-<li>社内のキャッシュになかったらpublicへ
-
-<ul>
-<li>npmの別registryの登録方法</li>
-<li>scoped moduleでregistryの名前空間を分けるといい</li>
-</ul></li>
-</ul>
-
-<h2 id="ビルド職人を減らしたいという話-vvakame">ビルド職人を減らしたいという話 -- vvakame</h2>
-
-<blockquote>
-<p>スライド: <a href="https://gist.github.com/vvakame/45ca8f051e54702071eb88bb1dd8b46e" title="ビルド職人.md">ビルド職人.md</a></p>
-</blockquote>
-
-<ul>
-<li>設定を共有したい</li>
-<li><a href="https://github.com/rocjs/roc" title="rocjs/roc: Modern Application Development Ecosystem">rocjs/roc: Modern Application Development Ecosystem</a></li>
-</ul>
-
-<hr>
-
-<h2 id="intersectionobserver-koba04">InterSectionObserver -- koba04</h2>
-
-<ul>
-<li><a href="https://github.com/WICG/IntersectionObserver" title="WICG/IntersectionObserver: API Sketch for Intersection Observers">WICG/IntersectionObserver: API Sketch for Intersection Observers</a></li>
-<li>画面から離れたら発火するイベント</li>
-<li>下まで来たら再読み込みする</li>
-<li>今のFirefoxは同期のスクロール処理は警告でるので、似たような事をする</li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Performance/Scroll-linked_effects" title="Scroll-linked effects - Mozilla | MDN">Scroll-linked effects - Mozilla | MDN</a></li>
-</ul>
-
-<h2 id="最近の辛いこと-t_wada">最近の辛いこと - t_wada</h2>
-
-<ul>
-<li><code>deepStrictEqual</code> がブラウザでは動かない</li>
-<li>commmonjs assertはdeepEqualまでしかない</li>
-<li><a href="https://github.com/sindresorhus/core-assert" title="sindresorhus/core-assert: Node.js `assert` as a standalone module">sindresorhus/core-assert: Node.js <code>assert</code> as a standalone module</a></li>
-<li>暗礁に乗り上げた <code>assert.deepStrictEqual</code></li>
-<li>ES6時代に対応したdeepEqualが必要</li>
-<li>無限Iteratorとかどうするの?</li>
-<li>ESLintでキャキャやってるのすごいね</li>
-<li>npm3+dedupe+依存モジュールのバージョン違い競合(estraverseとか?)+Browserifyの辛い話
-
-<ul>
-<li>ESLintとpower-assertでdudupeの問題が起こることもある</li>
-<li>バージョン違いが存在するとネストしてインストールされる</li>
-<li>ネストしてインストールされたモジュールをBrowserifyに食べさせるとなぜか絶対パスがビルドファイル内にでてくる、2つ分のファイルが読み込まれたり、dedupeできなかった問題がおきる</li>
-<li>後ろ向きな理由でJSHintを使ってる話</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="バッチ処理の依存関係定義が辛い-joker1007">バッチ処理の依存関係定義が辛い - joker1007</h2>
-
-<ul>
-<li>簡単なものだったらRakeでもいいけど</li>
-<li>複雑になるとRubyでジョブフローを上手くやるものがない
-
-<ul>
-<li>オープンソースのいいものがない(Ruby)</li>
-<li>rukawa</li>
-<li><a href="http://qiita.com/joker1007/items/02b334d1cca76fadaf2c" title="Ruby製のシンプルなワークフローエンジンRukawaの紹介 - Qiita">Ruby製のシンプルなワークフローエンジンRukawaの紹介 - Qiita</a></li>
-</ul></li>
-<li>Ruby製のワークフローエンジンを作った</li>
-</ul>
-
-<hr>
-
-<p>Child Processおめでとうございます。</p>
  ]]></content>
  </entry>
  
