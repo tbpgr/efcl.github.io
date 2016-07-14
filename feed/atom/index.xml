@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-07-13T11:53:20+09:00</updated>
+ <updated>2016-07-14T23:58:13+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,198 @@
  </author>
  
 
+ 
+ <entry>
+   <title>#teppeis_sushi に参加した</title>
+   <link href="http://efcl.info/2016/07/14/teppeis_sushi/"/>
+   <updated>2016-07-14T23:07:00+09:00</updated>
+   <id>http://efcl.info/2016/07/14/teppeis_sushi</id>
+   <content type="html"><![CDATA[ <p><a href="https://twitter.com/search?q=%23teppeis_sushi&amp;src=typd" title="#teppeis_sushi">#teppeis_sushi</a>に参加した。</p>
+
+<ul>
+<li>[#teppeis_sushi - Togetterまとめ]: <a href="http://togetter.com/li/1000035">http://togetter.com/li/1000035</a>  &quot;#teppeis_sushi - Togetterまとめ&quot;</li>
+</ul>
+
+<h2 id="karma-1-0について-kyo_ago">Karma 1.0について @ kyo_ago</h2>
+
+<ul>
+<li>Karma 1.0について</li>
+<li><a href="https://github.com/karma-runner/karma/blob/v1.0.0/CHANGELOG.md" title="karma/CHANGELOG.md at v1.0.0 · karma-runner/karma">karma/CHANGELOG.md at v1.0.0 · karma-runner/karma</a></li>
+<li><a href="http://docs.busterjs.org/en/latest/" title="Buster.JS">Buster.JS</a>の<a href="http://azu.github.io/slide/Kamakura/busterJS.html#slide22" title="testbed">testbed</a>みたいな機能</li>
+<li>実際の環境を読み込ませたうえでテストファイルを読み込ませてテストできる</li>
+<li>E2Eテストみたいなものを簡単に書ける</li>
+<li>さらにmiddlewareで<a href="https://github.com/karma-runner/karma/blob/master/lib/middleware/proxy.js" title="proxy">proxy</a>を扱える</li>
+<li>テストしてる内容はメソッド叩いたら要素がでるとか</li>
+<li>技術的な側面でE2Eテストな感じ</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> E2Eテストは技術とユーザー的な側面とか色々ある</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/753542849296146432">July 14, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="proxy">Proxy</h3>
+
+<ul>
+<li>コミットごとのビルドをS3にアップロードし、本番環境で読み込むChrome拡張Proxy</li>
+<li>拡張を入れれば開発中の内容が見られる</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> 本番環境の上でハックして開発するスタイル</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/753544008811421697">July 14, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> 謎のやつ <a href="https://t.co/PuKx1Qe9Dm">pic.twitter.com/PuKx1Qe9Dm</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/753546274012434433">July 14, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="pcブラウザから使われるウェブアプリケーションで独自ズームの実装">PCブラウザから使われるウェブアプリケーションで独自ズームの実装</h2>
+
+<p>TODO: スライドのPR待ち</p>
+
+<ul>
+<li>wheelイベントでやってるサービスがあった</li>
+<li>DOM3で標準化されてる</li>
+<li><a href="https://w3c.github.io/uievents/#events-wheelevents" title="UI Events">UI Events</a></li>
+<li><code>event.deltaY</code>でピンチインの量を取れる</li>
+<li>:sushi: デモ</li>
+</ul>
+
+<h3 id="passive-event">passive event</h3>
+
+<ul>
+<li>Passive Eventはイベントハンドラ内で<code>preventDefault()</code>が呼ばれないという状態を前提にしたもの</li>
+<li><code>preventDefault()</code>が呼ばれると描画がとまってしまうため</li>
+<li>呼ばれないことを前提とすればパフォーマンス最適化できる</li>
+<li>現在のデフォルトは呼ばれる事を前提とした形になって動く</li>
+<li><a href="https://blog.jxck.io/entries/2016-06-09/passive-event-listeners.html" title="Passive Event Listeners によるスクロールの改善 | blog.jxck.io">Passive Event Listeners によるスクロールの改善 | blog.jxck.io</a></li>
+<li>ピンチインも<code>preventDefault()</code>を呼び出してる</li>
+<li>こういう特殊なユースケースにはまだ対応できていない</li>
+</ul>
+
+<h2 id="cancellableの現在-jxck">Cancellableの現在 - jxck</h2>
+
+<ul>
+<li><a href="https://docs.google.com/presentation/d/1V4vmC54gJkwAss1nfEt9ywc-QOVOfleRxD5qtpMpc8U/edit#slide=id.gc6f9e470d_0_0">Cancelable promises - Google スライド</a></li>
+<li><a href="https://github.com/domenic/cancelable-promise">domenic/cancelable-promise: Cancelable promises proposal for JavaScript</a></li>
+<li><a href="https://github.com/zenparsing/es-cancel-token">zenparsing/es-cancel-token: Cancel Tokens for ECMAScript</a></li>
+<li>fetchとかはPromise使うけど未だにキャンセルできない</li>
+<li>progressはstreamでひとまずかいけつ</li>
+<li>Cancellableの提案は2つでている</li>
+<li>cancel用のresolvedでもrejectedでもない第三の状態を作る方向
+
+<ul>
+<li><code>cancel()</code> </li>
+<li><a href="https://github.com/domenic/cancelable-promise">domenic/cancelable-promise: Cancelable promises proposal for JavaScript</a></li>
+</ul></li>
+<li>C#系のToken方式
+
+<ul>
+<li><a href="https://github.com/zenparsing/es-cancel-token">zenparsing/es-cancel-token: Cancel Tokens for ECMAScript</a></li>
+</ul></li>
+<li>決着と議論はこれから</li>
+<li>まだfetchをXHRの代わりに使うのは早いのでは</li>
+<li>Promiseの話はasync/awaitを前提として話が多い</li>
+<li>finallyとかまだ決まってないものも議論に流れる
+
+<ul>
+<li><a href="https://github.com/ljharb/proposal-promise-finally" title="ljharb/proposal-promise-finally: ECMAScript Proposal, specs, and reference implementation for Promise.prototype.finally">ljharb/proposal-promise-finally: ECMAScript Proposal, specs, and reference implementation for Promise.prototype.finally</a></li>
+</ul></li>
+</ul>
+
+<h2 id="javascriptにpanicが欲しい-会長">JavaScriptにpanicが欲しい - 会長</h2>
+
+<ul>
+<li><a href="http://yosuke-furukawa.hatenablog.com/entry/2016/07/12/103734" title="Node.js における Promise を使った例外処理 - from scratch">Node.js における Promise を使った例外処理 - from scratch</a></li>
+<li>Promiseを使えばとりあえずキャッチする場所ができた</li>
+<li>でも必ずキャッチされるから落とすのが面倒</li>
+<li>キャッチしてそれの理由付きで落とすpanicが欲しいという話</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> 肉 <a href="https://t.co/22EM5D5H63">pic.twitter.com/22EM5D5H63</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/753553912519536640">July 14, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">これからの Web について真剣に議論している<a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> <a href="https://t.co/RsH7CW56M0">pic.twitter.com/RsH7CW56M0</a></p>&mdash; Jxck (@Jxck_) <a href="https://twitter.com/Jxck_/status/753556576070275072">July 14, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="最近のtextlint-azu">最近のtextlint - azu</h2>
+
+<p>スライド: <a href="http://azu.github.io/slide/2016/honbucho/textlint.html" title="最近のtextlint !">最近のtextlint !</a></p>
+
+<p>最近のtextlintに入れた変更点の話</p>
+
+<ul>
+<li>filter rule</li>
+<li><a href="https://textlint.github.io/astexplorer/" title="AST explorer for textlint">AST explorer for textlint</a></li>
+<li><a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing">textlint-ja/textlint-rule-preset-ja-technical-writing: 技術文書向けのtextlintルールプリセット</a></li>
+<li><a href="https://github.com/textlint-ja/textlint-rule-spacing">textlint-ja/textlint-rule-spacing: スペース周りのスタイルを扱うtextlintルール集</a></li>
+<li><a href="https://github.com/textlint-ja/textlint-ja">textlint-ja/textlint-ja: textlintの日本語コミュニティ</a></li>
+</ul>
+
+<h2 id="move-power-assert-to-tool-t_wada">move power-assert to tool - t_wada</h2>
+
+<ul>
+<li>power-assert 2.0をだそうをだろうしてる。</li>
+<li>nodeのassert互換 - 透過的なassertにしようとしてる</li>
+<li>一個だけnodeに追加してるassertがあるのでbreaking change</li>
+<li><a href="http://efcl.info/2016/04/14/espower-babel-is-deprecated/" title="power-assert + babel as a development tool | Web Scratch">power-assert + babel as a development tool | Web Scratch</a></li>
+<li>power-assertをツールにするということ</li>
+<li>今はbabelのpresetのみになってる</li>
+<li>他のASTツールでも動くようにする目標</li>
+<li>Babelは一度のtraverseで変換</li>
+<li>これを他のASTツールでもやる</li>
+<li><a href="https://www.npmjs.com/package/merge-estraverse-visitors" title="merge-estraverse-visitors">merge-estraverse-visitors</a></li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「ASTの世界が一歩先に： <a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/753565073788907520">July 14, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="axiosの話-axross"><a href="https://github.com/mzabriskie/axios" title="axios">axios</a>の話 - axross</h2>
+
+<ul>
+<li>エラーハンドリングの話</li>
+</ul>
+
+<h2 id="es-modulesはhttp-2で部分更新の夢を見るか-本部長">ES modulesはHTTP/2で部分更新の夢を見るか? - 本部長</h2>
+
+<ul>
+<li>最終的にはconcatに勝つ夢</li>
+<li><a href="http://teppeis.hatenablog.com/entry/2015/05/es6-modules-and-http2" title="ES6 ModulesはHTTP/2によってconcat無しで使えるようになるのか - teppeis blog">ES6 ModulesはHTTP/2によってconcat無しで使えるようになるのか - teppeis blog</a></li>
+<li>の続き</li>
+<li>Cache Aware Server Push</li>
+<li>HTTP/2 Server Pushで個別に304できない話</li>
+<li>それは策定の段階で通り過ぎた話</li>
+</ul>
+
+<h2 id="流し">流し</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「和田だけど質問ある？」 <a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/753573209220407296">July 14, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="研修">研修</h2>
+
+<ul>
+<li>学習はトップダウンから or ボトムアップから どっちから</li>
+<li>あまりに広すぎるのでトップダウンから始めたほうがいいのでは</li>
+<li>ボトムアップからやるとRFCを読むところで終わってしまうことがあるかも</li>
+</ul>
+
+<h2 id="definitelytypedの話-vvakame"><a href="https://github.com/DefinitelyTyped/" title="DefinitelyTyped">DefinitelyTyped</a>の話 - vvakame</h2>
+
+<ul>
+<li>最近MSの人が入ってガンガン開発してる</li>
+<li><a href="https://blogs.msdn.microsoft.com/typescript/2016/06/15/the-future-of-declaration-files/" title="The Future of Declaration Files | TypeScript">The Future of Declaration Files | TypeScript</a></li>
+<li>d.tsのバージョンニングの話</li>
+</ul>
+
+<hr>
+
+<p><a href="http://group.cybozu.jp/news/16063001.html">本部長</a>おめでとうございます。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>技術文書を書くためのtextlint校正ルールセット</title>
@@ -1304,117 +1496,6 @@ ViewからできるだけIf文を消すために、<code>TogglePattern</code>の
 </ul>
 
 <p>(本当は<a href="https://github.com/azu/textlint-rule-no-mix-dearu-desumasu/issues/4" title="textlint-rule-no-mix*ed*-dearu-desumasu">textlint-rule-no-mix*ed*-dearu-desumasu</a>の方がESLint的なルール名として正しい…)</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>npmで同じライブラリの複数バージョンをインストールして使う方法</title>
-   <link href="http://efcl.info/2016/05/02/npm-package-mixed-multiple-versions-demo/"/>
-   <updated>2016-05-02T14:12:00+09:00</updated>
-   <id>http://efcl.info/2016/05/02/npm-package-mixed-multiple-versions-demo</id>
-   <content type="html"><![CDATA[ <p><a href="https://github.com/fkling/astexplorer/pull/107/files#diff-b9cfc7f2cdf78a7f4b91a753d10865a2R52" title="Add support for ESLint v2 by Daniel15 · Pull Request #107 · fkling/astexplorer">Add support for ESLint v2 by Daniel15 · Pull Request #107 · fkling/astexplorer</a>を見ていて、一つのプロジェクト内で複数のバージョンの同じライブラリを使う面白い方法が使われてたのでメモです。</p>
-
-<p>前述した<a href="https://astexplorer.net/" title="AST explorer">AST explorer</a>の場合だと、ESLint@1とESLint@2の両方に対応したPlaygroundを作りたいため、一つのプロジェクトに両方のバージョンをインストールする必要があるという話です。</p>
-
-<p>他にも、同じライブラリでもβ版は別の名前空間(<code>require(&quot;other-name-space&quot;)</code>)で使って試したいというケースもあると思います。</p>
-
-<ul>
-<li><a href="http://ja.stackoverflow.com/questions/9191/%E5%90%8C%E4%B8%80npm%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E5%90%8D%E3%81%AE%E8%A4%87%E6%95%B0%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E3%82%B5%E3%83%96%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AF%E3%81%A7%E3%81%8D%E3%81%BE%E3%81%99%E3%81%8B" title="javascript - 同一npmパッケージ名の複数のバージョンをサブディレクトリにインストールすることはできますか? - スタック・オーバーフロー">javascript - 同一npmパッケージ名の複数のバージョンをサブディレクトリにインストールすることはできますか? - スタック・オーバーフロー</a></li>
-</ul>
-
-<p>ブラウザだとちょっとファイルサイズ的に避けたい気がしますが、<code>jQuery@1</code>と<code>jquery@3</code>を混在させて使うプロジェクトとかにも応用できそうな気がします。</p>
-
-<h2 id="やり方">やり方</h2>
-
-<p>サンプルプロジェクトは以下においてあります。</p>
-
-<ul>
-<li><a href="https://github.com/azu/npm-package-mixed-multiple-versions-demo" title="azu/npm-package-mixed-multiple-versions-demo: Demo project for mixing multiple version of the same npm package in a project.">azu/npm-package-mixed-multiple-versions-demo: Demo project for mixing multiple version of the same npm package in a project.</a></li>
-</ul>
-
-<p>このプロジェクトのゴールは<code>lodash@3</code>と<code>lodash@4</code>を同時にひとつのプロジェクトで使うことです(実用性は置いておきます)</p>
-
-<h2 id="1-それぞれのバージョンのローカルパッケージを作る">1. それぞれのバージョンのローカルパッケージを作る</h2>
-
-<p>npm@2 からは<a href="https://docs.npmjs.com/files/package.json#local-paths" title="Local Paths">Local Paths</a>を依存関係として定義することができます。</p>
-
-<p>簡単にいうと、相対パスで指定したディレクトリをモジュールとして<code>dependencies</code>に追加できる機能です。</p>
-
-<ul>
-<li><a href="http://efcl.info/2014/10/04/npm2-local-module/" title="npm 2.0.0でローカルパッケージを使ってrequire(&amp;#39;../../../&amp;#39;)を回避する | Web Scratch">npm 2.0.0でローカルパッケージを使ってrequire(&#39;../../../&#39;)を回避する | Web Scratch</a></li>
-<li><a href="http://efcl.info/2015/07/29/example-test-on-npm/" title="npmパッケージをExampleテストしよう | Web Scratch">npmパッケージをExampleテストしよう | Web Scratch</a></li>
-</ul>
-
-<p>これを使って、<code>lodash@3</code>と<code>lodash@4</code>のローカルパッケージを作ります。</p>
-
-<p><a href="https://github.com/azu/npm-package-mixed-multiple-versions-demo">サンプルプロジェクト</a>を見るのが分かりやすいですが、<code>lodash3</code>と<code>lodash4</code>というディレクトリを手動で作って、それぞれ<code>npm init</code>して<code>main</code>に<code>index.js</code>を指定しただけのモジュールです。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">packages
-├── lodash3
-│   ├── index.js
-│   └── package.json
-└── lodash4
-    ├── index.js
-    └── package.json
-</code></pre></div>
-<p><code>index.js</code>には以下のようにlodashをexportしているだけです。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">// lodash@3
-module.exports = require(&quot;lodash&quot;);
-</code></pre></div>
-<ul>
-<li><a href="https://github.com/azu/npm-package-mixed-multiple-versions-demo/blob/master/packages/lodash3/index.js" title="packages/lodash3/index.js">packages/lodash3/index.js</a></li>
-</ul>
-
-<p>lodash3のモジュールで<code>require(&quot;lodash&quot;)</code>したのは<a href="https://github.com/azu/npm-package-mixed-multiple-versions-demo/blob/62745c4ee969da1672a6c4c84b929e6946da0e21/packages/lodash3/package.json#L9" title="packages/lodash3/package.json">packages/lodash3/package.json</a>で依存関係に定義されている<code>lodash</code>なので、<code>lodash@3</code>がexportされているという事になります。</p>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;lodash3&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;lodash@3&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;main&quot;</span><span class="p">:</span> <span class="s2">&quot;index.js&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;azu&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;MIT&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;lodash&quot;</span><span class="p">:</span> <span class="s2">&quot;^3.0.0&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="2-ローカルパッケージをインストールする">2. ローカルパッケージをインストールする</h2>
-
-<p>後は、プロジェクトにローカルパッケージとして作った<code>lodash3</code>と<code>lodash4</code>への依存を定義するだけです。</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh">npm i -S packages/lodash3 packages/lodash4
-</code></pre></div>
-<p>でインストールできます。
-npmのバージョンによって<code>npm i -S</code>でちゃんと相対パスにならないバグがありますが、直接以下のように書けば同じ結果が得られます。</p>
-<div class="highlight"><pre><code class="language-json" data-lang="json">  <span class="s2">&quot;dependencies&quot;</span><span class="err">:</span> <span class="p">{</span>
-    <span class="nt">&quot;lodash3&quot;</span><span class="p">:</span> <span class="s2">&quot;file:packages/lodash3&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;lodash4&quot;</span><span class="p">:</span> <span class="s2">&quot;file:packages/lodash4&quot;</span>
-  <span class="p">}</span>
-</code></pre></div>
-<h2 id="3-それぞれのバージョンを使う">3. それぞれのバージョンを使う</h2>
-
-<p>後は、プロジェクトから<code>require(&quot;lodash3&quot;)</code>のような感じで<code>require</code>して使うだけです。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">lodash3</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;lodash3&quot;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">lodash4</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;lodash4&quot;</span><span class="p">);</span>
-
-<span class="nx">assert</span><span class="p">(</span><span class="nx">lodash3</span><span class="p">.</span><span class="nx">VERSION</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s2">&quot;3&quot;</span><span class="p">));</span>
-<span class="nx">assert</span><span class="p">(</span><span class="nx">lodash4</span><span class="p">.</span><span class="nx">VERSION</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s2">&quot;4&quot;</span><span class="p">));</span>
-</code></pre></div>
-<p>lodashには<code>.VERSION</code>にバージョン番号が入ってるので、それぞれ@3と@4のバージョンが読み込めてることが確認できます。</p>
-
-<h2 id="おわり">おわり</h2>
-
-<p>ローカルパッケージを使って、一つのプロジェクト内で複数バージョンのnpmパッケージを使い分ける方法を紹介しました。</p>
-
-<p><a href="https://github.com/fkling/astexplorer" title="astexplorer">astexplorer</a>みたいなツール系だと結構実用的なユースケースだと思います。
-普通のウェブサイトとかプロダクトなら、最新のバージョン使おうねって感じです。
-(ワークアラウンドとして覚えておくと便利なことがあるかもしれないという感じです)</p>
-
-<p>他にも過去のバージョンとのパフォーマンス比較ポイントを作ったりなどの色々使い道があるかもしれません。</p>
-
-<ul>
-<li>サンプル: <a href="https://github.com/azu/npm-package-mixed-multiple-versions-demo" title="azu/npm-package-mixed-multiple-versions-demo: Demo project for mixing multiple version of the same npm package in a project.">azu/npm-package-mixed-multiple-versions-demo: Demo project for mixing multiple version of the same npm package in a project.</a></li>
-</ul>
  ]]></content>
  </entry>
  
