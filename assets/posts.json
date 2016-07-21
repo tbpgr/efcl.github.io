@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "textlintでスペースを入れる入れないを統一するルール",
+            "url": "http://efcl.info/2016/07/21/textlint-rule-spacing/",
+            "date": "2016-07-21T20:08:00+09:00"
+        },
+        
+        {
             "title": "#teppeis_sushi に参加した",
             "url": "http://efcl.info/2016/07/14/teppeis_sushi/",
             "date": "2016-07-14T23:07:00+09:00"

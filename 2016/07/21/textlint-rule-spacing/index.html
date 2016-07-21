@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        textlintでスペースを入れる入れないを統一するルール | Web Scratch
+        
+    </title>
+    <meta name="description" content="文章を書いていると、日本語と english の間にスペースを入れるかどうかという表記揺れの問題がでてきます。">
+    
+    <meta name="keywords" content="textlitn,JavaScript" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="textlintでスペースを入れる入れないを統一するルール">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/07/21/textlint-rule-spacing/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="文章を書いていると、日本語と english の間にスペースを入れるかどうかという表記揺れの問題がでてきます。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-07-21T20:08:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/07/14/teppeis_sushi/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/07/13/textlint-rule-preset-ja-technical-writing/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/07/06/eslint-with-textlint/">
+
+
+
+
+
+<meta property="article:section" content="textlint">
+
+
+
+
+
+<meta property="article:tag" content="textlitn">
+
+<meta property="article:tag" content="JavaScript">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 158
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 80
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 5
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/07/21/textlint-rule-spacing/">
+                textlintでスペースを入れる入れないを統一するルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/07/14/teppeis_sushi/">
+                #teppeis_sushi に参加した
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/07/13/textlint-rule-preset-ja-technical-writing/">
+                技術文書を書くためのtextlint校正ルールセット
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/07/06/eslint-with-textlint/">
+                MarkdownのコードブロックをESLintでチェックするtextlintルール
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/07/21/textlint-rule-spacing/">
+    <h1 class="post-title">textlintでスペースを入れる入れないを統一するルール</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年07月21日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-07-21-textlint-rule-spacing.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p>文章を書いていると、日本語と english の間にスペースを入れるかどうかという表記揺れの問題がでてきます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">日本語と english にはスペースを入れる
+日本語とenglishにはスペースを入れる
+`code` と日本語の間はスペースを空ける
+`code`と日本語の間はスペースを空けない
+OK: 「良いですね」
+NG: 「 ダメですね 」
+</code></pre></div>
+<p>このようなスペースのスタイルについての<a href="https://textlint.github.io/">textlint</a>ルールを書きました。</p>
+
+<ul>
+<li><a href="https://github.com/textlint-ja/textlint-rule-spacing" title="textlint-ja/textlint-rule-spacing: スペース周りのスタイルを扱うtextlintルール集">textlint-ja/textlint-rule-spacing: スペース周りのスタイルを扱うtextlintルール集</a></li>
+</ul>
+
+<p>プリセットになっているため、次のようにまとめてインストールできます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-rule-preset-ja-spacing
+</code></pre></div>
+<p>そして、次のように設定で有効化すれば利用できます。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;preset-ja-spacing&quot;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="ルール一覧">ルール一覧</h2>
+
+<p>次のようなルールがプリセットには含まれています。
+また、個別のルールとしてもnpmでインストールできるようになっています。</p>
+
+<h3 id="textlint-rule-ja-space-between-half-and-full-width"><a href="./https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-between-half-and-full-width">textlint-rule-ja-space-between-half-and-full-width</a></h3>
+
+<p>半角文字と全角文字の間にスペースを入れるかどうかのルール
+デフォルトはスペースを入れない。</p>
+
+<h3 id="textlint-rule-ja-space-around-code"><a href="./https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code">textlint-rule-ja-space-around-code</a></h3>
+
+<p>インラインコードの周りにスペースを入れるかを決めるルール</p>
+
+<h3 id="textlint-rule-ja-no-space-between-full-width"><a href="./https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-no-space-between-full-width">textlint-rule-ja-no-space-between-full-width</a></h3>
+
+<p>全角文字同士の間のスペースについてのtextlintルール。
+全角文字どうしの間にスペースを入れません。</p>
+
+<h3 id="textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana">textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana</a></h3>
+
+<p>カタカナ語間の区切り文字についてのtextlintルール。
+カタカナ語間は中黒または半角スペースを用いてカタカナ語を区切ります。</p>
+
+<h3 id="textlint-rule-ja-no-space-around-parentheses"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-no-space-around-parentheses">textlint-rule-ja-no-space-around-parentheses</a></h3>
+
+<p>かっこの外側、内側ともにスペースを入れないようにするルール</p>
+
+<h3 id="textlint-rule-ja-space-after-exclamation"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-after-exclamation">textlint-rule-ja-space-after-exclamation</a></h3>
+
+<p>文末に感嘆符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。
+文中に感嘆符を使用する場合はスペースを挿入しません</p>
+
+<h3 id="textlint-rule-ja-space-after-question"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-after-question">textlint-rule-ja-space-after-question</a></h3>
+
+<p>文末に疑問符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。
+文中に疑問符を使用する場合はスペースを挿入しません。</p>
+
+<h2 id="デフォルト設定">デフォルト設定</h2>
+
+<p>デフォルトでは、次のような設定になっています。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;preset-ja-spacing&quot;</span><span class="p">:</span> <span class="p">{</span>
+             <span class="nt">&quot;ja-nakaguro-or-halfwidth-space-between-katakana&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+             <span class="nt">&quot;ja-no-space-around-parentheses&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+             <span class="nt">&quot;ja-no-space-between-full-width&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+             <span class="nt">&quot;ja-space-between-half-and-full-width&quot;</span><span class="p">:</span> <span class="p">{</span>
+                 <span class="nt">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;never&quot;</span>
+             <span class="p">},</span>
+             <span class="nt">&quot;ja-space-after-exclamation&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+             <span class="nt">&quot;ja-space-after-question&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+             <span class="nt">&quot;ja-space-around-code&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+         <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code">textlint-rule-ja-space-around-code</a>は、デフォルト無効になっています。(どちらが一般的か不明なため)</p>
+
+<p>次のように設定することで、プリセットに含まれるすべてのルールを有効にできます。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;preset-ja-spacing&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;ja-space-around-code&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;before&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="nt">&quot;after&quot;</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="fixable">Fixable</h2>
+
+<p><a href="https://textlint.github.io/"><img src="https://img.shields.io/badge/textlint-fixable-green.svg?style=social" alt="textlint rule"></a></p>
+
+<p>大体のルールは<code>textlint --fix</code>の自動修正に対応しています。</p>
+
+<h2 id="意見-要望">意見/要望</h2>
+
+<p><a href="https://github.com/textlint-ja/textlint-rule-spacing/issues">Issue</a>や<a href="https://gitter.im/textlint-ja/textlint-ja">Gitterチャット</a>に書いてください。</p>
+
+<p><a href="https://gitter.im/textlint-ja/textlint-ja"><img src="https://badges.gitter.im/textlint-ja/textlint-ja.svg" alt="Gitter"></a></p>
+
+<h2 id="関連">関連</h2>
+
+<p>JTFスタイルガイドに含まれているルールと大部分は共通しています。
+以下のプリセットを利用している場合は重複するルールがありますが、スペース関連のルールを取り出した感じです。(JTFの方もこのモジュールをつかって実装したい)</p>
+
+<ul>
+<li><a href="https://www.jtf.jp/jp/style_guide/styleguide_top.html" title="JTF日本語標準スタイルガイド（翻訳用）">JTF日本語標準スタイルガイド（翻訳用）</a></li>
+<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style" title="azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.">azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-07-21-textlint-rule-spacing.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["textlitn","JavaScript"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=textlitn">textlitn</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-07-15T19:34:16+09:00</updated>
+ <updated>2016-07-21T20:38:10+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,130 @@
  </author>
  
 
+ 
+ <entry>
+   <title>textlintでスペースを入れる入れないを統一するルール</title>
+   <link href="http://efcl.info/2016/07/21/textlint-rule-spacing/"/>
+   <updated>2016-07-21T20:08:00+09:00</updated>
+   <id>http://efcl.info/2016/07/21/textlint-rule-spacing</id>
+   <content type="html"><![CDATA[ <p>文章を書いていると、日本語と english の間にスペースを入れるかどうかという表記揺れの問題がでてきます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">日本語と english にはスペースを入れる
+日本語とenglishにはスペースを入れる
+`code` と日本語の間はスペースを空ける
+`code`と日本語の間はスペースを空けない
+OK: 「良いですね」
+NG: 「 ダメですね 」
+</code></pre></div>
+<p>このようなスペースのスタイルについての<a href="https://textlint.github.io/">textlint</a>ルールを書きました。</p>
+
+<ul>
+<li><a href="https://github.com/textlint-ja/textlint-rule-spacing" title="textlint-ja/textlint-rule-spacing: スペース周りのスタイルを扱うtextlintルール集">textlint-ja/textlint-rule-spacing: スペース周りのスタイルを扱うtextlintルール集</a></li>
+</ul>
+
+<p>プリセットになっているため、次のようにまとめてインストールできます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-rule-preset-ja-spacing
+</code></pre></div>
+<p>そして、次のように設定で有効化すれば利用できます。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;preset-ja-spacing&quot;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="ルール一覧">ルール一覧</h2>
+
+<p>次のようなルールがプリセットには含まれています。
+また、個別のルールとしてもnpmでインストールできるようになっています。</p>
+
+<h3 id="textlint-rule-ja-space-between-half-and-full-width"><a href="./https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-between-half-and-full-width">textlint-rule-ja-space-between-half-and-full-width</a></h3>
+
+<p>半角文字と全角文字の間にスペースを入れるかどうかのルール
+デフォルトはスペースを入れない。</p>
+
+<h3 id="textlint-rule-ja-space-around-code"><a href="./https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code">textlint-rule-ja-space-around-code</a></h3>
+
+<p>インラインコードの周りにスペースを入れるかを決めるルール</p>
+
+<h3 id="textlint-rule-ja-no-space-between-full-width"><a href="./https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-no-space-between-full-width">textlint-rule-ja-no-space-between-full-width</a></h3>
+
+<p>全角文字同士の間のスペースについてのtextlintルール。
+全角文字どうしの間にスペースを入れません。</p>
+
+<h3 id="textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana">textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana</a></h3>
+
+<p>カタカナ語間の区切り文字についてのtextlintルール。
+カタカナ語間は中黒または半角スペースを用いてカタカナ語を区切ります。</p>
+
+<h3 id="textlint-rule-ja-no-space-around-parentheses"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-no-space-around-parentheses">textlint-rule-ja-no-space-around-parentheses</a></h3>
+
+<p>かっこの外側、内側ともにスペースを入れないようにするルール</p>
+
+<h3 id="textlint-rule-ja-space-after-exclamation"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-after-exclamation">textlint-rule-ja-space-after-exclamation</a></h3>
+
+<p>文末に感嘆符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。
+文中に感嘆符を使用する場合はスペースを挿入しません</p>
+
+<h3 id="textlint-rule-ja-space-after-question"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-after-question">textlint-rule-ja-space-after-question</a></h3>
+
+<p>文末に疑問符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。
+文中に疑問符を使用する場合はスペースを挿入しません。</p>
+
+<h2 id="デフォルト設定">デフォルト設定</h2>
+
+<p>デフォルトでは、次のような設定になっています。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;preset-ja-spacing&quot;</span><span class="p">:</span> <span class="p">{</span>
+             <span class="nt">&quot;ja-nakaguro-or-halfwidth-space-between-katakana&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+             <span class="nt">&quot;ja-no-space-around-parentheses&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+             <span class="nt">&quot;ja-no-space-between-full-width&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+             <span class="nt">&quot;ja-space-between-half-and-full-width&quot;</span><span class="p">:</span> <span class="p">{</span>
+                 <span class="nt">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;never&quot;</span>
+             <span class="p">},</span>
+             <span class="nt">&quot;ja-space-after-exclamation&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+             <span class="nt">&quot;ja-space-after-question&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+             <span class="nt">&quot;ja-space-around-code&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+         <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code">textlint-rule-ja-space-around-code</a>は、デフォルト無効になっています。(どちらが一般的か不明なため)</p>
+
+<p>次のように設定することで、プリセットに含まれるすべてのルールを有効にできます。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;preset-ja-spacing&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;ja-space-around-code&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;before&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="nt">&quot;after&quot;</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="fixable">Fixable</h2>
+
+<p><a href="https://textlint.github.io/"><img src="https://img.shields.io/badge/textlint-fixable-green.svg?style=social" alt="textlint rule"></a></p>
+
+<p>大体のルールは<code>textlint --fix</code>の自動修正に対応しています。</p>
+
+<h2 id="意見-要望">意見/要望</h2>
+
+<p><a href="https://github.com/textlint-ja/textlint-rule-spacing/issues">Issue</a>や<a href="https://gitter.im/textlint-ja/textlint-ja">Gitterチャット</a>に書いてください。</p>
+
+<p><a href="https://gitter.im/textlint-ja/textlint-ja"><img src="https://badges.gitter.im/textlint-ja/textlint-ja.svg" alt="Gitter"></a></p>
+
+<h2 id="関連">関連</h2>
+
+<p>JTFスタイルガイドに含まれているルールと大部分は共通しています。
+以下のプリセットを利用している場合は重複するルールがありますが、スペース関連のルールを取り出した感じです。(JTFの方もこのモジュールをつかって実装したい)</p>
+
+<ul>
+<li><a href="https://www.jtf.jp/jp/style_guide/styleguide_top.html" title="JTF日本語標準スタイルガイド（翻訳用）">JTF日本語標準スタイルガイド（翻訳用）</a></li>
+<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style" title="azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.">azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>#teppeis_sushi に参加した</title>
@@ -1372,130 +1496,6 @@ ViewからできるだけIf文を消すために、<code>TogglePattern</code>の
 <ul>
 <li><a href="https://github.com/azu/textlint-plugin-asciidoc-loose" title="textlint-plugin-asciidoc-loose">textlint-plugin-asciidoc-loose</a></li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>敬体(ですます調)と常体(である調)の表記を統一するtextlintルール</title>
-   <link href="http://efcl.info/2016/05/06/no-mixed-dearu-desumasu-2.0/"/>
-   <updated>2016-05-06T15:21:00+09:00</updated>
-   <id>http://efcl.info/2016/05/06/no-mixed-dearu-desumasu-2.0</id>
-   <content type="html"><![CDATA[ <p><a href="http://textlint.github.io/" title="textlint">textlint</a>向けのルールとして敬体(ですます調)と常体(である調)を一つの文書内でどちらを使うか統一する<a href="https://github.com/azu/textlint-rule-no-mix-dearu-desumasu" title="textlint-rule-no-mix-dearu-desumasu">textlint-rule-no-mix-dearu-desumasu</a>というルールを書きました。</p>
-
-<p>初期からあったのですが、<a href="https://github.com/takuyaa/kuromoji.js" title="kuromoji.js">kuromoji.js</a>で<a href="https://github.com/azu/textlint-rule-no-mix-dearu-desumasu/releases/tag/2.0.0">形態素解析した結果</a>をベースとしたり、明示的にどちらを<a href="https://github.com/azu/textlint-rule-no-mix-dearu-desumasu/releases/tag/2.2.0">優先するかのオプション</a>を追加したので改めて紹介します。</p>
-
-<h2 id="インストール">インストール</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-rule-no-mix-dearu-desumasu
-</code></pre></div>
-<h2 id="使い方">使い方</h2>
-
-<p><code>.textlintrc</code>(Recommended)に設定するのを推奨しています。
-後述するオプション設定もできるのでこちらの方が便利です。</p>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;no-mix-dearu-desumasu&quot;</span><span class="p">:</span> <span class="kc">true</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>CLIの<code>--rule</code>オプションだとデフォルト設定のみになります。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">textlint --rule no-mix-dearu-desumasu README.md
-</code></pre></div>
-<h2 id="オプション">オプション</h2>
-
-<p>追記(2016-05-22): デフォルトでは <code>strict: false</code> にしています。
-<code>strict:false</code>では少し緩めで文末のチェックのみ限定しているので、文中のチェックを入れたい場合は<code>strict: true</code>をオプションに加える必要があります。</p>
-
-<p>このルールでは、本文、見出し、箇条書きをそれぞれ独立してチェックし、その項目内で表記が混在していないかを見つけます。
-なので、本文と見出しの間で表記が混在するのは問題ありません。</p>
-
-<ul>
-<li>本文(Markdownなら通常の文章部分)</li>
-<li>見出し(Markdownなら<code>#</code>)</li>
-<li>箇条書き(Markdownなら<code>* item</code>や<code>- item</code>)</li>
-</ul>
-
-<p>それぞれの項目ごとに優先する表記をオプションで設定できます。</p>
-
-<ul>
-<li>本文(Body)</li>
-<li>見出し(Header)</li>
-<li>箇条書き(List)</li>
-</ul>
-
-<p>デフォルトは &quot;&quot;(空)で、多く使われている表記を自動的に優先します。
-優先したい表記を &quot;である&quot; または &quot;ですます&quot; で指定します。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
-    <span class="s2">&quot;rules&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;no-mix-dearu-desumasu&quot;</span><span class="o">:</span> <span class="p">{</span>
-             <span class="s2">&quot;preferInHeader&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="c1">// &quot;である&quot; or &quot;ですます&quot;</span>
-             <span class="s2">&quot;preferInBody&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>   <span class="c1">// &quot;である&quot; or &quot;ですます&quot;</span>
-             <span class="s2">&quot;preferInList&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>    <span class="c1">// &quot;である&quot; or &quot;ですます&quot;</span>
-             <span class="c1">// 文末以外でも、敬体(ですます調)と常体(である調)を厳しくチェックするかどうか</span>
-             <span class="s2">&quot;strict&quot;</span><span class="o">:</span> <span class="kc">false</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>例えば、以下の例だと</p>
-
-<ul>
-<li>見出しは&quot;自動&quot;(多く使われてる表記に統一を促す)</li>
-<li>本文は&quot;ですます&quot;</li>
-<li>箇条書きは&quot;である&quot;</li>
-<li>Strict modeでチェック</li>
-</ul>
-
-<p>というルールでチェックします。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
-    <span class="s2">&quot;rules&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;no-mix-dearu-desumasu&quot;</span><span class="o">:</span> <span class="p">{</span>
-             <span class="s2">&quot;preferInHeader&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="c1">// &quot;である&quot; or &quot;ですます&quot;</span>
-             <span class="s2">&quot;preferInBody&quot;</span><span class="o">:</span> <span class="s2">&quot;ですます&quot;</span><span class="p">,</span><span class="c1">// &quot;である&quot; or &quot;ですます&quot;</span>
-             <span class="s2">&quot;preferInList&quot;</span><span class="o">:</span> <span class="s2">&quot;である&quot;</span><span class="p">,</span>    <span class="c1">// &quot;である&quot; or &quot;ですます&quot;</span>
-             <span class="c1">// 文末以外でも、敬体(ですます調)と常体(である調)を厳しくチェックするかどうか</span>
-             <span class="s2">&quot;strict&quot;</span><span class="o">:</span> <span class="kc">true</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>これは、本文と箇条書きで表記が異なるのは一般的によくあることなので、それぞれの項目ごとに設定できるようになっています。</p>
-
-<h2 id="リファクタリング例">リファクタリング例</h2>
-
-<p>このルールを使ってリファクタリングしてみた例です。</p>
-
-<ul>
-<li><a href="https://github.com/azu/JavaScript-Plugin-Architecture/pull/94" title="refactor(textlint): 敬体(ですます調)と常体(である調)の使い分けを厳密に by azu · Pull Request #94 · azu/JavaScript-Plugin-Architecture">refactor(textlint): 敬体(ですます調)と常体(である調)の使い分けを厳密に by azu · Pull Request #94 · azu/JavaScript-Plugin-Architecture</a> </li>
-</ul>
-<div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gd">-先ほどのgulpタスクの例では、既にモジュール化された処理を`pipe`で繋げただけであるため、</span>
-<span class="gi">+先ほどのgulpタスクの例では、既にモジュール化された処理を`pipe`で繋げただけで、</span>
- それぞれの処理がどのように実装されているかはよく分かりませんでした。
-</code></pre></div><div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gd">-BufferはStringと相互変換が可能であるため、多くのgulpプラグインと呼ばれるものは、`gulpPrefixer`と`prefixBuffer`にあたる部分だけを実装しています。</span>
-<span class="gi">+BufferはStringと相互変換が可能なので、多くのgulpプラグインと呼ばれるものは、`gulpPrefixer`と`prefixBuffer`にあたる部分だけを実装しています。</span>
-</code></pre></div><div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gd">-gulpではプラグインが持つ機能は1つ(単機能)であること推奨しています。</span>
-<span class="gi">+gulpではプラグインが持つ機能は1つ(単機能)とすることを推奨しています。</span>
-</code></pre></div><div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gd">-`jQuery.fn`の実装を見てみると、実態は`jQuery.prototype`であるため実際にprototype拡張していることがわかります。</span>
-<span class="gi">+`jQuery.fn`の実装を見てみると、実態は`jQuery.prototype`なので、prototype拡張していることがわかります。</span>
-</code></pre></div><div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gd">-単純なprototype拡張であると言えるので、利点はJavaScriptのprototypeと同様です。</span>
-<span class="gi">+単純なprototype拡張なので、利点はJavaScriptのprototypeと同様です。</span>
-</code></pre></div><div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gd">-まだNode.jsで使われているCommonJSやES6 Modulesといったものがなかった時代に作られた仕組みであるため、</span>
-<span class="gi">+まだNode.jsで使われているCommonJSやES6 Modulesなどがなかった時代に作られた仕組みなので、</span>
-</code></pre></div>
-<p>他にいい代替表現など書き方の指摘を募集しています。</p>
-
-<ul>
-<li><a href="https://github.com/azu/textlint-rule-no-mix-dearu-desumasu/issues/11" title="Docs: リファクタリング例を募集 · Issue #11 · azu/textlint-rule-no-mix-dearu-desumasu">Docs: リファクタリング例を募集 · Issue #11 · azu/textlint-rule-no-mix-dearu-desumasu</a></li>
-</ul>
-
-<p>また、テキストから解析する部分を別途ライブラリとして切り出しているので、これはそもそも&quot;である調&quot;なのか?という問題などがありましたらIssueを立ててください。</p>
-
-<p>イマイチ明確な基準がわかっていないため、false positiveにならないように限定しています。</p>
-
-<ul>
-<li><a href="https://github.com/azu/analyze-desumasu-dearu" title="azu/analyze-desumasu-dearu: 文の敬体(ですます調)、常体(である調)を解析するJavaScriptライブラリ">azu/analyze-desumasu-dearu: 文の敬体(ですます調)、常体(である調)を解析するJavaScriptライブラリ</a></li>
-</ul>
-
-<p>(本当は<a href="https://github.com/azu/textlint-rule-no-mix-dearu-desumasu/issues/4" title="textlint-rule-no-mix*ed*-dearu-desumasu">textlint-rule-no-mix*ed*-dearu-desumasu</a>の方がESLint的なルール名として正しい…)</p>
  ]]></content>
  </entry>
  
