@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-07-22T10:16:47+09:00</updated>
+ <updated>2016-07-22T10:27:28+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -48,16 +48,16 @@ NG: 「 ダメですね 」
 <p>次のようなルールがプリセットには含まれています。
 また、個別のルールとしてもnpmでインストールできるようになっています。</p>
 
-<h3 id="textlint-rule-ja-space-between-half-and-full-width"><a href="./https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-between-half-and-full-width">textlint-rule-ja-space-between-half-and-full-width</a></h3>
+<h3 id="textlint-rule-ja-space-between-half-and-full-width"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-between-half-and-full-width">textlint-rule-ja-space-between-half-and-full-width</a></h3>
 
 <p>半角文字と全角文字の間にスペースを入れるかどうかのルール
 デフォルトはスペースを入れない。</p>
 
-<h3 id="textlint-rule-ja-space-around-code"><a href="./https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code">textlint-rule-ja-space-around-code</a></h3>
+<h3 id="textlint-rule-ja-space-around-code"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code">textlint-rule-ja-space-around-code</a></h3>
 
 <p>インラインコードの周りにスペースを入れるかを決めるルール</p>
 
-<h3 id="textlint-rule-ja-no-space-between-full-width"><a href="./https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-no-space-between-full-width">textlint-rule-ja-no-space-between-full-width</a></h3>
+<h3 id="textlint-rule-ja-no-space-between-full-width"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-no-space-between-full-width">textlint-rule-ja-no-space-between-full-width</a></h3>
 
 <p>全角文字同士の間のスペースについてのtextlintルール。
 全角文字どうしの間にスペースを入れません。</p>
