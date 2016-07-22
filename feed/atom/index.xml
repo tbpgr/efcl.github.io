@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-07-21T20:38:10+09:00</updated>
+ <updated>2016-07-22T10:16:47+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -21,7 +21,7 @@
    <id>http://efcl.info/2016/07/21/textlint-rule-spacing</id>
    <content type="html"><![CDATA[ <p>文章を書いていると、日本語と english の間にスペースを入れるかどうかという表記揺れの問題がでてきます。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">日本語と english にはスペースを入れる
-日本語とenglishにはスペースを入れる
+日本語とenglishにはスペースを入れない
 `code` と日本語の間はスペースを空ける
 `code`と日本語の間はスペースを空けない
 OK: 「良いですね」
