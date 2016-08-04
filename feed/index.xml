@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-08-04T20:38:22+09:00</updated>
+ <updated>2016-08-04T20:43:30+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -60,7 +60,7 @@
 </code></pre></div>
 <p><a href="https://azu.github.io/ecmascript-version-detector/" title="ECMAScript Version Detector">ECMAScript Version Detector</a>に入れてみると分かりますが、<code>{...property}</code>はまだ標準化されていない機能です。</p>
 
-<p><a href="http://efcl.info/wp-content/uploads/2016/08/04-1470309795.png">result</a></p>
+<p><img src="http://efcl.info/wp-content/uploads/2016/08/04-1470309795.png" alt="result"></p>
 
 <p>これは<a href="http://sebmarkbage.github.io/ecmascript-rest-spread/" title="Object Rest/Spread Properties">Object Rest/Spread Properties</a>で、Stage 2のProposalです。</p>
 
