@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-07-22T10:27:28+09:00</updated>
+ <updated>2016-08-04T20:38:22+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,77 @@
  </author>
  
 
+ 
+ <entry>
+   <title>そのコードが標準化されてるJavaScriptなのかを判定する方法</title>
+   <link href="http://efcl.info/2016/08/04/ecmascript-version-detector/"/>
+   <updated>2016-08-04T20:10:00+09:00</updated>
+   <id>http://efcl.info/2016/08/04/ecmascript-version-detector</id>
+   <content type="html"><![CDATA[ <h1 id="ecmascript-version-detector"><a href="https://azu.github.io/ecmascript-version-detector/" title="ECMAScript Version Detector">ECMAScript Version Detector</a></h1>
+
+<p><a href="https://azu.github.io/ecmascript-version-detector/"><img src="http://efcl.info/wp-content/uploads/2016/08/04-1470309082.png" alt="image"></a></p>
+
+<p><a href="https://azu.github.io/ecmascript-version-detector/" title="ECMAScript Version Detector">ECMAScript Version Detector</a>というツールとライブラリを書きました。</p>
+
+<p><a href="https://azu.github.io/ecmascript-version-detector/" title="ECMAScript Version Detector">azu.github.io/ecmascript-version-detector/</a>へアクセスして、好きなコードをペーストすると、そのコードの構文がECMAScriptのどのバージョンから使える機能なのかを表示してくれます。</p>
+
+<p>たとえば、以下のコードはasyncとawaitの部分がまだProposalである<a href="https://github.com/tc39/ecmascript-asyncawait" title="Async Functions">Async Functions</a>であることを検出してくれたりします。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Async/Await</span>
+<span class="nx">async</span> <span class="kd">function</span> <span class="nx">countUp</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">await</span> <span class="nx">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="目的">目的</h2>
+
+<p>Babelなどの変換ツールでECMAScriptのProposalな機能などが身近になりました。
+しかし、それがまだ仕様に入ってないもの(Proposal段階であるもの)ということを意識しないで書いてる人もよく見かけるようになりました。</p>
+
+<p>そのため、まだProposalの段階である標準化されてない機能/構文を標準化される<a href="https://medium.com/@jayphelps/please-stop-referring-to-proposed-javascript-features-as-es7-cad29f9dcc4b">前提</a><a href="http://www.2ality.com/2016/01/ecmascript-2016.html">にして</a><a href="http://teppeis.hatenablog.com/entry/2016/01/es2016-feature-freeze">話すな</a>という<a href="http://jser.info/2015/11/16/ecmascript-7-ms-node-js/">話</a>が<a href="http://azu.github.io/slide-what-is-ecmascript/">あった</a>りします。</p>
+
+<p>例えば、次のコードは既に仕様に入ってる(ES2015)構文で書かれたコードでしょうか?</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">friends</span><span class="p">(</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">initialState</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>  
+  <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s2">&quot;FRIEND&quot;</span><span class="o">:</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">friendsById</span><span class="o">:</span> <span class="p">{</span>
+          <span class="p">...</span><span class="nx">state</span><span class="p">.</span><span class="nx">friendsById</span><span class="p">,</span>
+          <span class="p">[</span><span class="nx">newId</span><span class="p">]</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="nx">action</span><span class="p">.</span><span class="nx">name</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="k">default</span><span class="o">:</span>
+      <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><a href="https://azu.github.io/ecmascript-version-detector/" title="ECMAScript Version Detector">ECMAScript Version Detector</a>に入れてみると分かりますが、<code>{...property}</code>はまだ標準化されていない機能です。</p>
+
+<p><a href="http://efcl.info/wp-content/uploads/2016/08/04-1470309795.png">result</a></p>
+
+<p>これは<a href="http://sebmarkbage.github.io/ecmascript-rest-spread/" title="Object Rest/Spread Properties">Object Rest/Spread Properties</a>で、Stage 2のProposalです。</p>
+
+<p>こういう見た目から分かりにくいものも、構文を解析して一覧を出すのが目的です。</p>
+
+<p>JavaScriptに詳しい人は問題ないですが、JavaScriptを今から始めるような人は、どの機能がいつから使える機能なのかが分からない場合があります。</p>
+
+<p>また、最近のブラウザは先行して実装したりしています。
+ブラウザに入ってる ＝ 標準化されたもの ではないので、そういうのをコードから検索できる必要が出てくる気がしています。</p>
+
+<p><a href="https://github.com/asciidwango/js-primer" title="asciidwango/js-primer: JavaScriptの入門書">asciidwango/js-primer: JavaScriptの入門書</a>を書いていて、<a href="https://asciidwango.github.io/js-primer/basic/operator/" title="演算子 · JavaScriptの入門書 #jsprimer">演算子 · JavaScriptの入門書 #jsprimer</a>はGoogle検索が難しいので、１ページに殆どの演算子記号を並べて書いたりしています。</p>
+
+<p>JavaScriptのコードにおいても、コードからこの構文って何なのかを知りたい事があると思うので作りました。</p>
+
+<h2 id="おわり">おわり</h2>
+
+<p><a href="https://github.com/azu/ecmascript-version-detector" title="azu/ecmascript-version-detector: ECMAScript Version Detector">azu/ecmascript-version-detector: ECMAScript Version Detector</a>は結構ラフスケッチな感じなので、もっといい感じの表示したりするPull Request待っています。</p>
+
+<p><a href="https://github.com/azu/ecmascript-version-detector#contributing" title="Contributing">Contributing</a>に書いていますが、コードからのバージョンの判定は<a href="https://github.com/rse/astq" title="astq">astq</a>を使ってセレクタにマッチするかを見ています。</p>
+
+<p>まだ足りてない判定などもあるので、気軽にPull Requestを投げてください。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>textlintでスペースを入れる入れないを統一するルール</title>
@@ -1431,70 +1502,6 @@ ViewからできるだけIf文を消すために、<code>TogglePattern</code>の
 
 <ul>
 <li><a href="https://github.com/azu/react-toggle-pattern/blob/master/test/react-toggle-pattern-test.js" title="react-toggle-pattern/react-toggle-pattern-test.js at master · azu/react-toggle-pattern">react-toggle-pattern/react-toggle-pattern-test.js at master · azu/react-toggle-pattern</a></li>
-</ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>textlintでAsciidoc/Asciidoctorをサポートするプラグイン</title>
-   <link href="http://efcl.info/2016/05/08/textlint-support-asciidoc-loose/"/>
-   <updated>2016-05-08T20:24:00+09:00</updated>
-   <id>http://efcl.info/2016/05/08/textlint-support-asciidoc-loose</id>
-   <content type="html"><![CDATA[ <p><a href="http://textlint.github.io/" title="textlint">textlint</a>で<a href="http://www.methods.co.nz/asciidoc/" title="AsciiDoc">AsciiDoc</a>/<a href="http://asciidoctor.org/" title="Asciidoctor">Asciidoctor</a>を限定的にサポートするプラグインを書きました。</p>
-
-<ul>
-<li><a href="https://github.com/azu/textlint-plugin-asciidoc-loose" title="textlint-plugin-asciidoc-loose">textlint-plugin-asciidoc-loose</a></li>
-</ul>
-
-<h2 id="制限">制限</h2>
-
-<p>今のところ<code>Paragarph</code>と<code>Str</code>しかサポートしていません。
-他のNodeは単純に無視されるので、<code>Header</code>や<code>List</code>、<code>Link</code>などはないものと同じ扱いになっています。</p>
-
-<p>簡単にいうと本文の文章をチェックするルールしか上手く動かないという感じです。</p>
-
-<p>textlintのルールの大体は本文を対象としているので、<a href="https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule" title="Collection of textlint rule · textlint/textlint Wiki">Collection of textlint rule</a>に書かれてるルールの8割ぐらいは動くような気がします。</p>
-
-<p><code>Header</code>や<code>List</code>のサポートぐらいできたら結構良さそうな気がするので、Pull Request募集中です。</p>
-
-<ul>
-<li><a href="https://github.com/azu/textlint-plugin-asciidoc-loose/issues" title="Issues · azu/textlint-plugin-asciidoc-loose">Issues · azu/textlint-plugin-asciidoc-loose</a></li>
-</ul>
-
-<p>現状は<a href="http://motemen.hatenablog.com/entry/2016/04/textlint-asciidoc" title="AsciiDoc（Asciidoctor）の文書をtextlintで校正する - 詩と創作・思索のひろば">AsciiDoc（Asciidoctor）の文書をtextlintで校正する - 詩と創作・思索のひろば</a> と似ているかもしれません。</p>
-
-<h2 id="インストール">インストール</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-plugin-asciidoc-loose
-</code></pre></div>
-<h2 id="使い方">使い方</h2>
-
-<p><code>.textlintrc</code>の<code>&quot;plugins&quot;</code>に<code>&quot;asciidoc-loose&quot;</code>を追加すると有効になります。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">{
-    &quot;plugins&quot;: [
-        &quot;asciidoc-loose&quot;
-    ]
-}
-</code></pre></div>
-<p>以下の拡張子をAsciidocのファイルとして認識しています。</p>
-
-<ul>
-<li>&quot;.asciidoc&quot;,</li>
-<li>&quot;.adoc&quot;,</li>
-<li>&quot;.asc&quot;</li>
-</ul>
-
-<h2 id="例">例</h2>
-
-<p><a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a>は<a href="https://github.com/azu/promises-book/search?l=asciidoc&amp;q=&amp;type=Code&amp;utf8=%E2%9C%93">Asciidoctorで書かれてる</a>で試しに<a href="http://textlint.github.io/" title="textlint">textlint</a>でLintしてみたら、エラー位置も正しく普通に動きました。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2016/05/08-1462706748.png" alt="textlint with asciidoc"></p>
-
-<h2 id="注意">注意</h2>
-
-<p>最初に書いた制限にあるように<code>Paragarph</code>と<code>Str</code>のみなので、<code>List</code>の中の<code>Str</code>は例外的に無視するみたいなルールが意図と異なる結果になったりする場合もあります。</p>
-
-<ul>
-<li><a href="https://github.com/azu/textlint-plugin-asciidoc-loose" title="textlint-plugin-asciidoc-loose">textlint-plugin-asciidoc-loose</a></li>
 </ul>
  ]]></content>
  </entry>
