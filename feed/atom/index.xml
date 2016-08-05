@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-08-05T11:49:16+09:00</updated>
+ <updated>2016-08-05T21:05:32+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -79,7 +79,8 @@
 
 <p><a href="https://github.com/azu/ecmascript-version-detector" title="azu/ecmascript-version-detector: ECMAScript Version Detector">azu/ecmascript-version-detector: ECMAScript Version Detector</a>は結構ラフスケッチな感じなので、もっといい感じの表示したりするPull Request待っています。</p>
 
-<p>一応、ライブラリとして使えるます。</p>
+<p>一応、ライブラリとして使えます。
+コードをパースしたら、バージョンとかASTが入ったものを返します。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">parse</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ecmascript-version-detector&quot;</span><span class="p">).</span><span class="nx">parse</span><span class="p">;</span>
 <span class="nx">parse</span><span class="p">(</span><span class="err">`</span><span class="kr">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">**</span> <span class="mi">2</span><span class="p">;</span><span class="err">`</span><span class="p">);</span>
 <span class="cm">/*</span>
