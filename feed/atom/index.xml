@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-08-15T22:04:17+09:00</updated>
+ <updated>2016-08-15T22:12:39+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -117,7 +117,7 @@
 
 <p>ロガーを実装するのは面倒だったので、<a href="https://github.com/micmro/performance-bookmarklet" title="micmro/performance-bookmarklet: Performance-Bookmarklet helps to analyze the current page through the Resource Timing API, Navigation Timing API and User-Timing - requests by type, domain, load times, marks and more. Sort of a light live WebPageTest.">micmro/performance-bookmarklet</a>を使って&quot;起動までの時間&quot;をコンソールに表示します。</p>
 
-<p><img src="http://efcl.info/wp-content/uploads/2016/08/13-1471098414.png" alt="before"></p>
+<p><a href="http://efcl.info/wp-content/uploads/2016/08/13-1471098414.png"><img src="http://efcl.info/wp-content/uploads/2016/08/13-1471098414.png" alt="before"></a></p>
 
 <p>&quot;AppBootStrap:end&quot;が遠すぎて見えない…</p>
 
@@ -150,7 +150,7 @@
 
 <p>辞書をキャッシュしたことで、起動までの時間が8913ms -&gt; 2187msまで短縮できました。</p>
 
-<p><img src="http://efcl.info/wp-content/uploads/2016/08/13-1471098703.png" alt="after"></p>
+<p><a href="http://efcl.info/wp-content/uploads/2016/08/13-1471098703.png"><img src="http://efcl.info/wp-content/uploads/2016/08/13-1471098703.png" alt="after"></a></p>
 
 <p><code>console.log</code>と違って、このまま<code>window.performance.mark(&quot;AppBootStrap:end&quot;);</code>などを残してても特に害があるわけではありません。
 コンソールへの出力を実装していないので、能動的に見ないかぎりは何も出力されてないように見えるためです。</p>
