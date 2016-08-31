@@ -452,8 +452,9 @@ var blog_categories = [
 
 <p>ES6 -&gt; ES5の変換には<a href="http://babeljs.io/" title="Babel">Babel</a>を使っています。<code>devDependencies</code>で入れておいて、npm run-scriptで実行するようにすればglobalに入れる必要はありません。</p>
 
-<p>次のようにBabelと変換ルールを決めたpresetをインストールします。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -D babel-cli babel-preset-es2015 babel-preset-power-assert babel-register
+<p>次のようにBabelと変換ルールを決めたpresetをインストールします。
+(加えてpower-assertも一緒に入れておきます)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -D babel-cli babel-preset-es2015 babel-preset-power-assert babel-register power-assert
 </code></pre></div>
 <p>そして、変換にどのpresetを使うかを<code>.babelrc</code>というファイル名で作成して次のような内容にします。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">{
@@ -476,12 +477,7 @@ var blog_categories = [
   &quot;scripts&quot;: {
     &quot;build&quot;: &quot;NODE_ENV=production babel src --out-dir lib  --source-maps-inline&quot;,
     &quot;watch&quot;: &quot;babel src --out-dir lib --watch --source-maps-inline&quot;,
-    &quot;test&quot;: &quot;npm run build &amp;&amp; mocha test/*.js&quot;
-  },
-  &quot;devDependencies&quot;: {
-    &quot;babel&quot;: &quot;^5.2.17&quot;,
-    &quot;espower-babel&quot;: &quot;^3.0.0&quot;,
-    &quot;power-assert&quot;: &quot;^0.11.0&quot;
+    &quot;test&quot;: &quot;mocha --compilers js:babel-register test/*.js&quot;
   }
   ...
 </code></pre></div>
