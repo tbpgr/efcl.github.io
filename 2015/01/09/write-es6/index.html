@@ -337,6 +337,7 @@ var blog_categories = [
 <p><strong>2016-08-31: 追記</strong></p>
 
 <ul>
+<li>Babelとpower-assertの設定方法を.babelrcを使うように変更しました</li>
 <li>Babel 6から.babelrcが必須になりました</li>
 <li>espower-babelは非推奨になりました</li>
 <li><a href="http://efcl.info/2016/04/14/espower-babel-is-deprecated/" title="power-assert + babel as a development tool | Web Scratch">power-assert + babel as a development tool | Web Scratch</a></li>
@@ -451,12 +452,29 @@ var blog_categories = [
 
 <p>ES6 -&gt; ES5の変換には<a href="http://babeljs.io/" title="Babel">Babel</a>を使っています。<code>devDependencies</code>で入れておいて、npm run-scriptで実行するようにすればglobalに入れる必要はありません。</p>
 
+<p>次のようにBabelと変換ルールを決めたpresetをインストールします。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -D babel-cli babel-preset-es2015 babel-preset-power-assert babel-register
+</code></pre></div>
+<p>そして、変換にどのpresetを使うかを<code>.babelrc</code>というファイル名で作成して次のような内容にします。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">{
+  &quot;presets&quot;: [
+    &quot;es2015&quot;
+  ],
+  &quot;env&quot;: {
+    &quot;development&quot;: {
+      &quot;presets&quot;: [
+        &quot;power-assert&quot;
+      ]
+    }
+  }
+}
+</code></pre></div>
 <ul>
 <li><a href="http://qiita.com/Jxck_/items/efaff21b977ddc782971" title="npm で依存もタスクも一元化する - Qiita">npm で依存もタスクも一元化する - Qiita</a></li>
 </ul>
 <div class="highlight"><pre><code class="language-text" data-lang="text">  ...
   &quot;scripts&quot;: {
-    &quot;build&quot;: &quot;babel src --out-dir lib  --source-maps-inline&quot;,
+    &quot;build&quot;: &quot;NODE_ENV=production babel src --out-dir lib  --source-maps-inline&quot;,
     &quot;watch&quot;: &quot;babel src --out-dir lib --watch --source-maps-inline&quot;,
     &quot;test&quot;: &quot;npm run build &amp;&amp; mocha test/*.js&quot;
   },
@@ -537,16 +555,25 @@ var blog_categories = [
 <li><a href="https://github.com/Constellation/structured-source/blob/master/gulpfile.js" title="structured-source/gulpfile.js at master · Constellation/structured-source">structured-source/gulpfile.js at master · Constellation/structured-source</a></li>
 </ul>
 
-<p>自分は設定ファイルとかを別途作成するのは好きじゃないので、<a href="https://github.com/azu/espower-babel" title="azu/espower-babel">azu/espower-babel</a>というモジュールを作成しました。</p>
+<p><del>自分は設定ファイルとかを別途作成するのは好きじゃないので、<a href="https://github.com/azu/espower-babel" title="azu/espower-babel">azu/espower-babel</a>というモジュールを作成しました。</p>
 
-<p><a href="https://github.com/azu/intelli-espower-loader" title="azu/intelli-espower-loader">azu/intelli-espower-loader</a>と大体同じような事をやっていて、babel + power-assertの変換を一緒に実行時にやってくれるhookスクリプトです。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install espower-babel -D
-mocha --compilers js:espower-babel/guess test/**/*.js
+<p><a href="https://github.com/azu/intelli-espower-loader" title="azu/intelli-espower-loader">azu/intelli-espower-loader</a>と大体同じような事をやっていて、babel + power-assertの変換を一緒に実行時にやってくれるhookスクリプトです。</del></p>
+
+<p>先ほど、presetとしてpower-assertの変換をやってくれる <code>babel-preset-power-assert</code> をインストールしたので、次のように<code>mocha</code>の<code>--compilers</code>引数を設定します。</p>
+
+<p>意味としては、<code>js</code>拡張子には <code>babel-register</code> モジュールをロード(Babelの変換をランタイム時に行う)するという形になります。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">mocha --compilers js:babel-register test/**/*.js
 </code></pre></div>
 <p>とするだけで、ES6で書かれたテストコードをpower-assertを使ってテストすることが出来ます。</p>
 
+<p>詳しくは次の記事を参照してください。</p>
+
+<ul>
+<li><a href="http://efcl.info/2016/04/14/espower-babel-is-deprecated/" title="power-assert + babel as a development tool | Web Scratch">power-assert + babel as a development tool | Web Scratch</a></li>
+</ul>
+
 <p>power-assertを使わない場合は以下のように書くだけで問題ないので、<a href="https://github.com/azu/espower-babel" title="azu/espower-babel">azu/espower-babel</a>は不要です。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">mocha --compilers js:babel/register test/**/*.js
+<div class="highlight"><pre><code class="language-text" data-lang="text">mocha --compilers js:babel-register test/**/*.js
 </code></pre></div>
 <ul>
 <li><a href="http://babeljs.io/docs/using-babel/#mocha" title="Using Babel · Babel">Using Babel · Babel</a></li>
@@ -573,6 +600,13 @@ mocha --compilers js:espower-babel/guess test/**/*.js
 </ul>
 
 <h3 id="document">Document</h3>
+
+<p>追記(2016-08-31): 現在はES2015+に対応したドキュメントツールもあるので、そちらを使ったほうがいいかもしれません。</p>
+
+<ul>
+<li><a href="https://github.com/documentationjs/documentation">documentationjs/documentation: beautiful, flexible, powerful js docs</a></li>
+<li><a href="https://esdoc.org/">ESDoc - A Documentation Generator For JavaScript(ES6)</a></li>
+</ul>
 
 <p>このライブラリは小さいことを前提としてたので、<code>README.md</code>にAPIの一覧をコード内のJSDocから生成して出しています。</p>
 
