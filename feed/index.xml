@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-06T23:20:04+09:00</updated>
+ <updated>2016-09-06T23:21:28+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -19,7 +19,7 @@
    <link href="http://efcl.info/2016/09/06/nan/"/>
    <updated>2016-09-06T21:54:00+09:00</updated>
    <id>http://efcl.info/2016/09/06/nan</id>
-   <content type="html"><![CDATA[ <p>この記事では、<code>NaN</code>について改めて学ぶという趣旨の話をします。</p>
+   <content type="html"><![CDATA[ <p>この記事では、JavaScriptの<code>NaN</code>について改めて学ぶという趣旨の話をします。</p>
 
 <p>JavaScriptで、文字列などから数値へ値を変換したいことがあると思います。
 典型的なケースでは、ユーザーに入力してもらった数字となる文字列を、Number型へ変換するというケースです。</p>
