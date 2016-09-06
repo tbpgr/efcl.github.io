@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-06T22:24:17+09:00</updated>
+ <updated>2016-09-06T22:25:08+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -71,7 +71,7 @@
 <span class="nb">isNaN</span><span class="p">([]);</span> <span class="c1">// =&gt; false</span>
 <span class="nb">isNaN</span><span class="p">(</span><span class="kc">NaN</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
 </code></pre></div>
-<p>同様の処理を行う方法として<code>Number.isNaN(x)</code>メソッドがあります。
+<p>同様の処理を行う方法としてES2015から<code>Number.isNaN(x)</code>メソッドが追加されています。
 実際に値が<code>NaN</code>かを判定する際には、<code>Number.isNaN(x)</code>メソッドを利用するとよいでしょう。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nb">Number</span><span class="p">.</span><span class="nb">isNaN</span><span class="p">(</span><span class="kc">NaN</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
 </code></pre></div>
