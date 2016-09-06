@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "NaNはNot a NumberだけどNumber型である話",
+            "url": "http://efcl.info/2016/09/06/nan/",
+            "date": "2016-09-06T21:54:00+09:00"
+        },
+        
+        {
             "title": "performance.markでパフォーマンス計測する",
             "url": "http://efcl.info/2016/08/15/performance.mark/",
             "date": "2016-08-15T21:24:00+09:00"

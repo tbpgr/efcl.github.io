@@ -743,7 +743,11 @@
         
         "performance",
         
-        "logger"
+        "logger",
+        
+        "NaN",
+        
+        "Math"
         
     ]
 }
