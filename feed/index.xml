@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-06T22:25:08+09:00</updated>
+ <updated>2016-09-06T23:20:04+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -81,7 +81,8 @@
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// グローバルの`isNaN`関数</span>
 <span class="c1">// 上で作ったisNaN関数とは別もの</span>
 <span class="nb">isNaN</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
-<span class="c1">// ===</span>
+<span class="c1">// `isNaN`関数は以下のようなことをやっているのと同じ</span>
+<span class="c1">// Numberコンストラクタ関数で変換してから、`Number.isNumber`で判定するのと同じようなもの</span>
 <span class="nb">Number</span><span class="p">.</span><span class="nx">isNumber</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">));</span><span class="c1">// =&gt; true</span>
 </code></pre></div>
 <p><code>NaN</code>は暗黙的な型変換の中でももっとも避けたい値となります。

@@ -394,7 +394,8 @@ var blog_categories = [
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// グローバルの`isNaN`関数</span>
 <span class="c1">// 上で作ったisNaN関数とは別もの</span>
 <span class="nb">isNaN</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
-<span class="c1">// ===</span>
+<span class="c1">// `isNaN`関数は以下のようなことをやっているのと同じ</span>
+<span class="c1">// Numberコンストラクタ関数で変換してから、`Number.isNumber`で判定するのと同じようなもの</span>
 <span class="nb">Number</span><span class="p">.</span><span class="nx">isNumber</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">));</span><span class="c1">// =&gt; true</span>
 </code></pre></div>
 <p><code>NaN</code>は暗黙的な型変換の中でももっとも避けたい値となります。
