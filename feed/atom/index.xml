@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-06T22:19:01+09:00</updated>
+ <updated>2016-09-06T22:23:31+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -55,7 +55,7 @@
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">y</span><span class="p">);</span> <span class="c1">// =&gt; NaN</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">z</span><span class="p">);</span> <span class="c1">// =&gt; NaN</span>
 </code></pre></div>
-<p>しかし、<code>NaN</code>はNumber型の一種であるという名前と矛盾したデータに見えます。</p>
+<p>しかし、<code>NaN</code>はNumber型の一種であるという名前と矛盾したデータに見えますが仕様です。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// NaNはnumber型</span>
 <span class="k">typeof</span> <span class="kc">NaN</span><span class="p">;</span> <span class="c1">// =&gt; &quot;number&quot;</span>
 </code></pre></div>
