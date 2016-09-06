@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-06T22:14:05+09:00</updated>
+ <updated>2016-09-06T22:19:01+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -133,7 +133,7 @@
 引数に数値以外の値がある場合は例外を投げるという処理を追加するといった形です。</p>
 
 <p>JavaScriptではコメントで引数の型を記述する書式として<a href="http://usejsdoc.org/" title="Use JSDoc: Index">JSDoc</a>が有名です。
-また、<a href="http://www.typescriptlang.org/" title="TypeScript - JavaScript that scales.">TypeScript</a>や<a href="https://flowtype.org/" title="Flow">Flow</a>を使うことで静的チェックもできます。</p>
+また、<a href="http://www.typescriptlang.org/" title="TypeScript - JavaScript that scales.">TypeScript</a>や<a href="https://flowtype.org/" title="Flow">Flow</a>を使うことで型定義や静的チェックもできます。</p>
 
 <p>ランタイム時に値をチェックし例外または警告を表示する関数として<code>console.assert(条件式, メッセージ)</code>メソッドが多くの実行環境で利用できます。
 (Node.jsだと例外をなげ、ブラウザだとコンソールへの警告になります)</p>
