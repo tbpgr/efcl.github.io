@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-06T23:21:28+09:00</updated>
+ <updated>2016-09-07T22:21:30+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -84,6 +84,8 @@
 <span class="c1">// `isNaN`関数は以下のようなことをやっているのと同じ</span>
 <span class="c1">// Numberコンストラクタ関数で変換してから、`Number.isNumber`で判定するのと同じようなもの</span>
 <span class="nb">Number</span><span class="p">.</span><span class="nx">isNumber</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">));</span><span class="c1">// =&gt; true</span>
+<span class="c1">// 安全に使うならxが number か判定してから isNaNで判定する</span>
+<span class="k">typeof</span> <span class="nx">x</span> <span class="o">===</span> <span class="s2">&quot;number&quot;</span> <span class="o">&amp;&amp;</span> <span class="nb">isNaN</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
 </code></pre></div>
 <p><code>NaN</code>は暗黙的な型変換の中でももっとも避けたい値となります。
 理由として、先ほど紹介したように<code>NaN</code>は何と演算しても結果が<code>NaN</code>となってしまうためです。
