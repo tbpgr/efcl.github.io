@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-14T21:46:43+09:00</updated>
+ <updated>2016-09-14T22:23:32+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -35,7 +35,7 @@
 
 <h2 id="構造化された文章">構造化された文章</h2>
 
-<p>構造化を持った文章とはどういうものかというと、セクションやパラグラフなどがシンタックスとして大体分かる文章の事をここでは言っています。</p>
+<p>構造を持った文章とはどういうものかというと、セクションやパラグラフなどがシンタックスとして大体分かる文章の事をここでは言っています。</p>
 
 <p>しかし、Markdownにはセクション(HTMLでは <code>&lt;section&gt;</code> タグに該当するもの)がないので、HeaderとHeaderの間を一つのセクションとして認識しています。</p>
 
