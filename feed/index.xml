@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-14T21:33:15+09:00</updated>
+ <updated>2016-09-14T21:46:43+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -45,7 +45,7 @@
 
 <h2 id="文章が特定のキーワードを含むかテストする">文章が特定のキーワードを含むかテストする</h2>
 
-<p>実際どうやって文章をテストするかというと次のようなBDDっぽいようなテストを買います。</p>
+<p>実際どうやって文章をテストするかというと次のようなBDDっぽいようなテストを書きます。</p>
 
 <ul>
 <li><a href="https://github.com/azu/text-testing/tree/master/packages/text-testing-mocha" title="text-testing-mocha">text-testing-mocha</a></li>
