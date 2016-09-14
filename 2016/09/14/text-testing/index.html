@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        文章をTDDする | Web Scratch
+        
+    </title>
+    <meta name="description" content="文章のテスト">
+    
+    <meta name="keywords" content="文章,JavaScript,testing" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="文章をTDDする">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/09/14/text-testing/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="文章のテスト">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-09-14T20:22:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/09/06/nan/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/08/15/performance.mark/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/08/04/ecmascript-version-detector/">
+
+
+
+
+
+<meta property="article:section" content="javascript">
+
+
+
+
+
+<meta property="article:tag" content="文章">
+
+<meta property="article:tag" content="JavaScript">
+
+<meta property="article:tag" content="testing">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 162
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 80
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 5
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/09/14/text-testing/">
+                文章をTDDする
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/09/06/nan/">
+                NaNはNot a NumberだけどNumber型である話
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/08/15/performance.mark/">
+                performance.markでパフォーマンス計測する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/08/04/ecmascript-version-detector/">
+                そのコードが標準化されてるJavaScriptなのかを判定する方法
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/09/14/text-testing/">
+    <h1 class="post-title">文章をTDDする</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年09月14日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-09-14-text-testing.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <h1 id="文章のテスト">文章のテスト</h1>
+
+<p>技術書とかの文書を開発するにあたってテストを先に書きたくなったという話です。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/11/07/nodefest-2015/">東京Node学園祭2015で技術文書をソフトウェア開発する話をしてきた | Web Scratch</a></li>
+<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/">Introduction | 技術文書をソフトウェア開発する話</a></li>
+</ul>
+
+<p>とかの続きみたいなものです。</p>
+
+<p>ここで扱う文章は、Markdownですが、構造を持った文章なら多分適応できる気がします。
+具体的には<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>で扱うパーサを再利用しているので、reStructuredTextとかRe:VIEWとかHTMLも多分頑張ればできる。</p>
+
+<h2 id="構造化された文章">構造化された文章</h2>
+
+<p>構造化を持った文章とはどういうものかというと、セクションやパラグラフなどがシンタックスとして大体分かる文章の事をここでは言っています。</p>
+
+<p>しかし、Markdownにはセクション(HTMLでは <code>&lt;section&gt;</code> タグに該当するもの)がないので、HeaderとHeaderの間を一つのセクションとして認識しています。</p>
+
+<ul>
+<li><a href="https://github.com/azu/text-testing/tree/master/packages/select-section" title="text-testing/packages/select-section at master · azu/text-testing">text-testing/packages/select-section at master · azu/text-testing</a></li>
+</ul>
+
+<h2 id="文章が特定のキーワードを含むかテストする">文章が特定のキーワードを含むかテストする</h2>
+
+<p>実際どうやって文章をテストするかというと次のようなBDDっぽいようなテストを買います。</p>
+
+<ul>
+<li><a href="https://github.com/azu/text-testing/tree/master/packages/text-testing-mocha" title="text-testing-mocha">text-testing-mocha</a></li>
+</ul>
+
+<p>このテストでは<code>サンプル</code>というワードを含むセクションが、
+<code>単語</code>というキーワードを含んでいるかをテストしています。</p>
+
+<p><code>**</code> で囲んだ範囲だけをキーワードの対象にできます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">tester</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;text-testing-mocha&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+<span class="c1">// テストする対象の文章を読み込む</span>
+<span class="kr">const</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="s2">&quot;README.md&quot;</span><span class="p">,</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">);</span>
+<span class="nx">tester</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="p">(</span><span class="nx">section</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// 指定したセクションが</span>
+    <span class="nx">section</span><span class="p">(</span><span class="s2">&quot;この**サンプル**が&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">test</span><span class="p">(</span><span class="s2">&quot;この**単語**を含んでいるかをテストする&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>例えば次の文章だと、先ほどのテストはパスします。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># サンプルA
+
+ある単語を含んでいる文章なのでOK
+</code></pre></div>
+<p>しかし、次の文章だと、先ほどのテストは失敗します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># サンプルB
+
+ある???を含んでいないのでダメ
+</code></pre></div>
+<p>デフォルトでは含んでいる事をテストしていますが、第二引数で任意の判定をかけるので、含まない事も書くことができます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">tester</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="p">(</span><span class="nx">section</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">section</span><span class="p">(</span><span class="s2">&quot;ある**サンプル**は&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">it</span><span class="p">,</span> <span class="nx">sections</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;**unknown**を含まない&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">texts</span><span class="p">,</span> <span class="nx">section</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">texts</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="nx">text</span> <span class="o">=&gt;</span> <span class="o">!</span><span class="nx">section</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">text</span><span class="p">));</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><a href="https://github.com/azu/text-testing/tree/master/packages/text-testing-mocha" title="text-testing-mocha">text-testing-mocha</a>は名前の通り、Mochaを使って動くDSLみたいなものです。</p>
+
+<p>正直すごい雑で大したことをやっていないです。</p>
+
+<h2 id="モチベーション">モチベーション</h2>
+
+<p><a href="https://github.com/asciidwango/js-primer" title="asciidwango/js-primer: JavaScriptの入門書">asciidwango/js-primer: JavaScriptの入門書</a>を書いていて、一つの章が長くなると目的を見失う事がままあります。</p>
+
+<p>そのため、まずその章が何を説明したいのかという目標規定文を書き、書きながらそれを何度も見なおして脇道に逸れないように注意を払う必要がありました。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">目標規定文<br>-- 理科系の作文技術 <a href="https://t.co/qpHTynwfBh">pic.twitter.com/qpHTynwfBh</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/776034638942707712">September 14, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>章やセクションと言った単位で書いてる途中で、その目標が変わることはあまりないはずなので、何かガイドとなるものが欲しかったのが一つのモチベーションです。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">文章に関係しそうな文をキーワードを書き<br>その文章が何を伝えたいのかをかく目標規定文を書き<br>文章のアウトラインを考え<br>アウトラインの詳細を決める実験やコードを集め<br>もう一度アウトラインを構成し<br>アウトラインからテストを書き<br>文章に落とす</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/767584331875311617">August 22, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="テストファースト">テストファースト</h3>
+
+<p>新しい文章を書いてて一番気が重たいのは最初の一行を書くことだと思います。
+しかし、アウトラインは本文に比べてラクな気持ちで書くことができていました。</p>
+
+<p>なので、最初にアウトラインをテストとして書いてみることから始めました。
+そうすることで、テストが落ちます。</p>
+
+<p>テストが落ちてるので、次はテストが通るように文章を書き始めれば良くなります。
+そうすることで、書き始めが楽になるのではないかなという実験も兼ねて作り始めました。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;2000年は閏年&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">assert</span><span class="p">(</span><span class="nx">isLeap</span><span class="p">(</span><span class="mi">2000</span><span class="p">));</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>というテストを書いて、</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">isLeap</span><span class="p">(</span><span class="nx">year</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">===</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>というコードから書き始めるのと同じような気分でスタートできます。</p>
+
+<p>また、技術書のような文書はある程度文章の構造があると思うので、入力(文章)に対する出力(伝えたい結果)はテストできてもいいんじゃないかなという期待も持っています。</p>
+
+<p>実際にこのテストを取り入れて書いてみたものは次のものになっています。</p>
+
+<ul>
+<li><a href="https://asciidwango.github.io/js-primer/basic/implicit-coercion/" title="暗黙的な型変換 · JavaScriptの入門書 #jsprimer">暗黙的な型変換 · JavaScriptの入門書 #jsprimer</a></li>
+<li><a href="https://github.com/asciidwango/js-primer/pull/129" title="feat(implicit-coercion): 暗黙的な型変換について by azu · Pull Request #129 · asciidwango/js-primer">feat(implicit-coercion): 暗黙的な型変換について by azu · Pull Request #129 · asciidwango/js-primer</a></li>
+</ul>
+
+<p>後は、何かと文章は一度に多くを書きすぎてしまう問題を持っている気がします。
+小さなPull Requestして開発を進めるのがいいように、文章にも同じアプローチが正しいのかは今後検証していきたい気がします。
+この時に、より&quot;構造&quot;というものを意識した書き方が必要になるのかもしれません。</p>
+
+<p>分かりやすいコードも分かりやすい文章もある程度のレベルまでは、センスとかではなく技術的なアプローチで解決できる問題なのではないかなと考えています。</p>
+
+<ul>
+<li><a href="https://github.com/azu/text-testing" title="azu/text-testing: Testing library for structured texts.">azu/text-testing: Testing library for structured texts.</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-09-14-text-testing.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["文章","JavaScript","testing"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=文章">文章</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=testing">testing</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

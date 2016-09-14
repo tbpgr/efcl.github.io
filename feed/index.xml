@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-07T22:21:30+09:00</updated>
+ <updated>2016-09-14T21:33:15+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,139 @@
  </author>
  
 
+ 
+ <entry>
+   <title>文章をTDDする</title>
+   <link href="http://efcl.info/2016/09/14/text-testing/"/>
+   <updated>2016-09-14T20:22:00+09:00</updated>
+   <id>http://efcl.info/2016/09/14/text-testing</id>
+   <content type="html"><![CDATA[ <h1 id="文章のテスト">文章のテスト</h1>
+
+<p>技術書とかの文書を開発するにあたってテストを先に書きたくなったという話です。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/11/07/nodefest-2015/">東京Node学園祭2015で技術文書をソフトウェア開発する話をしてきた | Web Scratch</a></li>
+<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/">Introduction | 技術文書をソフトウェア開発する話</a></li>
+</ul>
+
+<p>とかの続きみたいなものです。</p>
+
+<p>ここで扱う文章は、Markdownですが、構造を持った文章なら多分適応できる気がします。
+具体的には<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>で扱うパーサを再利用しているので、reStructuredTextとかRe:VIEWとかHTMLも多分頑張ればできる。</p>
+
+<h2 id="構造化された文章">構造化された文章</h2>
+
+<p>構造化を持った文章とはどういうものかというと、セクションやパラグラフなどがシンタックスとして大体分かる文章の事をここでは言っています。</p>
+
+<p>しかし、Markdownにはセクション(HTMLでは <code>&lt;section&gt;</code> タグに該当するもの)がないので、HeaderとHeaderの間を一つのセクションとして認識しています。</p>
+
+<ul>
+<li><a href="https://github.com/azu/text-testing/tree/master/packages/select-section" title="text-testing/packages/select-section at master · azu/text-testing">text-testing/packages/select-section at master · azu/text-testing</a></li>
+</ul>
+
+<h2 id="文章が特定のキーワードを含むかテストする">文章が特定のキーワードを含むかテストする</h2>
+
+<p>実際どうやって文章をテストするかというと次のようなBDDっぽいようなテストを買います。</p>
+
+<ul>
+<li><a href="https://github.com/azu/text-testing/tree/master/packages/text-testing-mocha" title="text-testing-mocha">text-testing-mocha</a></li>
+</ul>
+
+<p>このテストでは<code>サンプル</code>というワードを含むセクションが、
+<code>単語</code>というキーワードを含んでいるかをテストしています。</p>
+
+<p><code>**</code> で囲んだ範囲だけをキーワードの対象にできます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">tester</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;text-testing-mocha&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+<span class="c1">// テストする対象の文章を読み込む</span>
+<span class="kr">const</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="s2">&quot;README.md&quot;</span><span class="p">,</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">);</span>
+<span class="nx">tester</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="p">(</span><span class="nx">section</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// 指定したセクションが</span>
+    <span class="nx">section</span><span class="p">(</span><span class="s2">&quot;この**サンプル**が&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">test</span><span class="p">(</span><span class="s2">&quot;この**単語**を含んでいるかをテストする&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>例えば次の文章だと、先ほどのテストはパスします。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># サンプルA
+
+ある単語を含んでいる文章なのでOK
+</code></pre></div>
+<p>しかし、次の文章だと、先ほどのテストは失敗します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># サンプルB
+
+ある???を含んでいないのでダメ
+</code></pre></div>
+<p>デフォルトでは含んでいる事をテストしていますが、第二引数で任意の判定をかけるので、含まない事も書くことができます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">tester</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="p">(</span><span class="nx">section</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">section</span><span class="p">(</span><span class="s2">&quot;ある**サンプル**は&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">it</span><span class="p">,</span> <span class="nx">sections</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;**unknown**を含まない&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">texts</span><span class="p">,</span> <span class="nx">section</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">texts</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="nx">text</span> <span class="o">=&gt;</span> <span class="o">!</span><span class="nx">section</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">text</span><span class="p">));</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><a href="https://github.com/azu/text-testing/tree/master/packages/text-testing-mocha" title="text-testing-mocha">text-testing-mocha</a>は名前の通り、Mochaを使って動くDSLみたいなものです。</p>
+
+<p>正直すごい雑で大したことをやっていないです。</p>
+
+<h2 id="モチベーション">モチベーション</h2>
+
+<p><a href="https://github.com/asciidwango/js-primer" title="asciidwango/js-primer: JavaScriptの入門書">asciidwango/js-primer: JavaScriptの入門書</a>を書いていて、一つの章が長くなると目的を見失う事がままあります。</p>
+
+<p>そのため、まずその章が何を説明したいのかという目標規定文を書き、書きながらそれを何度も見なおして脇道に逸れないように注意を払う必要がありました。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">目標規定文<br>-- 理科系の作文技術 <a href="https://t.co/qpHTynwfBh">pic.twitter.com/qpHTynwfBh</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/776034638942707712">September 14, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>章やセクションと言った単位で書いてる途中で、その目標が変わることはあまりないはずなので、何かガイドとなるものが欲しかったのが一つのモチベーションです。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">文章に関係しそうな文をキーワードを書き<br>その文章が何を伝えたいのかをかく目標規定文を書き<br>文章のアウトラインを考え<br>アウトラインの詳細を決める実験やコードを集め<br>もう一度アウトラインを構成し<br>アウトラインからテストを書き<br>文章に落とす</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/767584331875311617">August 22, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="テストファースト">テストファースト</h3>
+
+<p>新しい文章を書いてて一番気が重たいのは最初の一行を書くことだと思います。
+しかし、アウトラインは本文に比べてラクな気持ちで書くことができていました。</p>
+
+<p>なので、最初にアウトラインをテストとして書いてみることから始めました。
+そうすることで、テストが落ちます。</p>
+
+<p>テストが落ちてるので、次はテストが通るように文章を書き始めれば良くなります。
+そうすることで、書き始めが楽になるのではないかなという実験も兼ねて作り始めました。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;2000年は閏年&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">assert</span><span class="p">(</span><span class="nx">isLeap</span><span class="p">(</span><span class="mi">2000</span><span class="p">));</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>というテストを書いて、</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">isLeap</span><span class="p">(</span><span class="nx">year</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">===</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>というコードから書き始めるのと同じような気分でスタートできます。</p>
+
+<p>また、技術書のような文書はある程度文章の構造があると思うので、入力(文章)に対する出力(伝えたい結果)はテストできてもいいんじゃないかなという期待も持っています。</p>
+
+<p>実際にこのテストを取り入れて書いてみたものは次のものになっています。</p>
+
+<ul>
+<li><a href="https://asciidwango.github.io/js-primer/basic/implicit-coercion/" title="暗黙的な型変換 · JavaScriptの入門書 #jsprimer">暗黙的な型変換 · JavaScriptの入門書 #jsprimer</a></li>
+<li><a href="https://github.com/asciidwango/js-primer/pull/129" title="feat(implicit-coercion): 暗黙的な型変換について by azu · Pull Request #129 · asciidwango/js-primer">feat(implicit-coercion): 暗黙的な型変換について by azu · Pull Request #129 · asciidwango/js-primer</a></li>
+</ul>
+
+<p>後は、何かと文章は一度に多くを書きすぎてしまう問題を持っている気がします。
+小さなPull Requestして開発を進めるのがいいように、文章にも同じアプローチが正しいのかは今後検証していきたい気がします。
+この時に、より&quot;構造&quot;というものを意識した書き方が必要になるのかもしれません。</p>
+
+<p>分かりやすいコードも分かりやすい文章もある程度のレベルまでは、センスとかではなく技術的なアプローチで解決できる問題なのではないかなと考えています。</p>
+
+<ul>
+<li><a href="https://github.com/azu/text-testing" title="azu/text-testing: Testing library for structured texts.">azu/text-testing: Testing library for structured texts.</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>NaNはNot a NumberだけどNumber型である話</title>
@@ -1556,167 +1689,6 @@ $(npm bin)/textlint --config @azu/textlint-config-readme README.md
 </ul>
 
 <p><a href="http://azu.github.io/slide/2016/node-es/ecmascript.html" title="ECMAScript as a Living Standard">ECMAScript as a Living Standard</a>では、ECMAScriptを見ていくことは大きなGitHubプロジェクトを見るのとそこまで変わらないよという話をしました。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>AWS lambdaでGitHubのアクティビティをTwitterで読む用に投稿する</title>
-   <link href="http://efcl.info/2016/06/09/github-to-twitter-lambda/"/>
-   <updated>2016-06-09T09:52:00+09:00</updated>
-   <id>http://efcl.info/2016/06/09/github-to-twitter-lambda</id>
-   <content type="html"><![CDATA[ <p>タイトルどおりですが、<a href="https://aws.amazon.com/jp/lambda/" title="AWS Lambda">AWS Lambda</a>を使って、GitHubのWatchやアクティビティをTwitterに投げるlambda functionを書きました。</p>
-
-<ul>
-<li><a href="https://github.com/azu/github-to-twitter-lambda" title="azu/github-to-twitter-lambda: Lambda bot that fetch own GitHub notifications/events and post to Twitter.">azu/github-to-twitter-lambda: Lambda bot that fetch own GitHub notifications/events and post to Twitter.</a></li>
-</ul>
-
-<p>こんな感じでTwitterにGitHubの<a href="https://github.com/notifications">Notification</a>(Watch)、<a href="https://github.com/">アクティビティ</a>が流れます。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2016/06/09-1465433692.png" alt="on Twitter"></p>
-
-<p><strong>⚠ 注意</strong>: メインで使ってるGitHubアカウントのPersonal Tokenを使うとそのアカウントのNotificationとタイムラインが流れるので、privateの情報とかもなげられてしまうので注意です。</p>
-
-<p>ローカルだけで完結したい場合は以下のようなクライアントで動くタイプのものを利用したほうが良いです。</p>
-
-<ul>
-<li><a href="https://github.com/azu/github-reader" title="azu/github-reader: [node-webkit] GitHub client app - Viewer for Notifications and News Feed.">azu/github-reader: [node-webkit] GitHub client app - Viewer for Notifications and News Feed.</a></li>
-</ul>
-
-<p>GitHubのWatchやアクティビティは読むのが困難なデザインなので、基本読み飛ばしていいTwitterにまとめてしまうと楽な感じがしたので作りました。</p>
-
-<p>自分が関係するような見逃したくない情報は、別の方法で見たほうがいいと思います。</p>
-
-<ul>
-<li><a href="https://github.com/pulls">Pull Requests</a></li>
-<li><a href="https://github.com/issues">Issues</a></li>
-<li><a href="https://github.com/issues/assigned">Issues assigned</a></li>
-<li><a href="http://blog.h13i32maru.jp/entry/2016/06/08/090000">JasperというGitHub Issue Readerを作りました - maru source</a></li>
-<li><a href="http://efcl.info/2015/07/30/github-issue-manager/">自分に関係するGitHub Issueを一覧できるアプリを書いた | Web Scratch</a></li>
-</ul>
-
-<p>導入はREADME通りにやっても動かない場合がありそうなので、そこは頑張って…(Pull Request下さい)</p>
-
-<h2 id="必要なもの">必要なもの</h2>
-
-<ul>
-<li><a href="https://github.com/apex/apex" title="Apex">Apex</a>のインストール</li>
-<li>GitHub token(情報元)</li>
-<li>Twitter token(ポスト先)</li>
-<li>AWSのアカウント</li>
-<li>lambda</li>
-<li>dynamodb</li>
-</ul>
-
-<h2 id="インストール">インストール</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text"> git clone https://github.com/azu/github-to-twitter-lambda.git
-cd github-to-twitter-lambda/functions/notifications
-npm install
-npm run init
-# dynamodbのテーブルを作る
-</code></pre></div>
-<p>dynamodbをロックファイル代わりというか、前回実行した時間の記録だけに使っています。
-lambdaとdynamodbは毎月無料枠があるので、基本的にこのlambda functionでかかる費用は $0から$1以内になる感じです。
-(2分に1回実行した場合)</p>
-
-<h3 id="config">Config</h3>
-
-<p>サンプルの設定があるのでコピーして編集します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">cp project.example.json project.json
-</code></pre></div>
-<ul>
-<li><code>role</code> はApexのドキュメントに書かれてるようにlambdaの実行するRoleです
-
-<ul>
-<li>後述するpolicyを持ったRoleを作って指定しています。</li>
-</ul></li>
-<li><code>environment</code>は環境変数的な感じですが、ここにToken類を入れています。
-
-<ul>
-<li>実行時に環境変数でも行けるはず</li>
-</ul></li>
-</ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text">    &quot;role&quot;: &quot;arn:aws:iam::xxxxxxxxxxxx&quot;,
-    &quot;defaultEnvironment&quot;: &quot;dev&quot;,
-    &quot;environment&quot;: {
-        &quot;GITHUB_TOKEN&quot;: &quot;GitHub Person token need repo/notification/user&quot;,
-        &quot;TWITTER_CONSUMER_KEY&quot;: &quot;app key&quot;,
-        &quot;TWITTER_CONSUMER_SECRET&quot;: &quot;app secret&quot;,
-        &quot;TWITTER_ACCESS_TOKEN_KEY&quot;: &quot;token key&quot;,
-        &quot;TWITTER_ACCESS_TOKEN_SECRET&quot;: &quot;token  secret&quot;
-    }
-</code></pre></div>
-<h3 id="lambda-role-policy">Lambda role policy</h3>
-
-<p>Lambda(<code>role&quot;: &quot;arn:aws:iam::xxxxxxxxxxxx&quot;</code>)のroleは次のpolicyをもたせています。
-<code>&quot;lambda:*&quot;</code>と<code>&quot;cloudwatch:*&quot;</code>があればとりあえず動く気がします。</p>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&quot;Version&quot;</span><span class="p">:</span> <span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;Statement&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;Action&quot;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="s2">&quot;dynamodb:*&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;lambda:*&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;logs:*&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;cloudwatch:*&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;autoscaling:Describe*&quot;</span>
-            <span class="p">],</span>
-            <span class="nt">&quot;Effect&quot;</span><span class="p">:</span> <span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;Resource&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="deploy">Deploy</h3>
-
-<p><a href="https://github.com/apex/apex" title="Apex">Apex</a>を使ってデプロイします。
-<code>aws configure</code> とかで awsのAPIキーとかを設定しておかないと当然デプロイできません。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">apex deploy notifications
-</code></pre></div>
-<p>詳細は<a href="https://github.com/apex/apex" title="Apex">Apex</a>のドキュメントや以下を見て下さい。</p>
-
-<ul>
-<li><a href="http://dev.classmethod.jp/cloud/aws/how-to-manage-aws-lambda-functions-with-apex/" title="ApexでAWS Lambdaファンクションを管理する ｜ Developers.IO">ApexでAWS Lambdaファンクションを管理する ｜ Developers.IO</a></li>
-</ul>
-
-<h3 id="test">Test</h3>
-
-<p>ローカルでdry-runしたい場合は test.js というのがあるのでそれを実行するといけます(実際にpostはしない)</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">cd functions/notifications
-npm test
-</code></pre></div>
-<p><a href="https://github.com/apex/apex" title="Apex">Apex</a>を使って、手元からlambdaを叩いてテストもできます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">apex invoke notifications
-</code></pre></div>
-<h3 id="cron">Cron</h3>
-
-<p>lambdaはデフォルトだと１回実行して終わりなので繰り返し実行させて動かします
-(lambdaの実行回数による料金は基本無料枠で納まります)</p>
-
-<p><a href="https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/with-scheduled-events.html" title="スケジュールされたイベントでの AWS Lambda の使用 - AWS Lambda">スケジュールされたイベントでの AWS Lambda の使用 - AWS Lambda</a>を使うことで、Cron的に繰り返し実行を設定できます。</p>
-
-<p>自分は2分に一度とかに設定しています。</p>
-
-<p><img src="https://monosnap.com/file/lhJghW8bwKJmTZ3iDugi4B7eklRn5Z.png" alt="image"></p>
-
-<h2 id="まとめ">まとめ</h2>
-
-<ul>
-<li>GitHubのWatchは破綻してる</li>
-<li>GitHub -&gt; Twitter</li>
-<li>TwitterでGitHubを読めるようにした</li>
-<li>Slackは未読に厳しい</li>
-<li>未読を読み飛ばしやすいのはやっぱりTwitterかRSSリーダー</li>
-<li>RSSリーダーもコンテキストが異なる物量には弱い
-
-<ul>
-<li>RSSリーダーはリリースノートだけに絞ってる</li>
-<li><a href="http://efcl.info/2014/07/30/find-github-release/" title="GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch">GitHubでライブラリのリリースを見ていくためのツールや方法 | Web Scratch</a></li>
-</ul></li>
-<li><a href="http://www.misuzilla.org/Distribution/TweetIrcGateway/" title="TweetIrcGateway">TweetIrcGateway</a>っぽい</li>
-<li>それぞれのコンテキストにあった読みやすさがあるので、読みやすい場所に読みたいものを置く</li>
-<li>そういう土管ツールが簡単につくれるともっと良さそう</li>
-<li><a href="http://hoist.io/" title="hoist.io">hoist.io</a> とかそういうサービスの類</li>
-</ul>
  ]]></content>
  </entry>
  
