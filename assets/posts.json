@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "Travis CIからgh-pagesでデプロイする設定 via SSH/git push",
+            "url": "http://efcl.info/2016/09/27/deploy-from-travis-ci-to-gh-pages/",
+            "date": "2016-09-27T23:29:00+09:00"
+        },
+        
+        {
             "title": "React Meetup #4 でJavaScriptでのCQRSの話をしてきた",
             "url": "http://efcl.info/2016/09/27/react-meetup-4/",
             "date": "2016-09-27T22:54:00+09:00"

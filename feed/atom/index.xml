@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-27T23:12:37+09:00</updated>
+ <updated>2016-09-27T23:52:33+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,121 @@
  </author>
  
 
+ 
+ <entry>
+   <title>Travis CIからgh-pagesでデプロイする設定 via SSH/git push</title>
+   <link href="http://efcl.info/2016/09/27/deploy-from-travis-ci-to-gh-pages/"/>
+   <updated>2016-09-27T23:29:00+09:00</updated>
+   <id>http://efcl.info/2016/09/27/deploy-from-travis-ci-to-gh-pages</id>
+   <content type="html"><![CDATA[ <p>最近はGitHubリポジトリのgh-pagesブランチでサイトを公開する機会が増えているのですが、
+リポジトリが更新されたら自動でサイトも更新できるようにしたいです。</p>
+
+<p>以前は、GitHub Access Tokenを発行して、Travis CIのconfig(secret)にそのTokenを埋め込んで、Tokenを使ってpushをしていました。</p>
+
+<p>しかし、GitHub Access Tokenは簡単に発行できるとはいえリポジトリ単位で管理できる権限となっていないため、Tokenが漏れてしまうと管理ができないという問題があります。
+(実際 <code>git push -q</code>などしないと簡単に漏れてしまう)</p>
+
+<p>そのため、最近はSSH鍵を使ってリポジトリへpushする方針へと変更しました。</p>
+
+<p>GitHubのリポジトリには、リポジトリごとにDeploy Keyという公開鍵を登録できる仕組みがあるため、リポジトリ毎の秘密鍵とと公開鍵の組み合わせで管理することができます。</p>
+
+<p>基本的にはJavaScript関係のものが多いでの、npm run-scriptで実行できるような仕組みでこの鍵を使ったdeployをやってくれるものがないかなーと思って探してみたらありました。</p>
+
+<ul>
+<li><a href="https://github.com/alrra/travis-scripts" title="alrra/travis-scripts: Scripts to help automate things using Travis CI">alrra/travis-scripts: Scripts to help automate things using Travis CI</a></li>
+</ul>
+
+<p>このスクリプトはTC39のECMAScriptの仕様書の自動デプロイとかにも使わrています。</p>
+
+<p>仕組みとしては、次のようになっています。</p>
+
+<p><a href="https://github.com/alrra/travis-scripts" title="alrra/travis-scripts: Scripts to help automate things using Travis CI">alrra/travis-scripts: Scripts to help automate things using Travis CI</a>のチュートリアルがちゃんと書かれているのでその通りにやっていればできるはずです。(環境変数の指定や<code>git config user.name</code>とかの設定が忘れやすいです)</p>
+
+<ol>
+<li>手元でssh-keygenして秘密鍵と公開鍵を作る</li>
+<li>公開鍵をGitHubのリポジトリにWriteのDeploy Keyとして登録する</li>
+<li><code>travis encrypt-file github_deploy_key</code>という感じで秘密鍵を暗号化する
+
+<ul>
+<li>このファイルはTravis CI上で復号化されたファイルとして手に入る</li>
+<li><a href="https://github.com/alrra/travis-scripts">alrra/travis-scripts</a>はこれを<code>~/.ssh/</code>に移動してくれる</li>
+</ul></li>
+<li>後は、Traivs CIからgit push via sshができるので、普通に<code>git push</code>するだけ</li>
+</ol>
+
+<p>この仕組みのいいところとしては、GitHub Access Tokenより権限の範囲が小さい、漏れてもリポジトリ単位でrevokeできるという点がいいところです。
+また、普通に<code>git push</code>ができるのでGitHub Access TokenでBasic認証的にpush先を変更しなくても動くのがいいところです。</p>
+
+<hr>
+
+<p>しかし、この一連の設定はDeploy Keyを登録したり自動化できていなくて面倒くさいです。
+そのため大部分を自動化できるスクリプトを書きました。</p>
+
+<p>まずは、alrra/travis-scriptsをインストール。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -D @alrra/travis-scripts
+</code></pre></div>
+<p>次に、先ほどの手順の1-3をある程度自動的にやってくれるスクリプトを該当するプロジェクトのディレクトリで実行します。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c">#!/bin/bash</span>
+<span class="nb">set</span> -eu
+<span class="c"># Usage:</span>
+<span class="c"># $ travis-ssh-keygen.sh &quot;user/name&quot;</span>
+<span class="nb">declare </span><span class="nv">repo</span><span class="o">=</span><span class="s2">&quot;$1&quot;</span>
+
+<span class="k">if</span> !type add-deploy-key-to-github &gt;/dev/null 2&gt;<span class="p">&amp;</span>1<span class="p">;</span> <span class="k">then</span>
+  npm install -g add-deploy-key-to-github
+<span class="k">fi</span>
+<span class="c"># creat ssh key and add deploy key</span>
+ssh-keygen -t rsa -b <span class="m">4096</span> -C <span class="s2">&quot;$(git config user.email)&quot;</span> -f github_deploy_key -N <span class="s1">&#39;&#39;</span>
+<span class="c">## Add deploy to github</span>
+add-deploy-key-to-github --key github_deploy_key.pub --repo <span class="k">${</span><span class="nv">repo</span><span class="k">}</span> --token <span class="s2">&quot;自分のGitHub Token&quot;</span>
+<span class="c">## Remove pub key</span>
+cat github_deploy_key.pub <span class="p">|</span> pbcopy
+rm github_deploy_key.pub
+<span class="c"># encrypt private key and move to .travis</span>
+travis encrypt-file github_deploy_key --add
+rm github_deploy_key
+mkdir -p .travis/
+mv github_deploy_key.enc .travis/
+<span class="c"># Setup Travis Git Config</span>
+travis env <span class="nb">set </span>GH_USER_EMAIL <span class="s2">&quot;$(git config user.email)&quot;</span>
+travis env <span class="nb">set </span>GH_USER_NAME <span class="s2">&quot;$(git config user.name)&quot;</span>
+</code></pre></div>
+<p>たとえば、<code>azu/website</code>リポジトリなら、
+そのディレクトリで実行すれば、SSHの鍵生成から登録、travis encrypt-file .travis/github_deploy_key.enc`の作成までをやってくれます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">travis-ssh-keygen.sh &quot;azu/website&quot;
+</code></pre></div>
+<p>後は、<code>.travis.yml</code>にデプロするブランチやディレクトリ、デプロイ前のコマンドを書けば自動デプロイの設定は完了です。</p>
+
+<p>残念ながら<code>$encrypted_567c1b6fa013_key</code>の部分は毎回違うので、自動ができていません。
+先ほどのスクリプトで<code>.travis.yml</code>に自動で値が書かれているので、それを手動でコピーする必要があります。。
+(どうにかできないのかな…)</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">sudo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+<span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">node_js</span>
+<span class="l-Scalar-Plain">node_js</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">stable</span>
+<span class="l-Scalar-Plain">after_success</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="p-Indicator">|</span>
+
+        <span class="no">$(npm bin)/set-up-ssh --key &quot;$encrypted_567c1b6fa013_key&quot; \</span>
+                             <span class="no">--iv &quot;$encrypted_567c1b6fa013_iv&quot; \</span>
+                             <span class="no">--path-encrypted-key &quot;.travis/github_deploy_key.enc&quot;</span>
+
+        <span class="no">$(npm bin)/update-branch --commands &quot;npm run build&quot; \</span>
+                                 <span class="no">--commit-message &quot;Update website [skip ci]&quot; \</span>
+                                 <span class="no">--directory &quot;./public&quot; \</span>
+                                 <span class="no">--distribution-branch &quot;gh-pages&quot; \</span>
+                                 <span class="no">--source-branch &quot;master&quot;</span>
+</code></pre></div>
+<p>参考リポジトリ</p>
+
+<p>次のリポジトリは、このスクリプトの設定で、リポジトリにコミットする自動でgh-pagesへデプロイされています。</p>
+
+<ul>
+<li><a href="https://github.com/azu/presentation-annotator">https://github.com/azu/presentation-annotator</a></li>
+</ul>
+
+<p>Circle CIだと鍵を登録することができるので、もっと簡単にできた気がしますがTravis CIだとこんな感じで鍵を使ったgit pushの設定ができるという話でした。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>React Meetup #4 でJavaScriptでのCQRSの話をしてきた</title>
@@ -1646,122 +1761,6 @@ Organizationなっているので、日本語関係のルールを置きたい�
 <li><a href="https://github.com/textlint-ja/textlint-ja">textlint-ja/textlint-ja: textlintの日本語コミュニティ</a></li>
 <li><a href="https://gitter.im/textlint-ja/textlint-ja">textlint-ja/textlint-ja - Gitter</a></li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>MarkdownのコードブロックをESLintでチェックするtextlintルール</title>
-   <link href="http://efcl.info/2016/07/06/eslint-with-textlint/"/>
-   <updated>2016-07-06T20:24:00+09:00</updated>
-   <id>http://efcl.info/2016/07/06/eslint-with-textlint</id>
-   <content type="html"><![CDATA[ <p>今、<a href="https://github.com/asciidwango/js-primer" title="js-primer">js-primer</a>を書いていて、この本ではいろんなものをテストできる状態にして開発しています。</p>
-
-<p>詳しくは<a href="https://github.com/asciidwango/js-primer/blob/master/CONTRIBUTING.md" title="CONTRIBUTING.md">CONTRIBUTING.md</a>に書いていますが、今のところ次のようなテストが常に回っています。(CONTRIBUTINGもお待ちしています)</p>
-
-<ul>
-<li>GitBookのビルドテスト</li>
-<li><a href="https://textlint.github.io/">textlint</a>による文章のLint</li>
-<li><a href="http://eslint.org/" title="ESLint">ESLint</a>によるコードのLint</li>
-<li><a href="https://textlint.github.io/">textlint</a> + <a href="http://eslint.org/" title="ESLint">ESLint</a>によるMarkdown中のインラインコードブロックのLint</li>
-<li>Markdown中のインラインコードブロックへのDocTest</li>
-<li><a href="http://mochajs.org/" title="Mocha">Mocha</a>による<code>*-test.js</code>ファイルのユニットテスト</li>
-<li><code>*-example.js</code>がJavaScriptとして実行できるかのテスト</li>
-<li><code>*-invalid.js</code>がJavaScriptとして実行できないかのテスト</li>
-</ul>
-
-<p>JavaScriptを学ぶ本なので、大量のサンプルコードがでてくるのですが、そのサンプルコードが常に正しくある必要があります。
-そのため、いろんな方向からテストして間違っているサンプルコードを含めないようにしています(逆に間違っていることをテストする仕組みもあります)</p>
-
-<p>サンプルコードは大きく分けると、文章中にコードブロックで直接書くインラインコードと外部ファイルとして作成して読み込むコードがあります。</p>
-
-<ul>
-<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/slide/61.html" title="サンプルコード | 技術文書をソフトウェア開発する話">サンプルコード | 技術文書をソフトウェア開発する話</a></li>
-</ul>
-
-<p>インラインコードは、ESLintでスタイルのチェックや<a href="https://github.com/azu/power-doctest" title="doctest">doctest</a>を行い実行結果のテストをしています。</p>
-
-<p>以前話した方法ではESLintの<a href="https://github.com/eslint/eslint-plugin-markdown" title="eslint-plugin-markdown">eslint-plugin-markdown</a>を使い、インラインコードをESLintでチェックしていました。</p>
-
-<ul>
-<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/slide/67.html" title="インラインコードのLint | 技術文書をソフトウェア開発する話">インラインコードのLint | 技術文書をソフトウェア開発する話</a></li>
-</ul>
-
-<p>普通なら正しいコードしか出てこないので問題ないのですが、入門書という位置づけであるため次のような間違ったコードも解説として登場します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">そして、一度`const`で宣言された変数には再代入できなくなります。
-そのため、次のコードでは`bookTitle`を上書きしようとして`TypeError`となります。
-
-```js
-const bookTitle = &quot;JavaScriptの本&quot;;
-bookTitle = &quot;上書き&quot;; // TypeError: invalid assignment to const `bookTitle&#39;
-```
-
-一般に変数への再代入は「変数の値は最初に定義した値と常に同じである」という参照透過性を壊すため、
-バグを発生させやすい要因として知られています。
-</code></pre></div>
-<p>via <a href="https://asciidwango.github.io/js-primer/basic/variables/" title="変数と宣言 · JavaScriptの入門書 #jsprimer">変数と宣言 · JavaScriptの入門書 #jsprimer</a></p>
-
-<p><a href="https://github.com/eslint/eslint-plugin-markdown" title="eslint-plugin-markdown">eslint-plugin-markdown</a>では<code>js</code>がついたコードブロックが自動でチェックされてしまうため、このコードブロック自体を無視して欲しいという書き方ができません。
-(コードの中でESLintを <code>eslint-disable</code> はできるが表示されてしまう)</p>
-
-<p>そのため、Markdownのレベルでコードブロックを無視できるような仕組みが必要になりました。</p>
-
-<h2 id="textlint-rule-eslint"><a href="https://github.com/azu/textlint-rule-eslint" title="textlint-rule-eslint">textlint-rule-eslint</a></h2>
-
-<p><a href="https://textlint.github.io/">textlint</a>は7.0からフィルタールールという機能を持っていて、このフィルタールールである<a href="https://github.com/textlint/textlint-filter-rule-comments" title="textlint-filter-rule-comments">textlint-filter-rule-comments</a>を使えば次のような形で無視する領域を作ることができます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;!-- textlint-disable --&gt;
-
-この部分はtextlintのチェックでエラーがあっても無視される
-
-&lt;!-- textlint-enable --&gt;
-</code></pre></div>
-<ul>
-<li><a href="http://efcl.info/2016/06/30/textlint7.0/" title="textlint 7.0リリース、フィルタールールの追加 | Web Scratch">textlint 7.0リリース、フィルタールールの追加 | Web Scratch</a></li>
-</ul>
-
-<p>つまり、textlintのルールとしてESLintを動かすことができれば、textlintとしてコードブロックを無視する = ESLintのチェックしないコードブロックを作れるので<a href="https://github.com/azu/textlint-rule-eslint" title="textlint-rule-eslint">textlint-rule-eslint</a>を作りました。
-(プラグインの<a href="https://azu.gitbooks.io/javascript-plugin-architecture/content/ja/ESLint/">アーキテクチャとかも似てる</a>ので10分ぐらいでできた)</p>
-
-<p>これでインラインコードと外部ファイルのJavaScriptにESLintを適応することができるので、インデントがずれてないかやSyntaxがおかしくないかなどのチェックをすることができるようになっています。
-(逆にベストプラクティス的なルールは引っかかりまくるので外しています…)</p>
-
-<h3 id="おまけ">おまけ</h3>
-
-<p>後、最近入れた面白いテストとしてdoctestライクなものをテストとして入れています。</p>
-
-<p><code>*-example.js</code>のJavaScriptファイルとMarkdownのインラインコードブロックを対象にDocTestが実行されています。</p>
-
-<p>次のように<code>// =&gt; 値</code>というコメントを書いた部分に対してDocTestが実行されます。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span> <span class="c1">// =&gt; 42</span>
-</code></pre></div>
-<p>これにより、サンプルコードのコメントに書いた評価結果と実際の出力が一致するかをテストしてる感じです。</p>
-
-<p>色々テストを入れているのは、いい文章といいコードは同時に書くのが難しいというのもあります。
-そのため、とにかく機械的に落とせる部分は落とせるようにしています。</p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">色々コードを考えて書いた結果、文章がダメだとCIが落ちる</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/749461790744977408">July 3, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">読みやすい文章と読みやすいコードは同時に書くのが難しい  &quot;[WIP] 条件分岐の実装 by azu · Pull Request #‌69 · asciidwango/js-primer&quot;  <a href="https://t.co/UJ41KV5Ttk">https://t.co/UJ41KV5Ttk</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/749462503889833984">July 3, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>後、機械的にチェックする利点の話は以下の文章を読むと面白いかもしれません。</p>
-
-<blockquote>
-<p>ツールによる検査の利点
-<a href="http://qiita.com/takahi-i/items/a8b994ef17fd66fe6237" title="文書執筆の指南書で解説されている問題点を RedPen で発見する - Qiita">文書執筆の指南書で解説されている問題点を RedPen で発見する - Qiita</a></p>
-</blockquote>
-
-<p>リポジトリをWatchしていると分かるかもしれませんが、書く前に<a href="https://github.com/asciidwango/js-primer/issues" title="Issues · asciidwango/js-primer">Issues · asciidwango/js-primer</a>にどういう方針にするか、どういうサンプルコードがあると話がし易いかなどの設計をすることが多いです。
-(なので適当にコメントしてくれると参考になります)</p>
-
-<p>書きながら考えることも多いのですが、その場合はごちゃごちゃした文章ができて大体CIが落ち始めます。そこで機械的なチェックやPull Requestを出して自分でレビューする(PRも勝手にコメントくれると嬉しい)と少しはまともになります。</p>
-
-<p>そういうことを繰り返しを行うことで文章やコードの質を上げる方法を取っています。(<a href="https://textlint.github.io/">textlint</a>を入れたところで文章の質が上がるわけではないです)</p>
-
-<p>まあ、一発でテストが通った文章とか不安になるのと同じ感覚です。</p>
  ]]></content>
  </entry>
  
