@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        React Meetup #4でJavaScriptでのCQRSの話をしてきた | Web Scratch
+        
+    </title>
+    <meta name="description" content="React Meetup #4に参加してきました。">
+    
+    <meta name="keywords" content="JavaScript,React,イベント" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="React Meetup #4でJavaScriptでのCQRSの話をしてきた">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/09/27/react-meetup-4/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="React Meetup #4に参加してきました。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-09-27T22:54:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/09/27/large-scale-javascript/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/09/14/text-testing/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/09/06/nan/">
+
+
+
+
+
+<meta property="article:section" content="イベント">
+
+
+
+
+
+<meta property="article:tag" content="JavaScript">
+
+<meta property="article:tag" content="React">
+
+<meta property="article:tag" content="イベント">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 29
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 163
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 81
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 5
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/09/27/react-meetup-4/">
+                React Meetup #4でJavaScriptでのCQRSの話をしてきた
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/09/27/large-scale-javascript/">
+                複雑なJavaScriptアプリケーションを作るためにやったことをまとめた
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/09/14/text-testing/">
+                文章をTDDする
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/09/06/nan/">
+                NaNはNot a NumberだけどNumber型である話
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/09/27/react-meetup-4/">
+    <h1 class="post-title">React Meetup #4でJavaScriptでのCQRSの話をしてきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年09月27日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-09-27-react-meetup-4.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="http://reactjs-meetup.connpass.com/event/39793/">React Meetup #4</a>に参加してきました。</p>
+
+<p>その中で、複雑なJavaScriptアプリケーションを考えながら作る話という話をしました。</p>
+
+<ul>
+<li>スライド: <a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
+<li>補足資料: <a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
+</ul>
+
+<p>クライアントサイドJavaScriptでも.NETとかサーバサイドでの知見とかを取り入れて考えてみましょう的な話です。</p>
+
+<h1 id="graphql-and-falcor">GraphQL and Falcor</h1>
+
+<blockquote>
+<p><a href="https://quramy.github.io/graph-api-note/#/" title="Graph API: GraphQL and Falcor">Graph API: GraphQL and Falcor</a></p>
+</blockquote>
+
+<ul>
+<li>APIを叩くものを効率的にやるためのパターン</li>
+<li>REST API</li>
+<li>欲しいものをほしいだけ取るパターン
+
+<ul>
+<li>Demand Driven Architectureという</li>
+</ul></li>
+<li>ReactとGrapQL
+
+<ul>
+<li>Relay</li>
+<li>GraphQL Relay Specificationの実装</li>
+</ul></li>
+<li>データのとり方とコンポーネントが横並び
+
+<ul>
+<li>Relay</li>
+</ul></li>
+<li>Viewへのマッピングは自分でやる
+
+<ul>
+<li>Falcor</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h1 id="複雑なjavascriptアプリケーションを作るには-azu">複雑なJavaScriptアプリケーションを作るには - @azu</h1>
+
+<p>複雑なJavaScriptアプリケーションを考えながら作る話という話をしました。</p>
+
+<ul>
+<li>スライド: <a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
+<li>補足資料: <a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a>
+
+<ul>
+<li>実際に作ったガイドラインとか参考資料とかをまとめたリポジトリ</li>
+</ul></li>
+</ul>
+
+<p>JavaScriptで複雑なアプリケーションを作るアーキテクチャをどう考えたかについての話。
+Fluxで未定義感があるドメインモデルをどのように考えて作っていくかについてを中心にしてます。</p>
+
+<p>後は、<a href="https://github.com/almin/almin" title="Almin">Almin</a>ではドメインモデルを扱うために、どのような構造にしていったかについて。</p>
+
+<hr>
+
+<h1 id="redux-saga-kuy">redux-saga - @kuy</h1>
+
+<ul>
+<li>redux-saga
+
+<ul>
+<li>副作用を扱ってくれるライブラリ</li>
+</ul></li>
+<li>Saga
+
+<ul>
+<li>実行したい処理をまとめたプロセス</li>
+</ul></li>
+<li>Effect
+
+<ul>
+<li>データとしての副作用</li>
+</ul></li>
+<li>Saga Runtime
+
+<ul>
+<li>実行環境</li>
+</ul></li>
+<li>実装
+
+<ul>
+<li>Effectをyeildを返すGenerator関数で書く</li>
+</ul></li>
+<li>Saga RuntimeでSagaを実行する
+
+<ul>
+<li>内部的にはState Machineになっている</li>
+</ul></li>
+<li>Root Saga -&gt; 色々なsagaをforkする</li>
+<li>Saga Runtime &lt;-&gt; Saga(プロセス)
+
+<ul>
+<li>これをやり取りする Effect が色々ある感じ</li>
+</ul></li>
+<li>ロジックをSagaに書いていく</li>
+<li>redux-sagaのコードが増えてきたら
+
+<ul>
+<li>ファイルを分割したくなる</li>
+<li>1個のことだけをするSagaを作っていく</li>
+<li>sagaはあくまでロジックを書く場所</li>
+</ul></li>
+<li>solidな処理はmiddlewareで書く</li>
+<li>問題点
+
+<ul>
+<li>初見が難しい</li>
+<li>generaotr/yeild</li>
+<li>regeneratorを使う必要がある</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h1 id="realworld-react-mizchi">RealWorld React - @mizchi</h1>
+
+<ul>
+<li>最近はリファクタリングをしてる</li>
+<li>普通のウェブサイトにReactをあてていく</li>
+<li>設計レベルでSPAが難しいので徐々に書き換えていく話
+
+<ul>
+<li>ボトムアップで変えていく</li>
+</ul></li>
+<li>Reactの難しさ
+
+<ul>
+<li>Reactの使うためのエコシステムの難しさ</li>
+<li>Flux的な設計の難しさ</li>
+<li>React自体は難しいというわけではない</li>
+</ul></li>
+<li>最近だと分割統治していくとモジュールを作っていく
+
+<ul>
+<li>読み込むだけで副作用があるモジュールが古の時代には多いので難しい</li>
+</ul></li>
+<li>リファクタリングしていく
+
+<ul>
+<li>Backbone + jasmineテストちょろっと</li>
+<li>jQuery pluginが大量にある状態のもの</li>
+</ul></li>
+<li>リファクタリングの方針
+
+<ul>
+<li>モダンな環境の導入</li>
+<li>今のコードを良くする =&gt; 諦めた</li>
+<li>再利用できるものとできないものを分けるところから始めた</li>
+</ul></li>
+<li>JavaScriptが複雑な画面
+
+<ul>
+<li>投稿画面とフィード画面</li>
+<li>「やってみた」「無理だった」 </li>
+<li>分からない仕様が大量にでてくるので、まず仕様を理解するところから</li>
+</ul></li>
+<li>ゴールの設定
+
+<ul>
+<li>React/Babelで受け入れる環境</li>
+<li>Turbolinkができるような初期化フローを作る
+
+<ul>
+<li>ある程度、Stateが整理されている目安としてTurbolinkが使える</li>
+</ul></li>
+</ul></li>
+<li>enzymeがテストに便利</li>
+<li>FlowTypeはJSXにも型が付けやすくて便利</li>
+</ul>
+
+<hr>
+
+<h1 id="reactコンポーネントとcssコンポーネントは1対1なのかについて-shibe97">ReactコンポーネントとCSSコンポーネントは1対1なのかについて - shibe97</h1>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/shibe97/reactkonponentotocsskonponentoha1dui-1nafalsekawen-ti-nituite" title="ReactコンポーネントとCSSコンポーネントは1対1なのか問題について // Speaker Deck">ReactコンポーネントとCSSコンポーネントは1対1なのか問題について // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>1対1なのかどうか</li>
+<li>ReactコンポーネントはViewとロジックを分離する</li>
+<li>Presentational Component
+
+<ul>
+<li>再利用可能なコンポーネント</li>
+</ul></li>
+<li>Container Component
+
+<ul>
+<li>Reduxのconnect関数を使ったコンポーネント</li>
+<li>Presentationに値渡したり</li>
+</ul></li>
+<li>Atomic Design
+
+<ul>
+<li><a href="http://blog.kubosho.com/entry/using-atomic-design">Atomic Designの考え方と利点・欠点 - I&#39;m kubosho_</a></li>
+<li>最小の単位(atom)でコンポーネントを作ってそれを使っていく</li>
+</ul></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-09-27-react-meetup-4.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","React","イベント"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=React">React</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>
