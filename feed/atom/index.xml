@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-27T23:02:36+09:00</updated>
+ <updated>2016-09-27T23:12:37+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -15,7 +15,7 @@
 
  
  <entry>
-   <title>React Meetup #4でJavaScriptでのCQRSの話をしてきた</title>
+   <title>React Meetup #4 でJavaScriptでのCQRSの話をしてきた</title>
    <link href="http://efcl.info/2016/09/27/react-meetup-4/"/>
    <updated>2016-09-27T22:54:00+09:00</updated>
    <id>http://efcl.info/2016/09/27/react-meetup-4</id>
