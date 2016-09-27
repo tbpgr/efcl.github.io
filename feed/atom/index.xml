@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-27T23:52:33+09:00</updated>
+ <updated>2016-09-28T00:31:09+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -37,7 +37,11 @@
 <li><a href="https://github.com/alrra/travis-scripts" title="alrra/travis-scripts: Scripts to help automate things using Travis CI">alrra/travis-scripts: Scripts to help automate things using Travis CI</a></li>
 </ul>
 
-<p>このスクリプトはTC39のECMAScriptの仕様書の自動デプロイとかにも使わrています。</p>
+<p>このスクリプトはTC39のECMAScriptの仕様書の自動デプロイとかにも使われています。</p>
+
+<ul>
+<li><a href="https://github.com/tc39/ecma262/blob/master/scripts/auto-deploy.sh" title="ecma262/auto-deploy.sh at master · tc39/ecma262">ecma262/auto-deploy.sh at master · tc39/ecma262</a></li>
+</ul>
 
 <p>仕組みとしては、次のようになっています。</p>
 
@@ -65,6 +69,9 @@
 
 <p>まずは、alrra/travis-scriptsをインストール。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm i -D @alrra/travis-scripts
+</code></pre></div>
+<p>先に指定した、公開鍵をGitHubリポジトリに登録する<a href="https://github.com/azu/add-deploy-key-to-github" title="azu/add-deploy-key-to-github">azu/add-deploy-key-to-github</a>というツールを書いたのでそれを入れておきます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -g add-deploy-key-to-github
 </code></pre></div>
 <p>次に、先ほどの手順の1-3をある程度自動的にやってくれるスクリプトを該当するプロジェクトのディレクトリで実行します。</p>
 <div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c">#!/bin/bash</span>
