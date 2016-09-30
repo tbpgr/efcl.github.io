@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-30T21:39:42+09:00</updated>
+ <updated>2016-09-30T22:39:31+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -32,9 +32,10 @@
 <li><a href="https://github.com/azu/large-scale-javascript/blob/master/refs.md" title="large-scale-javascript/refs.md at master · azu/large-scale-javascript">large-scale-javascript/refs.md at master · azu/large-scale-javascript</a></li>
 </ul>
 
-<p>自分用のメモなので、読んだ順で並べておきます。</p>
+<p>自分用のメモなので、読んだ順で並べておきます。
+右側の年は書籍の出た年です。</p>
 
-<h2 id="実践ドメイン駆動設計"><a href="http://www.shoeisha.co.jp/book/detail/9784798131610" title="実践ドメイン駆動設計">実践ドメイン駆動設計</a></h2>
+<h2 id="実践ドメイン駆動設計-2013"><a href="http://www.shoeisha.co.jp/book/detail/9784798131610" title="実践ドメイン駆動設計">実践ドメイン駆動設計</a> @ 2013</h2>
 
 <p>一番最初に読んだDDD系の本。</p>
 
@@ -57,7 +58,7 @@ Kindleで買ってたので、スクリーンショットをOneNoteに貼ると�
 
 <p><img src="http://efcl.info/wp-content/uploads/2016/09/30-1475238536.png" alt="memo"></p>
 
-<h2 id="今日からはじめる情報設計"><a href="http://www.bnn.co.jp/dl/mess/" title="今日からはじめる情報設計">今日からはじめる情報設計</a></h2>
+<h2 id="今日からはじめる情報設計-2015"><a href="http://www.bnn.co.jp/dl/mess/" title="今日からはじめる情報設計">今日からはじめる情報設計</a> @ 2015</h2>
 
 <p>情報設計(IA)についてかなり分かりやすい本。
 フワッとした表現が多いけど、色々考え方の参考になった。</p>
@@ -78,12 +79,12 @@ Kindleで買ってたので、スクリーンショットをOneNoteに貼ると�
 
 <p>IAという言葉もやはり変化していると思って探して見つけた記憶。</p>
 
-<h2 id="エンジニアのための図解思考-再入門講座-情報の“本質”を理解するための実践テクニック（開米瑞浩）-｜-翔泳社の本"><a href="http://www.shoeisha.co.jp/book/detail/9784798122755" title="エンジニアのための図解思考 再入門講座 情報の“本質”を理解するための実践テクニック（開米瑞浩） ｜ 翔泳社の本">エンジニアのための図解思考 再入門講座 情報の“本質”を理解するための実践テクニック（開米瑞浩） ｜ 翔泳社の本</a></h2>
+<h2 id="エンジニアのための図解思考-再入門講座-情報の“本質”を理解するための実践テクニック（開米瑞浩）-｜-翔泳社の本-2010"><a href="http://www.shoeisha.co.jp/book/detail/9784798122755" title="エンジニアのための図解思考 再入門講座 情報の“本質”を理解するための実践テクニック（開米瑞浩） ｜ 翔泳社の本">エンジニアのための図解思考 再入門講座 情報の“本質”を理解するための実践テクニック（開米瑞浩） ｜ 翔泳社の本</a> @ 2010</h2>
 
 <p>情報の整理の仕方を考えていた。
 箇条書きよりテーブルのほうが情報量多いよという話</p>
 
-<h2 id="netのエンタープライズアプリケーションアーキテクチャ　第2版　～-netを例にしたアプリケーション設計原則"><a href="http://ec.nikkeibp.co.jp/item/books/P98480.html" title=".NETのエンタープライズアプリケーションアーキテクチャ　第2版　～.NETを例にしたアプリケーション設計原則">.NETのエンタープライズアプリケーションアーキテクチャ　第2版　～.NETを例にしたアプリケーション設計原則</a></h2>
+<h2 id="netのエンタープライズアプリケーションアーキテクチャ　第2版　～-netを例にしたアプリケーション設計原則-2015"><a href="http://ec.nikkeibp.co.jp/item/books/P98480.html" title=".NETのエンタープライズアプリケーションアーキテクチャ　第2版　～.NETを例にしたアプリケーション設計原則">.NETのエンタープライズアプリケーションアーキテクチャ　第2版　～.NETを例にしたアプリケーション設計原則</a> @ 2015</h2>
 
 <p>DDD本の中では一番読みやすい日本語の書籍な気がする。
 最初のアーキテクトの話なども面白かった。</p>
@@ -100,7 +101,7 @@ Kindleで買ってたので、スクリーンショットをOneNoteに貼ると�
 
 <p>とかそういう話はIAのやつでも出てきたので、その辺で話のつながりを感じた。</p>
 
-<h2 id="オブジェクト開発の神髄"><a href="http://bpstore.nikkeibp.co.jp/item/books/P82370.html" title="日経BP書店｜商品詳細　-　オブジェクト開発の神髄">オブジェクト開発の神髄</a></h2>
+<h2 id="オブジェクト開発の神髄-2005"><a href="http://bpstore.nikkeibp.co.jp/item/books/P82370.html" title="日経BP書店｜商品詳細　-　オブジェクト開発の神髄">オブジェクト開発の神髄</a> @2005</h2>
 
 <p><a href="https://github.com/almin/almin" title="Almin">Almin</a>でUseCaseという用語を使っていたので、その用語が出てくるものとして見つけて読んだ。</p>
 
@@ -112,16 +113,16 @@ Kindleで買ってたので、スクリーンショットをOneNoteに貼ると�
 
 <p>PoEAAと出版時期が近かった気がするけど、こっちの方が興味深い感じだった。</p>
 
-<h2 id="エンタープライズアプリケーションアーキテクチャパターン"><a href="http://www.shoeisha.co.jp/book/detail/9784798105536" title="エンタープライズアプリケーションアーキテクチャパターン（長瀬嘉秀 Martin Fowler 株式会社テクノロジックアート） ｜ 翔泳社の本">エンタープライズアプリケーションアーキテクチャパターン</a></h2>
+<h2 id="エンタープライズアプリケーションアーキテクチャパターン-2005"><a href="http://www.shoeisha.co.jp/book/detail/9784798105536" title="エンタープライズアプリケーションアーキテクチャパターン（長瀬嘉秀 Martin Fowler 株式会社テクノロジックアート） ｜ 翔泳社の本">エンタープライズアプリケーションアーキテクチャパターン</a> @ 2005</h2>
 
 <p>PoEAA。
 読んでいてDDD本とかIDDD本とかでも似たような事を言ってたなー感じた記憶がある。</p>
 
 <p>この辺でアーキテクチャ本みたいな事が言ってることは、本質的にはそんな変化ないのかなーという所に興味が出てきた。</p>
 
-<h2 id="パターン・ランゲージ-創造的な未来をつくるための言語"><a href="https://www.amazon.co.jp/dp/4766419871/" title="パターン・ランゲージ: 創造的な未来をつくるための言語">パターン・ランゲージ: 創造的な未来をつくるための言語</a></h2>
+<h2 id="パターン・ランゲージ-創造的な未来をつくるための言語-2013"><a href="https://www.amazon.co.jp/dp/4766419871/" title="パターン・ランゲージ: 創造的な未来をつくるための言語">パターン・ランゲージ: 創造的な未来をつくるための言語</a> @ 2013</h2>
 
-<p>今ある色々なアーキテクチャの源流的なものを巡っていて、<a href="https://www.amazon.co.jp/dp/4306041719/" title="パタン・ランゲージ―環境設計の手引">パタン・ランゲージ―環境設計の手引</a>を探しているときに見た。</p>
+<p>今ある色々なアーキテクチャの源流的なものを巡っていて、<a href="https://www.amazon.co.jp/dp/4306041719/" title="パタン・ランゲージ―環境設計の手引">パタン・ランゲージ―環境設計の手引</a> @ 1984を探しているときに見た。</p>
 
 <p>DDDもパターン集であるため、この源流はやはりこの辺にあるのではと思って調べていた。
 IAの話もそうだけど、構造化の考え方などは都市構造の考えの話とも一致している感じがする。</p>
@@ -179,11 +180,15 @@ IAの話もそうだけど、構造化の考え方などは都市構造の考え
 
 <p>この辺で一端折り返した。</p>
 
-<h2 id="pattern_language_for_information_architecture-pdf"><a href="http://www.ellisonconsulting.com/downloads/Pattern_Language_for_Information_Architecture.pdf" title="Pattern_Language_for_Information_Architecture.pdf"><code>Pattern_Language_for_Information_Architecture.pdf</code></a></h2>
+<h2 id="a-pattern-language-for-information-architecture"><a href="http://www.ellisonconsulting.com/downloads/Pattern_Language_for_Information_Architecture.pdf" title="Pattern_Language_for_Information_Architecture.pdf">A Pattern Language for Information Architecture</a></h2>
 
 <p>パターン・ランゲージとIAについて書かれたスライド。</p>
 
-<h2 id="patterns-principles-and-practices-of-domain-driven-design-wrox"><a href="http://www.wrox.com/WileyCDA/WroxTitle/Patterns-Principles-and-Practices-of-Domain-Driven-Design.productCd-1118714709.html" title="Patterns, Principles, and Practices of Domain-Driven Design - Wrox">Patterns, Principles, and Practices of Domain-Driven Design - Wrox</a></h2>
+<h2 id="企業情報システムアーキテクチャ"><a href="https://www.amazon.co.jp/dp/B00N0SRXBI/" title="企業情報システムアーキテクチャ">企業情報システムアーキテクチャ</a></h2>
+
+<p>企業システムのアーキテクチャの話として見た。</p>
+
+<h2 id="patterns-principles-and-practices-of-domain-driven-design-wrox-2015"><a href="http://www.wrox.com/WileyCDA/WroxTitle/Patterns-Principles-and-Practices-of-Domain-Driven-Design.productCd-1118714709.html" title="Patterns, Principles, and Practices of Domain-Driven Design - Wrox">Patterns, Principles, and Practices of Domain-Driven Design - Wrox</a> @ 2015</h2>
 
 <p>DDDについて分かりやすく書かれてる書籍。
 DDD本/IDDD本が分かりにくいところを分かりやすく書こうとした感じのする内容だった。</p>
@@ -192,16 +197,17 @@ DDD本/IDDD本が分かりにくいところを分かりやすく書こうとし
 
 <h2 id="読みたいけど読めてないもの">読みたいけど読めてないもの</h2>
 
-<h3 id="オブジェクトデザイン"><a href="https://www.amazon.co.jp/dp/4798109037/" title="オブジェクトデザイン">オブジェクトデザイン</a></h3>
+<h3 id="オブジェクトデザイン-2007"><a href="https://www.amazon.co.jp/dp/4798109037/" title="オブジェクトデザイン">オブジェクトデザイン</a> @ 2007</h3>
 
 <p>ES6の仕様のEditorである<a href="https://codezine.jp/article/detail/9071" title="アレン・ワーフスブラック">アレン・ワーフスブラック</a>の奥さんでもある<a href="https://www.ogis-ri.co.jp/otc/hiroba/ogisbooks/ObjectDesign.html" title="レベッカ・ワーフスブラック">レベッカ・ワーフスブラック</a>が書いた書籍。
 責務駆動についてちょっと知りたい。</p>
 
-<h3 id="実践uml-第3版-オブジェクト指向分析設計と反復型開発入門"><a href="https://www.amazon.co.jp/dp/4894716828/" title="実践UML 第3版 オブジェクト指向分析設計と反復型開発入門">実践UML 第3版 オブジェクト指向分析設計と反復型開発入門</a></h3>
+<h3 id="実践uml-第3版-オブジェクト指向分析設計と反復型開発入門-2007"><a href="https://www.amazon.co.jp/dp/4894716828/" title="実践UML 第3版 オブジェクト指向分析設計と反復型開発入門">実践UML 第3版 オブジェクト指向分析設計と反復型開発入門</a> @ 2007</h3>
 
-<p>オブジェクト指向について</p>
+<p>オブジェクト指向について。
+そもそも手に入らない。</p>
 
-<h3 id="ユースケース駆動開発実践ガイド"><a href="http://www.shoeisha.co.jp/book/detail/9784798114453" title="ユースケース駆動開発実践ガイド">ユースケース駆動開発実践ガイド</a></h3>
+<h3 id="ユースケース駆動開発実践ガイド-2007"><a href="http://www.shoeisha.co.jp/book/detail/9784798114453" title="ユースケース駆動開発実践ガイド">ユースケース駆動開発実践ガイド</a> @ 2007</h3>
 
 <p>ユースケースについて。今読んでる。</p>
 
