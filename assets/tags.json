@@ -757,7 +757,9 @@
         
         "TraivsCI",
         
-        "gh-pages"
+        "gh-pages",
+        
+        "DDD"
         
     ]
 }

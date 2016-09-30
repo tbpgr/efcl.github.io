@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        アーキテクチャをめぐるたび | Web Scratch
+        
+    </title>
+    <meta name="description" content="タイトルに特に意味はありませんが、Alminを作る参考にしたものをまとめた感じの記事です。">
+    
+    <meta name="keywords" content="book,DDD,JavaScript" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="アーキテクチャをめぐるたび">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/09/30/architecture-refs/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="タイトルに特に意味はありませんが、Alminを作る参考にしたものをまとめた感じの記事です。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-09-30T20:01:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/09/27/deploy-from-travis-ci-to-gh-pages/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/09/27/react-meetup-4/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/09/27/large-scale-javascript/">
+
+
+
+
+
+<meta property="article:section" content="雑記">
+
+
+
+
+
+<meta property="article:tag" content="book">
+
+<meta property="article:tag" content="DDD">
+
+<meta property="article:tag" content="JavaScript">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 31
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 163
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 81
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 5
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/09/30/architecture-refs/">
+                アーキテクチャをめぐるたび
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/09/27/deploy-from-travis-ci-to-gh-pages/">
+                Travis CIからgh-pagesへデプロイする設定 via SSH/git push
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/09/27/react-meetup-4/">
+                React Meetup #4 でJavaScriptでのCQRSの話をしてきた
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/09/27/large-scale-javascript/">
+                複雑なJavaScriptアプリケーションを作るためにやったことをまとめた
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/09/30/architecture-refs/">
+    <h1 class="post-title">アーキテクチャをめぐるたび</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年09月30日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-09-30-architecture-refs.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p>タイトルに特に意味はありませんが、<a href="https://github.com/almin/almin" title="Almin">Almin</a>を作る参考にしたものをまとめた感じの記事です。</p>
+
+<ul>
+<li>スライド: <a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
+<li>リポジトリ: <a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
+</ul>
+
+<p>主に書籍を並べていますがその他のスライドなどの参考資料は以下にまとめてあります。</p>
+
+<ul>
+<li><a href="https://github.com/azu/large-scale-javascript/blob/master/refs.md" title="large-scale-javascript/refs.md at master · azu/large-scale-javascript">large-scale-javascript/refs.md at master · azu/large-scale-javascript</a></li>
+</ul>
+
+<p>自分用のメモなので、読んだ順で並べておきます。</p>
+
+<h2 id="実践ドメイン駆動設計"><a href="http://www.shoeisha.co.jp/book/detail/9784798131610" title="実践ドメイン駆動設計">実践ドメイン駆動設計</a></h2>
+
+<p>一番最初に読んだDDD系の本。</p>
+
+<p>この辺ででてくるレイヤーとか用語を把握した感じ。
+けど、そこまでよく分かってない感じはする。
+カウボーイが出てくるの読みにくい。</p>
+
+<p>この本をベースにしたスライドなどが多かったのでそっちも合わせて見ていた。
+また、出てきた用語をぐぐったりしながら読んでた気がする。</p>
+
+<ul>
+<li><a href="http://www.slideshare.net/AtsuoAoki/iddd17" title="「実践ドメイン駆動設計」社内読書会まとめ ～IDDD本難民に捧げる1章から7章～">「実践ドメイン駆動設計」社内読書会まとめ ～IDDD本難民に捧げる1章から7章～</a></li>
+<li><a href="http://www.slideshare.net/masuda220/part3-ddd-in">ドメイン駆動設計 の 実践 Part3 DDD</a></li>
+<li><a href="http://d.hatena.ne.jp/asakichy/20110524/1306190461">ドメイン駆動設計・アプリケーション構築編・エンティティ - Strategic Choice</a></li>
+<li><a href="http://qiita.com/haazime/items/6119097071149a362f7f">戦術的DDD基本原則まとめ - Qiita</a></li>
+</ul>
+
+<p>基本的に読んだ内容は覚えていないので、この辺からメモを取りながら読むようにした。
+Kindleで買ってたので、スクリーンショットをOneNoteに貼るという形でメモした(一応OCRがあるので検索できる)</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2016/09/30-1475238536.png" alt="memo"></p>
+
+<h2 id="今日からはじめる情報設計"><a href="http://www.bnn.co.jp/dl/mess/" title="今日からはじめる情報設計">今日からはじめる情報設計</a></h2>
+
+<p>情報設計(IA)についてかなり分かりやすい本。
+フワッとした表現が多いけど、色々考え方の参考になった。</p>
+
+<p>構造化の考え方として分類法は次の2つになるという話。</p>
+
+<ul>
+<li>並列的構造</li>
+<li>階層的構造</li>
+</ul>
+
+<p>この辺の構造はパターン・ランゲージとかいろんな文脈でてくるので、最初に知っといてよかった気がする。
+アーキテクチャの話を見ていて、それは何を整理したいのかという視点から見ることが多くなった感じ。</p>
+
+<p><a href="http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html" title="How to work as a Team">How to work as a Team</a>のスライド書いていたあたりで読んでいたはずなので、スライドにも影響がでてる。</p>
+
+<h2 id="情報アーキテクチャについて-iaaj-information-architecture-association-japan"><a href="http://iaaj.org/about_ia/" title="情報アーキテクチャについて | IAAJ: Information Architecture Association Japan">情報アーキテクチャについて | IAAJ: Information Architecture Association Japan</a></h2>
+
+<p>IAという言葉もやはり変化していると思って探して見つけた記憶。</p>
+
+<h2 id="エンジニアのための図解思考-再入門講座-情報の“本質”を理解するための実践テクニック（開米瑞浩）-｜-翔泳社の本"><a href="http://www.shoeisha.co.jp/book/detail/9784798122755" title="エンジニアのための図解思考 再入門講座 情報の“本質”を理解するための実践テクニック（開米瑞浩） ｜ 翔泳社の本">エンジニアのための図解思考 再入門講座 情報の“本質”を理解するための実践テクニック（開米瑞浩） ｜ 翔泳社の本</a></h2>
+
+<p>情報の整理の仕方を考えていた。
+箇条書きよりテーブルのほうが情報量多いよという話</p>
+
+<h2 id="netのエンタープライズアプリケーションアーキテクチャ　第2版　～-netを例にしたアプリケーション設計原則"><a href="http://ec.nikkeibp.co.jp/item/books/P98480.html" title=".NETのエンタープライズアプリケーションアーキテクチャ　第2版　～.NETを例にしたアプリケーション設計原則">.NETのエンタープライズアプリケーションアーキテクチャ　第2版　～.NETを例にしたアプリケーション設計原則</a></h2>
+
+<p>DDD本の中では一番読みやすい日本語の書籍な気がする。
+最初のアーキテクトの話なども面白かった。</p>
+
+<p>またDDDの文脈で出てくるモデルやリポジトリなどは、人によって言ってることが違うという事実をちゃんと注記してくれている。CQRSについてはこの本を読むとよい。</p>
+
+<p>確かこの本を読む1週間ぐらい前に<a href="https://github.com/almin/almin" title="Almin">Almin</a>を作ったので、この本を読むときは考え方の答え合わせみたいな感じで読んでたと思う。</p>
+
+<p>DDDの文脈で出てくる用語は検索しても、とにかく曖昧な事が多いので、曖昧な用語であるということを明記されていたのが良かった。</p>
+
+<blockquote>
+<p>単純さと複雑さは人によって異なる</p>
+</blockquote>
+
+<p>とかそういう話はIAのやつでも出てきたので、その辺で話のつながりを感じた。</p>
+
+<h2 id="オブジェクト開発の神髄"><a href="http://bpstore.nikkeibp.co.jp/item/books/P82370.html" title="日経BP書店｜商品詳細　-　オブジェクト開発の神髄">オブジェクト開発の神髄</a></h2>
+
+<p><a href="https://github.com/almin/almin" title="Almin">Almin</a>でUseCaseという用語を使っていたので、その用語が出てくるものとして見つけて読んだ。</p>
+
+<p>ユースケースモデリングについてはこの本を結構参考にしていたと思う。</p>
+
+<blockquote>
+<p>ユースケースはアクターの視点から能動的に書く</p>
+</blockquote>
+
+<p>PoEAAと出版時期が近かった気がするけど、こっちの方が興味深い感じだった。</p>
+
+<h2 id="エンタープライズアプリケーションアーキテクチャパターン"><a href="http://www.shoeisha.co.jp/book/detail/9784798105536" title="エンタープライズアプリケーションアーキテクチャパターン（長瀬嘉秀 Martin Fowler 株式会社テクノロジックアート） ｜ 翔泳社の本">エンタープライズアプリケーションアーキテクチャパターン</a></h2>
+
+<p>PoEAA。
+読んでいてDDD本とかIDDD本とかでも似たような事を言ってたなー感じた記憶がある。</p>
+
+<p>この辺でアーキテクチャ本みたいな事が言ってることは、本質的にはそんな変化ないのかなーという所に興味が出てきた。</p>
+
+<h2 id="パターン・ランゲージ-創造的な未来をつくるための言語"><a href="https://www.amazon.co.jp/dp/4766419871/" title="パターン・ランゲージ: 創造的な未来をつくるための言語">パターン・ランゲージ: 創造的な未来をつくるための言語</a></h2>
+
+<p>今ある色々なアーキテクチャの源流的なものを巡っていて、<a href="https://www.amazon.co.jp/dp/4306041719/" title="パタン・ランゲージ―環境設計の手引">パタン・ランゲージ―環境設計の手引</a>を探しているときに見た。</p>
+
+<p>DDDもパターン集であるため、この源流はやはりこの辺にあるのではと思って調べていた。
+IAの話もそうだけど、構造化の考え方などは都市構造の考えの話とも一致している感じがする。</p>
+
+<blockquote>
+<p>「何を」作るのかを支援するというもの、抽象的な形で提供される<br>
+パターンはデザインを支援する。良いデザインは問題を解決する<br>
+パターンランゲージは言葉で形を表すので、それは誰に取っても同じ形にならないとおかしい<br>
+真偽値を科学的なものじゃない、コードとかにも「良い悪い」という適用したのがパターンの面白いところ  </p>
+</blockquote>
+
+<p>via <a href="http://twilog.org/azu_re/date-160519">http://twilog.org/azu_re/date-160519</a></p>
+
+<p>ソフトウェアのアーキテクチャやパターンはこの辺にやっぱり源流がありそうというのは分かってきた。</p>
+
+<p>パターン・ランゲージとかアレグザンダーについては次の本が詳しそう。</p>
+
+<ul>
+<li><a href="http://gihyo.jp/magazine/wdpress/plus/978-4-7741-3897-8" title="パターン、Wiki、XP ―― 時を超えた創造の原則">パターン、Wiki、XP ―― 時を超えた創造の原則</a></li>
+<li><a href="https://ipsj.ixsq.nii.ac.jp/ej/index.php?active_action=repository_view_main_item_detail&amp;page_id=13&amp;block_id=8&amp;item_id=75806&amp;item_no=1">情報学会誌</a>も面白い話が載ってる</li>
+</ul>
+
+<h2 id="アルゴリズミック・デザインの現在"><a href="http://www.ieice.org/cs/csbn/program/papers/080516_waseda.pdf" title="untitled - 080516_waseda.pdf">アルゴリズミック・デザインの現在</a></h2>
+
+<p>パターン・ランゲージのアレグザンダーは1970年代にはコンピュータによるデザイン設計を試みてたという話があった。
+建築的にはアルゴリズミック・デザインの源流となる考え方で、それを調べてた。
+また1970年代ではまだコンピュータの性能などの問題があるのでアレだけど。</p>
+
+<blockquote>
+<p>著者はこの言葉のように、要求された機能を十分に満たすような優れた「デザイン ･ パターン」と「デザイン ･ アルゴリズム」からは、優れた「デザイン ･ パターン」が自動的に生成されると考えていた。<br>
+しかし、人の感性に良いと評価される「デザイン ･ パターン」と機能的に生成された「デザイン ･ パターン」は必ずしも重なるわけでないことが分かった。本事例では、「デザイン ･ パラメータ」に人が感性的に決定した要素を入れたり、ということを実験的に行ってみたが、その結果は感性的な要因を記述することの難しさを確認しただけとなった
+-- <a href="http://www.ieice.org/cs/csbn/program/papers/080516_waseda.pdf" title="untitled - 080516_waseda.pdf">アルゴリズミック・デザインの現在</a></p>
+</blockquote>
+
+<p><a href="https://www.amazon.co.jp/dp/4306045234/" title="アルゴリズミック・デザイン―建築・都市の新しい設計手法 : 日本建築学会 : 本 : アマゾン">アルゴリズミック・デザイン―建築・都市の新しい設計手法 : 日本建築学会 : 本 : アマゾン</a></p>
+
+<blockquote>
+<p>コンピュータ・プログラムをつかって建築設計をするためのさまざまな技法や設計例について書いている．「アルゴリズミック」というと完全に自動的に設計するようにきこえるが，おおくの例では設計の候補を出力して，設計者がそのなかから選択する方法がとられている．その点ではアルゴリズミック・コンポジションつまりコンピュータをつかった作曲と同様であり，まさにクセナキスがとっていた「音楽デザイン」の方法とおなじである．それを「アルゴリズミック」とよぶのが適切であるかどうかはわからない．</p>
+</blockquote>
+
+<p>ジェネラティブ・アート的な考え方なのかなとも思えてきた。</p>
+
+<p>パターン・ランゲージでは、「パターン」とは誰にとっても(人種が異なっていても)同じ形になるという話がある。</p>
+
+<blockquote>
+<p>パターンランゲージは言葉で形を表すので、それは誰に取っても同じ形にならないとおかしい  </p>
+</blockquote>
+
+<p>また、パターンは作り出すものではなく見つけるものと言う話があった気がするので、いったんアルゴリズミック・デザインの話は諦めた。</p>
+
+<blockquote>
+<p>デザインパターンとは懸命な人が発明するものではなく、既存のコードの中から発見されるものです。 
+-- <a href="http://www.oreilly.co.jp/books/9784873113890/" title="O&amp;#39;Reilly Japan - ThoughtWorksアンソロジー">O&#39;Reilly Japan - ThoughtWorksアンソロジー</a></p>
+</blockquote>
+
+<p>この辺で一端折り返した。</p>
+
+<h2 id="pattern_language_for_information_architecture-pdf"><a href="http://www.ellisonconsulting.com/downloads/Pattern_Language_for_Information_Architecture.pdf" title="Pattern_Language_for_Information_Architecture.pdf"><code>Pattern_Language_for_Information_Architecture.pdf</code></a></h2>
+
+<p>パターン・ランゲージとIAについて書かれたスライド。</p>
+
+<h2 id="patterns-principles-and-practices-of-domain-driven-design-wrox"><a href="http://www.wrox.com/WileyCDA/WroxTitle/Patterns-Principles-and-Practices-of-Domain-Driven-Design.productCd-1118714709.html" title="Patterns, Principles, and Practices of Domain-Driven Design - Wrox">Patterns, Principles, and Practices of Domain-Driven Design - Wrox</a></h2>
+
+<p>DDDについて分かりやすく書かれてる書籍。
+DDD本/IDDD本が分かりにくいところを分かりやすく書こうとした感じのする内容だった。</p>
+
+<p>DDDに興味がある人は読むとよい感じな気がする。(かなり分厚いというか量が多い…)</p>
+
+<h2 id="読みたいけど読めてないもの">読みたいけど読めてないもの</h2>
+
+<h3 id="オブジェクトデザイン"><a href="https://www.amazon.co.jp/dp/4798109037/" title="オブジェクトデザイン">オブジェクトデザイン</a></h3>
+
+<p>ES6の仕様のEditorである<a href="https://codezine.jp/article/detail/9071" title="アレン・ワーフスブラック">アレン・ワーフスブラック</a>の奥さんでもある<a href="https://www.ogis-ri.co.jp/otc/hiroba/ogisbooks/ObjectDesign.html" title="レベッカ・ワーフスブラック">レベッカ・ワーフスブラック</a>が書いた書籍。
+責務駆動についてちょっと知りたい。</p>
+
+<h3 id="実践uml-第3版-オブジェクト指向分析設計と反復型開発入門"><a href="https://www.amazon.co.jp/dp/4894716828/" title="実践UML 第3版 オブジェクト指向分析設計と反復型開発入門">実践UML 第3版 オブジェクト指向分析設計と反復型開発入門</a></h3>
+
+<p>オブジェクト指向について</p>
+
+<h3 id="ユースケース駆動開発実践ガイド"><a href="http://www.shoeisha.co.jp/book/detail/9784798114453" title="ユースケース駆動開発実践ガイド">ユースケース駆動開発実践ガイド</a></h3>
+
+<p>ユースケースについて。今読んでる。</p>
+
+<h2 id="おわり">おわり</h2>
+
+<p>今もちょうどやっている翔泳社の電子書籍セールで買って読んだものが多い気がする。</p>
+
+<ul>
+<li><a href="http://www.shoeisha.co.jp/campaign/fes/20160926" title="半期に1度のエンジニア応援祭：電子書籍40％割引セール ｜ 翔泳社">半期に1度のエンジニア応援祭：電子書籍40％割引セール ｜ 翔泳社</a></li>
+</ul>
+
+<p>色々見てた感じアーキテクチャという分野を扱うものは、あんまりパーマネントリンクが貼れるようにできていない気がする。そういう意味でも<a href="http://www.martinfowler.com/" title="Martin Fowler">Martin Fowler</a>は正しくてすごい気がした。</p>
+
+<p>最初に<a href="https://github.com/almin/almin" title="Almin">Almin</a>という成果物を作り、それの中に入ってる考えの名前を求める旅をしていた。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-09-30-architecture-refs.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["book","DDD","JavaScript"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=book">book</a></li>
+                
+                <li><a href="/tags/?q=DDD">DDD</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

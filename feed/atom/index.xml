@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-28T09:05:25+09:00</updated>
+ <updated>2016-09-30T21:39:42+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,211 @@
  </author>
  
 
+ 
+ <entry>
+   <title>アーキテクチャをめぐるたび</title>
+   <link href="http://efcl.info/2016/09/30/architecture-refs/"/>
+   <updated>2016-09-30T20:01:00+09:00</updated>
+   <id>http://efcl.info/2016/09/30/architecture-refs</id>
+   <content type="html"><![CDATA[ <p>タイトルに特に意味はありませんが、<a href="https://github.com/almin/almin" title="Almin">Almin</a>を作る参考にしたものをまとめた感じの記事です。</p>
+
+<ul>
+<li>スライド: <a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
+<li>リポジトリ: <a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
+</ul>
+
+<p>主に書籍を並べていますがその他のスライドなどの参考資料は以下にまとめてあります。</p>
+
+<ul>
+<li><a href="https://github.com/azu/large-scale-javascript/blob/master/refs.md" title="large-scale-javascript/refs.md at master · azu/large-scale-javascript">large-scale-javascript/refs.md at master · azu/large-scale-javascript</a></li>
+</ul>
+
+<p>自分用のメモなので、読んだ順で並べておきます。</p>
+
+<h2 id="実践ドメイン駆動設計"><a href="http://www.shoeisha.co.jp/book/detail/9784798131610" title="実践ドメイン駆動設計">実践ドメイン駆動設計</a></h2>
+
+<p>一番最初に読んだDDD系の本。</p>
+
+<p>この辺ででてくるレイヤーとか用語を把握した感じ。
+けど、そこまでよく分かってない感じはする。
+カウボーイが出てくるの読みにくい。</p>
+
+<p>この本をベースにしたスライドなどが多かったのでそっちも合わせて見ていた。
+また、出てきた用語をぐぐったりしながら読んでた気がする。</p>
+
+<ul>
+<li><a href="http://www.slideshare.net/AtsuoAoki/iddd17" title="「実践ドメイン駆動設計」社内読書会まとめ ～IDDD本難民に捧げる1章から7章～">「実践ドメイン駆動設計」社内読書会まとめ ～IDDD本難民に捧げる1章から7章～</a></li>
+<li><a href="http://www.slideshare.net/masuda220/part3-ddd-in">ドメイン駆動設計 の 実践 Part3 DDD</a></li>
+<li><a href="http://d.hatena.ne.jp/asakichy/20110524/1306190461">ドメイン駆動設計・アプリケーション構築編・エンティティ - Strategic Choice</a></li>
+<li><a href="http://qiita.com/haazime/items/6119097071149a362f7f">戦術的DDD基本原則まとめ - Qiita</a></li>
+</ul>
+
+<p>基本的に読んだ内容は覚えていないので、この辺からメモを取りながら読むようにした。
+Kindleで買ってたので、スクリーンショットをOneNoteに貼るという形でメモした(一応OCRがあるので検索できる)</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2016/09/30-1475238536.png" alt="memo"></p>
+
+<h2 id="今日からはじめる情報設計"><a href="http://www.bnn.co.jp/dl/mess/" title="今日からはじめる情報設計">今日からはじめる情報設計</a></h2>
+
+<p>情報設計(IA)についてかなり分かりやすい本。
+フワッとした表現が多いけど、色々考え方の参考になった。</p>
+
+<p>構造化の考え方として分類法は次の2つになるという話。</p>
+
+<ul>
+<li>並列的構造</li>
+<li>階層的構造</li>
+</ul>
+
+<p>この辺の構造はパターン・ランゲージとかいろんな文脈でてくるので、最初に知っといてよかった気がする。
+アーキテクチャの話を見ていて、それは何を整理したいのかという視点から見ることが多くなった感じ。</p>
+
+<p><a href="http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html" title="How to work as a Team">How to work as a Team</a>のスライド書いていたあたりで読んでいたはずなので、スライドにも影響がでてる。</p>
+
+<h2 id="情報アーキテクチャについて-iaaj-information-architecture-association-japan"><a href="http://iaaj.org/about_ia/" title="情報アーキテクチャについて | IAAJ: Information Architecture Association Japan">情報アーキテクチャについて | IAAJ: Information Architecture Association Japan</a></h2>
+
+<p>IAという言葉もやはり変化していると思って探して見つけた記憶。</p>
+
+<h2 id="エンジニアのための図解思考-再入門講座-情報の“本質”を理解するための実践テクニック（開米瑞浩）-｜-翔泳社の本"><a href="http://www.shoeisha.co.jp/book/detail/9784798122755" title="エンジニアのための図解思考 再入門講座 情報の“本質”を理解するための実践テクニック（開米瑞浩） ｜ 翔泳社の本">エンジニアのための図解思考 再入門講座 情報の“本質”を理解するための実践テクニック（開米瑞浩） ｜ 翔泳社の本</a></h2>
+
+<p>情報の整理の仕方を考えていた。
+箇条書きよりテーブルのほうが情報量多いよという話</p>
+
+<h2 id="netのエンタープライズアプリケーションアーキテクチャ　第2版　～-netを例にしたアプリケーション設計原則"><a href="http://ec.nikkeibp.co.jp/item/books/P98480.html" title=".NETのエンタープライズアプリケーションアーキテクチャ　第2版　～.NETを例にしたアプリケーション設計原則">.NETのエンタープライズアプリケーションアーキテクチャ　第2版　～.NETを例にしたアプリケーション設計原則</a></h2>
+
+<p>DDD本の中では一番読みやすい日本語の書籍な気がする。
+最初のアーキテクトの話なども面白かった。</p>
+
+<p>またDDDの文脈で出てくるモデルやリポジトリなどは、人によって言ってることが違うという事実をちゃんと注記してくれている。CQRSについてはこの本を読むとよい。</p>
+
+<p>確かこの本を読む1週間ぐらい前に<a href="https://github.com/almin/almin" title="Almin">Almin</a>を作ったので、この本を読むときは考え方の答え合わせみたいな感じで読んでたと思う。</p>
+
+<p>DDDの文脈で出てくる用語は検索しても、とにかく曖昧な事が多いので、曖昧な用語であるということを明記されていたのが良かった。</p>
+
+<blockquote>
+<p>単純さと複雑さは人によって異なる</p>
+</blockquote>
+
+<p>とかそういう話はIAのやつでも出てきたので、その辺で話のつながりを感じた。</p>
+
+<h2 id="オブジェクト開発の神髄"><a href="http://bpstore.nikkeibp.co.jp/item/books/P82370.html" title="日経BP書店｜商品詳細　-　オブジェクト開発の神髄">オブジェクト開発の神髄</a></h2>
+
+<p><a href="https://github.com/almin/almin" title="Almin">Almin</a>でUseCaseという用語を使っていたので、その用語が出てくるものとして見つけて読んだ。</p>
+
+<p>ユースケースモデリングについてはこの本を結構参考にしていたと思う。</p>
+
+<blockquote>
+<p>ユースケースはアクターの視点から能動的に書く</p>
+</blockquote>
+
+<p>PoEAAと出版時期が近かった気がするけど、こっちの方が興味深い感じだった。</p>
+
+<h2 id="エンタープライズアプリケーションアーキテクチャパターン"><a href="http://www.shoeisha.co.jp/book/detail/9784798105536" title="エンタープライズアプリケーションアーキテクチャパターン（長瀬嘉秀 Martin Fowler 株式会社テクノロジックアート） ｜ 翔泳社の本">エンタープライズアプリケーションアーキテクチャパターン</a></h2>
+
+<p>PoEAA。
+読んでいてDDD本とかIDDD本とかでも似たような事を言ってたなー感じた記憶がある。</p>
+
+<p>この辺でアーキテクチャ本みたいな事が言ってることは、本質的にはそんな変化ないのかなーという所に興味が出てきた。</p>
+
+<h2 id="パターン・ランゲージ-創造的な未来をつくるための言語"><a href="https://www.amazon.co.jp/dp/4766419871/" title="パターン・ランゲージ: 創造的な未来をつくるための言語">パターン・ランゲージ: 創造的な未来をつくるための言語</a></h2>
+
+<p>今ある色々なアーキテクチャの源流的なものを巡っていて、<a href="https://www.amazon.co.jp/dp/4306041719/" title="パタン・ランゲージ―環境設計の手引">パタン・ランゲージ―環境設計の手引</a>を探しているときに見た。</p>
+
+<p>DDDもパターン集であるため、この源流はやはりこの辺にあるのではと思って調べていた。
+IAの話もそうだけど、構造化の考え方などは都市構造の考えの話とも一致している感じがする。</p>
+
+<blockquote>
+<p>「何を」作るのかを支援するというもの、抽象的な形で提供される<br>
+パターンはデザインを支援する。良いデザインは問題を解決する<br>
+パターンランゲージは言葉で形を表すので、それは誰に取っても同じ形にならないとおかしい<br>
+真偽値を科学的なものじゃない、コードとかにも「良い悪い」という適用したのがパターンの面白いところ  </p>
+</blockquote>
+
+<p>via <a href="http://twilog.org/azu_re/date-160519">http://twilog.org/azu_re/date-160519</a></p>
+
+<p>ソフトウェアのアーキテクチャやパターンはこの辺にやっぱり源流がありそうというのは分かってきた。</p>
+
+<p>パターン・ランゲージとかアレグザンダーについては次の本が詳しそう。</p>
+
+<ul>
+<li><a href="http://gihyo.jp/magazine/wdpress/plus/978-4-7741-3897-8" title="パターン、Wiki、XP ―― 時を超えた創造の原則">パターン、Wiki、XP ―― 時を超えた創造の原則</a></li>
+<li><a href="https://ipsj.ixsq.nii.ac.jp/ej/index.php?active_action=repository_view_main_item_detail&amp;page_id=13&amp;block_id=8&amp;item_id=75806&amp;item_no=1">情報学会誌</a>も面白い話が載ってる</li>
+</ul>
+
+<h2 id="アルゴリズミック・デザインの現在"><a href="http://www.ieice.org/cs/csbn/program/papers/080516_waseda.pdf" title="untitled - 080516_waseda.pdf">アルゴリズミック・デザインの現在</a></h2>
+
+<p>パターン・ランゲージのアレグザンダーは1970年代にはコンピュータによるデザイン設計を試みてたという話があった。
+建築的にはアルゴリズミック・デザインの源流となる考え方で、それを調べてた。
+また1970年代ではまだコンピュータの性能などの問題があるのでアレだけど。</p>
+
+<blockquote>
+<p>著者はこの言葉のように、要求された機能を十分に満たすような優れた「デザイン ･ パターン」と「デザイン ･ アルゴリズム」からは、優れた「デザイン ･ パターン」が自動的に生成されると考えていた。<br>
+しかし、人の感性に良いと評価される「デザイン ･ パターン」と機能的に生成された「デザイン ･ パターン」は必ずしも重なるわけでないことが分かった。本事例では、「デザイン ･ パラメータ」に人が感性的に決定した要素を入れたり、ということを実験的に行ってみたが、その結果は感性的な要因を記述することの難しさを確認しただけとなった
+-- <a href="http://www.ieice.org/cs/csbn/program/papers/080516_waseda.pdf" title="untitled - 080516_waseda.pdf">アルゴリズミック・デザインの現在</a></p>
+</blockquote>
+
+<p><a href="https://www.amazon.co.jp/dp/4306045234/" title="アルゴリズミック・デザイン―建築・都市の新しい設計手法 : 日本建築学会 : 本 : アマゾン">アルゴリズミック・デザイン―建築・都市の新しい設計手法 : 日本建築学会 : 本 : アマゾン</a></p>
+
+<blockquote>
+<p>コンピュータ・プログラムをつかって建築設計をするためのさまざまな技法や設計例について書いている．「アルゴリズミック」というと完全に自動的に設計するようにきこえるが，おおくの例では設計の候補を出力して，設計者がそのなかから選択する方法がとられている．その点ではアルゴリズミック・コンポジションつまりコンピュータをつかった作曲と同様であり，まさにクセナキスがとっていた「音楽デザイン」の方法とおなじである．それを「アルゴリズミック」とよぶのが適切であるかどうかはわからない．</p>
+</blockquote>
+
+<p>ジェネラティブ・アート的な考え方なのかなとも思えてきた。</p>
+
+<p>パターン・ランゲージでは、「パターン」とは誰にとっても(人種が異なっていても)同じ形になるという話がある。</p>
+
+<blockquote>
+<p>パターンランゲージは言葉で形を表すので、それは誰に取っても同じ形にならないとおかしい  </p>
+</blockquote>
+
+<p>また、パターンは作り出すものではなく見つけるものと言う話があった気がするので、いったんアルゴリズミック・デザインの話は諦めた。</p>
+
+<blockquote>
+<p>デザインパターンとは懸命な人が発明するものではなく、既存のコードの中から発見されるものです。 
+-- <a href="http://www.oreilly.co.jp/books/9784873113890/" title="O&amp;#39;Reilly Japan - ThoughtWorksアンソロジー">O&#39;Reilly Japan - ThoughtWorksアンソロジー</a></p>
+</blockquote>
+
+<p>この辺で一端折り返した。</p>
+
+<h2 id="pattern_language_for_information_architecture-pdf"><a href="http://www.ellisonconsulting.com/downloads/Pattern_Language_for_Information_Architecture.pdf" title="Pattern_Language_for_Information_Architecture.pdf"><code>Pattern_Language_for_Information_Architecture.pdf</code></a></h2>
+
+<p>パターン・ランゲージとIAについて書かれたスライド。</p>
+
+<h2 id="patterns-principles-and-practices-of-domain-driven-design-wrox"><a href="http://www.wrox.com/WileyCDA/WroxTitle/Patterns-Principles-and-Practices-of-Domain-Driven-Design.productCd-1118714709.html" title="Patterns, Principles, and Practices of Domain-Driven Design - Wrox">Patterns, Principles, and Practices of Domain-Driven Design - Wrox</a></h2>
+
+<p>DDDについて分かりやすく書かれてる書籍。
+DDD本/IDDD本が分かりにくいところを分かりやすく書こうとした感じのする内容だった。</p>
+
+<p>DDDに興味がある人は読むとよい感じな気がする。(かなり分厚いというか量が多い…)</p>
+
+<h2 id="読みたいけど読めてないもの">読みたいけど読めてないもの</h2>
+
+<h3 id="オブジェクトデザイン"><a href="https://www.amazon.co.jp/dp/4798109037/" title="オブジェクトデザイン">オブジェクトデザイン</a></h3>
+
+<p>ES6の仕様のEditorである<a href="https://codezine.jp/article/detail/9071" title="アレン・ワーフスブラック">アレン・ワーフスブラック</a>の奥さんでもある<a href="https://www.ogis-ri.co.jp/otc/hiroba/ogisbooks/ObjectDesign.html" title="レベッカ・ワーフスブラック">レベッカ・ワーフスブラック</a>が書いた書籍。
+責務駆動についてちょっと知りたい。</p>
+
+<h3 id="実践uml-第3版-オブジェクト指向分析設計と反復型開発入門"><a href="https://www.amazon.co.jp/dp/4894716828/" title="実践UML 第3版 オブジェクト指向分析設計と反復型開発入門">実践UML 第3版 オブジェクト指向分析設計と反復型開発入門</a></h3>
+
+<p>オブジェクト指向について</p>
+
+<h3 id="ユースケース駆動開発実践ガイド"><a href="http://www.shoeisha.co.jp/book/detail/9784798114453" title="ユースケース駆動開発実践ガイド">ユースケース駆動開発実践ガイド</a></h3>
+
+<p>ユースケースについて。今読んでる。</p>
+
+<h2 id="おわり">おわり</h2>
+
+<p>今もちょうどやっている翔泳社の電子書籍セールで買って読んだものが多い気がする。</p>
+
+<ul>
+<li><a href="http://www.shoeisha.co.jp/campaign/fes/20160926" title="半期に1度のエンジニア応援祭：電子書籍40％割引セール ｜ 翔泳社">半期に1度のエンジニア応援祭：電子書籍40％割引セール ｜ 翔泳社</a></li>
+</ul>
+
+<p>色々見てた感じアーキテクチャという分野を扱うものは、あんまりパーマネントリンクが貼れるようにできていない気がする。そういう意味でも<a href="http://www.martinfowler.com/" title="Martin Fowler">Martin Fowler</a>は正しくてすごい気がした。</p>
+
+<p>最初に<a href="https://github.com/almin/almin" title="Almin">Almin</a>という成果物を作り、それの中に入ってる考えの名前を求める旅をしていた。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>Travis CIからgh-pagesへデプロイする設定 via SSH/git push</title>
@@ -1462,312 +1667,6 @@ NG: 「 ダメですね 」
 <hr>
 
 <p><a href="http://group.cybozu.jp/news/16063001.html">本部長</a>おめでとうございます。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>技術文書を書くためのtextlint校正ルールセット</title>
-   <link href="http://efcl.info/2016/07/13/textlint-rule-preset-ja-technical-writing/"/>
-   <updated>2016-07-13T09:33:00+09:00</updated>
-   <id>http://efcl.info/2016/07/13/textlint-rule-preset-ja-technical-writing</id>
-   <content type="html"><![CDATA[ <p>技術文書向けの<a href="https://textlint.github.io/">textlint</a>ルールプリセットを作りました。</p>
-
-<ul>
-<li><a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing" title="textlint-ja/textlint-rule-preset-ja-technical-writing: 技術文書向けのtextlintルールプリセット">textlint-ja/textlint-rule-preset-ja-technical-writing: 技術文書向けのtextlintルールプリセット</a></li>
-</ul>
-
-<p>今、書いている<a href="https://github.com/asciidwango/js-primer" title="js-primer">js-primer</a>で使用しています。</p>
-
-<p>元々,
-<a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="azu/JavaScript-Plugin-Architecture: JavaScriptプラグインアーキテクチャの本">JavaScript-Plugin-Architecture: JavaScriptプラグインアーキテクチャの本</a>で実験していたルールをまとめたプリセットになっています。</p>
-
-<p>そのため、実際に適応した状態で書けることは確認した内容がベースです。一部オプションで設定をゆるくしたり、<a href="https://github.com/textlint/textlint-filter-rule-comments" title="textlint-filter-rule-comments">textlint-filter-rule-comments</a>などで無視する必要がある部分もありますが、許容範囲な感じでした。</p>
-
-<p>そもそもなんでこういうツールが必要なのかについては以下のスライドを参照してください。</p>
-
-<ul>
-<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/" title="Introduction | 技術文書をソフトウェア開発する話">Introduction | 技術文書をソフトウェア開発する話</a></li>
-</ul>
-
-<h2 id="インストール">インストール</h2>
-
-<p>通常の<a href="http://efcl.info/2015/12/30/textlint-preset/" title="ルールプリセット">ルールプリセット</a>と入れ方は同じです。</p>
-
-<p>プリセットをインストールします</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># package.jsonがないなら npm init
-npm install textlint-rule-preset-ja-technical-writing -D
-</code></pre></div>
-<p><code>.textlintrc</code>ファイルに以下の設定を追加します。
-(<code>.textlinrc</code>ファイルがないなら <code>$(npm bin)/textlint --init</code>)</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">{
-    &quot;rules&quot;: {
-        &quot;preset-ja-technical-writing&quot;: true
-    }
-}
-</code></pre></div>
-<p>これで<a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing" title="textlint-rule-preset-ja-technical-writing">textlint-rule-preset-ja-technical-writing</a>を使ってLintができるようになります。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$(npm bin)/textlint README.md
-</code></pre></div>
-<ul>
-<li><a href="https://github.com/textlint/textlint/blob/master/docs/getting-started.md">textlint/getting-started.md at master · textlint/textlint</a></li>
-<li><a href="http://blog.kymmt.com/entry/textlint">テキストの校正用に textlint を導入してみた - blog.kymmt.com</a></li>
-</ul>
-
-<h2 id="ルール一覧">ルール一覧</h2>
-
-<p>現時点では以下のルールが含まれています。</p>
-
-<p>最新のものとは異なる場合があるので、詳細は<a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing" title="textlint-rule-preset-ja-technical-writing">textlint-rule-preset-ja-technical-writing</a>を参照してください。</p>
-
-<p>また、ルールの大部分は読みにくさを排除してシンプルな文章にするためのものが中心です。
-技術文書では、できるだけわかりやすく簡潔な表現をした方が良いです。</p>
-
-<ul>
-<li><a href="http://qiita.com/azu/items/60764ed6f415d3c748bf" title="文書執筆の指南書で解説されている問題点を textlint で発見する - Qiita">文書執筆の指南書で解説されている問題点を textlint で発見する - Qiita</a></li>
-<li><a href="http://qiita.com/takahi-i/items/a8b994ef17fd66fe6237" title="文書執筆の指南書で解説されている問題点を RedPen で発見する - Qiita">文書執筆の指南書で解説されている問題点を RedPen で発見する - Qiita</a></li>
-</ul>
-
-<p>上記の記事では技術文書の問題点とそれに対するルールがまとめられています。
-このプリセットも大部分は上記の記事で解説している内容が反映されています。</p>
-
-<ul>
-<li>1文の長さは90文字以下とする</li>
-<li>カンマは1文中に3つまで</li>
-<li>読点は1文中に3つまで</li>
-<li>連続できる最大の漢字長は5文字まで</li>
-<li>漢数字と算用数字を使い分けます</li>
-<li>「ですます調」、「である調」を統一します</li>
-<li>文末の句点記号として「。」を使います</li>
-<li>二重否定は使用しない</li>
-<li>ら抜き言葉を使用しない</li>
-<li>同じ表現から文を開始しすぎない</li>
-<li>逆接の接続助詞「が」を連続して使用しない</li>
-<li>同じ接続詞を連続して使用しない</li>
-<li>同じ助詞を連続して使用しない</li>
-<li>UTF8-MAC 濁点を使用しない</li>
-<li>感嘆符!！、感嘆符?？を使用しない</li>
-<li>半角カナを使用しない</li>
-<li>弱い日本語表現の利用を使用しない</li>
-<li>同一の単語を間違えて連続しているのをチェックする</li>
-<li>よくある日本語の誤用をチェックする</li>
-</ul>
-
-<!-- tocstop -->
-
-<h3 id="1文の長さは90文字以下とする">1文の長さは90文字以下とする</h3>
-
-<blockquote>
-<p><a href="https://github.com/azu/textlint-rule-sentence-length">https://github.com/azu/textlint-rule-sentence-length</a></p>
-</blockquote>
-
-<p>長過ぎる文は読みにくさに繋がるため、適切な単位で文を区切ってください。</p>
-
-<h3 id="カンマは1文中に3つまで">カンマは1文中に3つまで</h3>
-
-<blockquote>
-<p><a href="https://github.com/azu/textlint-rule-max-comma">https://github.com/azu/textlint-rule-max-comma</a></p>
-</blockquote>
-
-<p>カンマ（,）の多用は、文が長くなっている可能性があります。</p>
-
-<h3 id="読点は1文中に3つまで">読点は1文中に3つまで</h3>
-
-<blockquote>
-<p><a href="https://github.com/azu/textlint-rule-max-ten">https://github.com/azu/textlint-rule-max-ten</a></p>
-</blockquote>
-
-<p>読点（、）の多用は、文が長くなっている可能性があります。</p>
-
-<h3 id="連続できる最大の漢字長は5文字まで">連続できる最大の漢字長は5文字まで</h3>
-
-<blockquote>
-<p><a href="https://github.com/azu/textlint-rule-max-kanji-continuous-len">https://github.com/azu/textlint-rule-max-kanji-continuous-len</a></p>
-</blockquote>
-
-<p>漢字同士が連続していると読みにくさにつながります。
-助詞を入れるなどして漢字だけで文章を書かないようにします。</p>
-
-<p>長い漢字の固有名詞は <code>allow</code> オプションに記述して回避します。</p>
-
-<h3 id="漢数字と算用数字を使い分けます">漢数字と算用数字を使い分けます</h3>
-
-<blockquote>
-<p><a href="https://github.com/azu/textlint-rule-preset-JTF-style">https://github.com/azu/textlint-rule-preset-JTF-style</a></p>
-</blockquote>
-
-<p>数量を表現し、数を数えられるものは算用数字を使用します。任意の数に置き換えても通用する語句がこれに該当します。</p>
-
-<p>慣用的表現、熟語、概数、固有名詞、副詞など、漢数字を使用することが一般的な語句では漢数字を使います。</p>
-
-<h3 id="「ですます調」、「である調」を統一します">「ですます調」、「である調」を統一します</h3>
-
-<blockquote>
-<p><a href="https://github.com/azu/textlint-rule-no-mix-dearu-desumasu">https://github.com/azu/textlint-rule-no-mix-dearu-desumasu</a></p>
-</blockquote>
-
-<ul>
-<li>見出しは自動</li>
-<li>本文はですます調</li>
-<li>箇条書きはである調</li>
-</ul>
-
-<p>文体は見出し、本文、箇条書きの中では統一した表記にします。</p>
-
-<h3 id="文末の句点記号として「。」を使います">文末の句点記号として「。」を使います</h3>
-
-<blockquote>
-<p><a href="https://github.com/textlint-ja/textlint-rule-ja-no-mixed-period">https://github.com/textlint-ja/textlint-rule-ja-no-mixed-period</a></p>
-</blockquote>
-
-<p>文末には「。」を使い文を区切ります。</p>
-
-<p>「。」のつけ忘れのチェックや「:」で文を区切らないようにします。</p>
-
-<h3 id="二重否定は使用しない">二重否定は使用しない</h3>
-
-<blockquote>
-<p><a href="https://github.com/azu/textlint-rule-no-double-negative-ja">https://github.com/azu/textlint-rule-no-double-negative-ja</a></p>
-</blockquote>
-
-<p>二重否定は使用しません。</p>
-
-<h3 id="ら抜き言葉を使用しない">ら抜き言葉を使用しない</h3>
-
-<blockquote>
-<p><a href="https://github.com/azu/textlint-rule-no-dropping-the-ra">https://github.com/azu/textlint-rule-no-dropping-the-ra</a></p>
-</blockquote>
-
-<p>ら抜き言葉は使用しません。</p>
-
-<h3 id="同じ表現から文を開始しすぎない">同じ表現から文を開始しすぎない</h3>
-
-<blockquote>
-<p><a href="https://github.com/azu/textlint-rule-no-start-duplicated-conjunction">https://github.com/azu/textlint-rule-no-start-duplicated-conjunction</a></p>
-</blockquote>
-
-<p>同じ表現から文を開始している場合、同じことを繰り返し説明している場合があります。</p>
-
-<p>箇条書きなどで同じ表現から開始したいは<a href="https://github.com/textlint/textlint-filter-rule-comments" title="textlint-filter-rule-comments">textlint-filter-rule-comments</a>を使い回避してください。</p>
-
-<h3 id="逆接の接続助詞「が」を連続して使用しない">逆接の接続助詞「が」を連続して使用しない</h3>
-
-<blockquote>
-<p><a href="https://github.com/takahashim/textlint-rule-no-doubled-conjunctive-particle-ga">https://github.com/takahashim/textlint-rule-no-doubled-conjunctive-particle-ga</a></p>
-</blockquote>
-
-<p>逆接の接続助詞「が」は、特に否定の意味ではなくても安易に使われてしまいがちです。</p>
-
-<p>同一文中に複数回出現していないかをチェックします。</p>
-
-<h3 id="同じ接続詞を連続して使用しない">同じ接続詞を連続して使用しない</h3>
-
-<blockquote>
-<p><a href="https://github.com/takahashim/textlint-rule-no-doubled-conjunction">https://github.com/takahashim/textlint-rule-no-doubled-conjunction</a></p>
-</blockquote>
-
-<h3 id="同じ助詞を連続して使用しない">同じ助詞を連続して使用しない</h3>
-
-<blockquote>
-<p><a href="https://github.com/azu/textlint-rule-no-doubled-joshi">https://github.com/azu/textlint-rule-no-doubled-joshi</a></p>
-</blockquote>
-
-<p>同じ助詞が連続して書かれているとどこに助詞がかかっているのかがわかりにくくなります。</p>
-
-<blockquote>
-<p>材料不足で代替素材で製品を作った。</p>
-</blockquote>
-
-<h3 id="utf8-mac-濁点を使用しない">UTF8-MAC 濁点を使用しない</h3>
-
-<blockquote>
-<p><a href="https://github.com/azu/textlint-rule-no-nfd">https://github.com/azu/textlint-rule-no-nfd</a></p>
-</blockquote>
-
-<p>文章中にUTF8-MAC 濁点は不要です。
-ファイルからコピー＆ペーストした文字である場合があります。</p>
-
-<h3 id="感嘆符-！、感嘆符-？を使用しない">感嘆符!！、感嘆符?？を使用しない</h3>
-
-<blockquote>
-<p><a href="https://github.com/azu/textlint-rule-no-exclamation-question-mark">https://github.com/azu/textlint-rule-no-exclamation-question-mark</a></p>
-</blockquote>
-
-<p>技術文書では感情的な表現はあまり使用するべきではありません。</p>
-
-<p>特定の感嘆符または感嘆符を使用する場合は、オプションで許可して利用してください。
-デフォルトでは全て禁止しています。</p>
-
-<h3 id="半角カナを使用しない">半角カナを使用しない</h3>
-
-<blockquote>
-<p><a href="https://github.com/azu/textlint-rule-no-hankaku-kana">https://github.com/azu/textlint-rule-no-hankaku-kana</a></p>
-</blockquote>
-
-<p>全角カタカナを使用してください。</p>
-
-<h3 id="弱い日本語表現の利用を使用しない">弱い日本語表現の利用を使用しない</h3>
-
-<blockquote>
-<p><a href="https://github.com/textlint-ja/textlint-rule-ja-no-weak-phrase">https://github.com/textlint-ja/textlint-rule-ja-no-weak-phrase</a></p>
-</blockquote>
-
-<p><code>〜かもしれない</code> 等の弱い表現を使用しない。</p>
-
-<h3 id="同一の単語を間違えて連続しているのをチェックする">同一の単語を間違えて連続しているのをチェックする</h3>
-
-<blockquote>
-<p><a href="https://github.com/textlint-ja/textlint-rule-ja-no-successive-word">https://github.com/textlint-ja/textlint-rule-ja-no-successive-word</a></p>
-</blockquote>
-
-<p>同一の単語(形態素解析したtoken)が連続している場合は誤字の可能性があります。</p>
-
-<p>誤字でない場合は、<a href="https://github.com/textlint-ja/textlint-rule-ja-no-successive-word/issues/new">Issue報告</a>してください。</p>
-
-<h3 id="よくある日本語の誤用をチェックする">よくある日本語の誤用をチェックする</h3>
-
-<blockquote>
-<p><a href="https://github.com/textlint-ja/textlint-rule-ja-no-abusage">https://github.com/textlint-ja/textlint-rule-ja-no-abusage</a></p>
-</blockquote>
-
-<p>日本語や技術表現における漢字の誤用などをチェックするルールです。</p>
-
-<hr>
-
-<h2 id="類似ルール">類似ルール</h2>
-
-<p>ルール的にもJTFスタイルガイドと似ている部分は多いです。</p>
-
-<ul>
-<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style">azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.</a></li>
-<li><a href="http://efcl.info/2015/10/19/textlint-plugin-JTF-style/">JTF日本語標準スタイルガイドのルールセットで文章をチェックできるtextlintプリセット | Web Scratch</a></li>
-</ul>
-
-<p><a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing" title="textlint-rule-preset-ja-technical-writing">textlint-rule-preset-ja-technical-writing</a>では、単純な辞書での一致ではなく、形態素解析をしているルールが多いです。
-(JTF-styleは正規表現で頑張った感じ)</p>
-
-<p>JTFスタイルガイドは名前の通りスタイル周りも含めていますが、<a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing" title="textlint-rule-preset-ja-technical-writing">textlint-rule-preset-ja-technical-writing</a>では含まれていません。</p>
-
-<p>スタイル周り(スペースの入れ方)については、別のプリセットを作っているのでそちらを参照してください。</p>
-
-<ul>
-<li><a href="https://github.com/textlint-ja/textlint-rule-spacing" title="textlint-ja/textlint-rule-spacing: スペース周りのスタイルを扱うtextlintルール集">textlint-ja/textlint-rule-spacing: スペース周りのスタイルを扱うtextlintルール集</a></li>
-</ul>
-
-<h2 id="参考">参考</h2>
-
-<ul>
-<li><a href="https://github.com/continuous-manual-writing/writing-guideline/blob/master/writing-standard.md" title="writing-guideline/writing-standard.md at master · continuous-manual-writing/writing-guideline">writing-guideline/writing-standard.md at master · continuous-manual-writing/writing-guideline</a></li>
-</ul>
-
-<h2 id="コミュニティ">コミュニティ</h2>
-
-<p>textlintの日本語周りについて話せるコミュニティが<a href="https://gitter.im/textlint-ja/textlint-ja"><img src="https://badges.gitter.im/textlint-ja/textlint-ja.svg" alt="Gitter"></a>にあります。
-Organizationなっているので、日本語関係のルールを置きたい場合も言ってもらえれば対応できます。</p>
-
-<ul>
-<li><a href="https://github.com/textlint-ja/textlint-ja">textlint-ja/textlint-ja: textlintの日本語コミュニティ</a></li>
-<li><a href="https://gitter.im/textlint-ja/textlint-ja">textlint-ja/textlint-ja - Gitter</a></li>
-</ul>
  ]]></content>
  </entry>
  
