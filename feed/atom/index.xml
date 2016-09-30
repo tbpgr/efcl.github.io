@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-09-30T22:41:52+09:00</updated>
+ <updated>2016-09-30T22:46:22+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -91,7 +91,8 @@ Kindleで買ってたので、スクリーンショットをOneNoteに貼ると�
 
 <p>またDDDの文脈で出てくるモデルやリポジトリなどは、人によって言ってることが違うという事実をちゃんと注記してくれている。CQRSについてはこの本を読むとよい。</p>
 
-<p>確かこの本を読む1週間ぐらい前に<a href="https://github.com/almin/almin" title="Almin">Almin</a>を作ったので、この本を読むときは考え方の答え合わせみたいな感じで読んでたと思う。</p>
+<p>確かこの本を読む<a href="https://github.com/almin/almin/commit/2f8048f7f45497df809e646b6ceb4445c6bbdbe2">1週間ぐらい前</a>に<a href="https://github.com/almin/almin" title="Almin">Almin</a>を作ったので、この本を読むときは考え方の答え合わせみたいな感じで読んでたと思う。
+(コードベース自体はもうちょっと前にできてたのライブラリとして切り出したのがこの時)</p>
 
 <p>DDDの文脈で出てくる用語は検索しても、とにかく曖昧な事が多いので、曖昧な用語であるということを明記されていたのが良かった。</p>
 
