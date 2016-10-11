@@ -759,7 +759,9 @@
         
         "gh-pages",
         
-        "DDD"
+        "DDD",
+        
+        "js-primer"
         
     ]
 }

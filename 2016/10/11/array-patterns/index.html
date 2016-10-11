@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        JavaScriptの配列のパターン | Web Scratch
+        
+    </title>
+    <meta name="description" content="JavaScriptの配列をどう解説するかを考えていて、配列って普段どういう風に使ってるけ?みたいなことを書き出してみました。">
+    
+    <meta name="keywords" content="JavaScript,js-primer" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="JavaScriptの配列のパターン">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/10/11/array-patterns/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="JavaScriptの配列をどう解説するかを考えていて、配列って普段どういう風に使ってるけ?みたいなことを書き出してみました。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-10-11T20:44:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/09/30/architecture-refs/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/09/27/deploy-from-travis-ci-to-gh-pages/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/09/27/react-meetup-4/">
+
+
+
+
+
+<meta property="article:section" content="javascript">
+
+
+
+
+
+<meta property="article:tag" content="JavaScript">
+
+<meta property="article:tag" content="js-primer">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 31
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 164
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 81
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 5
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/10/11/array-patterns/">
+                JavaScriptの配列のパターン
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/09/30/architecture-refs/">
+                アーキテクチャをめぐるたび
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/09/27/deploy-from-travis-ci-to-gh-pages/">
+                Travis CIからgh-pagesへデプロイする設定 via SSH/git push
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/09/27/react-meetup-4/">
+                React Meetup #4 でJavaScriptでのCQRSの話をしてきた
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/10/11/array-patterns/">
+    <h1 class="post-title">JavaScriptの配列のパターン</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年10月11日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-10-11-array-patterns.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p>JavaScriptの配列をどう解説するかを考えていて、配列って普段どういう風に使ってるけ?みたいなことを書き出してみました。</p>
+
+<ul>
+<li><a href="https://github.com/asciidwango/js-primer/issues/49" title="Arrayオブジェクト · Issue #49 · asciidwango/js-primer">Arrayオブジェクト · Issue #49 · asciidwango/js-primer</a></li>
+</ul>
+
+<p>皆さんは配列をどう使いますか?</p>
+
+<h2 id="配列の作成">配列の作成</h2>
+
+<p>配列の作成には配列リテラル（<code>[]</code>）を使います。
+配列リテラルには初期値も指定できます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">emptyArray</span> <span class="o">=</span> <span class="p">[];</span> <span class="c1">// 空の配列を作成</span>
+<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span> <span class="c1">// 値をもった配列を作成</span>
+</code></pre></div>
+<p>Arrayオブジェクトを<code>new</code>演算子でインスタンス化する方法は基本的には使いません。
+こちらは配列リテラルとは異なり、初期値ではなく配列の長さを指定し、<strong>疎な配列</strong>を作ります。</p>
+
+<p>疎な配列とは、配列の要素が空となっているもので、隙間を持った配列のことを言います。</p>
+
+<p>JavaScriptでは、配列は固定長ではなく可変長のみとなっていることや、
+初期値を指定できないため、<code>new Array</code>で疎な配列を作る意味は少ないです。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// 10個分のlengthを持った疎の配列</span>
+<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="c1">// 中身が空なので、値を持っていない</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span><span class="c1">// =&gt; false</span>
+</code></pre></div>
+<p>バイナリデータを扱うようなパフォーマンスが求められるケースは、
+<code>Array</code>（配列）ではなく<code>TypedArray</code>（型付き配列）を利用します。</p>
+
+<p><code>Array</code>（配列）と<code>TypedArray</code>（型付き配列）は似ていますが、
+基本的に異なる目的を持ったものなので、ここでは<code>Array</code>（配列）についてを扱います。</p>
+
+<h2 id="配列の要素を削除する">配列の要素を削除する</h2>
+
+<p>delete演算子で配列の要素を削除することができますが、
+注意点としては値を消すだけで、消した値を詰めるような処理は行いません。
+つまり、<code>delete</code>した結果として疎な配列ができあがります。</p>
+
+<p>次のように、<code>length</code>が<code>3</code>の配列の1番目の要素を消しても、
+<code>length</code>は<code>3</code>のままとなります。
+<code>delete</code>演算子では、自動的に削除された配列の要素を詰めません。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span> <span class="c1">// =&gt; 3</span>
+<span class="k">delete</span> <span class="nx">array</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">);</span> <span class="c1">// =&gt; [1, , 3]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span> <span class="c1">// =&gt; 3</span>
+</code></pre></div>
+<p>一方、<code>Array#splice</code>メソッドを利用すると、削除した要素を自動で詰めることができます。
+<code>Array#splice</code>メソッドは、<code>index</code>番目から<code>削除する数</code>だけ要素を取り除き、必要ならば要素を同時に追加できます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">array.splice(index, 削除する数, [追加する要素][, ..., 追加する要素]);
+</code></pre></div>
+<p>つまり、配列の1番目の要素を削除するには、1番目から1つの要素を削除するという指定をする必要があります。
+このとき、削除した要素は自動で詰められるため、疎な配列にはなりません。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span> <span class="c1">// =&gt; 3</span>
+<span class="nx">array</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">);</span> <span class="c1">// =&gt; [1, 3]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span> <span class="c1">// =&gt; 2</span>
+</code></pre></div>
+<p>この<code>Array#splice</code>メソッドをImmutableにする場合は結構小難しい書き方になります。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">immutableSplice</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">deleteCount</span><span class="p">,</span> <span class="p">...</span><span class="nx">items</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[...</span><span class="nx">arr</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">start</span><span class="p">),</span> <span class="p">...</span><span class="nx">items</span><span class="p">,</span> <span class="p">...</span><span class="nx">arr</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">start</span> <span class="o">+</span> <span class="nx">deleteCount</span><span class="p">)];</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><a href="http://vincent.billey.me/pure-javascript-immutable-array" title="Pure javascript immutable arrays">Pure javascript immutable arrays</a></li>
+</ul>
+
+<h2 id="arrayの要素を全削除">Arrayの要素を全削除</h2>
+
+<p>配列の要素をすべて削除するには <code>length</code> に <code>0</code>を設定する方法があります。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
+</code></pre></div>
+<p>仕様的には代入された<code>length</code>からはみ出ている要素をすべて <code>[[Delete]]</code> とするという処理になります。</p>
+
+<ul>
+<li><a href="http://www.ecma-international.org/ecma-262/7.0/#sec-arraysetlength" title="ArraySetLength (A, Desc)">ArraySetLength (A, Desc)</a></li>
+</ul>
+
+<p><code>Array#splice</code>やそもそもその要素を削除するひつようがないなら、空の配列で変数を上書きするでもよいはずです。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="nx">array</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="c1">// or</span>
+<span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<p>次の２つは<code>array</code>という変数を参照の値を渡しているものがあるかで意味が異なります。
+次のように<code>length</code>を変更した場合は、コールバック関数に渡した配列も影響を受けます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">doSomething</span><span class="p">(</span><span class="nx">callbck</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="nx">array</span><span class="p">);</span>
+    <span class="c1">// array = [];</span>
+    <span class="c1">// or</span>
+    <span class="c1">// array.length = 0;</span>
+<span class="p">}</span>
+
+<span class="nx">doSomething</span><span class="p">((</span><span class="nx">array</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<h2 id="配列は参照型">配列は参照型</h2>
+
+<p>配列はプリミティブな値ではなくオブジェクトなので、変数に入れると参照型の値になります。
+次にように、配列を参照する<code>a</code>という変数の値を<code>b</code>に代入しても、<code>b</code>には配列の参照が入るだけです。
+そのため、<code>a</code>に変更を加えると、<code>b</code>も同じ配列を参照しているため影響を受けます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
+<span class="nx">a</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span> <span class="c1">// =&gt; [1, 2, 3, 4]</span>
+</code></pre></div>
+<p>一方、プリミティブな値である文字列では、<code>b</code>に<code>a</code>を代入する際に<code>a</code>の値がコピーされます。
+つまり、変数<code>a</code>に変更を加えても、コピーされた値をもつ変数<code>b</code>は影響を受けません。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="s2">&quot;!&quot;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span> <span class="c1">// =&gt; &quot;string&quot;</span>
+</code></pre></div>
+<p>StringやNumberなどのプリミティブな値は、作成後に値そのものの状態は変更できません。
+このような特性をもつものをImmutableと呼び、StringなどはImmutableです。</p>
+
+<p>一方、ArrayやObjectなどのプリミティブな値でないものは、作った後も状態を変更できるためMutableと呼ばれます。</p>
+
+<p>詳しくは<a href="https://asciidwango.github.io/js-primer/basic/data-type/" title="データ型とリテラル · JavaScriptの入門書 #jsprimer">データ型とリテラル · JavaScriptの入門書 #jsprimer</a>を参照してください。</p>
+
+<h2 id="arrayのコピー">Arrayのコピー</h2>
+
+<p>配列をshallow copyする流派としてconcatとsliceがあります。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">copyC</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">concat</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">copyS</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span> <span class="o">!==</span> <span class="nx">copyC</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span> <span class="o">!==</span> <span class="nx">copyS</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">copyC</span> <span class="o">!==</span> <span class="nx">copyS</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
+</code></pre></div>
+<ul>
+<li><a href="http://www.ecma-international.org/ecma-262/7.0/#sec-array.prototype.concat">http://www.ecma-international.org/ecma-262/7.0/#sec-array.prototype.concat</a></li>
+<li><a href="http://www.ecma-international.org/ecma-262/7.0/#sec-array.prototype.slice">http://www.ecma-international.org/ecma-262/7.0/#sec-array.prototype.slice</a></li>
+</ul>
+
+<p><code>Array#concat</code>メソッドと<code>Array#slice</code>メソッドは意図して配列以外を<code>this</code>として指定できるようになっています。
+そのため、Array-likeなオブジェクトを<code>this</code>にして、配列にする方法としても利用されています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">));</span>
+</code></pre></div>
+<p>しかし、ES2015からは<code>Array.from</code>メソッドという、Array-likeを配列にする適切なメソッドがあります。
+あとで詳しく解説しますが、<code>Array.from</code>メソッドのほうが直感的なのでこちらを利用して変換した方がよいです。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">));</span>
+</code></pre></div>
+<ul>
+<li><a href="http://www.ecma-international.org/ecma-262/7.0/#sec-array.from">http://www.ecma-international.org/ecma-262/7.0/#sec-array.from</a></li>
+</ul>
+
+<h2 id="配列の末尾に要素を追加">配列の末尾に要素を追加</h2>
+
+<p>末尾に要素を追加する場合は <code>Array#push</code> が利用できます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="nx">array</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">);</span> <span class="c1">// =&gt; [1, 2, 3, 4]</span>
+</code></pre></div>
+<p><code>Array#push</code>はmutableな操作なので、immutableにやりたい場合もあります。
+Immutableにやりたい場合は、配列のコピーの最後に要素を追加すればよいはずです。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">newArray</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">array</span><span class="p">,</span> <span class="mi">4</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">newArray</span><span class="p">);</span> <span class="c1">// =&gt; [1, 2, 3, 4]</span>
+</code></pre></div>
+<p>もちろん<code>Array#slice</code>などでコピーした配列にpushするでも問題ありません。
+<code>js
+var array = [1, 2, 3];
+var newArray = array.slice();
+newArray.push(4);
+console.log(newArray); // =&gt; [1, 2, 3, 4]
+</code></p>
+
+<p>先頭に要素を追加する場合も、<code>Array#push</code>が<code>Array#unshift</code>に変わるだけで同じです。</p>
+
+<h2 id="new-array-fill">new Array + fill</h2>
+
+<p><code>new Array(len)</code> で指定した<code>length</code>の<strong>疎な配列</strong>を作ることができます。
+しかし、この配列の要素は<code>undefined</code>が値として入っているわけではありません。
+単純に <code>array[0]</code> にはキーそのものがないため、 <code>undefined</code>が返ってきています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">10</span><span class="p">);</span><span class="c1">// =&gt; true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
+<span class="c1">// hasOwnPropertyでプロパティを持っているかで確認できる</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="kc">undefined</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span> <span class="c1">// =&gt; true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span> <span class="c1">// =&gt; false</span>
+</code></pre></div>
+<p>配列もオブジェクトであるため、疎な配列は次のようなオブジェクトであるといえます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// new Array(10)</span>
+<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">length</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nx">__proto__</span><span class="o">:</span> <span class="nb">Array</span>
+<span class="p">};</span>
+<span class="nx">array</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// =&gt; undefined</span>
+</code></pre></div>
+<p>これにより<code>new Array</code>では配列中の値がないので<code>Array#map</code>などが意図した挙動にはなりません
+<code>Array#map</code>などは配列中の値がない添字をスキップします。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">index</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">);</span><span class="c1">// =&gt; true</span>
+</code></pre></div>
+<p>そのため、これを回避する場合は明示的に値を入れた配列を使うか、
+<code>Array.from</code>を使うことで<strong>疎な配列</strong>も扱えます。</p>
+
+<p>明示的に値を埋める、いわゆる0埋めのような操作は<code>Array#fill</code>を使うのが簡単です。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nx">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">index</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">===</span> <span class="mi">9</span><span class="p">);</span><span class="c1">// =&gt; true</span>
+</code></pre></div>
+<p><code>Array.from</code>メソッドはArray-likeやiterableなオブジェクトから新しく配列を作る静的メソッドです。</p>
+
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/from" title="Array.from() - JavaScript | MDN">Array.from() - JavaScript | MDN</a></li>
+</ul>
+
+<p>先ほどの<code>new Array</code>で作った疎な配列もlengthは持っているので、for文などで走査することはできます。
+<code>Array.from</code>は、<code>arguments</code>のようなArray-likeや疎な配列も、意図したように列挙できる<code>Array#map</code>のような仕組みを持っています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">index</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">===</span> <span class="mi">9</span><span class="p">);</span><span class="c1">// =&gt; true</span>
+</code></pre></div>
+<p>他にも、Iterableを配列にできるので、Mapオブジェクトを配列へ変換するときにも利用できます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">]]);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">map</span><span class="p">));</span><span class="c1">// =&gt; [[1, 2], [2, 4], [4, 8]]</span>
+</code></pre></div>
+<p>これは、Spread Operator（<code>...</code>）を使うことでも同様のことが行なえます。
+<code>Array.from</code>は第二引数でマッピング方法を指定できるのでより柔軟な処理が書けるという違いがあります。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">]]);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(...</span><span class="nx">map</span><span class="p">);</span><span class="c1">// =&gt; [[1, 2], [2, 4], [4, 8]]</span>
+</code></pre></div>
+<h2 id="flatten">flatten</h2>
+
+<p>配列の配列を、配列にfattenしたというケース。</p>
+
+<p><code>[[1], [2], [3]]</code> =&gt; <code>[1, 2, 3]</code></p>
+
+<p>concatを使った方法が有名です。</p>
+
+<p>shallowなflattenをします・。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">flatten</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">concat</span><span class="p">.</span><span class="nx">apply</span><span class="p">([],</span> <span class="nx">array</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]];</span>
+<span class="nx">flatten</span><span class="p">(</span><span class="nx">array</span><span class="p">);</span> <span class="c1">// =&gt; [1, 2, 3]</span>
+</code></pre></div>
+<p>再帰的にやることでdeepなflattenをします。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">flatten</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">prev</span><span class="p">,</span> <span class="nx">curr</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">curr</span><span class="p">)</span> <span class="o">?</span> <span class="p">[...</span><span class="nx">prev</span><span class="p">,</span> <span class="p">...</span><span class="nx">flatten</span><span class="p">(</span><span class="nx">curr</span><span class="p">)]</span> <span class="o">:</span> <span class="p">[...</span><span class="nx">prev</span><span class="p">,</span> <span class="nx">curr</span><span class="p">];</span>
+    <span class="p">},</span> <span class="p">[]);</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]];</span>
+<span class="nx">flatten</span><span class="p">(</span><span class="nx">array</span><span class="p">);</span> <span class="c1">// =&gt; [1, 2, 3]</span>
+</code></pre></div>
+<p><a href="https://bterlson.github.io/proposal-flatMap/" title="Array.prototype.flatMap &amp;amp; Array.prototype.flatten">Array.prototype.flatMap &amp; Array.prototype.flatten</a> ProposalはStage 1なので、将来<code>Array#flatten</code>メソッドが利用できる可能性もあります。</p>
+
+<h2 id="entriesで何か">entriesで何か</h2>
+
+<p>オブジェクをループ時に key と value のどちらも必要な場合は、<code>Object.values</code>メソッドを利用すると簡単です。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">key1</span><span class="o">:</span> <span class="s2">&quot;value1&quot;</span><span class="p">,</span>
+    <span class="nx">key2</span><span class="o">:</span> <span class="s2">&quot;value2&quot;</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">keyValues</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">object</span><span class="p">).</span><span class="nx">map</span><span class="p">(([</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">key</span><span class="p">}</span><span class="o">:</span> <span class="nx">$</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">keyValues</span><span class="p">);</span> <span class="c1">// =&gt; [&quot;key1:value1&quot;, &quot;key2:value2&quot;];</span>
+</code></pre></div>
+<h2 id="indexof-gt-findindex">indexOf =&gt; findIndex</h2>
+
+<p>配列から指定した要素を見つける場合に <code>indexOf</code> だと<code>===</code>での一致でしか見つけることができません。
+そのため、オブジェクトのプロパティを見て探索する場合には利用できません。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">2</span><span class="p">}];</span>
+<span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">({</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">index</span><span class="p">);</span> <span class="c1">// =&gt; -1</span>
+</code></pre></div>
+<p>代わりにES2015からは<code>Array#findIndex</code> が利用できます。
+<code>js
+var array = [{ id: 1 }, { id: 2}];
+var index = array.findIndex(item =&gt; item.id === 1);
+console.log(index); // =&gt; 0
+</code></p>
+
+<h2 id="find-gt-some">find =&gt; some</h2>
+
+<p>配列の中に、判定に一致するものを含んでいるかという真偽値が欲しいのなら、<code>Array#some</code>が利用できます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">2</span><span class="p">}];</span>
+<span class="kd">var</span> <span class="nx">isContained</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="mi">1</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">isContained</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
+</code></pre></div>
+<h2 id="indexof-gt-includes">indexOf =&gt; includes</h2>
+
+<p>配列が指定した要素を含んでいるかに <code>array.indexOf(value) !=== -1</code> を使ったイディオムがあります。
+先ほども書いたように<code>indexOf</code>は<code>===</code>による比較なので、<code>Array#some</code>で書くと次のような処理になります。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="s2">&quot;b&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">containB</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">target</span> <span class="o">===</span> <span class="nx">item</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">containB</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
+</code></pre></div>
+<p>これを<code>Array#indexOf</code>を使えば1行で書くことができます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="s2">&quot;b&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">containB</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">containB</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
+</code></pre></div>
+<p>しかし、ES2016からは<code>Array#includes</code>が利用できるので、このイディオムを使う必要はありません。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">containB</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">containB</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
+</code></pre></div>
+<h2 id="splice-gt">splice =&gt; ...</h2>
+
+<p><code>Array#splice</code>はmutableな操作になっています。
+そのため、配列から n 番目の要素を削除した配列をImmutableに作るのは結構面倒です。</p>
+
+<p>mubtaleでよいなら、次のように書くことができます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">deleteItemAtIndex</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">array</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span><span class="c1">// spliceの返り値は削除した値</span>
+    <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">deleteItemAtIndex</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span> <span class="c1">// =&gt; [1, 3]</span>
+</code></pre></div>
+<p>これをImmutableする場合、Spread Operatorと<code>Array#slice</code>を使うことで次のように書くことができます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">deleteItemAtIndex</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 常に新しい配列を返す</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="p">...</span><span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">index</span><span class="p">),</span>
+        <span class="p">...</span><span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">];</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">deleteItemAtIndex</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span><span class="c1">// =&gt; [1, 3]</span>
+</code></pre></div>
+<h2 id="配列から値を取り出す">配列から値を取り出す</h2>
+
+<p>テストなどで、指定して位置の値を取り出したいときがあります。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">sortByKey</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">array</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">a</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+        <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">b</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>これをテストした時には、返り値の0番目の値を取り出してみたいということが多いです。
+この場合に、Destructuringを使い値を取り出すと変数にまとめて取り出せます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">sortByKey</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">().</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">a</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+        <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">b</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="mi">2</span> <span class="p">},</span> <span class="p">{</span> <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}];</span>
+<span class="kd">var</span> <span class="nx">sorted</span> <span class="o">=</span> <span class="nx">sortByKey</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="p">[</span><span class="nx">first</span><span class="p">,</span> <span class="nx">second</span><span class="p">]</span> <span class="o">=</span> <span class="nx">sorted</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">first</span> <span class="o">===</span> <span class="nx">array</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// =&gt; true</span>
+</code></pre></div>
+<h2 id="join">join</h2>
+
+<p>配列を文字列にする方法はさまざまな方法があります。
+単純な方法としては、<code>Array#join</code>メソッドを利用することです。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">array</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="err">区切り文字</span><span class="p">);</span>
+</code></pre></div>
+<p><code>Array#join</code>メソッドでは配列を指定した<code>区切り文字</code>で結合した文字列を作成してくれます。
+<code>区切り文字</code>を指定しなかった場合は、デフォルト値として<code>,</code>が<code>区切り文字</code>として指定されます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">string</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">join</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">lg</span><span class="p">(</span><span class="nx">string</span><span class="p">);</span><span class="c1">// =&gt; &quot;1,2,3&quot;</span>
+</code></pre></div>
+<h2 id="ループと反復処理">ループと反復処理</h2>
+
+<p><code>Array#map</code>メソッドなどのループと反復処理については<a href="https://asciidwango.github.io/js-primer/basic/loop/" title="ループと反復処理 · JavaScriptの入門書 #jsprimer">ループと反復処理 · JavaScriptの入門書 #jsprimer</a>を参照してください。</p>
+
+<h2 id="空の配列を返す">空の配列を返す</h2>
+
+<p>配列を返すAPIは、返す値がないときも空の配列を返すようにします。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">getSomeList</span><span class="p">(){</span>
+    <span class="k">if</span><span class="p">(</span><span class="err">返すものがないとき</span><span class="p">){</span>
+        <span class="k">return</span> <span class="p">[];</span>
+    <span class="p">}</span>
+    <span class="c1">// かえすものがあるとき</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>こうすることで、このAPIを利用する側はnullチェックをしなくても良くなります。
+<code>null</code>や<code>undefined</code>を返してしまうと、このAPIを使うたびに<code>null</code>チェックが必要となります。
+<code>null</code>チェックが不要ならば不要な形にした方が良いはずです。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-10-11-array-patterns.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","js-primer"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=js-primer">js-primer</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

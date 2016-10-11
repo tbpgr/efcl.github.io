@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "JavaScriptの配列のパターン",
+            "url": "http://efcl.info/2016/10/11/array-patterns/",
+            "date": "2016-10-11T20:44:00+09:00"
+        },
+        
+        {
             "title": "アーキテクチャをめぐるたび",
             "url": "http://efcl.info/2016/09/30/architecture-refs/",
             "date": "2016-09-30T20:01:00+09:00"
