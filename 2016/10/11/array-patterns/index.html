@@ -608,13 +608,11 @@ Immutableにやりたい場合は、配列のコピーの最後に要素を追�
 <span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">({</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">});</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">index</span><span class="p">);</span> <span class="c1">// =&gt; -1</span>
 </code></pre></div>
-<p>代わりにES2015からは<code>Array#findIndex</code> が利用できます。
-<code>js
-var array = [{ id: 1 }, { id: 2}];
-var index = array.findIndex(item =&gt; item.id === 1);
-console.log(index); // =&gt; 0
-</code></p>
-
+<p>代わりにES2015からは<code>Array#findIndex</code> が利用できます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">2</span><span class="p">}];</span>
+<span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">findIndex</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="mi">1</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">index</span><span class="p">);</span> <span class="c1">// =&gt; 0</span>
+</code></pre></div>
 <h2 id="find-gt-some">find =&gt; some</h2>
 
 <p>配列の中に、判定に一致するものを含んでいるかという真偽値が欲しいのなら、<code>Array#some</code>が利用できます。</p>
