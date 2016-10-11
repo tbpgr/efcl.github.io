@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-11T21:47:55+09:00</updated>
+ <updated>2016-10-11T21:53:03+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -185,14 +185,12 @@ Immutableにやりたい場合は、配列のコピーの最後に要素を追�
 <span class="kd">var</span> <span class="nx">newArray</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">array</span><span class="p">,</span> <span class="mi">4</span><span class="p">];</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">newArray</span><span class="p">);</span> <span class="c1">// =&gt; [1, 2, 3, 4]</span>
 </code></pre></div>
-<p>もちろん<code>Array#slice</code>などでコピーした配列にpushするでも問題ありません。
-<code>js
-var array = [1, 2, 3];
-var newArray = array.slice();
-newArray.push(4);
-console.log(newArray); // =&gt; [1, 2, 3, 4]
-</code></p>
-
+<p>もちろん<code>Array#slice</code>などでコピーした配列にpushするでも問題ありません。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">newArray</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">();</span>
+<span class="nx">newArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">newArray</span><span class="p">);</span> <span class="c1">// =&gt; [1, 2, 3, 4]</span>
+</code></pre></div>
 <p>先頭に要素を追加する場合も、<code>Array#push</code>が<code>Array#unshift</code>に変わるだけで同じです。</p>
 
 <h2 id="new-array-fill">new Array + fill</h2>
