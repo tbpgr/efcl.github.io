@@ -520,7 +520,7 @@ Immutableにやりたい場合は、配列のコピーの最後に要素を追�
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// new Array(10)</span>
 <span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">length</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
-    <span class="nx">__proto__</span><span class="o">:</span> <span class="nb">Array</span>
+    <span class="nx">__proto__</span><span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span>
 <span class="p">};</span>
 <span class="nx">array</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// =&gt; undefined</span>
 </code></pre></div>
