@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-12T16:26:38+09:00</updated>
+ <updated>2016-10-12T16:28:40+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -261,14 +261,15 @@ Immutableにやりたい場合は、配列のコピーの最後に要素を追�
 
 <p>concatを使った方法が有名です。</p>
 
-<p>shallowなflattenをします・。</p>
+<p><code>Array#concat</code>を使った方法ではshallowなflattenを行えます。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">flatten</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">concat</span><span class="p">.</span><span class="nx">apply</span><span class="p">([],</span> <span class="nx">array</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]];</span>
 <span class="nx">flatten</span><span class="p">(</span><span class="nx">array</span><span class="p">);</span> <span class="c1">// =&gt; [1, 2, 3]</span>
 </code></pre></div>
-<p>再帰的にやることでdeepなflattenをします。</p>
+<p>再帰的にやることでdeepなflattenができます。
+もう一つのflattenを行う方法として、<code>...</code> spread operatorで配列を展開してしまう方法です。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">flatten</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">prev</span><span class="p">,</span> <span class="nx">curr</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">curr</span><span class="p">)</span> <span class="o">?</span> <span class="p">[...</span><span class="nx">prev</span><span class="p">,</span> <span class="p">...</span><span class="nx">flatten</span><span class="p">(</span><span class="nx">curr</span><span class="p">)]</span> <span class="o">:</span> <span class="p">[...</span><span class="nx">prev</span><span class="p">,</span> <span class="nx">curr</span><span class="p">];</span>
