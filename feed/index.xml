@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-12T16:28:40+09:00</updated>
+ <updated>2016-10-12T20:52:48+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,60 @@
  </author>
  
 
+ 
+ <entry>
+   <title>pdf.jsなPDFビューアアプリをElectronで作った</title>
+   <link href="http://efcl.info/2016/10/12/mu-pdf-viewer/"/>
+   <updated>2016-10-12T20:39:00+09:00</updated>
+   <id>http://efcl.info/2016/10/12/mu-pdf-viewer</id>
+   <content type="html"><![CDATA[ <p>タイトルどおりですが、FirefoxのPDFビューアをスタンドアローン化したようなアプリを作りました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/mu-pdf-viewer" title="azu/mu-pdf-viewer: PDF viewer on electron.">azu/mu-pdf-viewer: PDF viewer on electron.</a></li>
+</ul>
+
+<p>特徴は次の通りです。</p>
+
+<ul>
+<li><a href="https://github.com/mozilla/pdf.js" title="PDF.js">PDF.js</a>ベース</li>
+<li>J, Kでスクロールなどいじっています</li>
+<li>Drag and Dropをサポートしてます</li>
+</ul>
+
+<p><img src="https://monosnap.com/file/BfCnnmtQZhiRNDAfahDjTtzQpy4nss.png" alt="screenshot"></p>
+
+<h2 id="install">Install</h2>
+
+<p>npm でインストールするか</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install mu-pdf-viewer -g
+</code></pre></div>
+<p>バイナリをダウンロードして使えます(OS Xのみ)</p>
+
+<ul>
+<li><a href="https://github.com/azu/mu-pdf-viewer/releases/latest">https://github.com/azu/mu-pdf-viewer/releases/latest</a></li>
+</ul>
+
+<p>Travis CIとかでelectronを自動ビルドするのがかなり難しくなったので、自分用にOS X版のみバイナリを作ってます。</p>
+
+<p>READMEにその他の環境のバイナリの作り方を書いてあります。</p>
+
+<h2 id="usage">Usage</h2>
+
+<p>npmでインストールした場合はCLIから起動できます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ mu-pdf-viewer &lt;pdf-file-path&gt;
+</code></pre></div>
+<p>アプリの場合は普通にPDFファイルを開いたり、D&amp;Dすれば起動します。</p>
+
+<h2 id="目的">目的</h2>
+
+<p>ショートカットが自分好みにカスタマイズできるPDFビューアが少なかったので作りました。
+具体的には0.3画面分ぐらいスクロールするショートカットを持っているアプリが殆どなかったというのがメインです。</p>
+
+<p>ショートカットが自由なPDFビューアは他にないのかな?</p>
+
+<p>アプリ自体は、<a href="https://github.com/almin/almin" title="Almin">Almin</a>と<a href="https://facebook.github.io/react/" title="React">React</a>を使ってDDD風味で書いています。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>JavaScriptの配列のパターン</title>
@@ -282,7 +336,7 @@ Immutableにやりたい場合は、配列のコピーの最後に要素を追�
 
 <h2 id="entriesで何か">entriesで何か</h2>
 
-<p>オブジェクをループ時に key と value のどちらも必要な場合は、<code>Object.values</code>メソッドを利用すると簡単です。</p>
+<p>オブジェクをループ時に key と value のどちらも必要な場合は、<code>Object.entries</code>メソッドを利用すると簡単です。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">key1</span><span class="o">:</span> <span class="s2">&quot;value1&quot;</span><span class="p">,</span>
     <span class="nx">key2</span><span class="o">:</span> <span class="s2">&quot;value2&quot;</span><span class="p">,</span>
@@ -292,6 +346,8 @@ Immutableにやりたい場合は、配列のコピーの最後に要素を追�
 <span class="p">});</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">keyValues</span><span class="p">);</span> <span class="c1">// =&gt; [&quot;key1:value1&quot;, &quot;key2:value2&quot;];</span>
 </code></pre></div>
+<p>keyだけなら<code>Object.keys</code>メソッド、valueだけなら<code>Object.values</code>メソッドが利用できます。</p>
+
 <h2 id="indexof-gt-findindex">indexOf =&gt; findIndex</h2>
 
 <p>配列から指定した要素を見つける場合に <code>indexOf</code> だと<code>===</code>での一致でしか見つけることができません。
@@ -1781,130 +1837,6 @@ Babelを使って変換している場合は<a href="https://github.com/azu/babe
 <p><a href="https://github.com/azu/ecmascript-version-detector#contributing" title="Contributing">Contributing</a>に書いていますが、コードからのバージョンの判定は<a href="https://github.com/rse/astq" title="astq">astq</a>を使ってセレクタにマッチするかを見ています。</p>
 
 <p>まだ足りてない判定などもあるので、気軽にPull Requestを投げてください。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>textlintでスペースを入れる入れないを統一するルール</title>
-   <link href="http://efcl.info/2016/07/21/textlint-rule-spacing/"/>
-   <updated>2016-07-21T20:08:00+09:00</updated>
-   <id>http://efcl.info/2016/07/21/textlint-rule-spacing</id>
-   <content type="html"><![CDATA[ <p>文章を書いていると、日本語と english の間にスペースを入れるかどうかという表記揺れの問題がでてきます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">日本語と english にはスペースを入れる
-日本語とenglishにはスペースを入れない
-`code` と日本語の間はスペースを空ける
-`code`と日本語の間はスペースを空けない
-OK: 「良いですね」
-NG: 「 ダメですね 」
-</code></pre></div>
-<p>このようなスペースのスタイルについての<a href="https://textlint.github.io/">textlint</a>ルールを書きました。</p>
-
-<ul>
-<li><a href="https://github.com/textlint-ja/textlint-rule-spacing" title="textlint-ja/textlint-rule-spacing: スペース周りのスタイルを扱うtextlintルール集">textlint-ja/textlint-rule-spacing: スペース周りのスタイルを扱うtextlintルール集</a></li>
-</ul>
-
-<p>プリセットになっているため、次のようにまとめてインストールできます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-rule-preset-ja-spacing
-</code></pre></div>
-<p>そして、次のように設定で有効化すれば利用できます。</p>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;preset-ja-spacing&quot;</span><span class="p">:</span> <span class="kc">true</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="ルール一覧">ルール一覧</h2>
-
-<p>次のようなルールがプリセットには含まれています。
-また、個別のルールとしてもnpmでインストールできるようになっています。</p>
-
-<h3 id="textlint-rule-ja-space-between-half-and-full-width"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-between-half-and-full-width">textlint-rule-ja-space-between-half-and-full-width</a></h3>
-
-<p>半角文字と全角文字の間にスペースを入れるかどうかのルール
-デフォルトはスペースを入れない。</p>
-
-<h3 id="textlint-rule-ja-space-around-code"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code">textlint-rule-ja-space-around-code</a></h3>
-
-<p>インラインコードの周りにスペースを入れるかを決めるルール</p>
-
-<h3 id="textlint-rule-ja-no-space-between-full-width"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-no-space-between-full-width">textlint-rule-ja-no-space-between-full-width</a></h3>
-
-<p>全角文字同士の間のスペースについてのtextlintルール。
-全角文字どうしの間にスペースを入れません。</p>
-
-<h3 id="textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana">textlint-rule-ja-nakaguro-or-halfwidth-space-between-katakana</a></h3>
-
-<p>カタカナ語間の区切り文字についてのtextlintルール。
-カタカナ語間は中黒または半角スペースを用いてカタカナ語を区切ります。</p>
-
-<h3 id="textlint-rule-ja-no-space-around-parentheses"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-no-space-around-parentheses">textlint-rule-ja-no-space-around-parentheses</a></h3>
-
-<p>かっこの外側、内側ともにスペースを入れないようにするルール</p>
-
-<h3 id="textlint-rule-ja-space-after-exclamation"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-after-exclamation">textlint-rule-ja-space-after-exclamation</a></h3>
-
-<p>文末に感嘆符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。
-文中に感嘆符を使用する場合はスペースを挿入しません</p>
-
-<h3 id="textlint-rule-ja-space-after-question"><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-after-question">textlint-rule-ja-space-after-question</a></h3>
-
-<p>文末に疑問符を使用し、後に別の文が続く場合は、直後に全角スペースを挿入します。
-文中に疑問符を使用する場合はスペースを挿入しません。</p>
-
-<h2 id="デフォルト設定">デフォルト設定</h2>
-
-<p>デフォルトでは、次のような設定になっています。</p>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;preset-ja-spacing&quot;</span><span class="p">:</span> <span class="p">{</span>
-             <span class="nt">&quot;ja-nakaguro-or-halfwidth-space-between-katakana&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-             <span class="nt">&quot;ja-no-space-around-parentheses&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-             <span class="nt">&quot;ja-no-space-between-full-width&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-             <span class="nt">&quot;ja-space-between-half-and-full-width&quot;</span><span class="p">:</span> <span class="p">{</span>
-                 <span class="nt">&quot;space&quot;</span><span class="p">:</span> <span class="s2">&quot;never&quot;</span>
-             <span class="p">},</span>
-             <span class="nt">&quot;ja-space-after-exclamation&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-             <span class="nt">&quot;ja-space-after-question&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-             <span class="nt">&quot;ja-space-around-code&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-         <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p><a href="https://github.com/textlint-ja/textlint-rule-spacing/tree/master/https://github.com/textlint-ja/textlint-rule-spacing/tree/master/packages/textlint-rule-ja-space-around-code">textlint-rule-ja-space-around-code</a>は、デフォルト無効になっています。(どちらが一般的か不明なため)</p>
-
-<p>次のように設定することで、プリセットに含まれるすべてのルールを有効にできます。</p>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;preset-ja-spacing&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;ja-space-around-code&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;before&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-                <span class="nt">&quot;after&quot;</span><span class="p">:</span> <span class="kc">false</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="fixable">Fixable</h2>
-
-<p><a href="https://textlint.github.io/"><img src="https://img.shields.io/badge/textlint-fixable-green.svg?style=social" alt="textlint rule"></a></p>
-
-<p>大体のルールは<code>textlint --fix</code>の自動修正に対応しています。</p>
-
-<h2 id="意見-要望">意見/要望</h2>
-
-<p><a href="https://github.com/textlint-ja/textlint-rule-spacing/issues">Issue</a>や<a href="https://gitter.im/textlint-ja/textlint-ja">Gitterチャット</a>に書いてください。</p>
-
-<p><a href="https://gitter.im/textlint-ja/textlint-ja"><img src="https://badges.gitter.im/textlint-ja/textlint-ja.svg" alt="Gitter"></a></p>
-
-<h2 id="関連">関連</h2>
-
-<p>JTFスタイルガイドに含まれているルールと大部分は共通しています。
-以下のプリセットを利用している場合は重複するルールがありますが、スペース関連のルールを取り出した感じです。(JTFの方もこのモジュールをつかって実装したい)</p>
-
-<ul>
-<li><a href="https://www.jtf.jp/jp/style_guide/styleguide_top.html" title="JTF日本語標準スタイルガイド（翻訳用）">JTF日本語標準スタイルガイド（翻訳用）</a></li>
-<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style" title="azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.">azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.</a></li>
-</ul>
  ]]></content>
  </entry>
  

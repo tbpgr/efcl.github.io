@@ -39,11 +39,11 @@
 <meta property="article:published_time" content="2016-10-11T20:44:00+09:00">
 <meta property="article:author" content="https://www.facebook.com/">
 
+<meta property="og:see_also" content="http://efcl.info/2016/10/12/mu-pdf-viewer/">
+
 <meta property="og:see_also" content="http://efcl.info/2016/09/30/architecture-refs/">
 
 <meta property="og:see_also" content="http://efcl.info/2016/09/27/deploy-from-travis-ci-to-gh-pages/">
-
-<meta property="og:see_also" content="http://efcl.info/2016/09/27/react-meetup-4/">
 
 
 
@@ -115,7 +115,7 @@ var blog_categories = [
     "count" : 6
 },{
     "title" : "javascript",
-    "count" : 164
+    "count" : 165
 },{
     "title" : "インストール設定",
     "count" : 12
@@ -249,6 +249,12 @@ var blog_categories = [
     <ul class="recent-posts">
         
         <li>
+            <a href="/2016/10/12/mu-pdf-viewer/">
+                pdf.jsなPDFビューアアプリをElectronで作った
+            </a>
+        </li>
+        
+        <li>
             <a href="/2016/10/11/array-patterns/">
                 JavaScriptの配列のパターン
             </a>
@@ -263,12 +269,6 @@ var blog_categories = [
         <li>
             <a href="/2016/09/27/deploy-from-travis-ci-to-gh-pages/">
                 Travis CIからgh-pagesへデプロイする設定 via SSH/git push
-            </a>
-        </li>
-        
-        <li>
-            <a href="/2016/09/27/react-meetup-4/">
-                React Meetup #4 でJavaScriptでのCQRSの話をしてきた
             </a>
         </li>
         
@@ -591,7 +591,7 @@ Immutableにやりたい場合は、配列のコピーの最後に要素を追�
 
 <h2 id="entriesで何か">entriesで何か</h2>
 
-<p>オブジェクをループ時に key と value のどちらも必要な場合は、<code>Object.values</code>メソッドを利用すると簡単です。</p>
+<p>オブジェクをループ時に key と value のどちらも必要な場合は、<code>Object.entries</code>メソッドを利用すると簡単です。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">key1</span><span class="o">:</span> <span class="s2">&quot;value1&quot;</span><span class="p">,</span>
     <span class="nx">key2</span><span class="o">:</span> <span class="s2">&quot;value2&quot;</span><span class="p">,</span>
@@ -601,6 +601,8 @@ Immutableにやりたい場合は、配列のコピーの最後に要素を追�
 <span class="p">});</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">keyValues</span><span class="p">);</span> <span class="c1">// =&gt; [&quot;key1:value1&quot;, &quot;key2:value2&quot;];</span>
 </code></pre></div>
+<p>keyだけなら<code>Object.keys</code>メソッド、valueだけなら<code>Object.values</code>メソッドが利用できます。</p>
+
 <h2 id="indexof-gt-findindex">indexOf =&gt; findIndex</h2>
 
 <p>配列から指定した要素を見つける場合に <code>indexOf</code> だと<code>===</code>での一致でしか見つけることができません。

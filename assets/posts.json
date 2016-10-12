@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "pdf.jsなPDFビューアアプリをElectronで作った",
+            "url": "http://efcl.info/2016/10/12/mu-pdf-viewer/",
+            "date": "2016-10-12T20:39:00+09:00"
+        },
+        
+        {
             "title": "JavaScriptの配列のパターン",
             "url": "http://efcl.info/2016/10/11/array-patterns/",
             "date": "2016-10-11T20:44:00+09:00"
