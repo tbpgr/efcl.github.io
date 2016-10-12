@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-12T10:13:19+09:00</updated>
+ <updated>2016-10-12T10:18:05+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -430,48 +430,7 @@ Immutableにやりたい場合は、配列のコピーの最後に要素を追�
 
 <p>Arrayのメソッドで破壊的なものとそうでないものをまとめたもの</p>
 
-<h3 id="mutable">Mutable</h3>
-
-<p>| Name                                     | Returns |
-| ---------------------------------------- | ------ |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin"><code>Array.prototype.copyWithin()</code></a> | Array  |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/fill"><code>Array.prototype.fill()</code></a> | Array  |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/pop"><code>Array.prototype.pop()</code></a> | any    |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/push"><code>Array.prototype.push()</code></a> | Number |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse"><code>Array.prototype.reverse()</code></a> | Array  |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/shift"><code>Array.prototype.shift()</code></a> | any    |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/sort"><code>Array.prototype.sort()</code></a> | Array  |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift"><code>Array.prototype.unshift()</code></a> | any    |</p>
-
-<h3 id="immutable">Immutable</h3>
-
-<p>| Name                                     | Returns |
-| ---------------------------------------- | ----------- |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/from"><code>Array.from()</code></a> | Array       |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/slice"><code>Array.prototype.slice()</code></a> | Array       |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/concat"><code>Array.prototype.concat()</code></a> | Array       |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/entries"><code>Array.prototype.entries()</code></a> | Array       |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"><code>Array.prototype.filter()</code></a> | Array       |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/keys"><code>Array.prototype.keys()</code></a> | Array       |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>Array.prototype.map()</code></a> | Array       |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"><code>Array.prototype.reduce()</code></a> | any         |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight"><code>Array.prototype.reduceRight()</code></a> | any         |</p>
-
-<h3 id="other">Other</h3>
-
-<p>| Name                                     | Returns  |
-| ---------------------------------------- | -------- |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/join"><code>Array.prototype.join()</code></a> | String   |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/some"><code>Array.prototype.some()</code></a> | boolean  |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/values"><code>Array.prototype.values()</code></a> | Iterator |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray"><code>Array.isArray()</code></a> | boolean  |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/every"><code>Array.prototype.every()</code></a> | void     |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/find"><code>Array.prototype.find()</code></a> | any      |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex"><code>Array.prototype.findIndex()</code></a> | Number   |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach"><code>Array.prototype.forEach()</code></a> | void     |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/includes"><code>Array.prototype.includes()</code></a> | boolean  |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf"><code>Array.prototype.indexOf()</code></a> | Number   |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf"><code>Array.prototype.lastIndexOf()</code></a> | Number   |</p>
+<script src="https://gist.github.com/azu/30b1ff6831c3bbf7fbd5501d6a2bdfb0.js"></script>
  ]]></content>
  </entry>
  
