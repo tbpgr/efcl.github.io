@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-12T16:22:12+09:00</updated>
+ <updated>2016-10-12T16:26:38+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -238,7 +238,7 @@ Immutableにやりたい場合は、配列のコピーの最後に要素を追�
 </ul>
 
 <p>先ほどの<code>new Array</code>で作った疎な配列もlengthは持っているので、for文などで走査することはできます。
-<code>Array.from</code>は、<code>arguments</code>のようなArray-likeや疎な配列も、意図したように列挙できる<code>Array#map</code>のような仕組みを持っています。</p>
+<code>Array.from</code>は、<code>arguments</code>のようなArray-likeや疎な配列も列挙でき かつ <code>Array#map</code>のような仕組みを持っています。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">index</span><span class="p">;</span>
 <span class="p">});</span>
