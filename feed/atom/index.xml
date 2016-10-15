@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-13T00:14:30+09:00</updated>
+ <updated>2016-10-15T20:49:46+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,382 @@
  </author>
  
 
+ 
+ <entry>
+   <title>AbemaTV Developer Conference 2016のアウトラインメモ</title>
+   <link href="http://efcl.info/2016/10/15/abematv-2016/"/>
+   <updated>2016-10-15T20:46:00+09:00</updated>
+   <id>http://efcl.info/2016/10/15/abematv-2016</id>
+   <content type="html"><![CDATA[ <p><a href="http://developer.abema.io/" title="AbemaTV Developer Conference 2016">AbemaTV Developer Conference 2016</a>に参加してきたメモ。
+途中でメモが吹っ飛んだので最初のほうがありません。</p>
+
+<h2 id="イマドキの-web-サービス運営で突き当たるフロントエンド課題とつらみ"><a href="http://developer.abema.io/#session_2_b" title="イマドキの Web サービス運営で突き当たるフロントエンド課題とつらみ">イマドキの Web サービス運営で突き当たるフロントエンド課題とつらみ</a></h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/ahomu/kai-fa-shang-falseyang-nayi-cun-falseturamito-fresh-by-abematv-falsehua" title="開発上の様々な依存のつらみと FRESH! by AbemaTV の話 // Speaker Deck">開発上の様々な依存のつらみと FRESH! by AbemaTV の話 // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>ahomuさんすごい！！！</li>
+</ul>
+
+<hr>
+
+<h2 id="リニア放送型動画サービスの-web-フロントエンド"><a href="http://developer.abema.io/#session_3_b" title="リニア放送型動画サービスの Web フロントエンド">リニア放送型動画サービスの Web フロントエンド</a></h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/ygoto3q/web-67207768" title="リニア放送型動画サービスの  Web フロントエンド">リニア放送型動画サービスの  Web フロントエンド</a></p>
+</blockquote>
+
+<ul>
+<li>動画のストリーミング配信について</li>
+</ul>
+
+<hr>
+
+<h2 id="flux-with-rxswift"><a href="http://developer.abema.io/#session_5_b" title="Flux with RxSwift">Flux with RxSwift</a></h2>
+
+<ul>
+<li>FluxをRxSwiftで実装する話</li>
+<li><a href="https://github.com/dekatotoro/FluxWithRxSwiftSample" title="dekatotoro/FluxWithRxSwiftSample">dekatotoro/FluxWithRxSwiftSample</a></li>
+</ul>
+
+<hr>
+
+<h2 id="デザイナーとエンジニアの境界線"><a href="http://developer.abema.io/#session_7_b" title="デザイナーとエンジニアの境界線">デザイナーとエンジニアの境界線</a></h2>
+
+<ul>
+<li>デザイン</li>
+<li>人の話</li>
+<li>AbemaTC</li>
+<li>社長からの要望
+
+<ul>
+<li>すぐ再生</li>
+<li>ザッピング再生</li>
+<li>受身的な再生</li>
+</ul></li>
+<li>最初のモック
+
+<ul>
+<li>縦画面</li>
+<li>pixate
+
+<ul>
+<li>サービス終了.. <a href="http://www.pixate.com/">http://www.pixate.com/</a></li>
+</ul></li>
+<li>モックを移して夕会で共有</li>
+<li>テレビっぽくない</li>
+<li>モックは250個</li>
+</ul></li>
+<li>結果
+
+<ul>
+<li>16:9の横画面</li>
+<li>皆の意見が反映させているので納得感がある</li>
+</ul></li>
+<li>モック見ながらの話
+
+<ul>
+<li>動画はwifi、バッテリーが気になるのであったほうがいい</li>
+<li>要素が多くて多くて分かりにくい</li>
+</ul></li>
+<li>デザイン -&gt; エンジニア
+
+<ul>
+<li>Sketchのファイルをエンジニアに渡す</li>
+<li>エンジニアがsketchを開いてマージンとかを見る</li>
+</ul></li>
+<li>アイコンの書き出し
+
+<ul>
+<li>Sketchからエクスポート</li>
+<li>いい感じに最適化までやってくれるスクリプト</li>
+</ul></li>
+<li>デザインガイドみたいのは用意しなかった</li>
+<li>アニメーションはPixateで
+
+<ul>
+<li>アニメーションの種類</li>
+<li>秒数とかも共有できる</li>
+<li>デザイナーが管理する</li>
+</ul></li>
+</ul>
+
+<h3 id="デザイナーがコードに触ってみて感じたこと">デザイナーがコードに触ってみて感じたこと</h3>
+
+<ul>
+<li>Atomic Design</li>
+<li>コンポーネント管理</li>
+<li>GitHubを使う</li>
+</ul>
+
+<h2 id="gke-at-abematv"><a href="http://developer.abema.io/#session_8_a" title="GKE at AbemaTV">GKE at AbemaTV</a></h2>
+
+<ul>
+<li>GKEを選んだ理由</li>
+<li>設計</li>
+<li>GKE is
+
+<ul>
+<li>Google Container Engine</li>
+<li>Kubernetesをフルマネージメントサービス</li>
+</ul></li>
+<li>Kubernetes is
+
+<ul>
+<li>Dockerのコンテナマネージメントツール</li>
+<li>MasterとMinionのノードに別れる</li>
+</ul></li>
+<li>AbemaTV on GKE
+
+<ul>
+<li>フルフルGoogleプラットフォーム</li>
+</ul></li>
+<li>GKEを選んだ理由
+
+<ul>
+<li>GKEがGAに</li>
+<li>活発なアップデートなどが理由</li>
+<li>マイクロサービスアーキテクチャとの親和性</li>
+</ul></li>
+<li>RequestとLimits
+
+<ul>
+<li>RequestsはPod起動時に必要なリソース</li>
+<li>LimitsはPodsのリソース制限</li>
+<li>この2つの開きがあると高負荷時にリソースが枯渇する</li>
+<li>Podスケール時にスケジュールしていた場合にLimitを超える場合もある</li>
+</ul></li>
+<li>1クラスタ × Nサービス AmebaTV
+
+<ul>
+<li>メリット
+
+<ul>
+<li>追加機能でインフラの準備不要</li>
+<li>運用コストを低減
+
+<ul>
+<li>ローカルホストのポート指定で繋がる</li>
+</ul></li>
+</ul></li>
+<li>デメリット
+
+<ul>
+<li>リソース消費の見極めが複雑化</li>
+<li>Podの冗長化に難</li>
+</ul></li>
+</ul></li>
+<li>Docker Image
+
+<ul>
+<li>Alpine Linux
+
+<ul>
+<li>Docker向きの軽量OS</li>
+</ul></li>
+<li>デプロイ頻度が少ないとかパッケージが足りないのはUbuntu</li>
+</ul></li>
+<li>lubectl
+
+<ul>
+<li>リソース作成
+
+<ul>
+<li><code>kubectrl create</code></li>
+</ul></li>
+<li>設定内容の更新
+
+<ul>
+<li><code>kubectrl apply</code></li>
+</ul></li>
+<li>Roling-Update
+
+<ul>
+<li>各Podをローリングでアップデートする</li>
+<li>途中で失敗すると、中途半端な状態なPodが残る</li>
+</ul></li>
+</ul></li>
+<li><code>kubetool</code>
+
+<ul>
+<li><code>kubectl</code>をラップした補助ツール</li>
+<li><a href="https://github.com/abema/kubetool" title="abema/kubetool: Kubernetes deployment tools">abema/kubetool: Kubernetes deployment tools</a></li>
+<li>Podを1台だけ最新へ -&gt; 他のPodへ反映のふろー</li>
+</ul></li>
+<li>監視/ログ
+
+<ul>
+<li>標準で取れるのはリソース状況のみ</li>
+<li>Podの標準出力はLoggingに流れる =&gt; フィルターして監視</li>
+</ul></li>
+<li><code>kube-ui</code>
+
+<ul>
+<li>各コンポーネントの情報一覧</li>
+<li>最近はリソースの編集とかもできる</li>
+</ul></li>
+<li>Terraformとの別離
+
+<ul>
+<li>編集するとすべて再作成される</li>
+<li>無停止でやりにくい</li>
+</ul></li>
+<li>ServiceのIPに接続できない問題
+
+<ul>
+<li>v1.2.0でのバグ</li>
+</ul></li>
+<li>Nodeアップグレード時に問題
+
+<ul>
+<li>1台ずつアップグレードされるが、Podが先に落ちないためNodeに繋がらないとう問題がおきた</li>
+</ul></li>
+<li>GKEの感想
+
+<ul>
+<li>Docker導入の敷居が低い</li>
+<li>デプロイ簡単</li>
+<li>リソース調整にはコツがある</li>
+<li>DevOps</li>
+</ul></li>
+</ul>
+
+<h2 id="abematvの開発スタイル"><a href="http://developer.abema.io/#session_10_a" title="AbemaTVの開発スタイル">AbemaTVの開発スタイル</a></h2>
+
+<ul>
+<li>FRESHの立ち上げ</li>
+<li>AbemaTVのリリース後の運用</li>
+<li>インセプションデッキ
+
+<ul>
+<li>コンセプトイメージをまずつくった</li>
+</ul></li>
+<li>スプリント
+
+<ul>
+<li>2週間ぐらいを区切りにしてタイムボックスにいれてｒ</li>
+<li>朝回で確認</li>
+<li>スプリントレビューで成果の確認</li>
+<li>KPTを振り返り</li>
+</ul></li>
+<li>チーム人数に適応する
+
+<ul>
+<li>そのままベースを使うわけじゃない</li>
+<li>FRESH
+
+<ul>
+<li>開発20人前後</li>
+</ul></li>
+<li>AbemaTV
+
+<ul>
+<li>開発30人以上</li>
+</ul></li>
+<li>スクラムチームは15人ぐらいが限界</li>
+<li>チームの分解が必要</li>
+</ul></li>
+<li>チームの分解
+
+<ul>
+<li>クライアント、サーバ、iOS、Android、デザイン</li>
+<li>規模が大きくなるとヨコの連携が弱くなる</li>
+<li>機能毎にプロジェクトを作る人をアサインすることでヨコの連携を補強</li>
+</ul></li>
+<li>FRESH 縦から横事件
+
+<ul>
+<li>リリース予定まで2スプリントだった</li>
+<li>残りの機能をリリーススコープから外して横対応にした</li>
+<li>デザインスプリント(デザイン合宿)をして認識合わせをした</li>
+</ul></li>
+<li>人に適応する
+
+<ul>
+<li>開発者個人でも課題が異なる</li>
+<li>S1-S6の評価制度を意味づけを</li>
+<li>評価制度を使って役割を明確化</li>
+<li>自走できる人は権限を持つ</li>
+</ul></li>
+<li>自走
+
+<ul>
+<li>自走できる人は勝手に課題を見つけて対応する</li>
+<li>計画する前に手を動いて追わせている場合がある</li>
+<li>管理しすぎるとパフォーマンスが落ちることがある</li>
+</ul></li>
+<li>属人化
+
+<ul>
+<li>個人に依存するので属人化する</li>
+<li>開発速度 &gt; 属人化</li>
+</ul></li>
+</ul>
+
+<h2 id="炎上プロジェクト立て直しの風景"><a href="http://developer.abema.io/#session_12_a" title="炎上プロジェクト立て直しの風景">炎上プロジェクト立て直しの風景</a></h2>
+
+<ul>
+<li>炎上プロジェクトの立て直しの事例</li>
+<li>権力者の介入がある風景
+
+<ul>
+<li>iOSとAndroidの仕様のズレがある</li>
+<li>チーフプロデューサーが修正依頼がiOSのエンジニアのみに来る</li>
+<li>=&gt; iOSとAndroidの仕様がずれる</li>
+<li>やること
+
+<ul>
+<li>仕様はプロヂューサーとチーフプロデューサーで決める</li>
+<li>直接エンジニアにはいかないはず</li>
+<li>プロヂューサーを対話に同席させる</li>
+</ul></li>
+<li>学び
+
+<ul>
+<li>意思決定と情報の集約は一元化する</li>
+<li>権力者とは上手く付きあう</li>
+</ul></li>
+</ul></li>
+<li>要件がいつの間にか進化する風景
+
+<ul>
+<li>ヒアリングしてると要件が変わってきてることに気づいた</li>
+<li>クライアントのひらめきにより要件が変わった</li>
+<li>=&gt; 在庫連動したレコメンドサービスになってしまった</li>
+<li>本来の目的に戻した</li>
+<li>スコープは明確にすることが大事</li>
+</ul></li>
+<li>大規模プロモの直前なのにシステムが落ちまくっている風景
+
+<ul>
+<li>1.5万キャパを100万同時接続にするという風景</li>
+<li>SNS認証のバックアッププランがない</li>
+<li>特定機能の障害がひきずられて全体がダウンする</li>
+<li>プロモが成功しても100万同時接続は行きそうになり
+
+<ul>
+<li>CM計画とアクセス傾向から</li>
+</ul></li>
+<li>プロジェクトゴールの再設定
+
+<ul>
+<li>過剰要件は落とす</li>
+</ul></li>
+</ul></li>
+<li>最悪の問題とは
+
+<ul>
+<li>ゴールがブレる、終わりが見えない</li>
+<li>チームワークの崩壊</li>
+</ul></li>
+<li>炎上 = 祭り</li>
+<li>Q. AbemaTVは祭りにならなかったとのことですが、どういう工夫が?</li>
+<li>A. いややっぱり祭りでした。</li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>pdf.jsなPDFビューアアプリをElectronで作った</title>
@@ -1693,150 +2069,6 @@ Babelを使って変換している場合は<a href="https://github.com/azu/babe
 <code>window</code>というグローバル空間にある利点として、後からつけたマークを取り出して見ることができます。</p>
 
 <p>開発中は結構ラフにマークをつけていくと、面白いデータが見えるかもしれません。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>そのコードが標準化されてるJavaScriptなのかを判定する方法</title>
-   <link href="http://efcl.info/2016/08/04/ecmascript-version-detector/"/>
-   <updated>2016-08-04T20:10:00+09:00</updated>
-   <id>http://efcl.info/2016/08/04/ecmascript-version-detector</id>
-   <content type="html"><![CDATA[ <h1 id="ecmascript-version-detector"><a href="https://azu.github.io/ecmascript-version-detector/" title="ECMAScript Version Detector">ECMAScript Version Detector</a></h1>
-
-<p><a href="https://azu.github.io/ecmascript-version-detector/"><img src="http://efcl.info/wp-content/uploads/2016/08/04-1470309082.png" alt="image"></a></p>
-
-<p><a href="https://azu.github.io/ecmascript-version-detector/" title="ECMAScript Version Detector">ECMAScript Version Detector</a>というツールとライブラリを書きました。</p>
-
-<p><a href="https://azu.github.io/ecmascript-version-detector/" title="ECMAScript Version Detector">azu.github.io/ecmascript-version-detector/</a>へアクセスして、好きなコードをペーストすると、そのコードの構文がECMAScriptのどのバージョンから使える機能なのかを表示してくれます。</p>
-
-<p>たとえば、以下のコードはasyncとawaitの部分がまだProposalである<a href="https://github.com/tc39/ecmascript-asyncawait" title="Async Functions">Async Functions</a>であることを検出してくれたりします。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Async/Await</span>
-<span class="nx">async</span> <span class="kd">function</span> <span class="nx">countUp</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">await</span> <span class="nx">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="目的">目的</h2>
-
-<p>Babelなどの変換ツールでECMAScriptのProposalな機能などが身近になりました。
-しかし、それがまだ仕様に入ってないもの(Proposal段階であるもの)ということを意識しないで書いてる人もよく見かけるようになりました。</p>
-
-<p>そのため、まだProposalの段階である標準化されてない機能/構文を標準化される<a href="https://medium.com/@jayphelps/please-stop-referring-to-proposed-javascript-features-as-es7-cad29f9dcc4b">前提</a><a href="http://www.2ality.com/2016/01/ecmascript-2016.html">にして</a><a href="http://teppeis.hatenablog.com/entry/2016/01/es2016-feature-freeze">話すな</a>という<a href="http://jser.info/2015/11/16/ecmascript-7-ms-node-js/">話</a>が<a href="http://azu.github.io/slide-what-is-ecmascript/">あった</a>りします。</p>
-
-<p>例えば、次のコードは既に仕様に入ってる(ES2015)構文で書かれたコードでしょうか?</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{};</span>
-<span class="kr">export</span> <span class="kd">function</span> <span class="nx">friends</span><span class="p">(</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">initialState</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>  
-  <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="s2">&quot;FRIEND&quot;</span><span class="o">:</span>
-      <span class="k">return</span> <span class="p">{</span>
-        <span class="nx">friendsById</span><span class="o">:</span> <span class="p">{</span>
-          <span class="p">...</span><span class="nx">state</span><span class="p">.</span><span class="nx">friendsById</span><span class="p">,</span>
-          <span class="p">[</span><span class="nx">newId</span><span class="p">]</span><span class="o">:</span> <span class="p">{</span>
-            <span class="nx">name</span><span class="o">:</span> <span class="nx">action</span><span class="p">.</span><span class="nx">name</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="k">default</span><span class="o">:</span>
-      <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p><a href="https://azu.github.io/ecmascript-version-detector/" title="ECMAScript Version Detector">ECMAScript Version Detector</a>に入れてみると分かりますが、<code>{...property}</code>はまだ標準化されていない機能です。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2016/08/04-1470309795.png" alt="result"></p>
-
-<p>これは<a href="http://sebmarkbage.github.io/ecmascript-rest-spread/" title="Object Rest/Spread Properties">Object Rest/Spread Properties</a>で、Stage 2のProposalです。</p>
-
-<p>こういう見た目から分かりにくいものも、構文を解析して一覧を出すのが目的です。</p>
-
-<p>JavaScriptに詳しい人は問題ないですが、JavaScriptを今から始めるような人は、どの機能がいつから使える機能なのかが分からない場合があります。</p>
-
-<p>また、最近のブラウザは先行して実装したりしています。
-ブラウザに入ってる ＝ 標準化されたもの ではないので、そういうのをコードから検索できる必要が出てくる気がしています。</p>
-
-<p><a href="https://github.com/asciidwango/js-primer" title="asciidwango/js-primer: JavaScriptの入門書">asciidwango/js-primer: JavaScriptの入門書</a>を書いていて、<a href="https://asciidwango.github.io/js-primer/basic/operator/" title="演算子 · JavaScriptの入門書 #jsprimer">演算子</a>はGoogle検索が難しいので、１ページに殆どの演算子記号を並べて書いたりしています。</p>
-
-<p>JavaScriptのコードにおいても、コードからこの構文って何なのかを知りたい事があると思うので作りました。</p>
-
-<h2 id="おわり">おわり</h2>
-
-<p><a href="https://github.com/azu/ecmascript-version-detector" title="azu/ecmascript-version-detector: ECMAScript Version Detector">azu/ecmascript-version-detector: ECMAScript Version Detector</a>は結構ラフスケッチな感じなので、もっといい感じの表示したりするPull Request待っています。</p>
-
-<p>一応、ライブラリとして使えます。
-コードをパースしたら、バージョンとかASTが入ったものを返します。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">parse</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ecmascript-version-detector&quot;</span><span class="p">).</span><span class="nx">parse</span><span class="p">;</span>
-<span class="nx">parse</span><span class="p">(</span><span class="err">`</span><span class="kr">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">**</span> <span class="mi">2</span><span class="p">;</span><span class="err">`</span><span class="p">);</span>
-<span class="cm">/*</span>
-<span class="cm">[</span>
-<span class="cm">    {</span>
-<span class="cm">        &quot;selector&quot;: &quot;//BinaryExpression[@operator==&#39;**&#39;]&quot;,</span>
-<span class="cm">        &quot;version&quot;: &quot;2016&quot;,</span>
-<span class="cm">        &quot;en&quot;: {</span>
-<span class="cm">            &quot;name&quot;: &quot;BinaryExpression exponentiation operator&quot;</span>
-<span class="cm">        },</span>
-<span class="cm">        &quot;node&quot;: {</span>
-<span class="cm">            &quot;type&quot;: &quot;BinaryExpression&quot;,</span>
-<span class="cm">            &quot;start&quot;: 0,</span>
-<span class="cm">            &quot;end&quot;: 6,</span>
-<span class="cm">            &quot;loc&quot;: {</span>
-<span class="cm">                &quot;start&quot;: {</span>
-<span class="cm">                    &quot;line&quot;: 1,</span>
-<span class="cm">                    &quot;column&quot;: 0</span>
-<span class="cm">                },</span>
-<span class="cm">                &quot;end&quot;: {</span>
-<span class="cm">                    &quot;line&quot;: 1,</span>
-<span class="cm">                    &quot;column&quot;: 6</span>
-<span class="cm">                }</span>
-<span class="cm">            },</span>
-<span class="cm">            &quot;left&quot;: {</span>
-<span class="cm">                &quot;type&quot;: &quot;NumericLiteral&quot;,</span>
-<span class="cm">                &quot;start&quot;: 0,</span>
-<span class="cm">                &quot;end&quot;: 1,</span>
-<span class="cm">                &quot;loc&quot;: {</span>
-<span class="cm">                    &quot;start&quot;: {</span>
-<span class="cm">                        &quot;line&quot;: 1,</span>
-<span class="cm">                        &quot;column&quot;: 0</span>
-<span class="cm">                    },</span>
-<span class="cm">                    &quot;end&quot;: {</span>
-<span class="cm">                        &quot;line&quot;: 1,</span>
-<span class="cm">                        &quot;column&quot;: 1</span>
-<span class="cm">                    }</span>
-<span class="cm">                },</span>
-<span class="cm">                &quot;extra&quot;: {</span>
-<span class="cm">                    &quot;rawValue&quot;: 1,</span>
-<span class="cm">                    &quot;raw&quot;: &quot;1&quot;</span>
-<span class="cm">                },</span>
-<span class="cm">                &quot;value&quot;: 1</span>
-<span class="cm">            },</span>
-<span class="cm">            &quot;operator&quot;: &quot;**&quot;,</span>
-<span class="cm">            &quot;right&quot;: {</span>
-<span class="cm">                &quot;type&quot;: &quot;NumericLiteral&quot;,</span>
-<span class="cm">                &quot;start&quot;: 5,</span>
-<span class="cm">                &quot;end&quot;: 6,</span>
-<span class="cm">                &quot;loc&quot;: {</span>
-<span class="cm">                    &quot;start&quot;: {</span>
-<span class="cm">                        &quot;line&quot;: 1,</span>
-<span class="cm">                        &quot;column&quot;: 5</span>
-<span class="cm">                    },</span>
-<span class="cm">                    &quot;end&quot;: {</span>
-<span class="cm">                        &quot;line&quot;: 1,</span>
-<span class="cm">                        &quot;column&quot;: 6</span>
-<span class="cm">                    }</span>
-<span class="cm">                },</span>
-<span class="cm">                &quot;extra&quot;: {</span>
-<span class="cm">                    &quot;rawValue&quot;: 2,</span>
-<span class="cm">                    &quot;raw&quot;: &quot;2&quot;</span>
-<span class="cm">                },</span>
-<span class="cm">                &quot;value&quot;: 2</span>
-<span class="cm">            }</span>
-<span class="cm">        }</span>
-<span class="cm">    },</span>
-<span class="cm">    ....</span>
-<span class="cm">]</span>
-<span class="cm">*/</span>
-</code></pre></div>
-<p><a href="https://github.com/azu/ecmascript-version-detector#contributing" title="Contributing">Contributing</a>に書いていますが、コードからのバージョンの判定は<a href="https://github.com/rse/astq" title="astq">astq</a>を使ってセレクタにマッチするかを見ています。</p>
-
-<p>まだ足りてない判定などもあるので、気軽にPull Requestを投げてください。</p>
  ]]></content>
  </entry>
  
