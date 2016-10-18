@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-15T20:57:57+09:00</updated>
+ <updated>2016-10-19T00:27:12+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,261 @@
  </author>
  
 
+ 
+ <entry>
+   <title>#jxck_sushi でserverlessの話をしてきた</title>
+   <link href="http://efcl.info/2016/10/18/jxck_sushi/"/>
+   <updated>2016-10-18T23:08:00+09:00</updated>
+   <id>http://efcl.info/2016/10/18/jxck_sushi</id>
+   <content type="html"><![CDATA[ <p><a href="http://togetter.com/li/1038372" title="#jxck_sushi - Togetterまとめ">#jxck_sushi</a>に参加してきた。</p>
+
+<ul>
+<li><a href="https://github.com/meta-sushi/guideline" title="meta-sushi/guideline: Sushiイベントのガイドライン">meta-sushi/guideline: Sushiイベントのガイドライン</a></li>
+<li><a href="http://togetter.com/li/1038372" title="#jxck_sushi - Togetterまとめ">#jxck_sushi - Togetterまとめ</a></li>
+</ul>
+
+<p>2回目の<code>#jxck_sushi</code>だった。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/01/30/cross-2015/" title="CROSS 2015 アウトラインメモ | Web Scratch">CROSS 2015 アウトラインメモ | Web Scratch</a></li>
+</ul>
+
+<p>今回は<a href="http://azu.github.io/slide/2016/jxck_sushi/serverless.html" title="Serverlessを使った匿名でGitHub Issueを立てるAPIを作った">Serverlessを使った匿名でGitHub Issueを立てるAPIを作った</a>という話をしてきた。</p>
+
+<p><a href="https://github.com/jser/ping" title="jser/ping: ping! your issus">jser/ping: ping! your issus</a>を作ったときに必要だったのAPI Gatewayとlambdaを使ってAPIとして作った話。</p>
+
+<hr>
+
+<h2 id="walter">Walter</h2>
+
+<blockquote>
+<p>TODO: スライドはここに</p>
+</blockquote>
+
+<ul>
+<li>FirebaseとIndexedDBの話</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="und" dir="ltr"><a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a> 🍣 <a href="https://t.co/YcLaJR6dK2">pic.twitter.com/YcLaJR6dK2</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/788335553611640832">October 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">CQRS寿司 <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a> <a href="https://t.co/K9tWo8xGl6">pic.twitter.com/K9tWo8xGl6</a></p>&mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/status/788335724680523777">October 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">これからの Web について真剣に議論している <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a> <a href="https://t.co/WQxTaieQng">pic.twitter.com/WQxTaieQng</a></p>&mdash; Jxck (@Jxck_) <a href="https://twitter.com/Jxck_/status/788336179221401600">October 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a> による🍣 <a href="https://t.co/PMNoJa8gRn">pic.twitter.com/PMNoJa8gRn</a></p>&mdash; Laco (@laco0416) <a href="https://twitter.com/laco0416/status/788336275472265216">October 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">次世代のアーキテクチャについて真剣に議論している <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a> <a href="https://t.co/GPuAQFX2u1">pic.twitter.com/GPuAQFX2u1</a></p>&mdash; 83 (@armorik83) <a href="https://twitter.com/armorik83/status/788336294304768000">October 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>内容は :sushi: </p>
+
+<h2 id="serverless-frameworkでのapi作成">Serverless FrameworkでのAPI作成</h2>
+
+<blockquote>
+<p>スライド: <a href="http://azu.github.io/slide/2016/jxck_sushi/serverless.html" title="Serverlessを使った匿名でGitHub Issueを立てるAPIを作った">Serverlessを使った匿名でGitHub Issueを立てるAPIを作った</a></p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/jser/ping" title="jser/ping: ping! your issus">jser/ping: ping! your issus</a></li>
+<li>API Gatewayとlambdaを使ってブラウザから叩けるAPIを作る話</li>
+<li>CORSの設定とかも<a href="https://github.com/serverless/serverless" title="Serverless Framework">Serverless Framework</a>から設定ファイルだけで簡潔して便利だった</li>
+<li>lambdaのテストについて</li>
+<li>handlerのスクリプトをローカルで実行できるようにするしか…</li>
+<li>ApexやServerlessは実際にlambdaを叩くCLIがある</li>
+<li><code>console.log</code>を細かく仕込んでCloudWatchで見るとか</li>
+<li>AWSのサービスと連携した場合が結構たいへん</li>
+</ul>
+
+<h2 id="web-component-v1">Web Component v1</h2>
+
+<blockquote>
+<p>スライド: <a href="http://slides.com/laco/webcomponents-v1-libs#/" title="webcomponents v1 libraries by laco">webcomponents v1 libraries by laco</a></p>
+</blockquote>
+
+<ul>
+<li>Custom Element v1などがでた</li>
+<li>ライブラリ</li>
+<li><a href="https://www.polymer-project.org/2.0/docs/about_20" title="Polymer 2.0">Polymer 2.0</a></li>
+<li><a href="http://skate.js.org/" title="SkateJS">SkateJS</a></li>
+<li>が対応してる</li>
+<li>Custom Element v1はクラス継承に対応してる</li>
+<li>Polymer 2.0は継承路線</li>
+<li>SkateJSはWebComponentとJSXとincrementJSに対応してたり、タグ定義は独自関数
+
+<ul>
+<li>自前でpolyfillを持っている</li>
+</ul></li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">らこ「Polymerはbower」<br>一同「bowerか〜〜」 <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; 83 (@armorik83) <a href="https://twitter.com/armorik83/status/788341086901022720">October 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>HTML Imports</li>
+<li>PolymerはHTML Import頑張りたい姿勢</li>
+<li>SkateJSはHTML Importを捨てている。モジュールの仕組み</li>
+<li>Firefox: <a href="https://hacks.mozilla.org/2014/12/mozilla-and-web-components/" title="Mozilla and Web Components: Update ★ Mozilla Hacks – the Web developer blog">Mozilla and Web Components: Update ★ Mozilla Hacks – the Web developer blog</a>
+
+<ul>
+<li>Loaderで似たようなことができるかもしれないのに、別途HTML Importやるのが微妙という姿勢</li>
+</ul></li>
+</ul>
+
+<h3 id="amp">AMP</h3>
+
+<ul>
+<li>社内フレームワークとしてのAMP</li>
+<li>社内フレームワークとしてのWeb Components</li>
+<li>よくJavaScriptとかしらない人が <code>&lt;TPLogin /&gt;</code> とかでログイン画面を作れるとか</li>
+<li>AMPのいいところは imageのwidthを指定しないとバリデーションで落ちる</li>
+<li>バリデーション通らないとSEO不利なのに皆対応するという強制力</li>
+<li>そういった強制力をWeb Componentsで出せる?
+
+<ul>
+<li>JSXのpropTypesみたいな?</li>
+<li>今のところ仕組みはなさそう</li>
+</ul></li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「俺が書いたHTMLのほうがAMPより早い」 <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/788343509182918657">October 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="web-components-銀の弾丸">Web Components 銀の弾丸</h3>
+
+<ul>
+<li>CSSにとってはやっぱり銀の(ry</li>
+<li>CSSのスコープ</li>
+<li>けどCSSはレイアウトをするために外から差し込める口が必要
+
+<ul>
+<li>テーマ機能とか</li>
+<li>CSSむずかしい</li>
+</ul></li>
+<li>v1ではopenとclose modeとなった
+
+<ul>
+<li>CSS Custom PropertyをI/F的に使えるのは同じ</li>
+<li><a href="http://terkel.github.io/why-im-excited-about-native-css-variables/" title="僕がネイティブな CSS 変数にわくわくする理由">僕がネイティブな CSS 変数にわくわくする理由</a></li>
+<li>closeは外からさせない</li>
+<li>openは外からさせる</li>
+<li>コンポーネントを作るときに確定する仕組みになった</li>
+</ul></li>
+</ul>
+
+<h2 id="それcssでできるよ">それCSSでできるよ</h2>
+
+<ul>
+<li>可変長のリストの話</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「Webの技術の中で一番難しいのがCSS」 <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; 83 (@armorik83) <a href="https://twitter.com/armorik83/status/788348248188555264">October 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="セマンティックス">セマンティックス</h2>
+
+<ul>
+<li><code>&lt;img src=&quot;jxck.png&quot;&gt;</code> を見てどう思うか
+
+<ul>
+<li><code>alt</code></li>
+<li><code>title</code></li>
+</ul></li>
+<li><code>alt</code>を付けるのはスクリーンリーダのためだけではないという話</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「セマンティックスはPull型であるべきだ」 <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/788349959179427840">October 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><code>title</code>属性の使い道は現在のUAだとツールチップぐらい</li>
+<li>セマンティックスが先にあって、それを消費する形が正しい姿</li>
+<li>今title属性を消費するクライアントがないからという理由で、titleを省略していくという考えは変なの正しくはないのではという話</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">HTMLとして正しいじゃなくて、ウェブとして正しいかという話になってしまう。<br>なのでやや抽象的で、どこから見た視点なのかという話になる<br> <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/788351935640285184">October 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>HTMLの仕様ではMUSTが正しいとは言えるけど、それ以外はどう見たら正しいのかという指標が難しい</li>
+<li>正しさを正しいと評価するツールが欲しいのは分かる</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">仕様上のMUSTだと結構範囲は狭い、ユースケースまで行くとある程度の正しい形は書かれてる <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/788353505144602624">October 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>HTTP</li>
+<li>getでdeleteするな話</li>
+<li>Google Botsがクロールして全部getして消える話</li>
+<li>Google Botsのために&quot;getでdelete&quot;を避けるじゃない</li>
+</ul>
+
+<h2 id="node-interactive-europe">Node Interactive Europe</h2>
+
+<ul>
+<li><a href="http://yosuke-furukawa.hatenablog.com/entry/2016/09/30/123942" title="Node Interactive Europe 2016 に参加しました。 - from scratch">Node Interactive Europe 2016 に参加しました。 - from scratch</a></li>
+<li>Node.js 今互換性を気にしすぎで少し停滞してる</li>
+<li>またio.js?</li>
+<li>Node.jsの競合がでるのが正しい競争の形</li>
+<li>Web標準も色々やっていきたい in Node.js</li>
+</ul>
+
+<h2 id="prh">prh</h2>
+
+<ul>
+<li><a href="http://qiita.com/vvakame/private/5cbb2bf9b6de5899006b" title="prhのWEB+DB PRESS校正ルール最新版を作成した話 - Qiita">prhのWEB+DB PRESS校正ルール最新版を作成した話 - Qiita</a></li>
+<li>WEB+DBの<code>prh.yml</code>最新版情報</li>
+<li>別でprh.ymlをまとめたリポジトリ</li>
+<li><a href="https://github.com/azu/prh.yml" title="azu/prh.yml: A collection of prh.yml">azu/prh.yml: A collection of prh.yml</a></li>
+</ul>
+
+<h2 id="preflight">preflight</h2>
+
+<ul>
+<li>WHATWG module loaderでCORS強制する?</li>
+<li>TODO: この辺に議論されてるURLが入る</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「タイミングのpreflightが届いてなかった」 <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/788361447558426625">October 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="angular1と2">Angular1と2</h2>
+
+<ul>
+<li>Angular2は半年に1度メジャーを上げる予定?</li>
+<li>Angular1と2で落差がある</li>
+<li>信頼を取り戻すのに Angular 4ぐらいまでかかりそう</li>
+<li>1を管理画面などの業務系に使っていた人たちが多い</li>
+<li>Truly覚悟が必要</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">Angular 2は別のネームスペースの1.0にしなかったから今後一生「Angular 2」って呼ばれそう <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; 83 (@armorik83) <a href="https://twitter.com/armorik83/status/788367243264471042">October 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="おわり">おわり</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">ありがとうございました！ <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a> <a href="https://t.co/qf3Durm9wa">pic.twitter.com/qf3Durm9wa</a></p>&mdash; Jxck (@Jxck_) <a href="https://twitter.com/Jxck_/status/788372247043899392">October 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>AbemaTV Developer Conference 2016のアウトラインメモ</title>
@@ -1789,286 +2044,6 @@ Babelを使って変換している場合は<a href="https://github.com/azu/babe
 <ul>
 <li><a href="https://github.com/asciidwango/js-primer/issues/137" title="Meta(基本文法): ロードマップ · Issue #137 · asciidwango/js-primer">Meta(基本文法): ロードマップ · Issue #137 · asciidwango/js-primer</a></li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>performance.markでパフォーマンス計測する</title>
-   <link href="http://efcl.info/2016/08/15/performance.mark/"/>
-   <updated>2016-08-15T21:24:00+09:00</updated>
-   <id>http://efcl.info/2016/08/15/performance.mark</id>
-   <content type="html"><![CDATA[ <p>JavaScriptである区間にかかった時間を計測する時に、次のようなコードを書いたことがあると思います。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">start</span> <span class="o">=</span> <span class="nx">performance</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
-<span class="c1">// 処理</span>
-<span class="c1">// 色々な処理がすべて終わった</span>
-<span class="nx">doSome</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">performance</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nx">start</span><span class="p">);</span>
-<span class="p">})</span>
-</code></pre></div>
-<p><a href="https://www.w3.org/TR/performance-timeline/" title="Performance Timeline">Performance Timeline</a>の<code>performance.mark</code>と<code>performance.measure</code>などを使うと、ある区間の処理時間をもっと簡単に取ることができます。</p>
-
-<p>APIについて詳しくは以下の記事を見るといいと思います。</p>
-
-<ul>
-<li><a href="http://www.html5rocks.com/ja/tutorials/webperformance/usertiming/">User Timing API: あなたの Web アプリをもっと理解するために - HTML5 Rocks</a></li>
-<li><a href="https://developer.mozilla.org/ja/docs/Web/API/Performance/mark">Performance.mark() - Web API インターフェイス | MDN</a></li>
-</ul>
-
-<p>簡単に解説すると <code>performance.mark(marker)</code> である地点に名前を付けて、<code>performance.measure(name, startMark, endMark);</code>でA地点とB地点の区間をマーキングすることができます。</p>
-
-<p>そして、マーキングした後に<a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/getEntries" title="Performance.getEntries()">Performance.getEntries()</a>でその区間の開始時間やかかった時間などを得ることができます。</p>
-
-<p>開発者ツールだとこのマーキングした区間を可視化してくれないので不便ですが、次の拡張 or ブックマークレットを使ううとNavigation Timing APIとともに可視化してくれるので便利です。</p>
-
-<ul>
-<li><a href="https://github.com/micmro/performance-bookmarklet" title="micmro/performance-bookmarklet: Performance-Bookmarklet helps to analyze the current page through the Resource Timing API, Navigation Timing API and User-Timing - requests by type, domain, load times, marks and more. Sort of a light live WebPageTest.">micmro/performance-bookmarklet</a></li>
-</ul>
-
-<p>polyfillとして以下のライブラリを使うと、このAPIをサポートしてない環境でもエラーが出なくなるので便利です。</p>
-
-<ul>
-<li><a href="https://github.com/nicjansma/usertiming.js" title="nicjansma/usertiming.js: UserTiming polyfill">nicjansma/usertiming.js: UserTiming polyfill</a>の</li>
-</ul>
-
-<p>この仕組みの良いところは、計測時はマーキングするだけでログを出すなどの余計な処理をしないため、より正確な値を取ることができます。
-また、マーキングをとりあえずしておけば、後から必要なものをコンソールから<code>window.performance.getEntries()</code>などで取り出せるため、マーキングと計測を分離できます。</p>
-
-<h2 id="実際の例">実際の例</h2>
-
-<p>次の形態素解析をするサイトを例にしてみましょう。</p>
-
-<ul>
-<li><a href="http://azu.github.io/morpheme-match/">azu.github.io/morpheme-match/</a></li>
-</ul>
-
-<p>このサイトは、<a href="https://github.com/azu/kuromojin">kuromojin</a>(<a href="https://github.com/takuyaa/kuromoji.js">kuromoji.js</a>)を使うため、最初に形態素解析用の辞書をダウンロードして、ダウンロードが終わったら初回の画面が表示されます。</p>
-
-<p>そのため、初期表示がものすごく遅いです。</p>
-
-<p>まずは実際にどれくらいかかっているかを、<code>window.performance.mark</code>で計測してみましょう。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// LICENSE : MIT</span>
-<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;react&quot;</span><span class="p">);</span>
-<span class="kr">const</span> <span class="nx">parse</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;query-string&quot;</span><span class="p">).</span><span class="nx">parse</span><span class="p">;</span>
-<span class="kr">import</span> <span class="nx">App</span> <span class="nx">from</span> <span class="s2">&quot;./App/App&quot;</span>
-<span class="kr">import</span> <span class="nx">AppLocator</span> <span class="nx">from</span> <span class="s2">&quot;../../AppLocator&quot;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="nx">LoadingContainer</span> <span class="nx">from</span> <span class="s2">&quot;../ui-kit/LoadingContainer/LoadingContainer&quot;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="nx">InitializeUseCase</span> <span class="nx">from</span> <span class="s2">&quot;../../js/use-case/InitializeUseCase&quot;</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">AppLoading</span> <span class="o">=</span> <span class="nx">LoadingContainer</span><span class="p">(</span><span class="nx">App</span><span class="p">);</span>
-<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">AppBootStrap</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
-    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-        <span class="c1">// 初期化開始ポイント</span>
-        <span class="nb">window</span><span class="p">.</span><span class="nx">performance</span><span class="p">.</span><span class="nx">mark</span><span class="p">(</span><span class="s2">&quot;AppBootStrap:start&quot;</span><span class="p">);</span>
-        <span class="kr">const</span> <span class="nx">location</span> <span class="o">=</span> <span class="nx">AppLocator</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">getCurrentLocation</span><span class="p">();</span>
-        <span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">parse</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">);</span>
-        <span class="kr">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="nx">AppLocator</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
-        <span class="kr">const</span> <span class="nx">promise</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">useCase</span><span class="p">(</span><span class="nx">InitializeUseCase</span><span class="p">.</span><span class="nx">create</span><span class="p">()).</span><span class="nx">execute</span><span class="p">({</span><span class="nx">text</span><span class="o">:</span> <span class="nx">query</span><span class="p">.</span><span class="nx">text</span><span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
-        <span class="p">}).</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="c1">// 初期化完了ポイント</span>
-            <span class="nb">window</span><span class="p">.</span><span class="nx">performance</span><span class="p">.</span><span class="nx">mark</span><span class="p">(</span><span class="s2">&quot;AppBootStrap:end&quot;</span><span class="p">);</span>
-            <span class="nb">window</span><span class="p">.</span><span class="nx">performance</span><span class="p">.</span><span class="nx">measure</span><span class="p">(</span><span class="s2">&quot;起動までの時間&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;AppBootStrap:start&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;AppBootStrap:end&quot;</span>
-            <span class="p">);</span>
-        <span class="p">});</span>
-        <span class="k">return</span> <span class="o">&lt;</span><span class="nx">AppLoading</span> <span class="nx">promise</span><span class="o">=</span><span class="p">{</span><span class="nx">promise</span><span class="p">}</span><span class="o">/&gt;</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>初期化の開始と完了でそれぞれマーキングしました。</p>
-
-<ul>
-<li><code>window.performance.mark(&quot;AppBootStrap:start&quot;)</code></li>
-<li><code>window.performance.mark(&quot;AppBootStrap:end&quot;)</code></li>
-</ul>
-
-<p>そして、開始から完了の区間を &quot;起動までの時間&quot; という名前でマーキングしています。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nb">window</span><span class="p">.</span><span class="nx">performance</span><span class="p">.</span><span class="nx">measure</span><span class="p">(</span><span class="s2">&quot;起動までの時間&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;AppBootStrap:start&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;AppBootStrap:end&quot;</span>
-<span class="p">);</span>
-</code></pre></div>
-<p>Perfoamance APIでは、地点のマーキングと区間のマーキングとログ出力がそれぞれ分離できるのが便利なところです。</p>
-
-<h3 id="before-計測">Before:計測</h3>
-
-<p>ロガーを実装するのは面倒だったので、<a href="https://github.com/micmro/performance-bookmarklet" title="micmro/performance-bookmarklet: Performance-Bookmarklet helps to analyze the current page through the Resource Timing API, Navigation Timing API and User-Timing - requests by type, domain, load times, marks and more. Sort of a light live WebPageTest.">micmro/performance-bookmarklet</a>を使って&quot;起動までの時間&quot;をコンソールに表示します。</p>
-
-<p><a href="http://efcl.info/wp-content/uploads/2016/08/13-1471098414.png"><img src="http://efcl.info/wp-content/uploads/2016/08/13-1471098414.png" alt="before"></a></p>
-
-<p>&quot;AppBootStrap:end&quot;が遠すぎて見えない…</p>
-
-<p>数MBの辞書をダウンロードしているため、起動までに8913ms程度かかっています。</p>
-
-<h3 id="改善">改善</h3>
-
-<p>数MBの辞書をダウンロードしているためしょうがないとはいえ毎回ダウンロードしてるのは非効率です。
-辞書はそんなに変更するものでもないので、Service Workerでキャッシュしてみます。</p>
-
-<p>ServiceWorkerの静的ファイルのキャッシュには以下のツールを使用すると簡単です。</p>
-
-<ul>
-<li><a href="https://github.com/GoogleChrome/sw-precache" title="GoogleChrome/sw-precache: A node module to generate service worker code that will precache specific resources.">GoogleChrome/sw-precache: A node module to generate service worker code that will precache specific resources.</a></li>
-</ul>
-
-<p>キャッシュしたいファイルパスを定義して、<code>$ sw-precache --config=sw-precache-config.json</code>という感じでコマンドラインを実行すると、ServiceWorkerで動くスクリプトを作成してくれます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">{
-  &quot;staticFileGlobs&quot;: [
-    &quot;./public/dict/*.gz&quot;
-  ],
-  &quot;stripPrefix&quot;: &quot;./public/&quot;
-}
-</code></pre></div>
-<p>後は、作成したスクリプトを<a href="https://github.com/azu/morpheme-match/blob/master/website/src/service-worker-registration.js" title="service-worker-registration.js">ServiceWorkerに登録する処理</a>を追加したら、キャッシュできるようになりました。</p>
-
-<p>これで2回目からの起動時間が改善されるはずです。</p>
-
-<h3 id="after-計測">After:計測</h3>
-
-<p>辞書をキャッシュしたことで、起動までの時間が8913ms -&gt; 2187msまで短縮できました。</p>
-
-<p><a href="http://efcl.info/wp-content/uploads/2016/08/13-1471098703.png"><img src="http://efcl.info/wp-content/uploads/2016/08/13-1471098703.png" alt="after"></a></p>
-
-<p><code>console.log</code>と違って、このまま<code>window.performance.mark(&quot;AppBootStrap:end&quot;);</code>などを残してても特に害があるわけではありません。
-コンソールへの出力を実装していないので、能動的に見ないかぎりは何も出力されてないように見えるためです。</p>
-
-<p>最近のReactとかAngularなどを使ったサイトを作ると大体初期化ポイントがはっきりしていると思うので、とりあえずこのようなマーキングを仕込んでおくと、後から遅いポイントを探すのに便利かもしれないですね。</p>
-
-<h2 id="パフォーマンスロガーを作る">パフォーマンスロガーを作る</h2>
-
-<p>実際には、クライアントサイドでログを出すだけではなく、いろんな環境で実行されたログを収集してボトルネックや処理がおかしい箇所などを見つけると思います。</p>
-
-<p>そのためには、マーキングするだけではなくログ出力/送信も実装する必要がでてきます。
-そうなった場合に、どのタイミングでログを取得するかというタイミングを図る必要がでてきます。</p>
-
-<p>大体の場合は、計測したい地点がすべてマーキングできたら準備完了 -&gt; ログ出力という形になると思います。</p>
-
-<p>簡単に、performance-loggerという準備完了のタイミングを取るだけのライブラリを書いてみました。</p>
-
-<ul>
-<li><a href="https://github.com/azu/performance-logger" title="azu/performance-logger: Simple Perf logger based on `performance.mark` API.">azu/performance-logger: Simple Perf logger based on <code>performance.mark</code> API.</a></li>
-</ul>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// LICENSE : MIT</span>
-<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">MapLike</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;map-like&quot;</span><span class="p">);</span> <span class="c1">// Mapみたいなもの</span>
-<span class="kr">const</span> <span class="nx">EventEmitter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;events&quot;</span><span class="p">);</span>
-<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">PerfLogger</span> <span class="kr">extends</span> <span class="nx">EventEmitter</span> <span class="p">{</span>
-    <span class="kr">static</span> <span class="nx">get</span> <span class="nx">Events</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;mark&quot;</span><span class="o">:</span> <span class="s2">&quot;mark&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;complete&quot;</span><span class="o">:</span> <span class="s2">&quot;complete&quot;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="cm">/**</span>
-<span class="cm">     * @param {string[]} logItems logItems is list of event name</span>
-<span class="cm">     */</span>
-    <span class="nx">constructor</span><span class="p">(</span><span class="nx">logItems</span> <span class="o">=</span> <span class="p">[])</span> <span class="p">{</span>
-        <span class="kr">super</span><span class="p">();</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_isAlreadyOutput</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_completedEventMap</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MapLike</span><span class="p">();</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_logItems</span> <span class="o">=</span> <span class="nx">logItems</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="cm">/**</span>
-<span class="cm">     * logged event names</span>
-<span class="cm">     * @returns {string[]}</span>
-<span class="cm">     */</span>
-    <span class="nx">get</span> <span class="nx">markedNames</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_completedEventMap</span><span class="p">.</span><span class="nx">keys</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="nx">get</span> <span class="nx">isAllMarked</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_logItems</span><span class="p">.</span><span class="nx">every</span><span class="p">((</span><span class="nx">eventName</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_completedEventMap</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">eventName</span><span class="p">);</span>
-        <span class="p">});</span>
-    <span class="p">}</span>
-
-    <span class="cm">/**</span>
-<span class="cm">     * Register onComplete handler and return unregister handler function</span>
-<span class="cm">     * @param {Function} completeHandler</span>
-<span class="cm">     * @returns {function()}</span>
-<span class="cm">     */</span>
-    <span class="nx">onComplete</span><span class="p">(</span><span class="nx">completeHandler</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="nx">PerfLogger</span><span class="p">.</span><span class="nx">Events</span><span class="p">.</span><span class="nx">complete</span><span class="p">,</span> <span class="nx">completeHandler</span><span class="p">);</span>
-        <span class="k">return</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">removeListener</span><span class="p">(</span><span class="nx">PerfLogger</span><span class="p">.</span><span class="nx">Events</span><span class="p">.</span><span class="nx">complete</span><span class="p">,</span> <span class="nx">completeHandler</span><span class="p">);</span>
-        <span class="p">};</span>
-    <span class="p">}</span>
-    <span class="cm">/**</span>
-<span class="cm">     * Mark log with `markerName`</span>
-<span class="cm">     * @param {string} markerName</span>
-<span class="cm">     */</span>
-    <span class="nx">mark</span><span class="p">(</span><span class="nx">markerName</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// output is only once</span>
-        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_isAlreadyOutput</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_addMarking</span><span class="p">(</span><span class="nx">markerName</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isAllMarked</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="nx">PerfLogger</span><span class="p">.</span><span class="nx">Events</span><span class="p">.</span><span class="nx">complete</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">_isAlreadyOutput</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="cm">/**</span>
-<span class="cm">     * @param {string} markerName</span>
-<span class="cm">     * @private</span>
-<span class="cm">     */</span>
-    <span class="nx">_addMarking</span><span class="p">(</span><span class="nx">markerName</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_completedEventMap</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">markerName</span><span class="p">))</span> <span class="p">{</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_completedEventMap</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">markerName</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-        <span class="nb">window</span><span class="p">.</span><span class="nx">performance</span><span class="p">.</span><span class="nx">mark</span><span class="p">(</span><span class="nx">markerName</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="nx">PerfLogger</span><span class="p">.</span><span class="nx">Events</span><span class="p">.</span><span class="nx">mark</span><span class="p">,</span> <span class="nx">markerName</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-<p>使うときは、以下のようにコンストラクタに準備完了に必要なマーキングの名前一覧を渡して、
-そのマーキングが全部完了したら、<code>complete</code> イベントが呼ばれるという感じです。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">PerfLogger</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;performance-logger&quot;</span><span class="p">);</span>
-<span class="c1">// These events are completed and emit &quot;end&quot; event</span>
-<span class="kr">const</span> <span class="nx">perfLogger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PerfLogger</span><span class="p">([</span>
-    <span class="s2">&quot;a&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;b&quot;</span>
-<span class="p">]);</span>
-<span class="c1">// All(&quot;a&quot; and &quot;b&quot;) complete!</span>
-<span class="nx">perfLogger</span><span class="p">.</span><span class="nx">onComplete</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nb">window</span><span class="p">.</span><span class="nx">performance</span><span class="p">.</span><span class="nx">measure</span><span class="p">(</span>
-        <span class="s2">&quot;Taken a-&gt;b&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;a&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;b&quot;</span>
-    <span class="p">);</span>
-    <span class="kr">const</span> <span class="nx">entries</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">performance</span><span class="p">.</span><span class="nx">getEntriesByType</span><span class="p">(</span><span class="s1">&#39;measure&#39;</span><span class="p">);</span>
-    <span class="nx">entries</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">entry</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">entry</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">:</span> <span class="nx">$</span><span class="p">{</span><span class="nx">entry</span><span class="p">.</span><span class="nx">duration</span><span class="p">}</span><span class="nx">ms</span><span class="err">`</span><span class="p">);</span>
-    <span class="p">});</span>
-<span class="p">});</span>
-<span class="c1">// mark &quot;a&quot;</span>
-<span class="nx">perfLogger</span><span class="p">.</span><span class="nx">mark</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
-<span class="c1">// mark &quot;b&quot;</span>
-<span class="nx">perfLogger</span><span class="p">.</span><span class="nx">mark</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">);</span>
-</code></pre></div>
-<p>準備完了が完了してたら、既についてるマークから<code>window.performance.measure</code>で計測区間を作ります。
-そして、<code>window.performance.getEntriesByType(&#39;measure&#39;);</code>で計測区間の一覧を取得して、区間の時間を出力しています。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nb">window</span><span class="p">.</span><span class="nx">performance</span><span class="p">.</span><span class="nx">measure</span><span class="p">(</span>
-    <span class="s2">&quot;Taken a-&gt;b&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;a&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;b&quot;</span>
-<span class="p">);</span>
-<span class="kr">const</span> <span class="nx">entries</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">performance</span><span class="p">.</span><span class="nx">getEntriesByType</span><span class="p">(</span><span class="s1">&#39;measure&#39;</span><span class="p">);</span>
-<span class="nx">entries</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">entry</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">entry</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">:</span> <span class="nx">$</span><span class="p">{</span><span class="nx">entry</span><span class="p">.</span><span class="nx">duration</span><span class="p">}</span><span class="nx">ms</span><span class="err">`</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
-<h3 id="おわり">おわり</h3>
-
-<p><code>window.performance.mark</code>は扱いが簡単な割には結構面白いです。
-<code>window</code>というグローバル空間にある利点として、後からつけたマークを取り出して見ることができます。</p>
-
-<p>開発中は結構ラフにマークをつけていくと、面白いデータが見えるかもしれません。</p>
  ]]></content>
  </entry>
  
