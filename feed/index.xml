@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-19T00:34:34+09:00</updated>
+ <updated>2016-10-19T00:38:04+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -194,7 +194,7 @@
 <ul>
 <li><code>title</code>属性の使い道は現在のUAだとツールチップぐらい</li>
 <li>セマンティックスが先にあって、それを消費する形が正しい姿</li>
-<li>今title属性を消費するクライアントがないからという理由で、titleを省略していくという考えは変なの正しくはないのではという話</li>
+<li>今title属性を消費するクライアントがないからという理由で、titleを省略していくという考えは変なのではという話</li>
 </ul>
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">HTMLとして正しいじゃなくて、ウェブとして正しいかという話になってしまう。<br>なのでやや抽象的で、どこから見た視点なのかという話になる<br> <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/788351935640285184">October 18, 2016</a></blockquote>
