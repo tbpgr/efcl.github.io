@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-19T00:27:12+09:00</updated>
+ <updated>2016-10-19T00:34:34+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -157,11 +157,11 @@
 <li>v1ではopenとclose modeとなった
 
 <ul>
-<li>CSS Custom PropertyをI/F的に使えるのは同じ</li>
+<li>どちらもCSS Custom PropertyをI/F的に使えるのは同じ</li>
 <li><a href="http://terkel.github.io/why-im-excited-about-native-css-variables/" title="僕がネイティブな CSS 変数にわくわくする理由">僕がネイティブな CSS 変数にわくわくする理由</a></li>
 <li>closeは外からさせない</li>
 <li>openは外からさせる</li>
-<li>コンポーネントを作るときに確定する仕組みになった</li>
+<li>コンポーネントをattachShadowする時に確定する仕組みになった</li>
 </ul></li>
 </ul>
 
