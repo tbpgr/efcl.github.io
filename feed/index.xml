@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-19T00:38:04+09:00</updated>
+ <updated>2016-10-21T22:42:38+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,345 @@
  </author>
  
 
+ 
+ <entry>
+   <title>Node学園 23時限目 アウトラインメモ</title>
+   <link href="http://efcl.info/2016/10/21/node23/"/>
+   <updated>2016-10-21T21:25:00+09:00</updated>
+   <id>http://efcl.info/2016/10/21/node23</id>
+   <content type="html"><![CDATA[ <p><a href="http://nodejs.connpass.com/event/42200/" title="Node学園 23時限目 (今回はリクルート（東京駅）でやります！) - connpass">Node学園 23時限目 (今回はリクルート（東京駅）でやります！) - connpass</a>に参加してきたのメモ</p>
+
+<h2 id="npm-4、npm-5">npm@4、npm@5</h2>
+
+<blockquote>
+<p><a href="https://gist.github.com/othiym23/c98bd4ef5d9fb3f496835bd481ef40ae" title="node-gakuen-201610.md">node-gakuen-201610.md</a></p>
+</blockquote>
+
+<ul>
+<li>npmは後方互換性を重んじている
+
+<ul>
+<li>Node.jsにbundleされているので</li>
+</ul></li>
+<li>npm@2のbreaking changeについて
+
+<ul>
+<li>&gt; backwards-incompatible change to the way npm run-script handled its arguments</li>
+</ul></li>
+<li>npm@3
+
+<ul>
+<li>flat directory</li>
+<li>npm@2そのまま使い続ける人もいる</li>
+<li>大きな変更は移行の壁になるという話</li>
+</ul></li>
+<li>npm@4
+
+<ul>
+<li><a href="https://github.com/npm/npm/releases/tag/v4.0.0" title="Release v4.0.0 · npm/npm">Release v4.0.0 · npm/npm</a></li>
+<li>npm 4は小さな変更にした</li>
+<li><code>prepublish</code> が <code>npm install</code> 時に実行されるのは Deprecated
+
+<ul>
+<li><code>prepublishOnly</code> と <code>prepare</code> というライフサイクルに分解された</li>
+</ul></li>
+<li>outdated
+
+<ul>
+<li><a href="https://github.com/npm/npm/pull/14013" title="outdated: exitcode != 0 on outdated dependencies by watilde · Pull Request #14013 · npm/npm">outdated: exitcode != 0 on outdated dependencies by watilde · Pull Request #14013 · npm/npm</a></li>
+</ul></li>
+<li><code>npm search</code>
+
+<ul>
+<li>big jsonからストリーミングに</li>
+<li>やっと高速な検索ができるように</li>
+</ul></li>
+<li><code>npm tag</code>は <code>npm dist-tag</code>に</li>
+</ul></li>
+<li>npm@5
+
+<ul>
+<li>bundlerとCargoインスパイアな<a href="https://gist.github.com/othiym23/c98bd4ef5d9fb3f496835bd481ef40ae#lock-files" title="lock files">lock files</a></li>
+<li>Bundler
+
+<ul>
+<li><code>Gemfile</code>と<code>Gemfile.lock</code></li>
+<li>Flatな依存(no nest)</li>
+<li><code>Gemfile</code>は常にgit管理下</li>
+</ul></li>
+<li>Cargo
+
+<ul>
+<li><code>Cargo.toml</code> と <code>Cargo.lock</code></li>
+<li>依存はnestできる</li>
+</ul></li>
+</ul></li>
+<li><code>yarn</code>
+
+<ul>
+<li><code>packagejson</code>と<code>yarn.lock</code></li>
+<li>yarn&#39;s lock file is meant to be checked in to Git, but isn&#39;t published to the npm registry.</li>
+<li>flatとnestどっちも行ける</li>
+<li>アプリ用っぽい</li>
+<li><a href="https://github.com/yarnpkg/yarn/issues/570" title="make `--pure-lockfile` default for `install` · Issue #570 · yarnpkg/yarn">make <code>--pure-lockfile</code> default for <code>install</code> · Issue #570 · yarnpkg/yarn</a></li>
+</ul></li>
+<li>Different
+
+<ul>
+<li>Library</li>
+<li>Command</li>
+<li>Application</li>
+<li>とそれぞれ役割が違うので、ロックファイルがいるのかも違う</li>
+</ul></li>
+<li>shrinkwrap 
+
+<ul>
+<li>ライブラリ向けに設計されてなかった(production application向けだった)</li>
+<li>問題がある</li>
+</ul></li>
+<li>source of truth 
+
+<ul>
+<li><code>npm-shrinkwrap.json</code> is a single source of truth.</li>
+</ul></li>
+<li>npm LTS
+
+<ul>
+<li>Node.jsにbundleされるとLTSはどうなるという話</li>
+</ul></li>
+<li>npm@5 2017年4月リリース目標
+
+<ul>
+<li>Node.js 8がnpm@5を含むかは知らないよ</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="api-for-front-end-graphqlの話">API for Front-end - GraphQLの話</h2>
+
+<ul>
+<li>RESTful API再考</li>
+<li>RESTful API
+
+<ul>
+<li>貧弱なSQLをAPIを目指しているわけではない</li>
+</ul></li>
+<li>SPAなフロントエンドはつらい?
+
+<ul>
+<li>ただのViewではないから</li>
+<li>サーバサイド、クライアントサイドそれぞれにMVCがいる</li>
+<li>最近のサーバサイドはMicroServiceになってきている</li>
+<li>クライアントサイドもMicroservicesの一つなのでは</li>
+</ul></li>
+<li>フロントエンド
+
+<ul>
+<li>サーバ &lt;-&gt; フロントエンド</li>
+<li>物理的に遠いので、時間がかかる</li>
+<li>他のMicroservicesと違ってやり取りに時間がかかる</li>
+<li>先頭から3件だけ欲しいとか細かい指定をしてリクエストしたい</li>
+</ul></li>
+<li>オーケストレーション層のパターン
+
+<ul>
+<li>サーバに手を入れる必要がある</li>
+<li>ドキュメントは別途必要</li>
+</ul></li>
+<li>GraphSQL
+
+<ul>
+<li>表じゃなくてネストしたJSONが欲しいのではという話</li>
+<li><a href="https://github.com/graphql/graphiql" title="graphql/graphiql: An in-browser IDE for exploring GraphQL.">graphql/graphiql: An in-browser IDE for exploring GraphQL.</a>
+
+<ul>
+<li>GraphQLには型があるので、自動的に補完とかを作れる</li>
+</ul></li>
+<li>並列にデータを取得できる。</li>
+</ul></li>
+<li>N + 1問題
+
+<ul>
+<li>DataLoaderみたいな工夫が必要</li>
+<li><a href="https://quramy.github.io/graph-api-note/#/" title="Graph API: GraphQL and Falcor">Graph API: GraphQL and Falcor</a></li>
+<li>それ用のものを作った</li>
+</ul></li>
+<li>GraphQLの仕様
+
+<ul>
+<li><a href="https://facebook.github.io/graphql/" title="GraphQL">GraphQLの仕様</a></li>
+<li>でかい</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="client-side-js-for-infeed-layout-native-ad-at-fluct-ssp">Client-side JS for infeed layout native ad at fluct SSP</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/saneyuki/client-side-js-for-infeed-layout-native-ad-at-fluct-ssp" title="Client-side JS for infeed layout native ad at fluct SSP // Speaker Deck">Client-side JS for infeed layout native ad at fluct SSP // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>fluct in VOYAGE</li>
+<li><code>document.write()</code></li>
+<li>広告業界
+
+<ul>
+<li>SSP
+
+<ul>
+<li>問屋業</li>
+<li>枠を売買</li>
+<li>Adのリクエストを管理する</li>
+<li>タグマネージャー</li>
+</ul></li>
+<li>DSP
+
+<ul>
+<li>広告案件を売る</li>
+</ul></li>
+<li>Adnetwork</li>
+</ul></li>
+<li>Infeed Layout web ad
+
+<ul>
+<li>いわゆるネイティブ広告</li>
+<li>従来の広告はimgとかで貼ってた</li>
+<li>ネイティブアドはデザインテンプレートと広告コンテンツを合わせてる</li>
+</ul></li>
+<li>ネイティブ広告
+
+<ul>
+<li>SDKスタイル
+
+<ul>
+<li>SDKを開発者に配って実装してもらう</li>
+</ul></li>
+<li>コンサルティングスタイル
+
+<ul>
+<li>開発者がいないとデザインできないので、代わりにやるスタイル</li>
+<li>タグを貼ってくれれば広告がでる</li>
+</ul></li>
+</ul></li>
+<li>OpenRTB protocol
+
+<ul>
+<li>デファクトの仕様</li>
+<li>ザルな仕様</li>
+</ul></li>
+<li>iABという業界団体
+
+<ul>
+<li>リクエストとレスポンスのフォーマットを決めた</li>
+<li>多くの業界はサブセットとかスーパーセットを定義してる</li>
+</ul></li>
+<li>OpenRTB - js-tracker
+
+<ul>
+<li>DSPが任意のJavaScriptを埋め込める素敵な仕様</li>
+<li>マルウェアも仕込める素敵な仕様</li>
+<li><code>document.write()</code>とかも仕込めてしまう</li>
+</ul></li>
+<li>SSPのサポートする範囲
+
+<ul>
+<li>網羅できるものが多いほど強い</li>
+<li>一社だけでは売れない場合があるので色々なDSPに多段する</li>
+</ul></li>
+<li>Data flow overview
+
+<ul>
+<li>Web Page -&gt; リクエスト -&gt; SSP &lt;-&gt; DSP
+
+<ul>
+<li>SSP &lt;-&gt; DSP</li>
+<li>広告オークションを行う</li>
+</ul></li>
+<li>Web Page &lt;- レスポンス &lt;- SSP</li>
+<li>オークションが成功したらこれでOK</li>
+<li>失敗した場合は、Ad networkへクライアントからリクエスト投げる
+
+<ul>
+<li>クッキーとかクレデンシャルがあるのでクライアントから</li>
+</ul></li>
+</ul></li>
+<li>Construct JavaScript in ad server
+
+<ul>
+<li>JavaScriptを文字列で組み立てるのは危険</li>
+<li>一端 <code>JSON.stringify</code> で文字列リテラルとして評価できるようにする</li>
+</ul></li>
+<li>非同期処理をサポートする広告
+
+<ul>
+<li><a href="https://www.iab.com/news/lean/" title="Getting LEAN with Digital Ad UX">Getting LEAN with Digital Ad UX</a></li>
+<li><code>document.write()</code>も使えない</li>
+</ul></li>
+<li>一つの画面に複数の広告
+
+<ul>
+<li>非同期だと問題が(今まではdocument.writeだけで良かった)</li>
+<li><code>document.currentScript</code>が使えない環境で問題がある</li>
+<li>自分がどのAd Scriptタグなのかわからない問題</li>
+<li>最後のscriptタグ !== 自分
+
+<ul>
+<li><code>async</code>属性などがあるため</li>
+</ul></li>
+<li>リクエスト時にuniqueなidを振って、レスポンスでそれを使うことで解決する</li>
+</ul></li>
+<li>優先度付きのリトライ
+
+<ul>
+<li>並列にリクエストを投げて最初に返ってきたものを取るというのを上手くやる仕組み</li>
+</ul></li>
+<li>Construct DOM
+
+<ul>
+<li>テンプレートな文字列を安全にやるのは難しい(XSS)</li>
+<li>クライアントのDOM APIを使ったほうが安全</li>
+</ul></li>
+<li>Implementation Style</li>
+<li>Limitation
+
+<ul>
+<li>ファイルサイズ</li>
+<li>サードパーティのライブラリを含めるとファイルサイズがネックになる</li>
+<li>Promiseのpolyfillが使えない</li>
+</ul></li>
+<li>自前で実装
+
+<ul>
+<li>10kb / response ぐらい</li>
+</ul></li>
+<li>他の問題
+
+<ul>
+<li><code>navigator.sendBeacon()</code> はクリティカルパスで実行するとキューに入らない
+
+<ul>
+<li>大量のリクエストがあるときに<code>sendBeacon</code>は飛ばないときがある</li>
+</ul></li>
+</ul></li>
+<li>Telemetry Reporter
+
+<ul>
+<li>広告タグはいろんな環境で動かす必要がある</li>
+<li>動かない環境とかもあるのか調べる方法が必要</li>
+<li>ログを上手く取る方法が必要</li>
+<li>またサイズを気にする必要がある</li>
+</ul></li>
+<li>Open Source
+
+<ul>
+<li>JavaScriptのコードは重要だけど、SSPは問屋業がコアバリュー</li>
+</ul></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>#jxck_sushi でserverlessの話をしてきた</title>
@@ -1840,209 +2179,6 @@ Babel、React、Almin、PostCSSがベース。</p>
 
 <ul>
 <li><a href="https://github.com/azu/text-testing" title="azu/text-testing: Testing library for structured texts.">azu/text-testing: Testing library for structured texts.</a></li>
-</ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>NaNはNot a NumberだけどNumber型である話</title>
-   <link href="http://efcl.info/2016/09/06/nan/"/>
-   <updated>2016-09-06T21:54:00+09:00</updated>
-   <id>http://efcl.info/2016/09/06/nan</id>
-   <content type="html"><![CDATA[ <p>この記事では、JavaScriptの<code>NaN</code>について改めて学ぶという趣旨の話をします。</p>
-
-<p>JavaScriptで、文字列などから数値へ値を変換したいことがあると思います。
-典型的なケースでは、ユーザーに入力してもらった数字となる文字列を、Number型へ変換するというケースです。</p>
-
-<p>この場合、<code>Number</code>コンストラクタ関数や<code>Number.parseInt</code>、<code>Number.parseFloat</code>などが利用できます。(ここでは、<code>Number.parseInt</code>にしていますが、<code>parseInt</code>と同じです)</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// ユーザー入力を文字列として受け取る</span>
-<span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">prompt</span><span class="p">(</span><span class="s2">&quot;数字を入力してください&quot;</span><span class="p">,</span> <span class="s2">&quot;42&quot;</span><span class="p">);</span>
-<span class="c1">// 文字列を数値に変換する</span>
-<span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">number</span><span class="p">);</span> <span class="c1">// =&gt; &quot;number&quot;;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">number</span><span class="p">);</span> <span class="c1">// 入力された文字列を数値に変換したもの</span>
-</code></pre></div>
-<p>しかし、<code>Number</code>コンストラクタ関数や<code>Number.parseInt</code>を使って、値を明示的に変換したとしても結果は<code>NaN</code>になる場合があります。
-端的に言えば、Number型と互換性のない性質のデータをNumber型へ変換した結果は<code>NaN</code>となります。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// 数字ではないため、数値へは変換できない</span>
-<span class="nb">Number</span><span class="p">(</span><span class="s2">&quot;文字列&quot;</span><span class="p">);</span> <span class="c1">// =&gt; NaN</span>
-<span class="c1">// 整数としてパースできない文字列だった</span>
-<span class="nb">Number</span><span class="p">.</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;e10s&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span> <span class="c1">// =&gt; NaN</span>
-<span class="c1">// 未定義の値はNaNになる</span>
-<span class="nb">Number</span><span class="p">(</span><span class="kc">undefined</span><span class="p">);</span> <span class="c1">// =&gt; NaN</span>
-<span class="c1">// 空オブジェクトは数値にできない</span>
-<span class="nb">Number</span><span class="p">({});</span> <span class="c1">// =&gt; NaN</span>
-</code></pre></div>
-<p>JavaScriptでは数値に<a href="https://ja.wikipedia.org/wiki/IEEE_754" title="IEEE 754">IEEE 754</a>を採用していて、<code>NaN</code>もIEEE 754で定義されている値です。
-<code>NaN</code>はNot a Numberの略称で、特殊な性質をもつNumber型のデータです。</p>
-
-<p>また、<code>NaN</code>は何と演算しても結果は<code>NaN</code>になる特殊な値です。
-次のように、計算の途中で値が<code>NaN</code>になると、最終的な結果も<code>NaN</code>となります。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="kc">NaN</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">z</span> <span class="o">=</span> <span class="nx">y</span> <span class="o">+</span> <span class="mi">20</span><span class="p">;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// =&gt; 10</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">y</span><span class="p">);</span> <span class="c1">// =&gt; NaN</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">z</span><span class="p">);</span> <span class="c1">// =&gt; NaN</span>
-</code></pre></div>
-<p>しかし、<code>NaN</code>はNumber型の一種であるという名前と矛盾したデータに見えますが仕様です。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// NaNはnumber型</span>
-<span class="k">typeof</span> <span class="kc">NaN</span><span class="p">;</span> <span class="c1">// =&gt; &quot;number&quot;</span>
-</code></pre></div>
-<p>NaNしか持っていない特殊な性質として、自分自身と一致しないという特徴があります。
-この特徴を利用することで、ある値が<code>NaN</code>であるかを判定することもできます。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nb">isNaN</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// NaNは自分自身と一致しない</span>
-    <span class="k">return</span> <span class="nx">x</span> <span class="o">!==</span> <span class="nx">x</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nb">isNaN</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// =&gt; false</span>
-<span class="nb">isNaN</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">);</span> <span class="c1">// =&gt; false</span>
-<span class="nb">isNaN</span><span class="p">({});</span> <span class="c1">// =&gt; false</span>
-<span class="nb">isNaN</span><span class="p">([]);</span> <span class="c1">// =&gt; false</span>
-<span class="nb">isNaN</span><span class="p">(</span><span class="kc">NaN</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
-</code></pre></div>
-<p>同様の処理を行う方法としてES2015から<code>Number.isNaN(x)</code>メソッドが追加されています。
-実際に値が<code>NaN</code>かを判定する際には、<code>Number.isNaN(x)</code>メソッドを利用するとよいでしょう。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nb">Number</span><span class="p">.</span><span class="nb">isNaN</span><span class="p">(</span><span class="kc">NaN</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
-</code></pre></div>
-<p>注記: <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/isNaN" title="isNaN()">isNaN()</a>というグローバル関数もありますが、こちらは引数を暗黙的にNumber型へ変換してから<code>NaN</code>かどうかを判定します。</p>
-
-<p>暗黙的な変換をしてしまうことで、明らかにバグっているような挙動を引き起こすため使わないようにしましょう。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// グローバルの`isNaN`関数</span>
-<span class="c1">// 上で作ったisNaN関数とは別もの</span>
-<span class="nb">isNaN</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">);</span> <span class="c1">// =&gt; true</span>
-<span class="c1">// `isNaN`関数は以下のようなことをやっているのと同じ</span>
-<span class="c1">// Numberコンストラクタ関数で変換してから、`Number.isNumber`で判定するのと同じようなもの</span>
-<span class="nb">Number</span><span class="p">.</span><span class="nx">isNumber</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">));</span><span class="c1">// =&gt; true</span>
-<span class="c1">// 安全に使うならxが number か判定してから isNaNで判定する</span>
-<span class="k">typeof</span> <span class="nx">x</span> <span class="o">===</span> <span class="s2">&quot;number&quot;</span> <span class="o">&amp;&amp;</span> <span class="nb">isNaN</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
-</code></pre></div>
-<p><code>NaN</code>は暗黙的な型変換の中でももっとも避けたい値となります。
-理由として、先ほど紹介したように<code>NaN</code>は何と演算しても結果が<code>NaN</code>となってしまうためです。
-これにより、計算していた値がどこで<code>NaN</code>となったのかが分かりにくく、デバッグが難しくなります。</p>
-
-<p>たとえば、次の<code>sum</code>関数は可変長引数（任意の個数の引数）を受け取り、その合計値を返します。
-しかし、<code>sum(x, y, z)</code>と呼び出した時の結果が<code>NaN</code>になってしまいました。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// 任意の個数の数値を受け取り、その合計値を返す関数</span>
-<span class="kd">function</span> <span class="nx">sum</span><span class="p">(...</span><span class="nx">values</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">values</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">total</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">total</span> <span class="o">+</span> <span class="nx">value</span><span class="p">;</span>
-    <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="nx">sum</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">);</span> <span class="c1">// =&gt; NaN</span>
-</code></pre></div>
-<p>よく注意して見ると、<code>y</code>の値が未定義となっています。
-そのため、<code>sum(1, undefined, 10);</code>と呼ばれていたのと同じ結果になります。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span> <span class="c1">// =&gt; NaN</span>
-<span class="c1">// 計算中にNaNとなったため最終結果もNaNになった</span>
-<span class="mi">1</span> <span class="o">+</span> <span class="kc">undefined</span><span class="p">;</span> <span class="c1">// =&gt; NaN</span>
-<span class="kc">NaN</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// =&gt; NaN</span>
-</code></pre></div>
-<p>これは、<code>sum関数</code>において引数を明示的にNumber型へ変換したとしても回避することはできません。
-つまり、次のように明示的な型変換しても解決できない問題あることが分かります。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// `value`をNumberで明示的に変換して扱ったバージョン</span>
-<span class="kd">function</span> <span class="nx">sum</span><span class="p">(...</span><span class="nx">values</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">values</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">total</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">total</span> <span class="o">+</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
-    <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="nx">sum</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">);</span> <span class="c1">// =&gt; NaN</span>
-</code></pre></div>
-<p>この意図しない<code>NaN</code>への変換を避ける方法として、大きく分けて２つの方法があります。</p>
-
-<ul>
-<li><code>sum</code>関数側（呼ばれる側）で、Number型の値以外を受け付けなくする</li>
-<li><code>sum</code>関数を呼び出す側で、Number型の値のみを渡すようにする</li>
-</ul>
-
-<p>つまり、呼び出す側または呼び出される側で対処するということですが、
-どちらも行うことがより安全なコードにつながります。</p>
-
-<p>そのためには、<code>sum</code>関数が数値のみを受け付けるということを明示する必要があります。</p>
-
-<p>明示する方法として<code>sum</code>関数のドキュメント（コメント）として記述したり、
-引数に数値以外の値がある場合は例外を投げるという処理を追加するといった形です。</p>
-
-<p>JavaScriptではコメントで引数の型を記述する書式として<a href="http://usejsdoc.org/" title="Use JSDoc: Index">JSDoc</a>が有名です。
-また、<a href="http://www.typescriptlang.org/" title="TypeScript - JavaScript that scales.">TypeScript</a>や<a href="https://flowtype.org/" title="Flow">Flow</a>を使うことで型定義や静的チェックもできます。</p>
-
-<p>ランタイム時に値をチェックし例外または警告を表示する関数として<code>console.assert(条件式, メッセージ)</code>メソッドが多くの実行環境で利用できます。
-(Node.jsだと例外をなげ、ブラウザだとコンソールへの警告になります)</p>
-
-<p>この２つを利用して<code>sum</code>関数の前提条件を詳細に実装したものは次のようになります。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="cm">/**</span>
-<span class="cm"> * 数値を合計した値を返します。</span>
-<span class="cm"> * 一つ以上の数値と共に呼び出す必要があります。</span>
-<span class="cm"> * @param {...number} values</span>
-<span class="cm"> * @returns {number}</span>
-<span class="cm"> **/</span>
-<span class="kd">function</span> <span class="nx">sum</span><span class="p">(...</span><span class="nx">values</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">values</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">total</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="c1">// 第一引数の評価結果がtrueではない場合、第二引数のメッセージが警告として出る</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">value</span> <span class="o">===</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span><span class="err">は</span><span class="nb">Number</span><span class="err">型ではありません`</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nx">total</span> <span class="o">+</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
-    <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">);</span>
-<span class="nx">sum</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">);</span> <span class="c1">// =&gt; AssertionError</span>
-</code></pre></div>
-<p>JSDocに書いたことを<code>console.assert</code>でも実装しているのが気になります。
-Babelを使って変換している場合は<a href="https://github.com/azu/babel-preset-jsdoc-to-assert" title="babel-preset-jsdoc-to-assert">babel-preset-jsdoc-to-assert</a>を使うことで、JSDocから同等のassertionへ自動的に変換することができます。</p>
-
-<ul>
-<li><a href="http://akabeko.me/blog/2016/08/jsdoc-to-assert/" title="jsdoc-to-assert を試す – アカベコマイリ">jsdoc-to-assert を試す – アカベコマイリ</a></li>
-</ul>
-
-<hr>
-
-<p>おまけ: さらに意地悪なことをすると、先ほどの<code>sum</code>関数に引数として<code>NaN</code>を渡すと、<code>NaN</code>はNumber型なのでassertをすり抜けることができます。
-そのため、typeofではなく、<code>Number.isFinite(value)</code>を使い有限数かをチェックし、コメントもそのように書き換えるとより渡す値が明確になります。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="cm">/**</span>
-<span class="cm"> * 数値を合計した値を返します。</span>
-<span class="cm"> * 一つ以上の有限数と共に呼び出す必要があります。</span>
-<span class="cm"> * @param {...number} values</span>
-<span class="cm"> * @returns {number}</span>
-<span class="cm"> **/</span>
-<span class="kd">function</span> <span class="nx">sum</span><span class="p">(...</span><span class="nx">values</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">values</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">total</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="c1">// NaNがきたらassertで落ちる</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nb">isFinite</span><span class="p">(</span><span class="nx">value</span><span class="p">),</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span><span class="err">は有限数ではありません`</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nx">total</span> <span class="o">+</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
-    <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="kc">NaN</span><span class="p">,</span> <span class="nx">z</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">);</span>
-<span class="nx">sum</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">);</span> <span class="c1">// =&gt; AssertionError</span>
-</code></pre></div>
-<p><code>console.assert</code>なども今は<a href="https://github.com/twada/unassert" title="unassert">unassert</a>を使えばproductionビルドからは簡単に取り除けるので、気軽に使うようにしても問題ないと思います。</p>
-
-<hr>
-
-<p>このように、<code>sum</code>関数はどのように使うべきかを明示することで、
-エラーとなった時に呼ばれる側と呼び出し側でどちらに問題があるのかが明確になります。
-この場合は、<code>sum</code>関数へ<code>undefined</code>な値を渡している呼び出し側に問題があります。</p>
-
-<p>関数/モジュールの責務をどう実装するかという設計の方針としては、防御的プログラミングや契約による設計など色々あると思いますが、<a href="https://twitter.com/t_wada">誰かが</a>分かりやすく解説してくれると信じています。</p>
-
-<h3 id="おわりに">おわりに</h3>
-
-<p>JavaScriptは、Number型へ値を変換した場合に<code>NaN</code>となってしまうことがあります。
-多くの場合、何らかの暗黙的な型変換が処理中に発生して<code>NaN</code>となっていることが多いです。
-(または<code>parseInt</code>後に<code>Number.isNaN</code>でチェックしていないなど)</p>
-
-<p>そのため、JavaScriptでアプリケーションを書く場合は、このような検出しにくいバグを見つけられるように書くことは重要です。</p>
-
-<p>というような話を<a href="https://asciidwango.github.io/js-primer/basic/implicit-coercion/" title="暗黙的な型変換 · JavaScriptの入門書 #jsprimer">暗黙的な型変換 · JavaScriptの入門書 #jsprimer</a>で書きました。(暗黙的な型変換についてがメインで<code>NaN</code>はおまけ)</p>
-
-<p>まだまだ書いてる最中なので、興味がある人は<a href="https://github.com/asciidwango/js-primer" title="asciidwango/js-primer: JavaScriptの入門書">asciidwango/js-primer: JavaScriptの入門書</a>を見てみてください。</p>
-
-<p>基本の基本は書いたのですが、まだどういうことを書くべきか迷っている部分も多いので、以下のIssueに意見をください。</p>
-
-<ul>
-<li><a href="https://github.com/asciidwango/js-primer/issues/137" title="Meta(基本文法): ロードマップ · Issue #137 · asciidwango/js-primer">Meta(基本文法): ロードマップ · Issue #137 · asciidwango/js-primer</a></li>
 </ul>
  ]]></content>
  </entry>

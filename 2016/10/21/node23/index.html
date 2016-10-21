@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Node学園 23時限目 アウトラインメモ | Web Scratch
+        
+    </title>
+    <meta name="description" content="Node学園 23時限目 (今回はリクルート（東京駅）でやります！) - connpassに参加してきたのメモ">
+    
+    <meta name="keywords" content="Node.js,JavaScript,ad,広告" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="Node学園 23時限目 アウトラインメモ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/10/21/node23/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="Node学園 23時限目 (今回はリクルート（東京駅）でやります！) - connpassに参加してきたのメモ">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-10-21T21:25:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/10/18/jxck_sushi/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/10/15/abematv-2016/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/10/12/mu-pdf-viewer/">
+
+
+
+
+
+<meta property="article:section" content="イベント">
+
+
+
+
+
+<meta property="article:tag" content="Node.js">
+
+<meta property="article:tag" content="JavaScript">
+
+<meta property="article:tag" content="ad">
+
+<meta property="article:tag" content="広告">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 31
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 165
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 84
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 5
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/10/21/node23/">
+                Node学園 23時限目 アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/10/18/jxck_sushi/">
+                #jxck_sushi でserverlessの話をしてきた
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/10/15/abematv-2016/">
+                AbemaTV Developer Conference 2016のアウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/10/12/mu-pdf-viewer/">
+                pdf.jsなPDFビューアアプリをElectronで作った
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/10/21/node23/">
+    <h1 class="post-title">Node学園 23時限目 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年10月21日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-10-21-node23.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="http://nodejs.connpass.com/event/42200/" title="Node学園 23時限目 (今回はリクルート（東京駅）でやります！) - connpass">Node学園 23時限目 (今回はリクルート（東京駅）でやります！) - connpass</a>に参加してきたのメモ</p>
+
+<h2 id="npm-4、npm-5">npm@4、npm@5</h2>
+
+<blockquote>
+<p><a href="https://gist.github.com/othiym23/c98bd4ef5d9fb3f496835bd481ef40ae" title="node-gakuen-201610.md">node-gakuen-201610.md</a></p>
+</blockquote>
+
+<ul>
+<li>npmは後方互換性を重んじている
+
+<ul>
+<li>Node.jsにbundleされているので</li>
+</ul></li>
+<li>npm@2のbreaking changeについて
+
+<ul>
+<li>&gt; backwards-incompatible change to the way npm run-script handled its arguments</li>
+</ul></li>
+<li>npm@3
+
+<ul>
+<li>flat directory</li>
+<li>npm@2そのまま使い続ける人もいる</li>
+<li>大きな変更は移行の壁になるという話</li>
+</ul></li>
+<li>npm@4
+
+<ul>
+<li><a href="https://github.com/npm/npm/releases/tag/v4.0.0" title="Release v4.0.0 · npm/npm">Release v4.0.0 · npm/npm</a></li>
+<li>npm 4は小さな変更にした</li>
+<li><code>prepublish</code> が <code>npm install</code> 時に実行されるのは Deprecated
+
+<ul>
+<li><code>prepublishOnly</code> と <code>prepare</code> というライフサイクルに分解された</li>
+</ul></li>
+<li>outdated
+
+<ul>
+<li><a href="https://github.com/npm/npm/pull/14013" title="outdated: exitcode != 0 on outdated dependencies by watilde · Pull Request #14013 · npm/npm">outdated: exitcode != 0 on outdated dependencies by watilde · Pull Request #14013 · npm/npm</a></li>
+</ul></li>
+<li><code>npm search</code>
+
+<ul>
+<li>big jsonからストリーミングに</li>
+<li>やっと高速な検索ができるように</li>
+</ul></li>
+<li><code>npm tag</code>は <code>npm dist-tag</code>に</li>
+</ul></li>
+<li>npm@5
+
+<ul>
+<li>bundlerとCargoインスパイアな<a href="https://gist.github.com/othiym23/c98bd4ef5d9fb3f496835bd481ef40ae#lock-files" title="lock files">lock files</a></li>
+<li>Bundler
+
+<ul>
+<li><code>Gemfile</code>と<code>Gemfile.lock</code></li>
+<li>Flatな依存(no nest)</li>
+<li><code>Gemfile</code>は常にgit管理下</li>
+</ul></li>
+<li>Cargo
+
+<ul>
+<li><code>Cargo.toml</code> と <code>Cargo.lock</code></li>
+<li>依存はnestできる</li>
+</ul></li>
+</ul></li>
+<li><code>yarn</code>
+
+<ul>
+<li><code>packagejson</code>と<code>yarn.lock</code></li>
+<li>yarn&#39;s lock file is meant to be checked in to Git, but isn&#39;t published to the npm registry.</li>
+<li>flatとnestどっちも行ける</li>
+<li>アプリ用っぽい</li>
+<li><a href="https://github.com/yarnpkg/yarn/issues/570" title="make `--pure-lockfile` default for `install` · Issue #570 · yarnpkg/yarn">make <code>--pure-lockfile</code> default for <code>install</code> · Issue #570 · yarnpkg/yarn</a></li>
+</ul></li>
+<li>Different
+
+<ul>
+<li>Library</li>
+<li>Command</li>
+<li>Application</li>
+<li>とそれぞれ役割が違うので、ロックファイルがいるのかも違う</li>
+</ul></li>
+<li>shrinkwrap 
+
+<ul>
+<li>ライブラリ向けに設計されてなかった(production application向けだった)</li>
+<li>問題がある</li>
+</ul></li>
+<li>source of truth 
+
+<ul>
+<li><code>npm-shrinkwrap.json</code> is a single source of truth.</li>
+</ul></li>
+<li>npm LTS
+
+<ul>
+<li>Node.jsにbundleされるとLTSはどうなるという話</li>
+</ul></li>
+<li>npm@5 2017年4月リリース目標
+
+<ul>
+<li>Node.js 8がnpm@5を含むかは知らないよ</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="api-for-front-end-graphqlの話">API for Front-end - GraphQLの話</h2>
+
+<ul>
+<li>RESTful API再考</li>
+<li>RESTful API
+
+<ul>
+<li>貧弱なSQLをAPIを目指しているわけではない</li>
+</ul></li>
+<li>SPAなフロントエンドはつらい?
+
+<ul>
+<li>ただのViewではないから</li>
+<li>サーバサイド、クライアントサイドそれぞれにMVCがいる</li>
+<li>最近のサーバサイドはMicroServiceになってきている</li>
+<li>クライアントサイドもMicroservicesの一つなのでは</li>
+</ul></li>
+<li>フロントエンド
+
+<ul>
+<li>サーバ &lt;-&gt; フロントエンド</li>
+<li>物理的に遠いので、時間がかかる</li>
+<li>他のMicroservicesと違ってやり取りに時間がかかる</li>
+<li>先頭から3件だけ欲しいとか細かい指定をしてリクエストしたい</li>
+</ul></li>
+<li>オーケストレーション層のパターン
+
+<ul>
+<li>サーバに手を入れる必要がある</li>
+<li>ドキュメントは別途必要</li>
+</ul></li>
+<li>GraphSQL
+
+<ul>
+<li>表じゃなくてネストしたJSONが欲しいのではという話</li>
+<li><a href="https://github.com/graphql/graphiql" title="graphql/graphiql: An in-browser IDE for exploring GraphQL.">graphql/graphiql: An in-browser IDE for exploring GraphQL.</a>
+
+<ul>
+<li>GraphQLには型があるので、自動的に補完とかを作れる</li>
+</ul></li>
+<li>並列にデータを取得できる。</li>
+</ul></li>
+<li>N + 1問題
+
+<ul>
+<li>DataLoaderみたいな工夫が必要</li>
+<li><a href="https://quramy.github.io/graph-api-note/#/" title="Graph API: GraphQL and Falcor">Graph API: GraphQL and Falcor</a></li>
+<li>それ用のものを作った</li>
+</ul></li>
+<li>GraphQLの仕様
+
+<ul>
+<li><a href="https://facebook.github.io/graphql/" title="GraphQL">GraphQLの仕様</a></li>
+<li>でかい</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="client-side-js-for-infeed-layout-native-ad-at-fluct-ssp">Client-side JS for infeed layout native ad at fluct SSP</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/saneyuki/client-side-js-for-infeed-layout-native-ad-at-fluct-ssp" title="Client-side JS for infeed layout native ad at fluct SSP // Speaker Deck">Client-side JS for infeed layout native ad at fluct SSP // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>fluct in VOYAGE</li>
+<li><code>document.write()</code></li>
+<li>広告業界
+
+<ul>
+<li>SSP
+
+<ul>
+<li>問屋業</li>
+<li>枠を売買</li>
+<li>Adのリクエストを管理する</li>
+<li>タグマネージャー</li>
+</ul></li>
+<li>DSP
+
+<ul>
+<li>広告案件を売る</li>
+</ul></li>
+<li>Adnetwork</li>
+</ul></li>
+<li>Infeed Layout web ad
+
+<ul>
+<li>いわゆるネイティブ広告</li>
+<li>従来の広告はimgとかで貼ってた</li>
+<li>ネイティブアドはデザインテンプレートと広告コンテンツを合わせてる</li>
+</ul></li>
+<li>ネイティブ広告
+
+<ul>
+<li>SDKスタイル
+
+<ul>
+<li>SDKを開発者に配って実装してもらう</li>
+</ul></li>
+<li>コンサルティングスタイル
+
+<ul>
+<li>開発者がいないとデザインできないので、代わりにやるスタイル</li>
+<li>タグを貼ってくれれば広告がでる</li>
+</ul></li>
+</ul></li>
+<li>OpenRTB protocol
+
+<ul>
+<li>デファクトの仕様</li>
+<li>ザルな仕様</li>
+</ul></li>
+<li>iABという業界団体
+
+<ul>
+<li>リクエストとレスポンスのフォーマットを決めた</li>
+<li>多くの業界はサブセットとかスーパーセットを定義してる</li>
+</ul></li>
+<li>OpenRTB - js-tracker
+
+<ul>
+<li>DSPが任意のJavaScriptを埋め込める素敵な仕様</li>
+<li>マルウェアも仕込める素敵な仕様</li>
+<li><code>document.write()</code>とかも仕込めてしまう</li>
+</ul></li>
+<li>SSPのサポートする範囲
+
+<ul>
+<li>網羅できるものが多いほど強い</li>
+<li>一社だけでは売れない場合があるので色々なDSPに多段する</li>
+</ul></li>
+<li>Data flow overview
+
+<ul>
+<li>Web Page -&gt; リクエスト -&gt; SSP &lt;-&gt; DSP
+
+<ul>
+<li>SSP &lt;-&gt; DSP</li>
+<li>広告オークションを行う</li>
+</ul></li>
+<li>Web Page &lt;- レスポンス &lt;- SSP</li>
+<li>オークションが成功したらこれでOK</li>
+<li>失敗した場合は、Ad networkへクライアントからリクエスト投げる
+
+<ul>
+<li>クッキーとかクレデンシャルがあるのでクライアントから</li>
+</ul></li>
+</ul></li>
+<li>Construct JavaScript in ad server
+
+<ul>
+<li>JavaScriptを文字列で組み立てるのは危険</li>
+<li>一端 <code>JSON.stringify</code> で文字列リテラルとして評価できるようにする</li>
+</ul></li>
+<li>非同期処理をサポートする広告
+
+<ul>
+<li><a href="https://www.iab.com/news/lean/" title="Getting LEAN with Digital Ad UX">Getting LEAN with Digital Ad UX</a></li>
+<li><code>document.write()</code>も使えない</li>
+</ul></li>
+<li>一つの画面に複数の広告
+
+<ul>
+<li>非同期だと問題が(今まではdocument.writeだけで良かった)</li>
+<li><code>document.currentScript</code>が使えない環境で問題がある</li>
+<li>自分がどのAd Scriptタグなのかわからない問題</li>
+<li>最後のscriptタグ !== 自分
+
+<ul>
+<li><code>async</code>属性などがあるため</li>
+</ul></li>
+<li>リクエスト時にuniqueなidを振って、レスポンスでそれを使うことで解決する</li>
+</ul></li>
+<li>優先度付きのリトライ
+
+<ul>
+<li>並列にリクエストを投げて最初に返ってきたものを取るというのを上手くやる仕組み</li>
+</ul></li>
+<li>Construct DOM
+
+<ul>
+<li>テンプレートな文字列を安全にやるのは難しい(XSS)</li>
+<li>クライアントのDOM APIを使ったほうが安全</li>
+</ul></li>
+<li>Implementation Style</li>
+<li>Limitation
+
+<ul>
+<li>ファイルサイズ</li>
+<li>サードパーティのライブラリを含めるとファイルサイズがネックになる</li>
+<li>Promiseのpolyfillが使えない</li>
+</ul></li>
+<li>自前で実装
+
+<ul>
+<li>10kb / response ぐらい</li>
+</ul></li>
+<li>他の問題
+
+<ul>
+<li><code>navigator.sendBeacon()</code> はクリティカルパスで実行するとキューに入らない
+
+<ul>
+<li>大量のリクエストがあるときに<code>sendBeacon</code>は飛ばないときがある</li>
+</ul></li>
+</ul></li>
+<li>Telemetry Reporter
+
+<ul>
+<li>広告タグはいろんな環境で動かす必要がある</li>
+<li>動かない環境とかもあるのか調べる方法が必要</li>
+<li>ログを上手く取る方法が必要</li>
+<li>またサイズを気にする必要がある</li>
+</ul></li>
+<li>Open Source
+
+<ul>
+<li>JavaScriptのコードは重要だけど、SSPは問屋業がコアバリュー</li>
+</ul></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-10-21-node23.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Node.js","JavaScript","ad","広告"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=ad">ad</a></li>
+                
+                <li><a href="/tags/?q=広告">広告</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>
