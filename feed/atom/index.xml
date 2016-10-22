@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-21T22:42:38+09:00</updated>
+ <updated>2016-10-22T12:06:29+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -205,20 +205,26 @@
 <li>問屋業</li>
 <li>枠を売買</li>
 <li>Adのリクエストを管理する</li>
-<li>タグマネージャー</li>
+<li>タグマネージャー的に動く</li>
 </ul></li>
 <li>DSP
 
 <ul>
-<li>広告案件を売る</li>
+<li>広告枠を買って広告案件を流したい</li>
+<li>Real Time Bidding (RTB)というオークションを介してSSPから枠を買う</li>
 </ul></li>
-<li>Adnetwork</li>
+<li>Adnetwork
+
+<ul>
+<li>広告枠を買って広告案件を流したい</li>
+<li>RTBに参加するか否かが概ねDSPとの違い</li>
+</ul></li>
 </ul></li>
 <li>Infeed Layout web ad
 
 <ul>
 <li>いわゆるネイティブ広告</li>
-<li>従来の広告はimgとかで貼ってた</li>
+<li>従来の広告はimgとかで貼ってたりした</li>
 <li>ネイティブアドはデザインテンプレートと広告コンテンツを合わせてる</li>
 </ul></li>
 <li>ネイティブ広告
@@ -240,26 +246,33 @@
 
 <ul>
 <li>デファクトの仕様</li>
-<li>ザルな仕様</li>
+<li>最近のW3CやIETFに比べてザルな仕様</li>
 </ul></li>
 <li>iABという業界団体
 
 <ul>
 <li>リクエストとレスポンスのフォーマットを決めた</li>
-<li>多くの業界はサブセットとかスーパーセットを定義してる</li>
+<li>多くの会社はサブセットとかスーパーセットを定義してる</li>
 </ul></li>
 <li>OpenRTB - js-tracker
 
 <ul>
-<li>DSPが任意のJavaScriptを埋め込める素敵な仕様</li>
-<li>マルウェアも仕込める素敵な仕様</li>
-<li><code>document.write()</code>とかも仕込めてしまう</li>
+<li>DSPが任意のJavaScriptを埋め込める素敵な仕様
+
+<ul>
+<li>悪意があればマルウェアも仕込める</li>
+</ul></li>
+<li><code>document.write()</code>とかも仕込めてしまう
+
+<ul>
+<li>非同期読み込みの障害なので自社用の拡張仕様を作って縛る</li>
+</ul></li>
 </ul></li>
 <li>SSPのサポートする範囲
 
 <ul>
 <li>網羅できるものが多いほど強い</li>
-<li>一社だけでは売れない場合があるので色々なDSPに多段する</li>
+<li>RTB一回やAd network一社だけでは売れない場合があるので色々なAd networkに多段する</li>
 </ul></li>
 <li>Data flow overview
 
@@ -293,7 +306,12 @@
 <li>一つの画面に複数の広告
 
 <ul>
-<li>非同期だと問題が(今まではdocument.writeだけで良かった)</li>
+<li>非同期だと問題が
+
+<ul>
+<li>今まではdocument.writeばかりなのでparser blockingして同期的に動いてた</li>
+<li>deferもasyncもない普通のscript要素も同期的に動いてくれた</li>
+</ul></li>
 <li><code>document.currentScript</code>が使えない環境で問題がある</li>
 <li>自分がどのAd Scriptタグなのかわからない問題</li>
 <li>最後のscriptタグ !== 自分
@@ -325,15 +343,21 @@
 <li>自前で実装
 
 <ul>
-<li>10kb / response ぐらい</li>
+<li>10kb~ / response ぐらい</li>
 </ul></li>
 <li>他の問題
 
 <ul>
-<li><code>navigator.sendBeacon()</code> はクリティカルパスで実行するとキューに入らない
+<li><code>navigator.sendBeacon()</code> はクリティカルパス中など大量のリクエストがあるとき？にリクエストが飛ばないときがある
 
 <ul>
-<li>大量のリクエストがあるときに<code>sendBeacon</code>は飛ばないときがある</li>
+<li>仕様としては有り得る挙動
+
+<ul>
+<li><a href="https://www.w3.org/TR/beacon/#return-values">https://www.w3.org/TR/beacon/#return-values</a></li>
+<li><a href="https://www.w3.org/TR/beacon/#sec-processing-model">https://www.w3.org/TR/beacon/#sec-processing-model</a></li>
+</ul></li>
+<li>仕方がないのでXHRで代替すると上手くいく</li>
 </ul></li>
 </ul></li>
 <li>Telemetry Reporter
