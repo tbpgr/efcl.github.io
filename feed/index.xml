@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-22T12:06:29+09:00</updated>
+ <updated>2016-10-23T23:08:49+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,240 @@
  </author>
  
 
+ 
+ <entry>
+   <title>TestCafeでブラウザの自動テスト(E2Eテスト)</title>
+   <link href="http://efcl.info/2016/10/23/testcafe/"/>
+   <updated>2016-10-23T21:57:00+09:00</updated>
+   <id>http://efcl.info/2016/10/23/testcafe</id>
+   <content type="html"><![CDATA[ <p><a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>という自動テストフレームワーク(いわゆるE2Eテストフレームワークのジャンル)を試してみました。</p>
+
+<p><a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>の特徴としては、Seleniumを使っていないこと、設定ファイルなしで利用できる点です。</p>
+
+<p>Seleniumを使ったテストフレームワークとしては、<a href="http://www.protractortest.org/" title="Protractor">Protractor</a>、<a href="https://github.com/groupon/testium" title="testium">testium</a>、<a href="http://webdriver.io/" title="WebdriverIO">WebdriverIO</a>などがあります。
+(Seleniumを使わない他のテストフレームワークだと<a href="http://www.nightmarejs.org/" title="Nightmare">Nightmare</a>など)</p>
+
+<p>Seleniumを使わずにどうやって自動的にブラウザを操作するかというと、中継サーバーを起動してそこにテストコードなどを追加して動かすことができるSelenium RC(1)方式に近いものだと思います。</p>
+
+<p>同名の<a href="https://testcafe.devexpress.com/" title="TestCafe: Web Testing Framework | DevExpress">ウェブサービス/クライアントアプリ</a>も出していて、こちらはSelenium IDEのようにGUIで操作して記録したものを再生などができます。</p>
+
+<p>なぜ、Seleniumを使っていないかという点については、以下で回答されています。</p>
+
+<ul>
+<li><a href="https://testcafe-discuss.devexpress.com/t/why-not-use-selenium/47/2" title="Why not use Selenium? - Questions - TestCafe Discussion Board">Why not use Selenium? - Questions - TestCafe Discussion Board</a></li>
+</ul>
+
+<p>簡単にまとめると次のような点をどうにかしたいので、Seleniumを使わずに動く自動テストフレームワークを作ったようです。</p>
+
+<ul>
+<li>Remoteの端末でも動かせるようにしたい</li>
+<li>とにかく設定なしでうごかせるようにしたい</li>
+<li>WebDriverの互換性がブラウザ依存で時間かかる</li>
+</ul>
+
+<p>実際に動かしながら見ていきましょう。</p>
+
+<h2 id="最小のデモ">最小のデモ</h2>
+
+<p>以下に最少のデモプロジェクトを作りました</p>
+
+<ul>
+<li><a href="https://github.com/azu/demo-test-cafe" title="azu/demo-test-cafe: TestCafe">azu/demo-test-cafe: TestCafe</a></li>
+</ul>
+
+<p>これをインストールから動かすまでは次のコマンドを叩くだけです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">git clone https://github.com/azu/demo-test-cafe.git
+cd demo-test-cafe
+npm install
+npm test
+</code></pre></div>
+<p>これだけでChromeが立ち上がり、自動テストが実行できます。</p>
+
+<p><iframe src="//giphy.com/embed/3o7TKFdaymhVNZ6XZe" width="480" height="322" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="http://giphy.com/gifs/3o7TKFdaymhVNZ6XZe">via GIPHY</a></p></p>
+
+<p>テストコードは<a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>にBabelが内蔵されているため、ES2016+async/awaitなどがそのまま書けるようになっています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">Selector</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;testcafe&#39;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">getElementById</span> <span class="o">=</span> <span class="nx">Selector</span><span class="p">(</span><span class="nx">id</span> <span class="o">=&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="err">`#</span><span class="nx">$</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span><span class="err">`</span><span class="p">));</span>
+<span class="nx">fixture</span><span class="p">(</span><span class="s1">&#39;Example page&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">page</span><span class="p">(</span><span class="s1">&#39;http://devexpress.github.io/testcafe/example&#39;</span><span class="p">);</span>
+
+<span class="nx">test</span><span class="p">(</span><span class="s1">&#39;Type the developer name, obtain the header text and check it&#39;</span><span class="p">,</span> <span class="nx">async</span> <span class="nx">t</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">await</span> <span class="nx">t</span>
+        <span class="p">.</span><span class="nx">typeText</span><span class="p">(</span><span class="s1">&#39;#developer-name&#39;</span><span class="p">,</span> <span class="s1">&#39;John Smith&#39;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="s1">&#39;#submit-button&#39;</span><span class="p">);</span>
+
+    <span class="kr">const</span> <span class="nx">articleHeader</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;article-header&#39;</span><span class="p">);</span>
+    <span class="kr">const</span> <span class="nx">headerText</span> <span class="o">=</span> <span class="nx">articleHeader</span><span class="p">.</span><span class="nx">innerText</span><span class="p">;</span>
+
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">headerText</span><span class="p">,</span> <span class="s1">&#39;Thank you, John!&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>テストコードの実装はブラウザとディレクトリを指定するだけで、他に設定しなくても動きます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ testcafe chrome test/
+</code></pre></div>
+<p>テストの失敗結果が分かりやすいのも結構いいところです。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2016/10/23-1477228880.png" alt="result of testcafe"></p>
+
+<h3 id="selector">Selector</h3>
+
+<p>先ほどのテストコードでも出てきていますが、TestCafeは<a href="http://devexpress.github.io/testcafe/documentation/test-api/selecting-page-elements/selectors.html" title="Selectors">Selectors</a>という仕組みでDOMを指定します。</p>
+
+<p>DOMのとり方はブラウザで使う<code>document.querySelector</code>などそのままのAPIです。
+注意点として取ってきた値はsnapshotであるため、あとで値が変わったときに自動的にsnapshotのnodeの値は代わりません。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Selector</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;testcafe&#39;</span><span class="p">;</span>
+
+<span class="c1">// A selector is created from a regular function.</span>
+<span class="c1">// This selector will take the &#39;id&#39; parameter and return</span>
+<span class="c1">// a DOM element that has this ID.</span>
+<span class="kr">const</span> <span class="nx">getElementById</span> <span class="o">=</span> <span class="nx">Selector</span><span class="p">(</span><span class="nx">id</span> <span class="o">=&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">));</span>
+<span class="nx">test</span><span class="p">(</span><span class="s1">&#39;My Test&#39;</span><span class="p">,</span> <span class="nx">async</span> <span class="nx">t</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">snapShotNode</span> <span class="o">=</span> <span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>ClickやTypeなどの操作のエミュレータは<a href="http://devexpress.github.io/testcafe/documentation/test-api/actions/" title="Actions">Actions</a>という特殊なメソッドを使いますが、DOMの取得については<a href="http://devexpress.github.io/testcafe/documentation/test-api/selecting-page-elements/selectors.html" title="Selectors">Selectors</a>でラップすれば基本的にそのまま使えるような感じになっています。</p>
+
+<p>この辺も覚えることをできるだけ減らそうとしてる感じに見えます。</p>
+
+<h3 id="リモートで実行">リモートで実行</h3>
+
+<p>先ほどのテストは、ローカルにあるブラウザじゃなくても動かす事ができます。</p>
+
+<p>次のように<code>remote:数</code>をブラウザの欄に指定すると、connect用のURLが表示されます。
+このURLにアクセスすると、そのブラウザ上で先ほどの自動テストが実行されます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">✈ $(npm bin)/testcafe remote:1 test
+Connecting 1 remote browser(s)...
+Navigate to the appropriate URL from each of the remote browsers.
+Browser #1: http://192.168.10.3:51822/browser/connect/SJuk2E9kg
+</code></pre></div>
+<p>これがWebDriverではない理由の一つとして挙げられていたものですね。</p>
+
+<ul>
+<li><a href="http://devexpress.github.io/testcafe/documentation/using-testcafe/common-concepts/browser-support.html#browsers-on-remote-devices" title="Browsers on Remote Devices #">Browsers on Remote Devices #</a></li>
+</ul>
+
+<p>また、実行できるブラウザは<a href="http://devexpress.github.io/testcafe/documentation/extending-testcafe/browser-provider-plugin/" title="Browser Provider Plugin">Browser Provider Plugin</a>で拡張できるようになっていて、PhantomJSとかはデフォルトでは入っていないようです。</p>
+
+<p>プラグインの中身を見るとSeleniumではないことがよくわかります。</p>
+
+<ul>
+<li><a href="https://github.com/DevExpress/testcafe-browser-provider-phantomjs/blob/master/src/index.js">https://github.com/DevExpress/testcafe-browser-provider-phantomjs/blob/master/src/index.js</a></li>
+</ul>
+
+<h2 id="もう少し複雑なケース">もう少し複雑なケース</h2>
+
+<p>もう少し実際のテストしたいものに近いもので試してみます。</p>
+
+<p>以前、Reduxの<a href="http://redux.js.org/docs/basics/ExampleTodoList.html" title="Example: Todo List · Redux">Example: Todo List</a>を写経したプロジェクトにE2Eテストを追加してみます。</p>
+
+<ul>
+<li><a href="https://github.com/coding-kata/redux-basic-tutorial" title="coding-kata/redux-basic-tutorial">coding-kata/redux-basic-tutorial</a></li>
+</ul>
+
+<p>追加したPRは以下にあります。</p>
+
+<ul>
+<li><a href="https://github.com/coding-kata/redux-basic-tutorial/pull/5" title="Add E2E Test with TestCafe by azu · Pull Request #5 · coding-kata/redux-basic-tutorial">Add E2E Test with TestCafe by azu · Pull Request #5 · coding-kata/redux-basic-tutorial</a></li>
+</ul>
+
+<h3 id="test-controller">test controller</h3>
+
+<p><a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>のテスト構造については<a href="http://devexpress.github.io/testcafe/documentation/test-api/test-code-structure.html" title="Test Code Structure | TestCafe">Test Code Structure | TestCafe</a>で簡単に解説されています。</p>
+
+<p><code>fixture</code>と<code>page</code>はテスト名とテストするURLなので特に説明は入らない感じです。
+テストケースは<code>test</code>という関数に書いていく感じになります。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">fixture</span> <span class="err">`</span><span class="nx">MyFixture</span><span class="err">`</span><span class="p">;</span>
+
+<span class="nx">test</span><span class="p">(</span><span class="s1">&#39;Test1&#39;</span><span class="p">,</span> <span class="nx">async</span> <span class="nx">t</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="cm">/* Test 1 Code */</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>基本的に非同期になるのでAsync functionとして書くようになっています。
+自動テストで必要になるのは、ある要素をクリックしたり、あるinput要素にテキストを入れたりするエミュレート関数が必要です。</p>
+
+<p>TestCafeでは<a href="http://devexpress.github.io/testcafe/documentation/test-api/test-code-structure.html#test-controller" title="Test Controller">Test Controller</a>と呼ばれているものがそれで、上記の<code>async t</code>の<code>t</code>がTest Controllerのオブジェクトです。</p>
+
+<p>Test Controllerにあるメソッドは以下にまとめられています。</p>
+
+<ul>
+<li><a href="http://devexpress.github.io/testcafe/documentation/test-api/actions/" title="Actions | TestCafe">Actions | TestCafe</a></li>
+</ul>
+
+<h3 id="テスト">テスト</h3>
+
+<p><a href="https://github.com/coding-kata/redux-basic-tutorial" title="coding-kata/redux-basic-tutorial">coding-kata/redux-basic-tutorial</a>はTodoリストを作るサンプルプロジェクトなので、
+Todoを追加するE2Eテストを書いてみます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2016/10/23-1477230356.png" alt="Image of redux-basic tutorial"></p>
+
+<p>Page Objectパターンっぽく書いて次のような感じで書けました。</p>
+
+<p>Test Controllerの操作は基本非同期で、<a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>は自動で色々な操作待つ仕組みを持っています。</p>
+
+<blockquote>
+<p>TestCafe automatically waits for page loads and XHRs to complete, as well as for DOM elements to become visible. You do not need to write custom code for that.
+-- <a href="https://github.com/DevExpress/testcafe#no-extra-coding">https://github.com/DevExpress/testcafe#no-extra-coding</a></p>
+</blockquote>
+
+<p>(<a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>のサイトを見てるといたるところにAutomatic*という単語が出て来る)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
+<span class="kr">import</span> <span class="nx">TodoPage</span> <span class="nx">from</span> <span class="s2">&quot;./pages/index&quot;</span>
+<span class="nx">fixture</span><span class="p">(</span><span class="s1">&#39;TodoList&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">page</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:8080/&#39;</span><span class="p">);</span>
+
+<span class="nx">test</span><span class="p">(</span><span class="s1">&#39;Add TodoItem&#39;</span><span class="p">,</span> <span class="nx">async</span> <span class="nx">t</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;NEW TODO&quot;</span><span class="p">;</span>
+    <span class="kr">const</span> <span class="nx">todoPage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TodoPage</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span>
+    <span class="c1">// add item</span>
+    <span class="nx">await</span> <span class="nx">todoPage</span><span class="p">.</span><span class="nx">addTodo</span><span class="p">({</span><span class="nx">title</span><span class="p">});</span>
+    <span class="kr">const</span> <span class="nx">currentItems</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">todoPage</span><span class="p">.</span><span class="nx">getItems</span><span class="p">();</span>
+    <span class="nx">assert</span><span class="p">(</span><span class="nx">currentItems</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="kr">const</span> <span class="p">[</span><span class="nx">firstItem</span><span class="p">]</span> <span class="o">=</span> <span class="nx">currentItems</span><span class="p">;</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">firstItem</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="nx">title</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><code>await</code>をちょこちょこ忘れたりしましたが、<a href="http://devexpress.github.io/testcafe/documentation/test-api/test-code-structure.html#test-controller" title="Test Controller">Test Controller</a>のメソッドの<code>await</code>忘れは検知できるようです。
+(自分で書いてる非同期はそうでもないので、Page Obejctに操作メソッドを持たせると良くないかも)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"> TodoList
+ ✖ Add TodoItem
+
+   1) A call to an async function is not awaited. Use the &quot;await&quot; keyword
+      before actions, assertions or chains of them to ensure that they run
+      in the right sequence.
+
+      Browser: Chrome 56.0.2899 / Mac OS X 10.11.6
+
+          8 |        this.t = t;
+          9 |    }
+         10 |
+         11 |    async addTodo({title}) {
+         12 |        const input = await this.getInput();
+       &gt; 13 |        this.t.typeText(input, title);
+         14 |        const button = await this.getButton();
+         15 |        await this.t.click(button);
+         16 |    }
+         17 |
+         18 |    async getInput() {
+
+         at &lt;anonymous&gt;
+</code></pre></div>
+<p>E2Eテストでよくハマる表示されてるかどうかのタイミング問題も、基本的にTestCafeは表示に関するものは自動で一定時間待つようになっているみたいです。
+(詳しい仕組みは調べてないけど、表示されてないことをテストすると時間がかかる気がする…)</p>
+
+<p>デフォルトの自動待ち時間は結構長いですが、<code>--selector-timeout ms</code>で待ち時間を指定できるようです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$(npm bin)/testcafe chrome e2e --selector-timeout 100
+</code></pre></div>
+<h2 id="おわり">おわり</h2>
+
+<p>ものすごく簡単に<a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>について紹介?しました。</p>
+
+<p><a href="http://devexpress.github.io/testcafe/documentation/using-testcafe/programming-interface/" title="Programming Interface">Programming Interface</a>もあったりするので、テストフレームワークというよりも、これを使ったブラウザ自動操作ツールとして使ったりすると面白いのかもしれないなーと思いました。</p>
+
+<p>TestCafe自体も結構よくできていて、エラー表示や操作の要素を表示していて分かりやすいです。
+また、Seleniumの設定が不要にしたいという気持ちはよく分かるので、ほんとに設定なしで動かせるのはすごいなと思いました。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>Node学園 23時限目 アウトラインメモ</title>
@@ -2071,139 +2305,6 @@ Babel、React、Almin、PostCSSがベース。</p>
 また<a href="https://github.com/almin/almin" title="Almin">Almin</a>でCQRS的な実装するための<a href="https://github.com/azu/large-scale-javascript/blob/master/refs.md">参考にした書籍/スライド/記事</a>や<a href="https://github.com/azu/large-scale-javascript">ポエム</a>みたいなやつも書いてあります。</p>
 
 <p>疑問や意見などは<a href="https://github.com/azu/large-scale-javascript/issues/new">New Issue</a>を作って書くか、<a href="https://twitter.com/azu_re">Twitter</a>とか適当に聞いてください。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>文章をTDDする</title>
-   <link href="http://efcl.info/2016/09/14/text-testing/"/>
-   <updated>2016-09-14T20:22:00+09:00</updated>
-   <id>http://efcl.info/2016/09/14/text-testing</id>
-   <content type="html"><![CDATA[ <h1 id="文章のテスト">文章のテスト</h1>
-
-<p>技術書とかの文書を開発するにあたってテストを先に書きたくなったという話です。</p>
-
-<ul>
-<li><a href="http://efcl.info/2015/11/07/nodefest-2015/">東京Node学園祭2015で技術文書をソフトウェア開発する話をしてきた | Web Scratch</a></li>
-<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/content/">Introduction | 技術文書をソフトウェア開発する話</a></li>
-</ul>
-
-<p>とかの続きみたいなものです。</p>
-
-<p>ここで扱う文章は、Markdownですが、構造を持った文章なら多分適応できる気がします。
-具体的には<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>で扱うパーサを再利用しているので、reStructuredTextとかRe:VIEWとかHTMLも多分頑張ればできる。</p>
-
-<h2 id="構造化された文章">構造化された文章</h2>
-
-<p>構造を持った文章とはどういうものかというと、セクションやパラグラフなどがシンタックスとして大体分かる文章の事をここでは言っています。</p>
-
-<p>しかし、Markdownにはセクション(HTMLでは <code>&lt;section&gt;</code> タグに該当するもの)がないので、HeaderとHeaderの間を一つのセクションとして認識しています。</p>
-
-<ul>
-<li><a href="https://github.com/azu/text-testing/tree/master/packages/select-section" title="text-testing/packages/select-section at master · azu/text-testing">text-testing/packages/select-section at master · azu/text-testing</a></li>
-</ul>
-
-<h2 id="文章が特定のキーワードを含むかテストする">文章が特定のキーワードを含むかテストする</h2>
-
-<p>実際どうやって文章をテストするかというと次のようなBDDっぽいようなテストを書きます。</p>
-
-<ul>
-<li><a href="https://github.com/azu/text-testing/tree/master/packages/text-testing-mocha" title="text-testing-mocha">text-testing-mocha</a></li>
-</ul>
-
-<p>このテストでは<code>サンプル</code>というワードを含むセクションが、
-<code>単語</code>というキーワードを含んでいるかをテストしています。</p>
-
-<p><code>**</code> で囲んだ範囲だけをキーワードの対象にできます。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">tester</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;text-testing-mocha&quot;</span><span class="p">);</span>
-<span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
-<span class="c1">// テストする対象の文章を読み込む</span>
-<span class="kr">const</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="s2">&quot;README.md&quot;</span><span class="p">,</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">);</span>
-<span class="nx">tester</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="p">(</span><span class="nx">section</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="c1">// 指定したセクションが</span>
-    <span class="nx">section</span><span class="p">(</span><span class="s2">&quot;この**サンプル**が&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">test</span><span class="p">(</span><span class="s2">&quot;この**単語**を含んでいるかをテストする&quot;</span><span class="p">);</span>
-    <span class="p">});</span>
-<span class="p">});</span>
-</code></pre></div>
-<p>例えば次の文章だと、先ほどのテストはパスします。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># サンプルA
-
-ある単語を含んでいる文章なのでOK
-</code></pre></div>
-<p>しかし、次の文章だと、先ほどのテストは失敗します。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># サンプルB
-
-ある???を含んでいないのでダメ
-</code></pre></div>
-<p>デフォルトでは含んでいる事をテストしていますが、第二引数で任意の判定をかけるので、含まない事も書くことができます。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">tester</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="p">(</span><span class="nx">section</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">section</span><span class="p">(</span><span class="s2">&quot;ある**サンプル**は&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">it</span><span class="p">,</span> <span class="nx">sections</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;**unknown**を含まない&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">texts</span><span class="p">,</span> <span class="nx">section</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">texts</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="nx">text</span> <span class="o">=&gt;</span> <span class="o">!</span><span class="nx">section</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">text</span><span class="p">));</span>
-        <span class="p">});</span>
-    <span class="p">});</span>
-<span class="p">});</span>
-</code></pre></div>
-<p><a href="https://github.com/azu/text-testing/tree/master/packages/text-testing-mocha" title="text-testing-mocha">text-testing-mocha</a>は名前の通り、Mochaを使って動くDSLみたいなものです。</p>
-
-<p>正直すごい雑で大したことをやっていないです。</p>
-
-<h2 id="モチベーション">モチベーション</h2>
-
-<p><a href="https://github.com/asciidwango/js-primer" title="asciidwango/js-primer: JavaScriptの入門書">asciidwango/js-primer: JavaScriptの入門書</a>を書いていて、一つの章が長くなると目的を見失う事がままあります。</p>
-
-<p>そのため、まずその章が何を説明したいのかという目標規定文を書き、書きながらそれを何度も見なおして脇道に逸れないように注意を払う必要がありました。</p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">目標規定文<br>-- 理科系の作文技術 <a href="https://t.co/qpHTynwfBh">pic.twitter.com/qpHTynwfBh</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/776034638942707712">September 14, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>章やセクションと言った単位で書いてる途中で、その目標が変わることはあまりないはずなので、何かガイドとなるものが欲しかったのが一つのモチベーションです。</p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">文章に関係しそうな文をキーワードを書き<br>その文章が何を伝えたいのかをかく目標規定文を書き<br>文章のアウトラインを考え<br>アウトラインの詳細を決める実験やコードを集め<br>もう一度アウトラインを構成し<br>アウトラインからテストを書き<br>文章に落とす</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/767584331875311617">August 22, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<h3 id="テストファースト">テストファースト</h3>
-
-<p>新しい文章を書いてて一番気が重たいのは最初の一行を書くことだと思います。
-しかし、アウトラインは本文に比べてラクな気持ちで書くことができていました。</p>
-
-<p>なので、最初にアウトラインをテストとして書いてみることから始めました。
-そうすることで、テストが落ちます。</p>
-
-<p>テストが落ちてるので、次はテストが通るように文章を書き始めれば良くなります。
-そうすることで、書き始めが楽になるのではないかなという実験も兼ねて作り始めました。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;2000年は閏年&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">assert</span><span class="p">(</span><span class="nx">isLeap</span><span class="p">(</span><span class="mi">2000</span><span class="p">));</span>
-<span class="p">});</span>
-</code></pre></div>
-<p>というテストを書いて、</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">isLeap</span><span class="p">(</span><span class="nx">year</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">===</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>というコードから書き始めるのと同じような気分でスタートできます。</p>
-
-<p>また、技術書のような文書はある程度文章の構造があると思うので、入力(文章)に対する出力(伝えたい結果)はテストできてもいいんじゃないかなという期待も持っています。</p>
-
-<p>実際にこのテストを取り入れて書いてみたものは次のものになっています。</p>
-
-<ul>
-<li><a href="https://asciidwango.github.io/js-primer/basic/implicit-coercion/" title="暗黙的な型変換 · JavaScriptの入門書 #jsprimer">暗黙的な型変換 · JavaScriptの入門書 #jsprimer</a></li>
-<li><a href="https://github.com/asciidwango/js-primer/pull/129" title="feat(implicit-coercion): 暗黙的な型変換について by azu · Pull Request #129 · asciidwango/js-primer">feat(implicit-coercion): 暗黙的な型変換について by azu · Pull Request #129 · asciidwango/js-primer</a></li>
-</ul>
-
-<p>後は、何かと文章は一度に多くを書きすぎてしまう問題を持っている気がします。
-小さなPull Requestして開発を進めるのがいいように、文章にも同じアプローチが正しいのかは今後検証していきたい気がします。
-この時に、より&quot;構造&quot;というものを意識した書き方が必要になるのかもしれません。</p>
-
-<p>分かりやすいコードも分かりやすい文章もある程度のレベルまでは、センスとかではなく技術的なアプローチで解決できる問題なのではないかなと考えています。</p>
-
-<ul>
-<li><a href="https://github.com/azu/text-testing" title="azu/text-testing: Testing library for structured texts.">azu/text-testing: Testing library for structured texts.</a></li>
-</ul>
  ]]></content>
  </entry>
  

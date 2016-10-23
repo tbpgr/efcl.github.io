@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        TestCafeでブラウザの自動テスト(E2Eテスト) | Web Scratch
+        
+    </title>
+    <meta name="description" content="TestCafeという自動テストフレームワーク(いわゆるE2Eテストフレームワークのジャンル)を試してみました。">
+    
+    <meta name="keywords" content="E2E,testing,browser" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="TestCafeでブラウザの自動テスト(E2Eテスト)">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/10/23/testcafe/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="TestCafeという自動テストフレームワーク(いわゆるE2Eテストフレームワークのジャンル)を試してみました。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-10-23T21:57:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/10/21/node23/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/10/18/jxck_sushi/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/10/15/abematv-2016/">
+
+
+
+
+
+
+
+
+
+<meta property="article:tag" content="E2E">
+
+<meta property="article:tag" content="testing">
+
+<meta property="article:tag" content="browser">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 31
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 165
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 84
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 5
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/10/23/testcafe/">
+                TestCafeでブラウザの自動テスト(E2Eテスト)
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/10/21/node23/">
+                Node学園 23時限目 アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/10/18/jxck_sushi/">
+                #jxck_sushi でserverlessの話をしてきた
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/10/15/abematv-2016/">
+                AbemaTV Developer Conference 2016のアウトラインメモ
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/10/23/testcafe/">
+    <h1 class="post-title">TestCafeでブラウザの自動テスト(E2Eテスト)</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年10月23日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-10-23-testcafe.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>という自動テストフレームワーク(いわゆるE2Eテストフレームワークのジャンル)を試してみました。</p>
+
+<p><a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>の特徴としては、Seleniumを使っていないこと、設定ファイルなしで利用できる点です。</p>
+
+<p>Seleniumを使ったテストフレームワークとしては、<a href="http://www.protractortest.org/" title="Protractor">Protractor</a>、<a href="https://github.com/groupon/testium" title="testium">testium</a>、<a href="http://webdriver.io/" title="WebdriverIO">WebdriverIO</a>などがあります。
+(Seleniumを使わない他のテストフレームワークだと<a href="http://www.nightmarejs.org/" title="Nightmare">Nightmare</a>など)</p>
+
+<p>Seleniumを使わずにどうやって自動的にブラウザを操作するかというと、中継サーバーを起動してそこにテストコードなどを追加して動かすことができるSelenium RC(1)方式に近いものだと思います。</p>
+
+<p>同名の<a href="https://testcafe.devexpress.com/" title="TestCafe: Web Testing Framework | DevExpress">ウェブサービス/クライアントアプリ</a>も出していて、こちらはSelenium IDEのようにGUIで操作して記録したものを再生などができます。</p>
+
+<p>なぜ、Seleniumを使っていないかという点については、以下で回答されています。</p>
+
+<ul>
+<li><a href="https://testcafe-discuss.devexpress.com/t/why-not-use-selenium/47/2" title="Why not use Selenium? - Questions - TestCafe Discussion Board">Why not use Selenium? - Questions - TestCafe Discussion Board</a></li>
+</ul>
+
+<p>簡単にまとめると次のような点をどうにかしたいので、Seleniumを使わずに動く自動テストフレームワークを作ったようです。</p>
+
+<ul>
+<li>Remoteの端末でも動かせるようにしたい</li>
+<li>とにかく設定なしでうごかせるようにしたい</li>
+<li>WebDriverの互換性がブラウザ依存で時間かかる</li>
+</ul>
+
+<p>実際に動かしながら見ていきましょう。</p>
+
+<h2 id="最小のデモ">最小のデモ</h2>
+
+<p>以下に最少のデモプロジェクトを作りました</p>
+
+<ul>
+<li><a href="https://github.com/azu/demo-test-cafe" title="azu/demo-test-cafe: TestCafe">azu/demo-test-cafe: TestCafe</a></li>
+</ul>
+
+<p>これをインストールから動かすまでは次のコマンドを叩くだけです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">git clone https://github.com/azu/demo-test-cafe.git
+cd demo-test-cafe
+npm install
+npm test
+</code></pre></div>
+<p>これだけでChromeが立ち上がり、自動テストが実行できます。</p>
+
+<p><iframe src="//giphy.com/embed/3o7TKFdaymhVNZ6XZe" width="480" height="322" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="http://giphy.com/gifs/3o7TKFdaymhVNZ6XZe">via GIPHY</a></p></p>
+
+<p>テストコードは<a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>にBabelが内蔵されているため、ES2016+async/awaitなどがそのまま書けるようになっています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">Selector</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;testcafe&#39;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">getElementById</span> <span class="o">=</span> <span class="nx">Selector</span><span class="p">(</span><span class="nx">id</span> <span class="o">=&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="err">`#</span><span class="nx">$</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span><span class="err">`</span><span class="p">));</span>
+<span class="nx">fixture</span><span class="p">(</span><span class="s1">&#39;Example page&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">page</span><span class="p">(</span><span class="s1">&#39;http://devexpress.github.io/testcafe/example&#39;</span><span class="p">);</span>
+
+<span class="nx">test</span><span class="p">(</span><span class="s1">&#39;Type the developer name, obtain the header text and check it&#39;</span><span class="p">,</span> <span class="nx">async</span> <span class="nx">t</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">await</span> <span class="nx">t</span>
+        <span class="p">.</span><span class="nx">typeText</span><span class="p">(</span><span class="s1">&#39;#developer-name&#39;</span><span class="p">,</span> <span class="s1">&#39;John Smith&#39;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="s1">&#39;#submit-button&#39;</span><span class="p">);</span>
+
+    <span class="kr">const</span> <span class="nx">articleHeader</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;article-header&#39;</span><span class="p">);</span>
+    <span class="kr">const</span> <span class="nx">headerText</span> <span class="o">=</span> <span class="nx">articleHeader</span><span class="p">.</span><span class="nx">innerText</span><span class="p">;</span>
+
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">headerText</span><span class="p">,</span> <span class="s1">&#39;Thank you, John!&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>テストコードの実装はブラウザとディレクトリを指定するだけで、他に設定しなくても動きます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ testcafe chrome test/
+</code></pre></div>
+<p>テストの失敗結果が分かりやすいのも結構いいところです。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2016/10/23-1477228880.png" alt="result of testcafe"></p>
+
+<h3 id="selector">Selector</h3>
+
+<p>先ほどのテストコードでも出てきていますが、TestCafeは<a href="http://devexpress.github.io/testcafe/documentation/test-api/selecting-page-elements/selectors.html" title="Selectors">Selectors</a>という仕組みでDOMを指定します。</p>
+
+<p>DOMのとり方はブラウザで使う<code>document.querySelector</code>などそのままのAPIです。
+注意点として取ってきた値はsnapshotであるため、あとで値が変わったときに自動的にsnapshotのnodeの値は代わりません。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Selector</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;testcafe&#39;</span><span class="p">;</span>
+
+<span class="c1">// A selector is created from a regular function.</span>
+<span class="c1">// This selector will take the &#39;id&#39; parameter and return</span>
+<span class="c1">// a DOM element that has this ID.</span>
+<span class="kr">const</span> <span class="nx">getElementById</span> <span class="o">=</span> <span class="nx">Selector</span><span class="p">(</span><span class="nx">id</span> <span class="o">=&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">));</span>
+<span class="nx">test</span><span class="p">(</span><span class="s1">&#39;My Test&#39;</span><span class="p">,</span> <span class="nx">async</span> <span class="nx">t</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">snapShotNode</span> <span class="o">=</span> <span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>ClickやTypeなどの操作のエミュレータは<a href="http://devexpress.github.io/testcafe/documentation/test-api/actions/" title="Actions">Actions</a>という特殊なメソッドを使いますが、DOMの取得については<a href="http://devexpress.github.io/testcafe/documentation/test-api/selecting-page-elements/selectors.html" title="Selectors">Selectors</a>でラップすれば基本的にそのまま使えるような感じになっています。</p>
+
+<p>この辺も覚えることをできるだけ減らそうとしてる感じに見えます。</p>
+
+<h3 id="リモートで実行">リモートで実行</h3>
+
+<p>先ほどのテストは、ローカルにあるブラウザじゃなくても動かす事ができます。</p>
+
+<p>次のように<code>remote:数</code>をブラウザの欄に指定すると、connect用のURLが表示されます。
+このURLにアクセスすると、そのブラウザ上で先ほどの自動テストが実行されます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">✈ $(npm bin)/testcafe remote:1 test
+Connecting 1 remote browser(s)...
+Navigate to the appropriate URL from each of the remote browsers.
+Browser #1: http://192.168.10.3:51822/browser/connect/SJuk2E9kg
+</code></pre></div>
+<p>これがWebDriverではない理由の一つとして挙げられていたものですね。</p>
+
+<ul>
+<li><a href="http://devexpress.github.io/testcafe/documentation/using-testcafe/common-concepts/browser-support.html#browsers-on-remote-devices" title="Browsers on Remote Devices #">Browsers on Remote Devices #</a></li>
+</ul>
+
+<p>また、実行できるブラウザは<a href="http://devexpress.github.io/testcafe/documentation/extending-testcafe/browser-provider-plugin/" title="Browser Provider Plugin">Browser Provider Plugin</a>で拡張できるようになっていて、PhantomJSとかはデフォルトでは入っていないようです。</p>
+
+<p>プラグインの中身を見るとSeleniumではないことがよくわかります。</p>
+
+<ul>
+<li><a href="https://github.com/DevExpress/testcafe-browser-provider-phantomjs/blob/master/src/index.js">https://github.com/DevExpress/testcafe-browser-provider-phantomjs/blob/master/src/index.js</a></li>
+</ul>
+
+<h2 id="もう少し複雑なケース">もう少し複雑なケース</h2>
+
+<p>もう少し実際のテストしたいものに近いもので試してみます。</p>
+
+<p>以前、Reduxの<a href="http://redux.js.org/docs/basics/ExampleTodoList.html" title="Example: Todo List · Redux">Example: Todo List</a>を写経したプロジェクトにE2Eテストを追加してみます。</p>
+
+<ul>
+<li><a href="https://github.com/coding-kata/redux-basic-tutorial" title="coding-kata/redux-basic-tutorial">coding-kata/redux-basic-tutorial</a></li>
+</ul>
+
+<p>追加したPRは以下にあります。</p>
+
+<ul>
+<li><a href="https://github.com/coding-kata/redux-basic-tutorial/pull/5" title="Add E2E Test with TestCafe by azu · Pull Request #5 · coding-kata/redux-basic-tutorial">Add E2E Test with TestCafe by azu · Pull Request #5 · coding-kata/redux-basic-tutorial</a></li>
+</ul>
+
+<h3 id="test-controller">test controller</h3>
+
+<p><a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>のテスト構造については<a href="http://devexpress.github.io/testcafe/documentation/test-api/test-code-structure.html" title="Test Code Structure | TestCafe">Test Code Structure | TestCafe</a>で簡単に解説されています。</p>
+
+<p><code>fixture</code>と<code>page</code>はテスト名とテストするURLなので特に説明は入らない感じです。
+テストケースは<code>test</code>という関数に書いていく感じになります。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">fixture</span> <span class="err">`</span><span class="nx">MyFixture</span><span class="err">`</span><span class="p">;</span>
+
+<span class="nx">test</span><span class="p">(</span><span class="s1">&#39;Test1&#39;</span><span class="p">,</span> <span class="nx">async</span> <span class="nx">t</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="cm">/* Test 1 Code */</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>基本的に非同期になるのでAsync functionとして書くようになっています。
+自動テストで必要になるのは、ある要素をクリックしたり、あるinput要素にテキストを入れたりするエミュレート関数が必要です。</p>
+
+<p>TestCafeでは<a href="http://devexpress.github.io/testcafe/documentation/test-api/test-code-structure.html#test-controller" title="Test Controller">Test Controller</a>と呼ばれているものがそれで、上記の<code>async t</code>の<code>t</code>がTest Controllerのオブジェクトです。</p>
+
+<p>Test Controllerにあるメソッドは以下にまとめられています。</p>
+
+<ul>
+<li><a href="http://devexpress.github.io/testcafe/documentation/test-api/actions/" title="Actions | TestCafe">Actions | TestCafe</a></li>
+</ul>
+
+<h3 id="テスト">テスト</h3>
+
+<p><a href="https://github.com/coding-kata/redux-basic-tutorial" title="coding-kata/redux-basic-tutorial">coding-kata/redux-basic-tutorial</a>はTodoリストを作るサンプルプロジェクトなので、
+Todoを追加するE2Eテストを書いてみます。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2016/10/23-1477230356.png" alt="Image of redux-basic tutorial"></p>
+
+<p>Page Objectパターンっぽく書いて次のような感じで書けました。</p>
+
+<p>Test Controllerの操作は基本非同期で、<a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>は自動で色々な操作待つ仕組みを持っています。</p>
+
+<blockquote>
+<p>TestCafe automatically waits for page loads and XHRs to complete, as well as for DOM elements to become visible. You do not need to write custom code for that.
+-- <a href="https://github.com/DevExpress/testcafe#no-extra-coding">https://github.com/DevExpress/testcafe#no-extra-coding</a></p>
+</blockquote>
+
+<p>(<a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>のサイトを見てるといたるところにAutomatic*という単語が出て来る)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
+<span class="kr">import</span> <span class="nx">TodoPage</span> <span class="nx">from</span> <span class="s2">&quot;./pages/index&quot;</span>
+<span class="nx">fixture</span><span class="p">(</span><span class="s1">&#39;TodoList&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">page</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:8080/&#39;</span><span class="p">);</span>
+
+<span class="nx">test</span><span class="p">(</span><span class="s1">&#39;Add TodoItem&#39;</span><span class="p">,</span> <span class="nx">async</span> <span class="nx">t</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;NEW TODO&quot;</span><span class="p">;</span>
+    <span class="kr">const</span> <span class="nx">todoPage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TodoPage</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span>
+    <span class="c1">// add item</span>
+    <span class="nx">await</span> <span class="nx">todoPage</span><span class="p">.</span><span class="nx">addTodo</span><span class="p">({</span><span class="nx">title</span><span class="p">});</span>
+    <span class="kr">const</span> <span class="nx">currentItems</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">todoPage</span><span class="p">.</span><span class="nx">getItems</span><span class="p">();</span>
+    <span class="nx">assert</span><span class="p">(</span><span class="nx">currentItems</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="kr">const</span> <span class="p">[</span><span class="nx">firstItem</span><span class="p">]</span> <span class="o">=</span> <span class="nx">currentItems</span><span class="p">;</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">firstItem</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="nx">title</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><code>await</code>をちょこちょこ忘れたりしましたが、<a href="http://devexpress.github.io/testcafe/documentation/test-api/test-code-structure.html#test-controller" title="Test Controller">Test Controller</a>のメソッドの<code>await</code>忘れは検知できるようです。
+(自分で書いてる非同期はそうでもないので、Page Obejctに操作メソッドを持たせると良くないかも)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"> TodoList
+ ✖ Add TodoItem
+
+   1) A call to an async function is not awaited. Use the &quot;await&quot; keyword
+      before actions, assertions or chains of them to ensure that they run
+      in the right sequence.
+
+      Browser: Chrome 56.0.2899 / Mac OS X 10.11.6
+
+          8 |        this.t = t;
+          9 |    }
+         10 |
+         11 |    async addTodo({title}) {
+         12 |        const input = await this.getInput();
+       &gt; 13 |        this.t.typeText(input, title);
+         14 |        const button = await this.getButton();
+         15 |        await this.t.click(button);
+         16 |    }
+         17 |
+         18 |    async getInput() {
+
+         at &lt;anonymous&gt;
+</code></pre></div>
+<p>E2Eテストでよくハマる表示されてるかどうかのタイミング問題も、基本的にTestCafeは表示に関するものは自動で一定時間待つようになっているみたいです。
+(詳しい仕組みは調べてないけど、表示されてないことをテストすると時間がかかる気がする…)</p>
+
+<p>デフォルトの自動待ち時間は結構長いですが、<code>--selector-timeout ms</code>で待ち時間を指定できるようです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$(npm bin)/testcafe chrome e2e --selector-timeout 100
+</code></pre></div>
+<h2 id="おわり">おわり</h2>
+
+<p>ものすごく簡単に<a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>について紹介?しました。</p>
+
+<p><a href="http://devexpress.github.io/testcafe/documentation/using-testcafe/programming-interface/" title="Programming Interface">Programming Interface</a>もあったりするので、テストフレームワークというよりも、これを使ったブラウザ自動操作ツールとして使ったりすると面白いのかもしれないなーと思いました。</p>
+
+<p>TestCafe自体も結構よくできていて、エラー表示や操作の要素を表示していて分かりやすいです。
+また、Seleniumの設定が不要にしたいという気持ちはよく分かるので、ほんとに設定なしで動かせるのはすごいなと思いました。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-10-23-testcafe.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["E2E","testing","browser"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=E2E">E2E</a></li>
+                
+                <li><a href="/tags/?q=testing">testing</a></li>
+                
+                <li><a href="/tags/?q=browser">browser</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

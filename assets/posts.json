@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "TestCafeでブラウザの自動テスト(E2Eテスト)",
+            "url": "http://efcl.info/2016/10/23/testcafe/",
+            "date": "2016-10-23T21:57:00+09:00"
+        },
+        
+        {
             "title": "Node学園 23時限目 アウトラインメモ",
             "url": "http://efcl.info/2016/10/21/node23/",
             "date": "2016-10-21T21:25:00+09:00"
