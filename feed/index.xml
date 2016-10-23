@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-23T23:08:49+09:00</updated>
+ <updated>2016-10-23T23:14:48+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -19,7 +19,7 @@
    <link href="http://efcl.info/2016/10/23/testcafe/"/>
    <updated>2016-10-23T21:57:00+09:00</updated>
    <id>http://efcl.info/2016/10/23/testcafe</id>
-   <content type="html"><![CDATA[ <p><a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>という自動テストフレームワーク(いわゆるE2Eテストフレームワークのジャンル)を試してみました。</p>
+   <content type="html"><![CDATA[ <p><a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>という自動テストフレームワーク(いわゆるE2Eテストフレームワークジャンルとしておきます)を試してみました。</p>
 
 <p><a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>の特徴としては、Seleniumを使っていないこと、設定ファイルなしで利用できる点です。</p>
 
