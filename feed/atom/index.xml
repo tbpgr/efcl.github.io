@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-23T23:17:58+09:00</updated>
+ <updated>2016-10-23T23:28:43+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -41,14 +41,14 @@
 <ul>
 <li>Remoteの端末でも動かせるようにしたい</li>
 <li>とにかく設定なしでうごかせるようにしたい</li>
-<li>WebDriverの互換性がブラウザ依存で時間かかる</li>
+<li>WebDriverの互換性がブラウザ依存で、それが解決されるまでに時間かかる</li>
 </ul>
 
 <p>実際に動かしながら見ていきましょう。</p>
 
 <h2 id="最小のデモ">最小のデモ</h2>
 
-<p>以下に最少のデモプロジェクトを作りました</p>
+<p>以下に最小のデモプロジェクトを作りました</p>
 
 <ul>
 <li><a href="https://github.com/azu/demo-test-cafe" title="azu/demo-test-cafe: TestCafe">azu/demo-test-cafe: TestCafe</a></li>
