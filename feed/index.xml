@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-24T10:10:07+09:00</updated>
+ <updated>2016-10-24T10:10:43+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -136,7 +136,7 @@ Browser #1: http://192.168.10.3:51822/browser/connect/SJuk2E9kg
 
 <h2 id="もう少し複雑なケース">もう少し複雑なケース</h2>
 
-<p>もう少し実際のテストしたいものに近いもので試してみます。</p>
+<p>もう少し実際のテストに近いもので試してみます。</p>
 
 <p>以前、Reduxの<a href="http://redux.js.org/docs/basics/ExampleTodoList.html" title="Example: Todo List · Redux">Example: Todo List</a>を写経したプロジェクトにE2Eテストを追加してみます。</p>
 
