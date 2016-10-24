@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-24T10:10:43+09:00</updated>
+ <updated>2016-10-24T10:12:08+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -156,7 +156,8 @@ Browser #1: http://192.168.10.3:51822/browser/connect/SJuk2E9kg
 
 <p><code>fixture</code>と<code>page</code>はテスト名とテストするURLなので特に説明は入らない感じです。
 テストケースは<code>test</code>という関数に書いていく感じになります。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">fixture</span> <span class="err">`</span><span class="nx">MyFixture</span><span class="err">`</span><span class="p">;</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">fixture</span><span class="p">(</span><span class="s1">&#39;MyFixture&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">page</span><span class="p">(</span><span class="s1">&#39;http://example.com&#39;</span><span class="p">);</span>
 
 <span class="nx">test</span><span class="p">(</span><span class="s1">&#39;Test1&#39;</span><span class="p">,</span> <span class="nx">async</span> <span class="nx">t</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="cm">/* Test 1 Code */</span>
