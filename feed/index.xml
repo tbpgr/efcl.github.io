@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-23T23:28:43+09:00</updated>
+ <updated>2016-10-24T10:10:07+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -128,7 +128,7 @@ Browser #1: http://192.168.10.3:51822/browser/connect/SJuk2E9kg
 
 <p>また、実行できるブラウザは<a href="http://devexpress.github.io/testcafe/documentation/extending-testcafe/browser-provider-plugin/" title="Browser Provider Plugin">Browser Provider Plugin</a>で拡張できるようになっていて、PhantomJSとかはデフォルトでは入っていないようです。</p>
 
-<p>プラグインの中身を見るとSeleniumではないことがよくわかります。</p>
+<p>プラグインの中身を見るとSelenium/WebDriverではないことがよくわかります。</p>
 
 <ul>
 <li><a href="https://github.com/DevExpress/testcafe-browser-provider-phantomjs/blob/master/src/index.js">https://github.com/DevExpress/testcafe-browser-provider-phantomjs/blob/master/src/index.js</a></li>
