@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "W3C TAG デベロッパー・サミット アウトラインメモ",
+            "url": "http://efcl.info/2016/11/02/w3ctagdevmeetup/",
+            "date": "2016-11-02T20:50:00+09:00"
+        },
+        
+        {
             "title": "同じイベントのaddEventListenerを1つにまとめるライブラリを書いた",
             "url": "http://efcl.info/2016/11/02/ui-event-observer/",
             "date": "2016-11-02T09:48:00+09:00"

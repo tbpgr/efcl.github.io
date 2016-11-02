@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-11-02T10:09:17+09:00</updated>
+ <updated>2016-11-02T20:53:52+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,244 @@
  </author>
  
 
+ 
+ <entry>
+   <title>W3C TAG デベロッパー・サミット アウトラインメモ</title>
+   <link href="http://efcl.info/2016/11/02/w3ctagdevmeetup/"/>
+   <updated>2016-11-02T20:50:00+09:00</updated>
+   <id>http://efcl.info/2016/11/02/w3ctagdevmeetup</id>
+   <content type="html"><![CDATA[ <p><a href="http://frontend.connpass.com/event/42323/" title="W3C TAG デベロッパー・サミット">W3C TAG デベロッパー・サミット</a>に参加してきたのでメモ。</p>
+
+<h2 id="web-payment-api-eiji">Web Payment API - eiji</h2>
+
+<ul>
+<li>Payment APIはUXを改善するためのAPI</li>
+<li>購入するためのAPIじゃない</li>
+<li>デモ
+
+<ul>
+<li>Polymer Shop</li>
+</ul></li>
+</ul>
+
+<h2 id="webrtc-と-sfu-sakkuru">WebRTC と SFU - sakkuru</h2>
+
+<ul>
+<li>WebRTCてきななにか</li>
+<li>P2Pでリアルタイムにやり取り</li>
+<li>SkyWay
+
+<ul>
+<li>WebRTCを使うためのプラットフォーム</li>
+</ul></li>
+<li>つらいことが多い WebRTC</li>
+<li>WebRTCの通信が始まるまで
+
+<ul>
+<li>ブラウザ同士でコネクションを結ぶ</li>
+<li>やりとりはSDPというテキストデータ</li>
+<li>ブラウザによってSDPが違う
+
+<ul>
+<li>Chrome PlanB SDP</li>
+<li>Firefox Unified Plan SDP</li>
+</ul></li>
+</ul></li>
+<li>SFU
+
+<ul>
+<li>P2Pでやる場合はフルメッシュでやる必要がある
+
+<ul>
+<li>自分以外全てに通信しないといけない</li>
+<li>負荷が高い</li>
+</ul></li>
+<li>SFU
+
+<ul>
+<li>中央にサーバを置く</li>
+<li>クライアントはSFUに向かって通信する</li>
+<li>クライアントの負荷が減る</li>
+</ul></li>
+<li>SkyWay
+
+<ul>
+<li>SFUサーバの無償提供</li>
+</ul></li>
+</ul></li>
+<li>最近 SFU
+
+<ul>
+<li>まだChromeのみ</li>
+<li>Firefoxも実装始まった</li>
+</ul></li>
+</ul>
+
+<h2 id="https-migration-in-local-network-w3c-trac">HTTPS migration in local network @  W3C Trac</h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/sakkuru/webrtcsfu" title="WebRTCとSFU">WebRTCとSFU</a></p>
+</blockquote>
+
+<ul>
+<li>ローカルネットでHTTPSを使いたいという話</li>
+<li>HTTPとHTTPSのやり取りの問題
+
+<ul>
+<li>Secure Context</li>
+<li>mixed contextの問題</li>
+</ul></li>
+<li>Video Stream
+
+<ul>
+<li>ローカルキャッシュサーバ</li>
+</ul></li>
+<li>この話の問題
+
+<ul>
+<li>ローカルの機器にどんなドメインを付けるのかなどの問題</li>
+</ul></li>
+<li>A) Public DNS + Public Certificate
+
+<ul>
+<li>機器の提供側がPublicなDNSと証明書認証局を運営</li>
+<li>ローカルIPに対するものをちゃんと返す</li>
+</ul></li>
+<li>B) mDNS + Private &quot;.local&quot; Certificate
+
+<ul>
+<li>Let&#39;s Encryptのローカル版みたいな</li>
+<li>ブラウザ側に新しいAPIがいる</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h1 id="breakout-session-css-houdini">Breakout Session: CSS Houdini</h1>
+
+<p>1時間ぐらいTOPICに対してDiscussion</p>
+
+<ul>
+<li>CSSのレイアウトの部分をSecureとPeformantな方法で持ってくるAPI</li>
+<li>JavaScriptからそういったものを扱う方法</li>
+<li>●として扱うとか(Paint)</li>
+<li>レイアウトだけじゃなくて、テキストだったり、エフェクト(影)とかを及ぶ影響を与えることができるAPI群に総称</li>
+<li>CSSのリグレッションテスト</li>
+<li>これまでのCSSの表現にJavaScriptで介入することができる</li>
+<li>カスタムプロパティとかを持っと簡単に追加できるように
+
+<ul>
+<li>仕様を追加するまであまりに大きなこと</li>
+<li>Boxtree API</li>
+<li>CSS自体の拡張とAPIとして拡張ポイント</li>
+<li>CSSは影響範囲が大きすぎるので、新しい機能を提供するのが難しい</li>
+</ul></li>
+<li>Custom Elementなら
+
+<ul>
+<li><code>-</code>を含めろとかがある。 </li>
+<li>Custom Propertyは<code>--</code>で開始するというルールなので、既存のものとはぶつからない</li>
+<li>新しいものについてはまだ検討されてない</li>
+</ul></li>
+<li>マイルストーン
+
+<ul>
+<li>足並み揃えるの難しいのでないよ</li>
+</ul></li>
+<li>HoudiniはCSSの補完的な機能
+
+<ul>
+<li>CSSに新しい機能を追加するときに待つ必要があった</li>
+<li>これを開発者的にJavaScriptで追加できるようなAPIを提供する仕様</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<ul>
+<li>Incubation WG
+
+<ul>
+<li>ウェブの機能に関する問題をどう解決するかという議論している</li>
+<li>Fast Track的な早いパスでウェブ標準を作っていく</li>
+<li>いいアイデアを集めたりする</li>
+</ul></li>
+<li>2つの方向
+
+<ul>
+<li>新しい機能を追加する</li>
+<li>既にある機能を拡張する</li>
+</ul></li>
+<li>Incubationの意味
+
+<ul>
+<li>色々議論して議論を進めていくという意味</li>
+</ul></li>
+<li><a href="https://discourse.wicg.io/" title="WICG">WICG</a>
+
+<ul>
+<li>誰でも気軽にコミュニティ</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<ul>
+<li>Web Payment Request API
+
+<ul>
+<li>UIは大きくは変更できない</li>
+<li>ロゴを入れるとかはできる</li>
+</ul></li>
+<li>セキュリティ
+
+<ul>
+<li>今より悪くなることはない</li>
+<li>今はフォームで送るのでハックされる可能性がある</li>
+<li>Web Payment Request APIはtokenでやり取り</li>
+</ul></li>
+<li>月額課金
+
+<ul>
+<li>なんとかなる?</li>
+</ul></li>
+<li>Custom Field
+
+<ul>
+<li>今のところはない</li>
+<li>検討される余地がある</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<ul>
+<li>Security
+
+<ul>
+<li>TAG</li>
+<li>HTTPSを広く使われるようにする</li>
+<li>Static ContentのサーバでもHTTPS使う必要があるのか?
+
+<ul>
+<li>Privacyのprotectionが一つのニーズ</li>
+<li>Mixed Contentの問題
+
+<ul>
+<li>サードパーティコンテンツの問題</li>
+</ul></li>
+</ul></li>
+<li>Let&#39;s Encryptの証明書 EVに対して信頼性
+
+<ul>
+<li>セキュリティのTrustは数を組み合わせて実現する</li>
+<li>EV/DV証明書はTrustを組み合わせてやってる</li>
+<li>なので信頼性がほしいならEVとかの方がー</li>
+</ul></li>
+</ul></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>同じイベントのaddEventListenerを1つにまとめるライブラリを書いた</title>
@@ -2119,223 +2357,6 @@ travis env <span class="nb">set </span>GH_USER_NAME <span class="s2">&quot;$(git
 </ul>
 
 <p>Circle CIだと鍵を登録することができるので、もっと簡単にできた気がしますがTravis CIだとこんな感じで鍵を使ったgit pushの設定ができるという話でした。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>React Meetup #4 でJavaScriptでのCQRSの話をしてきた</title>
-   <link href="http://efcl.info/2016/09/27/react-meetup-4/"/>
-   <updated>2016-09-27T22:54:00+09:00</updated>
-   <id>http://efcl.info/2016/09/27/react-meetup-4</id>
-   <content type="html"><![CDATA[ <p><a href="http://reactjs-meetup.connpass.com/event/39793/">React Meetup #4</a>に参加してきました。</p>
-
-<p>その中で、複雑なJavaScriptアプリケーションを考えながら作る話という話をしました。</p>
-
-<ul>
-<li>スライド: <a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
-<li>補足資料: <a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
-</ul>
-
-<p>クライアントサイドJavaScriptでも.NETとかサーバサイドでの知見とかを取り入れて考えてみましょう的な話です。</p>
-
-<h1 id="graphql-and-falcor">GraphQL and Falcor</h1>
-
-<blockquote>
-<p><a href="https://quramy.github.io/graph-api-note/#/" title="Graph API: GraphQL and Falcor">Graph API: GraphQL and Falcor</a></p>
-</blockquote>
-
-<ul>
-<li>APIを叩くものを効率的にやるためのパターン</li>
-<li>REST API</li>
-<li>欲しいものをほしいだけ取るパターン
-
-<ul>
-<li>Demand Driven Architectureという</li>
-</ul></li>
-<li>ReactとGrapQL
-
-<ul>
-<li>Relay</li>
-<li>GraphQL Relay Specificationの実装</li>
-</ul></li>
-<li>データのとり方とコンポーネントが横並び
-
-<ul>
-<li>Relay</li>
-</ul></li>
-<li>Viewへのマッピングは自分でやる
-
-<ul>
-<li>Falcor</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h1 id="複雑なjavascriptアプリケーションを作るには-azu">複雑なJavaScriptアプリケーションを作るには - @azu</h1>
-
-<p>複雑なJavaScriptアプリケーションを考えながら作る話という話をしました。</p>
-
-<ul>
-<li>スライド: <a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
-<li>補足資料: <a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a>
-
-<ul>
-<li>実際に作ったガイドラインとか参考資料とかをまとめたリポジトリ</li>
-</ul></li>
-</ul>
-
-<p>JavaScriptで複雑なアプリケーションを作るアーキテクチャをどう考えたかについての話。
-Fluxで未定義感があるドメインモデルをどのように考えて作っていくかについてを中心にしてます。</p>
-
-<p>後は、<a href="https://github.com/almin/almin" title="Almin">Almin</a>ではドメインモデルを扱うために、どのような構造にしていったかについて。</p>
-
-<hr>
-
-<h1 id="redux-saga-kuy">redux-saga - @kuy</h1>
-
-<ul>
-<li>redux-saga
-
-<ul>
-<li>副作用を扱ってくれるライブラリ</li>
-</ul></li>
-<li>Saga
-
-<ul>
-<li>実行したい処理をまとめたプロセス</li>
-</ul></li>
-<li>Effect
-
-<ul>
-<li>データとしての副作用</li>
-</ul></li>
-<li>Saga Runtime
-
-<ul>
-<li>実行環境</li>
-</ul></li>
-<li>実装
-
-<ul>
-<li>Effectをyeildを返すGenerator関数で書く</li>
-</ul></li>
-<li>Saga RuntimeでSagaを実行する
-
-<ul>
-<li>内部的にはState Machineになっている</li>
-</ul></li>
-<li>Root Saga -&gt; 色々なsagaをforkする</li>
-<li>Saga Runtime &lt;-&gt; Saga(プロセス)
-
-<ul>
-<li>これをやり取りする Effect が色々ある感じ</li>
-</ul></li>
-<li>ロジックをSagaに書いていく</li>
-<li>redux-sagaのコードが増えてきたら
-
-<ul>
-<li>ファイルを分割したくなる</li>
-<li>1個のことだけをするSagaを作っていく</li>
-<li>sagaはあくまでロジックを書く場所</li>
-</ul></li>
-<li>solidな処理はmiddlewareで書く</li>
-<li>問題点
-
-<ul>
-<li>初見が難しい</li>
-<li>generaotr/yeild</li>
-<li>regeneratorを使う必要がある</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h1 id="realworld-react-mizchi">RealWorld React - @mizchi</h1>
-
-<ul>
-<li>最近はリファクタリングをしてる</li>
-<li>普通のウェブサイトにReactをあてていく</li>
-<li>設計レベルでSPAが難しいので徐々に書き換えていく話
-
-<ul>
-<li>ボトムアップで変えていく</li>
-</ul></li>
-<li>Reactの難しさ
-
-<ul>
-<li>Reactの使うためのエコシステムの難しさ</li>
-<li>Flux的な設計の難しさ</li>
-<li>React自体は難しいというわけではない</li>
-</ul></li>
-<li>最近だと分割統治していくとモジュールを作っていく
-
-<ul>
-<li>読み込むだけで副作用があるモジュールが古の時代には多いので難しい</li>
-</ul></li>
-<li>リファクタリングしていく
-
-<ul>
-<li>Backbone + jasmineテストちょろっと</li>
-<li>jQuery pluginが大量にある状態のもの</li>
-</ul></li>
-<li>リファクタリングの方針
-
-<ul>
-<li>モダンな環境の導入</li>
-<li>今のコードを良くする =&gt; 諦めた</li>
-<li>再利用できるものとできないものを分けるところから始めた</li>
-</ul></li>
-<li>JavaScriptが複雑な画面
-
-<ul>
-<li>投稿画面とフィード画面</li>
-<li>「やってみた」「無理だった」 </li>
-<li>分からない仕様が大量にでてくるので、まず仕様を理解するところから</li>
-</ul></li>
-<li>ゴールの設定
-
-<ul>
-<li>React/Babelで受け入れる環境</li>
-<li>Turbolinkができるような初期化フローを作る
-
-<ul>
-<li>ある程度、Stateが整理されている目安としてTurbolinkが使える</li>
-</ul></li>
-</ul></li>
-<li>enzymeがテストに便利</li>
-<li>FlowTypeはJSXにも型が付けやすくて便利</li>
-</ul>
-
-<hr>
-
-<h1 id="reactコンポーネントとcssコンポーネントは1対1なのかについて-shibe97">ReactコンポーネントとCSSコンポーネントは1対1なのかについて - shibe97</h1>
-
-<blockquote>
-<p><a href="https://speakerdeck.com/shibe97/reactkonponentotocsskonponentoha1dui-1nafalsekawen-ti-nituite" title="ReactコンポーネントとCSSコンポーネントは1対1なのか問題について // Speaker Deck">ReactコンポーネントとCSSコンポーネントは1対1なのか問題について // Speaker Deck</a></p>
-</blockquote>
-
-<ul>
-<li>1対1なのかどうか</li>
-<li>ReactコンポーネントはViewとロジックを分離する</li>
-<li>Presentational Component
-
-<ul>
-<li>再利用可能なコンポーネント</li>
-</ul></li>
-<li>Container Component
-
-<ul>
-<li>Reduxのconnect関数を使ったコンポーネント</li>
-<li>Presentationに値渡したり</li>
-</ul></li>
-<li>Atomic Design
-
-<ul>
-<li><a href="http://blog.kubosho.com/entry/using-atomic-design">Atomic Designの考え方と利点・欠点 - I&#39;m kubosho_</a></li>
-<li>最小の単位(atom)でコンポーネントを作ってそれを使っていく</li>
-</ul></li>
-</ul>
  ]]></content>
  </entry>
  
