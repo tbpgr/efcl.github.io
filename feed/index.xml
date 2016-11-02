@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-10-27T23:54:58+09:00</updated>
+ <updated>2016-11-02T10:09:17+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,70 @@
  </author>
  
 
+ 
+ <entry>
+   <title>同じイベントのaddEventListenerを1つにまとめるライブラリを書いた</title>
+   <link href="http://efcl.info/2016/11/02/ui-event-observer/"/>
+   <updated>2016-11-02T09:48:00+09:00</updated>
+   <id>http://efcl.info/2016/11/02/ui-event-observer</id>
+   <content type="html"><![CDATA[ <p><code>UIEventObserver</code>という同じ要素への同じイベントを貼る <code>addEventListener</code> を1つにまとめるライブラリを書きました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/ui-event-observer" title="azu/ui-event-observer: Provide performant way to subscribe to browser UI Events.">azu/ui-event-observer: Provide performant way to subscribe to browser UI Events.</a></li>
+</ul>
+
+<h2 id="インストール">インストール</h2>
+
+<p>npmで入ります。     </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install ui-event-observer
+</code></pre></div>
+<h2 id="1つにまとめる">1つにまとめる?</h2>
+
+<p>Reactなどのコンポーネント志向のライブラリを使っていると、各コンポーネントで同じ要素へ同じイベントを貼っていることがあります。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Component A</span>
+<span class="kr">const</span> <span class="nx">handlerA</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{};</span> 
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="nx">handlerA</span><span class="p">);</span>
+<span class="c1">// Component B</span>
+<span class="kr">const</span> <span class="nx">handlerB</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{};</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="nx">handlerB</span><span class="p">);</span>
+</code></pre></div>
+<p><a href="https://github.com/azu/ui-event-observer" title="UIEventObserver">UIEventObserver</a>では同じ事が、内部的に一つの<code>window.addEventListener(&#39;scroll&#39;, ...)</code>にまとめてられます。
+(Pub/SubはEventEmitterが代わりにやる感じです)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// singleton</span>
+<span class="kr">const</span> <span class="nx">eventObserver</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ui-event-observer&quot;</span><span class="p">);</span>
+<span class="c1">// シングルトンじゃない方法</span>
+<span class="c1">// require(&quot;ui-event-observer&quot;).UIEventObserver</span>
+<span class="c1">// Component A</span>
+<span class="kr">const</span> <span class="nx">handlerA</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{};</span> 
+<span class="nx">eventObserver</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="nx">handlerA</span><span class="p">);</span>
+<span class="c1">// Component B</span>
+<span class="kr">const</span> <span class="nx">handlerB</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{};</span>
+<span class="nx">eventObserver</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="nx">handlerB</span><span class="p">);</span>
+</code></pre></div>
+<p><a href="https://github.com/azu/ui-event-observer/tree/master/example/">Example project</a>では100個の&quot;scroll&quot;イベントを<code>window</code>に貼っています。</p>
+
+<p><img src="https://monosnap.com/file/0L7z5AvZcuLKbCHxqB4sTU8TjRK0pk.png" alt="addEventListener vs, UIEventObserver"></p>
+
+<ul>
+<li>Left: 100x <code>addEventListener</code></li>
+<li>Right: 1 <code>UIEventObserver</code></li>
+</ul>
+
+<p>とlistenしてるイベントの数が100個以上から10個程度に減っていることが分かります。</p>
+
+<p><a href="https://developer.mozilla.org/ja/docs/Web/API/EventTarget/addEventListener" title="EventTarget.addEventListener">EventTarget.addEventListener</a>はbubblingやcapturing、それらを止められる<code>preventDefault()</code>や<code>stopPropagation()</code>などEventEmitterに比べると高機能です。
+<a href="https://blog.jxck.io/entries/2016-06-09/passive-event-listeners.html" title="Passive Event Listeners">Passive Event Listeners</a>とかもその辺を制限することでパフォーマンスを改善すために導入されています。</p>
+
+<p>同じ目的のライブラリとして<a href="https://github.com/yahoo/subscribe-ui-event" title="yahoo/subscribe-ui-event">yahoo/subscribe-ui-event</a>がありますが、スロットリングなどがデフォルトにあったり色々高機能でした。
+なので、単純にイベントを1つにまとめるだけの<a href="https://github.com/azu/ui-event-observer" title="azu/ui-event-observer: Provide performant way to subscribe to browser UI Events.">azu/ui-event-observer</a>を作ったという話でした。</p>
+
+<p>他の機能的な要素はプラグインで書けるようにするのがいいんじゃないかなと思っています。</p>
+
+<ul>
+<li><a href="https://github.com/azu/ui-event-observer/issues/1" title="Proposal: plugin system · Issue #1 · azu/ui-event-observer">Proposal: plugin system · Issue #1 · azu/ui-event-observer</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>TestCafeでブラウザの自動テスト(E2Eテスト)</title>
@@ -2272,42 +2336,6 @@ Fluxで未定義感があるドメインモデルをどのように考えて作�
 <li>最小の単位(atom)でコンポーネントを作ってそれを使っていく</li>
 </ul></li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>複雑なJavaScriptアプリケーションを作るためにやったことをまとめた</title>
-   <link href="http://efcl.info/2016/09/27/large-scale-javascript/"/>
-   <updated>2016-09-27T10:18:00+09:00</updated>
-   <id>http://efcl.info/2016/09/27/large-scale-javascript</id>
-   <content type="html"><![CDATA[ <p>タイトルどおりですが、次のリポジトリに複雑なクライアントJavaScriptアプリケーションをどう考えて作っていくかを実践した内容をまとめてあります。</p>
-
-<ul>
-<li><a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
-</ul>
-
-<p>ここでいう複雑なアプリケーションとは、ライブラリ抜きで数万LOC以上ぐらいの規模になることが予測されているようなものを扱っています。(巨大というよりは複雑という印象)</p>
-
-<h2 id="140文字でok">140文字でOK</h2>
-
-<p>140文字向けのサマリだと次のような感じです。</p>
-
-<blockquote>
-<p>JavaScriptで複雑なアプリケーションを作る構成と実践ガイド。
-ドメインモデルをどのように考えて作っていくかについて。
-Babel、React、Almin、PostCSSがベース。</p>
-</blockquote>
-
-<p>作成するアプリケーションによって必要な構造は異なるため、この構成がよいということを主張するものではありませんが、 何か参考になるものがあれば幸いです。</p>
-
-<h2 id="内容">内容</h2>
-
-<p><a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript">azu/large-scale-javascript</a>は、同じ趣旨の<a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">複雑なJavaScriptアプリケーションを考えながら作る話</a>というスライドと合わせて読む感じの内容になっています。</p>
-
-<p><a href="./docs">コーディングガイド</a>的なドキュメントや<a href="https://github.com/azu/presentation-annotator" title="azu/presentation-annotator: viewing presentation and annotate.">小さな実装例</a>などがおいてあります。
-また<a href="https://github.com/almin/almin" title="Almin">Almin</a>でCQRS的な実装するための<a href="https://github.com/azu/large-scale-javascript/blob/master/refs.md">参考にした書籍/スライド/記事</a>や<a href="https://github.com/azu/large-scale-javascript">ポエム</a>みたいなやつも書いてあります。</p>
-
-<p>疑問や意見などは<a href="https://github.com/azu/large-scale-javascript/issues/new">New Issue</a>を作って書くか、<a href="https://twitter.com/azu_re">Twitter</a>とか適当に聞いてください。</p>
  ]]></content>
  </entry>
  
