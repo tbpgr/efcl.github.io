@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-11-02T20:53:52+09:00</updated>
+ <updated>2016-11-03T12:41:58+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -248,6 +248,23 @@
 <li>なので信頼性がほしいならEVとかの方がー</li>
 </ul></li>
 </ul></li>
+</ul>
+
+<hr>
+
+<h2 id="memo">memo</h2>
+
+<p>ahomuさんとパフォーマンス計測について話してたメモ</p>
+
+<ul>
+<li>小さな改善はやはりブレに吸収される</li>
+<li>のでコツコツ改善していくしかない</li>
+<li>早いうち定常的に計測して視覚化してないと、どこでおそくなったか分からないので、早い段階から値を記録してた方が良い</li>
+<li>マシンでperfの値が違う問題は sitespeed.io とかspeedcurveとか外から見るやつを回し続ける</li>
+<li>speedcurve使ってるけど、完璧なソリューションというわけでもない</li>
+<li>けど、どこで問題になったかが分かりやすくなる</li>
+<li>mousemoveとかインタラクションに対するパフォーマンスは、機械的に計測しにくいので、手動で…</li>
+<li>:money_with_wings: で人を動かした方が安くて質が高い</li>
 </ul>
  ]]></content>
  </entry>
