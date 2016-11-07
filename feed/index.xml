@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-11-03T12:41:58+09:00</updated>
+ <updated>2016-11-07T10:37:50+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,30 @@
  </author>
  
 
+ 
+ <entry>
+   <title>mu-pdf-viewerに検索一覧をつけた</title>
+   <link href="http://efcl.info/2016/11/07/mu-pdf-search/"/>
+   <updated>2016-11-07T10:02:00+09:00</updated>
+   <id>http://efcl.info/2016/11/07/mu-pdf-search</id>
+   <content type="html"><![CDATA[ <p><a href="https://github.com/azu/mu-pdf-viewer" title="mu-pdf-viewer">mu-pdf-viewer</a>は上から下へ読むように作ったので、検索など移動して読むパターンはイマイチでした。</p>
+
+<ul>
+<li><a href="http://efcl.info/2016/10/12/mu-pdf-viewer/" title="pdf.jsなPDFビューアアプリをElectronで作った | Web Scratch">pdf.jsなPDFビューアアプリをElectronで作った | Web Scratch</a></li>
+</ul>
+
+<p>タイトルのように、Cmd+Fで検索したら同時に検索結果の一覧を表示できるようにしました。
+クリックすると移動もできるので、これでリファレンス的に探すのも少しは便利になりそうです。</p>
+
+<p><iframe src="//giphy.com/embed/l0HlNxuHU8SmqmYus" width="480" height="242" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="http://giphy.com/gifs/l0HlNxuHU8SmqmYus">via GIPHY</a></p></p>
+
+<p>自動でGitHub Releaseにアップロードしてるバイナリバグってる気がするので、動かない場合はローカルでビルドした方が良さそうです。(イマイチ原因分かってない…)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm run electron:build:osx
+</code></pre></div>
+<p>ECMAScriptの仕様書をオフラインで検索し易い形で読む方法を探してたらこうなりました。
+(<a href="https://github.com/cho45/Chemrtron">Chemrtron</a>が求めてるようなものな気がするので、あとでもう一度挑戦したい。検索結果はでるけど、クリックも何もできなくてよくわからなかった。)</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>W3C TAG デベロッパー・サミット アウトラインメモ</title>
@@ -2252,128 +2276,6 @@ DDD本/IDDD本が分かりにくいところを分かりやすく書こうとし
 <p>色々見てた感じアーキテクチャという分野を扱うものは、あんまりパーマネントリンクが貼れるようにできていない気がする。そういう意味でも<a href="http://www.martinfowler.com/" title="Martin Fowler">Martin Fowler</a>は正しくてすごい気がした。</p>
 
 <p>最初に<a href="https://github.com/almin/almin" title="Almin">Almin</a>という成果物を作り、それの中に入ってる考えの名前を求める旅をしていた。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>Travis CIからgh-pagesへデプロイする設定 via SSH/git push</title>
-   <link href="http://efcl.info/2016/09/27/deploy-from-travis-ci-to-gh-pages/"/>
-   <updated>2016-09-27T23:29:00+09:00</updated>
-   <id>http://efcl.info/2016/09/27/deploy-from-travis-ci-to-gh-pages</id>
-   <content type="html"><![CDATA[ <p>最近はGitHubリポジトリのgh-pagesブランチでサイトを公開する機会が増えているのですが、
-リポジトリが更新されたら自動でサイトも更新できるようにしたいです。</p>
-
-<p>以前は、GitHub Access Tokenを発行して、Travis CIのconfig(secret)にそのTokenを埋め込んで、Tokenを使ってpushをしていました。</p>
-
-<p>しかし、GitHub Access Tokenは簡単に発行できるとはいえリポジトリ単位で管理できる権限となっていないため、Tokenが漏れてしまうと管理ができないという問題があります。
-(実際 <code>git push -q</code>などしないと簡単に漏れてしまう)</p>
-
-<p>そのため、最近はSSH鍵を使ってリポジトリへpushする方針へと変更しました。</p>
-
-<p>GitHubのリポジトリには、リポジトリごとにDeploy Keyという公開鍵を登録できる仕組みがあるため、リポジトリ毎の秘密鍵とと公開鍵の組み合わせで管理することができます。</p>
-
-<p>基本的にはJavaScript関係のものが多いでの、npm run-scriptで実行できるような仕組みでこの鍵を使ったdeployをやってくれるものがないかなーと思って探してみたらありました。</p>
-
-<ul>
-<li><a href="https://github.com/alrra/travis-scripts" title="alrra/travis-scripts: Scripts to help automate things using Travis CI">alrra/travis-scripts: Scripts to help automate things using Travis CI</a></li>
-</ul>
-
-<p>このスクリプトはTC39のECMAScriptの仕様書の自動デプロイとかにも使われています。</p>
-
-<ul>
-<li><a href="https://github.com/tc39/ecma262/blob/master/scripts/auto-deploy.sh" title="ecma262/auto-deploy.sh at master · tc39/ecma262">ecma262/auto-deploy.sh at master · tc39/ecma262</a></li>
-</ul>
-
-<p>仕組みとしては、次のようになっています。</p>
-
-<p><a href="https://github.com/alrra/travis-scripts" title="alrra/travis-scripts: Scripts to help automate things using Travis CI">alrra/travis-scripts: Scripts to help automate things using Travis CI</a>のチュートリアルがちゃんと書かれているのでその通りにやっていればできるはずです。(環境変数の指定や<code>git config user.name</code>とかの設定が忘れやすいです)</p>
-
-<ol>
-<li>手元でssh-keygenして秘密鍵と公開鍵を作る</li>
-<li>公開鍵をGitHubのリポジトリにWriteのDeploy Keyとして登録する</li>
-<li><code>travis encrypt-file github_deploy_key</code>という感じで秘密鍵を暗号化する
-
-<ul>
-<li>このファイルはTravis CI上で復号化されたファイルとして手に入る</li>
-<li><a href="https://github.com/alrra/travis-scripts">alrra/travis-scripts</a>はこれを<code>~/.ssh/</code>に移動してくれる</li>
-</ul></li>
-<li>後は、Traivs CIからgit push via sshができるので、普通に<code>git push</code>するだけ</li>
-</ol>
-
-<p>この仕組みのいいところとしては、GitHub Access Tokenより権限の範囲が小さい、漏れてもリポジトリ単位でrevokeできるという点がいいところです。
-また、普通に<code>git push</code>ができるのでGitHub Access TokenでBasic認証的にpush先を変更しなくても動くのがいいところです。</p>
-
-<hr>
-
-<p>しかし、この一連の設定はDeploy Keyを登録したり自動化できていなくて面倒くさいです。
-そのため大部分を自動化できるスクリプトを書きました。</p>
-
-<p>まずは、alrra/travis-scriptsをインストール。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -D @alrra/travis-scripts
-</code></pre></div>
-<p>先に指定した、公開鍵をGitHubリポジトリに登録する<a href="https://github.com/azu/add-deploy-key-to-github" title="azu/add-deploy-key-to-github">azu/add-deploy-key-to-github</a>というツールを書いたのでそれを入れておきます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -g add-deploy-key-to-github
-</code></pre></div>
-<p>次に、先ほどの手順の1-3をある程度自動的にやってくれるスクリプトを該当するプロジェクトのディレクトリで実行します。</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c">#!/bin/bash</span>
-<span class="nb">set</span> -eu
-<span class="c"># Usage:</span>
-<span class="c"># $ travis-ssh-keygen.sh &quot;user/name&quot;</span>
-<span class="nb">declare </span><span class="nv">repo</span><span class="o">=</span><span class="s2">&quot;$1&quot;</span>
-
-<span class="k">if</span> !type add-deploy-key-to-github &gt;/dev/null 2&gt;<span class="p">&amp;</span>1<span class="p">;</span> <span class="k">then</span>
-  npm install -g add-deploy-key-to-github
-<span class="k">fi</span>
-<span class="c"># creat ssh key and add deploy key</span>
-ssh-keygen -t rsa -b <span class="m">4096</span> -C <span class="s2">&quot;$(git config user.email)&quot;</span> -f github_deploy_key -N <span class="s1">&#39;&#39;</span>
-<span class="c">## Add deploy to github</span>
-add-deploy-key-to-github --key github_deploy_key.pub --repo <span class="k">${</span><span class="nv">repo</span><span class="k">}</span> --token <span class="s2">&quot;自分のGitHub Token&quot;</span>
-<span class="c">## Remove pub key</span>
-cat github_deploy_key.pub <span class="p">|</span> pbcopy
-rm github_deploy_key.pub
-<span class="c"># encrypt private key and move to .travis</span>
-travis encrypt-file github_deploy_key --add
-rm github_deploy_key
-mkdir -p .travis/
-mv github_deploy_key.enc .travis/
-<span class="c"># Setup Travis Git Config</span>
-travis env <span class="nb">set </span>GH_USER_EMAIL <span class="s2">&quot;$(git config user.email)&quot;</span>
-travis env <span class="nb">set </span>GH_USER_NAME <span class="s2">&quot;$(git config user.name)&quot;</span>
-</code></pre></div>
-<p>たとえば、<code>azu/website</code>リポジトリなら、
-そのディレクトリで実行すれば、SSHの鍵生成から登録、travis encrypt-file .travis/github_deploy_key.enc`の作成までをやってくれます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">travis-ssh-keygen.sh &quot;azu/website&quot;
-</code></pre></div>
-<p>後は、<code>.travis.yml</code>にデプロするブランチやディレクトリ、デプロイ前のコマンドを書けば自動デプロイの設定は完了です。</p>
-
-<p>残念ながら<code>$encrypted_567c1b6fa013_key</code>の部分は毎回違うので、自動ができていません。
-先ほどのスクリプトで<code>.travis.yml</code>に自動で値が書かれているので、それを手動でコピーする必要があります。。
-(どうにかできないのかな…)</p>
-<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">sudo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
-<span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">node_js</span>
-<span class="l-Scalar-Plain">node_js</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">stable</span>
-<span class="l-Scalar-Plain">after_success</span><span class="p-Indicator">:</span>
-  <span class="p-Indicator">-</span> <span class="p-Indicator">|</span>
-
-        <span class="no">$(npm bin)/set-up-ssh --key &quot;$encrypted_567c1b6fa013_key&quot; \</span>
-                             <span class="no">--iv &quot;$encrypted_567c1b6fa013_iv&quot; \</span>
-                             <span class="no">--path-encrypted-key &quot;.travis/github_deploy_key.enc&quot;</span>
-
-        <span class="no">$(npm bin)/update-branch --commands &quot;npm run build&quot; \</span>
-                                 <span class="no">--commit-message &quot;Update website [skip ci]&quot; \</span>
-                                 <span class="no">--directory &quot;./public&quot; \</span>
-                                 <span class="no">--distribution-branch &quot;gh-pages&quot; \</span>
-                                 <span class="no">--source-branch &quot;master&quot;</span>
-</code></pre></div>
-<p>参考リポジトリ</p>
-
-<p>次のリポジトリは、このスクリプトの設定で、リポジトリにコミットする自動でgh-pagesへデプロイされています。</p>
-
-<ul>
-<li><a href="https://github.com/azu/presentation-annotator">https://github.com/azu/presentation-annotator</a></li>
-</ul>
-
-<p>Circle CIだと鍵を登録することができるので、もっと簡単にできた気がしますがTravis CIだとこんな感じで鍵を使ったgit pushの設定ができるという話でした。</p>
  ]]></content>
  </entry>
  
