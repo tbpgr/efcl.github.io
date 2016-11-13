@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-11-07T10:37:50+09:00</updated>
+ <updated>2016-11-13T18:30:35+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,884 @@
  </author>
  
 
+ 
+ <entry>
+   <title>東京Node学園祭2016 アウトラインメモ</title>
+   <link href="http://efcl.info/2016/11/13/nodefest2016/"/>
+   <updated>2016-11-13T18:25:00+09:00</updated>
+   <id>http://efcl.info/2016/11/13/nodefest2016</id>
+   <content type="html"><![CDATA[ <p><a href="http://nodefest.jp/2016/" title="東京Node学園祭2016 | 11月12日,13日開催！">東京Node学園祭2016</a>に参加してきたのでメモ</p>
+
+<hr>
+
+<h2 id="demystifying-javascript-engines-alejandro-oviedo">Demystifying JavaScript Engines - Alejandro Oviedo</h2>
+
+<ul>
+<li><a href="https://github.com/a0viedo/demystifying-js-engines" title="a0viedo/demystifying-js-engines: A list of resources about JavaScript engines">a0viedo/demystifying-js-engines: A list of resources about JavaScript engines</a></li>
+<li>2006年のJavaScriptエンジン
+
+<ul>
+<li>インタプリタ</li>
+<li>遅い</li>
+<li>最適化しても遅い</li>
+</ul></li>
+<li>Fortran、Self、Smalltalkの人がより良い方法を考えた
+
+<ul>
+<li>(Source) -&gt; Parse -&gt; (bytecode) -&gt; executionPhase &lt;-&gt; JIT Compiler</li>
+<li>何度も実行するコードはJITコンパイラを通すようにした</li>
+<li>プロパティのアクセスの最適化、Hidden Classなど色々な最適化
+
+<ul>
+<li><a href="https://github.com/v8/v8/wiki/Design%20Elements" title="Design Elements · v8/v8 Wiki">Design Elements · v8/v8 Wiki</a></li>
+</ul></li>
+<li><code>eval</code>と<code>try-catch</code>が最適化の邪魔になってることがある</li>
+</ul></li>
+<li>さらに変化して
+
+<ul>
+<li>execution phase
+
+<ul>
+<li>&lt;-&gt; unoptimiging compiler (インラインキャッシュとか)</li>
+<li>&lt;-&gt; optimiging compiler</li>
+</ul></li>
+<li>何回か実行して、optimizeできるコードとそうでないコードを分別する</li>
+</ul></li>
+<li>SpiderMonkey
+
+<ul>
+<li>Interpreter(ParseとExecution) -&gt; JIT &lt;-&gt; Ionmonkey
+
+<ul>
+<li>Baseline compiler + Ionmonkey</li>
+</ul></li>
+<li>数百回動かして super optimize フラグがついたものはIonmonkeyで動く</li>
+<li>bailoutした場合は、FallbackとしてInterpreterじゃなくてJITのコードを使ってる</li>
+</ul></li>
+<li>Chakra
+
+<ul>
+<li>FallbackとしてInterpreterが動く</li>
+</ul></li>
+<li>V8
+
+<ul>
+<li>Sourcecode
+
+<ul>
+<li>-&gt; Ignition</li>
+<li>-&gt; Fullcodegen &lt;- (AST) -&gt; Crankshaft(+ TurboFan)</li>
+</ul></li>
+<li><a href="http://v8project.blogspot.jp/2016/08/firing-up-ignition-interpreter.html" title="V8 JavaScript Engine: Firing up the Ignition Interpreter">V8 JavaScript Engine: Firing up the Ignition Interpreter</a></li>
+</ul></li>
+<li>JavaScriptCode
+
+<ul>
+<li>SourceCode
+
+<ul>
+<li>-&gt; LLInt</li>
+<li>-&gt; Baseline Compiler</li>
+<li>-&gt; DFG Compiler</li>
+<li>-&gt; FTG Compiler</li>
+</ul></li>
+<li><a href="https://webkit.org/blog/5852/introducing-the-b3-jit-compiler/" title="Introducing the B3 JIT Compiler | WebKit">Introducing the B3 JIT Compiler | WebKit</a></li>
+</ul></li>
+<li>最適化について
+
+<ul>
+<li>ループ内で動かない変数はループの外に出す <a href="https://en.wikipedia.org/wiki/Loop_optimization" title="Loop optimization">Loop optimization</a></li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">i</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>関数のインライン化
+
+<ul>
+<li>関数を呼び出すとコンテキストスイッチが起きる</li>
+<li>なので、関数をインライン化できるとコンテキストスイッチが減って早くなる</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">fn</span><span class="p">();</span> <span class="c1">// &lt;= インライン化される</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>Dead code elimination 
+
+<ul>
+<li>ループの中にあっても、外で使ってないものは削除されてしまう</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// &lt;= 使ってない</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>GCについて
+
+<ul>
+<li>Incremental GC
+
+<ul>
+<li>ちょっとづつやる</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="debugging-node-js-performance-issues-in-production-thomas-watson">Debugging Node.js Performance Issues in Production - Thomas Watson</h2>
+
+<ul>
+<li>Thomas watson</li>
+<li><a href="https://opbeat.com/" title="Opbeat">Opbeat</a>
+
+<ul>
+<li>パフォーマンスモニタリング</li>
+</ul></li>
+<li>Node.jsアプリのパフォーマンスモニタリングをしてなぜ遅くなったのかを見つける</li>
+<li>プロダクションのアプリをどうやってデバッグするか</li>
+<li>何が重要か(why production?)</li>
+<li>productionで起きるエラーを見つけるのは難しい</li>
+<li>開発時と違ってローカルじゃなくてリモートでデバッグするから難しい</li>
+<li>Premature Optimization
+
+<ul>
+<li>productionに入る前に最適化仕様として間違った部分を最適化してしまうのは危険なところ</li>
+</ul></li>
+<li>計測
+
+<ul>
+<li>パフォーマンスの計測はどうやるか</li>
+<li><code>JSON.parse(req.body)</code>
+
+<ul>
+<li>大きなリクエストがきたらJSON parseが遅くなる</li>
+</ul></li>
+<li><code>console.time</code>を使うことでシンプルな計測はできる</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="s2">&quot;json-parse&quot;</span><span class="p">);</span>
+<span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="s2">&quot;json-parse&quot;</span><span class="p">);</span>
+<span class="c1">// json-parse: 154.12ms</span>
+</code></pre></div>
+<ul>
+<li>けど、なぜ遅いのかは色々な要因がある
+
+<ul>
+<li>(Single Threaded)</li>
+<li>CPUをよくつかうコード</li>
+<li>Slow I/O</li>
+<li>Event loopにイベントを突っ込みすぎ</li>
+<li>メモリの使いすぎ</li>
+<li>GC
+
+<ul>
+<li>Stop the world</li>
+</ul></li>
+</ul></li>
+<li>CPU Intensive Code
+
+<ul>
+<li>Sync I/O</li>
+<li>JSON parase</li>
+<li>RegExp</li>
+<li>Crypto</li>
+<li>Templates</li>
+</ul></li>
+<li>Demo
+
+<ul>
+<li><code>$ node --perf_basic_prof_only_functions cpu.js</code></li>
+<li><code>perf</code> コマンド</li>
+<li><a href="http://int.main.jp/txt/perf/" title="perfの使いかた">perfの使いかた</a></li>
+<li><code>perf</code>で<code>perf.data</code>を使ってそれを見ていく</li>
+<li>JavaScriptとLinuxのカーネルの関数のマッピングしているデータをみてデバッグ</li>
+<li><a href="https://www.npmjs.com/package/0x" title="0x">0x</a>でflamechartを作って見る
+
+<ul>
+<li>JavaScriptとカーネルの関数の呼び出しをflamechartで見る</li>
+</ul></li>
+<li>flamechartを見るとcpu.js:13が重たい</li>
+<li><code>cpu.js</code>を見てみると crypto 部分が重たい</li>
+<li>syncな処理をやってたのをasyncにすればいい感じになりそう</li>
+</ul></li>
+<li>mdb
+
+<ul>
+<li>何で動かないのはよくわからないときのデバッグ</li>
+<li><a href="https://github.com/joyent/mdb_v8" title="joyent/mdb_v8: postmortem debugging for Node.js and other V8-based programs">joyent/mdb_v8: postmortem debugging for Node.js and other V8-based programs</a></li>
+<li><a href="https://www.joyent.com/blog/mdb-and-node-js" title="Joyent | MDB and Node.js">Joyent | MDB and Node.js</a></li>
+<li><code>--abort_on_uncaught_exception</code> V8のダンプを出せる</li>
+<li><a href="https://www.npmjs.com/package/autopsy" title="autopsy">autopsy</a>をつかつと  SolarisのVMを動かせるので、そこでmdbをやるのが簡単</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="サイボウズの開発を支えるkaizen文化-teppeis">サイボウズの開発を支えるKAIZEN文化 - teppeis</h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/teppeis/kaizen-68803503" title="サイボウズの開発を支えるKAIZEN文化">サイボウズの開発を支えるKAIZEN文化</a></p>
+</blockquote>
+
+<ul>
+<li>技術的負債を貯めるデータベースを作った</li>
+<li>貯めていって時間があるときにやろう
+
+<ul>
+<li>貯まるだけでいつまでも減らない</li>
+</ul></li>
+<li>KAIZEN DAY
+
+<ul>
+<li>技術的負債 -&gt; KAIZEN</li>
+<li>リファクタリングだけじゃなくて開発プロセスについても改善</li>
+</ul></li>
+<li>一日に終わらないタイプのKAIZENが進まない
+
+<ul>
+<li>KAIZEN DAYでも割り込みがある</li>
+</ul></li>
+<li>KAIZEN合宿
+
+<ul>
+<li>泊りがけでやる</li>
+<li>一日で終わらないものもやる</li>
+<li>終了後にプログラマ以外も呼んで発表会をやった</li>
+</ul></li>
+<li>KAIZEN
+
+<ul>
+<li><a href="http://pepabo-ceo.jugem.jp/?eid=40" title="スーパーリセット | ペパボ社長ブログ">スーパーリセット | ペパボ社長ブログ</a></li>
+</ul></li>
+<li>メインプロダクトで遊びづらい
+
+<ul>
+<li>B2Bサービス
+
+<ul>
+<li>サービス停止 = ユーザーの仕事も止まる</li>
+</ul></li>
+<li>大規模</li>
+<li>新しいものを入れにくい</li>
+<li>短期要件に振り回されることは少ないけど、新規ものが少ない</li>
+</ul></li>
+<li>技術的な変遷
+
+<ul>
+<li><a href="http://stateofjs.com/" title="Home">フロントエンドのアンケート</a></li>
+<li>3年ぐらいで変化はある</li>
+<li>けど、結果論なので途中ではもっと色々変化ある</li>
+<li>そういう技術的な変化を試す場所が必要</li>
+</ul></li>
+<li>サイドプロジェクトで試す
+
+<ul>
+<li><a href="http://blog.cybozu.io/entry/2015/11/04/080000" title="cybozu.com 稼働状況 を React/Redux で作り直した話 - Cybozu Inside Out | サイボウズエンジニアのブログ">cybozu.com 稼働状況 を React/Redux で作り直した話 - Cybozu Inside Out | サイボウズエンジニアのブログ</a></li>
+<li>サイドでやってメインにも適応</li>
+</ul></li>
+<li>リモートワーク
+
+<ul>
+<li>テレビ会議をどこでもできるような仕組みが必要</li>
+</ul></li>
+<li>振り返り
+
+<ul>
+<li>振り返りの振り返り</li>
+</ul></li>
+</ul>
+
+<h2 id="keynote">Keynote</h2>
+
+<blockquote>
+<p><a href="http://www.theserverside.com/news/4500279472/Seif-project-makes-Web-security-a-priority" title="Seif project makes Web security a priority">Seif project makes Web security a priority</a></p>
+</blockquote>
+
+<ul>
+<li>MS、Apple、Adobe、Oracle
+
+<ul>
+<li>Webをリプレイスしようとしたけど、失敗</li>
+<li>すべてのソリューションはオープンじゃなかった</li>
+<li>Webはオープン</li>
+</ul></li>
+<li>Self Project
+
+<ul>
+<li>architectureはWebとは違うけど、ウェブブラウザで動く</li>
+<li>Public key cryptは使われてる</li>
+<li>CAは信用できないので</li>
+</ul></li>
+<li><code>seifnode</code>
+
+<ul>
+<li>cryptographic </li>
+<li><a href="https://github.com/paypal/seifnode" title="paypal/seifnode">paypal/seifnode</a></li>
+<li>random(RNG) - 一番大切</li>
+<li>Entropy
+
+<ul>
+<li>OS、Microphone(音)、Camera</li>
+<li>強いランダムを作る</li>
+</ul></li>
+</ul></li>
+<li>Seif Protocol
+
+<ul>
+<li>Secure JSON Over TCP</li>
+<li><a href="https://github.com/paypal/seif-protocol" title="paypal/seif-protocol: Node.js Implementation of the Seif protocol">paypal/seif-protocol: Node.js Implementation of the Seif protocol</a></li>
+<li>ECC521 as unique = パスワードの代わり</li>
+</ul></li>
+<li>Seif Handshake</li>
+<li><a href="http://www.seif.place/" title="The Seif Project">The Seif Project</a></li>
+</ul>
+
+<hr>
+
+<h2 id="why-to-standardize-your-readmes-richard-littauer">Why to Standardize your READMEs - Richard Littauer</h2>
+
+<blockquote>
+<p><a href="https://github.com/RichardLitt/standard-readme" title="RichardLitt/standard-readme: Readme Standard Style">RichardLitt/standard-readme: Readme Standard Style</a></p>
+</blockquote>
+
+<ul>
+<li>README
+
+<ul>
+<li>READMEはユーザーへのprotocol</li>
+<li>READMEは一番最初に読む</li>
+<li>ドキュメントよりも大事かも</li>
+</ul></li>
+<li>READMEを見たときに
+
+<ul>
+<li>なんて呼ぶの?</li>
+<li>なぜ使うべきなの?</li>
+<li>インストールの仕方</li>
+<li>コントリビューター</li>
+<li>ライセンス</li>
+</ul></li>
+<li>READMEに必要に必要なもの
+
+<ul>
+<li>タイトル</li>
+<li>説明</li>
+<li>インストール</li>
+<li>ロゴ</li>
+<li>バックグランド</li>
+<li>セキュリティ</li>
+<li>API</li>
+<li>などなど</li>
+</ul></li>
+<li>ドキュメント
+
+<ul>
+<li>コード見なくても使えるのが100%</li>
+</ul></li>
+<li>問題
+
+<ul>
+<li>いろんなパッケージマネージャー</li>
+<li>npmはパッケージが多い</li>
+</ul></li>
+<li>READEMEは難しい
+
+<ul>
+<li>書くのも難しい</li>
+<li>パースするのも難しい</li>
+</ul></li>
+<li>Standard
+
+<ul>
+<li>READMEにもStandard(JS)みたいなものを作ろう</li>
+<li>考えずに扱えるもの</li>
+</ul></li>
+<li>Standard README
+
+<ul>
+<li>A Specification</li>
+<li>A Generator</li>
+<li>A Linter</li>
+<li>A badge </li>
+<li>Example Templete</li>
+</ul></li>
+<li><a href="https://github.com/RichardLitt/standard-readme" title="RichardLitt/standard-readme: Readme Standard Style">RichardLitt/standard-readme: Readme Standard Style</a></li>
+<li>Require
+
+<ul>
+<li>Title</li>
+<li>Short Description</li>
+<li>ToC</li>
+<li>Install</li>
+<li>Usage</li>
+<li>Contribute</li>
+<li>License</li>
+</ul></li>
+<li>Optional
+
+<ul>
+<li>Badge</li>
+</ul></li>
+<li>Generator
+
+<ul>
+<li><a href="https://github.com/RichardLitt/generator-standard-readme" title="RichardLitt/generator-standard-readme: Scaffold out a Standard Readme">RichardLitt/generator-standard-readme: Scaffold out a Standard Readme</a></li>
+<li>Uses yeoman</li>
+</ul></li>
+<li>Linter
+
+<ul>
+<li>まだ</li>
+</ul></li>
+<li>UPTAKE
+
+<ul>
+<li>Standards.js とかでも使ってる</li>
+</ul></li>
+<li>Future
+
+<ul>
+<li>Linter</li>
+<li>ExampleをREPLで試せるようにする</li>
+<li>NLP
+
+<ul>
+<li>検索がもっとしやすくなる</li>
+</ul></li>
+</ul></li>
+<li>FAQ
+
+<ul>
+<li>i18n README
+
+<ul>
+<li>Specなしより簡単にはなる</li>
+</ul></li>
+<li>Requirementsはどこに?
+
+<ul>
+<li>Install</li>
+<li><a href="https://github.com/RichardLitt/standard-readme/blob/master/spec.md#install" title="standard-readme/spec.md at master · RichardLitt/standard-readme">standard-readme/spec.md at master · RichardLitt/standard-readme</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="vue-js-サーバーサイドレンダリング">Vue.js サーバーサイドレンダリング</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/kazupon/vue-dot-js-2-dot-0-server-side-rendering" title="Vue.js 2.0 Server Side Rendering // Speaker Deck">Vue.js 2.0 Server Side Rendering // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>Vue.js 2.0
+
+<ul>
+<li>Progressive Framework</li>
+</ul></li>
+<li>Virtual DOM
+
+<ul>
+<li><a href="https://github.com/snabbdom/snabbdom" title="snabbdom/snabbdom: A virtual DOM library with focus on simplicity, modularity, powerful features and performance.">snabbdom/snabbdom: A virtual DOM library with focus on simplicity, modularity, powerful features and performance.</a>が元</li>
+</ul></li>
+<li>レンダリングシステム
+
+<ul>
+<li>ライフサイクル</li>
+</ul></li>
+<li>テンプレート
+
+<ul>
+<li>-&gt; AST</li>
+<li>テンプレート言語の部分 = 動的</li>
+<li>テンプレート言語じゃない部分 = 静的なNode</li>
+<li>静的なNodeを静的なノードツリーを検出する</li>
+</ul></li>
+<li>レンダリング
+
+<ul>
+<li>Watcherというものが<code>render</code>関数を呼ぶ</li>
+<li>render結果をvDOMにしてdiff+patchする</li>
+</ul></li>
+<li>仮想ノードツリー
+
+<ul>
+<li>ダイナミックと静的なノードツリー</li>
+<li>ノードツリーをマージして期待するDOMを生成する</li>
+</ul></li>
+<li>サーバーサイドレンダリング
+
+<ul>
+<li>v1は独自のサーバ実装が必要だった</li>
+<li>hydrogenの仕組みとかもなかった</li>
+<li>v2ではvDOMとかあるのでできるようになった</li>
+</ul></li>
+<li>クライアントとサーバ</li>
+<li>...</li>
+</ul>
+
+<hr>
+
+<h2 id="react-reduxを使った大規模商用サービスの開発">React + Reduxを使った大規模商用サービスの開発</h2>
+
+<ul>
+<li>bookingtable.jp</li>
+<li>ウェブ版
+
+<ul>
+<li>BFF(Backend for Frontend)を用意してやってる</li>
+<li>アプリ版もあるのでそれぞれBFFがある</li>
+</ul></li>
+<li>React/Reduxのハマりどころ
+
+<ul>
+<li><code>mapToState</code></li>
+</ul></li>
+<li>ハマりどころ</li>
+<li>画面遷移
+
+<ul>
+<li>ログインしてない -&gt; ログイン -&gt; replaceState/replaceしないと戻ったときにおかしくなる</li>
+<li>POPならスクロール位置を戻す、PUSHならTOP 0にする</li>
+</ul></li>
+<li>Stateが集まるまでComonentをレンダリングしない
+
+<ul>
+<li>loading = true/false をstate管理して</li>
+<li>loading = trueになったときにレンダリングする</li>
+<li><a href="https://github.com/recruit-tech/redux-async-loader" title="recruit-tech/redux-async-loader: Async data loader for Redux apps.">recruit-tech/redux-async-loader: Async data loader for Redux apps.</a></li>
+</ul></li>
+<li>iPhoneの画面スワイプでのもどる/すすむ
+
+<ul>
+<li>画面スワイプして戻ると一瞬戻る前の画面でてしまう</li>
+<li>戻って一瞬でてから、表示が更新される</li>
+</ul></li>
+<li>Monolithic JavaScript
+
+<ul>
+<li>ビルドすると毎回ファイル変わって再ダウンロードになってしまうのを避けたい</li>
+<li>Before: 一個のjs</li>
+<li>After: webpackJsomp、appX.js、vendor.js</li>
+<li><code>require.ensure</code>(webpack)とRouterで動的ロード</li>
+<li>Hotな画面は scriptタグで事前ロード</li>
+<li>そうでない画面は <code>require.ensure</code> で動的ロード</li>
+<li>Script Load Error
+
+<ul>
+<li>webpack 1.xだと<code>require.ensure</code>でのエラーが拾えない</li>
+<li>表示 =&gt; デプロイ =&gt; 遷移仕様とするとエラーになってしまう</li>
+<li><a href="https://github.com/webpack/webpack/issues/758" title="require.ensure error handling · Issue #758 · webpack/webpack">require.ensure error handling · Issue #758 · webpack/webpack</a></li>
+</ul></li>
+</ul></li>
+<li>webpackのモジュールID問題
+
+<ul>
+<li>webpackでmodule一つ一つ idが振られてる</li>
+<li>applyModuleIdsでidを振られてる</li>
+<li>コレの前にidをsortしてあげればidが決まる</li>
+</ul></li>
+<li>SSR
+
+<ul>
+<li>checksumで比較して、合ってるならサーバのレンダリング結果を使う</li>
+<li>一致しない場合は、一度捨ててクライアントでレンダリングする</li>
+<li>サーバサイドの<code>renderToString</code>で数百msかかる</li>
+</ul></li>
+<li>Partial Reandering
+
+<ul>
+<li>見えるところだけサーバ、他はクライアントで</li>
+<li>SEOは?
+
+<ul>
+<li>Google Botsはクライアントサイドレンダリングでもちゃんと認識する</li>
+</ul></li>
+</ul></li>
+<li>SSR Cache
+
+<ul>
+<li>サーバサイドでキャッシュする</li>
+<li>ユーザーの情報を含んでいるとレンダリングできない</li>
+</ul></li>
+<li>Composite Rendering
+
+<ul>
+<li>レンダリング方式を動的に切り替える</li>
+<li>高負荷時はキャッシュを活用するなど</li>
+</ul></li>
+<li>まとめ
+
+<ul>
+<li>サーバサイドレンダリングはターンアラウンドタイム的にやらない方がよい</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="introducing-now-and-next-js-nkzawa">Introducing Now and Next.js - nkzawa</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/nkzawa/introducing-now-and-next-dot-js" title="Introducing Now and Next.js // Speaker Deck">Introducing Now and Next.js // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li><a href="https://zeit.co/now">Now: realtime global deployments</a></li>
+<li><a href="https://zeit.co/blog/next">ZEIT – Next.js</a>
+
+<ul>
+<li>の話</li>
+</ul></li>
+<li>Next.js</li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -D next.js
+$(npm bin)/next
+# pages/ にコンポーネントを書いていく
+</code></pre></div>
+<ul>
+<li>Next.jsは設定必要なし
+
+<ul>
+<li>Hot ReloadingとかBabelとかそういうのは自動的にやる</li>
+</ul></li>
+<li>SPA
+
+<ul>
+<li>初期表示が遅い</li>
+<li>ページが増えると重くなる</li>
+</ul></li>
+<li>解決方法
+
+<ul>
+<li>サーバサイドレンダリング
+
+<ul>
+<li>ファイル置くだけでできる</li>
+<li><a href="http://yosuke-furukawa.hatenablog.com/entry/2014/11/14/141415" title="【翻訳】リッチなWebアプリケーションのための7つの原則 - from scratch">【翻訳】リッチなWebアプリケーションのための7つの原則 - from scratch</a></li>
+</ul></li>
+<li>コード分割 + 遅延ロード
+
+<ul>
+<li>ページごとに結合ファイルを生成して分割する</li>
+</ul></li>
+</ul></li>
+<li>CSS
+
+<ul>
+<li><a href="https://github.com/threepointone/glamor" title="threepointone/glamor: inline css for react et al">threepointone/glamor: inline css for react et al</a>を使ってる</li>
+</ul></li>
+<li><code>&lt;Link /&gt;</code>
+
+<ul>
+<li>遅延読み込み + history.pushState</li>
+</ul></li>
+<li><code>&lt;Head /&gt;</code>
+
+<ul>
+<li><code>&lt;head /&gt;</code> の中身を書ける</li>
+<li><a href="https://github.com/zeit/next.js/blob/master/lib/head.js" title="next.js/head.js at master · zeit/next.js">next.js/head.js at master · zeit/next.js</a></li>
+</ul></li>
+<li><a href="https://zeit.co/now" title="now">now</a>
+
+<ul>
+<li>Next.jsをどうやってデプロする</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ npm i -g now
+$ now
+</code></pre></div>
+<ul>
+<li>nowでの設定
+
+<ul>
+<li><code>npm start</code> を定義する</li>
+</ul></li>
+<li>特徴
+
+<ul>
+<li>デプロイするたびに新しいURLを作る
+
+<ul>
+<li>古いURLはそのまま残る</li>
+<li>エイリアスを差し替えることで切り替わる</li>
+<li>URLが常に同じアプリの状態表す</li>
+</ul></li>
+<li>オートスケール
+
+<ul>
+<li>自動的にスケールする</li>
+<li>アクセスがない場合は 0 になる</li>
+</ul></li>
+<li>データの永続化
+
+<ul>
+<li>オートスケールでインスタンスが消えるのでデータは外部に保存する</li>
+</ul></li>
+</ul></li>
+<li>now + micro
+
+<ul>
+<li>基本的にHTTPでやり取りするのでlambdaのようにロックインがない</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="the-evolution-of-electron-cheng-zhao">The Evolution of Electron - Cheng Zhao</h2>
+
+<ul>
+<li>3つの名前を持っている</li>
+<li>ElectronはAtomのために作った</li>
+<li>5年前
+
+<ul>
+<li>GitHub CEOが元でCocoaのアプリケーションだった</li>
+</ul></li>
+<li>AtomのChromium Embbed Frameworkをつかうようになった</li>
+<li>これによりクロスプラットフォームになった
+
+<ul>
+<li>Atom: Cocoa -&gt; Chromium Embedded Framework -&gt; Atom Shell -&gt; Electron</li>
+</ul></li>
+<li>Chromium Embedded Framework -&gt; Node-Webkitに移行しようとした
+
+<ul>
+<li>Atomは結構でかいコードベースだったので、Node.jsのバインでィングに書き換える作業が難航</li>
+<li>失敗</li>
+</ul></li>
+<li>node-webkitの改善を続ける -&gt; node-webkitの開発者を雇う = Cheng Zhao</li>
+<li>node-webkitは複数ウィンドウのアプリケーションを扱えなかった</li>
+<li>node-webkitを書き直すこと決意
+
+<ul>
+<li>Atom-Shellを作ることにした</li>
+</ul></li>
+<li>node-webkit と atom-shellの違い
+
+<ul>
+<li>エントリポイントがhtmlとjsが違う</li>
+<li>Chromiumのビルドの問題など</li>
+</ul></li>
+<li>AtomとAtom-shellはOSSになった
+
+<ul>
+<li>Atom-Shell -&gt; Electronにリネームされた</li>
+<li>Electron: 37000</li>
+</ul></li>
+<li>Electron製のアプリは毎日毎日新しいものが公開され、あなたのPCのディスクを食べます</li>
+<li>Electronは個人プロジェクトとして始まったけど、今は外部Contributorが多くなった
+
+<ul>
+<li>Contributorがいなくなるとプロジェクトが終わる</li>
+</ul></li>
+<li>Contributorをちゃんとキープするには
+
+<ul>
+<li>IssueやPull Requestに対してちゃんと反応する</li>
+<li>開発環境を簡単にセットアップできるようにする</li>
+<li>よりよいコードレビューをできるようにしたり</li>
+<li>リファクタリングをちゃんとやる
+
+<ul>
+<li>Contributorはそのプロジェクトをちゃんと理解してるわけではないので</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="browser-is-the-new-server-gleb-bahmutov">Browser is the new server - Gleb Bahmutov</h2>
+
+<ul>
+<li>KENSHO</li>
+<li>Quickly
+
+<ul>
+<li>CDN</li>
+<li>paralled downloads</li>
+<li>caching</li>
+<li>small image</li>
+<li>などなどできてたけどまだ遅い</li>
+</ul></li>
+<li>Pivotal Tracker
+
+<ul>
+<li>リロードしただけなのに数秒かかる</li>
+</ul></li>
+<li>開発者ツールを開いて見ると
+
+<ul>
+<li>5秒ぐらいJavaScriptの処理に使ってた</li>
+<li><code>HTML = App(DATA)</code></li>
+<li><code>HTML</code>と<code>DATA</code>をキャッシュする</li>
+</ul></li>
+<li>リロード
+
+<ul>
+<li><a href="https://glebbahmutov.com/hydrate-vue-todo/" title="Hydrate Vue Todo">Hydrate Vue Todo</a></li>
+<li>タイトルはすぐでるけど、内容は一瞬ちらっとする</li>
+</ul></li>
+<li>ServiceWorker
+
+<ul>
+<li>そこでServiceWorker</li>
+<li>ブラウザの上で動くProxy</li>
+<li>リクエストをProxyして処理できる</li>
+<li><code>navigator.serviceWorker.register</code></li>
+<li>Firefox/Chrome/Opera</li>
+<li><code>https</code>が必須</li>
+<li>Androidのモバイルでも既に使える</li>
+</ul></li>
+<li>ServiceWorkerの中
+
+<ul>
+<li><code>fetch</code> のhook</li>
+<li><a href="https://github.com/bahmutov/bottle-service" title="bahmutov/bottle-service: Instant web applications restored from ServiceWorker cache">bahmutov/bottle-service: Instant web applications restored from ServiceWorker cache</a></li>
+</ul></li>
+<li>オフライン
+
+<ul>
+<li>ブラウザのアプリはサーバがないと何もできない</li>
+<li>ServiceWorkerの中にサーバを入れる</li>
+</ul></li>
+<li>サーバをブラウザで
+
+<ul>
+<li>express.js + middleware を browserifyで変換して、ServiceWorkerの中で動かす</li>
+<li>express service</li>
+<li><a href="https://github.com/bahmutov/express-service" title="bahmutov/express-service: Package ExpressJS server to run inside a ServiceWorker">bahmutov/express-service: Package ExpressJS server to run inside a ServiceWorker</a></li>
+<li>オフラインでも動く</li>
+<li>JavaScript無効でも動く</li>
+<li>クライアントサイドのサーバサイドのJavaScriptでサーバサイドレンダリングしてる
+
+<ul>
+<li>最新のChromeはlinkタグでもServiceWorkerを登録できる</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<p>メモ</p>
+
+<ul>
+<li>人数が増えたので人口密度高かった</li>
+<li>会場的に廊下とかで話すスペース場所とかあるとよかったのではと思った</li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>mu-pdf-viewerに検索一覧をつけた</title>
@@ -2062,220 +2940,6 @@ Immutableにやりたい場合は、配列のコピーの最後に要素を追�
 <p>Arrayのメソッドで破壊的なものとそうでないものをまとめたもの</p>
 
 <script src="https://gist.github.com/azu/30b1ff6831c3bbf7fbd5501d6a2bdfb0.js"></script>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>アーキテクチャをめぐるたび</title>
-   <link href="http://efcl.info/2016/09/30/architecture-refs/"/>
-   <updated>2016-09-30T20:01:00+09:00</updated>
-   <id>http://efcl.info/2016/09/30/architecture-refs</id>
-   <content type="html"><![CDATA[ <p>タイトルに特に意味はありませんが、<a href="https://github.com/almin/almin" title="Almin">Almin</a>を作る参考にしたものをまとめた感じの記事です。</p>
-
-<ul>
-<li>スライド: <a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
-<li>リポジトリ: <a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
-</ul>
-
-<p>主に書籍を並べていますがその他のスライドなどの参考資料は以下にまとめてあります。</p>
-
-<ul>
-<li><a href="https://github.com/azu/large-scale-javascript/blob/master/refs.md" title="large-scale-javascript/refs.md at master · azu/large-scale-javascript">large-scale-javascript/refs.md at master · azu/large-scale-javascript</a></li>
-</ul>
-
-<p>自分用のメモなので、読んだ順で並べておきます。
-右側の年は書籍の出た年です。</p>
-
-<h2 id="実践ドメイン駆動設計-2013"><a href="http://www.shoeisha.co.jp/book/detail/9784798131610" title="実践ドメイン駆動設計">実践ドメイン駆動設計</a> @ 2013</h2>
-
-<p>一番最初に読んだDDD系の本。</p>
-
-<p>この辺ででてくるレイヤーとか用語を把握した感じ。
-けど、そこまでよく分かってない感じはする。
-カウボーイが出てくるの読みにくい。</p>
-
-<p>この本をベースにしたスライドなどが多かったのでそっちも合わせて見ていた。
-また、出てきた用語をぐぐったりしながら読んでた気がする。</p>
-
-<ul>
-<li><a href="http://www.slideshare.net/AtsuoAoki/iddd17" title="「実践ドメイン駆動設計」社内読書会まとめ ～IDDD本難民に捧げる1章から7章～">「実践ドメイン駆動設計」社内読書会まとめ ～IDDD本難民に捧げる1章から7章～</a></li>
-<li><a href="http://www.slideshare.net/masuda220/part3-ddd-in">ドメイン駆動設計 の 実践 Part3 DDD</a></li>
-<li><a href="http://d.hatena.ne.jp/asakichy/20110524/1306190461">ドメイン駆動設計・アプリケーション構築編・エンティティ - Strategic Choice</a></li>
-<li><a href="http://qiita.com/haazime/items/6119097071149a362f7f">戦術的DDD基本原則まとめ - Qiita</a></li>
-</ul>
-
-<p>基本的に読んだ内容は覚えていないので、この辺からメモを取りながら読むようにした。
-Kindleで買ってたので、スクリーンショットをOneNoteに貼るという形でメモした(一応OCRがあるので検索できる)</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2016/09/30-1475238536.png" alt="memo"></p>
-
-<h2 id="今日からはじめる情報設計-2015"><a href="https://www.amazon.co.jp/dp/4802510012/" title="今日からはじめる情報設計">今日からはじめる情報設計</a> @ 2015</h2>
-
-<p>情報設計(IA)についてかなり分かりやすい本。
-フワッとした表現が多いけど、色々考え方の参考になった。</p>
-
-<p>構造化の考え方として分類法は次の2つになるという話。</p>
-
-<ul>
-<li>並列的構造</li>
-<li>階層的構造</li>
-</ul>
-
-<p>この辺の構造はパターン・ランゲージとかいろんな文脈でてくるので、最初に知っといてよかった気がする。
-アーキテクチャの話を見ていて、それは何を整理したいのかという視点から見ることが多くなった感じ。</p>
-
-<p><a href="http://azu.github.io/slide/2016/reject-sushi/how-to-work-team.html" title="How to work as a Team">How to work as a Team</a>のスライド書いていたあたりで読んでいたはずなので、スライドにも影響がでてる。</p>
-
-<h2 id="情報アーキテクチャについて-iaaj-information-architecture-association-japan"><a href="http://iaaj.org/about_ia/" title="情報アーキテクチャについて | IAAJ: Information Architecture Association Japan">情報アーキテクチャについて | IAAJ: Information Architecture Association Japan</a></h2>
-
-<p>IAという言葉もやはり変化していると思って探して見つけた記憶。</p>
-
-<h2 id="エンジニアのための図解思考-再入門講座-情報の“本質”を理解するための実践テクニック-2010"><a href="http://www.shoeisha.co.jp/book/detail/9784798122755" title="エンジニアのための図解思考 再入門講座 情報の“本質”を理解するための実践テクニック（開米瑞浩） ｜ 翔泳社の本">エンジニアのための図解思考 再入門講座 情報の“本質”を理解するための実践テクニック</a> @ 2010</h2>
-
-<p>情報の整理の仕方を考えていた。
-箇条書きよりテーブルのほうが情報量多いよという話</p>
-
-<h2 id="netのエンタープライズアプリケーションアーキテクチャ　第2版　～-netを例にしたアプリケーション設計原則-2015"><a href="http://ec.nikkeibp.co.jp/item/books/P98480.html" title=".NETのエンタープライズアプリケーションアーキテクチャ　第2版　～.NETを例にしたアプリケーション設計原則">.NETのエンタープライズアプリケーションアーキテクチャ　第2版　～.NETを例にしたアプリケーション設計原則</a> @ 2015</h2>
-
-<p>DDD本の中では一番読みやすい日本語の書籍な気がする。
-最初のアーキテクトの話なども面白かった。</p>
-
-<p>またDDDの文脈で出てくるモデルやリポジトリなどは、人によって言ってることが違うという事実をちゃんと注記してくれている。CQRSについてはこの本を読むとよい。</p>
-
-<p>確かこの本を読む<a href="https://github.com/almin/almin/commit/2f8048f7f45497df809e646b6ceb4445c6bbdbe2">1週間ぐらい前</a>に<a href="https://github.com/almin/almin" title="Almin">Almin</a>を作ったので、この本を読むときは考え方の答え合わせみたいな感じで読んでたと思う。
-(コードベース自体はもうちょっと前にできてたのライブラリとして切り出したのがこの時)</p>
-
-<p>DDDの文脈で出てくる用語は検索しても、とにかく曖昧な事が多いので、曖昧な用語であるということを明記されていたのが良かった。</p>
-
-<blockquote>
-<p>単純さと複雑さは人によって異なる</p>
-</blockquote>
-
-<p>とかそういう話はIAのやつでも出てきたので、その辺で話のつながりを感じた。</p>
-
-<h2 id="オブジェクト開発の神髄-2005"><a href="http://bpstore.nikkeibp.co.jp/item/books/P82370.html" title="日経BP書店｜商品詳細　-　オブジェクト開発の神髄">オブジェクト開発の神髄</a> @2005</h2>
-
-<p><a href="https://github.com/almin/almin" title="Almin">Almin</a>でUseCaseという用語を使っていたので、その用語が出てくるものとして見つけて読んだ。</p>
-
-<p>ユースケースモデリングについてはこの本を結構参考にしていたと思う。</p>
-
-<blockquote>
-<p>ユースケースはアクターの視点から能動的に書く</p>
-</blockquote>
-
-<p>PoEAAと出版時期が近かった気がするけど、こっちの方が興味深い感じだった。</p>
-
-<h2 id="エンタープライズアプリケーションアーキテクチャパターン-2005"><a href="http://www.shoeisha.co.jp/book/detail/9784798105536" title="エンタープライズアプリケーションアーキテクチャパターン（長瀬嘉秀 Martin Fowler 株式会社テクノロジックアート） ｜ 翔泳社の本">エンタープライズアプリケーションアーキテクチャパターン</a> @ 2005</h2>
-
-<p>PoEAA。
-読んでいてDDD本とかIDDD本とかでも似たような事を言ってたなー感じた記憶がある。</p>
-
-<p>この辺でアーキテクチャ本みたいな事が言ってることは、本質的にはそんな変化ないのかなーという所に興味が出てきた。</p>
-
-<h2 id="パターン・ランゲージ-創造的な未来をつくるための言語-2013"><a href="https://www.amazon.co.jp/dp/4766419871/" title="パターン・ランゲージ: 創造的な未来をつくるための言語">パターン・ランゲージ: 創造的な未来をつくるための言語</a> @ 2013</h2>
-
-<p>今ある色々なアーキテクチャの源流的なものを巡っていて、<a href="https://www.amazon.co.jp/dp/4306041719/" title="パタン・ランゲージ―環境設計の手引">パタン・ランゲージ―環境設計の手引</a> @ 1984を探しているときに見た。</p>
-
-<p>DDDもパターン集であるため、この源流はやはりこの辺にあるのではと思って調べていた。
-IAの話もそうだけど、構造化の考え方などは都市構造の考えの話とも一致している感じがする。</p>
-
-<blockquote>
-<p>「何を」作るのかを支援するというもの、抽象的な形で提供される<br>
-パターンはデザインを支援する。良いデザインは問題を解決する<br>
-パターンランゲージは言葉で形を表すので、それは誰に取っても同じ形にならないとおかしい<br>
-真偽値を科学的なものじゃない、コードとかにも「良い悪い」という適用したのがパターンの面白いところ  </p>
-</blockquote>
-
-<p>via <a href="http://twilog.org/azu_re/date-160519">http://twilog.org/azu_re/date-160519</a></p>
-
-<p>ソフトウェアのアーキテクチャやパターンはこの辺にやっぱり源流がありそうというのは分かってきた。</p>
-
-<p>パターン・ランゲージとかアレグザンダーについては次の本が詳しそう。</p>
-
-<ul>
-<li><a href="http://gihyo.jp/magazine/wdpress/plus/978-4-7741-3897-8" title="パターン、Wiki、XP ―― 時を超えた創造の原則">パターン、Wiki、XP ―― 時を超えた創造の原則</a></li>
-<li><a href="https://ipsj.ixsq.nii.ac.jp/ej/index.php?active_action=repository_view_main_item_detail&amp;page_id=13&amp;block_id=8&amp;item_id=75806&amp;item_no=1">情報学会誌</a>も面白い話が載ってる</li>
-</ul>
-
-<h2 id="アルゴリズミック・デザインの現在"><a href="http://www.ieice.org/cs/csbn/program/papers/080516_waseda.pdf" title="untitled - 080516_waseda.pdf">アルゴリズミック・デザインの現在</a></h2>
-
-<p>パターン・ランゲージのアレグザンダーは1970年代にはコンピュータによるデザイン設計を試みてたという話があった。
-建築的にはアルゴリズミック・デザインの源流となる考え方で、それを調べてた。
-また1970年代ではまだコンピュータの性能などの問題があるのでアレだけど。</p>
-
-<blockquote>
-<p>著者はこの言葉のように、要求された機能を十分に満たすような優れた「デザイン ･ パターン」と「デザイン ･ アルゴリズム」からは、優れた「デザイン ･ パターン」が自動的に生成されると考えていた。<br>
-しかし、人の感性に良いと評価される「デザイン ･ パターン」と機能的に生成された「デザイン ･ パターン」は必ずしも重なるわけでないことが分かった。本事例では、「デザイン ･ パラメータ」に人が感性的に決定した要素を入れたり、ということを実験的に行ってみたが、その結果は感性的な要因を記述することの難しさを確認しただけとなった
--- <a href="http://www.ieice.org/cs/csbn/program/papers/080516_waseda.pdf" title="untitled - 080516_waseda.pdf">アルゴリズミック・デザインの現在</a></p>
-</blockquote>
-
-<p><a href="https://www.amazon.co.jp/dp/4306045234/" title="アルゴリズミック・デザイン―建築・都市の新しい設計手法 : 日本建築学会 : 本 : アマゾン">アルゴリズミック・デザイン―建築・都市の新しい設計手法 : 日本建築学会 : 本 : アマゾン</a></p>
-
-<blockquote>
-<p>コンピュータ・プログラムをつかって建築設計をするためのさまざまな技法や設計例について書いている．「アルゴリズミック」というと完全に自動的に設計するようにきこえるが，おおくの例では設計の候補を出力して，設計者がそのなかから選択する方法がとられている．その点ではアルゴリズミック・コンポジションつまりコンピュータをつかった作曲と同様であり，まさにクセナキスがとっていた「音楽デザイン」の方法とおなじである．それを「アルゴリズミック」とよぶのが適切であるかどうかはわからない．</p>
-</blockquote>
-
-<p>ジェネラティブ・アート的な考え方なのかなとも思えてきた。</p>
-
-<p>パターン・ランゲージでは、「パターン」とは誰にとっても(人種が異なっていても)同じ形になるという話がある。</p>
-
-<blockquote>
-<p>パターンランゲージは言葉で形を表すので、それは誰に取っても同じ形にならないとおかしい  </p>
-</blockquote>
-
-<p>また、パターンは作り出すものではなく見つけるものと言う話があった気がするので、いったんアルゴリズミック・デザインの話は諦めた。</p>
-
-<blockquote>
-<p>デザインパターンとは懸命な人が発明するものではなく、既存のコードの中から発見されるものです。 
--- <a href="http://www.oreilly.co.jp/books/9784873113890/" title="O&amp;#39;Reilly Japan - ThoughtWorksアンソロジー">O&#39;Reilly Japan - ThoughtWorksアンソロジー</a></p>
-</blockquote>
-
-<p>この辺で一端折り返した。</p>
-
-<h2 id="a-pattern-language-for-information-architecture"><a href="http://www.ellisonconsulting.com/downloads/Pattern_Language_for_Information_Architecture.pdf" title="Pattern_Language_for_Information_Architecture.pdf">A Pattern Language for Information Architecture</a></h2>
-
-<p>パターン・ランゲージとIAについて書かれたスライド。</p>
-
-<h2 id="企業情報システムアーキテクチャ"><a href="https://www.amazon.co.jp/dp/B00N0SRXBI/" title="企業情報システムアーキテクチャ">企業情報システムアーキテクチャ</a></h2>
-
-<p>企業システムのアーキテクチャの話として見た。</p>
-
-<h2 id="patterns-principles-and-practices-of-domain-driven-design-wrox-2015"><a href="http://www.wrox.com/WileyCDA/WroxTitle/Patterns-Principles-and-Practices-of-Domain-Driven-Design.productCd-1118714709.html" title="Patterns, Principles, and Practices of Domain-Driven Design - Wrox">Patterns, Principles, and Practices of Domain-Driven Design - Wrox</a> @ 2015</h2>
-
-<p>DDDについて分かりやすく書かれてる書籍。
-DDD本/IDDD本が分かりにくいところを分かりやすく書こうとした感じのする内容だった。</p>
-
-<p>DDDに興味がある人は読むとよい感じな気がする。(かなり分厚いというか量が多い…)</p>
-
-<h2 id="読みたいけど読めてないもの">読みたいけど読めてないもの</h2>
-
-<h3 id="オブジェクトデザイン-2007"><a href="https://www.amazon.co.jp/dp/4798109037/" title="オブジェクトデザイン">オブジェクトデザイン</a> @ 2007</h3>
-
-<p>ES6の仕様のEditorである<a href="https://codezine.jp/article/detail/9071" title="アレン・ワーフスブラック">アレン・ワーフスブラック</a>の奥さんでもある<a href="https://www.ogis-ri.co.jp/otc/hiroba/ogisbooks/ObjectDesign.html" title="レベッカ・ワーフスブラック">レベッカ・ワーフスブラック</a>が書いた書籍。
-責務駆動についてちょっと知りたい。</p>
-
-<h3 id="実践uml-第3版-オブジェクト指向分析設計と反復型開発入門-2007"><a href="https://www.amazon.co.jp/dp/4894716828/" title="実践UML 第3版 オブジェクト指向分析設計と反復型開発入門">実践UML 第3版 オブジェクト指向分析設計と反復型開発入門</a> @ 2007</h3>
-
-<p>オブジェクト指向について。
-そもそも手に入らない。</p>
-
-<h3 id="ユースケース駆動開発実践ガイド-2007"><a href="http://www.shoeisha.co.jp/book/detail/9784798114453" title="ユースケース駆動開発実践ガイド">ユースケース駆動開発実践ガイド</a> @ 2007</h3>
-
-<p>ユースケースについて。今読んでる。</p>
-
-<h2 id="おわり">おわり</h2>
-
-<p>今もちょうどやっている翔泳社の電子書籍セールで買って読んだものが多い気がする。</p>
-
-<ul>
-<li><a href="http://www.shoeisha.co.jp/campaign/fes/20160926" title="半期に1度のエンジニア応援祭：電子書籍40％割引セール ｜ 翔泳社">半期に1度のエンジニア応援祭：電子書籍40％割引セール ｜ 翔泳社</a></li>
-</ul>
-
-<p>他にも見たほうがいいやつがあったら知りたいなー</p>
-
-<p>色々見てた感じアーキテクチャという分野を扱うものは、あんまりパーマネントリンクが貼れるようにできていない気がする。そういう意味でも<a href="http://www.martinfowler.com/" title="Martin Fowler">Martin Fowler</a>は正しくてすごい気がした。</p>
-
-<p>最初に<a href="https://github.com/almin/almin" title="Almin">Almin</a>という成果物を作り、それの中に入ってる考えの名前を求める旅をしていた。</p>
  ]]></content>
  </entry>
  

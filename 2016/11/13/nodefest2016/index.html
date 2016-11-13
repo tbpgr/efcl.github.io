@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        東京Node学園祭2016 アウトラインメモ | Web Scratch
+        
+    </title>
+    <meta name="description" content="東京Node学園祭2016に参加してきたのでメモ">
+    
+    <meta name="keywords" content="JavaScript,イベント,Node.js" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="東京Node学園祭2016 アウトラインメモ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/11/13/nodefest2016/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="東京Node学園祭2016に参加してきたのでメモ">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-11-13T18:25:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/11/07/mu-pdf-search/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/11/02/w3ctagdevmeetup/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/11/02/ui-event-observer/">
+
+
+
+
+
+<meta property="article:section" content="イベント">
+
+
+
+
+
+<meta property="article:tag" content="JavaScript">
+
+<meta property="article:tag" content="イベント">
+
+<meta property="article:tag" content="Node.js">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 31
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 167
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 86
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 5
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/11/13/nodefest2016/">
+                東京Node学園祭2016 アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/11/07/mu-pdf-search/">
+                mu-pdf-viewerに検索一覧をつけた
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/11/02/w3ctagdevmeetup/">
+                W3C TAG デベロッパー・サミット アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/11/02/ui-event-observer/">
+                同じイベントのaddEventListenerを1つにまとめるライブラリを書いた
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/11/13/nodefest2016/">
+    <h1 class="post-title">東京Node学園祭2016 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年11月13日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-11-13-nodefest2016.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="http://nodefest.jp/2016/" title="東京Node学園祭2016 | 11月12日,13日開催！">東京Node学園祭2016</a>に参加してきたのでメモ</p>
+
+<hr>
+
+<h2 id="demystifying-javascript-engines-alejandro-oviedo">Demystifying JavaScript Engines - Alejandro Oviedo</h2>
+
+<ul>
+<li><a href="https://github.com/a0viedo/demystifying-js-engines" title="a0viedo/demystifying-js-engines: A list of resources about JavaScript engines">a0viedo/demystifying-js-engines: A list of resources about JavaScript engines</a></li>
+<li>2006年のJavaScriptエンジン
+
+<ul>
+<li>インタプリタ</li>
+<li>遅い</li>
+<li>最適化しても遅い</li>
+</ul></li>
+<li>Fortran、Self、Smalltalkの人がより良い方法を考えた
+
+<ul>
+<li>(Source) -&gt; Parse -&gt; (bytecode) -&gt; executionPhase &lt;-&gt; JIT Compiler</li>
+<li>何度も実行するコードはJITコンパイラを通すようにした</li>
+<li>プロパティのアクセスの最適化、Hidden Classなど色々な最適化
+
+<ul>
+<li><a href="https://github.com/v8/v8/wiki/Design%20Elements" title="Design Elements · v8/v8 Wiki">Design Elements · v8/v8 Wiki</a></li>
+</ul></li>
+<li><code>eval</code>と<code>try-catch</code>が最適化の邪魔になってることがある</li>
+</ul></li>
+<li>さらに変化して
+
+<ul>
+<li>execution phase
+
+<ul>
+<li>&lt;-&gt; unoptimiging compiler (インラインキャッシュとか)</li>
+<li>&lt;-&gt; optimiging compiler</li>
+</ul></li>
+<li>何回か実行して、optimizeできるコードとそうでないコードを分別する</li>
+</ul></li>
+<li>SpiderMonkey
+
+<ul>
+<li>Interpreter(ParseとExecution) -&gt; JIT &lt;-&gt; Ionmonkey
+
+<ul>
+<li>Baseline compiler + Ionmonkey</li>
+</ul></li>
+<li>数百回動かして super optimize フラグがついたものはIonmonkeyで動く</li>
+<li>bailoutした場合は、FallbackとしてInterpreterじゃなくてJITのコードを使ってる</li>
+</ul></li>
+<li>Chakra
+
+<ul>
+<li>FallbackとしてInterpreterが動く</li>
+</ul></li>
+<li>V8
+
+<ul>
+<li>Sourcecode
+
+<ul>
+<li>-&gt; Ignition</li>
+<li>-&gt; Fullcodegen &lt;- (AST) -&gt; Crankshaft(+ TurboFan)</li>
+</ul></li>
+<li><a href="http://v8project.blogspot.jp/2016/08/firing-up-ignition-interpreter.html" title="V8 JavaScript Engine: Firing up the Ignition Interpreter">V8 JavaScript Engine: Firing up the Ignition Interpreter</a></li>
+</ul></li>
+<li>JavaScriptCode
+
+<ul>
+<li>SourceCode
+
+<ul>
+<li>-&gt; LLInt</li>
+<li>-&gt; Baseline Compiler</li>
+<li>-&gt; DFG Compiler</li>
+<li>-&gt; FTG Compiler</li>
+</ul></li>
+<li><a href="https://webkit.org/blog/5852/introducing-the-b3-jit-compiler/" title="Introducing the B3 JIT Compiler | WebKit">Introducing the B3 JIT Compiler | WebKit</a></li>
+</ul></li>
+<li>最適化について
+
+<ul>
+<li>ループ内で動かない変数はループの外に出す <a href="https://en.wikipedia.org/wiki/Loop_optimization" title="Loop optimization">Loop optimization</a></li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">i</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>関数のインライン化
+
+<ul>
+<li>関数を呼び出すとコンテキストスイッチが起きる</li>
+<li>なので、関数をインライン化できるとコンテキストスイッチが減って早くなる</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">fn</span><span class="p">();</span> <span class="c1">// &lt;= インライン化される</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>Dead code elimination 
+
+<ul>
+<li>ループの中にあっても、外で使ってないものは削除されてしまう</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// &lt;= 使ってない</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>GCについて
+
+<ul>
+<li>Incremental GC
+
+<ul>
+<li>ちょっとづつやる</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="debugging-node-js-performance-issues-in-production-thomas-watson">Debugging Node.js Performance Issues in Production - Thomas Watson</h2>
+
+<ul>
+<li>Thomas watson</li>
+<li><a href="https://opbeat.com/" title="Opbeat">Opbeat</a>
+
+<ul>
+<li>パフォーマンスモニタリング</li>
+</ul></li>
+<li>Node.jsアプリのパフォーマンスモニタリングをしてなぜ遅くなったのかを見つける</li>
+<li>プロダクションのアプリをどうやってデバッグするか</li>
+<li>何が重要か(why production?)</li>
+<li>productionで起きるエラーを見つけるのは難しい</li>
+<li>開発時と違ってローカルじゃなくてリモートでデバッグするから難しい</li>
+<li>Premature Optimization
+
+<ul>
+<li>productionに入る前に最適化仕様として間違った部分を最適化してしまうのは危険なところ</li>
+</ul></li>
+<li>計測
+
+<ul>
+<li>パフォーマンスの計測はどうやるか</li>
+<li><code>JSON.parse(req.body)</code>
+
+<ul>
+<li>大きなリクエストがきたらJSON parseが遅くなる</li>
+</ul></li>
+<li><code>console.time</code>を使うことでシンプルな計測はできる</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="s2">&quot;json-parse&quot;</span><span class="p">);</span>
+<span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="s2">&quot;json-parse&quot;</span><span class="p">);</span>
+<span class="c1">// json-parse: 154.12ms</span>
+</code></pre></div>
+<ul>
+<li>けど、なぜ遅いのかは色々な要因がある
+
+<ul>
+<li>(Single Threaded)</li>
+<li>CPUをよくつかうコード</li>
+<li>Slow I/O</li>
+<li>Event loopにイベントを突っ込みすぎ</li>
+<li>メモリの使いすぎ</li>
+<li>GC
+
+<ul>
+<li>Stop the world</li>
+</ul></li>
+</ul></li>
+<li>CPU Intensive Code
+
+<ul>
+<li>Sync I/O</li>
+<li>JSON parase</li>
+<li>RegExp</li>
+<li>Crypto</li>
+<li>Templates</li>
+</ul></li>
+<li>Demo
+
+<ul>
+<li><code>$ node --perf_basic_prof_only_functions cpu.js</code></li>
+<li><code>perf</code> コマンド</li>
+<li><a href="http://int.main.jp/txt/perf/" title="perfの使いかた">perfの使いかた</a></li>
+<li><code>perf</code>で<code>perf.data</code>を使ってそれを見ていく</li>
+<li>JavaScriptとLinuxのカーネルの関数のマッピングしているデータをみてデバッグ</li>
+<li><a href="https://www.npmjs.com/package/0x" title="0x">0x</a>でflamechartを作って見る
+
+<ul>
+<li>JavaScriptとカーネルの関数の呼び出しをflamechartで見る</li>
+</ul></li>
+<li>flamechartを見るとcpu.js:13が重たい</li>
+<li><code>cpu.js</code>を見てみると crypto 部分が重たい</li>
+<li>syncな処理をやってたのをasyncにすればいい感じになりそう</li>
+</ul></li>
+<li>mdb
+
+<ul>
+<li>何で動かないのはよくわからないときのデバッグ</li>
+<li><a href="https://github.com/joyent/mdb_v8" title="joyent/mdb_v8: postmortem debugging for Node.js and other V8-based programs">joyent/mdb_v8: postmortem debugging for Node.js and other V8-based programs</a></li>
+<li><a href="https://www.joyent.com/blog/mdb-and-node-js" title="Joyent | MDB and Node.js">Joyent | MDB and Node.js</a></li>
+<li><code>--abort_on_uncaught_exception</code> V8のダンプを出せる</li>
+<li><a href="https://www.npmjs.com/package/autopsy" title="autopsy">autopsy</a>をつかつと  SolarisのVMを動かせるので、そこでmdbをやるのが簡単</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="サイボウズの開発を支えるkaizen文化-teppeis">サイボウズの開発を支えるKAIZEN文化 - teppeis</h2>
+
+<blockquote>
+<p><a href="http://www.slideshare.net/teppeis/kaizen-68803503" title="サイボウズの開発を支えるKAIZEN文化">サイボウズの開発を支えるKAIZEN文化</a></p>
+</blockquote>
+
+<ul>
+<li>技術的負債を貯めるデータベースを作った</li>
+<li>貯めていって時間があるときにやろう
+
+<ul>
+<li>貯まるだけでいつまでも減らない</li>
+</ul></li>
+<li>KAIZEN DAY
+
+<ul>
+<li>技術的負債 -&gt; KAIZEN</li>
+<li>リファクタリングだけじゃなくて開発プロセスについても改善</li>
+</ul></li>
+<li>一日に終わらないタイプのKAIZENが進まない
+
+<ul>
+<li>KAIZEN DAYでも割り込みがある</li>
+</ul></li>
+<li>KAIZEN合宿
+
+<ul>
+<li>泊りがけでやる</li>
+<li>一日で終わらないものもやる</li>
+<li>終了後にプログラマ以外も呼んで発表会をやった</li>
+</ul></li>
+<li>KAIZEN
+
+<ul>
+<li><a href="http://pepabo-ceo.jugem.jp/?eid=40" title="スーパーリセット | ペパボ社長ブログ">スーパーリセット | ペパボ社長ブログ</a></li>
+</ul></li>
+<li>メインプロダクトで遊びづらい
+
+<ul>
+<li>B2Bサービス
+
+<ul>
+<li>サービス停止 = ユーザーの仕事も止まる</li>
+</ul></li>
+<li>大規模</li>
+<li>新しいものを入れにくい</li>
+<li>短期要件に振り回されることは少ないけど、新規ものが少ない</li>
+</ul></li>
+<li>技術的な変遷
+
+<ul>
+<li><a href="http://stateofjs.com/" title="Home">フロントエンドのアンケート</a></li>
+<li>3年ぐらいで変化はある</li>
+<li>けど、結果論なので途中ではもっと色々変化ある</li>
+<li>そういう技術的な変化を試す場所が必要</li>
+</ul></li>
+<li>サイドプロジェクトで試す
+
+<ul>
+<li><a href="http://blog.cybozu.io/entry/2015/11/04/080000" title="cybozu.com 稼働状況 を React/Redux で作り直した話 - Cybozu Inside Out | サイボウズエンジニアのブログ">cybozu.com 稼働状況 を React/Redux で作り直した話 - Cybozu Inside Out | サイボウズエンジニアのブログ</a></li>
+<li>サイドでやってメインにも適応</li>
+</ul></li>
+<li>リモートワーク
+
+<ul>
+<li>テレビ会議をどこでもできるような仕組みが必要</li>
+</ul></li>
+<li>振り返り
+
+<ul>
+<li>振り返りの振り返り</li>
+</ul></li>
+</ul>
+
+<h2 id="keynote">Keynote</h2>
+
+<blockquote>
+<p><a href="http://www.theserverside.com/news/4500279472/Seif-project-makes-Web-security-a-priority" title="Seif project makes Web security a priority">Seif project makes Web security a priority</a></p>
+</blockquote>
+
+<ul>
+<li>MS、Apple、Adobe、Oracle
+
+<ul>
+<li>Webをリプレイスしようとしたけど、失敗</li>
+<li>すべてのソリューションはオープンじゃなかった</li>
+<li>Webはオープン</li>
+</ul></li>
+<li>Self Project
+
+<ul>
+<li>architectureはWebとは違うけど、ウェブブラウザで動く</li>
+<li>Public key cryptは使われてる</li>
+<li>CAは信用できないので</li>
+</ul></li>
+<li><code>seifnode</code>
+
+<ul>
+<li>cryptographic </li>
+<li><a href="https://github.com/paypal/seifnode" title="paypal/seifnode">paypal/seifnode</a></li>
+<li>random(RNG) - 一番大切</li>
+<li>Entropy
+
+<ul>
+<li>OS、Microphone(音)、Camera</li>
+<li>強いランダムを作る</li>
+</ul></li>
+</ul></li>
+<li>Seif Protocol
+
+<ul>
+<li>Secure JSON Over TCP</li>
+<li><a href="https://github.com/paypal/seif-protocol" title="paypal/seif-protocol: Node.js Implementation of the Seif protocol">paypal/seif-protocol: Node.js Implementation of the Seif protocol</a></li>
+<li>ECC521 as unique = パスワードの代わり</li>
+</ul></li>
+<li>Seif Handshake</li>
+<li><a href="http://www.seif.place/" title="The Seif Project">The Seif Project</a></li>
+</ul>
+
+<hr>
+
+<h2 id="why-to-standardize-your-readmes-richard-littauer">Why to Standardize your READMEs - Richard Littauer</h2>
+
+<blockquote>
+<p><a href="https://github.com/RichardLitt/standard-readme" title="RichardLitt/standard-readme: Readme Standard Style">RichardLitt/standard-readme: Readme Standard Style</a></p>
+</blockquote>
+
+<ul>
+<li>README
+
+<ul>
+<li>READMEはユーザーへのprotocol</li>
+<li>READMEは一番最初に読む</li>
+<li>ドキュメントよりも大事かも</li>
+</ul></li>
+<li>READMEを見たときに
+
+<ul>
+<li>なんて呼ぶの?</li>
+<li>なぜ使うべきなの?</li>
+<li>インストールの仕方</li>
+<li>コントリビューター</li>
+<li>ライセンス</li>
+</ul></li>
+<li>READMEに必要に必要なもの
+
+<ul>
+<li>タイトル</li>
+<li>説明</li>
+<li>インストール</li>
+<li>ロゴ</li>
+<li>バックグランド</li>
+<li>セキュリティ</li>
+<li>API</li>
+<li>などなど</li>
+</ul></li>
+<li>ドキュメント
+
+<ul>
+<li>コード見なくても使えるのが100%</li>
+</ul></li>
+<li>問題
+
+<ul>
+<li>いろんなパッケージマネージャー</li>
+<li>npmはパッケージが多い</li>
+</ul></li>
+<li>READEMEは難しい
+
+<ul>
+<li>書くのも難しい</li>
+<li>パースするのも難しい</li>
+</ul></li>
+<li>Standard
+
+<ul>
+<li>READMEにもStandard(JS)みたいなものを作ろう</li>
+<li>考えずに扱えるもの</li>
+</ul></li>
+<li>Standard README
+
+<ul>
+<li>A Specification</li>
+<li>A Generator</li>
+<li>A Linter</li>
+<li>A badge </li>
+<li>Example Templete</li>
+</ul></li>
+<li><a href="https://github.com/RichardLitt/standard-readme" title="RichardLitt/standard-readme: Readme Standard Style">RichardLitt/standard-readme: Readme Standard Style</a></li>
+<li>Require
+
+<ul>
+<li>Title</li>
+<li>Short Description</li>
+<li>ToC</li>
+<li>Install</li>
+<li>Usage</li>
+<li>Contribute</li>
+<li>License</li>
+</ul></li>
+<li>Optional
+
+<ul>
+<li>Badge</li>
+</ul></li>
+<li>Generator
+
+<ul>
+<li><a href="https://github.com/RichardLitt/generator-standard-readme" title="RichardLitt/generator-standard-readme: Scaffold out a Standard Readme">RichardLitt/generator-standard-readme: Scaffold out a Standard Readme</a></li>
+<li>Uses yeoman</li>
+</ul></li>
+<li>Linter
+
+<ul>
+<li>まだ</li>
+</ul></li>
+<li>UPTAKE
+
+<ul>
+<li>Standards.js とかでも使ってる</li>
+</ul></li>
+<li>Future
+
+<ul>
+<li>Linter</li>
+<li>ExampleをREPLで試せるようにする</li>
+<li>NLP
+
+<ul>
+<li>検索がもっとしやすくなる</li>
+</ul></li>
+</ul></li>
+<li>FAQ
+
+<ul>
+<li>i18n README
+
+<ul>
+<li>Specなしより簡単にはなる</li>
+</ul></li>
+<li>Requirementsはどこに?
+
+<ul>
+<li>Install</li>
+<li><a href="https://github.com/RichardLitt/standard-readme/blob/master/spec.md#install" title="standard-readme/spec.md at master · RichardLitt/standard-readme">standard-readme/spec.md at master · RichardLitt/standard-readme</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="vue-js-サーバーサイドレンダリング">Vue.js サーバーサイドレンダリング</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/kazupon/vue-dot-js-2-dot-0-server-side-rendering" title="Vue.js 2.0 Server Side Rendering // Speaker Deck">Vue.js 2.0 Server Side Rendering // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>Vue.js 2.0
+
+<ul>
+<li>Progressive Framework</li>
+</ul></li>
+<li>Virtual DOM
+
+<ul>
+<li><a href="https://github.com/snabbdom/snabbdom" title="snabbdom/snabbdom: A virtual DOM library with focus on simplicity, modularity, powerful features and performance.">snabbdom/snabbdom: A virtual DOM library with focus on simplicity, modularity, powerful features and performance.</a>が元</li>
+</ul></li>
+<li>レンダリングシステム
+
+<ul>
+<li>ライフサイクル</li>
+</ul></li>
+<li>テンプレート
+
+<ul>
+<li>-&gt; AST</li>
+<li>テンプレート言語の部分 = 動的</li>
+<li>テンプレート言語じゃない部分 = 静的なNode</li>
+<li>静的なNodeを静的なノードツリーを検出する</li>
+</ul></li>
+<li>レンダリング
+
+<ul>
+<li>Watcherというものが<code>render</code>関数を呼ぶ</li>
+<li>render結果をvDOMにしてdiff+patchする</li>
+</ul></li>
+<li>仮想ノードツリー
+
+<ul>
+<li>ダイナミックと静的なノードツリー</li>
+<li>ノードツリーをマージして期待するDOMを生成する</li>
+</ul></li>
+<li>サーバーサイドレンダリング
+
+<ul>
+<li>v1は独自のサーバ実装が必要だった</li>
+<li>hydrogenの仕組みとかもなかった</li>
+<li>v2ではvDOMとかあるのでできるようになった</li>
+</ul></li>
+<li>クライアントとサーバ</li>
+<li>...</li>
+</ul>
+
+<hr>
+
+<h2 id="react-reduxを使った大規模商用サービスの開発">React + Reduxを使った大規模商用サービスの開発</h2>
+
+<ul>
+<li>bookingtable.jp</li>
+<li>ウェブ版
+
+<ul>
+<li>BFF(Backend for Frontend)を用意してやってる</li>
+<li>アプリ版もあるのでそれぞれBFFがある</li>
+</ul></li>
+<li>React/Reduxのハマりどころ
+
+<ul>
+<li><code>mapToState</code></li>
+</ul></li>
+<li>ハマりどころ</li>
+<li>画面遷移
+
+<ul>
+<li>ログインしてない -&gt; ログイン -&gt; replaceState/replaceしないと戻ったときにおかしくなる</li>
+<li>POPならスクロール位置を戻す、PUSHならTOP 0にする</li>
+</ul></li>
+<li>Stateが集まるまでComonentをレンダリングしない
+
+<ul>
+<li>loading = true/false をstate管理して</li>
+<li>loading = trueになったときにレンダリングする</li>
+<li><a href="https://github.com/recruit-tech/redux-async-loader" title="recruit-tech/redux-async-loader: Async data loader for Redux apps.">recruit-tech/redux-async-loader: Async data loader for Redux apps.</a></li>
+</ul></li>
+<li>iPhoneの画面スワイプでのもどる/すすむ
+
+<ul>
+<li>画面スワイプして戻ると一瞬戻る前の画面でてしまう</li>
+<li>戻って一瞬でてから、表示が更新される</li>
+</ul></li>
+<li>Monolithic JavaScript
+
+<ul>
+<li>ビルドすると毎回ファイル変わって再ダウンロードになってしまうのを避けたい</li>
+<li>Before: 一個のjs</li>
+<li>After: webpackJsomp、appX.js、vendor.js</li>
+<li><code>require.ensure</code>(webpack)とRouterで動的ロード</li>
+<li>Hotな画面は scriptタグで事前ロード</li>
+<li>そうでない画面は <code>require.ensure</code> で動的ロード</li>
+<li>Script Load Error
+
+<ul>
+<li>webpack 1.xだと<code>require.ensure</code>でのエラーが拾えない</li>
+<li>表示 =&gt; デプロイ =&gt; 遷移仕様とするとエラーになってしまう</li>
+<li><a href="https://github.com/webpack/webpack/issues/758" title="require.ensure error handling · Issue #758 · webpack/webpack">require.ensure error handling · Issue #758 · webpack/webpack</a></li>
+</ul></li>
+</ul></li>
+<li>webpackのモジュールID問題
+
+<ul>
+<li>webpackでmodule一つ一つ idが振られてる</li>
+<li>applyModuleIdsでidを振られてる</li>
+<li>コレの前にidをsortしてあげればidが決まる</li>
+</ul></li>
+<li>SSR
+
+<ul>
+<li>checksumで比較して、合ってるならサーバのレンダリング結果を使う</li>
+<li>一致しない場合は、一度捨ててクライアントでレンダリングする</li>
+<li>サーバサイドの<code>renderToString</code>で数百msかかる</li>
+</ul></li>
+<li>Partial Reandering
+
+<ul>
+<li>見えるところだけサーバ、他はクライアントで</li>
+<li>SEOは?
+
+<ul>
+<li>Google Botsはクライアントサイドレンダリングでもちゃんと認識する</li>
+</ul></li>
+</ul></li>
+<li>SSR Cache
+
+<ul>
+<li>サーバサイドでキャッシュする</li>
+<li>ユーザーの情報を含んでいるとレンダリングできない</li>
+</ul></li>
+<li>Composite Rendering
+
+<ul>
+<li>レンダリング方式を動的に切り替える</li>
+<li>高負荷時はキャッシュを活用するなど</li>
+</ul></li>
+<li>まとめ
+
+<ul>
+<li>サーバサイドレンダリングはターンアラウンドタイム的にやらない方がよい</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="introducing-now-and-next-js-nkzawa">Introducing Now and Next.js - nkzawa</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/nkzawa/introducing-now-and-next-dot-js" title="Introducing Now and Next.js // Speaker Deck">Introducing Now and Next.js // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li><a href="https://zeit.co/now">Now: realtime global deployments</a></li>
+<li><a href="https://zeit.co/blog/next">ZEIT – Next.js</a>
+
+<ul>
+<li>の話</li>
+</ul></li>
+<li>Next.js</li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -D next.js
+$(npm bin)/next
+# pages/ にコンポーネントを書いていく
+</code></pre></div>
+<ul>
+<li>Next.jsは設定必要なし
+
+<ul>
+<li>Hot ReloadingとかBabelとかそういうのは自動的にやる</li>
+</ul></li>
+<li>SPA
+
+<ul>
+<li>初期表示が遅い</li>
+<li>ページが増えると重くなる</li>
+</ul></li>
+<li>解決方法
+
+<ul>
+<li>サーバサイドレンダリング
+
+<ul>
+<li>ファイル置くだけでできる</li>
+<li><a href="http://yosuke-furukawa.hatenablog.com/entry/2014/11/14/141415" title="【翻訳】リッチなWebアプリケーションのための7つの原則 - from scratch">【翻訳】リッチなWebアプリケーションのための7つの原則 - from scratch</a></li>
+</ul></li>
+<li>コード分割 + 遅延ロード
+
+<ul>
+<li>ページごとに結合ファイルを生成して分割する</li>
+</ul></li>
+</ul></li>
+<li>CSS
+
+<ul>
+<li><a href="https://github.com/threepointone/glamor" title="threepointone/glamor: inline css for react et al">threepointone/glamor: inline css for react et al</a>を使ってる</li>
+</ul></li>
+<li><code>&lt;Link /&gt;</code>
+
+<ul>
+<li>遅延読み込み + history.pushState</li>
+</ul></li>
+<li><code>&lt;Head /&gt;</code>
+
+<ul>
+<li><code>&lt;head /&gt;</code> の中身を書ける</li>
+<li><a href="https://github.com/zeit/next.js/blob/master/lib/head.js" title="next.js/head.js at master · zeit/next.js">next.js/head.js at master · zeit/next.js</a></li>
+</ul></li>
+<li><a href="https://zeit.co/now" title="now">now</a>
+
+<ul>
+<li>Next.jsをどうやってデプロする</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ npm i -g now
+$ now
+</code></pre></div>
+<ul>
+<li>nowでの設定
+
+<ul>
+<li><code>npm start</code> を定義する</li>
+</ul></li>
+<li>特徴
+
+<ul>
+<li>デプロイするたびに新しいURLを作る
+
+<ul>
+<li>古いURLはそのまま残る</li>
+<li>エイリアスを差し替えることで切り替わる</li>
+<li>URLが常に同じアプリの状態表す</li>
+</ul></li>
+<li>オートスケール
+
+<ul>
+<li>自動的にスケールする</li>
+<li>アクセスがない場合は 0 になる</li>
+</ul></li>
+<li>データの永続化
+
+<ul>
+<li>オートスケールでインスタンスが消えるのでデータは外部に保存する</li>
+</ul></li>
+</ul></li>
+<li>now + micro
+
+<ul>
+<li>基本的にHTTPでやり取りするのでlambdaのようにロックインがない</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="the-evolution-of-electron-cheng-zhao">The Evolution of Electron - Cheng Zhao</h2>
+
+<ul>
+<li>3つの名前を持っている</li>
+<li>ElectronはAtomのために作った</li>
+<li>5年前
+
+<ul>
+<li>GitHub CEOが元でCocoaのアプリケーションだった</li>
+</ul></li>
+<li>AtomのChromium Embbed Frameworkをつかうようになった</li>
+<li>これによりクロスプラットフォームになった
+
+<ul>
+<li>Atom: Cocoa -&gt; Chromium Embedded Framework -&gt; Atom Shell -&gt; Electron</li>
+</ul></li>
+<li>Chromium Embedded Framework -&gt; Node-Webkitに移行しようとした
+
+<ul>
+<li>Atomは結構でかいコードベースだったので、Node.jsのバインでィングに書き換える作業が難航</li>
+<li>失敗</li>
+</ul></li>
+<li>node-webkitの改善を続ける -&gt; node-webkitの開発者を雇う = Cheng Zhao</li>
+<li>node-webkitは複数ウィンドウのアプリケーションを扱えなかった</li>
+<li>node-webkitを書き直すこと決意
+
+<ul>
+<li>Atom-Shellを作ることにした</li>
+</ul></li>
+<li>node-webkit と atom-shellの違い
+
+<ul>
+<li>エントリポイントがhtmlとjsが違う</li>
+<li>Chromiumのビルドの問題など</li>
+</ul></li>
+<li>AtomとAtom-shellはOSSになった
+
+<ul>
+<li>Atom-Shell -&gt; Electronにリネームされた</li>
+<li>Electron: 37000</li>
+</ul></li>
+<li>Electron製のアプリは毎日毎日新しいものが公開され、あなたのPCのディスクを食べます</li>
+<li>Electronは個人プロジェクトとして始まったけど、今は外部Contributorが多くなった
+
+<ul>
+<li>Contributorがいなくなるとプロジェクトが終わる</li>
+</ul></li>
+<li>Contributorをちゃんとキープするには
+
+<ul>
+<li>IssueやPull Requestに対してちゃんと反応する</li>
+<li>開発環境を簡単にセットアップできるようにする</li>
+<li>よりよいコードレビューをできるようにしたり</li>
+<li>リファクタリングをちゃんとやる
+
+<ul>
+<li>Contributorはそのプロジェクトをちゃんと理解してるわけではないので</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="browser-is-the-new-server-gleb-bahmutov">Browser is the new server - Gleb Bahmutov</h2>
+
+<ul>
+<li>KENSHO</li>
+<li>Quickly
+
+<ul>
+<li>CDN</li>
+<li>paralled downloads</li>
+<li>caching</li>
+<li>small image</li>
+<li>などなどできてたけどまだ遅い</li>
+</ul></li>
+<li>Pivotal Tracker
+
+<ul>
+<li>リロードしただけなのに数秒かかる</li>
+</ul></li>
+<li>開発者ツールを開いて見ると
+
+<ul>
+<li>5秒ぐらいJavaScriptの処理に使ってた</li>
+<li><code>HTML = App(DATA)</code></li>
+<li><code>HTML</code>と<code>DATA</code>をキャッシュする</li>
+</ul></li>
+<li>リロード
+
+<ul>
+<li><a href="https://glebbahmutov.com/hydrate-vue-todo/" title="Hydrate Vue Todo">Hydrate Vue Todo</a></li>
+<li>タイトルはすぐでるけど、内容は一瞬ちらっとする</li>
+</ul></li>
+<li>ServiceWorker
+
+<ul>
+<li>そこでServiceWorker</li>
+<li>ブラウザの上で動くProxy</li>
+<li>リクエストをProxyして処理できる</li>
+<li><code>navigator.serviceWorker.register</code></li>
+<li>Firefox/Chrome/Opera</li>
+<li><code>https</code>が必須</li>
+<li>Androidのモバイルでも既に使える</li>
+</ul></li>
+<li>ServiceWorkerの中
+
+<ul>
+<li><code>fetch</code> のhook</li>
+<li><a href="https://github.com/bahmutov/bottle-service" title="bahmutov/bottle-service: Instant web applications restored from ServiceWorker cache">bahmutov/bottle-service: Instant web applications restored from ServiceWorker cache</a></li>
+</ul></li>
+<li>オフライン
+
+<ul>
+<li>ブラウザのアプリはサーバがないと何もできない</li>
+<li>ServiceWorkerの中にサーバを入れる</li>
+</ul></li>
+<li>サーバをブラウザで
+
+<ul>
+<li>express.js + middleware を browserifyで変換して、ServiceWorkerの中で動かす</li>
+<li>express service</li>
+<li><a href="https://github.com/bahmutov/express-service" title="bahmutov/express-service: Package ExpressJS server to run inside a ServiceWorker">bahmutov/express-service: Package ExpressJS server to run inside a ServiceWorker</a></li>
+<li>オフラインでも動く</li>
+<li>JavaScript無効でも動く</li>
+<li>クライアントサイドのサーバサイドのJavaScriptでサーバサイドレンダリングしてる
+
+<ul>
+<li>最新のChromeはlinkタグでもServiceWorkerを登録できる</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<p>メモ</p>
+
+<ul>
+<li>人数が増えたので人口密度高かった</li>
+<li>会場的に廊下とかで話すスペース場所とかあるとよかったのではと思った</li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-11-13-nodefest2016.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","イベント","Node.js"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=イベント">イベント</a></li>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

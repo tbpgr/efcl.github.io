@@ -2,23 +2,29 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>http://efcl.info/</loc>
-        <lastmod>2016-11-07</lastmod>
+        <lastmod>2016-11-13</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>http://efcl.info/archives/</loc>
-        <lastmod>2016-11-07</lastmod>
+        <lastmod>2016-11-13</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>http://efcl.info/categories/</loc>
-        <lastmod>2016-11-07</lastmod>
+        <lastmod>2016-11-13</lastmod>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>http://efcl.info/tags/</loc>
-        <lastmod>2016-11-07</lastmod>
+        <lastmod>2016-11-13</lastmod>
         <changefreq>weekly</changefreq>
+    </url>
+    
+    <url>
+        <loc>http://efcl.info/2016/11/13/nodefest2016/</loc>
+        <lastmod>2016-11-13</lastmod>
+        <changefreq>never</changefreq>
     </url>
     
     <url>
