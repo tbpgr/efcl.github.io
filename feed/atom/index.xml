@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-11-14T09:12:59+09:00</updated>
+ <updated>2016-11-14T14:00:34+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -872,8 +872,8 @@ $ now
 <li>express service</li>
 <li><a href="https://github.com/bahmutov/express-service" title="bahmutov/express-service: Package ExpressJS server to run inside a ServiceWorker">bahmutov/express-service: Package ExpressJS server to run inside a ServiceWorker</a></li>
 <li>オフラインでも動く</li>
-<li>JavaScript無効でも動く</li>
-<li>クライアントサイドのサーバサイドのJavaScriptでサーバサイドレンダリングしてる
+<li>SWのコードはDevToolsのJavaScript無効でも動く</li>
+<li>クライアントサイドのサーバサイドのJavaScript(ServiceWorkerの中のJS)でサーバサイドレンダリングしてる
 
 <ul>
 <li>最新のChromeはlinkタグでもServiceWorkerを登録できる</li>
