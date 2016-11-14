@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-11-13T18:30:35+09:00</updated>
+ <updated>2016-11-14T09:12:59+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -93,9 +93,9 @@
 <li>-&gt; LLInt</li>
 <li>-&gt; Baseline Compiler</li>
 <li>-&gt; DFG Compiler</li>
-<li>-&gt; FTG Compiler</li>
+<li>-&gt; FTL Compiler</li>
 </ul></li>
-<li><a href="https://webkit.org/blog/5852/introducing-the-b3-jit-compiler/" title="Introducing the B3 JIT Compiler | WebKit">Introducing the B3 JIT Compiler | WebKit</a></li>
+<li>今はFTLじゃなくなってる - <a href="https://webkit.org/blog/5852/introducing-the-b3-jit-compiler/" title="Introducing the B3 JIT Compiler | WebKit">Introducing the B3 JIT Compiler | WebKit</a></li>
 </ul></li>
 <li>最適化について
 
