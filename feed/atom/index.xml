@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-12-14T22:23:27+09:00</updated>
+ <updated>2016-12-15T00:08:31+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -27,7 +27,7 @@
 
 <p>しかし、普段JavaScriptをあんまり使ってない人には<a href="https://babeljs.io/" title="Babel">Babel</a>を使ったコード変換や<a href="http://mochajs.org/" title="Mocha">Mocha</a>を使ったテストの設定など、ルールを書き始めるまでの環境づくりの方が大変です。</p>
 
-<p>そういう環境の設定をコマンド一発で作れて、textlintルールづくりをすぐ始めることができるツールを作りました。</p>
+<p>そのような環境設定をコマンド一発で作れて、textlintルールを作り始めることができるツールを作りました。</p>
 
 <ul>
 <li><a href="https://github.com/textlint/create-textlint-rule" title="create-textlint-rule">create-textlint-rule</a>
@@ -133,7 +133,7 @@ Setup your README!
 Generated README.md
 ✔ Complete: Let<span class="err">&#39;</span>s create textlint rule
 </code></pre></div>
-<p>作成して<code>textlint-rule-found-bug</code>は次のようなファイルが作られています。</p>
+<p>作成した<code>textlint-rule-found-bug</code>ディレクトリには、次のようなファイルが作られています。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">textlint-rule-found-bug/
 ├── README.md
 ├── lib
