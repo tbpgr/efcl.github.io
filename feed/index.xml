@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-12-14T21:14:24+09:00</updated>
+ <updated>2016-12-14T21:22:27+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -189,9 +189,8 @@ Generated README.md
 
 <p>ルールの公開は基本的には<a href="https://www.npmjs.com/">npm</a>に公開します。
 <code>pacakge.json</code>の<code>version</code>を上げたり<code>git tag</code>を貼るなどは<a href="https://docs.npmjs.com/cli/version" title="npm-version">npm-version</a>を使うと簡単です。
-バージョンを上げたら、<a href="https://docs.npmjs.com/cli/publish" title="npm-publish">npm-publish</a>コマンドで公開すれば完了です。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm version patch
-# semverに応じしてバージョンのあがり方を選ぶ
+<a href="http://semver.org/lang/ja/">semver</a>なバージョンを上げたら、<a href="https://docs.npmjs.com/cli/publish" title="npm-publish">npm-publish</a>コマンドで公開すれば完了です。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm version patch   
 # npm version minor
 # npm version major
 npm publish
