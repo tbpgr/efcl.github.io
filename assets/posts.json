@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "textlintのルールを簡単に作り始めることができるツールを作りました",
+            "url": "http://efcl.info/2016/12/14/create-textlint-rule/",
+            "date": "2016-12-14T20:31:00+09:00"
+        },
+        
+        {
             "title": "class extends構文を使わずにArrayを継承する",
             "url": "http://efcl.info/2016/11/23/array-subclass-by-reflect/",
             "date": "2016-11-23T17:19:00+09:00"
