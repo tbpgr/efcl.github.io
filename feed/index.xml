@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-12-15T00:08:31+09:00</updated>
+ <updated>2016-12-16T00:56:11+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -230,6 +230,8 @@ textlint --rule found-bug README.md
 <p><a href="https://github.com/textlint/create-textlint-rule" title="create-textlint-rule">create-textlint-rule</a>を使い、作ったプロジェクト内で、<code>textlint</code>にルールを読み込ませて確認する方法。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$ npm run build
 $ $(npm bin)/textlint --rulesdir ./lib/ README.md
+# $(npm bin) は ./node_modules/.bin と同じなので次も可
+    $ ./node_modules/.bin/textlint --rulesdir ./lib/ README.md
 </code></pre></div>
 <h2 id="おわりに">おわりに</h2>
 

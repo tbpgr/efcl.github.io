@@ -543,6 +543,8 @@ textlint --rule found-bug README.md
 <p><a href="https://github.com/textlint/create-textlint-rule" title="create-textlint-rule">create-textlint-rule</a>を使い、作ったプロジェクト内で、<code>textlint</code>にルールを読み込ませて確認する方法。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$ npm run build
 $ $(npm bin)/textlint --rulesdir ./lib/ README.md
+# $(npm bin) は ./node_modules/.bin と同じなので次も可
+    $ ./node_modules/.bin/textlint --rulesdir ./lib/ README.md
 </code></pre></div>
 <h2 id="おわりに">おわりに</h2>
 
