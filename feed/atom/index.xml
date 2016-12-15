@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-12-16T00:56:11+09:00</updated>
+ <updated>2016-12-16T01:00:00+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -190,7 +190,7 @@ Generated README.md
 <p>ルールの公開は基本的には<a href="https://www.npmjs.com/">npm</a>に公開します。
 <code>pacakge.json</code>の<code>version</code>を上げたり<code>git tag</code>を貼るなどは<a href="https://docs.npmjs.com/cli/version" title="npm-version">npm-version</a>を使うと簡単です。
 <a href="http://semver.org/lang/ja/">semver</a>なバージョンを上げたら、<a href="https://docs.npmjs.com/cli/publish" title="npm-publish">npm-publish</a>コマンドで公開すれば完了です。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm version patch   
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm version patch
 # npm version minor
 # npm version major
 npm publish
@@ -228,10 +228,16 @@ textlint --rule found-bug README.md
 <h3 id="tips">Tips</h3>
 
 <p><a href="https://github.com/textlint/create-textlint-rule" title="create-textlint-rule">create-textlint-rule</a>を使い、作ったプロジェクト内で、<code>textlint</code>にルールを読み込ませて確認する方法。</p>
+
+<p>プロジェクトをビルドして、<code>textlint</code>の<code>--rulesdir</code>で直接ルールを読み込んで使えば、publishせずに確認できます。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$ npm run build
 $ $(npm bin)/textlint --rulesdir ./lib/ README.md
-# $(npm bin) は ./node_modules/.bin と同じなので次も可
-    $ ./node_modules/.bin/textlint --rulesdir ./lib/ README.md
+# $(npm bin) は ./node_modules/.bin と同じなので次でもOK
+$ ./node_modules/.bin/textlint --rulesdir ./lib/ README.md
+</code></pre></div>
+<p>もしくは、ローカルで作ったプロジェクトを<code>npm install</code>することでも、publishせずに確認できます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># 試したいプロジェクトで、textlint-rule-found-bugへのローカルパスを指定
+$ npm install /path/to/textlint-rule-found-bug
 </code></pre></div>
 <h2 id="おわりに">おわりに</h2>
 
