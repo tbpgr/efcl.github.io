@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        textlint --cacheオプションでチェックを高速化した | Web Scratch
+        
+    </title>
+    <meta name="description" content="textlint 7.2.0で --cache と --cache-location オプションをサポートしました。">
+    
+    <meta name="keywords" content="textlint,JavaScript" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="textlint --cacheオプションでチェックを高速化した">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2016/12/28/textlint-cache/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="textlint 7.2.0で --cache と --cache-location オプションをサポートしました。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2016-12-28T09:33:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/12/14/create-textlint-rule/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/11/23/array-subclass-by-reflect/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/11/13/nodefest2016/">
+
+
+
+
+
+<meta property="article:section" content="textlint">
+
+
+
+
+
+<meta property="article:tag" content="textlint">
+
+<meta property="article:tag" content="JavaScript">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 31
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 169
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 86
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 6
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2016/12/28/textlint-cache/">
+                textlint --cacheオプションでチェックを高速化した
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/12/14/create-textlint-rule/">
+                textlintのルールを簡単に作り始めることができるツールを作りました
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/11/23/array-subclass-by-reflect/">
+                class extends構文を使わずにArrayを継承する
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/11/13/nodefest2016/">
+                東京Node学園祭2016 アウトラインメモ
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2016/12/28/textlint-cache/">
+    <h1 class="post-title">textlint --cacheオプションでチェックを高速化した</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2016年12月28日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-12-28-textlint-cache.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="https://github.com/textlint/textlint" title="textlint">textlint</a> 7.2.0で <code>--cache</code> と <code>--cache-location</code> オプションをサポートしました。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/releases/tag/7.2.0" title="Release 7.2.0 · textlint/textlint">Release 7.2.0 · textlint/textlint</a></li>
+</ul>
+
+<p>基本的にはESLintのキャッシュオプションと同じです。
+前回のLint結果のキャッシュから変化したファイルのみがチェックの対象になる仕組みです。</p>
+
+<ul>
+<li><a href="http://eslint.org/docs/user-guide/command-line-interface#caching" title="Command Line Interface - ESLint - Pluggable JavaScript linter">Command Line Interface - ESLint - Pluggable JavaScript linter</a></li>
+</ul>
+
+<h2 id="使い方">使い方</h2>
+
+<p><code>textlint</code>コマンドに <code>--cache</code> オプションを付けて実行するだけです。
+後は、毎回このコマンドを付けて実行すれば変更したファイルのみがチェック対象になるので、実行時間が高速化されます。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">textlint --cache docs/
+</code></pre></div>
+<p><code>--cache</code>オプションを付けるとデフォルトでは、 <code>.textlintcache</code> という名前のファイルにキャッシュができます。</p>
+
+<p>キャッシュファイルを任意の名前にしたい場合は <code>--cache-location</code> オプションで指定した場所にキャッシュファイルを作ることができます。</p>
+
+<h2 id="実行例">実行例</h2>
+
+<p>自分が知ってる中では一度にtextlintがやる処理が一番多い<a href="https://github.com/asciidwango/js-primer" title="asciidwango/js-primer: JavaScriptの入門書">asciidwango/js-primer: JavaScriptの入門書</a>で試してみます。</p>
+
+<p>このプロジェクトではファイル数やルール数が多いのもそうですが、textlintの中でESLintを動かしてJavaScriptのコードもチェックしてたりキャッシュの有無がかなり速度に影響がありました。</p>
+
+<ul>
+<li><a href="http://efcl.info/2016/07/06/eslint-with-textlint/" title="MarkdownのコードブロックをESLintでチェックするtextlintルール | Web Scratch">MarkdownのコードブロックをESLintでチェックするtextlintルール | Web Scratch</a></li>
+</ul>
+
+<h3 id="cacheなし">--cacheなし</h3>
+
+<p>15秒ぐらいかかって遅い。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span><span class="nb">time </span>npm run textlint:no-cached
+
+&gt; js-primer@1.0.0 textlint:no-cached /Users/azu/.ghq/github.com/asciidwango/js-primer
+&gt; summary-to-path ./source/README.md <span class="p">|</span> xargs textlint -f pretty-error
+
+npm run textlint:no-cached  14.68s user 1.18s system 99% cpu 15.926 total
+</code></pre></div>
+<h3 id="cacheあり">--cacheあり</h3>
+
+<p>3秒程度になった。
+(1つファイルを変更した状態で実行)</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span><span class="nb">time </span>npm run textlint
+
+&gt; js-primer@1.0.0 textlint /Users/azu/.ghq/github.com/asciidwango/js-primer
+&gt; summary-to-path ./source/README.md <span class="p">|</span> xargs textlint -f pretty-error --cache
+
+npm run textlint  2.17s user 0.41s system 85% cpu 3.022 total
+</code></pre></div>
+<h2 id="おわり">おわり</h2>
+
+<p><code>--cache</code> をつけるだけで結構実行時間が変わるので、大量のファイルをtextlintで繰り返しチェックしている場合は試してみてください。</p>
+
+<p>また、エディタ連携系なら元々1つのファイルのみを対象に実行しているはずなので、キャッシュなくても普通な速度で動くと思います。</p>
+
+<ul>
+<li><a href="http://qiita.com/azu/items/2c565a38df5ed4c9f4e1">VS Codeでtextlintを使って文章をチェックする - Qiita</a></li>
+<li><a href="http://post.simplie.jp/posts/51">textlintで日本語の文章を校正する方法とAtomへの導入手順 | Simplie Post</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2016/2016-12-28-textlint-cache.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["textlint","JavaScript"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=textlint">textlint</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

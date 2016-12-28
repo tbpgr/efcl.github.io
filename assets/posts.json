@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "textlint --cacheオプションでチェックを高速化した",
+            "url": "http://efcl.info/2016/12/28/textlint-cache/",
+            "date": "2016-12-28T09:33:00+09:00"
+        },
+        
+        {
             "title": "textlintのルールを簡単に作り始めることができるツールを作りました",
             "url": "http://efcl.info/2016/12/14/create-textlint-rule/",
             "date": "2016-12-14T20:31:00+09:00"
