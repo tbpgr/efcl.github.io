@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-12-31T18:04:21+09:00</updated>
+ <updated>2016-12-31T18:13:41+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -69,6 +69,478 @@
 
 <ul>
 <li><a href="https://github.com/ecmascript-daily/ecmascript-daily.github.com/blob/master/CONTRIBUTING.md" title="ecmascript-daily.github.com/CONTRIBUTING.md at master · ecmascript-daily/ecmascript-daily.github.com">ecmascript-daily.github.com/CONTRIBUTING.md at master · ecmascript-daily/ecmascript-daily.github.com</a></li>
+</ul>
+ ]]></content>
+ </entry>
+ 
+ <entry>
+   <title>今年のOSS活動振り返り @ 2016</title>
+   <link href="http://efcl.info/2016/12/31/oss-in-2016/"/>
+   <updated>2016-12-31T11:47:00+09:00</updated>
+   <id>http://efcl.info/2016/12/31/oss-in-2016</id>
+   <content type="html"><![CDATA[ <p>2016年のOSS活動振り返りです。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2016/12/31-1483174882.png" alt="Current Contributions"></p>
+
+<p><a href="http://efcl.info/2015/12/31/oss-in-2015/">去年</a>との比較用に<a href="https://github.com/Naramsim/GithubOriginalStreak" title="GithubOriginalStreak">GithubOriginalStreak</a>を使って古い形でGitHubのContributionsを出してみた。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2016/12/31-1483152418.png" alt="Original Contributes Graph"></p>
+
+<p>3年ぐらい毎日コミットが続いてる。けど、2016年の後半がだらけててコミット数が少なくなってる。</p>
+
+<p>後、<a href="https://azu.github.io/github-longest-streak/" title="GitHub Full Longest Streak">GitHub Full Longest Streak</a>を使うと、GitHubのStreakを取ることができます。
+(他のツールみたいに365日制限とかなく、GitHubにアカウントを作ってからの全データが見れます)</p>
+
+<ul>
+<li><a href="https://azu.github.io/github-longest-streak/?user=azu">https://azu.github.io/github-longest-streak/?user=azu</a></li>
+</ul>
+
+<p>以前のまとめ</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/12/31/oss-in-2015/">今年のOSS活動振り返り @ 2015 | Web Scratch</a></li>
+<li><a href="http://efcl.info/2014/12/31/oss-in-2014/">今年のOSS活動振り返り @ 2014 | Web Scratch</a></li>
+</ul>
+
+<h2 id="issue-pr">Issue/PR</h2>
+
+<ul>
+<li><a href="https://github.com/search?utf8=%E2%9C%93&amp;q=author%3Aazu+created%3A2016-01-01..2017-01-01+is%3Apr+&amp;type=Issues&amp;ref=searchresults">PRs</a>: 457</li>
+<li><a href="https://github.com/search?utf8=%E2%9C%93&amp;q=author%3Aazu+created%3A2016-01-01..2017-01-01+is%3Aissue&amp;type=Issues&amp;ref=searchresults">Issues</a>: 392</li>
+</ul>
+
+<h2 id="作ったもの"><a href="https://github.com/search?o=asc&amp;q=user%3Aazu+created%3A2016-01-01..2017-01-01&amp;ref=searchresults&amp;s=updated&amp;type=Repositories&amp;utf8=%E2%9C%93">作ったもの</a></h2>
+
+<h2 id="textlint"><a href="https://github.com/textlint/textlint" title="textlint">textlint</a></h2>
+
+<p>自然言語をLintするtextlint関係のものは相変わらず大量に作ったものがある。</p>
+
+<ul>
+<li><a href="http://efcl.info/2016/01/12/textlint-coverage/" title="textlintで文章カバレッジレポートを継続的に見ていく | Web Scratch">textlintで文章カバレッジレポートを継続的に見ていく | Web Scratch</a>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint" title="textlint">textlint</a>とコードカバレッジについて考えていて色々カバレッジ周りを作ってた</li>
+<li><a href="https://github.com/azu/textlint-formatter-lcov">azu/textlint-formatter-lcov: textlint formatter for lcov format</a></li>
+<li><a href="https://github.com/azu/textlint-formatter-codecov">azu/textlint-formatter-codecov: textlint formatter for codecov json.</a></li>
+<li><a href="https://github.com/azu/codecov-json-to-lcov">azu/codecov-json-to-lcov: Convert Codecov json format to lcov format.</a></li>
+<li><a href="https://github.com/azu/lcov-summary">azu/lcov-summary: Cat lcov file and show summary of coverage to terminal.</a></li>
+</ul></li>
+<li><a href="https://github.com/azu/match-index" title="azu/match-index: Get index of each capture.">azu/match-index: Get index of each capture.</a>
+
+<ul>
+<li><a href="http://efcl.info/2016/03/22/match-index/" title="正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ | Web Scratch">正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ | Web Scratch</a></li>
+<li>正規表現でキャプチャした位置を配列で取得できるので便利</li>
+<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style" title="azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.">azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.</a> のために作った</li>
+</ul></li>
+<li><a href="http://efcl.info/2016/12/14/create-textlint-rule/">textlintのルールを簡単に作り始めることができるツールを作りました | Web Scratch</a>
+
+<ul>
+<li><a href="https://github.com/textlint/create-textlint-rule">textlint/create-textlint-rule: Create textlint rule project with no configuration.</a></li>
+<li><a href="https://github.com/textlint/textlint-scripts">textlint/textlint-scripts: textlint npm-run-scripts CLI help to create textlint rule.</a></li>
+<li>create-react-appのように一発でtextlintルールを作り始めることができるツールを書いた</li>
+<li>Node.jsを普段触らない人にもルールを書きやすくするために作った</li>
+</ul></li>
+</ul>
+
+<h3 id="作ったルール">作ったルール</h3>
+
+<ul>
+<li><a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing" title="textlint-ja/textlint-rule-preset-ja-technical-writing: 技術文書向けのtextlintルールプリセット">textlint-ja/textlint-rule-preset-ja-technical-writing: 技術文書向けのtextlintルールプリセット</a></li>
+<li><a href="https://github.com/azu/textlint-rule-no-nfd">azu/textlint-rule-no-nfd: textlint rule that disallow to use NFD well-known as UTF8-MAC 濁点.</a></li>
+<li><a href="https://github.com/azu/textlint-rule-no-hankaku-kana">azu/textlint-rule-no-hankaku-kana: textlint rule that disallow to use 半角カタカナ.</a></li>
+<li><a href="https://github.com/azu/textlint-rule-web-plus-db">azu/textlint-rule-web-plus-db: [unofficial] WEB+DB PRESS用語統一ルール for textlint</a></li>
+<li><a href="https://github.com/azu/textlint-rule-no-exclamation-question-mark">azu/textlint-rule-no-exclamation-question-mark: textlint rule that disallow exclamation and question mark.</a></li>
+<li><a href="https://github.com/azu/textlint-rule-eslint" title="azu/textlint-rule-eslint: textlint rule integrate with ESLint.">azu/textlint-rule-eslint: textlint rule integrate with ESLint.</a></li>
+<li><a href="https://github.com/azu/prh.yml" title="azu/prh.yml: A collection of prh.yml">azu/prh.yml: A collection of prh.yml</a>
+
+<ul>
+<li>辞書</li>
+</ul></li>
+<li>...etc
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule" title="Collection of textlint rule · textlint/textlint Wiki">Collection of textlint rule · textlint/textlint Wiki</a>を見て</li>
+</ul></li>
+</ul>
+
+<h2 id="アーキテクチャ周り">アーキテクチャ周り</h2>
+
+<h3 id="javascriptプラグインアーキテクチャの本"><a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="JavaScriptプラグインアーキテクチャの本">JavaScriptプラグインアーキテクチャの本</a></h3>
+
+<ul>
+<li><a href="https://www.gitbook.com/book/azu/javascript-plugin-architecture/details">JavaScript Plugin Architecture · GitBook</a></li>
+<li><a href="http://efcl.info/2016/06/06/JavaScript-Plugin-Architecture/">JavaScript Plugin Architectureというプラグイン設計について学ぶ無料の電子書籍を書いた | Web Scratch</a>
+
+<ul>
+<li>JavaScriptライブラリやツールのアーキテクチャについて書いた薄い本</li>
+<li>connect/ESLint/jQuery/gulpなどの仕組みについて書いた</li>
+</ul></li>
+</ul>
+
+<h3 id="almin"><a href="https://github.com/almin/almin" title="Almin">Almin</a></h3>
+
+<p><a href="https://github.com/almin/almin"><img src="https://almin.github.io/media/logo/logo.png" alt="Almin.js logo"></a></p>
+
+<p>中規模(3.5万~10万LOC)以上のプロジェクトを想定して<a href="https://github.com/almin/almin" title="almin/almin: Almin.js provide Flux/CQRS patterns for JavaScript application">almin/almin: Almin.js provide Flux/CQRS patterns for JavaScript application</a>というライブラリを作った。
+(中規模の定義は<a href="https://www.amazon.co.jp/dp/489100522X/" title="ソフトウェア見積り">ソフトウェア見積り</a>より)</p>
+
+<p>いわゆるReduxとかそういう類のFluxライブラリみたいなものです。
+実装自体は大したことないですが、思想的にDDD/CQRS/Fluxを適応することを前提としたドキュメントやサンプル構成になっている感じです。</p>
+
+<p><a href="https://github.com/azu/e-commerce-DDD-CQRS">色々</a>な<a href="https://github.com/azu/svg-feeling">サンプル</a>を<a href="https://github.com/azu/CQRS-train" title="azu/CQRS-train: CQRS concept">作って</a>は捨ててまた<a href="https://github.com/azu/presentation-annotator">作ってを繰り返して</a>できたものです。</p>
+
+<p>この一年ぐらいはこれについて色々やっていて、数千万回以上はブラウザで動いてると思いますが、Almin自体が原因のバグは見なかったのである程度安定はしてるのかなと思います。</p>
+
+<p>複雑なJavaScriptアプリケーション作るに当たって考えることや実践したことについては以下のスライドやリポジトリにまとめてあります。</p>
+
+<ul>
+<li><a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
+<li><a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
+<li><a href="http://efcl.info/2016/09/30/architecture-refs/" title="アーキテクチャをめぐるたび | Web Scratch">アーキテクチャをめぐるたび | Web Scratch</a></li>
+</ul>
+
+<p>後は<a href="https://github.com/almin/almin/pull/62" title="feat(Dispatcher): Introduce DispatcherPayloadMeta by azu · Pull Request #62 · almin/almin">feat(Dispatcher): Introduce DispatcherPayloadMeta by azu · Pull Request #62 · almin/almin</a>この辺のPRを処理できたら、1.0に向けてのリリース出していきたい感じ。</p>
+
+<p>クライアントサイドのDDDとか色々考えて実践してたけど、ちゃんと考えればできるんだなーという印象。(イベントソーシングはちょっとまだ課題がある)</p>
+
+<p>TypeScriptとかじゃなくてただのJavaScript(<a href="https://github.com/azu/jsdoc-to-assert">jsdoc-to-assert</a>とかは使ってる)でも、ちゃんと設計すれば中規模ぐらいのコードベースはちゃんと読めるように書けることが分かってよかった。(というか読みやすさにおいては、型がそこまで関係しなさそう)</p>
+
+<h3 id="jsdoc-to-assert">jsdoc-to-assert</h3>
+
+<p>JSDocをランタイムassertに変換するライブラリとBabelプラグイン。
+入れるだけで、JSdocの型チェックが実行時に走るようになる。
+productionビルド時は外してやるので、コスパいい感じなので結構使ってる。</p>
+
+<ul>
+<li><a href="https://github.com/azu/babel-preset-jsdoc-to-assert">azu/babel-preset-jsdoc-to-assert: Babel preset for jsdoc-to-assert.</a></li>
+<li><a href="https://github.com/azu/jsdoc-to-assert">azu/jsdoc-to-assert: JSDoc to assert</a></li>
+</ul>
+
+<p>プロダクションや自分の書いてるライブラリとかには大体入れてドッグフーディングしたので、だいぶ安定したと思う。</p>
+
+<p>チェックも<code>@param</code>だけではなく<code>@type</code>(デフォルトオフだけど)にも対応してたり、引数は大体チェックできる。</p>
+
+<p>モチベーションとしてJSDocと実装の齟齬を見つけやすくすることがあるので、これを入れてJSDocを書いてると結構適当な書き方してると落とせて便利。</p>
+
+<p>紹介記事</p>
+
+<ul>
+<li><a href="http://efcl.info/2016/03/25/jsdoc-to-assert/" title="JSDocをランタイムassertに変換するBabelプラグインを書いた | Web Scratch">JSDocをランタイムassertに変換するBabelプラグインを書いた | Web Scratch</a></li>
+<li><a href="http://akabeko.me/blog/2016/08/jsdoc-to-assert/">jsdoc-to-assert を試す – アカベコマイリ</a></li>
+<li><a href="http://www.d-wood.com/blog/2016/11/11_8536.html">babel-preset-jsdoc-to-assert で JSDoc から assertion を自動生成する | deadwood</a></li>
+</ul>
+
+<p>Babel使ってるなら入れるとメリットがあって、デメリット殆どないので、power-assertみたいな感じのツール。(ただしJSDoc書いてないとあんまり意味はない)</p>
+
+<ul>
+<li><a href="http://efcl.info/2016/04/14/espower-babel-is-deprecated/" title="power-assert + babel as a development tool | Web Scratch">power-assert + babel as a development tool | Web Scratch</a></li>
+</ul>
+
+<h3 id="documentation"><a href="https://github.com/documentationjs/documentation" title="documentation">documentation</a></h3>
+
+<p><a href="https://github.com/documentationjs/documentation" title="documentation">documentation</a>というJSDocが書いてあるJavaScriptから、HTMLやMarkdownのリファレンスを吐くツールがある。</p>
+
+<p>これのデフォルトのMarkdown出力がイケてないのでテーマを作った</p>
+
+<ul>
+<li><a href="https://github.com/azu/documentation-markdown-api-theme" title="azu/documentation-markdown-api-theme: markdown theme for documentation.js">azu/documentation-markdown-api-theme: markdown theme for documentation.js</a></li>
+</ul>
+
+<p><img src="http://efcl.info/wp-content/uploads/2016/12/31-1483170405.png" alt="reference"></p>
+
+<p>例) <a href="https://github.com/azu/ui-event-observer#usage" title="azu/ui-event-observer: Provide performant way to subscribe to browser UI Events.">azu/ui-event-observer: Provide performant way to subscribe to browser UI Events.</a></p>
+
+<p><a href="https://github.com/documentationjs/documentation/issues/550" title="--theme for Markdown · Issue #550 · documentationjs/documentation">--theme for Markdown · Issue #550 · documentationjs/documentation</a>のせいで、あんまり扱いやすくはないけど、結構いい感じの出力が出せる。</p>
+
+<ul>
+<li><a href="https://github.com/azu/add-text-to-markdown" title="azu/add-text-to-markdown: Add stdin text to exist markdown file.">azu/add-text-to-markdown: Add stdin text to exist markdown file.</a>
+
+<ul>
+<li>Markdownのテキストを指定したセクションに書き出すライブラリ</li>
+<li>上のdocumentationと合わせて使うと、READMEの一部を更新することができる</li>
+</ul></li>
+</ul>
+
+<h2 id="javascriptの入門本">JavaScriptの入門本</h2>
+
+<ul>
+<li><a href="https://asciidwango.github.io/js-primer/">Introduction · JavaScriptの入門書 #jsprimer</a></li>
+<li>b</li>
+</ul>
+
+<p>ES2015+を前提としてたJavaScriptの入門書を書いてる。</p>
+
+<blockquote>
+<p>この書籍はES2015以降をベースとしたJavaScript入門書となる予定です。
+基本的なStableのECMAScriptのバージョンを扱います。</p>
+
+<p>プログラミングをやったことがあるが、今のJavaScriptがよくわからないという人が、
+今のJavaScriptアプリケーションを読み書きできるようになることを目標にする内容です。
+(プログラミングが初めてという人が対象ではないです)
+-- <a href="https://github.com/asciidwango/js-primer/issues/6" title="[meta] 全体的な設計/ユースケース一覧 · Issue #6 · asciidwango/js-primer">[meta] 全体的な設計/ユースケース一覧 · Issue #6 · asciidwango/js-primer</a></p>
+</blockquote>
+
+<p>ソースコードなども公開されてるオープンソースなプロジェクトです。
+興味がある人はIssueなどで意見とかくれると嬉しいです。</p>
+
+<p>去年の<a href="http://efcl.info/2015/12/31/oss-in-2015/" title="今年のOSS活動振り返り @ 2015 | Web Scratch">今年のOSS活動振り返り @ 2015</a>で次のような目標を書いてた。</p>
+
+<blockquote>
+<p>JavaScript/ECMAScriptを改めてどう学べばいいのか考える
+<a href="https://github.com/azu/how-to-learn-es6" title="azu/how-to-learn-es6: How to learn ECMAScript2015 for Beginner?">azu/how-to-learn-es6: How to learn ECMAScript2015 for Beginner?</a></p>
+</blockquote>
+
+<p>この目標を行動に移したのが、この本です。
+予想したどおり、大きなものを書く場合モチベーションの維持が一番の課題なので、小さく意見を聞きながら進められるようにしたいなー</p>
+
+<p>今年中にはなんとかする。</p>
+
+<h2 id="その他">その他</h2>
+
+<ul>
+<li>package.json編集系 CLI
+
+<ul>
+<li><a href="https://github.com/azu/rewrite-npm-run-build-production-env">azu/rewrite-npm-run-build-production-env: Add npm run build to NODE_ENV=production.</a></li>
+<li><a href="https://github.com/azu/transfer-github-owner">azu/transfer-github-owner: Rewrite repository info on README/package.json for transferring GitHub repository.</a>
+
+<ul>
+<li>GitHubでTransferした後にpackage.jsonとかREADMEを書き換えるツール</li>
+</ul></li>
+</ul></li>
+<li><a href="https://github.com/azu/bellows-logger" title="azu/bellows-logger: Flexible/Connectable logger library for JavaScript.">azu/bellows-logger: Flexible/Connectable logger library for JavaScript.</a>
+
+<ul>
+<li>プラガブルに拡張可能なロガーライブラリ</li>
+</ul></li>
+<li><a href="https://github.com/azu/strict-eval" title="azu/strict-eval: eval code in vm module, but always strict mode.">azu/strict-eval: eval code in vm module, but always strict mode.</a>
+
+<ul>
+<li>Node.jsのvmモジュールで常にstrict modeにしてevalするライブラリ</li>
+<li><a href="https://github.com/asciidwango/js-primer" title="asciidwango/js-primer: JavaScriptの入門書">asciidwango/js-primer: JavaScriptの入門書</a>でサンプルコードのstrict modeを保証するテストに使ってる</li>
+</ul></li>
+<li><a href="https://azu.github.io/ecmascript-version-detector/">ECMAScript Version Detector</a>
+
+<ul>
+<li><a href="http://efcl.info/2016/08/04/ecmascript-version-detector/">そのコードが標準化されてるJavaScriptなのかを判定する方法 | Web Scratch</a></li>
+<li>JavaScriptのコードをパースしてECMAScriptのバージョンを出すやつ</li>
+</ul></li>
+<li><a href="https://github.com/azu/github-to-twitter-lambda" title="azu/github-to-twitter-lambda: Lambda bot that fetch own GitHub notifications/events and post to Twitter.">azu/github-to-twitter-lambda: Lambda bot that fetch own GitHub notifications/events and post to Twitter.</a>
+
+<ul>
+<li><a href="http://efcl.info/2016/06/09/github-to-twitter-lambda/" title="AWS lambdaでGitHubのアクティビティをTwitterで読む用に投稿する | Web Scratch">AWS lambdaでGitHubのアクティビティをTwitterで読む用に投稿する | Web Scratch</a></li>
+<li>GitHubのNotificationやActivityをTwitterに投げるlambda bot</li>
+<li>同様のことやってる人: <a href="http://massa142.hatenablog.com/entry/2016/12/27/000430" title="情報収集方法まとめ 2016年12月版 - massa142&amp;#39;s blog">情報収集方法まとめ 2016年12月版 - massa142&#39;s blog</a></li>
+<li>lambdaでずっと回してるけど大分安定してる</li>
+<li>月に$1かからないのでお手軽</li>
+</ul></li>
+</ul>
+
+<p><img src="https://monosnap.com/file/xQqM9kqLjL6fm6qUmdz2oyayeOGo7y.png" alt="コスト"></p>
+
+<ul>
+<li><a href="https://github.com/azu/performance-logger" title="azu/performance-logger: Simple Perf logger based on `performance.mark` API.">azu/performance-logger: Simple Perf logger based on <code>performance.mark</code> API.</a>
+
+<ul>
+<li><a href="http://efcl.info/2016/08/15/performance.mark/" title="performance.markでパフォーマンス計測する | Web Scratch">performance.markでパフォーマンス計測する | Web Scratch</a>の記事用に書いた</li>
+</ul></li>
+<li><a href="https://github.com/azu/file-cache-cli" title="azu/file-cache-cli: Command line tools that filter file paths by cached data.">azu/file-cache-cli: Command line tools that filter file paths by cached data.</a>
+
+<ul>
+<li>パイプで渡したファイルをキャッシュでフィルターするCLI</li>
+</ul></li>
+<li><a href="https://github.com/azu/add-deploy-key-to-github" title="azu/add-deploy-key-to-github: Add deploy to GitHub from command line.">azu/add-deploy-key-to-github: Add deploy to GitHub from command line.</a>
+
+<ul>
+<li>GitHubリポジトリにDeploy Keyを追加するCLI</li>
+<li><a href="http://efcl.info/2016/09/27/deploy-from-travis-ci-to-gh-pages/" title="Travis CIからgh-pagesへデプロイする設定 via SSH/git push | Web Scratch">Travis CIからgh-pagesへデプロイする設定 via SSH/git push | Web Scratch</a> コレ用</li>
+</ul></li>
+<li><a href="https://github.com/azu/react-routing-resolver" title="azu/react-routing-resolver: Routing component, but It does&amp;#39;t mount component. It&amp;#39;s just resolver.">azu/react-routing-resolver: Routing component, but It does&#39;t mount component. It&#39;s just resolver.</a>
+
+<ul>
+<li>コンポーネントじゃなくてURLに対する処理を書くことができるRouter</li>
+<li>Jestで始めてテスト書いた</li>
+</ul></li>
+<li><a href="https://github.com/azu/text-testing" title="azu/text-testing: Testing library for structured texts.">azu/text-testing: Testing library for structured texts.</a>
+
+<ul>
+<li><a href="http://efcl.info/2016/09/14/text-testing/" title="文章をTDDする | Web Scratch">文章をTDDする | Web Scratch</a></li>
+<li>文章に対してBDD的にテストを書くライブラリ</li>
+</ul></li>
+<li><a href="https://github.com/azu/job-draft-draft" title="azu/job-draft-draft: ドラフトのドラフト">azu/job-draft-draft: ドラフトのドラフト</a>
+
+<ul>
+<li>Job Draftに投稿したやつ</li>
+</ul></li>
+<li><a href="https://github.com/azu/slug-command" title="azu/slug-command: A command line tool for slug">azu/slug-command: A command line tool for slug</a>
+
+<ul>
+<li>文字列からslug(パーマネントリンクに使う文字列)を作るやつ</li>
+<li>jser.infoの記事で使ってる</li>
+</ul></li>
+<li>メールマガジンパース
+
+<ul>
+<li><a href="https://github.com/azu/extract-links-mail-magazine">azu/extract-links-mail-magazine: Extract link in mail magazine like JavaScript Weekly.</a></li>
+<li><a href="https://github.com/azu/weekly-meta">azu/weekly-meta</a></li>
+<li>JavaScript WeeklyとかをパースしてURLを取り出すやつ</li>
+<li>それを処理するAPI gatewayのAPI</li>
+</ul></li>
+<li><a href="https://github.com/azu/react-toggle-pattern" title="azu/react-toggle-pattern: React Component that provide toggle pattern">azu/react-toggle-pattern: React Component that provide toggle pattern</a>
+
+<ul>
+<li>Reactのコンポーネントをトグルするパターンを提供するライブラリ</li>
+<li><a href="http://efcl.info/2016/05/31/react-toggle-pattern/" title="Reactで条件によって出したり消したりするコンポーネントを書いた | Web Scratch">Reactで条件によって出したり消したりするコンポーネントを書いた | Web Scratch</a></li>
+<li>トグルするボタンとかに使う用途で書いた</li>
+<li>フォーカスの維持とか面倒な事をやった記憶がある</li>
+</ul></li>
+<li><a href="https://github.com/azu/babel-plugin-strip-function-call" title="azu/babel-plugin-strip-function-call: Babel plugin strip any function call.">azu/babel-plugin-strip-function-call: Babel plugin strip any function call.</a>
+
+<ul>
+<li>指定した関数コールを削除するBabelプラグイン</li>
+<li>productionビルド時にログの呼び出し自体を消す目的</li>
+</ul></li>
+<li><a href="https://github.com/azu/pkg-to-readme" title="azu/pkg-to-readme: Generate README.md from pacakge.json">azu/pkg-to-readme: Generate README.md from pacakge.json</a>
+
+<ul>
+<li><code>pacakge.json</code>とテンプレートファイルからREADMEを作るツール</li>
+</ul></li>
+<li><a href="https://github.com/azu/map-like" title="azu/map-like: ES2015 Map like object">azu/map-like: ES2015 Map like object</a>
+
+<ul>
+<li>ES2015の<code>Map</code>のshim的なライブラリ</li>
+<li>ファイルサイズが小さくてMapみたいなものは結構欲しいのでよく使ってる</li>
+<li>オブジェクトをMapみたいに使うのは辞めたい</li>
+</ul></li>
+<li><a href="https://github.com/azu/lru-map-like" title="azu/lru-map-like: LRU cache top on Map-like. Support non-string key.">azu/lru-map-like: LRU cache top on Map-like. Support non-string key.</a>
+
+<ul>
+<li>LRUの実装。</li>
+<li>ファイルサイズが小さいのが欲しかった</li>
+</ul></li>
+<li><a href="https://github.com/azu/mu-pdf-viewer" title="azu/mu-pdf-viewer: PDF viewer on electron.">azu/mu-pdf-viewer: PDF viewer on electron.</a>
+
+<ul>
+<li>PDFリーダアプリ</li>
+<li>キーバインドやスクロール量が調整されてる感じ</li>
+<li><a href="http://efcl.info/2016/10/12/mu-pdf-viewer/" title="pdf.jsなPDFビューアアプリをElectronで作った | Web Scratch">pdf.jsなPDFビューアアプリをElectronで作った | Web Scratch</a></li>
+<li><a href="http://efcl.info/2016/11/07/mu-pdf-search/" title="mu-pdf-viewerに検索一覧をつけた | Web Scratch">mu-pdf-viewerに検索一覧をつけた | Web Scratch</a></li>
+</ul></li>
+<li><a href="https://azu.github.io/t_wada_generator/" title="t_wada generator">t_wada generator</a>
+
+<ul>
+<li>@t_wadaさん生成</li>
+</ul></li>
+<li><a href="https://github.com/azu/dayone-to-quiver" title="azu/dayone-to-quiver: Convert DayOne&amp;#39;s Journal.dayone to Quiver notebook file.">azu/dayone-to-quiver: Convert DayOne&#39;s Journal.dayone to Quiver notebook file.</a>
+
+<ul>
+<li>DayOneからQuiverに移行するツール</li>
+<li><a href="http://efcl.info/2016/02/03/quiver/" title="メモアプリをDayOneからQuiverに移行した | Web Scratch">メモアプリをDayOneからQuiverに移行した | Web Scratch</a></li>
+</ul></li>
+<li><a href="https://github.com/azu/ui-event-observer" title="azu/ui-event-observer: Provide performant way to subscribe to browser UI Events.">azu/ui-event-observer: Provide performant way to subscribe to browser UI Events.</a>
+
+<ul>
+<li><a href="http://efcl.info/2016/11/02/ui-event-observer/" title="同じイベントのaddEventListenerを1つにまとめるライブラリを書いた | Web Scratch">同じイベントのaddEventListenerを1つにまとめるライブラリを書いた | Web Scratch</a></li>
+<li>DOMイベントを扱いやすくするライブラリ</li>
+<li>これもMap like使ってる</li>
+</ul></li>
+<li><a href="https://github.com/azu/morpheme-match">azu/morpheme-match: match function that match token(形態素解析) with sentence.</a></li>
+<li><a href="https://github.com/azu/morpheme-match-all">azu/morpheme-match-all: A wrapper of morpheme-match API. Match all kuromoji&#39;s tokens.</a>
+
+<ul>
+<li>kuromojiの形態素解析結果に対するマッチャーライブラリ</li>
+</ul></li>
+<li><a href="https://github.com/azu/gitbook-plugin-js-console" title="azu/gitbook-plugin-js-console: GitBook plugin that provide interactive JavaScript console">azu/gitbook-plugin-js-console: GitBook plugin that provide interactive JavaScript console</a>
+
+<ul>
+<li><a href="https://github.com/azu/codemirror-console-ui" title="azu/codemirror-console-ui: UI Components of codemirror-console.">azu/codemirror-console-ui: UI Components of codemirror-console.</a>のGitBook plugin</li>
+<li>JavaScriptのコードをREPLにできる</li>
+</ul></li>
+<li><a href="https://github.com/azu/github-longest-streak" title="azu/github-longest-streak: Online Viewer for GitHub Full Longest Streak.">azu/github-longest-streak: Online Viewer for GitHub Full Longest Streak.</a>
+
+<ul>
+<li>GitHubのLongest Streakを取れるやつ</li>
+<li>SVGをパースして全期間から取れるようになってる</li>
+</ul></li>
+<li><a href="https://github.com/azu/eslint-plugin-no-allow-react-context" title="azu/eslint-plugin-no-allow-react-context: Not allow to use React context without specific directory.">azu/eslint-plugin-no-allow-react-context: Not allow to use React context without specific directory.</a>
+
+<ul>
+<li>指定した場所以外でReact Contextを使えなくするESLintプラグイン</li>
+</ul></li>
+<li><a href="https://github.com/azu/stylelint-disallow-selector" title="azu/stylelint-disallow-selector: stylelint rule disallow specific selector">azu/stylelint-disallow-selector: stylelint rule disallow specific selector</a>
+
+<ul>
+<li>使ってはいけないセレクタを指定するstylelintプラグイン</li>
+</ul></li>
+</ul>
+
+<h2 id="ゴミ箱行き">ゴミ箱行き</h2>
+
+<p>作ってみたけど諦めたもの</p>
+
+<ul>
+<li><a href="https://github.com/azu/jscode-to-svg" title="azu/jscode-to-svg: Syntax Highlighted JavaScript code to SVG">azu/jscode-to-svg: Syntax Highlighted JavaScript code to SVG</a>
+
+<ul>
+<li>JavaScriptのコードからシンタックスハイライトをしたコードのSVGを吐くライブラリ</li>
+</ul></li>
+<li>Gitの履歴から自動的に正誤表を作ってチェックするツール
+
+<ul>
+<li><a href="https://github.com/azu/git-log-to-errata" title="azu/git-log-to-errata: Git log to errata list.">azu/git-log-to-errata: Git log to errata list.</a></li>
+<li><a href="https://github.com/azu/textlint-rule-git-log-to-errata" title="azu/textlint-rule-git-log-to-errata: git log to eratta rule">azu/textlint-rule-git-log-to-errata: git log to eratta rule</a></li>
+</ul></li>
+<li>Asciidocのパーサ
+
+<ul>
+<li><a href="https://github.com/azu/textlint-plugin-asciidoc-loose" title="azu/textlint-plugin-asciidoc-loose: AsciiDoc/Asciidoctor loose support for textlint.">azu/textlint-plugin-asciidoc-loose: AsciiDoc/Asciidoctor loose support for textlint.</a></li>
+<li>tmbundleを元に正規表現でAsciidocをパースしてtextlintで動かすやつ</li>
+<li>一応動いてていて、トークナイズはできてるけど、ASTに組み立てるのが難しくて断念気味</li>
+</ul></li>
+<li><a href="https://github.com/azu/react-defer-render" title="azu/react-defer-render: ReactDeferRender defer first rendering of specific component.">azu/react-defer-render: ReactDeferRender defer first rendering of specific component.</a>
+
+<ul>
+<li>クライアントでReactをrenderするとコンポーネントが多いほど初期化時間が長くなる</li>
+<li>なのでレンダリングを段階的にすることを目的にしたライブラリ</li>
+<li>一応動いているけど、もう少しアドホックな感じのもの書いて使ってる。</li>
+</ul></li>
+<li><a href="https://github.com/azu/weekly-snippets" title="azu/weekly-snippets: 週報 Issue">azu/weekly-snippets: 週報 Issue</a>
+
+<ul>
+<li>週報をやってみたけどモチベーションが続かなかった</li>
+<li>良い方法と一緒にやる人が必要だなと思った</li>
+<li>何かいい方法ないかな?</li>
+</ul></li>
+</ul>
+
+<h2 id="来年">来年</h2>
+
+<ul>
+<li><a href="https://github.com/almin/almin" title="Almin">Almin</a>
+
+<ul>
+<li>もう少し使ってもらえるように何かをやるかもしれない</li>
+<li>ステートソーシングについてはある程度やったのでイベントソーシングをクライアントでやるにはどうするかを考えたい</li>
+</ul></li>
+<li><a href="https://github.com/asciidwango/js-primer">asciidwango/js-primer: JavaScriptの入門書</a>
+
+<ul>
+<li>どうにか仕上げたい</li>
+</ul></li>
+<li><a href="https://github.com/azu/weekly-snippets" title="azu/weekly-snippets: 週報 Issue">週報 Issue</a>
+
+<ul>
+<li>何かいい方法で継続したいなー</li>
+<li>基本的に場所と必要性があれば継続できる人なので、何かが足りなかった</li>
+</ul></li>
+<li>JSer.infoのような情報サイトについて
+
+<ul>
+<li><a href="https://github.com/jser/jser.info/issues/85" title="中期的なまとめ記事 · Issue #85 · jser/jser.info">中期的なまとめ記事 · Issue #85 · jser/jser.info</a></li>
+<li>この辺について何か行動を起こしたい</li>
+<li>未知の要素が強くて行動が出しにくいという部分が大きい</li>
+<li>リスクとコストと効果のバランスを決定してから動かすのがいいのかな?</li>
+</ul></li>
 </ul>
  ]]></content>
  </entry>
@@ -1889,369 +2361,6 @@ Todoを追加するE2Eテストを書いてみます。</p>
 
 <p>TestCafe自体も結構よくできていて、エラー表示や操作の要素を表示していて分かりやすいです。
 また、Seleniumの設定が不要にしたいという気持ちはよく分かるので、ほんとに設定なしで動かせるのはすごいなと思いました。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>Node学園 23時限目 アウトラインメモ</title>
-   <link href="http://efcl.info/2016/10/21/node23/"/>
-   <updated>2016-10-21T21:25:00+09:00</updated>
-   <id>http://efcl.info/2016/10/21/node23</id>
-   <content type="html"><![CDATA[ <p><a href="http://nodejs.connpass.com/event/42200/" title="Node学園 23時限目 (今回はリクルート（東京駅）でやります！) - connpass">Node学園 23時限目 (今回はリクルート（東京駅）でやります！) - connpass</a>に参加してきたのメモ</p>
-
-<h2 id="npm-4、npm-5">npm@4、npm@5</h2>
-
-<blockquote>
-<p><a href="https://gist.github.com/othiym23/c98bd4ef5d9fb3f496835bd481ef40ae" title="node-gakuen-201610.md">node-gakuen-201610.md</a></p>
-</blockquote>
-
-<ul>
-<li>npmは後方互換性を重んじている
-
-<ul>
-<li>Node.jsにbundleされているので</li>
-</ul></li>
-<li>npm@2のbreaking changeについて
-
-<ul>
-<li>&gt; backwards-incompatible change to the way npm run-script handled its arguments</li>
-</ul></li>
-<li>npm@3
-
-<ul>
-<li>flat directory</li>
-<li>npm@2そのまま使い続ける人もいる</li>
-<li>大きな変更は移行の壁になるという話</li>
-</ul></li>
-<li>npm@4
-
-<ul>
-<li><a href="https://github.com/npm/npm/releases/tag/v4.0.0" title="Release v4.0.0 · npm/npm">Release v4.0.0 · npm/npm</a></li>
-<li>npm 4は小さな変更にした</li>
-<li><code>prepublish</code> が <code>npm install</code> 時に実行されるのは Deprecated
-
-<ul>
-<li><code>prepublishOnly</code> と <code>prepare</code> というライフサイクルに分解された</li>
-</ul></li>
-<li>outdated
-
-<ul>
-<li><a href="https://github.com/npm/npm/pull/14013" title="outdated: exitcode != 0 on outdated dependencies by watilde · Pull Request #14013 · npm/npm">outdated: exitcode != 0 on outdated dependencies by watilde · Pull Request #14013 · npm/npm</a></li>
-</ul></li>
-<li><code>npm search</code>
-
-<ul>
-<li>big jsonからストリーミングに</li>
-<li>やっと高速な検索ができるように</li>
-</ul></li>
-<li><code>npm tag</code>は <code>npm dist-tag</code>に</li>
-</ul></li>
-<li>npm@5
-
-<ul>
-<li>bundlerとCargoインスパイアな<a href="https://gist.github.com/othiym23/c98bd4ef5d9fb3f496835bd481ef40ae#lock-files" title="lock files">lock files</a></li>
-<li>Bundler
-
-<ul>
-<li><code>Gemfile</code>と<code>Gemfile.lock</code></li>
-<li>Flatな依存(no nest)</li>
-<li><code>Gemfile</code>は常にgit管理下</li>
-</ul></li>
-<li>Cargo
-
-<ul>
-<li><code>Cargo.toml</code> と <code>Cargo.lock</code></li>
-<li>依存はnestできる</li>
-</ul></li>
-</ul></li>
-<li><code>yarn</code>
-
-<ul>
-<li><code>packagejson</code>と<code>yarn.lock</code></li>
-<li>yarn&#39;s lock file is meant to be checked in to Git, but isn&#39;t published to the npm registry.</li>
-<li>flatとnestどっちも行ける</li>
-<li>アプリ用っぽい</li>
-<li><a href="https://github.com/yarnpkg/yarn/issues/570" title="make `--pure-lockfile` default for `install` · Issue #570 · yarnpkg/yarn">make <code>--pure-lockfile</code> default for <code>install</code> · Issue #570 · yarnpkg/yarn</a></li>
-</ul></li>
-<li>Different
-
-<ul>
-<li>Library</li>
-<li>Command</li>
-<li>Application</li>
-<li>とそれぞれ役割が違うので、ロックファイルがいるのかも違う</li>
-</ul></li>
-<li>shrinkwrap 
-
-<ul>
-<li>ライブラリ向けに設計されてなかった(production application向けだった)</li>
-<li>問題がある</li>
-</ul></li>
-<li>source of truth 
-
-<ul>
-<li><code>npm-shrinkwrap.json</code> is a single source of truth.</li>
-</ul></li>
-<li>npm LTS
-
-<ul>
-<li>Node.jsにbundleされるとLTSはどうなるという話</li>
-</ul></li>
-<li>npm@5 2017年4月リリース目標
-
-<ul>
-<li>Node.js 8がnpm@5を含むかは知らないよ</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="api-for-front-end-graphqlの話">API for Front-end - GraphQLの話</h2>
-
-<ul>
-<li>RESTful API再考</li>
-<li>RESTful API
-
-<ul>
-<li>貧弱なSQLをAPIを目指しているわけではない</li>
-</ul></li>
-<li>SPAなフロントエンドはつらい?
-
-<ul>
-<li>ただのViewではないから</li>
-<li>サーバサイド、クライアントサイドそれぞれにMVCがいる</li>
-<li>最近のサーバサイドはMicroServiceになってきている</li>
-<li>クライアントサイドもMicroservicesの一つなのでは</li>
-</ul></li>
-<li>フロントエンド
-
-<ul>
-<li>サーバ &lt;-&gt; フロントエンド</li>
-<li>物理的に遠いので、時間がかかる</li>
-<li>他のMicroservicesと違ってやり取りに時間がかかる</li>
-<li>先頭から3件だけ欲しいとか細かい指定をしてリクエストしたい</li>
-</ul></li>
-<li>オーケストレーション層のパターン
-
-<ul>
-<li>サーバに手を入れる必要がある</li>
-<li>ドキュメントは別途必要</li>
-</ul></li>
-<li>GraphSQL
-
-<ul>
-<li>表じゃなくてネストしたJSONが欲しいのではという話</li>
-<li><a href="https://github.com/graphql/graphiql" title="graphql/graphiql: An in-browser IDE for exploring GraphQL.">graphql/graphiql: An in-browser IDE for exploring GraphQL.</a>
-
-<ul>
-<li>GraphQLには型があるので、自動的に補完とかを作れる</li>
-</ul></li>
-<li>並列にデータを取得できる。</li>
-</ul></li>
-<li>N + 1問題
-
-<ul>
-<li>DataLoaderみたいな工夫が必要</li>
-<li><a href="https://quramy.github.io/graph-api-note/#/" title="Graph API: GraphQL and Falcor">Graph API: GraphQL and Falcor</a></li>
-<li>それ用のものを作った</li>
-</ul></li>
-<li>GraphQLの仕様
-
-<ul>
-<li><a href="https://facebook.github.io/graphql/" title="GraphQL">GraphQLの仕様</a></li>
-<li>でかい</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="client-side-js-for-infeed-layout-native-ad-at-fluct-ssp">Client-side JS for infeed layout native ad at fluct SSP</h2>
-
-<blockquote>
-<p><a href="https://speakerdeck.com/saneyuki/client-side-js-for-infeed-layout-native-ad-at-fluct-ssp" title="Client-side JS for infeed layout native ad at fluct SSP // Speaker Deck">Client-side JS for infeed layout native ad at fluct SSP // Speaker Deck</a></p>
-</blockquote>
-
-<ul>
-<li>fluct in VOYAGE</li>
-<li><code>document.write()</code></li>
-<li>広告業界
-
-<ul>
-<li>SSP
-
-<ul>
-<li>問屋業</li>
-<li>枠を売買</li>
-<li>Adのリクエストを管理する</li>
-<li>タグマネージャー的に動く</li>
-</ul></li>
-<li>DSP
-
-<ul>
-<li>広告枠を買って広告案件を流したい</li>
-<li>Real Time Bidding (RTB)というオークションを介してSSPから枠を買う</li>
-</ul></li>
-<li>Adnetwork
-
-<ul>
-<li>広告枠を買って広告案件を流したい</li>
-<li>RTBに参加するか否かが概ねDSPとの違い</li>
-</ul></li>
-</ul></li>
-<li>Infeed Layout web ad
-
-<ul>
-<li>いわゆるネイティブ広告</li>
-<li>従来の広告はimgとかで貼ってたりした</li>
-<li>ネイティブアドはデザインテンプレートと広告コンテンツを合わせてる</li>
-</ul></li>
-<li>ネイティブ広告
-
-<ul>
-<li>SDKスタイル
-
-<ul>
-<li>SDKを開発者に配って実装してもらう</li>
-</ul></li>
-<li>コンサルティングスタイル
-
-<ul>
-<li>開発者がいないとデザインできないので、代わりにやるスタイル</li>
-<li>タグを貼ってくれれば広告がでる</li>
-</ul></li>
-</ul></li>
-<li>OpenRTB protocol
-
-<ul>
-<li>デファクトの仕様</li>
-<li>最近のW3CやIETFに比べてザルな仕様</li>
-</ul></li>
-<li>iABという業界団体
-
-<ul>
-<li>リクエストとレスポンスのフォーマットを決めた</li>
-<li>多くの会社はサブセットとかスーパーセットを定義してる</li>
-</ul></li>
-<li>OpenRTB - js-tracker
-
-<ul>
-<li>DSPが任意のJavaScriptを埋め込める素敵な仕様
-
-<ul>
-<li>悪意があればマルウェアも仕込める</li>
-</ul></li>
-<li><code>document.write()</code>とかも仕込めてしまう
-
-<ul>
-<li>非同期読み込みの障害なので自社用の拡張仕様を作って縛る</li>
-</ul></li>
-</ul></li>
-<li>SSPのサポートする範囲
-
-<ul>
-<li>網羅できるものが多いほど強い</li>
-<li>RTB一回やAd network一社だけでは売れない場合があるので色々なAd networkに多段する</li>
-</ul></li>
-<li>Data flow overview
-
-<ul>
-<li>Web Page -&gt; リクエスト -&gt; SSP &lt;-&gt; DSP
-
-<ul>
-<li>SSP &lt;-&gt; DSP</li>
-<li>広告オークションを行う</li>
-</ul></li>
-<li>Web Page &lt;- レスポンス &lt;- SSP</li>
-<li>オークションが成功したらこれでOK</li>
-<li>失敗した場合は、Ad networkへクライアントからリクエスト投げる
-
-<ul>
-<li>クッキーとかクレデンシャルがあるのでクライアントから</li>
-</ul></li>
-</ul></li>
-<li>Construct JavaScript in ad server
-
-<ul>
-<li>JavaScriptを文字列で組み立てるのは危険</li>
-<li>一端 <code>JSON.stringify</code> で文字列リテラルとして評価できるようにする</li>
-</ul></li>
-<li>非同期処理をサポートする広告
-
-<ul>
-<li><a href="https://www.iab.com/news/lean/" title="Getting LEAN with Digital Ad UX">Getting LEAN with Digital Ad UX</a></li>
-<li><code>document.write()</code>も使えない</li>
-</ul></li>
-<li>一つの画面に複数の広告
-
-<ul>
-<li>非同期だと問題が
-
-<ul>
-<li>今まではdocument.writeばかりなのでparser blockingして同期的に動いてた</li>
-<li>deferもasyncもない普通のscript要素も同期的に動いてくれた</li>
-</ul></li>
-<li><code>document.currentScript</code>が使えない環境で問題がある</li>
-<li>自分がどのAd Scriptタグなのかわからない問題</li>
-<li>最後のscriptタグ !== 自分
-
-<ul>
-<li><code>async</code>属性などがあるため</li>
-</ul></li>
-<li>リクエスト時にuniqueなidを振って、レスポンスでそれを使うことで解決する</li>
-</ul></li>
-<li>優先度付きのリトライ
-
-<ul>
-<li>並列にリクエストを投げて最初に返ってきたものを取るというのを上手くやる仕組み</li>
-</ul></li>
-<li>Construct DOM
-
-<ul>
-<li>テンプレートな文字列を安全にやるのは難しい(XSS)</li>
-<li>クライアントのDOM APIを使ったほうが安全</li>
-</ul></li>
-<li>Implementation Style</li>
-<li>Limitation
-
-<ul>
-<li>ファイルサイズ</li>
-<li>サードパーティのライブラリを含めるとファイルサイズがネックになる</li>
-<li>Promiseのpolyfillが使えない</li>
-</ul></li>
-<li>自前で実装
-
-<ul>
-<li>10kb~ / response ぐらい</li>
-</ul></li>
-<li>他の問題
-
-<ul>
-<li><code>navigator.sendBeacon()</code> はクリティカルパス中など大量のリクエストがあるとき？にリクエストが飛ばないときがある
-
-<ul>
-<li>仕様としては有り得る挙動
-
-<ul>
-<li><a href="https://www.w3.org/TR/beacon/#return-values">https://www.w3.org/TR/beacon/#return-values</a></li>
-<li><a href="https://www.w3.org/TR/beacon/#sec-processing-model">https://www.w3.org/TR/beacon/#sec-processing-model</a></li>
-</ul></li>
-<li>仕方がないのでXHRで代替すると上手くいく</li>
-</ul></li>
-</ul></li>
-<li>Telemetry Reporter
-
-<ul>
-<li>広告タグはいろんな環境で動かす必要がある</li>
-<li>動かない環境とかもあるのか調べる方法が必要</li>
-<li>ログを上手く取る方法が必要</li>
-<li>またサイズを気にする必要がある</li>
-</ul></li>
-<li>Open Source
-
-<ul>
-<li>JavaScriptのコードは重要だけど、SSPは問屋業がコアバリュー</li>
-</ul></li>
-</ul>
  ]]></content>
  </entry>
  
