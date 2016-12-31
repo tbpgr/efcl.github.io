@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-12-31T11:49:59+09:00</updated>
+ <updated>2016-12-31T15:49:23+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,65 @@
  </author>
  
 
+ 
+ <entry>
+   <title>ECMAScriptの情報サイト</title>
+   <link href="http://efcl.info/2016/12/31/ecmascript-daily/"/>
+   <updated>2016-12-31T15:33:00+09:00</updated>
+   <id>http://efcl.info/2016/12/31/ecmascript-daily</id>
+   <content type="html"><![CDATA[ <h2 id="ecmascript-daily"><a href="https://ecmascript-daily.github.io/" title="ECMAScript Daily">ECMAScript Daily</a></h2>
+
+<p>そういえば、<a href="https://ecmascript-daily.github.io/" title="ECMAScript Daily">ECMAScript Daily</a>というECMAScriptの情報サイトをやってます。</p>
+
+<p><a href="https://github.com/ecmascript-daily/ecmascript-daily.github.com/commit/ad9f0cc626ff7188733b36ed45f2acc355c937bd">2015年12月</a>ぐらいに始めたので、1年ぐらい経ってましたがそういえばブログ書いてないことに気づいたので書いています。</p>
+
+<p>基本的には<a href="https://jser.info/" title="JSer.info">JSer.info</a>のECMAScript特化版という位置づけで、基本的な更新スタンスはJSer.infoとは変わらないです。</p>
+
+<p>週一とかではなくて、新しい情報がでたら直接更新のスタイルなので、<a href="https://realtime.jser.info/" title="Realtime JSer.info">Realtime JSer.info</a>(JSer.infoのリアルタイム版)の方がより近いです。</p>
+
+<p>記事自体もほぼリンクだけに近いので、Twitter(<a href="https://twitter.com/ecmascriptdaily" title="@EcmascriptDaily">@EcmascriptDaily</a>)で見たほうが分かりやすいかもしれません。</p>
+
+<p><a href="https://twitter.com/EcmascriptDaily" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @EcmascriptDaily</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?&#39;http&#39;:&#39;https&#39;;if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+&#39;://platform.twitter.com/widgets.js&#39;;fjs.parentNode.insertBefore(js,fjs);}}(document, &#39;script&#39;, &#39;twitter-wjs&#39;);</script></p>
+
+<p>週1でまとめて見たい場合は<a href="https://ecmascript-daily.github.io/" title="ECMAScript Daily">ECMAScript Daily</a>からメールマガジンに登録できるので、そっちで見るとかするといいと思います。</p>
+
+<p>基本的にはリンクを投げっぱなしですが、新しい<a href="https://github.com/rwaldron/tc39-notes" title="ECMA, TC39 Meeting Notes">ECMA, TC39 Meeting Notes</a>が出たときは変更があったProposalをまとめたりしてます。</p>
+
+<ul>
+<li><a href="https://ecmascript-daily.github.io/ecmascript/2016/12/22/ecmascript-proposals">ECMAScript proposal updates @ 2016-11 | ECMAScript Daily</a></li>
+<li><a href="https://ecmascript-daily.github.io/2016/10/02/proposals-updates">ECMAScript proposal updates @ 2016-10 | ECMAScript Daily</a></li>
+</ul>
+
+<p>後たまに、型の仕様提案の現状をまとめたりしてます。</p>
+
+<ul>
+<li><a href="https://ecmascript-daily.github.io/pages/status-of-static-typing-in-ecmascript/">Status of Static Typing in ECMAScript | ECMAScript Daily</a></li>
+</ul>
+
+<p>基本的にはECMAScriptの仕様と各実装のステータスとか、仕様に関する記事を取り上げたりしてる感じです。</p>
+
+<p>他に類似するサイトは<a href="http://esnextnews.com/" title="ES.next News">ES.next News</a>ぐらいですが、最近あんまり更新されてない感じがします…</p>
+
+<ul>
+<li><a href="http://esnextnews.com/" title="ES.next News">ES.next News</a></li>
+</ul>
+
+<p>ECMAScriptに興味がある人は見てみるといいと思います。</p>
+
+<p>Jekyllで動かしてるのですが、けっこう適当に作ってそのままなので、Contribution募集しています！</p>
+
+<ul>
+<li><a href="https://github.com/ecmascript-daily/ecmascript-daily.github.com/issues/13" title="feature: support paging · Issue #13 · ecmascript-daily/ecmascript-daily.github.com">feature: support paging · Issue #13 · ecmascript-daily/ecmascript-daily.github.com</a></li>
+</ul>
+
+<p>また、取り上げたい記事をPRするでも良いです。</p>
+
+<ul>
+<li><a href="https://github.com/ecmascript-daily/ecmascript-daily.github.com/blob/master/CONTRIBUTING.md" title="ecmascript-daily.github.com/CONTRIBUTING.md at master · ecmascript-daily/ecmascript-daily.github.com">ecmascript-daily.github.com/CONTRIBUTING.md at master · ecmascript-daily/ecmascript-daily.github.com</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>textlint --cacheオプションでチェックを高速化した</title>
@@ -2193,261 +2252,6 @@ Todoを追加するE2Eテストを書いてみます。</p>
 <li>JavaScriptのコードは重要だけど、SSPは問屋業がコアバリュー</li>
 </ul></li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>#jxck_sushi でserverlessの話をしてきた</title>
-   <link href="http://efcl.info/2016/10/18/jxck_sushi/"/>
-   <updated>2016-10-18T23:08:00+09:00</updated>
-   <id>http://efcl.info/2016/10/18/jxck_sushi</id>
-   <content type="html"><![CDATA[ <p><a href="http://togetter.com/li/1038372" title="#jxck_sushi - Togetterまとめ">#jxck_sushi</a>に参加してきた。</p>
-
-<ul>
-<li><a href="https://github.com/meta-sushi/guideline" title="meta-sushi/guideline: Sushiイベントのガイドライン">meta-sushi/guideline: Sushiイベントのガイドライン</a></li>
-<li><a href="http://togetter.com/li/1038372" title="#jxck_sushi - Togetterまとめ">#jxck_sushi - Togetterまとめ</a></li>
-</ul>
-
-<p>2回目の<code>#jxck_sushi</code>だった。</p>
-
-<ul>
-<li><a href="http://efcl.info/2015/01/30/cross-2015/" title="CROSS 2015 アウトラインメモ | Web Scratch">CROSS 2015 アウトラインメモ | Web Scratch</a></li>
-</ul>
-
-<p>今回は<a href="http://azu.github.io/slide/2016/jxck_sushi/serverless.html" title="Serverlessを使った匿名でGitHub Issueを立てるAPIを作った">Serverlessを使った匿名でGitHub Issueを立てるAPIを作った</a>という話をしてきた。</p>
-
-<p><a href="https://github.com/jser/ping" title="jser/ping: ping! your issus">jser/ping: ping! your issus</a>を作ったときに必要だったのAPI Gatewayとlambdaを使ってAPIとして作った話。</p>
-
-<hr>
-
-<h2 id="walter">Walter</h2>
-
-<blockquote>
-<p>TODO: スライドはここに</p>
-</blockquote>
-
-<ul>
-<li>FirebaseとIndexedDBの話</li>
-</ul>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="und" dir="ltr"><a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a> 🍣 <a href="https://t.co/YcLaJR6dK2">pic.twitter.com/YcLaJR6dK2</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/788335553611640832">October 18, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">CQRS寿司 <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a> <a href="https://t.co/K9tWo8xGl6">pic.twitter.com/K9tWo8xGl6</a></p>&mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/status/788335724680523777">October 18, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">これからの Web について真剣に議論している <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a> <a href="https://t.co/WQxTaieQng">pic.twitter.com/WQxTaieQng</a></p>&mdash; Jxck (@Jxck_) <a href="https://twitter.com/Jxck_/status/788336179221401600">October 18, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a> による🍣 <a href="https://t.co/PMNoJa8gRn">pic.twitter.com/PMNoJa8gRn</a></p>&mdash; Laco (@laco0416) <a href="https://twitter.com/laco0416/status/788336275472265216">October 18, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">次世代のアーキテクチャについて真剣に議論している <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a> <a href="https://t.co/GPuAQFX2u1">pic.twitter.com/GPuAQFX2u1</a></p>&mdash; 83 (@armorik83) <a href="https://twitter.com/armorik83/status/788336294304768000">October 18, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>内容は :sushi: </p>
-
-<h2 id="serverless-frameworkでのapi作成">Serverless FrameworkでのAPI作成</h2>
-
-<blockquote>
-<p>スライド: <a href="http://azu.github.io/slide/2016/jxck_sushi/serverless.html" title="Serverlessを使った匿名でGitHub Issueを立てるAPIを作った">Serverlessを使った匿名でGitHub Issueを立てるAPIを作った</a></p>
-</blockquote>
-
-<ul>
-<li><a href="https://github.com/jser/ping" title="jser/ping: ping! your issus">jser/ping: ping! your issus</a></li>
-<li>API Gatewayとlambdaを使ってブラウザから叩けるAPIを作る話</li>
-<li>CORSの設定とかも<a href="https://github.com/serverless/serverless" title="Serverless Framework">Serverless Framework</a>から設定ファイルだけで簡潔して便利だった</li>
-<li>lambdaのテストについて</li>
-<li>handlerのスクリプトをローカルで実行できるようにするしか…</li>
-<li>ApexやServerlessは実際にlambdaを叩くCLIがある</li>
-<li><code>console.log</code>を細かく仕込んでCloudWatchで見るとか</li>
-<li>AWSのサービスと連携した場合が結構たいへん</li>
-</ul>
-
-<h2 id="web-component-v1">Web Component v1</h2>
-
-<blockquote>
-<p>スライド: <a href="http://slides.com/laco/webcomponents-v1-libs#/" title="webcomponents v1 libraries by laco">webcomponents v1 libraries by laco</a></p>
-</blockquote>
-
-<ul>
-<li>Custom Element v1などがでた</li>
-<li>ライブラリ</li>
-<li><a href="https://www.polymer-project.org/2.0/docs/about_20" title="Polymer 2.0">Polymer 2.0</a></li>
-<li><a href="http://skate.js.org/" title="SkateJS">SkateJS</a></li>
-<li>が対応してる</li>
-<li>Custom Element v1はクラス継承に対応してる</li>
-<li>Polymer 2.0は継承路線</li>
-<li>SkateJSはWebComponentとJSXとincrementJSに対応してたり、タグ定義は独自関数
-
-<ul>
-<li>自前でpolyfillを持っている</li>
-</ul></li>
-</ul>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">らこ「Polymerはbower」<br>一同「bowerか〜〜」 <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; 83 (@armorik83) <a href="https://twitter.com/armorik83/status/788341086901022720">October 18, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<ul>
-<li>HTML Imports</li>
-<li>PolymerはHTML Import頑張りたい姿勢</li>
-<li>SkateJSはHTML Importを捨てている。モジュールの仕組み</li>
-<li>Firefox: <a href="https://hacks.mozilla.org/2014/12/mozilla-and-web-components/" title="Mozilla and Web Components: Update ★ Mozilla Hacks – the Web developer blog">Mozilla and Web Components: Update ★ Mozilla Hacks – the Web developer blog</a>
-
-<ul>
-<li>Loaderで似たようなことができるかもしれないのに、別途HTML Importやるのが微妙という姿勢</li>
-</ul></li>
-</ul>
-
-<h3 id="amp">AMP</h3>
-
-<ul>
-<li>社内フレームワークとしてのAMP</li>
-<li>社内フレームワークとしてのWeb Components</li>
-<li>よくJavaScriptとかしらない人が <code>&lt;TPLogin /&gt;</code> とかでログイン画面を作れるとか</li>
-<li>AMPのいいところは imageのwidthを指定しないとバリデーションで落ちる</li>
-<li>バリデーション通らないとSEO不利なのに皆対応するという強制力</li>
-<li>そういった強制力をWeb Componentsで出せる?
-
-<ul>
-<li>JSXのpropTypesみたいな?</li>
-<li>今のところ仕組みはなさそう</li>
-</ul></li>
-</ul>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「俺が書いたHTMLのほうがAMPより早い」 <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/788343509182918657">October 18, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<h3 id="web-components-銀の弾丸">Web Components 銀の弾丸</h3>
-
-<ul>
-<li>CSSにとってはやっぱり銀の(ry</li>
-<li>CSSのスコープ</li>
-<li>けどCSSはレイアウトをするために外から差し込める口が必要
-
-<ul>
-<li>テーマ機能とか</li>
-<li>CSSむずかしい</li>
-</ul></li>
-<li>v1ではopenとclose modeとなった
-
-<ul>
-<li>どちらもCSS Custom PropertyをI/F的に使えるのは同じ</li>
-<li><a href="http://terkel.github.io/why-im-excited-about-native-css-variables/" title="僕がネイティブな CSS 変数にわくわくする理由">僕がネイティブな CSS 変数にわくわくする理由</a></li>
-<li>closeは外からさせない</li>
-<li>openは外からさせる</li>
-<li>コンポーネントをattachShadowする時に確定する仕組みになった</li>
-</ul></li>
-</ul>
-
-<h2 id="それcssでできるよ">それCSSでできるよ</h2>
-
-<ul>
-<li>可変長のリストの話</li>
-</ul>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「Webの技術の中で一番難しいのがCSS」 <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; 83 (@armorik83) <a href="https://twitter.com/armorik83/status/788348248188555264">October 18, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<h2 id="セマンティックス">セマンティックス</h2>
-
-<ul>
-<li><code>&lt;img src=&quot;jxck.png&quot;&gt;</code> を見てどう思うか
-
-<ul>
-<li><code>alt</code></li>
-<li><code>title</code></li>
-</ul></li>
-<li><code>alt</code>を付けるのはスクリーンリーダのためだけではないという話</li>
-</ul>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「セマンティックスはPull型であるべきだ」 <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/788349959179427840">October 18, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<ul>
-<li><code>title</code>属性の使い道は現在のUAだとツールチップぐらい</li>
-<li>セマンティックスが先にあって、それを消費する形が正しい姿</li>
-<li>今title属性を消費するクライアントがないからという理由で、titleを省略していくという考えは変なのではという話</li>
-</ul>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">HTMLとして正しいじゃなくて、ウェブとして正しいかという話になってしまう。<br>なのでやや抽象的で、どこから見た視点なのかという話になる<br> <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/788351935640285184">October 18, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<ul>
-<li>HTMLの仕様ではMUSTが正しいとは言えるけど、それ以外はどう見たら正しいのかという指標が難しい</li>
-<li>正しさを正しいと評価するツールが欲しいのは分かる</li>
-</ul>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">仕様上のMUSTだと結構範囲は狭い、ユースケースまで行くとある程度の正しい形は書かれてる <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/788353505144602624">October 18, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<ul>
-<li>HTTP</li>
-<li>getでdeleteするな話</li>
-<li>Google Botsがクロールして全部getして消える話</li>
-<li>Google Botsのために&quot;getでdelete&quot;を避けるじゃない</li>
-</ul>
-
-<h2 id="node-interactive-europe">Node Interactive Europe</h2>
-
-<ul>
-<li><a href="http://yosuke-furukawa.hatenablog.com/entry/2016/09/30/123942" title="Node Interactive Europe 2016 に参加しました。 - from scratch">Node Interactive Europe 2016 に参加しました。 - from scratch</a></li>
-<li>Node.js 今互換性を気にしすぎで少し停滞してる</li>
-<li>またio.js?</li>
-<li>Node.jsの競合がでるのが正しい競争の形</li>
-<li>Web標準も色々やっていきたい in Node.js</li>
-</ul>
-
-<h2 id="prh">prh</h2>
-
-<ul>
-<li><a href="http://qiita.com/vvakame/private/5cbb2bf9b6de5899006b" title="prhのWEB+DB PRESS校正ルール最新版を作成した話 - Qiita">prhのWEB+DB PRESS校正ルール最新版を作成した話 - Qiita</a></li>
-<li>WEB+DBの<code>prh.yml</code>最新版情報</li>
-<li>別でprh.ymlをまとめたリポジトリ</li>
-<li><a href="https://github.com/azu/prh.yml" title="azu/prh.yml: A collection of prh.yml">azu/prh.yml: A collection of prh.yml</a></li>
-</ul>
-
-<h2 id="preflight">preflight</h2>
-
-<ul>
-<li>WHATWG module loaderでCORS強制する?</li>
-<li>TODO: この辺に議論されてるURLが入る</li>
-</ul>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「タイミングのpreflightが届いてなかった」 <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/788361447558426625">October 18, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<h2 id="angular1と2">Angular1と2</h2>
-
-<ul>
-<li>Angular2は半年に1度メジャーを上げる予定?</li>
-<li>Angular1と2で落差がある</li>
-<li>信頼を取り戻すのに Angular 4ぐらいまでかかりそう</li>
-<li>1を管理画面などの業務系に使っていた人たちが多い</li>
-<li>Truly覚悟が必要</li>
-</ul>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">Angular 2は別のネームスペースの1.0にしなかったから今後一生「Angular 2」って呼ばれそう <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a></p>&mdash; 83 (@armorik83) <a href="https://twitter.com/armorik83/status/788367243264471042">October 18, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<h2 id="おわり">おわり</h2>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">ありがとうございました！ <a href="https://twitter.com/hashtag/jxck_sushi?src=hash">#jxck_sushi</a> <a href="https://t.co/qf3Durm9wa">pic.twitter.com/qf3Durm9wa</a></p>&mdash; Jxck (@Jxck_) <a href="https://twitter.com/Jxck_/status/788372247043899392">October 18, 2016</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
  ]]></content>
  </entry>
  
