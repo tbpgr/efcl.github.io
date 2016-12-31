@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2016-12-31T18:31:42+09:00</updated>
+ <updated>2016-12-31T18:33:48+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -270,7 +270,7 @@ productionビルド時は外してやるので、コスパいい感じで結構�
 
 <ul>
 <li><a href="https://asciidwango.github.io/js-primer/">Introduction · JavaScriptの入門書 #jsprimer</a></li>
-<li>b</li>
+<li><a href="https://github.com/asciidwango/js-primer">asciidwango/js-primer: JavaScriptの入門書</a></li>
 </ul>
 
 <p>ES2015+を前提としてたJavaScriptの入門書を書いてる。</p>
