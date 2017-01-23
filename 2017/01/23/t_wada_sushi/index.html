@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        #t_wada_sushi でOpen Collectiveの話をしてきた | Web Scratch
+        
+    </title>
+    <meta name="description" content="#t_wada_sushiでOpen Collectiveの話をしてきました。">
+    
+    <meta name="keywords" content="OSS,twada,testing,sushi" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="#t_wada_sushi でOpen Collectiveの話をしてきた">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2017/01/23/t_wada_sushi/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="#t_wada_sushiでOpen Collectiveの話をしてきました。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2017-01-23T23:08:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/12/31/ecmascript-daily/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/12/31/oss-in-2016/">
+
+<meta property="og:see_also" content="http://efcl.info/2016/12/28/textlint-cache/">
+
+
+
+
+
+<meta property="article:section" content="イベント">
+
+
+
+
+
+<meta property="article:tag" content="OSS">
+
+<meta property="article:tag" content="twada">
+
+<meta property="article:tag" content="testing">
+
+<meta property="article:tag" content="sushi">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 32
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 170
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 87
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 9
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 6
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2017/01/23/t_wada_sushi/">
+                #t_wada_sushi でOpen Collectiveの話をしてきた
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/12/31/ecmascript-daily/">
+                ECMAScriptの情報サイトを始めて1年経った
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/12/31/oss-in-2016/">
+                今年のOSS活動振り返り @ 2016
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2016/12/28/textlint-cache/">
+                textlint --cacheオプションでチェックを高速化した
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2017/01/23/t_wada_sushi/">
+    <h1 class="post-title">#t_wada_sushi でOpen Collectiveの話をしてきた</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2017年01月23日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-01-23-t_wada_sushi.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="https://twitter.com/search?q=%23t_wada_sushi&amp;src=typd" title="#t_wada_sushi">#t_wada_sushi</a>で<a href="https://opencollective.com/" title="Open Source Collective is on Open Collective">Open Collective</a>の話をしてきました。</p>
+
+<p><a href="http://azu.github.io/slide/2017/t_wada_sushi/OpenCollective.html"><img src="https://monosnap.com/file/JNTadjsjcWbTuHYcJY2Zdgd14R77Oe.png" alt="open"></a></p>
+
+<ul>
+<li>スライド: <a href="http://azu.github.io/slide/2017/t_wada_sushi/OpenCollective.html" title="Open Collective">Open Collective</a></li>
+</ul>
+
+<p>最近webpackなども利用し始めた<a href="http://azu.github.io/slide/2017/t_wada_sushi/OpenCollective.html" title="Open Collective">Open Collective</a>というウェブサービスについての話をしてきました。
+いわゆる寄付サービスや<a href="https://www.patreon.com/" title="Patreon">Patreon</a>に近いものです。
+オープンソースプロジェクトなどの小さなコミュニティが法人格を持たないで、透明性を持ってお金をやり取り出来るような状況を作ることを目的にしたサービスです。</p>
+
+<ul>
+<li><a href="https://hackernoon.com/how-webpack-raised-15-000-in-3-months-and-the-future-of-open-source-cb2c9f68fffa#.pp5mjn2jy" title="How Webpack raised $15,000 in 3 months, and the future of open source">How Webpack raised $15,000 in 3 months, and the future of open source</a></li>
+</ul>
+
+<p>どういう目的をもって作られてたか、また最近利用するJavaScriptのOSSが増えてきたので簡単に調べた感じです。</p>
+
+<ul>
+<li><a href="https://github.com/jser/report/issues/4" title="Open Collective · Issue #4 · jser/report">Open Collective · Issue #4 · jser/report</a></li>
+</ul>
+
+<hr>
+
+<h2 id="webpack2-会長">webpack2 - 会長</h2>
+
+<ul>
+<li>Tree shakingについて</li>
+<li>webpack2への移行でハマったのは
+
+<ul>
+<li>postcss</li>
+<li><a href="https://github.com/webpack/extract-text-webpack-plugin" title="extract-text-webpack-plugin">extract-text-webpack-plugin</a></li>
+</ul></li>
+<li>webpack2のTree shakingのしくみについて</li>
+<li>webpackは<code>// unused</code> なコメントをつけていく</li>
+<li>これをuglifyJSが圧縮時に消し去る</li>
+<li>という仕組み</li>
+<li>Tree shakingした結果12kb減った</li>
+<li>モジュールを元からきちんと分けてるとそこまで効果がない感じ</li>
+<li>圧縮を書けないとコメントが増える分余計に増える</li>
+</ul>
+
+<hr>
+
+<h2 id="whatwg-urlについての最近の動向-laco"><a href="http://slides.com/laco/201701-twada-sushi#/" title="whatwg/urlについての最近の動向">whatwg/urlについての最近の動向</a> - laco</h2>
+
+<ul>
+<li><a href="https://github.com/whatwg/url/graphs/contributors" title="Contributors to whatwg/url">Contributors to whatwg/url</a></li>
+<li>コミットが最近活発化</li>
+<li>URLSearchParamsについての変更がある</li>
+<li>URLフラグメントのASCII文字列化 (373dbed)</li>
+<li>URL passwordの仕様変更 (5e0b05e)</li>
+<li>URLSearchParamsのコンストラクタ仕様変更 (31ddc5b)
+
+<ul>
+<li>mapを受け入れるようになった</li>
+<li>tuple、map、文字列にURLSearchParamのコンストラクタに渡せるようになった</li>
+<li>オーバーロード</li>
+<li><a href="https://github.com/whatwg/url/pull/175" title="Simplify constructing URLSearchParams by annevk · Pull Request #175 · whatwg/url">Simplify constructing URLSearchParams by annevk · Pull Request #175 · whatwg/url</a></li>
+</ul></li>
+<li>URLSearchParams#sort() (960f607)
+
+<ul>
+<li>Arrayと同じく破壊的なsort</li>
+</ul></li>
+<li>CanIuseだとバージョン毎の変更の対応が分からない</li>
+<li>MDN
+
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/API/URLSearchParams" title="URLSearchParams - Web API インターフェイス | MDN">URLSearchParams - Web API インターフェイス | MDN</a></li>
+<li>実装されたバージョンごとの違いもでる</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="mixed-content-jxck">mixed content - jxck</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">Cookpad緑だよ <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a> <a href="https://t.co/oeWnGMbQ7V">https://t.co/oeWnGMbQ7V</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/823499642016890880">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>CookpadもHTTPS化した</li>
+<li>大きなサイトがhttps化するのは大変</li>
+<li>mixed contentの問題が大きい
+
+<ul>
+<li>広告とか</li>
+</ul></li>
+<li>一つでもmixed contentがあるとURLバーがグリーンにならない</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">mixed contentには二種類<br>active mixed content = DOMいじれる<br>passive mixed content = DOMいじれない <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/823499937564348416">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>外れAdガジャ問題<br></li>
+<li>広告配信サービスはHTTPS対応していても、中身の雑な広告があるとmixed contentになってしまうことがある</li>
+<li>HTTP_UPGRADE_INSECURE_REQUESTSについて</li>
+<li>ブラウザに対するHTTPヘッダ</li>
+<li><a href="http://d.hatena.ne.jp/ASnoKaze/20150423/1429758051" title="Chrome 43でUpgrade Insecure Requestsに対応してた - あすのかぜ">Chrome 43でUpgrade Insecure Requestsに対応してた - あすのかぜ</a></li>
+<li><a href="https://w3c.github.io/webappsec-upgrade-insecure-requests/" title="Upgrade Insecure Requests">Upgrade Insecure Requests</a></li>
+<li>ヘッダを受けて、ブラウザはサブリソースのhttp://へのリクエストを自動でhttps://のものに変更する
+
+<ul>
+<li>httpで書いてあってもhttpsとしてリクエストする</li>
+<li>リクエスト先がhttpsがじゃない場合は見つからないので400になる</li>
+<li>mixed contentにはならない(httpは400になるので混ざらない)</li>
+</ul></li>
+<li>mixed contentの問題</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">mixed contetntの問題はmixed contentが起きてるか分からないこと。<br> <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/823502009298882560">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content" title="CSP: block-all-mixed-content">CSP: block-all-mixed-content</a> + report-onlyで発見できる
+
+<ul>
+<li>CSP: block-all-mixed-contentでmixed contentはblockされる</li>
+<li><code>Content-Security-Policy-Report-Only: policy</code></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP" title="Content Security Policy (CSP) - HTTP | MDN">Content Security Policy (CSP) - HTTP | MDN</a></li>
+<li><code>report-onlyp</code> modeなら実際にはblockされないで、reportだけを遅れる</li>
+</ul></li>
+<li><a href="https://report-uri.io/" title="Welcome to report-uri.io">Welcome to report-uri.io</a>
+
+<ul>
+<li>UIがダメ、すぐダウンする</li>
+<li>CSP reportの管理ツールでいいものがまだない</li>
+</ul></li>
+<li><a href="https://www.w3.org/TR/2016/WD-reporting-1-20160407/" title="Reporting API 1">Reporting API 1</a></li>
+<li>クライアントのログ問題</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">XSSがなくてもCSPのinline scriptのreportが来る。<br>Chrome拡張、ブックマークレットとかクライアントはノイズデータが多い <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/823503391577866240">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>エラーログ、CSPログなどはノイズが多い</li>
+</ul>
+
+<hr>
+
+<h2 id="firefoxのtime-travel-debugging-kyo_ago">FirefoxのTime-Travel Debugging - kyo_ago</h2>
+
+<ul>
+<li><a href="http://www.slideshare.net/dynamis/firefox-devtools/39" title="Firefox DevTools">Firefox DevTools</a></li>
+<li>FirefoxのTime-Travelデバッグがくる?</li>
+<li>ブレークポイント貼って戻して、再現するデバッグ</li>
+</ul>
+
+<h2 id="electron-kyo_ago">Electron - kyo_ago</h2>
+
+<ul>
+<li>Electronのアプリに対してJavaScriptなどをinjectしたい</li>
+<li>ブラウザのウェブサイドはユーザ側からいじれる</li>
+<li>Electronアプリはいじれなくて不便</li>
+</ul>
+
+<hr>
+
+<h2 id="イベント用の名札シート印刷アプリのcss-yoshiko">イベント用の名札シート印刷アプリのCSS - yoshiko</h2>
+
+<ul>
+<li><a href="http://yoshiko.hatenablog.jp/entry/your-name">イベント用の名札シート印刷アプリ「参加者の名は。」を作った - エンジニアをリングする</a></li>
+<li><a href="https://yoshiko-pg.github.io/your-name/">参加者の名は。- Name cards generator for events</a></li>
+<li>CSSで微妙にはみ出る表現の話</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">A4サイズにしつつ、少し常にはみ出すようなCSSを書いた話 <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a> <a href="https://t.co/zZocQrChZq">https://t.co/zZocQrChZq</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/823508811914756096">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">CSSで固定比率のスライド <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a> <a href="https://t.co/R8jEe0PBh8">https://t.co/R8jEe0PBh8</a></p>&mdash; よしこ (@yoshiko_pg) <a href="https://twitter.com/yoshiko_pg/status/823516169143365633">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">::beforeはその要素の中の先頭、::afterはその要素の中の最後。<br>つまり疑似要素は中にくる <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/823510075260026882">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>疑似要素とmarginが親の横幅を元にする仕様を使った固定比率の話</li>
+</ul>
+
+<hr>
+
+<h2 id="modern-javascript概観、そしてelectronへ-taichi"><a href="http://blog.satotaichi.info/modern-javascript_201701/" title="Modern JavaScript概観、そしてElectronへ">Modern JavaScript概観、そしてElectronへ</a> - taichi</h2>
+
+<ul>
+<li>皆がよくハマるところを防ぐコードを書いていくとフレームワークは汚くなる</li>
+<li>Angular 2、Vue1, 2はコードがキレイ</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「食べられる泥」 <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a></p>&mdash; Local Proxy (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/823518103015301121">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+
+<h2 id="その他">その他</h2>
+
+<ul>
+<li>Dart</li>
+<li>rubyのsassは<a href="https://github.com/sass/dart-sass" title="dart-sass">dart-sass</a>になった
+
+<ul>
+<li><a href="http://blog.sass-lang.com/posts/1022316-announcing-dart-sass" title="Announcing Dart Sass « Sass Blog">Announcing Dart Sass « Sass Blog</a></li>
+</ul></li>
+<li>Google社内での再熱</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">Google内部でDartはかなり人気があるし、今でも2か月に一回はリリースされている。確かに公式サイトを見ると、次世代のAdWordsはDartで作られたとある。 <a href="https://t.co/2bKYmskevO">https://t.co/2bKYmskevO</a> <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a></p>&mdash; 太一 (@ryushi) <a href="https://twitter.com/ryushi/status/823541009749422082">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">DartはHaxeの立ち位置を目指している? <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/823516011584331776">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>DartのStrongModeは極限まで型推論を頑張るモード
+
+<ul>
+<li>V8の<a href="https://github.com/v8/v8/wiki/Experiments%20with%20Strengthening%20JavaScript#strong-mode" title="Strong Mode">Strong Mode</a>とはまた異なるもの</li>
+</ul></li>
+<li>Dart Dev Compilerがでない
+
+<ul>
+<li><a href="http://qiita.com/laco0416/items/04314d034d335bc620ff" title="Dart SDK Roadmapの進捗状況を確認する - Qiita">Dart SDK Roadmapの進捗状況を確認する - Qiita</a></li>
+<li><a href="https://github.com/dart-lang/sdk/tree/master/pkg/dev_compiler" title="sdk/pkg/dev_compiler at master · dart-lang/sdk">sdk/pkg/dev_compiler at master · dart-lang/sdk</a></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="最近やったこと-t_wada">最近やったこと - t_wada</h2>
+
+<ul>
+<li><a href="https://github.com/unassert-js" title="unassert-js">unassert-js</a></li>
+<li>organizationになった</li>
+<li>power-assertの :star: 200ぐらい増えた
+
+<ul>
+<li>中国の人達が見つけたため</li>
+</ul></li>
+<li>alibabaとか最近OSSでも活発
+
+<ul>
+<li><a href="https://github.com/alibaba/rax" title="alibaba/rax: A universal React-compatible render engine.">alibaba/rax: A universal React-compatible render engine.</a></li>
+</ul></li>
+<li>chai to assert</li>
+<li><a href="https://github.com/twada/chai-to-assert" title="twada/chai-to-assert: A jscodeshift codemod that transforms from chai to assert">twada/chai-to-assert: A jscodeshift codemod that transforms from chai to assert</a></li>
+<li>元は<a href="https://github.com/power-assert-js/power-assert/issues/74" title="any tool to migrate `should/expect` code to `power-assert`? · Issue #74 · power-assert-js/power-assert">any tool to migrate <code>should/expect</code> code to <code>power-assert</code>? · Issue #74 · power-assert-js/power-assert</a>のIssue</li>
+<li>chatの構文を調べてる
+
+<ul>
+<li>結構凶悪</li>
+</ul></li>
+<li>ランタイムに型をチェックして分岐している部分がでてくる</li>
+<li>静的にはわからないため変換が難しい</li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// simple referencing</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">};</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">);</span>
+
+<span class="c1">// deep referencing</span>
+<span class="kd">var</span> <span class="nx">deepObj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">green</span><span class="o">:</span> <span class="p">{</span> <span class="nx">tea</span><span class="o">:</span> <span class="s1">&#39;matcha&#39;</span> <span class="p">}</span>
+  <span class="p">,</span> <span class="nx">teas</span><span class="o">:</span> <span class="p">[</span> <span class="s1">&#39;chai&#39;</span><span class="p">,</span> <span class="s1">&#39;matcha&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">tea</span><span class="o">:</span> <span class="s1">&#39;konacha&#39;</span> <span class="p">}</span> <span class="p">]</span>
+<span class="p">};</span>
+
+<span class="nx">expect</span><span class="p">(</span><span class="nx">deepObj</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">deep</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;green.tea&#39;</span><span class="p">,</span> <span class="s1">&#39;matcha&#39;</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">deepObj</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">deep</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;teas[1]&#39;</span><span class="p">,</span> <span class="s1">&#39;matcha&#39;</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">deepObj</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">deep</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;teas[2].tea&#39;</span><span class="p">,</span> <span class="s1">&#39;konacha&#39;</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li><a href="http://chaijs.com/api/bdd/#method_property">http://chaijs.com/api/bdd/#method_property</a></li>
+<li>wow</li>
+<li>変換には<a href="https://github.com/facebook/jscodeshift" title="facebook/jscodeshift: A JavaScript codemod toolkit.">facebook/jscodeshift: A JavaScript codemod toolkit.</a>を使ってる
+
+<ul>
+<li><a href="https://github.com/substack/node-falafel" title="substack/node-falafel: transform the ast on a recursive walk">substack/node-falafel: transform the ast on a recursive walk</a>に近いところもある</li>
+</ul></li>
+<li>Reactのマイグレーションツールなどでも使われてる
+
+<ul>
+<li>フレームワーク側がマイグレーションをするツールとして提供するケース</li>
+</ul></li>
+<li>Assertionツール同士の変換ツールが色々有る</li>
+<li>2週ぐらいすると必要なものが残る</li>
+</ul>
+
+<hr>
+
+<p>お疲れ様でした。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-01-23-t_wada_sushi.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["OSS","twada","testing","sushi"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=OSS">OSS</a></li>
+                
+                <li><a href="/tags/?q=twada">twada</a></li>
+                
+                <li><a href="/tags/?q=testing">testing</a></li>
+                
+                <li><a href="/tags/?q=sushi">sushi</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

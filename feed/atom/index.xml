@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-01-01T17:17:26+09:00</updated>
+ <updated>2017-01-24T00:34:22+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,316 @@
  </author>
  
 
+ 
+ <entry>
+   <title>#t_wada_sushi でOpen Collectiveの話をしてきた</title>
+   <link href="http://efcl.info/2017/01/23/t_wada_sushi/"/>
+   <updated>2017-01-23T23:08:00+09:00</updated>
+   <id>http://efcl.info/2017/01/23/t_wada_sushi</id>
+   <content type="html"><![CDATA[ <p><a href="https://twitter.com/search?q=%23t_wada_sushi&amp;src=typd" title="#t_wada_sushi">#t_wada_sushi</a>で<a href="https://opencollective.com/" title="Open Source Collective is on Open Collective">Open Collective</a>の話をしてきました。</p>
+
+<p><a href="http://azu.github.io/slide/2017/t_wada_sushi/OpenCollective.html"><img src="https://monosnap.com/file/JNTadjsjcWbTuHYcJY2Zdgd14R77Oe.png" alt="open"></a></p>
+
+<ul>
+<li>スライド: <a href="http://azu.github.io/slide/2017/t_wada_sushi/OpenCollective.html" title="Open Collective">Open Collective</a></li>
+</ul>
+
+<p>最近webpackなども利用し始めた<a href="http://azu.github.io/slide/2017/t_wada_sushi/OpenCollective.html" title="Open Collective">Open Collective</a>というウェブサービスについての話をしてきました。
+いわゆる寄付サービスや<a href="https://www.patreon.com/" title="Patreon">Patreon</a>に近いものです。
+オープンソースプロジェクトなどの小さなコミュニティが法人格を持たないで、透明性を持ってお金をやり取り出来るような状況を作ることを目的にしたサービスです。</p>
+
+<ul>
+<li><a href="https://hackernoon.com/how-webpack-raised-15-000-in-3-months-and-the-future-of-open-source-cb2c9f68fffa#.pp5mjn2jy" title="How Webpack raised $15,000 in 3 months, and the future of open source">How Webpack raised $15,000 in 3 months, and the future of open source</a></li>
+</ul>
+
+<p>どういう目的をもって作られてたか、また最近利用するJavaScriptのOSSが増えてきたので簡単に調べた感じです。</p>
+
+<ul>
+<li><a href="https://github.com/jser/report/issues/4" title="Open Collective · Issue #4 · jser/report">Open Collective · Issue #4 · jser/report</a></li>
+</ul>
+
+<hr>
+
+<h2 id="webpack2-会長">webpack2 - 会長</h2>
+
+<ul>
+<li>Tree shakingについて</li>
+<li>webpack2への移行でハマったのは
+
+<ul>
+<li>postcss</li>
+<li><a href="https://github.com/webpack/extract-text-webpack-plugin" title="extract-text-webpack-plugin">extract-text-webpack-plugin</a></li>
+</ul></li>
+<li>webpack2のTree shakingのしくみについて</li>
+<li>webpackは<code>// unused</code> なコメントをつけていく</li>
+<li>これをuglifyJSが圧縮時に消し去る</li>
+<li>という仕組み</li>
+<li>Tree shakingした結果12kb減った</li>
+<li>モジュールを元からきちんと分けてるとそこまで効果がない感じ</li>
+<li>圧縮を書けないとコメントが増える分余計に増える</li>
+</ul>
+
+<hr>
+
+<h2 id="whatwg-urlについての最近の動向-laco"><a href="http://slides.com/laco/201701-twada-sushi#/" title="whatwg/urlについての最近の動向">whatwg/urlについての最近の動向</a> - laco</h2>
+
+<ul>
+<li><a href="https://github.com/whatwg/url/graphs/contributors" title="Contributors to whatwg/url">Contributors to whatwg/url</a></li>
+<li>コミットが最近活発化</li>
+<li>URLSearchParamsについての変更がある</li>
+<li>URLフラグメントのASCII文字列化 (373dbed)</li>
+<li>URL passwordの仕様変更 (5e0b05e)</li>
+<li>URLSearchParamsのコンストラクタ仕様変更 (31ddc5b)
+
+<ul>
+<li>mapを受け入れるようになった</li>
+<li>tuple、map、文字列にURLSearchParamのコンストラクタに渡せるようになった</li>
+<li>オーバーロード</li>
+<li><a href="https://github.com/whatwg/url/pull/175" title="Simplify constructing URLSearchParams by annevk · Pull Request #175 · whatwg/url">Simplify constructing URLSearchParams by annevk · Pull Request #175 · whatwg/url</a></li>
+</ul></li>
+<li>URLSearchParams#sort() (960f607)
+
+<ul>
+<li>Arrayと同じく破壊的なsort</li>
+</ul></li>
+<li>CanIuseだとバージョン毎の変更の対応が分からない</li>
+<li>MDN
+
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/API/URLSearchParams" title="URLSearchParams - Web API インターフェイス | MDN">URLSearchParams - Web API インターフェイス | MDN</a></li>
+<li>実装されたバージョンごとの違いもでる</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="mixed-content-jxck">mixed content - jxck</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">Cookpad緑だよ <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a> <a href="https://t.co/oeWnGMbQ7V">https://t.co/oeWnGMbQ7V</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/823499642016890880">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>CookpadもHTTPS化した</li>
+<li>大きなサイトがhttps化するのは大変</li>
+<li>mixed contentの問題が大きい
+
+<ul>
+<li>広告とか</li>
+</ul></li>
+<li>一つでもmixed contentがあるとURLバーがグリーンにならない</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">mixed contentには二種類<br>active mixed content = DOMいじれる<br>passive mixed content = DOMいじれない <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/823499937564348416">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>外れAdガジャ問題<br></li>
+<li>広告配信サービスはHTTPS対応していても、中身の雑な広告があるとmixed contentになってしまうことがある</li>
+<li>HTTP_UPGRADE_INSECURE_REQUESTSについて</li>
+<li>ブラウザに対するHTTPヘッダ</li>
+<li><a href="http://d.hatena.ne.jp/ASnoKaze/20150423/1429758051" title="Chrome 43でUpgrade Insecure Requestsに対応してた - あすのかぜ">Chrome 43でUpgrade Insecure Requestsに対応してた - あすのかぜ</a></li>
+<li><a href="https://w3c.github.io/webappsec-upgrade-insecure-requests/" title="Upgrade Insecure Requests">Upgrade Insecure Requests</a></li>
+<li>ヘッダを受けて、ブラウザはサブリソースのhttp://へのリクエストを自動でhttps://のものに変更する
+
+<ul>
+<li>httpで書いてあってもhttpsとしてリクエストする</li>
+<li>リクエスト先がhttpsがじゃない場合は見つからないので400になる</li>
+<li>mixed contentにはならない(httpは400になるので混ざらない)</li>
+</ul></li>
+<li>mixed contentの問題</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">mixed contetntの問題はmixed contentが起きてるか分からないこと。<br> <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/823502009298882560">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content" title="CSP: block-all-mixed-content">CSP: block-all-mixed-content</a> + report-onlyで発見できる
+
+<ul>
+<li>CSP: block-all-mixed-contentでmixed contentはblockされる</li>
+<li><code>Content-Security-Policy-Report-Only: policy</code></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP" title="Content Security Policy (CSP) - HTTP | MDN">Content Security Policy (CSP) - HTTP | MDN</a></li>
+<li><code>report-onlyp</code> modeなら実際にはblockされないで、reportだけを遅れる</li>
+</ul></li>
+<li><a href="https://report-uri.io/" title="Welcome to report-uri.io">Welcome to report-uri.io</a>
+
+<ul>
+<li>UIがダメ、すぐダウンする</li>
+<li>CSP reportの管理ツールでいいものがまだない</li>
+</ul></li>
+<li><a href="https://www.w3.org/TR/2016/WD-reporting-1-20160407/" title="Reporting API 1">Reporting API 1</a></li>
+<li>クライアントのログ問題</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">XSSがなくてもCSPのinline scriptのreportが来る。<br>Chrome拡張、ブックマークレットとかクライアントはノイズデータが多い <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/823503391577866240">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>エラーログ、CSPログなどはノイズが多い</li>
+</ul>
+
+<hr>
+
+<h2 id="firefoxのtime-travel-debugging-kyo_ago">FirefoxのTime-Travel Debugging - kyo_ago</h2>
+
+<ul>
+<li><a href="http://www.slideshare.net/dynamis/firefox-devtools/39" title="Firefox DevTools">Firefox DevTools</a></li>
+<li>FirefoxのTime-Travelデバッグがくる?</li>
+<li>ブレークポイント貼って戻して、再現するデバッグ</li>
+</ul>
+
+<h2 id="electron-kyo_ago">Electron - kyo_ago</h2>
+
+<ul>
+<li>Electronのアプリに対してJavaScriptなどをinjectしたい</li>
+<li>ブラウザのウェブサイドはユーザ側からいじれる</li>
+<li>Electronアプリはいじれなくて不便</li>
+</ul>
+
+<hr>
+
+<h2 id="イベント用の名札シート印刷アプリのcss-yoshiko">イベント用の名札シート印刷アプリのCSS - yoshiko</h2>
+
+<ul>
+<li><a href="http://yoshiko.hatenablog.jp/entry/your-name">イベント用の名札シート印刷アプリ「参加者の名は。」を作った - エンジニアをリングする</a></li>
+<li><a href="https://yoshiko-pg.github.io/your-name/">参加者の名は。- Name cards generator for events</a></li>
+<li>CSSで微妙にはみ出る表現の話</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">A4サイズにしつつ、少し常にはみ出すようなCSSを書いた話 <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a> <a href="https://t.co/zZocQrChZq">https://t.co/zZocQrChZq</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/823508811914756096">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">CSSで固定比率のスライド <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a> <a href="https://t.co/R8jEe0PBh8">https://t.co/R8jEe0PBh8</a></p>&mdash; よしこ (@yoshiko_pg) <a href="https://twitter.com/yoshiko_pg/status/823516169143365633">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">::beforeはその要素の中の先頭、::afterはその要素の中の最後。<br>つまり疑似要素は中にくる <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/823510075260026882">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>疑似要素とmarginが親の横幅を元にする仕様を使った固定比率の話</li>
+</ul>
+
+<hr>
+
+<h2 id="modern-javascript概観、そしてelectronへ-taichi"><a href="http://blog.satotaichi.info/modern-javascript_201701/" title="Modern JavaScript概観、そしてElectronへ">Modern JavaScript概観、そしてElectronへ</a> - taichi</h2>
+
+<ul>
+<li>皆がよくハマるところを防ぐコードを書いていくとフレームワークは汚くなる</li>
+<li>Angular 2、Vue1, 2はコードがキレイ</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「食べられる泥」 <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a></p>&mdash; Local Proxy (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/823518103015301121">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+
+<h2 id="その他">その他</h2>
+
+<ul>
+<li>Dart</li>
+<li>rubyのsassは<a href="https://github.com/sass/dart-sass" title="dart-sass">dart-sass</a>になった
+
+<ul>
+<li><a href="http://blog.sass-lang.com/posts/1022316-announcing-dart-sass" title="Announcing Dart Sass « Sass Blog">Announcing Dart Sass « Sass Blog</a></li>
+</ul></li>
+<li>Google社内での再熱</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">Google内部でDartはかなり人気があるし、今でも2か月に一回はリリースされている。確かに公式サイトを見ると、次世代のAdWordsはDartで作られたとある。 <a href="https://t.co/2bKYmskevO">https://t.co/2bKYmskevO</a> <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a></p>&mdash; 太一 (@ryushi) <a href="https://twitter.com/ryushi/status/823541009749422082">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">DartはHaxeの立ち位置を目指している? <a href="https://twitter.com/hashtag/t_wada_sushi?src=hash">#t_wada_sushi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/823516011584331776">January 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>DartのStrongModeは極限まで型推論を頑張るモード
+
+<ul>
+<li>V8の<a href="https://github.com/v8/v8/wiki/Experiments%20with%20Strengthening%20JavaScript#strong-mode" title="Strong Mode">Strong Mode</a>とはまた異なるもの</li>
+</ul></li>
+<li>Dart Dev Compilerがでない
+
+<ul>
+<li><a href="http://qiita.com/laco0416/items/04314d034d335bc620ff" title="Dart SDK Roadmapの進捗状況を確認する - Qiita">Dart SDK Roadmapの進捗状況を確認する - Qiita</a></li>
+<li><a href="https://github.com/dart-lang/sdk/tree/master/pkg/dev_compiler" title="sdk/pkg/dev_compiler at master · dart-lang/sdk">sdk/pkg/dev_compiler at master · dart-lang/sdk</a></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="最近やったこと-t_wada">最近やったこと - t_wada</h2>
+
+<ul>
+<li><a href="https://github.com/unassert-js" title="unassert-js">unassert-js</a></li>
+<li>organizationになった</li>
+<li>power-assertの :star: 200ぐらい増えた
+
+<ul>
+<li>中国の人達が見つけたため</li>
+</ul></li>
+<li>alibabaとか最近OSSでも活発
+
+<ul>
+<li><a href="https://github.com/alibaba/rax" title="alibaba/rax: A universal React-compatible render engine.">alibaba/rax: A universal React-compatible render engine.</a></li>
+</ul></li>
+<li>chai to assert</li>
+<li><a href="https://github.com/twada/chai-to-assert" title="twada/chai-to-assert: A jscodeshift codemod that transforms from chai to assert">twada/chai-to-assert: A jscodeshift codemod that transforms from chai to assert</a></li>
+<li>元は<a href="https://github.com/power-assert-js/power-assert/issues/74" title="any tool to migrate `should/expect` code to `power-assert`? · Issue #74 · power-assert-js/power-assert">any tool to migrate <code>should/expect</code> code to <code>power-assert</code>? · Issue #74 · power-assert-js/power-assert</a>のIssue</li>
+<li>chatの構文を調べてる
+
+<ul>
+<li>結構凶悪</li>
+</ul></li>
+<li>ランタイムに型をチェックして分岐している部分がでてくる</li>
+<li>静的にはわからないため変換が難しい</li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// simple referencing</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">};</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">);</span>
+
+<span class="c1">// deep referencing</span>
+<span class="kd">var</span> <span class="nx">deepObj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">green</span><span class="o">:</span> <span class="p">{</span> <span class="nx">tea</span><span class="o">:</span> <span class="s1">&#39;matcha&#39;</span> <span class="p">}</span>
+  <span class="p">,</span> <span class="nx">teas</span><span class="o">:</span> <span class="p">[</span> <span class="s1">&#39;chai&#39;</span><span class="p">,</span> <span class="s1">&#39;matcha&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">tea</span><span class="o">:</span> <span class="s1">&#39;konacha&#39;</span> <span class="p">}</span> <span class="p">]</span>
+<span class="p">};</span>
+
+<span class="nx">expect</span><span class="p">(</span><span class="nx">deepObj</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">deep</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;green.tea&#39;</span><span class="p">,</span> <span class="s1">&#39;matcha&#39;</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">deepObj</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">deep</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;teas[1]&#39;</span><span class="p">,</span> <span class="s1">&#39;matcha&#39;</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">deepObj</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">deep</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;teas[2].tea&#39;</span><span class="p">,</span> <span class="s1">&#39;konacha&#39;</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li><a href="http://chaijs.com/api/bdd/#method_property">http://chaijs.com/api/bdd/#method_property</a></li>
+<li>wow</li>
+<li>変換には<a href="https://github.com/facebook/jscodeshift" title="facebook/jscodeshift: A JavaScript codemod toolkit.">facebook/jscodeshift: A JavaScript codemod toolkit.</a>を使ってる
+
+<ul>
+<li><a href="https://github.com/substack/node-falafel" title="substack/node-falafel: transform the ast on a recursive walk">substack/node-falafel: transform the ast on a recursive walk</a>に近いところもある</li>
+</ul></li>
+<li>Reactのマイグレーションツールなどでも使われてる
+
+<ul>
+<li>フレームワーク側がマイグレーションをするツールとして提供するケース</li>
+</ul></li>
+<li>Assertionツール同士の変換ツールが色々有る</li>
+<li>2週ぐらいすると必要なものが残る</li>
+</ul>
+
+<hr>
+
+<p>お疲れ様でした。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>ECMAScriptの情報サイトを始めて1年経った</title>
@@ -2138,243 +2448,6 @@ $ now
 <ul>
 <li><a href="https://github.com/azu/ui-event-observer/issues/1" title="Proposal: plugin system · Issue #1 · azu/ui-event-observer">Proposal: plugin system · Issue #1 · azu/ui-event-observer</a></li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>TestCafeでブラウザの自動テスト(E2Eテスト)</title>
-   <link href="http://efcl.info/2016/10/23/testcafe/"/>
-   <updated>2016-10-23T21:57:00+09:00</updated>
-   <id>http://efcl.info/2016/10/23/testcafe</id>
-   <content type="html"><![CDATA[ <p><a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>という自動テストフレームワーク(いわゆるE2Eテストフレームワークジャンルとしておきます)を試してみました。</p>
-
-<p><a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>の特徴としては、Seleniumを使っていないこと、設定ファイルなしで利用できる点です。</p>
-
-<p>Seleniumを使ったテストフレームワークとしては、<a href="http://www.protractortest.org/" title="Protractor">Protractor</a>、<a href="https://github.com/groupon/testium" title="testium">testium</a>、<a href="http://webdriver.io/" title="WebdriverIO">WebdriverIO</a>などがあります。
-(Seleniumを使わない他のテストフレームワークだと<a href="http://www.nightmarejs.org/" title="Nightmare">Nightmare</a>など)</p>
-
-<p>Seleniumを使わずにどうやって自動的にブラウザを操作するかというと、中継サーバーを起動してそこにテストコードなどを追加して動かすことができるSelenium RC(1)方式に近いものだと思います。</p>
-
-<p>同名の<a href="https://testcafe.devexpress.com/" title="TestCafe: Web Testing Framework | DevExpress">ウェブサービス/クライアントアプリ</a>も出していて、こちらはSelenium IDEのようにGUIで操作して記録したものを再生などができます。</p>
-
-<p>なぜ、Seleniumを使っていないかという点については、以下で回答されています。</p>
-
-<ul>
-<li><a href="https://testcafe-discuss.devexpress.com/t/why-not-use-selenium/47/2" title="Why not use Selenium? - Questions - TestCafe Discussion Board">Why not use Selenium? - Questions - TestCafe Discussion Board</a></li>
-</ul>
-
-<p>簡単にまとめると次のような点をどうにかしたいので、Seleniumを使わずに動く自動テストフレームワークを作ったようです。</p>
-
-<ul>
-<li>Remoteの端末でも動かせるようにしたい</li>
-<li>とにかく設定なしでうごかせるようにしたい</li>
-<li>WebDriverの互換性がブラウザ依存で、それが解決されるまでに時間かかる</li>
-</ul>
-
-<p>実際に動かしながら見ていきましょう。</p>
-
-<h2 id="最小のデモ">最小のデモ</h2>
-
-<p>以下に最小のデモプロジェクトを作りました</p>
-
-<ul>
-<li><a href="https://github.com/azu/demo-test-cafe" title="azu/demo-test-cafe: TestCafe">azu/demo-test-cafe: TestCafe</a></li>
-</ul>
-
-<p>これをインストールから動かすまでは次のコマンドを叩くだけです。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">git clone https://github.com/azu/demo-test-cafe.git
-cd demo-test-cafe
-npm install
-npm test
-</code></pre></div>
-<p>これだけでChromeが立ち上がり、自動テストが実行できます。</p>
-
-<p><iframe src="//giphy.com/embed/3o7TKFdaymhVNZ6XZe" width="480" height="322" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="http://giphy.com/gifs/3o7TKFdaymhVNZ6XZe">via GIPHY</a></p></p>
-
-<p>テストコードは<a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>にBabelが内蔵されているため、ES2016+async/awaitなどがそのまま書けるようになっています。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
-<span class="kr">import</span> <span class="p">{</span><span class="nx">Selector</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;testcafe&#39;</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">getElementById</span> <span class="o">=</span> <span class="nx">Selector</span><span class="p">(</span><span class="nx">id</span> <span class="o">=&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="err">`#</span><span class="nx">$</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span><span class="err">`</span><span class="p">));</span>
-<span class="nx">fixture</span><span class="p">(</span><span class="s1">&#39;Example page&#39;</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">page</span><span class="p">(</span><span class="s1">&#39;http://devexpress.github.io/testcafe/example&#39;</span><span class="p">);</span>
-
-<span class="nx">test</span><span class="p">(</span><span class="s1">&#39;Type the developer name, obtain the header text and check it&#39;</span><span class="p">,</span> <span class="nx">async</span> <span class="nx">t</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">await</span> <span class="nx">t</span>
-        <span class="p">.</span><span class="nx">typeText</span><span class="p">(</span><span class="s1">&#39;#developer-name&#39;</span><span class="p">,</span> <span class="s1">&#39;John Smith&#39;</span><span class="p">)</span>
-        <span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="s1">&#39;#submit-button&#39;</span><span class="p">);</span>
-
-    <span class="kr">const</span> <span class="nx">articleHeader</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;article-header&#39;</span><span class="p">);</span>
-    <span class="kr">const</span> <span class="nx">headerText</span> <span class="o">=</span> <span class="nx">articleHeader</span><span class="p">.</span><span class="nx">innerText</span><span class="p">;</span>
-
-    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">headerText</span><span class="p">,</span> <span class="s1">&#39;Thank you, John!&#39;</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
-<p>テストコードの実装はブラウザとディレクトリを指定するだけで、他に設定しなくても動きます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ testcafe chrome test/
-</code></pre></div>
-<p>テストの失敗結果が分かりやすいのも結構いいところです。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2016/10/23-1477228880.png" alt="result of testcafe"></p>
-
-<h3 id="selector">Selector</h3>
-
-<p>先ほどのテストコードでも出てきていますが、TestCafeは<a href="http://devexpress.github.io/testcafe/documentation/test-api/selecting-page-elements/selectors.html" title="Selectors">Selectors</a>という仕組みでDOMを指定します。</p>
-
-<p>DOMのとり方はブラウザで使う<code>document.querySelector</code>などそのままのAPIです。
-注意点として取ってきた値はsnapshotであるため、あとで値が変わったときに自動的にsnapshotのnodeの値は代わりません。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Selector</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;testcafe&#39;</span><span class="p">;</span>
-
-<span class="c1">// A selector is created from a regular function.</span>
-<span class="c1">// This selector will take the &#39;id&#39; parameter and return</span>
-<span class="c1">// a DOM element that has this ID.</span>
-<span class="kr">const</span> <span class="nx">getElementById</span> <span class="o">=</span> <span class="nx">Selector</span><span class="p">(</span><span class="nx">id</span> <span class="o">=&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">));</span>
-<span class="nx">test</span><span class="p">(</span><span class="s1">&#39;My Test&#39;</span><span class="p">,</span> <span class="nx">async</span> <span class="nx">t</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">snapShotNode</span> <span class="o">=</span> <span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
-<p>ClickやTypeなどの操作のエミュレータは<a href="http://devexpress.github.io/testcafe/documentation/test-api/actions/" title="Actions">Actions</a>という特殊なメソッドを使いますが、DOMの取得については<a href="http://devexpress.github.io/testcafe/documentation/test-api/selecting-page-elements/selectors.html" title="Selectors">Selectors</a>でラップすれば基本的にそのまま使えるような感じになっています。</p>
-
-<p>この辺も覚えることをできるだけ減らそうとしてる感じに見えます。</p>
-
-<h3 id="リモートで実行">リモートで実行</h3>
-
-<p>先ほどのテストは、ローカルにあるブラウザじゃなくても動かす事ができます。</p>
-
-<p>次のように<code>remote:数</code>をブラウザの欄に指定すると、connect用のURLが表示されます。
-このURLにアクセスすると、そのブラウザ上で先ほどの自動テストが実行されます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">✈ $(npm bin)/testcafe remote:1 test
-Connecting 1 remote browser(s)...
-Navigate to the appropriate URL from each of the remote browsers.
-Browser #1: http://192.168.10.3:51822/browser/connect/SJuk2E9kg
-</code></pre></div>
-<p>これがWebDriverではない理由の一つとして挙げられていたものですね。</p>
-
-<ul>
-<li><a href="http://devexpress.github.io/testcafe/documentation/using-testcafe/common-concepts/browser-support.html#browsers-on-remote-devices" title="Browsers on Remote Devices #">Browsers on Remote Devices #</a></li>
-</ul>
-
-<p>また、実行できるブラウザは<a href="http://devexpress.github.io/testcafe/documentation/extending-testcafe/browser-provider-plugin/" title="Browser Provider Plugin">Browser Provider Plugin</a>で拡張できるようになっていて、PhantomJSとかはデフォルトでは入っていないようです。</p>
-
-<p>プラグインの中身を見るとSelenium/WebDriverではないことがよくわかります。</p>
-
-<ul>
-<li><a href="https://github.com/DevExpress/testcafe-browser-provider-phantomjs/blob/master/src/index.js">https://github.com/DevExpress/testcafe-browser-provider-phantomjs/blob/master/src/index.js</a></li>
-</ul>
-
-<h2 id="もう少し複雑なケース">もう少し複雑なケース</h2>
-
-<p>もう少し実際のテストに近いもので試してみます。</p>
-
-<p>以前、Reduxの<a href="http://redux.js.org/docs/basics/ExampleTodoList.html" title="Example: Todo List · Redux">Example: Todo List</a>を写経したプロジェクトにE2Eテストを追加してみます。</p>
-
-<ul>
-<li><a href="https://github.com/coding-kata/redux-basic-tutorial" title="coding-kata/redux-basic-tutorial">coding-kata/redux-basic-tutorial</a></li>
-</ul>
-
-<p>追加したPRは以下にあります。</p>
-
-<ul>
-<li><a href="https://github.com/coding-kata/redux-basic-tutorial/pull/5" title="Add E2E Test with TestCafe by azu · Pull Request #5 · coding-kata/redux-basic-tutorial">Add E2E Test with TestCafe by azu · Pull Request #5 · coding-kata/redux-basic-tutorial</a></li>
-</ul>
-
-<h3 id="test-controller">test controller</h3>
-
-<p><a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>のテスト構造については<a href="http://devexpress.github.io/testcafe/documentation/test-api/test-code-structure.html" title="Test Code Structure | TestCafe">Test Code Structure | TestCafe</a>で簡単に解説されています。</p>
-
-<p><code>fixture</code>と<code>page</code>はテスト名とテストするURLなので特に説明は入らない感じです。
-テストケースは<code>test</code>という関数に書いていく感じになります。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">fixture</span><span class="p">(</span><span class="s1">&#39;MyFixture&#39;</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">page</span><span class="p">(</span><span class="s1">&#39;http://example.com&#39;</span><span class="p">);</span>
-
-<span class="nx">test</span><span class="p">(</span><span class="s1">&#39;Test1&#39;</span><span class="p">,</span> <span class="nx">async</span> <span class="nx">t</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="cm">/* Test 1 Code */</span>
-<span class="p">});</span>
-</code></pre></div>
-<p>基本的に非同期になるのでAsync functionとして書くようになっています。
-自動テストで必要になるのは、ある要素をクリックしたり、あるinput要素にテキストを入れたりするエミュレート関数が必要です。</p>
-
-<p>TestCafeでは<a href="http://devexpress.github.io/testcafe/documentation/test-api/test-code-structure.html#test-controller" title="Test Controller">Test Controller</a>と呼ばれているものがそれで、上記の<code>async t</code>の<code>t</code>がTest Controllerのオブジェクトです。</p>
-
-<p>Test Controllerにあるメソッドは以下にまとめられています。</p>
-
-<ul>
-<li><a href="http://devexpress.github.io/testcafe/documentation/test-api/actions/" title="Actions | TestCafe">Actions | TestCafe</a></li>
-</ul>
-
-<h3 id="テスト">テスト</h3>
-
-<p><a href="https://github.com/coding-kata/redux-basic-tutorial" title="coding-kata/redux-basic-tutorial">coding-kata/redux-basic-tutorial</a>はTodoリストを作るサンプルプロジェクトなので、
-Todoを追加するE2Eテストを書いてみます。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2016/10/23-1477230356.png" alt="Image of redux-basic tutorial"></p>
-
-<p>Page Objectパターンっぽく書いて次のような感じで書けました。</p>
-
-<p>Test Controllerの操作は基本非同期で、<a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>は自動で色々な操作待つ仕組みを持っています。</p>
-
-<blockquote>
-<p>TestCafe automatically waits for page loads and XHRs to complete, as well as for DOM elements to become visible. You do not need to write custom code for that.
--- <a href="https://github.com/DevExpress/testcafe#no-extra-coding">https://github.com/DevExpress/testcafe#no-extra-coding</a></p>
-</blockquote>
-
-<p>(<a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>のサイトを見てるといたるところにAutomatic*という単語が出て来る)</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;assert&quot;</span><span class="p">);</span>
-<span class="kr">import</span> <span class="nx">TodoPage</span> <span class="nx">from</span> <span class="s2">&quot;./pages/index&quot;</span>
-<span class="nx">fixture</span><span class="p">(</span><span class="s1">&#39;TodoList&#39;</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">page</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:8080/&#39;</span><span class="p">);</span>
-
-<span class="nx">test</span><span class="p">(</span><span class="s1">&#39;Add TodoItem&#39;</span><span class="p">,</span> <span class="nx">async</span> <span class="nx">t</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;NEW TODO&quot;</span><span class="p">;</span>
-    <span class="kr">const</span> <span class="nx">todoPage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TodoPage</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span>
-    <span class="c1">// add item</span>
-    <span class="nx">await</span> <span class="nx">todoPage</span><span class="p">.</span><span class="nx">addTodo</span><span class="p">({</span><span class="nx">title</span><span class="p">});</span>
-    <span class="kr">const</span> <span class="nx">currentItems</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">todoPage</span><span class="p">.</span><span class="nx">getItems</span><span class="p">();</span>
-    <span class="nx">assert</span><span class="p">(</span><span class="nx">currentItems</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="kr">const</span> <span class="p">[</span><span class="nx">firstItem</span><span class="p">]</span> <span class="o">=</span> <span class="nx">currentItems</span><span class="p">;</span>
-    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">firstItem</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="nx">title</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
-<p><img src="https://cloud.githubusercontent.com/assets/19714/19626295/03b76978-9969-11e6-84b3-c5f973f7957e.gif" alt="10 -23-2016 21-37-53"></p>
-
-<p><code>await</code>をちょこちょこ忘れたりしましたが、<a href="http://devexpress.github.io/testcafe/documentation/test-api/test-code-structure.html#test-controller" title="Test Controller">Test Controller</a>のメソッドの<code>await</code>忘れは検知できるようです。
-(自分で書いてる非同期はそうでもないので、Page Obejctに操作メソッドを持たせると良くないかも)</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"> TodoList
- ✖ Add TodoItem
-
-   1) A call to an async function is not awaited. Use the &quot;await&quot; keyword
-      before actions, assertions or chains of them to ensure that they run
-      in the right sequence.
-
-      Browser: Chrome 56.0.2899 / Mac OS X 10.11.6
-
-          8 |        this.t = t;
-          9 |    }
-         10 |
-         11 |    async addTodo({title}) {
-         12 |        const input = await this.getInput();
-       &gt; 13 |        this.t.typeText(input, title);
-         14 |        const button = await this.getButton();
-         15 |        await this.t.click(button);
-         16 |    }
-         17 |
-         18 |    async getInput() {
-
-         at &lt;anonymous&gt;
-</code></pre></div>
-<p>E2Eテストでよくハマる表示されてるかどうかのタイミング問題も、基本的にTestCafeは表示に関するものは自動で一定時間待つようになっているみたいです。
-(詳しい仕組みは調べてないけど、表示されてないことをテストすると時間がかかる気がする…)</p>
-
-<p>デフォルトの自動待ち時間は結構長いですが、<code>--selector-timeout ms</code>で待ち時間を指定できるようです。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$(npm bin)/testcafe chrome e2e --selector-timeout 100
-</code></pre></div>
-<h2 id="おわり">おわり</h2>
-
-<p>ものすごく簡単に<a href="http://devexpress.github.io/testcafe/" title="TestCafe">TestCafe</a>について紹介?しました。</p>
-
-<p><a href="http://devexpress.github.io/testcafe/documentation/using-testcafe/programming-interface/" title="Programming Interface">Programming Interface</a>もあったりするので、テストフレームワークというよりも、これを使ったブラウザ自動操作ツールとして使ったりすると面白いのかもしれないなーと思いました。</p>
-
-<p>TestCafe自体も結構よくできていて、エラー表示や操作の要素を表示していて分かりやすいです。
-また、Seleniumの設定が不要にしたいという気持ちはよく分かるので、ほんとに設定なしで動かせるのはすごいなと思いました。</p>
  ]]></content>
  </entry>
  
