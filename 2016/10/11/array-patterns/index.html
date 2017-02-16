@@ -625,7 +625,7 @@ Immutableにやりたい場合は、配列のコピーの最後に要素を追�
 </code></pre></div>
 <h2 id="indexof-gt-includes">indexOf =&gt; includes</h2>
 
-<p>配列が指定した要素を含んでいるかに <code>array.indexOf(value) !=== -1</code> を使ったイディオムがあります。
+<p>配列が指定した要素を含んでいるかに <code>array.indexOf(value) !== -1</code> を使ったイディオムがあります。
 先ほども書いたように<code>indexOf</code>は<code>===</code>による比較なので、<code>Array#some</code>で書くと次のような処理になります。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">];</span>
 <span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="s2">&quot;b&quot;</span><span class="p">;</span>
