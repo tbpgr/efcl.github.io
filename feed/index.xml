@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-02-17T08:06:52+09:00</updated>
+ <updated>2017-02-26T18:59:58+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,81 @@
  </author>
  
 
+ 
+ <entry>
+   <title>Map-likeというES2015 Mapのようなライブラリを書いた</title>
+   <link href="http://efcl.info/2017/02/26/map-like/"/>
+   <updated>2017-02-26T18:42:00+09:00</updated>
+   <id>http://efcl.info/2017/02/26/map-like</id>
+   <content type="html"><![CDATA[ <p><a href="https://github.com/azu/map-like" title="map-like">map-like</a>という小さな<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map" title="Map">Map</a>オブジェクトのライブラリを書きました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/map-like" title="azu/map-like: ES2015 Map like object">azu/map-like: ES2015 Map like object</a></li>
+</ul>
+
+<p>API的にはES2015の<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map" title="Map">Map</a>と同じです。</p>
+
+<h2 id="制限">制限</h2>
+
+<ul>
+<li><code>Symbol.Iterator</code>が実装されていません</li>
+<li><code>toString</code>が実装されていません</li>
+</ul>
+
+<p>つまりIteratorは省いています。</p>
+
+<h2 id="目的">目的</h2>
+
+<p>Mapのpolyfillを書いたことがある人はわかるかもしれませんが、オブジェクトをkeyにできるMapがほしいだけなのに、結構でかくなります。
+これはIteratorを実装する部分が大きく、<code>Symbol.Iterator</code>をどうするかとか色々あります。
+正直Mapを<code>for...of</code>で回したいとかは殆ど必要なかったので、それ以外の部分はMapと互換を持つ<a href="https://github.com/azu/map-like" title="map-like">map-like</a>というライブラリを書きました。</p>
+
+<p>ファイルサイズも1.5kBほどです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">✈ bundle-size map-like
+map-like@1.0.3
+
+env  bundle   minify   gzip
+--   5.73 kB  3.08 kB  1.5 kB
+</code></pre></div>
+<p>「オブジェクトリテラルをマップのようなものとして使いたくない」や「オブジェクトをMapのキーとして使いたい」というケースで便利です。</p>
+
+<p>派生としてLRU cacheライブラリの<a href="https://github.com/azu/lru-map-like" title="lru-map-like">lru-map-like</a>というものもあります。</p>
+
+<ul>
+<li><a href="https://github.com/azu/lru-map-like" title="azu/lru-map-like: LRU cache top on Map-like. Support non-string key.">azu/lru-map-like: LRU cache top on Map-like. Support non-string key.</a></li>
+</ul>
+
+<p>LRUライブラリは色々あるのですが、オブジェクトをキーとして使えるLRUは<a href="https://github.com/isaacs/node-lru-cache" title="node-lru-cache">node-lru-cache</a>ぐらいしかありませんでした。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/issues/56" title="Reduce file size · Issue #56 · almin/almin">Reduce file size · Issue #56 · almin/almin</a>
+
+<ul>
+<li>LRUキャッシュの調査メモ</li>
+</ul></li>
+</ul>
+
+<p><a href="https://github.com/isaacs/node-lru-cache" title="node-lru-cache">node-lru-cache</a>は便利なのですが、やはりサイズが大きい(10kb gzip)です。</p>
+
+<p><a href="https://github.com/azu/lru-map-like" title="lru-map-like">lru-map-like</a>は大体2kBです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">env  bundle   minify   gzip
+--   13.8 kB  6.32 kB  2.34 kB
+</code></pre></div>
+<h2 id="おわり">おわり</h2>
+
+<p>オブジェクトリテラルでマップのようなことをやるよりは、
+ES2015の<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map" title="Map">Map</a>を使ったほうが明示的で良いです。
+あと、キーにオブジェクトに使える便利な場面がキャッシュのようなものを実装する際にはよく出現します。
+(Map &lt;-&gt; Objectの相互変換は難しいものでもないので、最近はマップっぽいものがでてきたら<code>Map</code>を使うようにしてます)</p>
+
+<p>以下のライブラリやツールなどでりようしています。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin">almin/almin: Almin.js provide Flux/CQRS patterns for JavaScript application</a></li>
+<li><a href="https://github.com/textlint/textlint">textlint/textlint: The pluggable natural language linter for text and markdown.</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>#t_wada_sushi でOpen Collectiveの話をしてきた</title>
@@ -2393,70 +2468,6 @@ $ now
 <li>けど、どこで問題になったかが分かりやすくなる</li>
 <li>mousemoveとかインタラクションに対するパフォーマンスは、機械的に計測しにくいので、手動で…</li>
 <li>:money_with_wings: で人を動かした方が安くて質が高い</li>
-</ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>同じイベントのaddEventListenerを1つにまとめるライブラリを書いた</title>
-   <link href="http://efcl.info/2016/11/02/ui-event-observer/"/>
-   <updated>2016-11-02T09:48:00+09:00</updated>
-   <id>http://efcl.info/2016/11/02/ui-event-observer</id>
-   <content type="html"><![CDATA[ <p><code>UIEventObserver</code>という同じ要素への同じイベントを貼る <code>addEventListener</code> を1つにまとめるライブラリを書きました。</p>
-
-<ul>
-<li><a href="https://github.com/azu/ui-event-observer" title="azu/ui-event-observer: Provide performant way to subscribe to browser UI Events.">azu/ui-event-observer: Provide performant way to subscribe to browser UI Events.</a></li>
-</ul>
-
-<h2 id="インストール">インストール</h2>
-
-<p>npmで入ります。     </p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install ui-event-observer
-</code></pre></div>
-<h2 id="1つにまとめる">1つにまとめる?</h2>
-
-<p>Reactなどのコンポーネント志向のライブラリを使っていると、各コンポーネントで同じ要素へ同じイベントを貼っていることがあります。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Component A</span>
-<span class="kr">const</span> <span class="nx">handlerA</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{};</span> 
-<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="nx">handlerA</span><span class="p">);</span>
-<span class="c1">// Component B</span>
-<span class="kr">const</span> <span class="nx">handlerB</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{};</span>
-<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="nx">handlerB</span><span class="p">);</span>
-</code></pre></div>
-<p><a href="https://github.com/azu/ui-event-observer" title="UIEventObserver">UIEventObserver</a>では同じ事が、内部的に一つの<code>window.addEventListener(&#39;scroll&#39;, ...)</code>にまとめてられます。
-(Pub/SubはEventEmitterが代わりにやる感じです)</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// singleton</span>
-<span class="kr">const</span> <span class="nx">eventObserver</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ui-event-observer&quot;</span><span class="p">);</span>
-<span class="c1">// シングルトンじゃない方法</span>
-<span class="c1">// require(&quot;ui-event-observer&quot;).UIEventObserver</span>
-<span class="c1">// Component A</span>
-<span class="kr">const</span> <span class="nx">handlerA</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{};</span> 
-<span class="nx">eventObserver</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="nx">handlerA</span><span class="p">);</span>
-<span class="c1">// Component B</span>
-<span class="kr">const</span> <span class="nx">handlerB</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{};</span>
-<span class="nx">eventObserver</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="nx">handlerB</span><span class="p">);</span>
-</code></pre></div>
-<p><a href="https://github.com/azu/ui-event-observer/tree/master/example/">Example project</a>では100個の&quot;scroll&quot;イベントを<code>window</code>に貼っています。</p>
-
-<p><img src="https://monosnap.com/file/0L7z5AvZcuLKbCHxqB4sTU8TjRK0pk.png" alt="addEventListener vs, UIEventObserver"></p>
-
-<ul>
-<li>Left: 100x <code>addEventListener</code></li>
-<li>Right: 1 <code>UIEventObserver</code></li>
-</ul>
-
-<p>とlistenしてるイベントの数が100個以上から10個程度に減っていることが分かります。</p>
-
-<p><a href="https://developer.mozilla.org/ja/docs/Web/API/EventTarget/addEventListener" title="EventTarget.addEventListener">EventTarget.addEventListener</a>はbubblingやcapturing、それらを止められる<code>preventDefault()</code>や<code>stopPropagation()</code>などEventEmitterに比べると高機能です。
-<a href="https://blog.jxck.io/entries/2016-06-09/passive-event-listeners.html" title="Passive Event Listeners">Passive Event Listeners</a>とかもその辺を制限することでパフォーマンスを改善すために導入されています。</p>
-
-<p>同じ目的のライブラリとして<a href="https://github.com/yahoo/subscribe-ui-event" title="yahoo/subscribe-ui-event">yahoo/subscribe-ui-event</a>がありますが、スロットリングなどがデフォルトにあったり色々高機能でした。
-なので、単純にイベントを1つにまとめるだけの<a href="https://github.com/azu/ui-event-observer" title="azu/ui-event-observer: Provide performant way to subscribe to browser UI Events.">azu/ui-event-observer</a>を作ったという話でした。</p>
-
-<p>他の機能的な要素はプラグインで書けるようにするのがいいんじゃないかなと思っています。</p>
-
-<ul>
-<li><a href="https://github.com/azu/ui-event-observer/issues/1" title="Proposal: plugin system · Issue #1 · azu/ui-event-observer">Proposal: plugin system · Issue #1 · azu/ui-event-observer</a></li>
 </ul>
  ]]></content>
  </entry>

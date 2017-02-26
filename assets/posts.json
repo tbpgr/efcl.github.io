@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "Map-likeというES2015 Mapのようなライブラリを書いた",
+            "url": "http://efcl.info/2017/02/26/map-like/",
+            "date": "2017-02-26T18:42:00+09:00"
+        },
+        
+        {
             "title": "#t_wada_sushi でOpen Collectiveの話をしてきた",
             "url": "http://efcl.info/2017/01/23/t_wada_sushi/",
             "date": "2017-01-23T23:08:00+09:00"
