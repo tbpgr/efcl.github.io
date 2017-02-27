@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-02-27T18:33:29+09:00</updated>
+ <updated>2017-02-27T18:34:43+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -61,8 +61,8 @@
 <p><a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>は、ECMA-262とECMA-404が必須で、ECMA-402とTR-104はオプショナルです。</p>
 
 <p>この<a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>は
-参照する仕様自体がが増えたり、減ったりした場合はSuiteも更新します。
-けど、参照する仕様の中身が変化した時はSuiteは変化しません。</p>
+参照する仕様自体が増えたり、減ったりした場合はSuiteも更新します。
+しかし、参照する仕様の中身が変化した場合は、Suiteは変化しません。</p>
 
 <p>ISOとしてECMA-261の標準化するのは毎年更新するのは大変なので、
 ECMA-414(Suite)をISO標準化して、中身の管理はECMA側でやれるようにするための仕様。</p>
