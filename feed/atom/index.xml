@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-02-27T18:19:36+09:00</updated>
+ <updated>2017-02-27T18:26:02+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,73 @@
  </author>
  
 
+ 
+ <entry>
+   <title>ECMA-414 ECMAScript Specification Suiteについて</title>
+   <link href="http://efcl.info/2017/02/27/ecma-414/"/>
+   <updated>2017-02-27T18:15:00+09:00</updated>
+   <id>http://efcl.info/2017/02/27/ecma-414</id>
+   <content type="html"><![CDATA[ <p><a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>というECMAScript関係の仕様をまとめたEcma仕様が公開されている。</p>
+
+<p>背景については以下を参照。</p>
+
+<blockquote>
+<p>For ECMA-262 (the main ECMAWScript standard), we now have an agreement with ISO that we will not fast track it anymore; instead, the ECMAScript Suite ECMA-414 will supercede it (with normative references also to the needed Ecma standards), and the other redundant standard ISO IS 16262 (which is out of date) will be withdrawn. The only standards in common will be ECMA-414 (on the way to fast track), which happened after the Dec 7 ECMA GA. 
+-- <a href="https://github.com/littledan/tc39-notes/blob/master/es7/2017-01/jan-25.md#5-report-from-the-ecma-secretariat">https://github.com/littledan/tc39-notes/blob/master/es7/2017-01/jan-25.md#5-report-from-the-ecma-secretariat</a></p>
+</blockquote>
+
+<p>今は、ECMA-262(ECMAScript)の国際標準として<a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=55755" title="ISO/IEC 16262">ISO/IEC 16262</a>があるけど、今後は<a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=55755" title="ISO/IEC 16262">ISO/IEC 16262</a>は更新しない。
+代わりに<a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>を国際標準にしていくよ。</p>
+
+<p>という話。</p>
+
+<p>デファクトとデジュールの違いは以下を参照。</p>
+
+<ul>
+<li><a href="http://www.atmarkit.co.jp/ait/articles/1210/23/news153.html" title="OSSコミュニティの“中の人”（4）：できないことは全部やる。できる依頼は断る――竹迫良範氏インタビュー【後編】 (1/2) - ＠IT">OSSコミュニティの“中の人”（4）：できないことは全部やる。できる依頼は断る――竹迫良範氏インタビュー【後編】 (1/2) - ＠IT</a></li>
+</ul>
+
+<p>ISO標準(国際標準)ってどんなフローで決まるのって話は以下を参照。</p>
+
+<ul>
+<li><a href="http://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.html" title="SC22 ECMAScript Ad hoc委員会">SC22 ECMAScript Ad hoc委員会</a></li>
+</ul>
+
+<h2 id="ecma-414って何">ECMA-414って何?</h2>
+
+<p><a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>とは、ECMAScript関係の仕様を集めた仕様です。</p>
+
+<p>このSuiteは、以下の仕様のlatest editiionを参照する仕様です。</p>
+
+<ul>
+<li>ECMA-262 - いわゆるECMAScript</li>
+<li>ECMA-402 - Internationalization API Specificationの仕様</li>
+<li>ECMA-404 - JSONの仕様</li>
+<li>TR-104 <a href="https://www.ecma-international.org/publications/techreports/E-TR-104.htm" title="ECMAScript® Test Suite">ECMAScript® Test Suite</a> テストスイート</li>
+</ul>
+
+<p><a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>は、ECMA-262とECMA-404が必須で、ECMA-402とTR-104はオプショナルです。</p>
+
+<p>この<a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>は
+参照する仕様自体がが増えたり、減ったりした場合はSuiteも更新します。
+けど、参照する仕様の中身が変化した時はSuiteは変化しません。</p>
+
+<p>ISOとしてECMA-261の標準化するのは毎年更新するのは大変なので、
+ECMA-414(Suite)をISO標準化して、中身の管理はECMA側でやれるようにするための仕様。</p>
+
+<p><strong>要約</strong></p>
+
+<p>ECMAScriptのデジュール(ISO標準)はあるといいのだけど、毎年更新するデファクト(Ecma)をデジュールにするのはコストや時間が難しい。
+なので、デファクトを参照するデジュールの標準仕様があるといいんじゃない?</p>
+
+<p><a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>は、最新のECMAScript仕様を参照するよという仕様(10ページしかない仕様)。
+ECMAScriptの仕様が更新されたら、自動的に最新のECMA-262仕様を参照するという仕様です。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/02/27-1488187017.png" alt="ECMA-414"></p>
+
+<p><a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>はこの図が全てというほど小さな仕様。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>Map-likeというES2015 Mapのようなライブラリを書いた</title>
@@ -2214,261 +2281,6 @@ $ now
 </code></pre></div>
 <p>ECMAScriptの仕様書をオフラインで検索し易い形で読む方法を探してたらこうなりました。
 (<a href="https://github.com/cho45/Chemrtron">Chemrtron</a>が求めてるようなものな気がするので、あとでもう一度挑戦したい。検索結果はでるけど、クリックも何もできなくてよくわからなかった。)</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>W3C TAG デベロッパー・サミット アウトラインメモ</title>
-   <link href="http://efcl.info/2016/11/02/w3ctagdevmeetup/"/>
-   <updated>2016-11-02T20:50:00+09:00</updated>
-   <id>http://efcl.info/2016/11/02/w3ctagdevmeetup</id>
-   <content type="html"><![CDATA[ <p><a href="http://frontend.connpass.com/event/42323/" title="W3C TAG デベロッパー・サミット">W3C TAG デベロッパー・サミット</a>に参加してきたのでメモ。</p>
-
-<h2 id="web-payment-api-eiji">Web Payment API - eiji</h2>
-
-<ul>
-<li>Payment APIはUXを改善するためのAPI</li>
-<li>購入するためのAPIじゃない</li>
-<li>デモ
-
-<ul>
-<li>Polymer Shop</li>
-</ul></li>
-</ul>
-
-<h2 id="webrtc-と-sfu-sakkuru">WebRTC と SFU - sakkuru</h2>
-
-<ul>
-<li>WebRTCてきななにか</li>
-<li>P2Pでリアルタイムにやり取り</li>
-<li>SkyWay
-
-<ul>
-<li>WebRTCを使うためのプラットフォーム</li>
-</ul></li>
-<li>つらいことが多い WebRTC</li>
-<li>WebRTCの通信が始まるまで
-
-<ul>
-<li>ブラウザ同士でコネクションを結ぶ</li>
-<li>やりとりはSDPというテキストデータ</li>
-<li>ブラウザによってSDPが違う
-
-<ul>
-<li>Chrome PlanB SDP</li>
-<li>Firefox Unified Plan SDP</li>
-</ul></li>
-</ul></li>
-<li>SFU
-
-<ul>
-<li>P2Pでやる場合はフルメッシュでやる必要がある
-
-<ul>
-<li>自分以外全てに通信しないといけない</li>
-<li>負荷が高い</li>
-</ul></li>
-<li>SFU
-
-<ul>
-<li>中央にサーバを置く</li>
-<li>クライアントはSFUに向かって通信する</li>
-<li>クライアントの負荷が減る</li>
-</ul></li>
-<li>SkyWay
-
-<ul>
-<li>SFUサーバの無償提供</li>
-</ul></li>
-</ul></li>
-<li>最近 SFU
-
-<ul>
-<li>まだChromeのみ</li>
-<li>Firefoxも実装始まった</li>
-</ul></li>
-</ul>
-
-<h2 id="https-migration-in-local-network-w3c-trac">HTTPS migration in local network @  W3C Trac</h2>
-
-<blockquote>
-<p><a href="http://www.slideshare.net/sakkuru/webrtcsfu" title="WebRTCとSFU">WebRTCとSFU</a></p>
-</blockquote>
-
-<ul>
-<li>ローカルネットでHTTPSを使いたいという話</li>
-<li>HTTPとHTTPSのやり取りの問題
-
-<ul>
-<li>Secure Context</li>
-<li>mixed contextの問題</li>
-</ul></li>
-<li>Video Stream
-
-<ul>
-<li>ローカルキャッシュサーバ</li>
-</ul></li>
-<li>この話の問題
-
-<ul>
-<li>ローカルの機器にどんなドメインを付けるのかなどの問題</li>
-</ul></li>
-<li>A) Public DNS + Public Certificate
-
-<ul>
-<li>機器の提供側がPublicなDNSと証明書認証局を運営</li>
-<li>ローカルIPに対するものをちゃんと返す</li>
-</ul></li>
-<li>B) mDNS + Private &quot;.local&quot; Certificate
-
-<ul>
-<li>Let&#39;s Encryptのローカル版みたいな</li>
-<li>ブラウザ側に新しいAPIがいる</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h1 id="breakout-session-css-houdini">Breakout Session: CSS Houdini</h1>
-
-<p>1時間ぐらいTOPICに対してDiscussion</p>
-
-<ul>
-<li>CSSのレイアウトの部分をSecureとPeformantな方法で持ってくるAPI</li>
-<li>JavaScriptからそういったものを扱う方法</li>
-<li>●として扱うとか(Paint)</li>
-<li>レイアウトだけじゃなくて、テキストだったり、エフェクト(影)とかを及ぶ影響を与えることができるAPI群に総称</li>
-<li>CSSのリグレッションテスト</li>
-<li>これまでのCSSの表現にJavaScriptで介入することができる</li>
-<li>カスタムプロパティとかを持っと簡単に追加できるように
-
-<ul>
-<li>仕様を追加するまであまりに大きなこと</li>
-<li>Boxtree API</li>
-<li>CSS自体の拡張とAPIとして拡張ポイント</li>
-<li>CSSは影響範囲が大きすぎるので、新しい機能を提供するのが難しい</li>
-</ul></li>
-<li>Custom Elementなら
-
-<ul>
-<li><code>-</code>を含めろとかがある。 </li>
-<li>Custom Propertyは<code>--</code>で開始するというルールなので、既存のものとはぶつからない</li>
-<li>新しいものについてはまだ検討されてない</li>
-</ul></li>
-<li>マイルストーン
-
-<ul>
-<li>足並み揃えるの難しいのでないよ</li>
-</ul></li>
-<li>HoudiniはCSSの補完的な機能
-
-<ul>
-<li>CSSに新しい機能を追加するときに待つ必要があった</li>
-<li>これを開発者的にJavaScriptで追加できるようなAPIを提供する仕様</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<ul>
-<li>Incubation WG
-
-<ul>
-<li>ウェブの機能に関する問題をどう解決するかという議論している</li>
-<li>Fast Track的な早いパスでウェブ標準を作っていく</li>
-<li>いいアイデアを集めたりする</li>
-</ul></li>
-<li>2つの方向
-
-<ul>
-<li>新しい機能を追加する</li>
-<li>既にある機能を拡張する</li>
-</ul></li>
-<li>Incubationの意味
-
-<ul>
-<li>色々議論して議論を進めていくという意味</li>
-</ul></li>
-<li><a href="https://discourse.wicg.io/" title="WICG">WICG</a>
-
-<ul>
-<li>誰でも気軽にコミュニティ</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<ul>
-<li>Web Payment Request API
-
-<ul>
-<li>UIは大きくは変更できない</li>
-<li>ロゴを入れるとかはできる</li>
-</ul></li>
-<li>セキュリティ
-
-<ul>
-<li>今より悪くなることはない</li>
-<li>今はフォームで送るのでハックされる可能性がある</li>
-<li>Web Payment Request APIはtokenでやり取り</li>
-</ul></li>
-<li>月額課金
-
-<ul>
-<li>なんとかなる?</li>
-</ul></li>
-<li>Custom Field
-
-<ul>
-<li>今のところはない</li>
-<li>検討される余地がある</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<ul>
-<li>Security
-
-<ul>
-<li>TAG</li>
-<li>HTTPSを広く使われるようにする</li>
-<li>Static ContentのサーバでもHTTPS使う必要があるのか?
-
-<ul>
-<li>Privacyのprotectionが一つのニーズ</li>
-<li>Mixed Contentの問題
-
-<ul>
-<li>サードパーティコンテンツの問題</li>
-</ul></li>
-</ul></li>
-<li>Let&#39;s Encryptの証明書 EVに対して信頼性
-
-<ul>
-<li>セキュリティのTrustは数を組み合わせて実現する</li>
-<li>EV/DV証明書はTrustを組み合わせてやってる</li>
-<li>なので信頼性がほしいならEVとかの方がー</li>
-</ul></li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="memo">memo</h2>
-
-<p>ahomuさんとパフォーマンス計測について話してたメモ</p>
-
-<ul>
-<li>小さな改善はやはりブレに吸収される</li>
-<li>のでコツコツ改善していくしかない</li>
-<li>早いうち定常的に計測して視覚化してないと、どこでおそくなったか分からないので、早い段階から値を記録してた方が良い</li>
-<li>マシンでperfの値が違う問題は sitespeed.io とかspeedcurveとか外から見るやつを回し続ける</li>
-<li>speedcurve使ってるけど、完璧なソリューションというわけでもない</li>
-<li>けど、どこで問題になったかが分かりやすくなる</li>
-<li>mousemoveとかインタラクションに対するパフォーマンスは、機械的に計測しにくいので、手動で…</li>
-<li>:money_with_wings: で人を動かした方が安くて質が高い</li>
-</ul>
  ]]></content>
  </entry>
  
