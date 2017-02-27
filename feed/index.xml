@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-02-27T18:26:02+09:00</updated>
+ <updated>2017-02-27T18:33:29+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -49,7 +49,7 @@
 
 <p><a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>とは、ECMAScript関係の仕様を集めた仕様です。</p>
 
-<p>このSuiteは、以下の仕様のlatest editiionを参照する仕様です。</p>
+<p>このSuiteは、以下の仕様のlatest editionを参照する仕様です。</p>
 
 <ul>
 <li>ECMA-262 - いわゆるECMAScript</li>
