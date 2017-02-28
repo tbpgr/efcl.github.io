@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-02-27T18:34:43+09:00</updated>
+ <updated>2017-02-28T15:19:09+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -64,7 +64,7 @@
 参照する仕様自体が増えたり、減ったりした場合はSuiteも更新します。
 しかし、参照する仕様の中身が変化した場合は、Suiteは変化しません。</p>
 
-<p>ISOとしてECMA-261の標準化するのは毎年更新するのは大変なので、
+<p>ISOとしてECMA-262の標準化するのは毎年更新するのは大変なので、
 ECMA-414(Suite)をISO標準化して、中身の管理はECMA側でやれるようにするための仕様。</p>
 
 <p><strong>要約</strong></p>
