@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-03-08T22:25:38+09:00</updated>
+ <updated>2017-03-08T22:50:32+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,143 @@
  </author>
  
 
+ 
+ <entry>
+   <title>Inroducing Almin 0.10.0: TypeScript, FlowType, Logger</title>
+   <link href="http://efcl.info/2017/03/08/almim0.10/"/>
+   <updated>2017-03-08T21:55:00+09:00</updated>
+   <id>http://efcl.info/2017/03/08/almim0.10</id>
+   <content type="html"><![CDATA[ <p><a href="https://github.com/almin/almin" title="Almin">Almin</a>の0.10.0をリリースしました。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/releases/tag/0.10.0" title="Release 0.10.0 · almin/almin">Release 0.10.0 · almin/almin</a></li>
+</ul>
+
+<p>AlminはいわゆるFluxライブラリ的なものですが、ドメイン駆動設計(DDD)を行うにあたって既存の<a href="https://github.com/reactjs/redux" title="Redux">Redux</a>や<a href="https://github.com/facebook/flux" title="Flux">Flux</a>では上手くレイヤリングがしにくい問題があったため作成しました。</p>
+
+<p>この辺の経緯については以前スライドやドキュメントにまとめてあるので、以下を参照してください。</p>
+
+<ul>
+<li><a href="https://github.com/azu/large-scale-javascript">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
+<li><a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
+<li><a href="http://efcl.info/2016/09/30/architecture-refs/">アーキテクチャをめぐるたび | Web Scratch</a></li>
+</ul>
+
+<h2 id="typescript">TypeScript</h2>
+
+<p>Almin 0.10.0ではコードベースがTypeScript化されました。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/03/08-1488978556.png" alt="TypeScript"></p>
+
+<p>殆どの作業を@<a href="https://github.com/saneyuki" title="saneyuki">saneyuki</a>さんがやってくれました。</p>
+
+<p>以下のPRを見ると既存のJavaScriptプロジェクトを徐々にTypeScript化する流れが見れるので面白いと思います。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/pull/68" title="Convert src/ to TypeScript by saneyuki · Pull Request #68 · almin/almin">Convert src/ to TypeScript by saneyuki · Pull Request #68 · almin/almin</a></li>
+</ul>
+
+<p>これにより、<code>d.ts</code>がnpmパッケージに同梱されるようになったので、TypeScriptからも扱いやすくなりました。</p>
+
+<h2 id="flowtype">FlowType</h2>
+
+<p>Alminは以前からFlowTypeの型定義ファイルが同梱されていましたが、@<a href="https://github.com/k-kinzal" title="k-kinzal">k-kinzal</a>さんにいくつかPRを頂いて、<a href="https://flowtype.org/docs/declarations.html#declaration-files" title="Declaration files">Declaration files</a>の扱いが改善されました。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/pull/108" title="fixes flow type-def can not be read. by k-kinzal · Pull Request #108 · almin/almin">fixes flow type-def can not be read. by k-kinzal · Pull Request #108 · almin/almin</a></li>
+</ul>
+
+<p>サンプルプロジェクトにFlowで書いたTodoMVCがあるので、Flowと一緒に使いたい人は参照してみてください。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/tree/master/example/todomvc-flow" title="almin/example/todomvc-flow at master · almin/almin">almin/example/todomvc-flow at master · almin/almin</a></li>
+</ul>
+
+<h2 id="logger">Logger</h2>
+
+<p>0.10.0の直接的なBreaking Changeとして、AlminのUseCase(Actionみたいなものです)やStoreの変更などのイベントハンドラの形式が統一的なものへと変更されました。
+ハンドラに<code>meta</code>オブジェクトが追加され、そのイベントがどこ(useCase)でいつ(timestamp)起きたのかというメタ情報を取れるようになりました。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/issues/61">Proposal: Introduce <code>meta</code> object to Dispatcher#dispatch(payload, meta) · Issue #61 · almin/almin</a></li>
+<li><a href="https://github.com/almin/almin/pull/62">Breaking Change: feat(Dispatcher): Introduce DispatcherPayloadMeta by azu · Pull Request #62 · almin/almin</a></li>
+</ul>
+
+<p>この辺は普通の人にはあんまり関係なくてロガーのようなものを作っている場合に関係してきます。</p>
+
+<p>Alminでは<a href="https://github.com/almin/almin-logger" title="almin-logger">almin-logger</a>というコンソールにUseCaseの実行結果やStoreの変化をログとして吐くライブラリが用意されています。</p>
+
+<p><iframe src="https://giphy.com/embed/xUA7aU9G9jatPmKIz6" width="480" height="324" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="http://giphy.com/gifs/xUA7aU9G9jatPmKIz6">via GIPHY</a></p></p>
+
+<p><code>meta</code>オブジェクトの導入によってこの辺のログ周りがより正確に出るように改善されました。</p>
+
+<p>例えば、AlminではParentUseCaseの中でChildUseCaseを実行するといったネストしたUseCaseを扱えるような仕組みも持っています。
+(トランザクション的なことがしたいときに使う)</p>
+
+<ul>
+<li><a href="https://almin.js.org/docs/tips/nesting-usecase.html" title="Nesting UseCase · Almin.js">Nesting UseCase · Almin.js</a></li>
+</ul>
+
+<p><code>meta</code>オブジェクトの導入で親子関係のあるUseCaseも、その関係がログとして出せるようになっています。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/03/08-1488979360.png" alt="nesting useCase"></p>
+
+<p>自分としては開発中のログは結構重視しているのでこの辺は充実させていきたいです。(実際のデバッグでかなり便利になるため)</p>
+
+<p>最近は<a href="https://github.com/zalmoxisus/redux-devtools-extension" title="redux-devtools-extension">redux-devtools-extension</a>でAlminのログを出す連携を実験してみたりしています。</p>
+
+<blockquote class="twitter-tweet" data-partner="tweetdeck"><p lang="ja" dir="ltr">Redux DevTools Redux以外でも動かせるんだ。<br>Alminで一応できた <a href="https://t.co/b0uvdEwd83">pic.twitter.com/b0uvdEwd83</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/839280950898876416">March 8, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><a href="https://github.com/almin/almin/issues/115" title="Integration with redux-devtools-extension · Issue #115 · almin/almin">Integration with redux-devtools-extension · Issue #115 · almin/almin</a>
+
+<ul>
+<li>Redux用のブラウザ拡張だけど、その他のライブラリと連携するAPIが用意されている</li>
+</ul></li>
+</ul>
+
+<h2 id="どんなことに向いてるのか">どんなことに向いてるのか</h2>
+
+<p><a href="https://github.com/almin/almin" title="Almin">Almin</a>の設計思想としては普通に読めるようなコードで、中規模以上にスケールできようにするというものです。</p>
+
+<p>よくあるFluxのサンプルでのカウントアプリのチュートリアルを見ると<a href="https://github.com/facebook/flux" title="facebook/flux">facebook/flux</a>と殆ど変わらないことが分かるかもしれません。</p>
+
+<ul>
+<li><a href="https://almin.js.org/docs/tutorial/counter/" title="Counter App · Almin.js">Counter App · Almin.js</a></li>
+</ul>
+
+<p><img src="https://almin.js.org/docs/tutorial/counter/img/almin-architecture-flux.png" alt="Counter"></p>
+
+<p>ただ<a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html">複雑なJavaScriptアプリケーションを考えながら作る話</a>でも書いてますが、ドメインロジックをどこに書くのかという問題が<a href="https://github.com/facebook/flux" title="facebook/flux">facebook/flux</a>や<a href="https://github.com/reactjs/redux" title="Redux">Redux</a>だと曖昧になりやすいです。</p>
+
+<p>Alminは、その辺や非同期処理やStateの持ち方もある程度方針を持って扱えるようにするパターンやドキュメントなどを提供しています。</p>
+
+<ul>
+<li><a href="https://almin.js.org/docs/tutorial/todomvc/" title="Todo App · Almin.js">Todo App · Almin.js</a></li>
+</ul>
+
+<p><img src="https://almin.js.org/docs/tutorial/todomvc/img/almin-architecture.png" alt="Almin Flow"></p>
+
+<p>今は、いくつかのプロダクションで数万行以上コードでもある程度安定して動いている感じです。</p>
+
+<p>今後は報告してもらった問題に泥臭いチェックを入れたり、もう少し簡単にセットアップできるような方法を見ています。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/pull/116" title="test(UseCase): add isolated nesting usecase by azu · Pull Request #116 · almin/almin">test(UseCase): add isolated nesting usecase by azu · Pull Request #116 · almin/almin</a></li>
+<li><a href="https://github.com/almin/almin/issues/112" title="Proposal: almin-react-container · Issue #112 · almin/almin">Proposal: almin-react-container · Issue #112 · almin/almin</a></li>
+</ul>
+
+<p>また、TypeScriptの問題もまだ幾つかあるのでPR待っています！</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/issues/107">TypeScript: improve UseCase#execute typing · Issue #107 · almin/almin</a></li>
+<li><a href="https://github.com/almin/almin/issues/89">Move object-assign.d.ts to pacakges · Issue #89 · almin/almin</a></li>
+<li><a href="https://github.com/almin/almin/issues/81">Use StoreLike interface more aggressively · Issue #81 · almin/almin</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>GitHubのPull Requestのレビューコメントをコマンドラインから取得するツール</title>
@@ -1434,884 +1571,6 @@ $ npm install /path/to/textlint-rule-found-bug
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/construct">Reflect.construct() - JavaScript | MDN</a></li>
 <li><a href="https://esdiscuss.org/topic/extending-an-es6-class-using-es5-syntax">extending an ES6 class using ES5 syntax?</a></li>
 <li><a href="http://nazomikan.hateblo.jp/entry/2015/05/17/000755" title="exotic objectがhost objectの呼び名が変わったものという風潮 - ぶれすとつーる">exotic objectがhost objectの呼び名が変わったものという風潮 - ぶれすとつーる</a></li>
-</ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>東京Node学園祭2016 アウトラインメモ</title>
-   <link href="http://efcl.info/2016/11/13/nodefest2016/"/>
-   <updated>2016-11-13T18:25:00+09:00</updated>
-   <id>http://efcl.info/2016/11/13/nodefest2016</id>
-   <content type="html"><![CDATA[ <p><a href="http://nodefest.jp/2016/" title="東京Node学園祭2016 | 11月12日,13日開催！">東京Node学園祭2016</a>に参加してきたのでメモ</p>
-
-<hr>
-
-<h2 id="demystifying-javascript-engines-alejandro-oviedo">Demystifying JavaScript Engines - Alejandro Oviedo</h2>
-
-<ul>
-<li><a href="https://github.com/a0viedo/demystifying-js-engines" title="a0viedo/demystifying-js-engines: A list of resources about JavaScript engines">a0viedo/demystifying-js-engines: A list of resources about JavaScript engines</a></li>
-<li>2006年のJavaScriptエンジン
-
-<ul>
-<li>インタプリタ</li>
-<li>遅い</li>
-<li>最適化しても遅い</li>
-</ul></li>
-<li>Fortran、Self、Smalltalkの人がより良い方法を考えた
-
-<ul>
-<li>(Source) -&gt; Parse -&gt; (bytecode) -&gt; executionPhase &lt;-&gt; JIT Compiler</li>
-<li>何度も実行するコードはJITコンパイラを通すようにした</li>
-<li>プロパティのアクセスの最適化、Hidden Classなど色々な最適化
-
-<ul>
-<li><a href="https://github.com/v8/v8/wiki/Design%20Elements" title="Design Elements · v8/v8 Wiki">Design Elements · v8/v8 Wiki</a></li>
-</ul></li>
-<li><code>eval</code>と<code>try-catch</code>が最適化の邪魔になってることがある</li>
-</ul></li>
-<li>さらに変化して
-
-<ul>
-<li>execution phase
-
-<ul>
-<li>&lt;-&gt; unoptimiging compiler (インラインキャッシュとか)</li>
-<li>&lt;-&gt; optimiging compiler</li>
-</ul></li>
-<li>何回か実行して、optimizeできるコードとそうでないコードを分別する</li>
-</ul></li>
-<li>SpiderMonkey
-
-<ul>
-<li>Interpreter(ParseとExecution) -&gt; JIT &lt;-&gt; Ionmonkey
-
-<ul>
-<li>Baseline compiler + Ionmonkey</li>
-</ul></li>
-<li>数百回動かして super optimize フラグがついたものはIonmonkeyで動く</li>
-<li>bailoutした場合は、FallbackとしてInterpreterじゃなくてJITのコードを使ってる</li>
-</ul></li>
-<li>Chakra
-
-<ul>
-<li>FallbackとしてInterpreterが動く</li>
-</ul></li>
-<li>V8
-
-<ul>
-<li>Sourcecode
-
-<ul>
-<li>-&gt; Ignition</li>
-<li>-&gt; Fullcodegen &lt;- (AST) -&gt; Crankshaft(+ TurboFan)</li>
-</ul></li>
-<li><a href="http://v8project.blogspot.jp/2016/08/firing-up-ignition-interpreter.html" title="V8 JavaScript Engine: Firing up the Ignition Interpreter">V8 JavaScript Engine: Firing up the Ignition Interpreter</a></li>
-</ul></li>
-<li>JavaScriptCode
-
-<ul>
-<li>SourceCode
-
-<ul>
-<li>-&gt; LLInt</li>
-<li>-&gt; Baseline Compiler</li>
-<li>-&gt; DFG Compiler</li>
-<li>-&gt; FTL Compiler</li>
-</ul></li>
-<li>今はFTLじゃなくなってる - <a href="https://webkit.org/blog/5852/introducing-the-b3-jit-compiler/" title="Introducing the B3 JIT Compiler | WebKit">Introducing the B3 JIT Compiler | WebKit</a></li>
-</ul></li>
-<li>最適化について
-
-<ul>
-<li>ループ内で動かない変数はループの外に出す <a href="https://en.wikipedia.org/wiki/Loop_optimization" title="Loop optimization">Loop optimization</a></li>
-</ul></li>
-</ul>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-    <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">i</span>
-<span class="p">}</span>
-</code></pre></div>
-<ul>
-<li>関数のインライン化
-
-<ul>
-<li>関数を呼び出すとコンテキストスイッチが起きる</li>
-<li>なので、関数をインライン化できるとコンテキストスイッチが減って早くなる</li>
-</ul></li>
-</ul>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
-<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-    <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">fn</span><span class="p">();</span> <span class="c1">// &lt;= インライン化される</span>
-<span class="p">}</span>
-</code></pre></div>
-<ul>
-<li>Dead code elimination 
-
-<ul>
-<li>ループの中にあっても、外で使ってないものは削除されてしまう</li>
-</ul></li>
-</ul>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-    <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// &lt;= 使ってない</span>
-<span class="p">}</span>
-</code></pre></div>
-<ul>
-<li>GCについて
-
-<ul>
-<li>Incremental GC
-
-<ul>
-<li>ちょっとづつやる</li>
-</ul></li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="debugging-node-js-performance-issues-in-production-thomas-watson">Debugging Node.js Performance Issues in Production - Thomas Watson</h2>
-
-<ul>
-<li>Thomas watson</li>
-<li><a href="https://opbeat.com/" title="Opbeat">Opbeat</a>
-
-<ul>
-<li>パフォーマンスモニタリング</li>
-</ul></li>
-<li>Node.jsアプリのパフォーマンスモニタリングをしてなぜ遅くなったのかを見つける</li>
-<li>プロダクションのアプリをどうやってデバッグするか</li>
-<li>何が重要か(why production?)</li>
-<li>productionで起きるエラーを見つけるのは難しい</li>
-<li>開発時と違ってローカルじゃなくてリモートでデバッグするから難しい</li>
-<li>Premature Optimization
-
-<ul>
-<li>productionに入る前に最適化仕様として間違った部分を最適化してしまうのは危険なところ</li>
-</ul></li>
-<li>計測
-
-<ul>
-<li>パフォーマンスの計測はどうやるか</li>
-<li><code>JSON.parse(req.body)</code>
-
-<ul>
-<li>大きなリクエストがきたらJSON parseが遅くなる</li>
-</ul></li>
-<li><code>console.time</code>を使うことでシンプルな計測はできる</li>
-</ul></li>
-</ul>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="s2">&quot;json-parse&quot;</span><span class="p">);</span>
-<span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="s2">&quot;json-parse&quot;</span><span class="p">);</span>
-<span class="c1">// json-parse: 154.12ms</span>
-</code></pre></div>
-<ul>
-<li>けど、なぜ遅いのかは色々な要因がある
-
-<ul>
-<li>(Single Threaded)</li>
-<li>CPUをよくつかうコード</li>
-<li>Slow I/O</li>
-<li>Event loopにイベントを突っ込みすぎ</li>
-<li>メモリの使いすぎ</li>
-<li>GC
-
-<ul>
-<li>Stop the world</li>
-</ul></li>
-</ul></li>
-<li>CPU Intensive Code
-
-<ul>
-<li>Sync I/O</li>
-<li>JSON parase</li>
-<li>RegExp</li>
-<li>Crypto</li>
-<li>Templates</li>
-</ul></li>
-<li>Demo
-
-<ul>
-<li><code>$ node --perf_basic_prof_only_functions cpu.js</code></li>
-<li><code>perf</code> コマンド</li>
-<li><a href="http://int.main.jp/txt/perf/" title="perfの使いかた">perfの使いかた</a></li>
-<li><code>perf</code>で<code>perf.data</code>を使ってそれを見ていく</li>
-<li>JavaScriptとLinuxのカーネルの関数のマッピングしているデータをみてデバッグ</li>
-<li><a href="https://www.npmjs.com/package/0x" title="0x">0x</a>でflamechartを作って見る
-
-<ul>
-<li>JavaScriptとカーネルの関数の呼び出しをflamechartで見る</li>
-</ul></li>
-<li>flamechartを見るとcpu.js:13が重たい</li>
-<li><code>cpu.js</code>を見てみると crypto 部分が重たい</li>
-<li>syncな処理をやってたのをasyncにすればいい感じになりそう</li>
-</ul></li>
-<li>mdb
-
-<ul>
-<li>何で動かないのはよくわからないときのデバッグ</li>
-<li><a href="https://github.com/joyent/mdb_v8" title="joyent/mdb_v8: postmortem debugging for Node.js and other V8-based programs">joyent/mdb_v8: postmortem debugging for Node.js and other V8-based programs</a></li>
-<li><a href="https://www.joyent.com/blog/mdb-and-node-js" title="Joyent | MDB and Node.js">Joyent | MDB and Node.js</a></li>
-<li><code>--abort_on_uncaught_exception</code> V8のダンプを出せる</li>
-<li><a href="https://www.npmjs.com/package/autopsy" title="autopsy">autopsy</a>をつかつと  SolarisのVMを動かせるので、そこでmdbをやるのが簡単</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="サイボウズの開発を支えるkaizen文化-teppeis">サイボウズの開発を支えるKAIZEN文化 - teppeis</h2>
-
-<blockquote>
-<p><a href="http://www.slideshare.net/teppeis/kaizen-68803503" title="サイボウズの開発を支えるKAIZEN文化">サイボウズの開発を支えるKAIZEN文化</a></p>
-</blockquote>
-
-<ul>
-<li>技術的負債を貯めるデータベースを作った</li>
-<li>貯めていって時間があるときにやろう
-
-<ul>
-<li>貯まるだけでいつまでも減らない</li>
-</ul></li>
-<li>KAIZEN DAY
-
-<ul>
-<li>技術的負債 -&gt; KAIZEN</li>
-<li>リファクタリングだけじゃなくて開発プロセスについても改善</li>
-</ul></li>
-<li>一日に終わらないタイプのKAIZENが進まない
-
-<ul>
-<li>KAIZEN DAYでも割り込みがある</li>
-</ul></li>
-<li>KAIZEN合宿
-
-<ul>
-<li>泊りがけでやる</li>
-<li>一日で終わらないものもやる</li>
-<li>終了後にプログラマ以外も呼んで発表会をやった</li>
-</ul></li>
-<li>KAIZEN
-
-<ul>
-<li><a href="http://pepabo-ceo.jugem.jp/?eid=40" title="スーパーリセット | ペパボ社長ブログ">スーパーリセット | ペパボ社長ブログ</a></li>
-</ul></li>
-<li>メインプロダクトで遊びづらい
-
-<ul>
-<li>B2Bサービス
-
-<ul>
-<li>サービス停止 = ユーザーの仕事も止まる</li>
-</ul></li>
-<li>大規模</li>
-<li>新しいものを入れにくい</li>
-<li>短期要件に振り回されることは少ないけど、新規ものが少ない</li>
-</ul></li>
-<li>技術的な変遷
-
-<ul>
-<li><a href="http://stateofjs.com/" title="Home">フロントエンドのアンケート</a></li>
-<li>3年ぐらいで変化はある</li>
-<li>けど、結果論なので途中ではもっと色々変化ある</li>
-<li>そういう技術的な変化を試す場所が必要</li>
-</ul></li>
-<li>サイドプロジェクトで試す
-
-<ul>
-<li><a href="http://blog.cybozu.io/entry/2015/11/04/080000" title="cybozu.com 稼働状況 を React/Redux で作り直した話 - Cybozu Inside Out | サイボウズエンジニアのブログ">cybozu.com 稼働状況 を React/Redux で作り直した話 - Cybozu Inside Out | サイボウズエンジニアのブログ</a></li>
-<li>サイドでやってメインにも適応</li>
-</ul></li>
-<li>リモートワーク
-
-<ul>
-<li>テレビ会議をどこでもできるような仕組みが必要</li>
-</ul></li>
-<li>振り返り
-
-<ul>
-<li>振り返りの振り返り</li>
-</ul></li>
-</ul>
-
-<h2 id="keynote">Keynote</h2>
-
-<blockquote>
-<p><a href="http://www.theserverside.com/news/4500279472/Seif-project-makes-Web-security-a-priority" title="Seif project makes Web security a priority">Seif project makes Web security a priority</a></p>
-</blockquote>
-
-<ul>
-<li>MS、Apple、Adobe、Oracle
-
-<ul>
-<li>Webをリプレイスしようとしたけど、失敗</li>
-<li>すべてのソリューションはオープンじゃなかった</li>
-<li>Webはオープン</li>
-</ul></li>
-<li>Self Project
-
-<ul>
-<li>architectureはWebとは違うけど、ウェブブラウザで動く</li>
-<li>Public key cryptは使われてる</li>
-<li>CAは信用できないので</li>
-</ul></li>
-<li><code>seifnode</code>
-
-<ul>
-<li>cryptographic </li>
-<li><a href="https://github.com/paypal/seifnode" title="paypal/seifnode">paypal/seifnode</a></li>
-<li>random(RNG) - 一番大切</li>
-<li>Entropy
-
-<ul>
-<li>OS、Microphone(音)、Camera</li>
-<li>強いランダムを作る</li>
-</ul></li>
-</ul></li>
-<li>Seif Protocol
-
-<ul>
-<li>Secure JSON Over TCP</li>
-<li><a href="https://github.com/paypal/seif-protocol" title="paypal/seif-protocol: Node.js Implementation of the Seif protocol">paypal/seif-protocol: Node.js Implementation of the Seif protocol</a></li>
-<li>ECC521 as unique = パスワードの代わり</li>
-</ul></li>
-<li>Seif Handshake</li>
-<li><a href="http://www.seif.place/" title="The Seif Project">The Seif Project</a></li>
-</ul>
-
-<hr>
-
-<h2 id="why-to-standardize-your-readmes-richard-littauer">Why to Standardize your READMEs - Richard Littauer</h2>
-
-<blockquote>
-<p><a href="https://github.com/RichardLitt/standard-readme" title="RichardLitt/standard-readme: Readme Standard Style">RichardLitt/standard-readme: Readme Standard Style</a></p>
-</blockquote>
-
-<ul>
-<li>README
-
-<ul>
-<li>READMEはユーザーへのprotocol</li>
-<li>READMEは一番最初に読む</li>
-<li>ドキュメントよりも大事かも</li>
-</ul></li>
-<li>READMEを見たときに
-
-<ul>
-<li>なんて呼ぶの?</li>
-<li>なぜ使うべきなの?</li>
-<li>インストールの仕方</li>
-<li>コントリビューター</li>
-<li>ライセンス</li>
-</ul></li>
-<li>READMEに必要に必要なもの
-
-<ul>
-<li>タイトル</li>
-<li>説明</li>
-<li>インストール</li>
-<li>ロゴ</li>
-<li>バックグランド</li>
-<li>セキュリティ</li>
-<li>API</li>
-<li>などなど</li>
-</ul></li>
-<li>ドキュメント
-
-<ul>
-<li>コード見なくても使えるのが100%</li>
-</ul></li>
-<li>問題
-
-<ul>
-<li>いろんなパッケージマネージャー</li>
-<li>npmはパッケージが多い</li>
-</ul></li>
-<li>READEMEは難しい
-
-<ul>
-<li>書くのも難しい</li>
-<li>パースするのも難しい</li>
-</ul></li>
-<li>Standard
-
-<ul>
-<li>READMEにもStandard(JS)みたいなものを作ろう</li>
-<li>考えずに扱えるもの</li>
-</ul></li>
-<li>Standard README
-
-<ul>
-<li>A Specification</li>
-<li>A Generator</li>
-<li>A Linter</li>
-<li>A badge </li>
-<li>Example Templete</li>
-</ul></li>
-<li><a href="https://github.com/RichardLitt/standard-readme" title="RichardLitt/standard-readme: Readme Standard Style">RichardLitt/standard-readme: Readme Standard Style</a></li>
-<li>Require
-
-<ul>
-<li>Title</li>
-<li>Short Description</li>
-<li>ToC</li>
-<li>Install</li>
-<li>Usage</li>
-<li>Contribute</li>
-<li>License</li>
-</ul></li>
-<li>Optional
-
-<ul>
-<li>Badge</li>
-</ul></li>
-<li>Generator
-
-<ul>
-<li><a href="https://github.com/RichardLitt/generator-standard-readme" title="RichardLitt/generator-standard-readme: Scaffold out a Standard Readme">RichardLitt/generator-standard-readme: Scaffold out a Standard Readme</a></li>
-<li>Uses yeoman</li>
-</ul></li>
-<li>Linter
-
-<ul>
-<li>まだ</li>
-</ul></li>
-<li>UPTAKE
-
-<ul>
-<li>Standards.js とかでも使ってる</li>
-</ul></li>
-<li>Future
-
-<ul>
-<li>Linter</li>
-<li>ExampleをREPLで試せるようにする</li>
-<li>NLP
-
-<ul>
-<li>検索がもっとしやすくなる</li>
-</ul></li>
-</ul></li>
-<li>FAQ
-
-<ul>
-<li>i18n README
-
-<ul>
-<li>Specなしより簡単にはなる</li>
-</ul></li>
-<li>Requirementsはどこに?
-
-<ul>
-<li>Install</li>
-<li><a href="https://github.com/RichardLitt/standard-readme/blob/master/spec.md#install" title="standard-readme/spec.md at master · RichardLitt/standard-readme">standard-readme/spec.md at master · RichardLitt/standard-readme</a></li>
-</ul></li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="vue-js-サーバーサイドレンダリング">Vue.js サーバーサイドレンダリング</h2>
-
-<blockquote>
-<p><a href="https://speakerdeck.com/kazupon/vue-dot-js-2-dot-0-server-side-rendering" title="Vue.js 2.0 Server Side Rendering // Speaker Deck">Vue.js 2.0 Server Side Rendering // Speaker Deck</a></p>
-</blockquote>
-
-<ul>
-<li>Vue.js 2.0
-
-<ul>
-<li>Progressive Framework</li>
-</ul></li>
-<li>Virtual DOM
-
-<ul>
-<li><a href="https://github.com/snabbdom/snabbdom" title="snabbdom/snabbdom: A virtual DOM library with focus on simplicity, modularity, powerful features and performance.">snabbdom/snabbdom: A virtual DOM library with focus on simplicity, modularity, powerful features and performance.</a>が元</li>
-</ul></li>
-<li>レンダリングシステム
-
-<ul>
-<li>ライフサイクル</li>
-</ul></li>
-<li>テンプレート
-
-<ul>
-<li>-&gt; AST</li>
-<li>テンプレート言語の部分 = 動的</li>
-<li>テンプレート言語じゃない部分 = 静的なNode</li>
-<li>静的なNodeを静的なノードツリーを検出する</li>
-</ul></li>
-<li>レンダリング
-
-<ul>
-<li>Watcherというものが<code>render</code>関数を呼ぶ</li>
-<li>render結果をvDOMにしてdiff+patchする</li>
-</ul></li>
-<li>仮想ノードツリー
-
-<ul>
-<li>ダイナミックと静的なノードツリー</li>
-<li>ノードツリーをマージして期待するDOMを生成する</li>
-</ul></li>
-<li>サーバーサイドレンダリング
-
-<ul>
-<li>v1は独自のサーバ実装が必要だった</li>
-<li>hydrogenの仕組みとかもなかった</li>
-<li>v2ではvDOMとかあるのでできるようになった</li>
-</ul></li>
-<li>クライアントとサーバ</li>
-<li>...</li>
-</ul>
-
-<hr>
-
-<h2 id="react-reduxを使った大規模商用サービスの開発">React + Reduxを使った大規模商用サービスの開発</h2>
-
-<ul>
-<li>bookingtable.jp</li>
-<li>ウェブ版
-
-<ul>
-<li>BFF(Backend for Frontend)を用意してやってる</li>
-<li>アプリ版もあるのでそれぞれBFFがある</li>
-</ul></li>
-<li>React/Reduxのハマりどころ
-
-<ul>
-<li><code>mapToState</code></li>
-</ul></li>
-<li>ハマりどころ</li>
-<li>画面遷移
-
-<ul>
-<li>ログインしてない -&gt; ログイン -&gt; replaceState/replaceしないと戻ったときにおかしくなる</li>
-<li>POPならスクロール位置を戻す、PUSHならTOP 0にする</li>
-</ul></li>
-<li>Stateが集まるまでComonentをレンダリングしない
-
-<ul>
-<li>loading = true/false をstate管理して</li>
-<li>loading = trueになったときにレンダリングする</li>
-<li><a href="https://github.com/recruit-tech/redux-async-loader" title="recruit-tech/redux-async-loader: Async data loader for Redux apps.">recruit-tech/redux-async-loader: Async data loader for Redux apps.</a></li>
-</ul></li>
-<li>iPhoneの画面スワイプでのもどる/すすむ
-
-<ul>
-<li>画面スワイプして戻ると一瞬戻る前の画面でてしまう</li>
-<li>戻って一瞬でてから、表示が更新される</li>
-</ul></li>
-<li>Monolithic JavaScript
-
-<ul>
-<li>ビルドすると毎回ファイル変わって再ダウンロードになってしまうのを避けたい</li>
-<li>Before: 一個のjs</li>
-<li>After: webpackJsomp、appX.js、vendor.js</li>
-<li><code>require.ensure</code>(webpack)とRouterで動的ロード</li>
-<li>Hotな画面は scriptタグで事前ロード</li>
-<li>そうでない画面は <code>require.ensure</code> で動的ロード</li>
-<li>Script Load Error
-
-<ul>
-<li>webpack 1.xだと<code>require.ensure</code>でのエラーが拾えない</li>
-<li>表示 =&gt; デプロイ =&gt; 遷移仕様とするとエラーになってしまう</li>
-<li><a href="https://github.com/webpack/webpack/issues/758" title="require.ensure error handling · Issue #758 · webpack/webpack">require.ensure error handling · Issue #758 · webpack/webpack</a></li>
-</ul></li>
-</ul></li>
-<li>webpackのモジュールID問題
-
-<ul>
-<li>webpackでmodule一つ一つ idが振られてる</li>
-<li>applyModuleIdsでidを振られてる</li>
-<li>コレの前にidをsortしてあげればidが決まる</li>
-</ul></li>
-<li>SSR
-
-<ul>
-<li>checksumで比較して、合ってるならサーバのレンダリング結果を使う</li>
-<li>一致しない場合は、一度捨ててクライアントでレンダリングする</li>
-<li>サーバサイドの<code>renderToString</code>で数百msかかる</li>
-</ul></li>
-<li>Partial Reandering
-
-<ul>
-<li>見えるところだけサーバ、他はクライアントで</li>
-<li>SEOは?
-
-<ul>
-<li>Google Botsはクライアントサイドレンダリングでもちゃんと認識する</li>
-</ul></li>
-</ul></li>
-<li>SSR Cache
-
-<ul>
-<li>サーバサイドでキャッシュする</li>
-<li>ユーザーの情報を含んでいるとレンダリングできない</li>
-</ul></li>
-<li>Composite Rendering
-
-<ul>
-<li>レンダリング方式を動的に切り替える</li>
-<li>高負荷時はキャッシュを活用するなど</li>
-</ul></li>
-<li>まとめ
-
-<ul>
-<li>サーバサイドレンダリングはターンアラウンドタイム的にやらない方がよい</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="introducing-now-and-next-js-nkzawa">Introducing Now and Next.js - nkzawa</h2>
-
-<blockquote>
-<p><a href="https://speakerdeck.com/nkzawa/introducing-now-and-next-dot-js" title="Introducing Now and Next.js // Speaker Deck">Introducing Now and Next.js // Speaker Deck</a></p>
-</blockquote>
-
-<ul>
-<li><a href="https://zeit.co/now">Now: realtime global deployments</a></li>
-<li><a href="https://zeit.co/blog/next">ZEIT – Next.js</a>
-
-<ul>
-<li>の話</li>
-</ul></li>
-<li>Next.js</li>
-</ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -D next.js
-$(npm bin)/next
-# pages/ にコンポーネントを書いていく
-</code></pre></div>
-<ul>
-<li>Next.jsは設定必要なし
-
-<ul>
-<li>Hot ReloadingとかBabelとかそういうのは自動的にやる</li>
-</ul></li>
-<li>SPA
-
-<ul>
-<li>初期表示が遅い</li>
-<li>ページが増えると重くなる</li>
-</ul></li>
-<li>解決方法
-
-<ul>
-<li>サーバサイドレンダリング
-
-<ul>
-<li>ファイル置くだけでできる</li>
-<li><a href="http://yosuke-furukawa.hatenablog.com/entry/2014/11/14/141415" title="【翻訳】リッチなWebアプリケーションのための7つの原則 - from scratch">【翻訳】リッチなWebアプリケーションのための7つの原則 - from scratch</a></li>
-</ul></li>
-<li>コード分割 + 遅延ロード
-
-<ul>
-<li>ページごとに結合ファイルを生成して分割する</li>
-</ul></li>
-</ul></li>
-<li>CSS
-
-<ul>
-<li><a href="https://github.com/threepointone/glamor" title="threepointone/glamor: inline css for react et al">threepointone/glamor: inline css for react et al</a>を使ってる</li>
-</ul></li>
-<li><code>&lt;Link /&gt;</code>
-
-<ul>
-<li>遅延読み込み + history.pushState</li>
-</ul></li>
-<li><code>&lt;Head /&gt;</code>
-
-<ul>
-<li><code>&lt;head /&gt;</code> の中身を書ける</li>
-<li><a href="https://github.com/zeit/next.js/blob/master/lib/head.js" title="next.js/head.js at master · zeit/next.js">next.js/head.js at master · zeit/next.js</a></li>
-</ul></li>
-<li><a href="https://zeit.co/now" title="now">now</a>
-
-<ul>
-<li>Next.jsをどうやってデプロする</li>
-</ul></li>
-</ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ npm i -g now
-$ now
-</code></pre></div>
-<ul>
-<li>nowでの設定
-
-<ul>
-<li><code>npm start</code> を定義する</li>
-</ul></li>
-<li>特徴
-
-<ul>
-<li>デプロイするたびに新しいURLを作る
-
-<ul>
-<li>古いURLはそのまま残る</li>
-<li>エイリアスを差し替えることで切り替わる</li>
-<li>URLが常に同じアプリの状態表す</li>
-</ul></li>
-<li>オートスケール
-
-<ul>
-<li>自動的にスケールする</li>
-<li>アクセスがない場合は 0 になる</li>
-</ul></li>
-<li>データの永続化
-
-<ul>
-<li>オートスケールでインスタンスが消えるのでデータは外部に保存する</li>
-</ul></li>
-</ul></li>
-<li>now + micro
-
-<ul>
-<li>基本的にHTTPでやり取りするのでlambdaのようにロックインがない</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="the-evolution-of-electron-cheng-zhao">The Evolution of Electron - Cheng Zhao</h2>
-
-<ul>
-<li>3つの名前を持っている</li>
-<li>ElectronはAtomのために作った</li>
-<li>5年前
-
-<ul>
-<li>GitHub CEOが元でCocoaのアプリケーションだった</li>
-</ul></li>
-<li>AtomのChromium Embbed Frameworkをつかうようになった</li>
-<li>これによりクロスプラットフォームになった
-
-<ul>
-<li>Atom: Cocoa -&gt; Chromium Embedded Framework -&gt; Atom Shell -&gt; Electron</li>
-</ul></li>
-<li>Chromium Embedded Framework -&gt; Node-Webkitに移行しようとした
-
-<ul>
-<li>Atomは結構でかいコードベースだったので、Node.jsのバインでィングに書き換える作業が難航</li>
-<li>失敗</li>
-</ul></li>
-<li>node-webkitの改善を続ける -&gt; node-webkitの開発者を雇う = Cheng Zhao</li>
-<li>node-webkitは複数ウィンドウのアプリケーションを扱えなかった</li>
-<li>node-webkitを書き直すこと決意
-
-<ul>
-<li>Atom-Shellを作ることにした</li>
-</ul></li>
-<li>node-webkit と atom-shellの違い
-
-<ul>
-<li>エントリポイントがhtmlとjsが違う</li>
-<li>Chromiumのビルドの問題など</li>
-</ul></li>
-<li>AtomとAtom-shellはOSSになった
-
-<ul>
-<li>Atom-Shell -&gt; Electronにリネームされた</li>
-<li>Electron: 37000</li>
-</ul></li>
-<li>Electron製のアプリは毎日毎日新しいものが公開され、あなたのPCのディスクを食べます</li>
-<li>Electronは個人プロジェクトとして始まったけど、今は外部Contributorが多くなった
-
-<ul>
-<li>Contributorがいなくなるとプロジェクトが終わる</li>
-</ul></li>
-<li>Contributorをちゃんとキープするには
-
-<ul>
-<li>IssueやPull Requestに対してちゃんと反応する</li>
-<li>開発環境を簡単にセットアップできるようにする</li>
-<li>よりよいコードレビューをできるようにしたり</li>
-<li>リファクタリングをちゃんとやる
-
-<ul>
-<li>Contributorはそのプロジェクトをちゃんと理解してるわけではないので</li>
-</ul></li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="browser-is-the-new-server-gleb-bahmutov">Browser is the new server - Gleb Bahmutov</h2>
-
-<ul>
-<li>KENSHO</li>
-<li>Quickly
-
-<ul>
-<li>CDN</li>
-<li>paralled downloads</li>
-<li>caching</li>
-<li>small image</li>
-<li>などなどできてたけどまだ遅い</li>
-</ul></li>
-<li>Pivotal Tracker
-
-<ul>
-<li>リロードしただけなのに数秒かかる</li>
-</ul></li>
-<li>開発者ツールを開いて見ると
-
-<ul>
-<li>5秒ぐらいJavaScriptの処理に使ってた</li>
-<li><code>HTML = App(DATA)</code></li>
-<li><code>HTML</code>と<code>DATA</code>をキャッシュする</li>
-</ul></li>
-<li>リロード
-
-<ul>
-<li><a href="https://glebbahmutov.com/hydrate-vue-todo/" title="Hydrate Vue Todo">Hydrate Vue Todo</a></li>
-<li>タイトルはすぐでるけど、内容は一瞬ちらっとする</li>
-</ul></li>
-<li>ServiceWorker
-
-<ul>
-<li>そこでServiceWorker</li>
-<li>ブラウザの上で動くProxy</li>
-<li>リクエストをProxyして処理できる</li>
-<li><code>navigator.serviceWorker.register</code></li>
-<li>Firefox/Chrome/Opera</li>
-<li><code>https</code>が必須</li>
-<li>Androidのモバイルでも既に使える</li>
-</ul></li>
-<li>ServiceWorkerの中
-
-<ul>
-<li><code>fetch</code> のhook</li>
-<li><a href="https://github.com/bahmutov/bottle-service" title="bahmutov/bottle-service: Instant web applications restored from ServiceWorker cache">bahmutov/bottle-service: Instant web applications restored from ServiceWorker cache</a></li>
-</ul></li>
-<li>オフライン
-
-<ul>
-<li>ブラウザのアプリはサーバがないと何もできない</li>
-<li>ServiceWorkerの中にサーバを入れる</li>
-</ul></li>
-<li>サーバをブラウザで
-
-<ul>
-<li>express.js + middleware を browserifyで変換して、ServiceWorkerの中で動かす</li>
-<li>express service</li>
-<li><a href="https://github.com/bahmutov/express-service" title="bahmutov/express-service: Package ExpressJS server to run inside a ServiceWorker">bahmutov/express-service: Package ExpressJS server to run inside a ServiceWorker</a></li>
-<li>オフラインでも動く</li>
-<li>SWのコードはDevToolsのJavaScript無効でも動く</li>
-<li>クライアントサイドのサーバサイドのJavaScript(ServiceWorkerの中のJS)でサーバサイドレンダリングしてる
-
-<ul>
-<li>最新のChromeはlinkタグでもServiceWorkerを登録できる</li>
-</ul></li>
-</ul></li>
-</ul>
-
-<hr>
-
-<p>メモ</p>
-
-<ul>
-<li>人数が増えたので人口密度高かった</li>
-<li>会場的に廊下とかで話すスペース場所とかあるとよかったのではと思った</li>
 </ul>
  ]]></content>
  </entry>

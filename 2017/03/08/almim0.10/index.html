@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Inroducing Almin 0.10.0: TypeScript, FlowType, Logger | Web Scratch
+        
+    </title>
+    <meta name="description" content="Alminの0.10.0をリリースしました。">
+    
+    <meta name="keywords" content="JavaScript,Flux,DDD" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="Inroducing Almin 0.10.0: TypeScript, FlowType, Logger">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2017/03/08/almim0.10/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="Alminの0.10.0をリリースしました。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2017-03-08T21:55:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/03/06/get-pull-request-review-comments/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/02/27/ecma-414/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/02/26/map-like/">
+
+
+
+
+
+<meta property="article:section" content="javascript">
+
+
+
+
+
+<meta property="article:tag" content="JavaScript">
+
+<meta property="article:tag" content="Flux">
+
+<meta property="article:tag" content="DDD">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 32
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 173
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 87
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 10
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 6
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2017/03/08/almim0.10/">
+                Inroducing Almin 0.10.0: TypeScript, FlowType, Logger
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/03/06/get-pull-request-review-comments/">
+                GitHubのPull Requestのレビューコメントをコマンドラインから取得するツール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/02/27/ecma-414/">
+                ECMA-414 ECMAScript Specification Suiteについて
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/02/26/map-like/">
+                Map-likeというES2015 Mapのようなライブラリを書いた
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2017/03/08/almim0.10/">
+    <h1 class="post-title">Inroducing Almin 0.10.0: TypeScript, FlowType, Logger</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2017年03月08日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-03-08-almim0.10.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="https://github.com/almin/almin" title="Almin">Almin</a>の0.10.0をリリースしました。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/releases/tag/0.10.0" title="Release 0.10.0 · almin/almin">Release 0.10.0 · almin/almin</a></li>
+</ul>
+
+<p>AlminはいわゆるFluxライブラリ的なものですが、ドメイン駆動設計(DDD)を行うにあたって既存の<a href="https://github.com/reactjs/redux" title="Redux">Redux</a>や<a href="https://github.com/facebook/flux" title="Flux">Flux</a>では上手くレイヤリングがしにくい問題があったため作成しました。</p>
+
+<p>この辺の経緯については以前スライドやドキュメントにまとめてあるので、以下を参照してください。</p>
+
+<ul>
+<li><a href="https://github.com/azu/large-scale-javascript">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
+<li><a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
+<li><a href="http://efcl.info/2016/09/30/architecture-refs/">アーキテクチャをめぐるたび | Web Scratch</a></li>
+</ul>
+
+<h2 id="typescript">TypeScript</h2>
+
+<p>Almin 0.10.0ではコードベースがTypeScript化されました。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/03/08-1488978556.png" alt="TypeScript"></p>
+
+<p>殆どの作業を@<a href="https://github.com/saneyuki" title="saneyuki">saneyuki</a>さんがやってくれました。</p>
+
+<p>以下のPRを見ると既存のJavaScriptプロジェクトを徐々にTypeScript化する流れが見れるので面白いと思います。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/pull/68" title="Convert src/ to TypeScript by saneyuki · Pull Request #68 · almin/almin">Convert src/ to TypeScript by saneyuki · Pull Request #68 · almin/almin</a></li>
+</ul>
+
+<p>これにより、<code>d.ts</code>がnpmパッケージに同梱されるようになったので、TypeScriptからも扱いやすくなりました。</p>
+
+<h2 id="flowtype">FlowType</h2>
+
+<p>Alminは以前からFlowTypeの型定義ファイルが同梱されていましたが、@<a href="https://github.com/k-kinzal" title="k-kinzal">k-kinzal</a>さんにいくつかPRを頂いて、<a href="https://flowtype.org/docs/declarations.html#declaration-files" title="Declaration files">Declaration files</a>の扱いが改善されました。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/pull/108" title="fixes flow type-def can not be read. by k-kinzal · Pull Request #108 · almin/almin">fixes flow type-def can not be read. by k-kinzal · Pull Request #108 · almin/almin</a></li>
+</ul>
+
+<p>サンプルプロジェクトにFlowで書いたTodoMVCがあるので、Flowと一緒に使いたい人は参照してみてください。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/tree/master/example/todomvc-flow" title="almin/example/todomvc-flow at master · almin/almin">almin/example/todomvc-flow at master · almin/almin</a></li>
+</ul>
+
+<h2 id="logger">Logger</h2>
+
+<p>0.10.0の直接的なBreaking Changeとして、AlminのUseCase(Actionみたいなものです)やStoreの変更などのイベントハンドラの形式が統一的なものへと変更されました。
+ハンドラに<code>meta</code>オブジェクトが追加され、そのイベントがどこ(useCase)でいつ(timestamp)起きたのかというメタ情報を取れるようになりました。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/issues/61">Proposal: Introduce <code>meta</code> object to Dispatcher#dispatch(payload, meta) · Issue #61 · almin/almin</a></li>
+<li><a href="https://github.com/almin/almin/pull/62">Breaking Change: feat(Dispatcher): Introduce DispatcherPayloadMeta by azu · Pull Request #62 · almin/almin</a></li>
+</ul>
+
+<p>この辺は普通の人にはあんまり関係なくてロガーのようなものを作っている場合に関係してきます。</p>
+
+<p>Alminでは<a href="https://github.com/almin/almin-logger" title="almin-logger">almin-logger</a>というコンソールにUseCaseの実行結果やStoreの変化をログとして吐くライブラリが用意されています。</p>
+
+<p><iframe src="https://giphy.com/embed/xUA7aU9G9jatPmKIz6" width="480" height="324" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="http://giphy.com/gifs/xUA7aU9G9jatPmKIz6">via GIPHY</a></p></p>
+
+<p><code>meta</code>オブジェクトの導入によってこの辺のログ周りがより正確に出るように改善されました。</p>
+
+<p>例えば、AlminではParentUseCaseの中でChildUseCaseを実行するといったネストしたUseCaseを扱えるような仕組みも持っています。
+(トランザクション的なことがしたいときに使う)</p>
+
+<ul>
+<li><a href="https://almin.js.org/docs/tips/nesting-usecase.html" title="Nesting UseCase · Almin.js">Nesting UseCase · Almin.js</a></li>
+</ul>
+
+<p><code>meta</code>オブジェクトの導入で親子関係のあるUseCaseも、その関係がログとして出せるようになっています。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/03/08-1488979360.png" alt="nesting useCase"></p>
+
+<p>自分としては開発中のログは結構重視しているのでこの辺は充実させていきたいです。(実際のデバッグでかなり便利になるため)</p>
+
+<p>最近は<a href="https://github.com/zalmoxisus/redux-devtools-extension" title="redux-devtools-extension">redux-devtools-extension</a>でAlminのログを出す連携を実験してみたりしています。</p>
+
+<blockquote class="twitter-tweet" data-partner="tweetdeck"><p lang="ja" dir="ltr">Redux DevTools Redux以外でも動かせるんだ。<br>Alminで一応できた <a href="https://t.co/b0uvdEwd83">pic.twitter.com/b0uvdEwd83</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/839280950898876416">March 8, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><a href="https://github.com/almin/almin/issues/115" title="Integration with redux-devtools-extension · Issue #115 · almin/almin">Integration with redux-devtools-extension · Issue #115 · almin/almin</a>
+
+<ul>
+<li>Redux用のブラウザ拡張だけど、その他のライブラリと連携するAPIが用意されている</li>
+</ul></li>
+</ul>
+
+<h2 id="どんなことに向いてるのか">どんなことに向いてるのか</h2>
+
+<p><a href="https://github.com/almin/almin" title="Almin">Almin</a>の設計思想としては普通に読めるようなコードで、中規模以上にスケールできようにするというものです。</p>
+
+<p>よくあるFluxのサンプルでのカウントアプリのチュートリアルを見ると<a href="https://github.com/facebook/flux" title="facebook/flux">facebook/flux</a>と殆ど変わらないことが分かるかもしれません。</p>
+
+<ul>
+<li><a href="https://almin.js.org/docs/tutorial/counter/" title="Counter App · Almin.js">Counter App · Almin.js</a></li>
+</ul>
+
+<p><img src="https://almin.js.org/docs/tutorial/counter/img/almin-architecture-flux.png" alt="Counter"></p>
+
+<p>ただ<a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html">複雑なJavaScriptアプリケーションを考えながら作る話</a>でも書いてますが、ドメインロジックをどこに書くのかという問題が<a href="https://github.com/facebook/flux" title="facebook/flux">facebook/flux</a>や<a href="https://github.com/reactjs/redux" title="Redux">Redux</a>だと曖昧になりやすいです。</p>
+
+<p>Alminは、その辺や非同期処理やStateの持ち方もある程度方針を持って扱えるようにするパターンやドキュメントなどを提供しています。</p>
+
+<ul>
+<li><a href="https://almin.js.org/docs/tutorial/todomvc/" title="Todo App · Almin.js">Todo App · Almin.js</a></li>
+</ul>
+
+<p><img src="https://almin.js.org/docs/tutorial/todomvc/img/almin-architecture.png" alt="Almin Flow"></p>
+
+<p>今は、いくつかのプロダクションで数万行以上コードでもある程度安定して動いている感じです。</p>
+
+<p>今後は報告してもらった問題に泥臭いチェックを入れたり、もう少し簡単にセットアップできるような方法を見ています。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/pull/116" title="test(UseCase): add isolated nesting usecase by azu · Pull Request #116 · almin/almin">test(UseCase): add isolated nesting usecase by azu · Pull Request #116 · almin/almin</a></li>
+<li><a href="https://github.com/almin/almin/issues/112" title="Proposal: almin-react-container · Issue #112 · almin/almin">Proposal: almin-react-container · Issue #112 · almin/almin</a></li>
+</ul>
+
+<p>また、TypeScriptの問題もまだ幾つかあるのでPR待っています！</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/issues/107">TypeScript: improve UseCase#execute typing · Issue #107 · almin/almin</a></li>
+<li><a href="https://github.com/almin/almin/issues/89">Move object-assign.d.ts to pacakges · Issue #89 · almin/almin</a></li>
+<li><a href="https://github.com/almin/almin/issues/81">Use StoreLike interface more aggressively · Issue #81 · almin/almin</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-03-08-almim0.10.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","Flux","DDD"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=Flux">Flux</a></li>
+                
+                <li><a href="/tags/?q=DDD">DDD</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>
