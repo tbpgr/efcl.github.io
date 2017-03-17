@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-03-17T19:46:31+09:00</updated>
+ <updated>2017-03-17T19:52:40+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -95,16 +95,7 @@ open http://localhost:8080/
 
 <p>他のライブラリと見比べてみると次のような形になります。</p>
 
-<p>| Almin      | Flux          | Redux                  |
-|------------|---------------|------------------------|
-| Dispatcher | Dispatcher    | store.dispatch         |
-| Context    | Container     | Middleware/React Redux |
-| UseCase    | ActionCreator | Actions                |
-| Store      | Store         | Store                  |
-| StoreGroup | Container     | combineReducers        |
-| (State)    | Store         | Reducer                |
-| (Domain)   |               |                        |
-|(Repository)|               |                        |</p>
+<p><img src="http://efcl.info/wp-content/uploads/2017/03/17-1489747778.png" alt="比較table"></p>
 
 <p>このサンプルは状態が一つしかないため、複数のStoreをまとめるStoreGroupや、
 ロジックが殆どないためDomainといった要素は登場していません。</p>
