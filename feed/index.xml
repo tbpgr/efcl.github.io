@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-03-17T19:55:00+09:00</updated>
+ <updated>2017-03-21T09:53:00+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,41 @@
  </author>
  
 
+ 
+ <entry>
+   <title>ECMAScript仕様書アプリを作る</title>
+   <link href="http://efcl.info/2017/03/21/ecmascript-spec-electron-app/"/>
+   <updated>2017-03-21T09:45:00+09:00</updated>
+   <id>http://efcl.info/2017/03/21/ecmascript-spec-electron-app</id>
+   <content type="html"><![CDATA[ <p><a href="https://tc39.github.io/ecma262/" title="ECMAScript® 2017 Language Specification">ECMAScript® 2017 Language Specification</a>をアプリとして開けるWebViewアプリです。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">ECMAScript仕様書アプリ<a href="https://t.co/twhhFqPca8">https://t.co/twhhFqPca8</a> <a href="https://t.co/bs2onkxNDo">pic.twitter.com/bs2onkxNDo</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/834914935331155968">February 23, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>Electron製なのでどのプラットフォームでも動くと思います。</p>
+
+<h2 id="作り方">作り方</h2>
+
+<ul>
+<li><a href="https://github.com/jiahaog/nativefier" title="nativefier">nativefier</a>を入れます。</li>
+<li>サイト内検索をする<a href="https://github.com/azu/in-site-search-javascript" title="in-site-search-javascript">in-site-search-javascript</a>を入れます。</li>
+<li>ビルドします</li>
+<li>完成です</li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -g nativefier
+curl https://azu.github.io/in-site-search-javascript/index.js &gt; index.js
+nativefier --name &quot;ECMAScript&quot; &quot;https://tc39.github.io/ecma262/&quot; --fast-quit --hide-window-frame --show-menu-bar --maximize --inject ./index.js
+</code></pre></div>
+<h2 id="使い方">使い方</h2>
+
+<p>アプリを開いたら仕様書が読めます。</p>
+
+<p>Cmd+Fとかでサイト内検索ができます(重たいです)</p>
+
+<p>以上。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>AlminでFluxアーキテクチャをやってみる</title>
@@ -1821,239 +1856,6 @@ npm run textlint  2.17s user 0.41s system 85% cpu 3.022 total
 <li><a href="http://qiita.com/azu/items/2c565a38df5ed4c9f4e1">VS Codeでtextlintを使って文章をチェックする - Qiita</a></li>
 <li><a href="http://post.simplie.jp/posts/51">textlintで日本語の文章を校正する方法とAtomへの導入手順 | Simplie Post</a></li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>textlintのルールを簡単に作り始めることができるツールを作りました</title>
-   <link href="http://efcl.info/2016/12/14/create-textlint-rule/"/>
-   <updated>2016-12-14T20:31:00+09:00</updated>
-   <id>http://efcl.info/2016/12/14/create-textlint-rule</id>
-   <content type="html"><![CDATA[ <p><a href="https://textlint.github.io/" title="textlint">textlint</a>はJavaScriptで自由にルールを追加することができる仕組みになっています。</p>
-
-<ul>
-<li><a href="http://efcl.info/2015/09/10/introduce-textlint/" title="textlintで日本語の文章をチェックする | Web Scratch">textlintで日本語の文章をチェックする | Web Scratch</a></li>
-</ul>
-
-<p>しかし、普段JavaScriptをあんまり使ってない人には<a href="https://babeljs.io/" title="Babel">Babel</a>を使ったコード変換や<a href="http://mochajs.org/" title="Mocha">Mocha</a>を使ったテストの設定など、ルールを書き始めるまでの環境づくりの方が大変です。</p>
-
-<p>そのような環境設定をコマンド一発で作れて、textlintルールを作り始めることができるツールを作りました。</p>
-
-<ul>
-<li><a href="https://github.com/textlint/create-textlint-rule" title="create-textlint-rule">create-textlint-rule</a>
-
-<ul>
-<li>Scaffolding Tool</li>
-</ul></li>
-<li><a href="https://github.com/textlint/textlint-scripts" title="textlint-scripts">textlint-scripts</a>
-
-<ul>
-<li>BabelやMochaなどのコマンドをラップしたもの</li>
-</ul></li>
-</ul>
-
-<h2 id="使い方">使い方</h2>
-
-<p><a href="https://github.com/textlint/create-textlint-rule" title="create-textlint-rule">create-textlint-rule</a>を <a href="https://www.npmjs.com/">npm</a>(Node.jsのパッケージマネージャ)でインストールするだけです。
-Node.js(推奨はver6以上)をインストールすれば <code>npm</code> コマンドが自動で入っています。</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>npm install -g create-textlint-rule
-</code></pre></div>
-<p><a href="https://github.com/textlint/create-textlint-rule" title="create-textlint-rule">create-textlint-rule</a>をインストールすると<code>create-textlint-rule</code>コマンドが利用できます。</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>create-textlint-rule --help
-
-  Create textlint rule with no configuration
-
-  Usage
-    <span class="nv">$ </span>create-textlint-rule rule-name
-
-  Options
-    --help  Show <span class="nb">help</span>
-    --yarn  Use yarn <span class="k">for</span> installing
-    --yes   Pass --yes all <span class="k">for</span> install process
-
-  Examples
-    <span class="nv">$ </span>create-textlint-rule awesome-rule
-</code></pre></div>
-<h3 id="textlintのルールプロジェクトを作る">textlintのルールプロジェクトを作る</h3>
-
-<p><code>found-bug</code>という&quot;bug&quot;をテキストから見つけるルールプロジェクトを作ってみます。</p>
-
-<p>次のように、引数にルール名を渡すだけで、<code>textlint-rule-found-bug</code>というディレクトリにtextlintのルールが作成されます。</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>create-textlint-rule found-bug
-</code></pre></div>
-<p>実際のログは次のような感じで、一部対話的にルールの簡単な<code>description</code>などを入力しますが、基本的にはEnterでいいはずです。</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>create-textlint-rule found-bug
-Cloning into <span class="s1">&#39;textlint-rule-found-bug&#39;</span>...
-remote: Counting objects: 9, <span class="k">done</span>.
-remote: Compressing objects: 100% <span class="o">(</span>7/7<span class="o">)</span>, <span class="k">done</span>.
-remote: Total <span class="m">9</span> <span class="o">(</span>delta 0<span class="o">)</span>, reused <span class="m">4</span> <span class="o">(</span>delta 0<span class="o">)</span>, pack-reused 0
-Unpacking objects: 100% <span class="o">(</span>9/9<span class="o">)</span>, <span class="k">done</span>.
-<span class="nb">cd</span> /Users/azu/.ghq/github.com/azu/own/textlint-rule-found-bug
-Initialized empty Git repository in /Users/azu/.ghq/github.com/azu/own/textlint-rule-found-bug/.git/
-Input information about your textlint rule
-This utility will walk you through creating a package.json file.
-It only covers the most common items, and tries to guess sensible defaults.
-
-See <span class="sb">`</span>npm <span class="nb">help </span>json<span class="sb">`</span> <span class="k">for</span> definitive documentation on these fields
-and exactly what they <span class="k">do</span>.
-
-Use <span class="sb">`</span>npm install &lt;pkg&gt; --save<span class="sb">`</span> afterwards to install a package and
-save it as a dependency in the package.json file.
-
-Press ^C at any <span class="nb">time </span>to quit.
-name: <span class="o">(</span>textlint-rule-found-bug<span class="o">)</span>
-version: <span class="o">(</span>1.0.0<span class="o">)</span>
-description: This textlint rule found bugs.
-git repository:
-license: <span class="o">(</span>MIT<span class="o">)</span>
-About to write to /Users/azu/.ghq/github.com/azu/own/textlint-rule-found-bug/package.json:
-
-<span class="o">{</span>
-  <span class="s2">&quot;version&quot;</span>: <span class="s2">&quot;1.0.0&quot;</span>,
-  <span class="s2">&quot;keywords&quot;</span>: <span class="o">[</span>
-    <span class="s2">&quot;textlint&quot;</span>,
-    <span class="s2">&quot;rule&quot;</span>
-  <span class="o">]</span>,
-  <span class="s2">&quot;main&quot;</span>: <span class="s2">&quot;lib/index.js&quot;</span>,
-  <span class="s2">&quot;files&quot;</span>: <span class="o">[</span>
-    <span class="s2">&quot;lib/&quot;</span>,
-    <span class="s2">&quot;src/&quot;</span>
-  <span class="o">]</span>,
-  <span class="s2">&quot;scripts&quot;</span>: <span class="o">{</span>
-    <span class="s2">&quot;test&quot;</span>: <span class="s2">&quot;textlint-scripts test&quot;</span>,
-    <span class="s2">&quot;build&quot;</span>: <span class="s2">&quot;textlint-scripts build&quot;</span>,
-    <span class="s2">&quot;prepublish&quot;</span>: <span class="s2">&quot;npm run --if-present build&quot;</span>
-  <span class="o">}</span>,
-  <span class="s2">&quot;devDependencies&quot;</span>: <span class="o">{</span>
-    <span class="s2">&quot;textlint-scripts&quot;</span>: <span class="s2">&quot;^1.2.2&quot;</span>
-  <span class="o">}</span>,
-  <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;textlint-rule-found-bug&quot;</span>,
-  <span class="s2">&quot;description&quot;</span>: <span class="s2">&quot;This textlint rule found bugs.&quot;</span>,
-  <span class="s2">&quot;directories&quot;</span>: <span class="o">{</span>
-    <span class="s2">&quot;test&quot;</span>: <span class="s2">&quot;test&quot;</span>
-  <span class="o">}</span>,
-  <span class="s2">&quot;author&quot;</span>: <span class="s2">&quot;azu&quot;</span>,
-  <span class="s2">&quot;license&quot;</span>: <span class="s2">&quot;MIT&quot;</span>
-<span class="o">}</span>
-
-
-Is this ok? <span class="o">(</span>yes<span class="o">)</span>
-Wait... Installing npm packages <span class="k">for</span> development
-Setup your README!
-Generated README.md
-✔ Complete: Let<span class="err">&#39;</span>s create textlint rule
-</code></pre></div>
-<p>作成した<code>textlint-rule-found-bug</code>ディレクトリには、次のようなファイルが作られています。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">textlint-rule-found-bug/
-├── README.md
-├── lib
-│   ├── index.js
-│   └── index.js.map
-├── node_modules
-├── package.json
-├── src
-│   └── index.js
-└── test
-    └── index-test.js
-</code></pre></div>
-<p>基本的には<code>src/index.js</code>にルールのコードを書いていき、<code>test/index-test.js</code>にルールのテストを書きます。</p>
-
-<p><code>lib/</code>はnpmで公開するコードが置かれる場所なので、デフォルトでは<code>.gitignore</code>されているためいじる必要はありません。</p>
-
-<h3 id="build">Build</h3>
-
-<p>次のコマンドを叩くことで、<code>src/</code>以下にあるES2015+で書かれたコードを<a href="https://babeljs.io/" title="Babel">Babel</a>を使って変換し<code>lib/</code>以下においてくれます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm run build
-</code></pre></div>
-<h3 id="test">Test</h3>
-
-<p>次のコマンドを叩くことで、<code>test/</code>以下にある<a href="https://github.com/textlint/textlint-tester" title="textlint-tester">textlint-tester</a>と<a href="http://mochajs.org/" title="Mocha">Mocha</a>を使ったテストを動かします。</p>
-
-<p>テストコードの書き方は<a href="https://github.com/textlint/textlint-tester" title="textlint-tester">textlint-tester</a>を参照してください。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm test
-</code></pre></div>
-<h3 id="ルールの開発">ルールの開発</h3>
-
-<ul>
-<li><a href="https://github.com/textlint/textlint/blob/master/docs/rule.md" title="textlint/rule.md at master · textlint/textlint">textlint/rule.md at master · textlint/textlint</a></li>
-<li><a href="https://github.com/textlint/textlint/blob/master/docs/rule-advanced.md" title="textlint/rule-advanced.md at master · textlint/textlint">textlint/rule-advanced.md at master · textlint/textlint</a></li>
-</ul>
-
-<p>などのドキュメントがあります。</p>
-
-<p>また、textlintはASTを元にルールを書くため、次のASTビューアを見ながら構造を知ると書きやすくなります。</p>
-
-<ul>
-<li><a href="https://textlint.github.io/astexplorer/" title="AST explorer for textlint">AST explorer for textlint</a></li>
-</ul>
-
-<p>簡単な方法として既存のルールからやりたい事と近いものを見つけて、それをパクるのが近道だと思います。</p>
-
-<p>100以上のルールがあり、自分が書いたものは<a href="https://github.com/textlint/create-textlint-rule" title="create-textlint-rule">create-textlint-rule</a>で作った構造とほぼ同じなので、コード部分に集中すれば問題ないはずです。</p>
-
-<ul>
-<li><a href="https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule" title="Collection of textlint rule · textlint/textlint Wiki">Collection of textlint rule · textlint/textlint Wiki</a></li>
-</ul>
-
-<h3 id="publish">publish</h3>
-
-<p>ルールの公開は基本的には<a href="https://www.npmjs.com/">npm</a>に公開します。
-<code>pacakge.json</code>の<code>version</code>を上げたり<code>git tag</code>を貼るなどは<a href="https://docs.npmjs.com/cli/version" title="npm-version">npm-version</a>を使うと簡単です。
-<a href="http://semver.org/lang/ja/">semver</a>なバージョンを上げたら、<a href="https://docs.npmjs.com/cli/publish" title="npm-publish">npm-publish</a>コマンドで公開すれば完了です。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm version patch
-# npm version minor
-# npm version major
-npm publish
-</code></pre></div>
-<p>これで、npmに公開された<code>textlint-rule-found-bug</code>が、npmでインストールすることができます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-rule-found-bug
-</code></pre></div>
-<p>後は、<code>.textlintrc</code>に設定して使えばいいだけです。</p>
-
-<p>作ったルールの使い方も実は<a href="https://github.com/textlint/create-textlint-rule" title="create-textlint-rule">create-textlint-rule</a>が自動的にREADME.mdに書いてくれています。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">## Usage
-
-Via `.textlintrc`(Recommended)
-
-```json
-{
-    &quot;rules&quot;: {
-        &quot;found-bug&quot;: true
-    }
-}
-```
-
-Via CLI
-
-```
-textlint --rule found-bug README.md
-```
-</code></pre></div>
-<p>作ったルールはWikiに追加してみましょう。</p>
-
-<ul>
-<li><a href="https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule" title="Collection of textlint rule · textlint/textlint Wiki">Collection of textlint rule · textlint/textlint Wiki</a></li>
-</ul>
-
-<h3 id="tips">Tips</h3>
-
-<p><a href="https://github.com/textlint/create-textlint-rule" title="create-textlint-rule">create-textlint-rule</a>を使い、作ったプロジェクト内で、<code>textlint</code>にルールを読み込ませて確認する方法。</p>
-
-<p>プロジェクトをビルドして、<code>textlint</code>の<code>--rulesdir</code>で直接ルールを読み込んで使えば、publishせずに確認できます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ npm run build
-$ $(npm bin)/textlint --rulesdir ./lib/ README.md
-# $(npm bin) は ./node_modules/.bin と同じなので次でもOK
-$ ./node_modules/.bin/textlint --rulesdir ./lib/ README.md
-</code></pre></div>
-<p>もしくは、ローカルで作ったプロジェクトを<code>npm install</code>することでも、publishせずに確認できます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># 試したいプロジェクトで、textlint-rule-found-bugへのローカルパスを指定
-$ npm install /path/to/textlint-rule-found-bug
-</code></pre></div>
-<h2 id="おわりに">おわりに</h2>
-
-<p><a href="https://github.com/textlint/create-textlint-rule" title="create-textlint-rule">create-textlint-rule</a>と<a href="https://github.com/textlint/textlint-scripts" title="textlint-scripts">textlint-scripts</a>を使うことで、面倒な環境はある程度簡単に作れるようになっています。</p>
-
-<p>面白いtextlintのルールを自作して文章を改善の助けになればと思います。</p>
  ]]></content>
  </entry>
  

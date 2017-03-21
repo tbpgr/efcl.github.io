@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "ECMAScript仕様書アプリを作る",
+            "url": "http://efcl.info/2017/03/21/ecmascript-spec-electron-app/",
+            "date": "2017-03-21T09:45:00+09:00"
+        },
+        
+        {
             "title": "AlminでFluxアーキテクチャをやってみる",
             "url": "http://efcl.info/2017/03/17/almin-introduction/",
             "date": "2017-03-17T19:33:00+09:00"
