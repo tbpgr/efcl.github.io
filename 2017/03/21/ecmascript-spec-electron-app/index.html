@@ -6,7 +6,7 @@
 
     <title>
         
-        ECMAScript仕様書アプリを作る | Web Scratch
+        3行でECMAScript仕様書アプリを作る | Web Scratch
         
     </title>
     <meta name="description" content="ECMAScript® 2017 Language Specificationをアプリとして開けるWebViewアプリです。">
@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/public/css/main.css">
     <!-- JavaScript -->
     <!-- Open graph tags -->
-<meta property="og:title" content="ECMAScript仕様書アプリを作る">
+<meta property="og:title" content="3行でECMAScript仕様書アプリを作る">
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://efcl.info/2017/03/21/ecmascript-spec-electron-app/">
 <meta property="og:image" content="http://efcl.info">
@@ -252,7 +252,7 @@ var blog_categories = [
         
         <li>
             <a href="/2017/03/21/ecmascript-spec-electron-app/">
-                ECMAScript仕様書アプリを作る
+                3行でECMAScript仕様書アプリを作る
             </a>
         </li>
         
@@ -322,7 +322,7 @@ var blog_categories = [
 <article>
     <div class="content container">
         <div class="post" id="js-post-url" data-post-url="/2017/03/21/ecmascript-spec-electron-app/">
-    <h1 class="post-title">ECMAScript仕様書アプリを作る</h1>
+    <h1 class="post-title">3行でECMAScript仕様書アプリを作る</h1>
 
     <div class="pre-post-toolbar">
         <span class="post-date">2017年03月21日</span>
@@ -343,13 +343,14 @@ var blog_categories = [
 <ul>
 <li><a href="https://github.com/jiahaog/nativefier" title="nativefier">nativefier</a>を入れます。</li>
 <li>サイト内検索をする<a href="https://github.com/azu/in-site-search-javascript" title="in-site-search-javascript">in-site-search-javascript</a>を入れます。</li>
-<li>ビルドします</li>
-<li>完成です</li>
+<li>ビルドします。</li>
 </ul>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm i -g nativefier
 curl https://azu.github.io/in-site-search-javascript/index.js &gt; index.js
 nativefier --name &quot;ECMAScript&quot; &quot;https://tc39.github.io/ecma262/&quot; --fast-quit --hide-window-frame --show-menu-bar --maximize --inject ./index.js
 </code></pre></div>
+<p>完成です。</p>
+
 <h2 id="使い方">使い方</h2>
 
 <p>アプリを開いたら仕様書が読めます。</p>

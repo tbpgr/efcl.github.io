@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-03-21T09:53:00+09:00</updated>
+ <updated>2017-03-21T10:39:39+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -15,7 +15,7 @@
 
  
  <entry>
-   <title>ECMAScript仕様書アプリを作る</title>
+   <title>3行でECMAScript仕様書アプリを作る</title>
    <link href="http://efcl.info/2017/03/21/ecmascript-spec-electron-app/"/>
    <updated>2017-03-21T09:45:00+09:00</updated>
    <id>http://efcl.info/2017/03/21/ecmascript-spec-electron-app</id>
@@ -32,13 +32,14 @@
 <ul>
 <li><a href="https://github.com/jiahaog/nativefier" title="nativefier">nativefier</a>を入れます。</li>
 <li>サイト内検索をする<a href="https://github.com/azu/in-site-search-javascript" title="in-site-search-javascript">in-site-search-javascript</a>を入れます。</li>
-<li>ビルドします</li>
-<li>完成です</li>
+<li>ビルドします。</li>
 </ul>
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm i -g nativefier
 curl https://azu.github.io/in-site-search-javascript/index.js &gt; index.js
 nativefier --name &quot;ECMAScript&quot; &quot;https://tc39.github.io/ecma262/&quot; --fast-quit --hide-window-frame --show-menu-bar --maximize --inject ./index.js
 </code></pre></div>
+<p>完成です。</p>
+
 <h2 id="使い方">使い方</h2>
 
 <p>アプリを開いたら仕様書が読めます。</p>
