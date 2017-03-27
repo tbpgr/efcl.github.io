@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-03-21T10:39:39+09:00</updated>
+ <updated>2017-03-27T20:34:12+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,101 @@
  </author>
  
 
+ 
+ <entry>
+   <title>不自然なアルファベットを見つけるtextlintルール</title>
+   <link href="http://efcl.info/2017/03/27/unnatural-alphabet/"/>
+   <updated>2017-03-27T20:14:00+09:00</updated>
+   <id>http://efcl.info/2017/03/27/unnatural-alphabet</id>
+   <content type="html"><![CDATA[ <p>不自然なアルファベットを検知する<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>のルールを書きました。</p>
+
+<ul>
+<li><a href="https://github.com/textlint-ja/textlint-rule-ja-unnatural-alphabet" title="textlint-ja/textlint-rule-ja-unnatural-alphabet: 不自然なアルファベットを検知するtextlintルール">textlint-ja/textlint-rule-ja-unnatural-alphabet: 不自然なアルファベットを検知するtextlintルール</a></li>
+</ul>
+
+<p>IMEの入力ミスによるtypoを見つける目的です</p>
+
+<h2 id="example">Example</h2>
+
+<p><strong>OK</strong>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">リリース
+aiueo
+This is pen.
+</code></pre></div>
+<p><strong>NG</strong>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">リイr−ス
+対応でｋない
+こrはおかしい。
+検索してくd際
+</code></pre></div>
+<p>上記のようなIME特有の日本語の間に不自然に挟まった1文字のアルファベットを見つけるルールです。</p>
+
+<h2 id="install">Install</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-rule-ja-unnatural-alphabet
+</code></pre></div>
+<p>でインストールできます。
+使い方はいろんな記事があるので、&quot;textlint 導入&quot;とかで検索してください。</p>
+
+<ul>
+<li><a href="http://qiita.com/azu/items/e36501d25593d008f6ac" title="textlintをTravis CIで動かして継続的に文章をチェックする - Qiita">textlintをTravis CIで動かして継続的に文章をチェックする - Qiita</a></li>
+<li><a href="http://qiita.com/azu/items/2c565a38df5ed4c9f4e1" title="VS Codeでtextlintを使って文章をチェックする - Qiita">VS Codeでtextlintを使って文章をチェックする - Qiita</a></li>
+</ul>
+
+<h2 id="オプション">オプション</h2>
+
+<p><code>X</code>軸などアルファベット一文字を使うことはあるので、そういうものはオプションで回避できるようになっています。
+C言語のようなよくあるアルファベット一文字 + 日本語からなる単語は<code>allowCommonCase</code>で無視されています。</p>
+
+<ul>
+<li><code>allow</code>: <code>string[]</code>
+
+<ul>
+<li>無視するアルファベットや単語の配列</li>
+<li>デフォルト: <code>[&quot;a&quot;, &quot;i&quot;, &quot;u&quot;, &quot;e&quot;, &quot;o&quot;, &quot;n&quot;, 典型例 ]</code></li>
+<li>デフォルトでは母音とnを除外している</li>
+<li><code>&quot;/正規表現/&quot;</code> のような文字列もサポート</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
+    <span class="c1">// 無視するアルファベット</span>
+    <span class="c1">// 例) [&quot;X&quot;]</span>
+    <span class="c1">// デフォルトでは母音とnを除外</span>
+    <span class="s2">&quot;allow&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span>
+    <span class="p">],</span>
+    <span class="c1">// ビルトインの典型例を除外するかどうか</span>
+    <span class="c1">// 例) C言語</span>
+    <span class="s2">&quot;allowCommonCase&quot;</span><span class="o">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="元ネタ">元ネタ</h2>
+
+<p>この<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>ルールは元ネタがあって、<a href="http://ci.nii.ac.jp/naid/110002893543">CiNii 論文 -  日本語文章校正ツール&quot;Chanterelle&quot; : 入力ミス及び表記揺らぎについて</a>という論文が元ネタです。</p>
+
+<p>不自然なアルファベットを見つけるルールが書かれていて、これを元に実装しました。</p>
+
+<blockquote>
+<p>(3) 不自然なアルファベット</p>
+</blockquote>
+
+<ul>
+<li>1文字のみのアルファベットが日本語中に現れた場合に検出対象とする</li>
+<li>大文字は、略記号などを意識して入れている可能性がある</li>
+<li>このミスでは母音(<code>aiueo</code>)は発生しないので除く</li>
+<li><code>n</code>も多くの場合には、<code>ん</code>となるため除く</li>
+</ul>
+
+<p>実装してみて<a href="https://github.com/textlint-ja/technological-book-corpus-ja">色々な再配布可能な技術書を集めた</a>ものに実際に通してみて、典型的な例外を少し加えるなどしています。</p>
+
+<ul>
+<li><a href="https://github.com/textlint-ja/technological-book-corpus-ja" title="textlint-ja/technological-book-corpus-ja: 日本語で書かれた技術書のコーパス">textlint-ja/technological-book-corpus-ja: 日本語で書かれた技術書のコーパス</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -g technological-book-corpus-ja textlint textlint-rule-ja-unnatural-alphabet
+# 技術書のMarkdonファイルパスが出力される
+# それをtextlintのルールに通してどんなところでおちるかをチェックする
+technological-book-corpus-ja  | xargs textlint --rules textlint-rule-ja-unnatural-alphabet -f pretty-error
+</code></pre></div> ]]></content>
+ </entry>
  
  <entry>
    <title>3行でECMAScript仕様書アプリを作る</title>
@@ -1785,78 +1880,6 @@ productionビルド時は外してやるので、コスパいい感じで結構�
 </ul>
 
 <p>追記: <a href="https://gist.github.com/azu/143eda871afd3b52790767721c6865b3" title="2017-01-01 今年やりたいこと">2017-01-01 今年やりたいこと</a></p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>textlint --cacheオプションでチェックを高速化した</title>
-   <link href="http://efcl.info/2016/12/28/textlint-cache/"/>
-   <updated>2016-12-28T09:33:00+09:00</updated>
-   <id>http://efcl.info/2016/12/28/textlint-cache</id>
-   <content type="html"><![CDATA[ <p><a href="https://github.com/textlint/textlint" title="textlint">textlint</a> 7.2.0で <code>--cache</code> と <code>--cache-location</code> オプションをサポートしました。</p>
-
-<ul>
-<li><a href="https://github.com/textlint/textlint/releases/tag/7.2.0" title="Release 7.2.0 · textlint/textlint">Release 7.2.0 · textlint/textlint</a></li>
-</ul>
-
-<p>基本的にはESLintのキャッシュオプションと同じです。
-前回のLint結果のキャッシュから変化したファイルのみがチェックの対象になる仕組みです。</p>
-
-<ul>
-<li><a href="http://eslint.org/docs/user-guide/command-line-interface#caching" title="Command Line Interface - ESLint - Pluggable JavaScript linter">Command Line Interface - ESLint - Pluggable JavaScript linter</a></li>
-</ul>
-
-<h2 id="使い方">使い方</h2>
-
-<p><code>textlint</code>コマンドに <code>--cache</code> オプションを付けて実行するだけです。
-後は、毎回このコマンドを付けて実行すれば変更したファイルのみがチェック対象になるので、実行時間が高速化されます。</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh">textlint --cache docs/
-</code></pre></div>
-<p><code>--cache</code>オプションを付けるとデフォルトでは、 <code>.textlintcache</code> という名前のファイルにキャッシュができます。</p>
-
-<p>キャッシュファイルを任意の名前にしたい場合は <code>--cache-location</code> オプションで指定した場所にキャッシュファイルを作ることができます。</p>
-
-<h2 id="実行例">実行例</h2>
-
-<p>自分が知ってる中では一度にtextlintがやる処理が一番多い<a href="https://github.com/asciidwango/js-primer" title="asciidwango/js-primer: JavaScriptの入門書">asciidwango/js-primer: JavaScriptの入門書</a>で試してみます。</p>
-
-<p>このプロジェクトではファイル数やルール数が多いのもそうですが、textlintの中でESLintを動かしてJavaScriptのコードもチェックしてたりキャッシュの有無がかなり速度に影響がありました。</p>
-
-<ul>
-<li><a href="http://efcl.info/2016/07/06/eslint-with-textlint/" title="MarkdownのコードブロックをESLintでチェックするtextlintルール | Web Scratch">MarkdownのコードブロックをESLintでチェックするtextlintルール | Web Scratch</a></li>
-</ul>
-
-<h3 id="cacheなし">--cacheなし</h3>
-
-<p>15秒ぐらいかかって遅い。</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span><span class="nb">time </span>npm run textlint:no-cached
-
-&gt; js-primer@1.0.0 textlint:no-cached /Users/azu/.ghq/github.com/asciidwango/js-primer
-&gt; summary-to-path ./source/README.md <span class="p">|</span> xargs textlint -f pretty-error
-
-npm run textlint:no-cached  14.68s user 1.18s system 99% cpu 15.926 total
-</code></pre></div>
-<h3 id="cacheあり">--cacheあり</h3>
-
-<p>3秒程度になった。
-(1つファイルを変更した状態で実行)</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span><span class="nb">time </span>npm run textlint
-
-&gt; js-primer@1.0.0 textlint /Users/azu/.ghq/github.com/asciidwango/js-primer
-&gt; summary-to-path ./source/README.md <span class="p">|</span> xargs textlint -f pretty-error --cache
-
-npm run textlint  2.17s user 0.41s system 85% cpu 3.022 total
-</code></pre></div>
-<h2 id="おわり">おわり</h2>
-
-<p><code>--cache</code> をつけるだけで結構実行時間が変わるので、大量のファイルをtextlintで繰り返しチェックしている場合は試してみてください。</p>
-
-<p>また、エディタ連携系なら元々1つのファイルのみを対象に実行しているはずなので、キャッシュなくても普通な速度で動くと思います。</p>
-
-<ul>
-<li><a href="http://qiita.com/azu/items/2c565a38df5ed4c9f4e1">VS Codeでtextlintを使って文章をチェックする - Qiita</a></li>
-<li><a href="http://post.simplie.jp/posts/51">textlintで日本語の文章を校正する方法とAtomへの導入手順 | Simplie Post</a></li>
-</ul>
  ]]></content>
  </entry>
  

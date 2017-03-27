@@ -779,7 +779,9 @@
         
         "ES2015",
         
-        "PullRequest"
+        "PullRequest",
+        
+        "textlintrule"
         
     ]
 }
