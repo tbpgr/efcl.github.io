@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-03-27T20:39:24+09:00</updated>
+ <updated>2017-03-27T20:43:03+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -15,7 +15,7 @@
 
  
  <entry>
-   <title>不自然なアルファベットを見つｋるtextlintルール</title>
+   <title>不自然なアルファベットを見つけるtextlintルール</title>
    <link href="http://efcl.info/2017/03/27/unnatural-alphabet/"/>
    <updated>2017-03-27T20:14:00+09:00</updated>
    <id>http://efcl.info/2017/03/27/unnatural-alphabet</id>
