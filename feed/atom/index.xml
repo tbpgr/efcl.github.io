@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-03-27T20:43:03+09:00</updated>
+ <updated>2017-04-11T09:04:37+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,130 @@
  </author>
  
 
+ 
+ <entry>
+   <title>箇条書きにおける文末の句点（。）を統一するtextlintルール</title>
+   <link href="http://efcl.info/2017/04/11/textlint-rule-period-in-list-item/"/>
+   <updated>2017-04-11T08:41:00+09:00</updated>
+   <id>http://efcl.info/2017/04/11/textlint-rule-period-in-list-item</id>
+   <content type="html"><![CDATA[ <p><a href="https://github.com/azu/textlint-rule-period-in-list-item" title="textlint-rule-period-in-list-item">textlint-rule-period-in-list-item</a>という<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>のルールを書きました。</p>
+
+<p>箇条書きの文末に。がついてたりついてなかったりするのを統一するためのルールです。
+本文中の句点（。）の統一するルールは別途あります。</p>
+
+<ul>
+<li><a href="https://github.com/textlint-ja/textlint-rule-ja-no-mixed-period/" title="textlint-ja/textlint-rule-ja-no-mixed-period: 文末の句点(。)の統一 と 抜けをチェックするtextlintルール">textlint-ja/textlint-rule-ja-no-mixed-period: 文末の句点(。)の統一 と 抜けをチェックするtextlintルール</a></li>
+</ul>
+
+<p><strong>デフォルトの挙動</strong> </p>
+
+<p>デフォルトは句点を付けないように統一します。
+以前アンケートを取ってみたところ、箇条書きの文末に句点はつけない人のほうが多そうではありました。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">[Poll] 箇条書きの文末に。をつける付けない</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/844535223278694404">March 22, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>(もちろんオプションで変更できます)</p>
+
+<p><strong>OK</strong>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">- 項目1
+- 項目2
+- [textlint](https://github.com/textlint/textlint &quot;textlint&quot;)
+</code></pre></div>
+<p><strong>NG</strong>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">- 項目1。
+- 項目2
+</code></pre></div>
+<p>という感じになります。</p>
+
+<h2 id="install">Install</h2>
+
+<p><a href="https://www.npmjs.com/">npm</a>を使ってインストールできます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-rule-period-in-list-item
+</code></pre></div>
+<h2 id="usage">Usage</h2>
+
+<p><a href="https://www.google.com/search?q=textlint+%E4%BD%BF%E3%81%84%E6%96%B9">textlint 使い方</a>などで検索してください。</p>
+
+<p>Via <code>.textlintrc</code>(Recommended)</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;period-in-list-item&quot;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="オプション">オプション</h2>
+
+<p>オプションは色々ありますが、句点をつけないひとはあんまり変更する必要がないはずです。
+句点を付ける人は、<code>periodMark</code>に利用する記号を指定してください。</p>
+
+<p>例えば、<code>periodMark: &quot;。&quot;</code>とすれば、箇条書きの文末に<code>。</code>を付けることをチェックします。</p>
+
+<p>文末に<code>。</code>を必須にした場合でも <code>- 「OK」</code> は許可したいという場合は、<code>allowPeriodMarks</code>で設定できます。(<code>!</code>や<code>?</code>といった文末に来る可能性が高いものはデフォルトで入っていますが)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
+    <span class="c1">// prefer to use period mark.</span>
+    <span class="c1">// &quot;&quot; (default is no period)</span>
+    <span class="c1">// You can select period mark like &quot;.&quot; from &quot;periodMarks&quot;.</span>
+    <span class="s2">&quot;periodMark&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="c1">// Built-in recognized period mark list</span>
+    <span class="c1">// if the period of the text is not `periodMark` and it is a string in the `periodMarks`,</span>
+    <span class="s2">&quot;periodMarks&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;。&quot;</span><span class="p">,</span> <span class="s2">&quot;．&quot;</span><span class="p">],</span>
+    <span class="c1">// Ignore only link tag</span>
+    <span class="c1">// - [text](link)</span>
+    <span class="c1">// It is not needed period mark</span>
+    <span class="s2">&quot;ignoreLinkEnd&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="c1">// allow exception period mark list at end of the list item</span>
+    <span class="c1">// Ignore this period mark</span>
+    <span class="s2">&quot;allowPeriodMarks&quot;</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="c1">// Allow emoji at end of the list item</span>
+    <span class="s2">&quot;allowEmoji&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="c1">// If not exist `periodMark` at end of the list item</span>
+    <span class="c1">// Automatically, append `periodMark` when does textlint --fix</span>
+    <span class="s2">&quot;forceAppendPeriod&quot;</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="句点をつけるように自動修正">句点をつけるように自動修正</h2>
+
+<p>このルールは<code>textlint --fix</code>の自動修正にも対応しています。
+句点を取り除く方は常に<code>--fix</code>で修正されますが、句点を付ける方は<code>forceAppendPeriod:true</code>の時のみ有効です。
+(エディタなどで保存ごとに<code>--fix</code>したいという場合に問題になるため)</p>
+
+<p>次の設定では、<code>.</code>が<code>--fix</code>をした時に自動で追加されます。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;period-in-list-item&quot;</span><span class="p">:</span> <span class="p">{</span>
+           <span class="nt">&quot;periodMark&quot;</span><span class="p">:</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
+           <span class="nt">&quot;forceAppendPeriod&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Before</strong></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">- item
+</code></pre></div>
+<p><strong>After</strong></p>
+
+<p><code>textlint --fix</code>した結果</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">- item.
+</code></pre></div>
+<h2 id="おわりに">おわりに</h2>
+
+<p>箇条書きにおける句点の表記を統一するtextlintルールでした。
+何か問題を見つけた場合次のリポジトリのIssueへ報告してください。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-period-in-list-item" title="textlint-rule-period-in-list-item">textlint-rule-period-in-list-item</a></li>
+</ul>
+
+<p>また<a href="https://gitter.im/textlint-ja/textlint-ja">Gitterのtextlint-ja</a>のチャットでも問題ないです。</p>
+
+<p><a href="https://gitter.im/textlint-ja/textlint-ja?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img src="https://badges.gitter.im/textlint-ja/textlint-ja.svg" alt="Gitter"></a></p>
+
+<p>箇条書きに句点を付けるか付けないかの明確な根拠は探した感じよく分かりませんでした。
+日本語だけじゃなくて英語でも人によっても違う感じだったので、何か興味深い資料があればおしらせください。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>不自然なアルファベットを見つけるtextlintルール</title>
@@ -1394,492 +1518,6 @@ ES2015の<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refere
 <ul>
 <li><a href="https://github.com/ecmascript-daily/ecmascript-daily.github.com/blob/master/CONTRIBUTING.md" title="ecmascript-daily.github.com/CONTRIBUTING.md at master · ecmascript-daily/ecmascript-daily.github.com">ecmascript-daily.github.com/CONTRIBUTING.md at master · ecmascript-daily/ecmascript-daily.github.com</a></li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>今年のOSS活動振り返り @ 2016</title>
-   <link href="http://efcl.info/2016/12/31/oss-in-2016/"/>
-   <updated>2016-12-31T11:47:00+09:00</updated>
-   <id>http://efcl.info/2016/12/31/oss-in-2016</id>
-   <content type="html"><![CDATA[ <p>2016年のOSS活動振り返りです。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2016/12/31-1483174882.png" alt="Current Contributions"></p>
-
-<p><a href="http://efcl.info/2015/12/31/oss-in-2015/">去年</a>との比較用に<a href="https://github.com/Naramsim/GithubOriginalStreak" title="GithubOriginalStreak">GithubOriginalStreak</a>を使って古い形でGitHubのContributionsを出してみた。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2016/12/31-1483152418.png" alt="Original Contributes Graph"></p>
-
-<p>3年ぐらい毎日コミットが続いてる。けど、2016年の後半がだらけててコミット数が少なくなってる。</p>
-
-<p>後、<a href="https://azu.github.io/github-longest-streak/" title="GitHub Full Longest Streak">GitHub Full Longest Streak</a>を使うと、GitHubのStreakを取ることができます。
-(他のツールみたいに365日制限とかなく、GitHubにアカウントを作ってからの全データが見れます)</p>
-
-<ul>
-<li><a href="https://azu.github.io/github-longest-streak/?user=azu">https://azu.github.io/github-longest-streak/?user=azu</a></li>
-</ul>
-
-<p>以前のまとめ</p>
-
-<ul>
-<li><a href="http://efcl.info/2015/12/31/oss-in-2015/">今年のOSS活動振り返り @ 2015 | Web Scratch</a></li>
-<li><a href="http://efcl.info/2014/12/31/oss-in-2014/">今年のOSS活動振り返り @ 2014 | Web Scratch</a></li>
-</ul>
-
-<h2 id="issue-pr">Issue/PR</h2>
-
-<ul>
-<li><a href="https://github.com/search?utf8=%E2%9C%93&amp;q=author%3Aazu+created%3A2016-01-01..2017-01-01+is%3Apr+&amp;type=Issues&amp;ref=searchresults">PRs</a>: 457</li>
-<li><a href="https://github.com/search?utf8=%E2%9C%93&amp;q=author%3Aazu+created%3A2016-01-01..2017-01-01+is%3Aissue&amp;type=Issues&amp;ref=searchresults">Issues</a>: 392</li>
-</ul>
-
-<h2 id="作ったもの"><a href="https://github.com/search?o=asc&amp;q=user%3Aazu+created%3A2016-01-01..2017-01-01&amp;ref=searchresults&amp;s=updated&amp;type=Repositories&amp;utf8=%E2%9C%93">作ったもの</a></h2>
-
-<h2 id="textlint"><a href="https://github.com/textlint/textlint" title="textlint">textlint</a></h2>
-
-<p>自然言語をLintするtextlint関係のものは相変わらず大量に作ったものがある。</p>
-
-<ul>
-<li><a href="http://efcl.info/2016/01/12/textlint-coverage/" title="textlintで文章カバレッジレポートを継続的に見ていく | Web Scratch">textlintで文章カバレッジレポートを継続的に見ていく | Web Scratch</a>
-
-<ul>
-<li><a href="https://github.com/textlint/textlint" title="textlint">textlint</a>とコードカバレッジについて考えていて色々カバレッジ周りを作ってた</li>
-<li><a href="https://github.com/azu/textlint-formatter-lcov">azu/textlint-formatter-lcov: textlint formatter for lcov format</a></li>
-<li><a href="https://github.com/azu/textlint-formatter-codecov">azu/textlint-formatter-codecov: textlint formatter for codecov json.</a></li>
-<li><a href="https://github.com/azu/codecov-json-to-lcov">azu/codecov-json-to-lcov: Convert Codecov json format to lcov format.</a></li>
-<li><a href="https://github.com/azu/lcov-summary">azu/lcov-summary: Cat lcov file and show summary of coverage to terminal.</a></li>
-</ul></li>
-<li><a href="https://github.com/azu/match-index" title="azu/match-index: Get index of each capture.">azu/match-index: Get index of each capture.</a>
-
-<ul>
-<li><a href="http://efcl.info/2016/03/22/match-index/" title="正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ | Web Scratch">正規表現でマッチしたキャプチャの内容と位置を取得するライブラリ | Web Scratch</a></li>
-<li>正規表現でキャプチャした位置を配列で取得できるので便利</li>
-<li><a href="https://github.com/azu/textlint-rule-preset-JTF-style" title="azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.">azu/textlint-rule-preset-JTF-style: JTF日本語標準スタイルガイド for textlint.</a> のために作った</li>
-</ul></li>
-<li><a href="http://efcl.info/2016/12/14/create-textlint-rule/">textlintのルールを簡単に作り始めることができるツールを作りました | Web Scratch</a>
-
-<ul>
-<li><a href="https://github.com/textlint/create-textlint-rule">textlint/create-textlint-rule: Create textlint rule project with no configuration.</a></li>
-<li><a href="https://github.com/textlint/textlint-scripts">textlint/textlint-scripts: textlint npm-run-scripts CLI help to create textlint rule.</a></li>
-<li>create-react-appのように一発でtextlintルールを作り始めることができるツールを書いた</li>
-<li>Node.jsを普段触らない人にもルールを書きやすくするために作った</li>
-</ul></li>
-</ul>
-
-<h3 id="作ったルール">作ったルール</h3>
-
-<ul>
-<li><a href="https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing" title="textlint-ja/textlint-rule-preset-ja-technical-writing: 技術文書向けのtextlintルールプリセット">textlint-ja/textlint-rule-preset-ja-technical-writing: 技術文書向けのtextlintルールプリセット</a></li>
-<li><a href="https://github.com/azu/textlint-rule-no-nfd">azu/textlint-rule-no-nfd: textlint rule that disallow to use NFD well-known as UTF8-MAC 濁点.</a></li>
-<li><a href="https://github.com/azu/textlint-rule-no-hankaku-kana">azu/textlint-rule-no-hankaku-kana: textlint rule that disallow to use 半角カタカナ.</a></li>
-<li><a href="https://github.com/azu/textlint-rule-web-plus-db">azu/textlint-rule-web-plus-db: [unofficial] WEB+DB PRESS用語統一ルール for textlint</a></li>
-<li><a href="https://github.com/azu/textlint-rule-no-exclamation-question-mark">azu/textlint-rule-no-exclamation-question-mark: textlint rule that disallow exclamation and question mark.</a></li>
-<li><a href="https://github.com/azu/textlint-rule-eslint" title="azu/textlint-rule-eslint: textlint rule integrate with ESLint.">azu/textlint-rule-eslint: textlint rule integrate with ESLint.</a></li>
-<li><a href="https://github.com/azu/prh.yml" title="azu/prh.yml: A collection of prh.yml">azu/prh.yml: A collection of prh.yml</a>
-
-<ul>
-<li>辞書</li>
-</ul></li>
-<li><a href="https://github.com/azu/textlint-rule-date-weekday-mismatch" title="azu/textlint-rule-date-weekday-mismatch: textlint rule that found mismatch between date and weekday.">azu/textlint-rule-date-weekday-mismatch: textlint rule that found mismatch between date and weekday.</a>
-
-<ul>
-<li>日付と曜日の不一致を見つける</li>
-</ul></li>
-<li>...etc
-
-<ul>
-<li><a href="https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule" title="Collection of textlint rule · textlint/textlint Wiki">Collection of textlint rule · textlint/textlint Wiki</a>を見て</li>
-</ul></li>
-</ul>
-
-<h2 id="アーキテクチャ周り">アーキテクチャ周り</h2>
-
-<h3 id="javascriptプラグインアーキテクチャの本"><a href="https://github.com/azu/JavaScript-Plugin-Architecture" title="JavaScriptプラグインアーキテクチャの本">JavaScriptプラグインアーキテクチャの本</a></h3>
-
-<ul>
-<li><a href="https://www.gitbook.com/book/azu/javascript-plugin-architecture/details">JavaScript Plugin Architecture · GitBook</a></li>
-<li><a href="http://efcl.info/2016/06/06/JavaScript-Plugin-Architecture/">JavaScript Plugin Architectureというプラグイン設計について学ぶ無料の電子書籍を書いた | Web Scratch</a>
-
-<ul>
-<li>JavaScriptライブラリやツールのアーキテクチャについて書いた薄い本</li>
-<li>connect/ESLint/jQuery/gulpなどの仕組みについて書いた</li>
-</ul></li>
-</ul>
-
-<h3 id="almin"><a href="https://github.com/almin/almin" title="Almin">Almin</a></h3>
-
-<p><a href="https://github.com/almin/almin"><img src="https://almin.github.io/media/logo/logo.png" alt="Almin.js logo"></a></p>
-
-<p>中規模(3.5万~10万LOC)以上のプロジェクトを想定して<a href="https://github.com/almin/almin" title="almin/almin: Almin.js provide Flux/CQRS patterns for JavaScript application">almin/almin: Almin.js provide Flux/CQRS patterns for JavaScript application</a>というライブラリを作った。
-(中規模の定義は<a href="https://www.amazon.co.jp/dp/489100522X/" title="ソフトウェア見積り">ソフトウェア見積り</a>より)</p>
-
-<p>いわゆるReduxとかそういう類のFluxライブラリみたいなものです。
-実装自体は大したことないですが、思想的にDDD/CQRS/Fluxを適応することを前提としたドキュメントやサンプル構成になっている感じです。</p>
-
-<p><a href="https://github.com/azu/e-commerce-DDD-CQRS">色々</a>な<a href="https://github.com/azu/svg-feeling">サンプル</a>を<a href="https://github.com/azu/CQRS-train" title="azu/CQRS-train: CQRS concept">作って</a>は捨ててまた<a href="https://github.com/azu/presentation-annotator">作ってを繰り返して</a>できたものです。</p>
-
-<p>この一年ぐらいはこれについて色々やっていて、数千万回以上はブラウザで動いてると思いますが、Almin自体が原因のバグは見なかったのである程度安定はしてるのかなと思います。</p>
-
-<p>複雑なJavaScriptアプリケーション作るに当たって考えることや実践したことについては以下のスライドやリポジトリにまとめてあります。</p>
-
-<ul>
-<li><a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
-<li><a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
-<li><a href="http://efcl.info/2016/09/30/architecture-refs/" title="アーキテクチャをめぐるたび | Web Scratch">アーキテクチャをめぐるたび | Web Scratch</a></li>
-</ul>
-
-<p>後は<a href="https://github.com/almin/almin/pull/62" title="feat(Dispatcher): Introduce DispatcherPayloadMeta by azu · Pull Request #62 · almin/almin">feat(Dispatcher): Introduce DispatcherPayloadMeta by azu · Pull Request #62 · almin/almin</a>この辺のPRを処理できたら、1.0に向けてのリリース出していきたい感じ。</p>
-
-<p>クライアントサイドのDDDとか色々考えて実践してたけど、ちゃんと考えればできるんだなーという印象。(イベントソーシングはちょっとまだ課題がある)</p>
-
-<p>TypeScriptとかじゃなくてただのJavaScript(<a href="https://github.com/azu/jsdoc-to-assert">jsdoc-to-assert</a>とかは使ってる)でも、ちゃんと設計すれば中規模ぐらいのコードベースはちゃんと読めるように書けることが分かってよかった。(というかコードの読みやすさにおいては、型よりも設計の方が重要そう。両方あると便利だけど、ツールのコストが高くなる。)</p>
-
-<h3 id="jsdoc-to-assert">jsdoc-to-assert</h3>
-
-<p>JSDocをランタイムassertに変換するライブラリとBabelプラグイン。
-入れるだけで、JSDocの型チェックが実行時に走るようになる。
-productionビルド時は外してやるので、コスパいい感じで結構使ってる。</p>
-
-<ul>
-<li><a href="https://github.com/azu/babel-preset-jsdoc-to-assert">azu/babel-preset-jsdoc-to-assert: Babel preset for jsdoc-to-assert.</a></li>
-<li><a href="https://github.com/azu/jsdoc-to-assert">azu/jsdoc-to-assert: JSDoc to assert</a></li>
-</ul>
-
-<p>プロダクションや自分の書いてるライブラリとかには大体入れてドッグフーディングしたので、だいぶ安定したと思う。</p>
-
-<p>チェックも<code>@param</code>だけではなく<code>@type</code>(デフォルトオフだけど)にも対応してたり、引数は大体チェックできる。</p>
-
-<p>モチベーションとしてJSDocと実装の齟齬を見つけやすくすることがあるので、これを入れてJSDocを書いてると結構適当な書き方してると落とせて便利。</p>
-
-<p>紹介記事</p>
-
-<ul>
-<li><a href="http://efcl.info/2016/03/25/jsdoc-to-assert/" title="JSDocをランタイムassertに変換するBabelプラグインを書いた | Web Scratch">JSDocをランタイムassertに変換するBabelプラグインを書いた | Web Scratch</a></li>
-<li><a href="http://akabeko.me/blog/2016/08/jsdoc-to-assert/">jsdoc-to-assert を試す – アカベコマイリ</a></li>
-<li><a href="http://www.d-wood.com/blog/2016/11/11_8536.html">babel-preset-jsdoc-to-assert で JSDoc から assertion を自動生成する | deadwood</a></li>
-</ul>
-
-<p>Babel使ってるなら入れるとメリットがあって、デメリット殆どないので、power-assertみたいな感じのツール。(ただしJSDoc書いてないとあんまり意味はない)</p>
-
-<ul>
-<li><a href="http://efcl.info/2016/04/14/espower-babel-is-deprecated/" title="power-assert + babel as a development tool | Web Scratch">power-assert + babel as a development tool | Web Scratch</a></li>
-</ul>
-
-<h3 id="documentation"><a href="https://github.com/documentationjs/documentation" title="documentation">documentation</a></h3>
-
-<p><a href="https://github.com/documentationjs/documentation" title="documentation">documentation</a>というJSDocが書いてあるJavaScriptから、HTMLやMarkdownのリファレンスを吐くツールがある。</p>
-
-<p>これのデフォルトのMarkdown出力がイケてないのでテーマを作った</p>
-
-<ul>
-<li><a href="https://github.com/azu/documentation-markdown-api-theme" title="azu/documentation-markdown-api-theme: markdown theme for documentation.js">azu/documentation-markdown-api-theme: markdown theme for documentation.js</a></li>
-</ul>
-
-<p><img src="http://efcl.info/wp-content/uploads/2016/12/31-1483170405.png" alt="reference"></p>
-
-<p>例) <a href="https://github.com/azu/ui-event-observer#usage" title="azu/ui-event-observer: Provide performant way to subscribe to browser UI Events.">azu/ui-event-observer: Provide performant way to subscribe to browser UI Events.</a></p>
-
-<p><a href="https://github.com/documentationjs/documentation/issues/550" title="--theme for Markdown · Issue #550 · documentationjs/documentation">--theme for Markdown · Issue #550 · documentationjs/documentation</a>のせいで、あんまり扱いやすくはないけど、結構いい感じの出力が出せる。</p>
-
-<ul>
-<li><a href="https://github.com/azu/add-text-to-markdown" title="azu/add-text-to-markdown: Add stdin text to exist markdown file.">azu/add-text-to-markdown: Add stdin text to exist markdown file.</a>
-
-<ul>
-<li>Markdownのテキストを指定したセクションに書き出すライブラリ</li>
-<li>上のdocumentationと合わせて使うと、READMEの一部を更新することができる</li>
-</ul></li>
-</ul>
-
-<h2 id="javascriptの入門本">JavaScriptの入門本</h2>
-
-<ul>
-<li><a href="https://asciidwango.github.io/js-primer/">Introduction · JavaScriptの入門書 #jsprimer</a></li>
-<li><a href="https://github.com/asciidwango/js-primer">asciidwango/js-primer: JavaScriptの入門書</a></li>
-</ul>
-
-<p>ES2015+を前提としてたJavaScriptの入門書を書いてる。</p>
-
-<blockquote>
-<p>この書籍はES2015以降をベースとしたJavaScript入門書となる予定です。
-基本的なStableのECMAScriptのバージョンを扱います。</p>
-
-<p>プログラミングをやったことがあるが、今のJavaScriptがよくわからないという人が、
-今のJavaScriptアプリケーションを読み書きできるようになることを目標にする内容です。
-(プログラミングが初めてという人が対象ではないです)
--- <a href="https://github.com/asciidwango/js-primer/issues/6" title="[meta] 全体的な設計/ユースケース一覧 · Issue #6 · asciidwango/js-primer">[meta] 全体的な設計/ユースケース一覧 · Issue #6 · asciidwango/js-primer</a></p>
-</blockquote>
-
-<p>ソースコードなども公開されてるオープンソースなプロジェクトです。
-興味がある人はIssueなどで意見とかくれると嬉しいです。</p>
-
-<p>去年の<a href="http://efcl.info/2015/12/31/oss-in-2015/" title="今年のOSS活動振り返り @ 2015 | Web Scratch">今年のOSS活動振り返り @ 2015</a>で次のような目標を書いてた。</p>
-
-<blockquote>
-<p>JavaScript/ECMAScriptを改めてどう学べばいいのか考える
-<a href="https://github.com/azu/how-to-learn-es6" title="azu/how-to-learn-es6: How to learn ECMAScript2015 for Beginner?">azu/how-to-learn-es6: How to learn ECMAScript2015 for Beginner?</a></p>
-</blockquote>
-
-<p>この目標を行動に移したのが、この本です。
-予想したどおり、大きなものを書く場合モチベーションの維持が一番の課題なので、小さく意見を聞きながら進められるようにしたいなー</p>
-
-<p>今年中にはなんとかする。</p>
-
-<h2 id="その他">その他</h2>
-
-<ul>
-<li><a href="https://ecmascript-daily.github.io/" title="ECMAScript Daily">ECMAScript Daily</a>
-
-<ul>
-<li><a href="http://efcl.info/2016/12/31/ecmascript-daily/" title="ECMAScriptの情報サイトを始めて1年経った | Web Scratch">ECMAScriptの情報サイトを始めて1年経った | Web Scratch</a></li>
-<li>ECMAScriptの情報サイト始めた</li>
-<li>仕様に近い情報のメモ書きみたいな</li>
-</ul></li>
-<li>package.json編集系 CLI
-
-<ul>
-<li><a href="https://github.com/azu/rewrite-npm-run-build-production-env">azu/rewrite-npm-run-build-production-env: Add npm run build to NODE_ENV=production.</a></li>
-<li><a href="https://github.com/azu/transfer-github-owner">azu/transfer-github-owner: Rewrite repository info on README/package.json for transferring GitHub repository.</a>
-
-<ul>
-<li>GitHubでTransferした後にpackage.jsonとかREADMEを書き換えるツール</li>
-</ul></li>
-</ul></li>
-<li><a href="https://github.com/azu/bellows-logger" title="azu/bellows-logger: Flexible/Connectable logger library for JavaScript.">azu/bellows-logger: Flexible/Connectable logger library for JavaScript.</a>
-
-<ul>
-<li>プラガブルに拡張可能なロガーライブラリ</li>
-</ul></li>
-<li><a href="https://github.com/azu/strict-eval" title="azu/strict-eval: eval code in vm module, but always strict mode.">azu/strict-eval: eval code in vm module, but always strict mode.</a>
-
-<ul>
-<li>Node.jsのvmモジュールで常にstrict modeにしてevalするライブラリ</li>
-<li><a href="https://github.com/asciidwango/js-primer" title="asciidwango/js-primer: JavaScriptの入門書">asciidwango/js-primer: JavaScriptの入門書</a>でサンプルコードのstrict modeを保証するテストに使ってる</li>
-</ul></li>
-<li><a href="https://azu.github.io/ecmascript-version-detector/">ECMAScript Version Detector</a>
-
-<ul>
-<li><a href="http://efcl.info/2016/08/04/ecmascript-version-detector/">そのコードが標準化されてるJavaScriptなのかを判定する方法 | Web Scratch</a></li>
-<li>JavaScriptのコードをパースしてECMAScriptのバージョンを出すやつ</li>
-</ul></li>
-<li><a href="https://github.com/azu/github-to-twitter-lambda" title="azu/github-to-twitter-lambda: Lambda bot that fetch own GitHub notifications/events and post to Twitter.">azu/github-to-twitter-lambda: Lambda bot that fetch own GitHub notifications/events and post to Twitter.</a>
-
-<ul>
-<li><a href="http://efcl.info/2016/06/09/github-to-twitter-lambda/" title="AWS lambdaでGitHubのアクティビティをTwitterで読む用に投稿する | Web Scratch">AWS lambdaでGitHubのアクティビティをTwitterで読む用に投稿する | Web Scratch</a></li>
-<li>GitHubのNotificationやActivityをTwitterに投げるlambda bot</li>
-<li>同様のことやってる人: <a href="http://massa142.hatenablog.com/entry/2016/12/27/000430" title="情報収集方法まとめ 2016年12月版 - massa142&amp;#39;s blog">情報収集方法まとめ 2016年12月版 - massa142&#39;s blog</a></li>
-<li>lambdaでずっと回してるけど大分安定してる</li>
-<li>月に$1かからないのでお手軽</li>
-</ul></li>
-</ul>
-
-<p><img src="https://monosnap.com/file/xQqM9kqLjL6fm6qUmdz2oyayeOGo7y.png" alt="コスト"></p>
-
-<ul>
-<li><a href="https://github.com/azu/performance-logger" title="azu/performance-logger: Simple Perf logger based on `performance.mark` API.">azu/performance-logger: Simple Perf logger based on <code>performance.mark</code> API.</a>
-
-<ul>
-<li><a href="http://efcl.info/2016/08/15/performance.mark/" title="performance.markでパフォーマンス計測する | Web Scratch">performance.markでパフォーマンス計測する | Web Scratch</a>の記事用に書いた</li>
-</ul></li>
-<li><a href="https://github.com/azu/file-cache-cli" title="azu/file-cache-cli: Command line tools that filter file paths by cached data.">azu/file-cache-cli: Command line tools that filter file paths by cached data.</a>
-
-<ul>
-<li>パイプで渡したファイルをキャッシュでフィルターするCLI</li>
-</ul></li>
-<li><a href="https://github.com/azu/add-deploy-key-to-github" title="azu/add-deploy-key-to-github: Add deploy to GitHub from command line.">azu/add-deploy-key-to-github: Add deploy to GitHub from command line.</a>
-
-<ul>
-<li>GitHubリポジトリにDeploy Keyを追加するCLI</li>
-<li><a href="http://efcl.info/2016/09/27/deploy-from-travis-ci-to-gh-pages/" title="Travis CIからgh-pagesへデプロイする設定 via SSH/git push | Web Scratch">Travis CIからgh-pagesへデプロイする設定 via SSH/git push | Web Scratch</a> コレ用</li>
-</ul></li>
-<li><a href="https://github.com/azu/react-routing-resolver" title="azu/react-routing-resolver: Routing component, but It does&amp;#39;t mount component. It&amp;#39;s just resolver.">azu/react-routing-resolver: Routing component, but It does&#39;t mount component. It&#39;s just resolver.</a>
-
-<ul>
-<li>コンポーネントじゃなくてURLに対する処理を書くことができるRouter</li>
-<li>Jestで始めてテスト書いた</li>
-</ul></li>
-<li><a href="https://github.com/azu/text-testing" title="azu/text-testing: Testing library for structured texts.">azu/text-testing: Testing library for structured texts.</a>
-
-<ul>
-<li><a href="http://efcl.info/2016/09/14/text-testing/" title="文章をTDDする | Web Scratch">文章をTDDする | Web Scratch</a></li>
-<li>文章に対してBDD的にテストを書くライブラリ</li>
-</ul></li>
-<li><a href="https://github.com/azu/job-draft-draft" title="azu/job-draft-draft: ドラフトのドラフト">azu/job-draft-draft: ドラフトのドラフト</a>
-
-<ul>
-<li>Job Draftに投稿したやつ</li>
-</ul></li>
-<li><a href="https://github.com/azu/slug-command" title="azu/slug-command: A command line tool for slug">azu/slug-command: A command line tool for slug</a>
-
-<ul>
-<li>文字列からslug(パーマネントリンクに使う文字列)を作るやつ</li>
-<li>jser.infoの記事で使ってる</li>
-</ul></li>
-<li>メールマガジンパース
-
-<ul>
-<li><a href="https://github.com/azu/extract-links-mail-magazine">azu/extract-links-mail-magazine: Extract link in mail magazine like JavaScript Weekly.</a></li>
-<li><a href="https://github.com/azu/weekly-meta">azu/weekly-meta</a></li>
-<li>JavaScript WeeklyとかをパースしてURLを取り出すやつ</li>
-<li>それを処理するAPI gatewayのAPI</li>
-</ul></li>
-<li><a href="https://github.com/azu/react-toggle-pattern" title="azu/react-toggle-pattern: React Component that provide toggle pattern">azu/react-toggle-pattern: React Component that provide toggle pattern</a>
-
-<ul>
-<li>Reactのコンポーネントをトグルするパターンを提供するライブラリ</li>
-<li><a href="http://efcl.info/2016/05/31/react-toggle-pattern/" title="Reactで条件によって出したり消したりするコンポーネントを書いた | Web Scratch">Reactで条件によって出したり消したりするコンポーネントを書いた | Web Scratch</a></li>
-<li>トグルするボタンとかに使う用途で書いた</li>
-<li>フォーカスの維持とか面倒な事をやった記憶がある</li>
-</ul></li>
-<li><a href="https://github.com/azu/babel-plugin-strip-function-call" title="azu/babel-plugin-strip-function-call: Babel plugin strip any function call.">azu/babel-plugin-strip-function-call: Babel plugin strip any function call.</a>
-
-<ul>
-<li>指定した関数コールを削除するBabelプラグイン</li>
-<li>productionビルド時にログの呼び出し自体を消す目的</li>
-</ul></li>
-<li><a href="https://github.com/azu/pkg-to-readme" title="azu/pkg-to-readme: Generate README.md from pacakge.json">azu/pkg-to-readme: Generate README.md from pacakge.json</a>
-
-<ul>
-<li><code>pacakge.json</code>とテンプレートファイルからREADMEを作るツール</li>
-</ul></li>
-<li><a href="https://github.com/azu/map-like" title="azu/map-like: ES2015 Map like object">azu/map-like: ES2015 Map like object</a>
-
-<ul>
-<li>ES2015の<code>Map</code>のshim的なライブラリ</li>
-<li>ファイルサイズが小さくてMapみたいなものは結構欲しいのでよく使ってる</li>
-<li>オブジェクトをMapみたいに使うのは辞めたい</li>
-</ul></li>
-<li><a href="https://github.com/azu/lru-map-like" title="azu/lru-map-like: LRU cache top on Map-like. Support non-string key.">azu/lru-map-like: LRU cache top on Map-like. Support non-string key.</a>
-
-<ul>
-<li>LRUの実装。</li>
-<li>ファイルサイズが小さいのが欲しかった</li>
-</ul></li>
-<li><a href="https://github.com/azu/mu-pdf-viewer" title="azu/mu-pdf-viewer: PDF viewer on electron.">azu/mu-pdf-viewer: PDF viewer on electron.</a>
-
-<ul>
-<li>PDFリーダアプリ</li>
-<li>キーバインドやスクロール量が調整されてる感じ</li>
-<li><a href="http://efcl.info/2016/10/12/mu-pdf-viewer/" title="pdf.jsなPDFビューアアプリをElectronで作った | Web Scratch">pdf.jsなPDFビューアアプリをElectronで作った | Web Scratch</a></li>
-<li><a href="http://efcl.info/2016/11/07/mu-pdf-search/" title="mu-pdf-viewerに検索一覧をつけた | Web Scratch">mu-pdf-viewerに検索一覧をつけた | Web Scratch</a></li>
-</ul></li>
-<li><a href="https://azu.github.io/t_wada_generator/" title="t_wada generator">t_wada generator</a>
-
-<ul>
-<li>@t_wadaさん生成</li>
-</ul></li>
-<li><a href="https://github.com/azu/dayone-to-quiver" title="azu/dayone-to-quiver: Convert DayOne&amp;#39;s Journal.dayone to Quiver notebook file.">azu/dayone-to-quiver: Convert DayOne&#39;s Journal.dayone to Quiver notebook file.</a>
-
-<ul>
-<li>DayOneからQuiverに移行するツール</li>
-<li><a href="http://efcl.info/2016/02/03/quiver/" title="メモアプリをDayOneからQuiverに移行した | Web Scratch">メモアプリをDayOneからQuiverに移行した | Web Scratch</a></li>
-</ul></li>
-<li><a href="https://github.com/azu/ui-event-observer" title="azu/ui-event-observer: Provide performant way to subscribe to browser UI Events.">azu/ui-event-observer: Provide performant way to subscribe to browser UI Events.</a>
-
-<ul>
-<li><a href="http://efcl.info/2016/11/02/ui-event-observer/" title="同じイベントのaddEventListenerを1つにまとめるライブラリを書いた | Web Scratch">同じイベントのaddEventListenerを1つにまとめるライブラリを書いた | Web Scratch</a></li>
-<li>DOMイベントを扱いやすくするライブラリ</li>
-<li>これもMap like使ってる</li>
-</ul></li>
-<li><a href="https://github.com/azu/morpheme-match">azu/morpheme-match: match function that match token(形態素解析) with sentence.</a></li>
-<li><a href="https://github.com/azu/morpheme-match-all">azu/morpheme-match-all: A wrapper of morpheme-match API. Match all kuromoji&#39;s tokens.</a>
-
-<ul>
-<li>kuromojiの形態素解析結果に対するマッチャーライブラリ</li>
-</ul></li>
-<li><a href="https://github.com/azu/gitbook-plugin-js-console" title="azu/gitbook-plugin-js-console: GitBook plugin that provide interactive JavaScript console">azu/gitbook-plugin-js-console: GitBook plugin that provide interactive JavaScript console</a>
-
-<ul>
-<li><a href="https://github.com/azu/codemirror-console-ui" title="azu/codemirror-console-ui: UI Components of codemirror-console.">azu/codemirror-console-ui: UI Components of codemirror-console.</a>のGitBook plugin</li>
-<li>JavaScriptのコードをREPLにできる</li>
-</ul></li>
-<li><a href="https://github.com/azu/github-longest-streak" title="azu/github-longest-streak: Online Viewer for GitHub Full Longest Streak.">azu/github-longest-streak: Online Viewer for GitHub Full Longest Streak.</a>
-
-<ul>
-<li>GitHubのLongest Streakを取れるやつ</li>
-<li>SVGをパースして全期間から取れるようになってる</li>
-</ul></li>
-<li><a href="https://github.com/azu/eslint-plugin-no-allow-react-context" title="azu/eslint-plugin-no-allow-react-context: Not allow to use React context without specific directory.">azu/eslint-plugin-no-allow-react-context: Not allow to use React context without specific directory.</a>
-
-<ul>
-<li>指定した場所以外でReact Contextを使えなくするESLintプラグイン</li>
-</ul></li>
-<li><a href="https://github.com/azu/stylelint-disallow-selector" title="azu/stylelint-disallow-selector: stylelint rule disallow specific selector">azu/stylelint-disallow-selector: stylelint rule disallow specific selector</a>
-
-<ul>
-<li>使ってはいけないセレクタを指定するstylelintプラグイン</li>
-</ul></li>
-</ul>
-
-<h2 id="ゴミ箱行き">ゴミ箱行き</h2>
-
-<p>作ってみたけど諦めたもの</p>
-
-<ul>
-<li><a href="https://github.com/azu/jscode-to-svg" title="azu/jscode-to-svg: Syntax Highlighted JavaScript code to SVG">azu/jscode-to-svg: Syntax Highlighted JavaScript code to SVG</a>
-
-<ul>
-<li>JavaScriptのコードからシンタックスハイライトをしたコードのSVGを吐くライブラリ</li>
-</ul></li>
-<li>Gitの履歴から自動的に正誤表を作ってチェックするツール
-
-<ul>
-<li><a href="https://github.com/azu/git-log-to-errata" title="azu/git-log-to-errata: Git log to errata list.">azu/git-log-to-errata: Git log to errata list.</a></li>
-<li><a href="https://github.com/azu/textlint-rule-git-log-to-errata" title="azu/textlint-rule-git-log-to-errata: git log to eratta rule">azu/textlint-rule-git-log-to-errata: git log to eratta rule</a></li>
-</ul></li>
-<li>Asciidocのパーサ
-
-<ul>
-<li><a href="https://github.com/azu/textlint-plugin-asciidoc-loose" title="azu/textlint-plugin-asciidoc-loose: AsciiDoc/Asciidoctor loose support for textlint.">azu/textlint-plugin-asciidoc-loose: AsciiDoc/Asciidoctor loose support for textlint.</a></li>
-<li>tmbundleを元に正規表現でAsciidocをパースしてtextlintで動かすやつ</li>
-<li>一応動いてていて、トークナイズはできてるけど、ASTに組み立てるのが難しくて断念気味</li>
-</ul></li>
-<li><a href="https://github.com/azu/react-defer-render" title="azu/react-defer-render: ReactDeferRender defer first rendering of specific component.">azu/react-defer-render: ReactDeferRender defer first rendering of specific component.</a>
-
-<ul>
-<li>クライアントでReactをrenderするとコンポーネントが多いほど初期化時間が長くなる</li>
-<li>なのでレンダリングを段階的にすることを目的にしたライブラリ</li>
-<li>一応動いているけど、もう少しアドホックな感じのもの書いて使ってる。</li>
-</ul></li>
-<li><a href="https://github.com/azu/weekly-snippets" title="azu/weekly-snippets: 週報 Issue">azu/weekly-snippets: 週報 Issue</a>
-
-<ul>
-<li>週報をやってみたけどモチベーションが続かなかった</li>
-<li>良い方法と一緒にやる人が必要だなと思った</li>
-<li>何かいい方法ないかな?</li>
-</ul></li>
-</ul>
-
-<h2 id="来年">来年</h2>
-
-<ul>
-<li><a href="https://github.com/almin/almin" title="Almin">Almin</a>
-
-<ul>
-<li>もう少し使ってもらえるように何かをやるかもしれない</li>
-<li>ステートソーシングについてはある程度やったのでイベントソーシングをクライアントでやるにはどうするかを考えたい</li>
-</ul></li>
-<li><a href="https://github.com/asciidwango/js-primer">asciidwango/js-primer: JavaScriptの入門書</a>
-
-<ul>
-<li>どうにか仕上げたい</li>
-</ul></li>
-<li><a href="https://github.com/azu/weekly-snippets" title="azu/weekly-snippets: 週報 Issue">週報 Issue</a>
-
-<ul>
-<li>何かいい方法で継続したいなー</li>
-<li>基本的に場所と必要性があれば継続できる人なので、何かが足りなかった</li>
-</ul></li>
-<li>JSer.infoのような情報サイトについて
-
-<ul>
-<li><a href="https://github.com/jser/jser.info/issues/85" title="中期的なまとめ記事 · Issue #85 · jser/jser.info">中期的なまとめ記事 · Issue #85 · jser/jser.info</a></li>
-<li>この辺について何か行動を起こしたい</li>
-<li>未知の要素が強くて行動が出しにくいという部分が大きい(できるだけコスト取りたくない)</li>
-<li>リスクとコストと効果のバランスを決定してから動かすのがいいのかな?</li>
-</ul></li>
-</ul>
-
-<p>追記: <a href="https://gist.github.com/azu/143eda871afd3b52790767721c6865b3" title="2017-01-01 今年やりたいこと">2017-01-01 今年やりたいこと</a></p>
  ]]></content>
  </entry>
  
