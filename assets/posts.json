@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "Node学園 25時限目でECMAScriptの国際標準化の話をした",
+            "url": "http://efcl.info/2017/04/24/node-25/",
+            "date": "2017-04-24T23:51:00+09:00"
+        },
+        
+        {
             "title": "箇条書きにおける文末の句点（。）を統一するtextlintルール",
             "url": "http://efcl.info/2017/04/11/textlint-rule-period-in-list-item/",
             "date": "2017-04-11T08:41:00+09:00"

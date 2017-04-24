@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Node学園 25時限目でECMAScriptの国際標準化の話をした | Web Scratch
+        
+    </title>
+    <meta name="description" content="Node学園 25時限目 - connpassに受付として参加してきて、ついでにECMAScript Specification SuiteについてのLTをしました。">
+    
+    <meta name="keywords" content="Node,JavaScript,ECMAScript" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="Node学園 25時限目でECMAScriptの国際標準化の話をした">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2017/04/24/node-25/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="Node学園 25時限目 - connpassに受付として参加してきて、ついでにECMAScript Specification SuiteについてのLTをしました。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2017-04-24T23:51:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/04/11/textlint-rule-period-in-list-item/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/03/27/unnatural-alphabet/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/03/21/ecmascript-spec-electron-app/">
+
+
+
+
+
+<meta property="article:section" content="イベント">
+
+
+
+
+
+<meta property="article:tag" content="Node">
+
+<meta property="article:tag" content="JavaScript">
+
+<meta property="article:tag" content="ECMAScript">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 32
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 175
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 88
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 10
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 8
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2017/04/24/node-25/">
+                Node学園 25時限目でECMAScriptの国際標準化の話をした
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/04/11/textlint-rule-period-in-list-item/">
+                箇条書きにおける文末の句点（。）を統一するtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/03/27/unnatural-alphabet/">
+                不自然なアルファベットを見つけるtextlintルール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/03/21/ecmascript-spec-electron-app/">
+                3行でECMAScript仕様書アプリを作る
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2017/04/24/node-25/">
+    <h1 class="post-title">Node学園 25時限目でECMAScriptの国際標準化の話をした</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2017年04月24日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-04-24-node-25.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="https://nodejs.connpass.com/event/54749/" title="Node学園 25時限目 - connpass">Node学園 25時限目 - connpass</a>に受付として参加してきて、ついでにECMAScript Specification SuiteについてのLTをしました。</p>
+
+<blockquote>
+<p>ECMAScript Specification Suite<br>
+スライド-- <a href="http://azu.github.io/slide/2017/node/ecmascript-specification-suite.html">http://azu.github.io/slide/2017/node/ecmascript-specification-suite.html</a></p>
+</blockquote>
+
+<p><a href="http://azu.github.io/slide/2017/node/ecmascript-specification-suite.html" title="ECMAScript Specification Suite">ECMAScript Specification Suite</a>は現在議論中のECMAScriptの新しい国際標準候補です。</p>
+
+<p>どういうものがは次の記事でも書いています。</p>
+
+<ul>
+<li><a href="http://efcl.info/2017/02/27/ecma-414/" title="ECMA-414 ECMAScript Specification Suiteについて | Web Scratch">ECMA-414 ECMAScript Specification Suiteについて | Web Scratch</a></li>
+</ul>
+
+<p>以下はメモです。</p>
+
+<p>受付をやっていたのでかなり断片的です。</p>
+
+<h2 id="node-8-0-0"><a href="mailto:node@8.0.0">node@8.0.0</a></h2>
+
+<blockquote>
+<p><a href="http://abouthiroppy.github.io/slides/node8/" title="abouthiroppy/node8">abouthiroppy/node8</a></p>
+</blockquote>
+
+<h2 id="introduction-to-rust-by-akito0107">Introduction to Rust by Akito0107</h2>
+
+<ul>
+<li>Rustとは</li>
+<li>Rustが新しいところ = メモリ管理</li>
+<li>所有権の概念</li>
+<li>メモリ領域の種類
+
+<ul>
+<li>Stack</li>
+<li>1つの関数とかサブルーチンとか1つのブロックの中のメモリ</li>
+<li>ブロックから抜けるとポップする</li>
+<li>基本的に高速</li>
+<li>Heap</li>
+<li>複数のサブルーチンとか、関数で使いまわしたりする</li>
+<li>明示的な管理が必要</li>
+<li>Stackに比べるメモリ管理のコストが高い</li>
+<li>メモリ管理</li>
+<li>手動でmalloc/free</li>
+</ul></li>
+<li>GC
+
+<ul>
+<li>自動でメモリ管理 確保と解放を行う</li>
+<li>生きてるオブジェクト死んでるオブジェクトを判別して処理する</li>
+<li>参照してるかどうか</li>
+<li>GC中は他の処理ができなくなることがある</li>
+</ul></li>
+<li>Rustのアプローチ
+
+<ul>
+<li>手動/GCでもなく所有権でメモリ管理を解決</li>
+<li>RustのデフォルトはStackでallocate</li>
+<li>Heap Allocation</li>
+<li>Box::newするとHeapへ確保</li>
+<li><code>let foo = boxed_foo()</code> fooはheap領域を参照</li>
+<li>Stackから抜けるときにheap領域のものも消す</li>
+</ul></li>
+<li>Rustのコンパイルエラー
+
+<ul>
+<li>所有権 =　オブジェクトを開放する権利</li>
+<li>Rustはオブジェクトの所有権は基本的に1つオブジェクトがもつ</li>
+<li>既に所有権をもってないものが触ろうとしたらコンパイルエラー</li>
+<li>Rust における <code>=</code> は「代入」じゃなくて「移譲」となる</li>
+<li>所有権を「移譲」してる</li>
+<li>参照と借用 = read onlyの参照は許可する概念がある</li>
+</ul></li>
+<li>寿命
+
+<ul>
+<li>借用先の寿命 &gt; 借用元の寿命</li>
+<li>デフォルトはスタックであることを思い出す</li>
+</ul></li>
+<li>メモリ安全、データ競合安全
+
+<ul>
+<li>コンパイラがチェックしてくれる</li>
+</ul></li>
+<li>言語機能
+
+<ul>
+<li>パターンマッチ、エラー処理などがある</li>
+</ul></li>
+<li>Rustのユースケースについて</li>
+<li><a href="https://tokio.rs/" title="Tokio">Tokio</a></li>
+<li><a href="https://github.com/hyperium/hyper" title="hyperium/hyper: An HTTP library for Rust">hyperium/hyper: An HTTP library for Rust</a></li>
+</ul>
+
+<hr>
+
+<h2 id="cycle-js">Cycle.js</h2>
+
+<ul>
+<li><a href="https://cycle.js.org/" title="Cycle.js">Cycle.js</a></li>
+<li>Rx的なものをラップしたフレームワーク</li>
+<li><a href="https://github.com/staltz/xstream" title="staltz/xstream: An extremely intuitive, small, and fast functional reactive stream library for JavaScript">staltz/xstream: An extremely intuitive, small, and fast functional reactive stream library for JavaScript</a>
+
+<ul>
+<li>RxJSのoperatorを減らしたり、変更したもの</li>
+</ul></li>
+<li>Cycle.jsの設計
+
+<ul>
+<li>Applicationを<code>main()</code> と <code>driver()</code> に分割</li>
+<li><code>driver()</code> DOM、APIを叩いたりする</li>
+<li><code>main()</code> 副作用のないRxの世界</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="初めてのoss初めてのnode-contribute-chiiia12">初めてのOSS初めてのnode contribute - chiiia12</h2>
+
+<blockquote>
+<p><a href="https://speakerdeck.com/chiiia12/chu-metefalseosschu-metefalsenode-dot-js-contribute-number-tng25" title="初めてのOSS初めてのNode.js Contribute#tng25 // Speaker Deck">初めてのOSS初めてのNode.js Contribute#tng25 // Speaker Deck</a></p>
+</blockquote>
+
+<ul>
+<li>OSS勉強会</li>
+<li>Node.jsへのPRする</li>
+<li>3回目でやっとマージされた</li>
+<li>大きい所にPRすることで自信を持てた</li>
+<li>レビューしてもらえる</li>
+<li>運用方法が参考になる</li>
+</ul>
+
+<hr>
+
+<h2 id="v8-interpreter-ignitionについて-by-brn0227">V8 Interpreter Ignitionについて by brn0227</h2>
+
+<blockquote>
+<p><a href="https://www.slideshare.net/ssuser6f246f/v8-iginition-interpreter" title="V8 Iginition Interpreter">V8 Iginition Interpreter</a></p>
+</blockquote>
+
+<ul>
+<li>V8のインタープリタ</li>
+<li>昔は常にfull codegenだった
+
+<ul>
+<li>ファイルがサイズがでかい、時間がかかる</li>
+</ul></li>
+<li>関数を実行するときにコンパイルようにした
+
+<ul>
+<li>Facebookでなんか遅い</li>
+</ul></li>
+<li>Ignition
+
+<ul>
+<li>ピーク時はfull codegenよりは遅い</li>
+<li>平常時はまあまあな速度がある</li>
+</ul></li>
+</ul>
+
+<p>今までのビルドパス</p>
+
+<ul>
+<li>JavaScript -&gt; AST -&gt; アーキテクチャ毎のバイトコード</li>
+</ul>
+
+<p>Ignition</p>
+
+<ul>
+<li>JavaScript -&gt; AST -&gt; Ignition -&gt; 中間コード -&gt; アーキテクチャ毎のバイトコード</li>
+</ul>
+
+<p>TurboFun</p>
+
+<ul>
+<li>Ignitionの中間コードを最適化するオプティマイズコンパイラ</li>
+<li>Ignitionで実行中のプロファイルを取って、最適化する</li>
+<li>最適化パスが間違っていた場合は、de-optsして戻す</li>
+<li>小さな単位でやるので、de-opt時に戻りやすい(中間コードに戻す)</li>
+</ul>
+
+<p>IC(Inlining Cache)</p>
+
+<ul>
+<li>キャッシュミス時の劣化があった</li>
+<li>missとfound の2種類のみあった</li>
+<li>fast path/no inlined/miss の3パターンになった</li>
+<li>キャッシュミスを減らすことでICの効率を下げないような工夫が入った</li>
+</ul>
+
+<h2 id="hello-mobx-by-leader22">Hello, MobX! by leader22</h2>
+
+<blockquote>
+<p><a href="http://leader22.github.io/slides/node_gakuen-25/" title="Hello, MobX!">Hello, MobX!</a></p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/mobxjs/mobx" title="MobX">MobX</a></li>
+<li>state管理ライブラリ</li>
+<li>どういうものなのか?</li>
+<li>autorun -&gt; stateをなんとかする</li>
+<li>state管理に絞ってる</li>
+<li>アーキテクチャ自体は自分で決める</li>
+</ul>
+
+<h2 id="slack-codegolf-by-darai0512">Slack CodeGolf by darai0512</h2>
+
+<hr>
+
+<p>お疲れ様でした。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-04-24-node-25.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["Node","JavaScript","ECMAScript"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=Node">Node</a></li>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=ECMAScript">ECMAScript</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>
