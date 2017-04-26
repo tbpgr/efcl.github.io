@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-04-26T11:23:04+09:00</updated>
+ <updated>2017-04-26T12:44:41+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -36,6 +36,12 @@
 search-prototype.js ./public/javascripts/application.js
 </code></pre></div>
 <p>標準出力に検索結果が流れてきます。</p>
+
+<p>検出するAPIの定義はAPIリファレンスのサジェストファイルから取ってきています。</p>
+
+<ul>
+<li><a href="http://api.prototypejs.org/javascripts/pdoc/item_index.js">http://api.prototypejs.org/javascripts/pdoc/item_index.js</a></li>
+</ul>
 
 <h2 id="制限">制限</h2>
 
