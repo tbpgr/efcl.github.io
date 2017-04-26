@@ -783,7 +783,11 @@
         
         "textlintrule",
         
-        "japanese"
+        "japanese",
+        
+        "prototype.js",
+        
+        "tool"
         
     ]
 }
