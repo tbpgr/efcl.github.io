@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-04-26T11:21:59+09:00</updated>
+ <updated>2017-04-26T11:23:04+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -59,6 +59,13 @@ search-prototype.js ./public/javascripts/application.js
 <ul>
 <li><a href="https://github.com/azu/search-prototype.js/blob/master/src/create-search-index.js">https://github.com/azu/search-prototype.js/blob/master/src/create-search-index.js</a></li>
 <li>このファイルをみるとどのような検索パターンなのか分かります。</li>
+</ul>
+
+<p>検索クエリは基本的にはequeryですが、utilだけsqueryで書いてます(graspには<code>$</code>をエスケープできないバグがある)</p>
+
+<ul>
+<li><a href="http://www.graspjs.com/docs/equery/">equery | Grasp - JavaScript structural search, replace, and refactor</a></li>
+<li><a href="http://www.graspjs.com/docs/squery/">squery | Grasp - JavaScript structural search, replace, and refactor</a></li>
 </ul>
 
 <h2 id="おわり">おわり</h2>
