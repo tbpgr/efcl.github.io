@@ -358,12 +358,12 @@ search-prototype.js ./public/javascripts/application.js
 この検索ツールでは、そういった曖昧なものもデフォルトではアグレッシブに検出します。</p>
 
 <p><a href="http://www.graspjs.com/" title="grasp">grasp</a>をベースにしたASTをベースにして検索を行うため、文字列検索よりは誤爆は少ないですがそれでも誤爆は避けられません。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&quot;[].every()は文字列`&quot; // 文字列
+<div class="highlight"><pre><code class="language-text" data-lang="text">&quot;[].every()は文字列&quot; // 文字列
 // これは検出されないけど
 [].every(function(element){})
 // これは検出する
 </code></pre></div>
-<p>さらにいえば、JavaScriptは関数はファーストクラスなので、次のような書き方も正常系です。なので、このツールではこの書き方も検出します。</p>
+<p>さらにいえば、JavaScriptの関数はファーストクラスなので、次のような書き方も正常系です。なので、このツールではこの書き方も検出します。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">cc</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">create</span>
 <span class="nx">cc</span><span class="p">({});</span>
 </code></pre></div>
