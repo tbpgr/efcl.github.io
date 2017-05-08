@@ -336,7 +336,11 @@ var blog_categories = [
 <p>以前は、GitHub Access Tokenを発行して、Travis CIのconfig(secret)にそのTokenを埋め込んで、Tokenを使ってpushをしていました。</p>
 
 <p>しかし、GitHub Access Tokenは簡単に発行できるとはいえリポジトリ単位で管理できる権限となっていないため、Tokenが漏れてしまうと管理ができないという問題があります。
-(実際 <code>git push -q</code>などしないと簡単に漏れてしまう)</p>
+(実際 <code>git push url-with-secret &gt;/dev/null 2&gt;&amp;1</code>などしないと簡単に漏れてしまう)</p>
+
+<ul>
+<li><a href="https://docs.travis-ci.com/user/best-practices-security/" title="Best Practices in Securing Your Data - Travis CI">Best Practices in Securing Your Data - Travis CI</a></li>
+</ul>
 
 <p>そのため、最近はSSH鍵を使ってリポジトリへpushする方針へと変更しました。</p>
 
