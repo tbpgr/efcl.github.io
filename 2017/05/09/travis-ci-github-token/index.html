@@ -348,7 +348,7 @@ Travis CIのログはPublicで誰でも見ることができるので、標準�
 <div class="highlight"><pre><code class="language-sh" data-lang="sh">git push --force --quiet <span class="s2">&quot;https://${GH_TOKEN}@github.com/example/test.git&quot;</span> gh-pages
 </code></pre></div>
 <p>このスクリプトは、<code>--quiet</code>が付いてるので <code>GH_TOKEN</code> が漏れないように見えますが、
-<code>git push</code>に失敗すると、push先がログにでるため安全ではありません。</p>
+<code>git push</code>に失敗すると、エラー結果に含まれるpush先(<code>&quot;https://${GH_TOKEN}@github.com/example/test.git&quot;</code>)がログにでるため安全ではありません。</p>
 
 <p>そのため、標準出力と標準エラー出力を両方共潰さないと、<code>GH_TOKEN</code>が漏れるケースがあります。</p>
 <div class="highlight"><pre><code class="language-sh" data-lang="sh">git push --force --quiet <span class="s2">&quot;https://${GH_TOKEN}@github.com/example/test.git&quot;</span> gh-pages &gt;/dev/null 2&gt;<span class="p">&amp;</span>1
