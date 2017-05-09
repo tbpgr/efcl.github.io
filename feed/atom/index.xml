@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-05-09T10:25:58+09:00</updated>
+ <updated>2017-05-09T10:43:27+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -26,10 +26,10 @@
 <li><a href="https://blog.travis-ci.com/2017-05-08-security-advisory" title="The Travis CI Blog: Security Advisory: Secured Environment Variables">The Travis CI Blog: Security Advisory: Secured Environment Variables</a></li>
 </ul>
 
-<p>これ自体はTravis CIのバグではなくて、デプロイスクリプトなどのツール側のバグによってGitHubのTokenなどsecretな環境変数がログ上に出ている話です。
-Travis CIのログはPublicで誰でも見ることができるので、標準出力にTokenが露出していると問題があるという話。</p>
+<p>これ自体はTravis CIのバグではなくて、ユーザーが書いたデプロイスクリプトなどのツール側のバグによってGitHubのTokenなどsecretな環境変数がログ上に出ている話です。
+Travis CIのログはPublicで誰でも見ることができるので、標準出力にTokenが露出していると問題があります。</p>
 
-<p>どういうケースでGitHubのTokenが標準出力に出てしまうかというと、<code>git push</code>のミスが一番多いと思います。</p>
+<p>どのようなケースでGitHubのTokenが標準出力に出てしまうかというと、<code>git push</code>のミスが一番多いと思います。</p>
 
 <p>例えば次のようにGitHubのTokenを使って、Travis CIからGitHubへpushしているスクリプトは問題があります。</p>
 <div class="highlight"><pre><code class="language-sh" data-lang="sh">git push --force --quiet <span class="s2">&quot;https://${GH_TOKEN}@github.com/example/test.git&quot;</span> gh-pages
