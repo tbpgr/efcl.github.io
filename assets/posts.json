@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "Travis CIでGitHub Personal access tokensが漏れないようにする",
+            "url": "http://efcl.info/2017/05/09/travis-ci-github-token/",
+            "date": "2017-05-09T09:20:00+09:00"
+        },
+        
+        {
             "title": "コード中にあるprototype.jsの拡張メソッドを使ってる部分を検索するツール",
             "url": "http://efcl.info/2017/04/26/search-prototype.js/",
             "date": "2017-04-26T10:18:00+09:00"

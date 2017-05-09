@@ -787,7 +787,11 @@
         
         "prototype.js",
         
-        "tool"
+        "tool",
+        
+        "ssh",
+        
+        "token"
         
     ]
 }

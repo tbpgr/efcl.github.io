@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-05-09T08:15:21+09:00</updated>
+ <updated>2017-05-09T10:19:28+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,110 @@
  </author>
  
 
+ 
+ <entry>
+   <title>Travis CIでGitHub Personal access tokensが漏れないようにする</title>
+   <link href="http://efcl.info/2017/05/09/travis-ci-github-token/"/>
+   <updated>2017-05-09T09:20:00+09:00</updated>
+   <id>http://efcl.info/2017/05/09/travis-ci-github-token</id>
+   <content type="html"><![CDATA[ <p>2017-05-09 漏れていた人はメールで通知が来ていると思いますが、Travis CIのログ上にGitHubのTokenが漏れていたケースがあるという話がありました。
+(漏れていたTokenはGitHub側で既にrevokeされていると思います。またメールに漏れている一覧が載ってるはず)</p>
+
+<ul>
+<li><a href="https://blog.travis-ci.com/2017-05-08-security-advisory" title="The Travis CI Blog: Security Advisory: Secured Environment Variables">The Travis CI Blog: Security Advisory: Secured Environment Variables</a></li>
+</ul>
+
+<p>これ自体はTravis CIのバグではなくて、デプロイスクリプトなどのツール側のバグによってGitHubのTokenなどsecretな環境変数がログ上に出ている話です。
+Travis CIのログはPublicで誰でも見ることができるので、標準出力にTokenが露出していると問題があるという話。</p>
+
+<p>どういうケースでGitHubのTokenが標準出力に出てしまうかというと、<code>git push</code>のミスが一番多いと思います。</p>
+
+<p>例えば次のようにGitHubのTokenを使って、Travis CIからGitHubへpushしているスクリプトは問題があります。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">git push --force --quiet <span class="s2">&quot;https://${GH_TOKEN}@github.com/example/test.git&quot;</span> gh-pages
+</code></pre></div>
+<p>このスクリプトは、<code>--quiet</code>が付いてるので <code>GH_TOKEN</code> が漏れないように見えますが、
+<code>git push</code>に失敗すると、push先がログにでるため安全ではありません。</p>
+
+<p>そのため、標準出力と標準エラー出力を両方共潰さないと、<code>GH_TOKEN</code>が漏れるケースがあります。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">git push --force --quiet <span class="s2">&quot;https://${GH_TOKEN}@github.com/example/test.git&quot;</span> gh-pages &gt;/dev/null 2&gt;<span class="p">&amp;</span>1
+</code></pre></div>
+<ul>
+<li><a href="https://docs.travis-ci.com/user/best-practices-security/" title="Best Practices in Securing Your Data - Travis CI">Best Practices in Securing Your Data - Travis CI</a></li>
+</ul>
+
+<p>この手法は<a href="https://gist.github.com/domenic/ec8b0fc8ab45f39403dd" title="Auto-deploying built products to gh-pages with Travis">Auto-deploying built products to gh-pages with Travis</a>の古いバージョンで紹介されていたので知ってる人も多いと思います。</p>
+
+<p>このTravis CI上のGitHub Token(GitHubには限らないけど)漏れは結構前から見かけることがあって、いくつか報告した記憶もあります。</p>
+
+<ul>
+<li><a href="https://github.com/jirutka/rake-jekyll/issues/8" title="GH_TOKEN is leaked · Issue #8 · jirutka/rake-jekyll">GH_TOKEN is leaked · Issue #8 · jirutka/rake-jekyll</a></li>
+<li><a href="https://github.com/babel/babel/issues/3727" title="Security concern about merge-development-with-master.sh (T6661) · Issue #3727 · babel/babel">Security concern about merge-development-with-master.sh (T6661) · Issue #3727 · babel/babel</a></li>
+</ul>
+
+<p>この辺の問題があるリポジトリについて、Travis側が過去のログを調査して今回の通知を出したようです。
+また、今日から環境変数とマッチする文字列は、ログ上では<code>[secure]</code>に自動で置換されるようになっています。</p>
+
+<blockquote>
+<p>Both new builds and archived build logs with this issue will see the string [secure] instead of potentially exposed secure environment variables. Logs on both our open-source .org, and closed-source .com platforms have been updated.
+-- <a href="https://blog.travis-ci.com/2017-05-08-security-advisory" title="The Travis CI Blog: Security Advisory: Secured Environment Variables">The Travis CI Blog: Security Advisory: Secured Environment Variables</a></p>
+</blockquote>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/05/09-1494289700.png" alt="image"></p>
+
+<h2 id="travis-ciからgithubへpushする">Travis CIからGitHubへpushする</h2>
+
+<p>Travis CIからGitHub(gh-pages)へpushしたい場合、自分の場合はGitHubのtokenではなくSSHのキーを使うようにしています。</p>
+
+<p>GitHubにはリポジトリごとにreadまたはwriteの<a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a>としてSSHの公開鍵を登録することができます。</p>
+
+<ul>
+<li><a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a></li>
+<li><a href="https://docs.travis-ci.com/user/deployment/custom/" title="Custom Deployment - Travis CI">Custom Deployment - Travis CI</a></li>
+<li><a href="https://circleci.com/docs/1.0/adding-read-write-deployment-key/" title="Adding read/write deployment key - CircleCI">Adding read/write deployment key - CircleCI</a></li>
+</ul>
+
+<p>GitHubのTokenは権限は設定できますがユーザー単位なので、一度漏れるとそのユーザーのすべてのリポジトリに影響があります。
+GitHubの<a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a>はリポジトリごとなので、漏れてもそのリポジトリのみしか読み書きすることができません。</p>
+
+<p><a href="https://github.com/azu/add-deploy-key-to-github" title="add-deploy-key-to-github">add-deploy-key-to-github</a>などを使うと、CLIから<a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a>を作ってリポジトリに登録できるので、それを使ってgit pushすると簡単です。
+(Token方式みたいにgit push先を変更する必要もないけど、ssh経由にする必要があるので <code>git config --global url.ssh://git@github.com/.insteadOf https://github.com/</code> などしておくとデプロイスクリプトの変更がいらない)</p>
+
+<p><a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a>(SSHキー)を使った<code>gh-pages</code>へのpush方法は次の記事などで解説されています。</p>
+
+<ul>
+<li><a href="https://gist.github.com/domenic/ec8b0fc8ab45f39403dd" title="Auto-deploying built products to gh-pages with Travis">Auto-deploying built products to gh-pages with Travis</a></li>
+<li><a href="http://efcl.info/2016/09/27/deploy-from-travis-ci-to-gh-pages/" title="Travis CIからgh-pagesへデプロイする設定 via SSH/git push | Web Scratch">Travis CIからgh-pagesへデプロイする設定 via SSH/git push | Web Scratch</a></li>
+<li><a href="https://www.tam-tam.co.jp/tipsnote/program/post11795.html" title="Travis CI から GitHub へ git push を行う設定 ｜ Tips Note by TAM">Travis CI から GitHub へ git push を行う設定 ｜ Tips Note by TAM</a></li>
+</ul>
+
+<h2 id="フローチャート">フローチャート</h2>
+
+<ol>
+<li>Travis CIからGitHubへpushしたい
+
+<ul>
+<li>=&gt; リポジトリ用のsshキーを作ってdeploy keyに登録して使う</li>
+</ul></li>
+<li>Travis CIでGitHubのtokenが必要(APIを使う処理)
+
+<ul>
+<li>=&gt; Personal access tokensをリポジトリ用に新規作成して使う</li>
+<li>Tokenが漏れると影響範囲が広いので、使い回しはしない</li>
+</ul></li>
+</ol>
+
+<h2 id="その他">その他</h2>
+
+<p>今回の話はまた違いますが、npmへpublishされたパッケージから秘密の情報が混じっていたり、awsのcredentialsがリポジトリに漏れているのは稀によく見るので、そういうのが起こりにくいような仕組みを保つ必要がありそうです。</p>
+
+<ul>
+<li><a href="https://github.com/ChALkeR/notes/blob/master/Do-not-underestimate-credentials-leaks.md" title="notes/Do-not-underestimate-credentials-leaks.md at master · ChALkeR/notes">notes/Do-not-underestimate-credentials-leaks.md at master · ChALkeR/notes</a></li>
+<li><a href="https://github.com/blog/1390-secrets-in-the-code" title="Secrets in the code">Secrets in the code</a></li>
+</ul>
+
+<p>npmへpublishするのに<a href="http://t-wada.hatenablog.jp/entry/nodejs-package-json-tips" title="package.json の files フィールドでホワイトリスト">package.json の files フィールドでホワイトリスト</a>を使うとか、<a href="https://github.com/awslabs/git-secrets" title="awslabs/git-secrets: Prevents you from committing secrets and credentials into git repositories">awslabs/git-secrets</a>などでpush前にチェックするなど</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>コード中にあるprototype.jsの拡張メソッドを使ってる部分を検索するツール</title>
@@ -1377,81 +1481,6 @@ ECMAScriptの仕様が更新されたら、自動的に最新のECMA-262仕様�
 <p><img src="http://efcl.info/wp-content/uploads/2017/02/27-1488187017.png" alt="ECMA-414"></p>
 
 <p><a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>はこの図が全てというほど小さな仕様。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>Map-likeというES2015 Mapのようなライブラリを書いた</title>
-   <link href="http://efcl.info/2017/02/26/map-like/"/>
-   <updated>2017-02-26T18:42:00+09:00</updated>
-   <id>http://efcl.info/2017/02/26/map-like</id>
-   <content type="html"><![CDATA[ <p><a href="https://github.com/azu/map-like" title="map-like">map-like</a>という小さな<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map" title="Map">Map</a>オブジェクトのライブラリを書きました。</p>
-
-<ul>
-<li><a href="https://github.com/azu/map-like" title="azu/map-like: ES2015 Map like object">azu/map-like: ES2015 Map like object</a></li>
-</ul>
-
-<p>API的にはES2015の<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map" title="Map">Map</a>と同じです。</p>
-
-<h2 id="制限">制限</h2>
-
-<ul>
-<li><code>Symbol.Iterator</code>が実装されていません</li>
-<li><code>toString</code>が実装されていません</li>
-</ul>
-
-<p>つまりIteratorは省いています。</p>
-
-<h2 id="目的">目的</h2>
-
-<p>Mapのpolyfillを書いたことがある人はわかるかもしれませんが、オブジェクトをkeyにできるMapがほしいだけなのに、結構でかくなります。
-これはIteratorを実装する部分が大きく、<code>Symbol.Iterator</code>をどうするかとか色々あります。
-正直Mapを<code>for...of</code>で回したいとかは殆ど必要なかったので、それ以外の部分はMapと互換を持つ<a href="https://github.com/azu/map-like" title="map-like">map-like</a>というライブラリを書きました。</p>
-
-<p>ファイルサイズも1.5kBほどです。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">✈ bundle-size map-like
-map-like@1.0.3
-
-env  bundle   minify   gzip
---   5.73 kB  3.08 kB  1.5 kB
-</code></pre></div>
-<p>「オブジェクトリテラルをマップのようなものとして使いたくない」や「オブジェクトをMapのキーとして使いたい」というケースで便利です。</p>
-
-<p>派生としてLRU cacheライブラリの<a href="https://github.com/azu/lru-map-like" title="lru-map-like">lru-map-like</a>というものもあります。</p>
-
-<ul>
-<li><a href="https://github.com/azu/lru-map-like" title="azu/lru-map-like: LRU cache top on Map-like. Support non-string key.">azu/lru-map-like: LRU cache top on Map-like. Support non-string key.</a></li>
-</ul>
-
-<p>LRUライブラリは色々あるのですが、オブジェクトをキーとして使えるLRUは<a href="https://github.com/isaacs/node-lru-cache" title="node-lru-cache">node-lru-cache</a>ぐらいしかありませんでした。</p>
-
-<ul>
-<li><a href="https://github.com/almin/almin/issues/56" title="Reduce file size · Issue #56 · almin/almin">Reduce file size · Issue #56 · almin/almin</a>
-
-<ul>
-<li>LRUキャッシュの調査メモ</li>
-</ul></li>
-</ul>
-
-<p><a href="https://github.com/isaacs/node-lru-cache" title="node-lru-cache">node-lru-cache</a>は便利なのですが、やはりサイズが大きい(10kb gzip)です。</p>
-
-<p><a href="https://github.com/azu/lru-map-like" title="lru-map-like">lru-map-like</a>は大体2kBです。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">env  bundle   minify   gzip
---   13.8 kB  6.32 kB  2.34 kB
-</code></pre></div>
-<h2 id="おわり">おわり</h2>
-
-<p>オブジェクトリテラルでマップのようなことをやるよりは、
-ES2015の<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map" title="Map">Map</a>を使ったほうが明示的で良いです。
-あと、キーにオブジェクトに使える便利な場面がキャッシュのようなものを実装する際にはよく出現します。
-(Map &lt;-&gt; Objectの相互変換は難しいものでもないので、最近はマップっぽいものがでてきたら<code>Map</code>を使うようにしてます)</p>
-
-<p>以下のライブラリやツールなどでりようしています。</p>
-
-<ul>
-<li><a href="https://github.com/almin/almin">almin/almin: Almin.js provide Flux/CQRS patterns for JavaScript application</a></li>
-<li><a href="https://github.com/textlint/textlint">textlint/textlint: The pluggable natural language linter for text and markdown.</a></li>
-</ul>
  ]]></content>
  </entry>
  

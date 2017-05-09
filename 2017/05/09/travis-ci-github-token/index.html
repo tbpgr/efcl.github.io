@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Travis CIでGitHub Personal access tokensが漏れないようにする | Web Scratch
+        
+    </title>
+    <meta name="description" content="2017-05-09 漏れていた人はメールで通知が来ていると思いますが、Travis CIのログ上にGitHubのTokenが漏れていたケースがあるという話がありました。(漏れていたTokenはGitHub側で既にrevokeされていると思います。またメールに漏れている一覧が載ってるはず)">
+    
+    <meta name="keywords" content="security,github,ssh,token" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="Travis CIでGitHub Personal access tokensが漏れないようにする">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2017/05/09/travis-ci-github-token/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="2017-05-09 漏れていた人はメールで通知が来ていると思いますが、Travis CIのログ上にGitHubのTokenが漏れていたケースがあるという話がありました。(漏れていたTokenはGitHub側で既にrevokeされていると思います。またメールに漏れている一覧が載ってるはず)">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2017-05-09T09:20:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/04/26/search-prototype.js/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/04/24/node-25/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/04/11/textlint-rule-period-in-list-item/">
+
+
+
+
+
+<meta property="article:section" content="github">
+
+
+
+
+
+<meta property="article:tag" content="security">
+
+<meta property="article:tag" content="github">
+
+<meta property="article:tag" content="ssh">
+
+<meta property="article:tag" content="token">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 32
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 176
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 88
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 11
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 8
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2017/05/09/travis-ci-github-token/">
+                Travis CIでGitHub Personal access tokensが漏れないようにする
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/04/26/search-prototype.js/">
+                コード中にあるprototype.jsの拡張メソッドを使ってる部分を検索するツール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/04/24/node-25/">
+                Node学園 25時限目でECMAScriptの国際標準化の話をした
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/04/11/textlint-rule-period-in-list-item/">
+                箇条書きにおける文末の句点（。）を統一するtextlintルール
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2017/05/09/travis-ci-github-token/">
+    <h1 class="post-title">Travis CIでGitHub Personal access tokensが漏れないようにする</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2017年05月09日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-05-09-travis-ci-github-token.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p>2017-05-09 漏れていた人はメールで通知が来ていると思いますが、Travis CIのログ上にGitHubのTokenが漏れていたケースがあるという話がありました。
+(漏れていたTokenはGitHub側で既にrevokeされていると思います。またメールに漏れている一覧が載ってるはず)</p>
+
+<ul>
+<li><a href="https://blog.travis-ci.com/2017-05-08-security-advisory" title="The Travis CI Blog: Security Advisory: Secured Environment Variables">The Travis CI Blog: Security Advisory: Secured Environment Variables</a></li>
+</ul>
+
+<p>これ自体はTravis CIのバグではなくて、デプロイスクリプトなどのツール側のバグによってGitHubのTokenなどsecretな環境変数がログ上に出ている話です。
+Travis CIのログはPublicで誰でも見ることができるので、標準出力にTokenが露出していると問題があるという話。</p>
+
+<p>どういうケースでGitHubのTokenが標準出力に出てしまうかというと、<code>git push</code>のミスが一番多いと思います。</p>
+
+<p>例えば次のようにGitHubのTokenを使って、Travis CIからGitHubへpushしているスクリプトは問題があります。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">git push --force --quiet <span class="s2">&quot;https://${GH_TOKEN}@github.com/example/test.git&quot;</span> gh-pages
+</code></pre></div>
+<p>このスクリプトは、<code>--quiet</code>が付いてるので <code>GH_TOKEN</code> が漏れないように見えますが、
+<code>git push</code>に失敗すると、push先がログにでるため安全ではありません。</p>
+
+<p>そのため、標準出力と標準エラー出力を両方共潰さないと、<code>GH_TOKEN</code>が漏れるケースがあります。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">git push --force --quiet <span class="s2">&quot;https://${GH_TOKEN}@github.com/example/test.git&quot;</span> gh-pages &gt;/dev/null 2&gt;<span class="p">&amp;</span>1
+</code></pre></div>
+<ul>
+<li><a href="https://docs.travis-ci.com/user/best-practices-security/" title="Best Practices in Securing Your Data - Travis CI">Best Practices in Securing Your Data - Travis CI</a></li>
+</ul>
+
+<p>この手法は<a href="https://gist.github.com/domenic/ec8b0fc8ab45f39403dd" title="Auto-deploying built products to gh-pages with Travis">Auto-deploying built products to gh-pages with Travis</a>の古いバージョンで紹介されていたので知ってる人も多いと思います。</p>
+
+<p>このTravis CI上のGitHub Token(GitHubには限らないけど)漏れは結構前から見かけることがあって、いくつか報告した記憶もあります。</p>
+
+<ul>
+<li><a href="https://github.com/jirutka/rake-jekyll/issues/8" title="GH_TOKEN is leaked · Issue #8 · jirutka/rake-jekyll">GH_TOKEN is leaked · Issue #8 · jirutka/rake-jekyll</a></li>
+<li><a href="https://github.com/babel/babel/issues/3727" title="Security concern about merge-development-with-master.sh (T6661) · Issue #3727 · babel/babel">Security concern about merge-development-with-master.sh (T6661) · Issue #3727 · babel/babel</a></li>
+</ul>
+
+<p>この辺の問題があるリポジトリについて、Travis側が過去のログを調査して今回の通知を出したようです。
+また、今日から環境変数とマッチする文字列は、ログ上では<code>[secure]</code>に自動で置換されるようになっています。</p>
+
+<blockquote>
+<p>Both new builds and archived build logs with this issue will see the string [secure] instead of potentially exposed secure environment variables. Logs on both our open-source .org, and closed-source .com platforms have been updated.
+-- <a href="https://blog.travis-ci.com/2017-05-08-security-advisory" title="The Travis CI Blog: Security Advisory: Secured Environment Variables">The Travis CI Blog: Security Advisory: Secured Environment Variables</a></p>
+</blockquote>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/05/09-1494289700.png" alt="image"></p>
+
+<h2 id="travis-ciからgithubへpushする">Travis CIからGitHubへpushする</h2>
+
+<p>Travis CIからGitHub(gh-pages)へpushしたい場合、自分の場合はGitHubのtokenではなくSSHのキーを使うようにしています。</p>
+
+<p>GitHubにはリポジトリごとにreadまたはwriteの<a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a>としてSSHの公開鍵を登録することができます。</p>
+
+<ul>
+<li><a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a></li>
+<li><a href="https://docs.travis-ci.com/user/deployment/custom/" title="Custom Deployment - Travis CI">Custom Deployment - Travis CI</a></li>
+<li><a href="https://circleci.com/docs/1.0/adding-read-write-deployment-key/" title="Adding read/write deployment key - CircleCI">Adding read/write deployment key - CircleCI</a></li>
+</ul>
+
+<p>GitHubのTokenは権限は設定できますがユーザー単位なので、一度漏れるとそのユーザーのすべてのリポジトリに影響があります。
+GitHubの<a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a>はリポジトリごとなので、漏れてもそのリポジトリのみしか読み書きすることができません。</p>
+
+<p><a href="https://github.com/azu/add-deploy-key-to-github" title="add-deploy-key-to-github">add-deploy-key-to-github</a>などを使うと、CLIから<a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a>を作ってリポジトリに登録できるので、それを使ってgit pushすると簡単です。
+(Token方式みたいにgit push先を変更する必要もないけど、ssh経由にする必要があるので <code>git config --global url.ssh://git@github.com/.insteadOf https://github.com/</code> などしておくとデプロイスクリプトの変更がいらない)</p>
+
+<p><a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a>(SSHキー)を使った<code>gh-pages</code>へのpush方法は次の記事などで解説されています。</p>
+
+<ul>
+<li><a href="https://gist.github.com/domenic/ec8b0fc8ab45f39403dd" title="Auto-deploying built products to gh-pages with Travis">Auto-deploying built products to gh-pages with Travis</a></li>
+<li><a href="http://efcl.info/2016/09/27/deploy-from-travis-ci-to-gh-pages/" title="Travis CIからgh-pagesへデプロイする設定 via SSH/git push | Web Scratch">Travis CIからgh-pagesへデプロイする設定 via SSH/git push | Web Scratch</a></li>
+<li><a href="https://www.tam-tam.co.jp/tipsnote/program/post11795.html" title="Travis CI から GitHub へ git push を行う設定 ｜ Tips Note by TAM">Travis CI から GitHub へ git push を行う設定 ｜ Tips Note by TAM</a></li>
+</ul>
+
+<h2 id="フローチャート">フローチャート</h2>
+
+<ol>
+<li>Travis CIからGitHubへpushしたい
+
+<ul>
+<li>=&gt; リポジトリ用のsshキーを作ってdeploy keyに登録して使う</li>
+</ul></li>
+<li>Travis CIでGitHubのtokenが必要(APIを使う処理)
+
+<ul>
+<li>=&gt; Personal access tokensをリポジトリ用に新規作成して使う</li>
+<li>Tokenが漏れると影響範囲が広いので、使い回しはしない</li>
+</ul></li>
+</ol>
+
+<h2 id="その他">その他</h2>
+
+<p>今回の話はまた違いますが、npmへpublishされたパッケージから秘密の情報が混じっていたり、awsのcredentialsがリポジトリに漏れているのは稀によく見るので、そういうのが起こりにくいような仕組みを保つ必要がありそうです。</p>
+
+<ul>
+<li><a href="https://github.com/ChALkeR/notes/blob/master/Do-not-underestimate-credentials-leaks.md" title="notes/Do-not-underestimate-credentials-leaks.md at master · ChALkeR/notes">notes/Do-not-underestimate-credentials-leaks.md at master · ChALkeR/notes</a></li>
+<li><a href="https://github.com/blog/1390-secrets-in-the-code" title="Secrets in the code">Secrets in the code</a></li>
+</ul>
+
+<p>npmへpublishするのに<a href="http://t-wada.hatenablog.jp/entry/nodejs-package-json-tips" title="package.json の files フィールドでホワイトリスト">package.json の files フィールドでホワイトリスト</a>を使うとか、<a href="https://github.com/awslabs/git-secrets" title="awslabs/git-secrets: Prevents you from committing secrets and credentials into git repositories">awslabs/git-secrets</a>などでpush前にチェックするなど</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-05-09-travis-ci-github-token.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["security","github","ssh","token"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=security">security</a></li>
+                
+                <li><a href="/tags/?q=github">github</a></li>
+                
+                <li><a href="/tags/?q=ssh">ssh</a></li>
+                
+                <li><a href="/tags/?q=token">token</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>
