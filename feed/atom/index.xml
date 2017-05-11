@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-05-11T18:20:15+09:00</updated>
+ <updated>2017-05-11T18:25:58+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -29,7 +29,7 @@
 
 <h2 id="変更点">変更点</h2>
 
-<h3 id="storegroupを書き直し"><code>StoreGroup</code>を書き直し</h3>
+<h3 id="storegroupを書き直した"><code>StoreGroup</code>を書き直した</h3>
 
 <p><strong>Before</strong>:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">class</span> <span class="nx">AStore</span> <span class="kr">extends</span> <span class="nx">Store</span> <span class="p">{</span>
@@ -87,11 +87,11 @@
 <p>この変更の主な目的は次の2つです。</p>
 
 <ul>
-<li><code>Store#getState</code>を単純にStateそのものを返すようにする単純化</li>
+<li><code>Store#getState</code>を単純にStateを返すように</li>
 <li>型の整合がとれたStoreGroup</li>
 </ul>
 
-<p>次のように<code>context.getState()</code>(<code>StoreGroup#getState()</code>)した結果が、最初にコンストラクタで渡した<code>Store</code>と<code>State</code>の関係でマッピングされて自動的に型付いたstateのオブジェクトを返すようになっています。</p>
+<p>次のように<code>context.getState()</code>した結果が、最初にコンストラクタで渡した<code>Store</code>と<code>State</code>の関係でマッピングされて自動的に型付けされたstateのオブジェクトを返すようになっています。</p>
 <div class="highlight"><pre><code class="language-ts" data-lang="ts"><span class="c1">// Store &lt;-&gt; Stateの関係を定義</span>
 <span class="kr">interface</span> <span class="nx">AState</span> <span class="p">{</span>
     <span class="nx">a</span>: <span class="kt">number</span>
@@ -119,12 +119,14 @@
 </code></pre></div>
 <p><img src="http://efcl.info/wp-content/uploads/2017/05/11-1494484857.png" alt="storegroup"></p>
 
+<p>ちゃんとTypeScriptでコンパイルエラーになる。</p>
+
 <h3 id="store-receivepayload-payload-payload-の追加"><code>Store#receivePayload(payload: Payload)</code>の追加</h3>
 
-<p>Storeに<code>receivePayload(payload: Payload)</code>というメソッドを実装するとAlminのライフサイクルにおいてそれが呼びされるようになりました。
-(Reactの<code>componentWillReceiveProps(nextProps)</code>と同じですね)</p>
+<p>Storeに<code>receivePayload(payload: Payload)</code>というメソッドを実装するとAlminのライフサイクルにおいて、それが呼びされるようになりました。
+Reactの<code>componentWillReceiveProps(nextProps)</code>と役割が似ています。</p>
 
-<p>これを導入した経緯は以下のIssueにも書いているのですが、<a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">クライアントサイドでCQRSをちゃんとやろう</a>としたのがAlminの開発目的の一つなので、その目的を再確認した結果が生まれました。</p>
+<p>これを導入した経緯は以下のIssueにも書いているのですが、<a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">クライアントサイドでCQRSをちゃんとやろう</a>としたのがAlminの開発目的の一つなので、その目的を再確認した結果として生まれました。</p>
 
 <ul>
 <li><a href="https://github.com/almin/almin/pull/160" title="feat(Store): add Store#receivePayload(payload: Payload) by azu · Pull Request #160 · almin/almin">feat(Store): add Store#receivePayload(payload: Payload) by azu · Pull Request #160 · almin/almin</a></li>
