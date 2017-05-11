@@ -459,9 +459,11 @@ Reactの<code>componentWillReceiveProps(nextProps)</code>と役割が似てい�
 <hr>
 
 <p>この考え方で、Domain(いわゆるロジックを持つモデル/Write model)とStore(ViewModelのようなViewのためのモデル/Read Model)の2種類にわけることで、ビジネスロジックはDomainに集中することができました。
-またViewはどのようなUIを目指すかによって色々な細かいStateがでてきますが、それをStore/Stateで吸収して、Domain modelが変にUIを意識して書くケースをかなり減らせていたと思います。</p>
+またViewはどのようなUIを目指すかによって、色々な細かいStateがでてきます。</p>
 
-<p>先ほどのスライドでいうとDomainはWrite層で、StoreはRead層という分離ができていました。</p>
+<p>しかし、Viewを意識したコードはStore/Stateで吸収できるので、Domain modelが変にUIを意識して書くケースをかなり減らせていたと思います。</p>
+
+<p>先ほどのスライドでいうと、DomainはWrite層で、StoreはRead層という分離ができていました。</p>
 
 <p>しかし、書いていくとStore側はRead層であるにもかかわらず、次のような書き込む処理が出てきています。(<code>this.onDispatch</code>でイベントを受け取って、<code>Store</code>が保持する<code>state</code>を更新する処理)</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Store</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;almin&quot;</span><span class="p">;</span>
