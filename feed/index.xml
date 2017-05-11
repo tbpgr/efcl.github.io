@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-05-11T18:41:59+09:00</updated>
+ <updated>2017-05-12T08:36:18+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -374,6 +374,9 @@ export class CounterStore extends Store {
 <p>簡単にまとめると、まだ曖昧な部分があったStoreをもう少し明確な役割付けしたという話です。</p>
 
 <p><strong>Notes:</strong></p>
+
+<p><code>receivePayload</code>という名前がまだしっくりきてないところがある。
+なんかもっと広い意味になる可能性がありそうなので、何かもっといい方法があるのかもしれない。</p>
 
 <p>Read層にもRead用のRepositoryやRead用のDatabaseなどを用意すれば、もっとクラス的に分解できるけど、流石にそこまでやるととオーバーキルな感じがしたのでやらなかった。
 理由として、Read(View)側のデータを永続的なデータベースに書き込んで保持したいというケースが浮かばなかった(Read側はそこまで複雑な永続データを持ちたくないはず)</p>
