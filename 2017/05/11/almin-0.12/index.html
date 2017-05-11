@@ -452,9 +452,9 @@ Reactの<code>componentWillReceiveProps(nextProps)</code>と役割が似てい�
 
 <p><a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">複雑なJavaScriptアプリケーションを考えながら作る話</a>より</p>
 
-<p><img src="http://efcl.info/wp-content/uploads/2017/05/11-1494485424.png" alt="slide 1"></p>
+<p><a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html"><img src="http://efcl.info/wp-content/uploads/2017/05/11-1494485424.png" alt="slide 1"></a></p>
 
-<p><img src="http://efcl.info/wp-content/uploads/2017/05/11-1494485454.png" alt="slice 2"></p>
+<p><a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html"><img src="http://efcl.info/wp-content/uploads/2017/05/11-1494485454.png" alt="slide 2"></a></p>
 
 <hr>
 
@@ -489,7 +489,7 @@ Reactの<code>componentWillReceiveProps(nextProps)</code>と役割が似てい�
 <span class="p">}</span>
 </code></pre></div>
 <p>このRead層にも書き込み処理があるのが気持ち悪いなーと思いました。
-しかし、Write層で作ったものをRead層に渡す方法(タイミング)がないとViewに反映されないので、Read層のどこかに、StoreのStateを更新する必要があるのは明白です。</p>
+しかし、Write層で作ったものをRead層に渡す方法(タイミング)がないとViewに反映されないので、Read層のどこかでStateを更新する必要があるのは明白です。</p>
 
 <p>これについて考えていて、<a href="https://msdn.microsoft.com/en-us/library/jj554200.aspx" title="CQRS Journey">CQRS Journey</a>というCQRSについて書かれた文書中に次のような図がでてきます。</p>
 
