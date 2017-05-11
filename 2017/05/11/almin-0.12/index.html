@@ -401,7 +401,7 @@ var blog_categories = [
 
 <ul>
 <li><code>Store#getState</code>を単純にStateそのものを返すようにする単純化</li>
-<li>型安全なStoreGroup</li>
+<li>型の整合がとれたStoreGroup</li>
 </ul>
 
 <p>次のように<code>context.getState()</code>(<code>StoreGroup#getState()</code>)した結果が、最初にコンストラクタで渡した<code>Store</code>と<code>State</code>の関係でマッピングされて自動的に型付いたstateのオブジェクトを返すようになっています。</p>
@@ -728,7 +728,8 @@ rm store-state-mapping.json
 
 <h2 id="next">Next</h2>
 
-<p>Almin 0.12 + TypeScriptならStoreは型安全に書けるようなったと思います。</p>
+<p>Almin 0.12 + TypeScriptならStoreは、型の整合がとれるように書けるようなったと思います。
+(明示的なキャストなどむりやりやらなくても型がちゃんとついてくる)</p>
 
 <p>UseCaseの部分が余計な情報を明示的に渡さないと型チェックが上手くできていません。</p>
 <div class="highlight"><pre><code class="language-ts" data-lang="ts"><span class="nx">type</span> <span class="nx">MyUseCaseArgs</span> <span class="o">=</span> <span class="kt">string</span><span class="p">;</span>
@@ -747,7 +748,7 @@ rm store-state-mapping.json
      <span class="c1">// something</span>
   <span class="p">})</span><span class="o">:</span>
 </code></pre></div>
-<p>これを次期Alminでは次のように型安全に書けるようにしたいと思っています。</p>
+<p>これを次期Alminでは次のように書けるようにしたいと思っています。</p>
 <div class="highlight"><pre><code class="language-ts" data-lang="ts"><span class="kr">class</span> <span class="nx">MyUseCase</span> <span class="kr">extends</span> <span class="nx">UseCase</span> <span class="p">{</span>
     <span class="nx">execute</span><span class="p">(</span><span class="nx">value</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">({</span>
@@ -762,6 +763,8 @@ rm store-state-mapping.json
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">);</span>
     <span class="p">});</span>
 </code></pre></div>
+<p>この辺で上手くBatch Action的な処理も解決できればなーと思って考えています。</p>
+
 <p>次のIssueとPRで実験してるので何か意見があったらください。
 (特に<code>executor</code>とかの命名が難しい…)</p>
 
