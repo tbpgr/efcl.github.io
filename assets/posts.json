@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "Almin 0.12リリース: Read層におけるState更新のアプローチ",
+            "url": "http://efcl.info/2017/05/11/almin-0.12/",
+            "date": "2017-05-11T15:22:00+09:00"
+        },
+        
+        {
             "title": "Travis CIでGitHub Personal access tokensが漏れないようにする",
             "url": "http://efcl.info/2017/05/09/travis-ci-github-token/",
             "date": "2017-05-09T09:20:00+09:00"

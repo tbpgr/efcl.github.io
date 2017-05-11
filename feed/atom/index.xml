@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-05-11T17:52:44+09:00</updated>
+ <updated>2017-05-11T18:16:50+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,451 @@
  </author>
  
 
+ 
+ <entry>
+   <title>Almin 0.12リリース: Read層におけるState更新のアプローチ</title>
+   <link href="http://efcl.info/2017/05/11/almin-0.12/"/>
+   <updated>2017-05-11T15:22:00+09:00</updated>
+   <id>http://efcl.info/2017/05/11/almin-0.12</id>
+   <content type="html"><![CDATA[ <p><a href="https://github.com/almin/almin" title="Almin">Almin</a> 0.12をリリースしました。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/releases/tag/almin%400.12.3" title="Release Almin 0.12 · almin/almin">Release Almin 0.12 · almin/almin</a></li>
+</ul>
+
+<p><code>Store</code>と<code>StoreGroup</code>が書き直されたので色々変わっていますが、マイグレーションツールでアップデートできます。</p>
+
+<h2 id="変更点">変更点</h2>
+
+<h3 id="storegroupを書き直し"><code>StoreGroup</code>を書き直し</h3>
+
+<p><strong>Before</strong>:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">class</span> <span class="nx">AStore</span> <span class="kr">extends</span> <span class="nx">Store</span> <span class="p">{</span>
+    <span class="nx">getState</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nx">a</span> <span class="o">:</span> <span class="s2">&quot;a value&quot;</span><span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">class</span> <span class="nx">BStore</span> <span class="kr">extends</span> <span class="nx">Store</span> <span class="p">{</span>
+    <span class="nx">getState</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nx">b</span> <span class="o">:</span> <span class="s2">&quot;b value&quot;</span><span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">const</span> <span class="nx">aStore</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AStore</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">bStore</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BStore</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">storeGroup</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">StoreGroup</span><span class="p">(</span>
+    <span class="nx">aStore</span><span class="p">,</span>
+    <span class="nx">bStore</span>
+<span class="p">]);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">storeGroup</span><span class="p">.</span><span class="nx">getState</span><span class="p">());</span>
+<span class="c1">// { a: &quot;a value&quot;, b: &quot;b value&quot; }</span>
+</code></pre></div>
+<p><strong>After</strong>:</p>
+
+<p>Almin 0.12 では次のように<code>StoreGroup</code>のコンストラクタに</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
+ <span class="s2">&quot;ステート名&quot;</span><span class="o">:</span> <span class="nx">store</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>という組み合わせで定義を渡すようになりました。
+代わりに<code>Store#getState</code>でステート名を返さなくても良くなっています。</p>
+
+<p>Reduxの<a href="http://redux.js.org/docs/api/combineReducers.html" title="combineReducers · Redux">combineReducers</a>と似たような感じです(変更してから似てるのに気づいた)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">class</span> <span class="nx">AStore</span> <span class="kr">extends</span> <span class="nx">Store</span> <span class="p">{</span>
+    <span class="nx">getState</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s2">&quot;a value&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">class</span> <span class="nx">BStore</span> <span class="kr">extends</span> <span class="nx">Store</span> <span class="p">{</span>
+    <span class="nx">getState</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s2">&quot;b value&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">const</span> <span class="nx">aStore</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AStore</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">bStore</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BStore</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">storeGroup</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">StoreGroup</span><span class="p">({</span>
+    <span class="c1">// stateName: store</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="nx">aStore</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="nx">bStore</span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">storeGroup</span><span class="p">.</span><span class="nx">getState</span><span class="p">());</span>
+<span class="c1">// { a: &quot;a value&quot;, b: &quot;b value&quot; }</span>
+</code></pre></div>
+<p>古い<code>StoreGroup</code>の実装を使いたい場合は<a href="https://github.com/almin/legacy-store-group" title="legacy-store-group">legacy-store-group</a>にあるのでモジュールとして利用できます。</p>
+
+<p>この変更の主な目的は次の2つです。</p>
+
+<ul>
+<li><code>Store#getState</code>を単純にStateそのものを返すようにする単純化</li>
+<li>型安全なStoreGroup</li>
+</ul>
+
+<p>次のように<code>context.getState()</code>(<code>StoreGroup#getState()</code>)した結果が、最初にコンストラクタで渡した<code>Store</code>と<code>State</code>の関係でマッピングされて自動的に型付いたstateのオブジェクトを返すようになっています。</p>
+<div class="highlight"><pre><code class="language-ts" data-lang="ts"><span class="c1">// Store &lt;-&gt; Stateの関係を定義</span>
+<span class="kr">interface</span> <span class="nx">AState</span> <span class="p">{</span>
+    <span class="nx">a</span>: <span class="kt">number</span>
+<span class="p">}</span>
+<span class="kr">class</span> <span class="nx">AStore</span> <span class="kr">extends</span> <span class="nx">Store</span><span class="o">&lt;</span><span class="nx">AState</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="nx">state</span>: <span class="kt">AState</span><span class="p">;</span>
+    <span class="c1">// ..</span>
+    <span class="nx">getState() {</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// ...</span>
+<span class="c1">// StoreGroup</span>
+<span class="kr">const</span> <span class="nx">storeGroup</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">StoreGroup</span><span class="p">({</span>
+    <span class="nx">aState</span>: <span class="kt">new</span> <span class="nx">AStore</span><span class="p">()</span>
+<span class="p">});</span>
+<span class="c1">// Context</span>
+<span class="kr">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Context</span><span class="p">({</span>
+    <span class="nx">dispatcher</span><span class="p">,</span>
+    <span class="nx">store</span>: <span class="kt">storeGroup</span>
+<span class="p">});</span>
+<span class="c1">// get state</span>
+<span class="kr">const</span> <span class="nx">state</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">getState</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">unknown</span><span class="p">);</span> <span class="c1">// &lt;= 知らないstateを参照してる</span>
+</code></pre></div>
+<p><img src="http://efcl.info/wp-content/uploads/2017/05/11-1494484857.png" alt="storegroup"></p>
+
+<h3 id="store-receivepayload-payload-payload-の追加"><code>Store#receivePayload(payload: Payload)</code>の追加</h3>
+
+<p>Storeに<code>receivePayload(payload: Payload)</code>というメソッドを実装するとAlminのライフサイクルにおいてそれが呼びされるようになりました。
+(Reactの<code>componentWillReceiveProps(nextProps)</code>と同じですね)</p>
+
+<p>これを導入した経緯は以下のIssueにも書いているのですが、<a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">クライアントサイドでCQRSをちゃんとやろう</a>としたのがAlminの開発目的の一つなので、その目的を再確認した結果が生まれました。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/pull/160" title="feat(Store): add Store#receivePayload(payload: Payload) by azu · Pull Request #160 · almin/almin">feat(Store): add Store#receivePayload(payload: Payload) by azu · Pull Request #160 · almin/almin</a></li>
+</ul>
+
+<p>Alminの最初の目的として、writeとreadの掛け算の複雑さを一つのモデルに持たせるのはやめようというところから始まっています。
+1つのモデルですべてをやるのではなく、writeとreadの2つのモデルに分けることでこの複雑さの掛け算をなくす目的です。</p>
+
+<hr>
+
+<p><a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">複雑なJavaScriptアプリケーションを考えながら作る話</a>より</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/05/11-1494485424.png" alt="slide 1"></p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/05/11-1494485454.png" alt="slice 2"></p>
+
+<hr>
+
+<p>この考え方で、Domain(いわゆるロジックを持つモデル/Write model)とStore(ViewModelのようなViewのためのモデル/Read Model)の2種類にわけることで、ビジネスロジックはDomainに集中することができました。
+またViewはどのようなUIを目指すかによって色々な細かいStateがでてきますが、それをStore/Stateで吸収して、Domain modelが変にUIを意識して書くケースをかなり減らせていたと思います。</p>
+
+<p>先ほどのスライドでいうとDomainはWrite層で、StoreはRead層という分離ができていました。</p>
+
+<p>しかし、書いていくとStore側はRead層であるにもかかわらず、次のような書き込む処理が出てきています。(<code>this.onDispatch</code>でイベントを受け取って、<code>Store</code>が保持する<code>state</code>を更新する処理)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Store</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;almin&quot;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">CounterState</span> <span class="nx">from</span> <span class="s2">&quot;./CounterState&quot;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">CounterStore</span> <span class="kr">extends</span> <span class="nx">Store</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">();</span>
+        <span class="c1">// initial state</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CounterState</span><span class="p">({</span>
+            <span class="nx">count</span><span class="o">:</span> <span class="mi">0</span>
+        <span class="p">});</span>
+        <span class="c1">// receive event from UseCase, then update state</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">onDispatch</span><span class="p">(</span><span class="nx">payload</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="kr">const</span> <span class="nx">newState</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">payload</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">newState</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="c1">// return own state</span>
+    <span class="nx">getState</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>このRead層にも書き込み処理があるのが気持ち悪いなーと思いました。
+しかし、Write層で作ったものをRead層に渡す方法(タイミング)がないとViewに反映されないので、Read層のどこかに、StoreのStateを更新する必要があるのは明白です。</p>
+
+<p>これについて考えていて、<a href="https://msdn.microsoft.com/en-us/library/jj554200.aspx" title="CQRS Journey">CQRS Journey</a>というCQRSについて書かれた文書中に次のような図がでてきます。</p>
+
+<p><img src="https://msdn.microsoft.com/en-us/library/jj591579.2c44f48caf131a5a65fcb0799a3ad4e7(l=en-us).png" alt="image"></p>
+
+<p>この図では<code>OrderViewModelGenerator</code>というRead層にあるものが、Read層のRepositoryにデータを書き込んでいる様子が見えます。
+(Write modelからドメインイベントを受け取り、それを<code>OrderViewModelGenerator</code>がRead modelに変換して保存するという流れ)</p>
+
+<ul>
+<li><a href="https://msdn.microsoft.com/en-us/library/jj591579" title="Journey 4: Extending and Enhancing the Orders and Registrations Bounded Context">Journey 4: Extending and Enhancing the Orders and Registrations Bounded Context</a></li>
+</ul>
+
+<p>Almin 0.11まではこの<code>OrderViewModelGenerator</code>にあたるような、Read層のデータを更新する要素が明示的には存在していませんでした。
+そのため、次のようにRead層でWrite層からくるイベントを受け取って更新するという処理を各Storeに書いたりしていました。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js">        <span class="c1">// receive event from UseCase, then update state</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">onDispatch</span><span class="p">(</span><span class="nx">payload</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="kr">const</span> <span class="nx">newState</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">payload</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">newState</span><span class="p">);</span>
+        <span class="p">});</span>
+</code></pre></div>
+<p>この「Write層からくるイベントを受け取り、Read層を更新する」を明示的なStoreのライフサイクルとして取り入れようとしてできたのが、<code>Store#receivePayload(payload: Payload)</code>です。</p>
+
+<p><code>Store#receivePayload(payload: Payload)</code>はWrite層からイベント発火やAlminのライフサイクルで呼び出されるため、先ほどのコードは次のように書くことができます。</p>
+<div class="highlight"><pre><code class="language-diff" data-lang="diff"> import { Store } from &quot;almin&quot;;
+ import CounterState from &quot;./CounterState&quot;;
+ export class CounterStore extends Store {
+     constructor() {
+         super();
+         // initial state
+         this.state = new CounterState({
+             count: 0
+         });
+<span class="gd">-        // receive event from UseCase, then update state</span>
+<span class="gd">-        this.onDispatch(payload =&gt; {</span>
+<span class="gd">-            const newState = this.state.reduce(payload);</span>
+<span class="gd">-            if (newState !== this.state) {</span>
+<span class="gd">-                this.state = newState;</span>
+<span class="gd">-                this.emitChange();</span>
+<span class="gd">-            }</span>
+<span class="gd">-        });</span>
+     }
+
+<span class="gi">+    // receive event from UseCase, then update state</span>
+<span class="gi">+    receivePayload(payload) {</span>
+<span class="gi">+        this.setState(this.state.reduce(payload));</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    // return own state</span>
+     getState() {
+        return this.state;
+     }
+ }
+</code></pre></div>
+<p>単純に言えば、Storeのstateを更新する処理は<code>receivePayload</code>に書けばいいという形です。
+(Reactで<code>componentWillReceiveProps(nextProps)</code>の中で<code>setState</code>が許可されているのと同じです)</p>
+<div class="highlight"><pre><code class="language-diff" data-lang="diff">import { Store } from &quot;almin&quot;;
+import CounterState from &quot;./CounterState&quot;;
+export class CounterStore extends Store {
+    constructor() {
+        super();
+        // initial state
+        this.state = new CounterState({
+            count: 0
+        });
+    }
+
+    // receive event from UseCase, then update state
+    receivePayload(payload) {
+        this.setState(this.state.reduce(payload));
+    }
+
+    // return own state
+    getState() {
+        return this.state;
+    }
+}
+</code></pre></div>
+<p>Almin 0.12でも今までのように自分でイベントを監視して更新する方法も動きます。
+しかし、<code>Store#receivePayload(payload: Payload)</code>を使ったほうが将来的な最適化の余地が生まれるのでこちらを推奨しています。
+(簡単にいうと、自分で監視したイベントと違い<code>Store#receivePayload(payload: Payload)</code>はAlminのライフサイクル管理下にあるので、うまいこと処理をできる可能性があるということ)</p>
+
+<p>次のTodoMVCのサンプルでもその説明をしています。</p>
+
+<ul>
+<li><a href="https://almin.js.org/docs/tutorial/todomvc/" title="Todo App · Almin.js">Todo App · Almin.js</a></li>
+</ul>
+
+<h3 id="read側のstate更新アプローチ">Read側のState更新アプローチ</h3>
+
+<p>(次の前提の)Read側のState更新処理のアプローチ多く分けて2つあると思います。</p>
+
+<p>前提として、Read側のStateというのはWrite側のドメインモデルやデータベースをソースにして、View向けのデータしたものという扱いです(つまりWrite -&gt; Readという順序と関係がある)</p>
+
+<p>そのため、Read側のStateは元となるソースから計算した値を持つComputed propertyのような形になってます。</p>
+
+<p>Mobxの<a href="https://github.com/mobxjs/mobx-state-tree" title="mobx-state-tree">mobx-state-tree</a>というライブラリについて紹介してる<a href="https://immer-mutable-state.surge.sh/#1" title="The Quest For Immer Mutable State Management">The Quest For Immer Mutable State Management</a>というスライドは、その2つの方法についてわかりやすく書かれています。</p>
+
+<p><strong>Pull Based: Recompute every time value is needede</strong></p>
+
+<p>簡単に言えばgetterです。
+そのプロパティの値を取得するときに、計算して返すという形です。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">class</span> <span class="nx">Person</span> <span class="p">{</span>
+    <span class="nx">firstName</span> <span class="o">=</span> <span class="s2">&quot;Michel&quot;</span>
+    <span class="nx">lastName</span> <span class="o">=</span> <span class="s2">&quot;Weststrate&quot;</span>
+    <span class="nx">get</span> <span class="nx">fullName</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;calculating!&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">firstName</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Push Based: Recompute when a source value changes</strong></p>
+
+<p>もう一つは、ソースとなる値が変化した時に事前に計算結果を作って置くという方法です。
+簡単に言えばキャッシュを事前に作っておくイメージです。</p>
+
+<p>この場合は<code>lastName</code>か<code>firstName</code>の値が変化した時に<code>fullName</code>というプロパティを計算して更新するということです。
+<code>person.fullName</code>へアクセスした時はその結果を返すだけです。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">class</span> <span class="nx">Person</span> <span class="p">{</span>
+    <span class="err">@</span><span class="nx">observable</span> <span class="nx">firstName</span> <span class="o">=</span> <span class="s2">&quot;Michel&quot;</span>
+    <span class="err">@</span><span class="nx">observable</span> <span class="nx">lastName</span> <span class="o">=</span> <span class="s2">&quot;Weststrate&quot;</span>
+    <span class="err">@</span><span class="nx">computed</span> <span class="nx">get</span> <span class="nx">fullName</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;calculating!&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">firstName</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>このPullとPushの方法 どちらがいいのかはケースバイケースで、プロパティの値を読む回数が多いなら、事前に計算結果が作れる<strong>Push Based: Recompute when a source value changes</strong>の方がコストが低くなるかもしれません。
+逆に、書き込む回数の方が圧倒的に多いなら、<strong>Pull Based: Recompute every time value is needede</strong>で実際に読むこむときに遅延評価的に結果を作って返したほうがコストが低いです。
+(両方合わせるとかも考えられます)</p>
+
+<p>話を戻して、先ほどのAlminのコードはソースの変更があったことを元に書き込んでいるのでPush Basedなやり方と言えます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Store</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;almin&quot;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">CounterState</span> <span class="nx">from</span> <span class="s2">&quot;./CounterState&quot;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">CounterStore</span> <span class="kr">extends</span> <span class="nx">Store</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">();</span>
+        <span class="c1">// initial state</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CounterState</span><span class="p">({</span>
+            <span class="nx">count</span><span class="o">:</span> <span class="mi">0</span>
+        <span class="p">});</span>
+        <span class="c1">// receive event from UseCase, then update state</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">onDispatch</span><span class="p">(</span><span class="nx">payload</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="kr">const</span> <span class="nx">newState</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">payload</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">newState</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="c1">// return own state</span>
+    <span class="nx">getState</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>しかし、先ほども書いたように自分でイベントを監視(<code>this.onDispatch</code>)だと、そのStoreがPush Basedで更新する処理があるかが外から(この場合はStoreGroupから)はわかりません。
+イベントを監視 !== 更新処理がある ではないからです。</p>
+
+<p><code>receivePayload</code>を実装している == 更新処理がある という形になります。(必ずも更新されるわけではないですが、更新を期待していい形になる)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js">    <span class="c1">// receive event from UseCase, then update state</span>
+    <span class="nx">receivePayload</span><span class="p">(</span><span class="nx">payload</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">payload</span><span class="p">));</span>
+    <span class="p">}</span>
+</code></pre></div>
+<p>このようなインターフェースが決まると何が嬉しいかというと、次のようなReduxのreducerみたいなインターフェースでStoreを書けるようにしようといったことがやりやすくなります。</p>
+<div class="highlight"><pre><code class="language-ts" data-lang="ts"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Store</span><span class="p">,</span> <span class="nx">Payload</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;almin&quot;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">State</span> <span class="p">{</span>
+    <span class="nx">reduce</span><span class="o">&lt;</span><span class="nx">T</span> <span class="kr">extends</span> <span class="nx">State</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">payload</span>: <span class="kt">Payload</span><span class="p">)</span><span class="o">:</span> <span class="nx">T</span> <span class="o">|</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="kr">abstract</span> <span class="kr">class</span> <span class="nx">Reactor</span><span class="o">&lt;</span><span class="nx">T</span> <span class="kr">extends</span> <span class="nx">State</span><span class="o">&gt;</span> <span class="kr">extends</span> <span class="nx">Store</span> <span class="p">{</span>
+    <span class="kr">abstract</span> <span class="nx">state</span>: <span class="kt">T</span><span class="p">;</span>
+    <span class="kr">abstract</span> <span class="nx">reduce</span><span class="p">(</span><span class="nx">prevState</span>: <span class="kt">T</span><span class="p">,</span> <span class="nx">payload</span>: <span class="kt">Payload</span><span class="p">)</span><span class="o">:</span> <span class="nx">T</span><span class="p">;</span>
+
+    <span class="nx">receivePayload</span><span class="p">(</span><span class="nx">payload</span>: <span class="kt">Payload</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="nx">newState</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span> <span class="nx">reduce</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">payload</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">shouldStateUpdate</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">newState</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">newState</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">getState() {</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// The user implement this</span>
+<span class="kr">class</span> <span class="nx">MyStore</span> <span class="kr">extends</span> <span class="nx">Reactor</span> <span class="p">{</span>
+    <span class="nx">reduce</span><span class="p">(</span><span class="nx">prevState</span>: <span class="kt">T</span><span class="p">,</span> <span class="nx">payload</span>: <span class="kt">Payload</span><span class="p">)</span><span class="o">:</span> <span class="nx">T</span> <span class="p">{</span>
+        <span class="k">switch</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">type</span><span class="p">){</span>
+            <span class="k">case</span> <span class="s2">&quot;INCREMENT&quot;</span><span class="o">:</span>
+                <span class="k">return</span> <span class="nx">prevState</span> <span class="o">+</span> <span class="nx">1</span>:
+            <span class="kt">default</span><span class="o">:</span>
+                <span class="k">return</span> <span class="nx">prevState</span><span class="p">;</span>
+        <span class="p">}</span>   
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>簡単にまとめると、まだ曖昧な部分があったStoreをもう少し明確な役割付けしたという話です。</p>
+
+<p><strong>Notes:</strong></p>
+
+<p>Read層にもRead用のRepositoryやRead用のDatabaseなどを用意すれば、もっとクラス的に分解できるけど、流石にそこまでやるととオーバーキルな感じがしたのでやらなかった。
+理由として、Read(View)側のデータを永続的なデータベースに書き込んで保持したいというケースが浮かばなかった(Read側はそこまで複雑な永続データを持ちたくないはず)</p>
+
+<p>UI的に保持したい状態ってIndexedDBじゃなくて、localStorageに保存するぐらいで終わる気がした。</p>
+
+<blockquote>
+<p>FluxのStoreの話</p>
+</blockquote>
+
+<p><a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html"><img src="http://efcl.info/wp-content/uploads/2017/05/11-1494492570.png" alt="Flux Store"></a></p>
+
+<h2 id="マイグレーション方法">マイグレーション方法</h2>
+
+<p>Almin 0.11から0.12へのアップグレードは次のマイグレーションツールが利用できます。</p>
+
+<ul>
+<li><a href="https://github.com/almin/migration-tools" title="almin/migration-tools: Migration scripts for Almin.">almin/migration-tools: Migration scripts for Almin.</a></li>
+</ul>
+
+<p>jscodeshiftというツールで動くマイグレーションスクリプトを用意しています。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># Installation
+npm install -g jscodeshift @almin/migration-tools 
+# 1. Storeクラスを一括で変換
+jscodeshift --run-in-band -t `npm root -g`/@almin/migration-tools/scripts/store-get-state-return-object-to-flat.js src/store/*/**/*Store.js
+# 2. 1.の変換結果を使ってStoreGroupを変換
+jscodeshift --run-in-band -t `npm root -g`/@almin/migration-tools/scripts/store-group-arguments.js src/store/AppStore.js
+# store-state-mapping.jsonは変換中に使うデータなので消していい
+rm store-state-mapping.json
+</code></pre></div>
+<p>実際にアップデートしてる例は次のPRを見てください。</p>
+
+<ul>
+<li><a href="https://github.com/azu/presentation-annotator/pull/11" title="chore(deps): update dependencies by azu · Pull Request #11 · azu/presentation-annotator">chore(deps): update dependencies by azu · Pull Request #11 · azu/presentation-annotator</a></li>
+<li><a href="https://github.com/textlint/textlint-app/pull/5" title="chore(almin): Update to Almin 0.12 by azu · Pull Request #5 · textlint/textlint-app">chore(almin): Update to Almin 0.12 by azu · Pull Request #5 · textlint/textlint-app</a></li>
+</ul>
+
+<p>その他の変更点についてはリリースノートをみてください。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/releases/tag/almin%400.12.3" title="Release Almin 0.12 · almin/almin">Release Almin 0.12 · almin/almin</a></li>
+</ul>
+
+<h2 id="next">Next</h2>
+
+<p>Almin 0.12 + TypeScriptならStoreは型安全に書けるようなったと思います。</p>
+
+<p>UseCaseの部分が余計な情報を明示的に渡さないと型チェックが上手くできていません。</p>
+<div class="highlight"><pre><code class="language-ts" data-lang="ts"><span class="nx">type</span> <span class="nx">MyUseCaseArgs</span> <span class="o">=</span> <span class="kt">string</span><span class="p">;</span>
+<span class="kr">class</span> <span class="nx">MyUseCase</span> <span class="kr">extends</span> <span class="nx">UseCase</span> <span class="p">{</span>
+    <span class="nx">execute</span><span class="p">(</span><span class="nx">value</span>: <span class="kt">MyUseCaseArgs</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">({</span>
+            <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+            <span class="nx">value</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// execute UseCase</span>
+<span class="kr">const</span> <span class="nx">useCase</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyUseCase</span><span class="p">();</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">useCase</span><span class="p">(</span><span class="nx">useCase</span><span class="p">).</span><span class="nx">execute</span><span class="o">&lt;</span><span class="nx">MyUseCaseArgs</span><span class="o">&gt;</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+     <span class="c1">// something</span>
+  <span class="p">})</span><span class="o">:</span>
+</code></pre></div>
+<p>これを次期Alminでは次のように型安全に書けるようにしたいと思っています。</p>
+<div class="highlight"><pre><code class="language-ts" data-lang="ts"><span class="kr">class</span> <span class="nx">MyUseCase</span> <span class="kr">extends</span> <span class="nx">UseCase</span> <span class="p">{</span>
+    <span class="nx">execute</span><span class="p">(</span><span class="nx">value</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">({</span>
+            <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+            <span class="nx">value</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">useCase</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyUseCase</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">executor</span><span class="p">(</span><span class="nx">useCase</span> <span class="o">=&gt;</span> <span class="nx">useCase</span><span class="p">.</span><span class="nx">execute</span><span class="p">(</span><span class="mi">42</span><span class="p">))</span> <span class="c1">// &lt;= Error</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+</code></pre></div>
+<p>次のIssueとPRで実験してるので何か意見があったらください。
+(特に<code>executor</code>とかの命名が難しい…)</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/issues/193" title="UseCase: Fluent style UseCase · Issue #193 · almin/almin">UseCase: Fluent style UseCase · Issue #193 · almin/almin</a></li>
+<li><a href="https://github.com/almin/almin/pull/194" title="[WIP] feat(UseCase): Fluent style UseCase by azu · Pull Request #194 · almin/almin">[WIP] feat(UseCase): Fluent style UseCase by azu · Pull Request #194 · almin/almin</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>Travis CIでGitHub Personal access tokensが漏れないようにする</title>
@@ -1414,73 +1859,6 @@ TodoMVCの例では、CQRSやドメインモデルなどの要素も登場し、
 <ul>
 <li><a href="https://github.com/azu/get-github-pr-review-comments/issues/1" title="How to know that comment is resolved? · Issue #1 · azu/get-github-pr-review-comments">How to know that comment is resolved? · Issue #1 · azu/get-github-pr-review-comments</a></li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>ECMA-414 ECMAScript Specification Suiteについて</title>
-   <link href="http://efcl.info/2017/02/27/ecma-414/"/>
-   <updated>2017-02-27T18:15:00+09:00</updated>
-   <id>http://efcl.info/2017/02/27/ecma-414</id>
-   <content type="html"><![CDATA[ <p><a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>というECMAScript関係の仕様をまとめたEcma仕様が公開されている。</p>
-
-<p>背景については以下を参照。</p>
-
-<blockquote>
-<p>For ECMA-262 (the main ECMAWScript standard), we now have an agreement with ISO that we will not fast track it anymore; instead, the ECMAScript Suite ECMA-414 will supercede it (with normative references also to the needed Ecma standards), and the other redundant standard ISO IS 16262 (which is out of date) will be withdrawn. The only standards in common will be ECMA-414 (on the way to fast track), which happened after the Dec 7 ECMA GA. 
--- <a href="https://github.com/littledan/tc39-notes/blob/master/es7/2017-01/jan-25.md#5-report-from-the-ecma-secretariat">https://github.com/littledan/tc39-notes/blob/master/es7/2017-01/jan-25.md#5-report-from-the-ecma-secretariat</a></p>
-</blockquote>
-
-<p>今は、ECMA-262(ECMAScript)の国際標準として<a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=55755" title="ISO/IEC 16262">ISO/IEC 16262</a>があるけど、今後は<a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=55755" title="ISO/IEC 16262">ISO/IEC 16262</a>は更新しない。
-代わりに<a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>を国際標準にしていくよ。</p>
-
-<p>という話。</p>
-
-<p>デファクトとデジュールの違いは以下を参照。</p>
-
-<ul>
-<li><a href="http://www.atmarkit.co.jp/ait/articles/1210/23/news153.html" title="OSSコミュニティの“中の人”（4）：できないことは全部やる。できる依頼は断る――竹迫良範氏インタビュー【後編】 (1/2) - ＠IT">OSSコミュニティの“中の人”（4）：できないことは全部やる。できる依頼は断る――竹迫良範氏インタビュー【後編】 (1/2) - ＠IT</a></li>
-</ul>
-
-<p>ISO標準(国際標準)ってどんなフローで決まるのって話は以下を参照。</p>
-
-<ul>
-<li><a href="http://azu.github.io/slide/2016/jser5years/sc22-ecmascript-ahodc.html" title="SC22 ECMAScript Ad hoc委員会">SC22 ECMAScript Ad hoc委員会</a></li>
-</ul>
-
-<h2 id="ecma-414って何">ECMA-414って何?</h2>
-
-<p><a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>とは、ECMAScript関係の仕様を集めた仕様です。</p>
-
-<p>このSuiteは、以下の仕様のlatest editionを参照する仕様です。</p>
-
-<ul>
-<li>ECMA-262 - いわゆるECMAScript</li>
-<li>ECMA-402 - Internationalization API Specificationの仕様</li>
-<li>ECMA-404 - JSONの仕様</li>
-<li>TR-104 <a href="https://www.ecma-international.org/publications/techreports/E-TR-104.htm" title="ECMAScript® Test Suite">ECMAScript® Test Suite</a> テストスイート</li>
-</ul>
-
-<p><a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>は、ECMA-262とECMA-404が必須で、ECMA-402とTR-104はオプショナルです。</p>
-
-<p>この<a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>は
-参照する仕様自体が増えたり、減ったりした場合はSuiteも更新します。
-しかし、参照する仕様の中身が変化した場合は、Suiteは変化しません。</p>
-
-<p>ISOとしてECMA-262の標準化するのは毎年更新するのは大変なので、
-ECMA-414(Suite)をISO標準化して、中身の管理はECMA側でやれるようにするための仕様。</p>
-
-<p><strong>要約</strong></p>
-
-<p>ECMAScriptのデジュール(ISO標準)はあるといいのだけど、毎年更新するデファクト(Ecma)をデジュールにするのはコストや時間が難しい。
-なので、デファクトを参照するデジュールの標準仕様があるといいんじゃない?</p>
-
-<p><a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>は、最新のECMAScript仕様を参照するよという仕様(10ページしかない仕様)。
-ECMAScriptの仕様が更新されたら、自動的に最新のECMA-262仕様を参照するという仕様です。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2017/02/27-1488187017.png" alt="ECMA-414"></p>
-
-<p><a href="https://www.ecma-international.org/publications/standards/Ecma-414.htm" title="Standard ECMA-414">ECMA-414 ECMAScript Specification Suite</a>はこの図が全てというほど小さな仕様。</p>
  ]]></content>
  </entry>
  
