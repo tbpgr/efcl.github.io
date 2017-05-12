@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-05-12T21:00:07+09:00</updated>
+ <updated>2017-05-12T21:03:07+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -21,7 +21,7 @@
    <id>http://efcl.info/2017/05/12/textlint-app</id>
    <content type="html"><![CDATA[ <h1 id="textlint-app">textlint-app</h1>
 
-<p><a href="https://github.com/textlint/textlint-app" title="textlint-app">textlint-app</a>というtextlintのElectronアプリ版を作成しました。</p>
+<p><a href="https://github.com/textlint/textlint-app" title="textlint-app">textlint-app</a>という、インストールするだけで動くtextlintのElectronアプリを作成しました。</p>
 
 <p><a href="https://github.com/textlint/textlint-app"><img src="https://media.giphy.com/media/3o7buj7KnuEurvGVm8/giphy.gif" alt="gif"></a></p>
 
