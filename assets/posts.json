@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "Living Documentation by design, with Domain-Driven Designを読んだ",
+            "url": "http://efcl.info/2017/05/12/read-books/",
+            "date": "2017-05-12T09:55:00+09:00"
+        },
+        
+        {
             "title": "Almin 0.12リリース: Read層におけるState更新のアプローチ",
             "url": "http://efcl.info/2017/05/11/almin-0.12/",
             "date": "2017-05-11T15:22:00+09:00"

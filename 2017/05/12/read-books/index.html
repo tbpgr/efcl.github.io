@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Living Documentation by design, with Domain-Driven Designを読んだ | Web Scratch
+        
+    </title>
+    <meta name="description" content="Living Documentation by design, with Domain-Driven Design by Cyrille Martraire [PDF/iPad/Kindle]という電子書籍を読んだ。">
+    
+    <meta name="keywords" content="book,DDD" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="Living Documentation by design, with Domain-Driven Designを読んだ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2017/05/12/read-books/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="Living Documentation by design, with Domain-Driven Design by Cyrille Martraire [PDF/iPad/Kindle]という電子書籍を読んだ。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2017-05-12T09:55:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/05/11/almin-0.12/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/05/09/travis-ci-github-token/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/04/26/search-prototype.js/">
+
+
+
+
+
+<meta property="article:section" content="雑記">
+
+
+
+
+
+<meta property="article:tag" content="book">
+
+<meta property="article:tag" content="DDD">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 33
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 177
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 88
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 11
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 8
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2017/05/12/read-books/">
+                Living Documentation by design, with Domain-Driven Designを読んだ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/05/11/almin-0.12/">
+                Almin 0.12リリース: Read層におけるState更新のアプローチ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/05/09/travis-ci-github-token/">
+                Travis CIでGitHub Personal access tokensが漏れないようにする
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/04/26/search-prototype.js/">
+                コード中にあるprototype.jsの拡張メソッドを使ってる部分を検索するツール
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2017/05/12/read-books/">
+    <h1 class="post-title">Living Documentation by design, with Domain-Driven Designを読んだ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2017年05月12日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-05-12-read-books.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="https://leanpub.com/livingdocumentation" title="Living Documentation by… by Cyrille Martraire [PDF/iPad/Kindle]">Living Documentation by design, with Domain-Driven Design by Cyrille Martraire [PDF/iPad/Kindle]</a>という電子書籍を読んだ。</p>
+
+<p>leanpubで$0から購入できて、任意の値段で購入できるドキュメンテーションとDDDについての書籍。</p>
+
+<p>ドキュメンテーションもソフトウェア開発のように設計やテストといったパターンやアプローチがあります。
+これは以前書いた技術文書をソフトウェア開発する話と似ているところがあります。</p>
+
+<ul>
+<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/" title="Introduction | 技術文書をソフトウェア開発する話">Introduction | 技術文書をソフトウェア開発する話</a></li>
+</ul>
+
+<p>ドキュメントに書かれる知識としてGenericなものとSpecificなものがあります。
+ドキュメントもソフトウェアと同じように更新され続けるべきですが、
+会社やチーム、プロダクトにおけるSpecificな知識には次のような問題が生まれやすいです。</p>
+
+<ul>
+<li>アクセスできない</li>
+<li>古すぎる</li>
+<li>フラグメント化してる</li>
+<li>暗黙的になってる</li>
+<li>理解できない</li>
+<li>書かれてない</li>
+</ul>
+
+<p>要はドキュメントはコストがかかるので、更新されなくなって管理されなくなる。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">知識は会話から生まれ、知識がstableとなるには時間がかかる。<br>これは、その知識を記述したドキュメントにはメンテナンスコストが掛かることを示唆してる。<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/840907540586102785">March 12, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>一番良いドキュメントはNo Documentationであることではあるが、これらのドキュメントをどうやって更新され続けるようにするかという戦略、パターン、仕組みなどについて書かれている書籍です。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> 良いドキュメンテーションのアプローチは設計が関わる。<br>急速に変化するプロジェクトに対するドキュメンテーションには設計的なアプローチが必要になる <a href="https://t.co/EPBf6yldDs">pic.twitter.com/EPBf6yldDs</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/840915700575215616">March 12, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="livingdocumentationのコア原則">LivingDocumentationのコア原則</h2>
+
+<ul>
+<li>Reliable
+
+<ul>
+<li>信頼性の高いドキュメントを作る2つの方法</li>
+<li>single source of truth
+
+<ul>
+<li>ソースは一つにする</li>
+</ul></li>
+<li>reconciliation mechanism
+
+<ul>
+<li>ソースが複数の場所にあることを認め、それをテストする</li>
+<li>Specifiction by Example</li>
+</ul></li>
+</ul></li>
+<li>Low-Effort</li>
+<li>Collaborative
+
+<ul>
+<li>Conversations over Documentations</li>
+<li>ペアプロは強い</li>
+<li>アクセスできる場所に知識は置く</li>
+</ul></li>
+<li>Insightful
+
+<ul>
+<li>意図を残す</li>
+</ul></li>
+</ul>
+
+<h2 id="メモ">メモ</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">憶測をドキュメント化しない<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> では逐次的にドキュメントを作っていく。<br>そのため実際のニーズに基づくドキュメンテーションを行う。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/840944746684067841">March 12, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">多すぎる情報は、情報が全くないのと同じぐらい役に立たない。<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/840946011761647616">March 12, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">実装のドキュメントはよく変わるため別のアプローチを用意すべき。<br>戦略のドキュメントは複数のプロジェクト間で共有できるStableなドキュメントすべき。<br>そのためにプロジェクト特有の細部、変更されやすい所は戦略のドキュメントからは省略する。<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/842031191368769537">March 15, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>この辺は読んでいて、<a href="https://www.amazon.co.jp/dp/B01MQG41Y0/" title="関数型プログラミングの基礎">関数型プログラミングの基礎</a>も最近読んだのもあって、ドキュメントとプログラミングの次のような対比が浮かんだ。</p>
+
+<p>戦略というドキュメンテーションは、複数のプロジェクトで共有して参照できるStableなものであるべきで、逆にプロジェクト特有のものは変更の可能性が高いので、戦略からの参照はしない。</p>
+
+<ul>
+<li>OK: Unstable -&gt; Stable</li>
+<li>NG: Stable -&gt; Unstable</li>
+</ul>
+
+<p>プログラミングにおいて、副作用を持つ部分と副作用を持たない部分をきちんと分離する。
+副作用のあるものから純粋なものを参照するが、逆はしない(純粋なものが副作用を持って本末転倒)</p>
+
+<ul>
+<li>OK: 副作用を持つ関数 -&gt; 純粋な関数</li>
+<li>NG: 純粋な関数 -&gt; 副作用を持つ関数</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">URLはKnowledge Networkの一部である。<br>URLでリンクすることは知識を伝達するの有用。<br>壊れたリンクを回避するためのメカニズムも必要。<br>参照をするときは、揮発性の高いもの -&gt; 安定したものとなるようにリンクをする。<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/842035348204994560">March 15, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>これ読んでいて一番面白かった話。
+よくよく考えると当たり前だけど、文章からソースコードへリンクを貼るとすぐ壊れてしまうので、ソースコードから文章へリンクを貼ったほうが安定するという話。</p>
+
+<p>ソースコードへリンクする際に間接的な方法があるという話も何か面白かった。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> ファイルへ直接リンクするんじゃなくて、検索キーワードへ間接的にリンクするという話。 <a href="https://t.co/Vo4P3Q0xBi">pic.twitter.com/Vo4P3Q0xBi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/842036645029322753">March 15, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> ドメイン学び方<br>- 調査結果を壁にはりつけるようにまとめる<br>- チームについてトレーニングを受ける<br>- 他の開発者がやってることを半日ぐらい観察する Live-my-Life Sessions<br>- そのプロダクトのユーザーの行動を見てみる</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843813350660173824">March 20, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a><br>これのペアプロ、クロスプログラミング、モブプログラミングのような形は、継続的なドキュメンテーションに役立つ。<br>ならならFace to Faceでインタラクティブに進む得ることで、お互いの知識を共有でき、<br>疑問点をすぐに質問することができる</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843818057076097024">March 20, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> Working collectivelyはトラック係数(Truck Factor)の改善にも役立つ。<br><br>単一障害点を避け、情報の集中度を分散できる。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843818978225012736">March 20, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">小さなTruck Factorはそのプロジェクトのヒーローであり、<br>他のチームメイトと共有されていない多くの知識があることを意味している。<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843819605499895808">March 20, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>ドメイン知識の共有の仕方と単一障害点の話。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a><br>現実的な例の話として、<br>コードスタイルのLintツールとLint結果の参考文献としてのガイドラインのドキュメントがベストな関係。<br>ユーザーは必要となるまでそのドキュメントを読まずにすみ、必要なタイミングはLintツールが教えてくれる。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843829013319639040">March 20, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>これは読んでいてESLintとかのドキュメントを思い浮かべた。</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">ガイドラインの&quot;強制&quot;と&quot;推奨&quot;どっちをとるか。<br>新しく追加されたコードに対しては強制的にエラーとし、<br>既存のコードベースは、そのガイドラインを違反していることが多いため、警告に留める。<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843829944270516225">March 20, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> ガイドラインを決めたとしても、そのルールは既存のLintツールではカバーできないことがある。<br>このときに、コード自体を文書化することでできるかもという話。 annotationある言語は便利だなー <a href="https://t.co/6DHksjYiGl">pic.twitter.com/6DHksjYiGl</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843832241063047168">March 20, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>ガイドラインに向かって少しづつに移行する方法</p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">例外はあるが、トラブルシューティングはShameful Documentationの一種とも言える。<br>そこに書かれているものは、つまり解決されていない問題で修正されていないことを意味してる。<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843834095599673344">March 20, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">問題を解決するためにトラブルシューティングのようなドキュメントを追加するよりも、その問題を直すために時間を使うべきであるという話<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843834201291931650">March 20, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>なんでもかんでもトラブルシューティングに逃げてはいけないという話。</p>
+
+<p><strong>ADR(Architecture Decision Records)</strong></p>
+
+<p>重要なアーキテクチャの意思決定のプロセスを記録するフォーマットであるADRというやつがあるのを読んでて初めて知った。</p>
+
+<ul>
+<li><a href="http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions" title="Blog | Documenting Architecture Decisions | Relevance">Blog | Documenting Architecture Decisions | Relevance</a></li>
+<li><a href="http://tbpgr.hatenablog.com/entry/2017/02/22/080000" title="アーキテクチャの意思決定を記録する Lightweight Architecture Decision Records について - Tbpgr Blog">アーキテクチャの意思決定を記録する Lightweight Architecture Decision Records について - Tbpgr Blog</a></li>
+</ul>
+
+<p><a href="https://github.com/rwaldron/tc39-notes" title="ECMA, TC39 Meeting Notes">ECMA, TC39 Meeting Notes</a>とかもこれと似たようなフォーマットになっていて、自分がミーティングノートを書いたときも真似ていたので面白かった。</p>
+
+<ul>
+<li><a href="https://github.com/asciidwango/js-primer/tree/master/meetings" title="js-primer/meetings at master · asciidwango/js-primer">js-primer/meetings at master · asciidwango/js-primer</a></li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">実際の問題の小さな模型でシミュレートする。<br>頭で理解できる(複雑さの)サイズにし、シミュレートすることで、<br>後の議論において具体的に参照できるコードが作れる。<br>これがコミュニケーションツールとして役に立つ<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> <a href="https://t.co/GvFG2hZGKy">pic.twitter.com/GvFG2hZGKy</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/861242247991271424">May 7, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> を取り入れるときは、セオリーの話をするんじゃなくて、シンプルな話として始める <a href="https://t.co/sG523au8O9">pic.twitter.com/sG523au8O9</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/861243980570177539">May 7, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>実践する時のやり方。</p>
+
+<hr>
+
+<p><a href="https://leanpub.com/livingdocumentation" title="Living Documentation by… by Cyrille Martraire [PDF/iPad/Kindle]">Living Documentation by design, with Domain-Driven Design by Cyrille Martraire [PDF/iPad/Kindle]</a> 400-500ページぐらいあって長かったけど読んでいて面白い話が多かったので良かった。
+感覚的なものが結構文章化されてので面白い。</p>
+
+<p>一応DDDの本ではあるので、DDDについては簡単に知っておくと読みやすいかも(コード的な話はあんまりないので、概念だけでもよさそう)</p>
+
+<ul>
+<li><a href="https://booth.pm/ja/items/392260" title="わかる！ドメイン駆動設計 ～もちこちゃんの大冒険～【C91新刊】 - TechBooster - BOOTH">わかる！ドメイン駆動設計 ～もちこちゃんの大冒険～【C91新刊】 - TechBooster - BOOTH</a></li>
+</ul>
+
+<p>あたりを見ておけば大体概念としての事前知識は大丈夫そうな気がする。
+後は、IA(情報設計)的なことが好きな人は読むといいのかもしれない。</p>
+
+<ul>
+<li><a href="https://www.amazon.co.jp/dp/4802510012/" title="今日からはじめる情報設計 -センスメイキングするための7ステップ | アビー・コバート, 長谷川敦士, 安藤 幸央 |本 | 通販 | Amazon">今日からはじめる情報設計 -センスメイキングするための7ステップ | アビー・コバート, 長谷川敦士, 安藤 幸央 |本 | 通販 | Amazon</a></li>
+<li><a href="http://efcl.info/2016/09/30/architecture-refs/" title="アーキテクチャをめぐるたび | Web Scratch">アーキテクチャをめぐるたび | Web Scratch</a></li>
+</ul>
+
+<p>実際のコードからドキュメントを同期するアプローチはアノテーション前提がちょっと強いので簡単には実践できない気はするけど、話として読むといいかなーと思った。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-05-12-read-books.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["book","DDD"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=book">book</a></li>
+                
+                <li><a href="/tags/?q=DDD">DDD</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>
