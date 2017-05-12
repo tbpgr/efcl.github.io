@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-05-12T11:34:25+09:00</updated>
+ <updated>2017-05-12T20:07:40+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,112 @@
  </author>
  
 
+ 
+ <entry>
+   <title>textlintのElectronアプリを公開した</title>
+   <link href="http://efcl.info/2017/05/12/textlint-app/"/>
+   <updated>2017-05-12T19:36:00+09:00</updated>
+   <id>http://efcl.info/2017/05/12/textlint-app</id>
+   <content type="html"><![CDATA[ <h1 id="textlint-app">textlint-app</h1>
+
+<p><a href="https://github.com/textlint/textlint-app" title="textlint-app">textlint-app</a>というtextlintのElectronアプリ版を作成しました。</p>
+
+<p><a href="https://github.com/textlint/textlint-app"><img src="https://media.giphy.com/media/3o7buj7KnuEurvGVm8/giphy.gif" alt="gif"></a></p>
+
+<h2 id="インストール方法">インストール方法</h2>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint-app/releases/latest">https://github.com/textlint/textlint-app/releases/latest</a> からバイナリをダウンロード</li>
+</ul>
+
+<p>ダウンロードしたインストーラー（Windows）、<code>app</code>（Mac）を実行すれば動きます。（Node.jsの環境なども不要です）
+実行する際に署名されてないバイナリなので警告がでるので、その辺は許可しないと動きません。</p>
+
+<h2 id="特徴">特徴</h2>
+
+<p>一番の特徴はNode.jsなどの環境を作る必要なくインストールするだけで動く点です。
+<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>はNode.js（一応ブラウザも動く）で動くツールですが、そのセットアップが慣れてない人には大変なので作成しました。</p>
+
+<p>内部的にはElectronアプリなのでNode.jsをnpmも同梱して、<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>のルールもアプリ上でインストールして動かします。</p>
+
+<p>利用できるルールはNode.jsのCLI版と全く同じ、設定ファイルの<code>.textlintrc</code>も同じです。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule" title="Collection of textlint rule · textlint/textlint Wiki">Collection of textlint rule · textlint/textlint Wiki</a></li>
+</ul>
+
+<p>簡単にまとめると次のようなアプリです。</p>
+
+<ul>
+<li>Node.js環境がなくても動く<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>同梱のエディタ</li>
+<li><code>.textlintrc</code>をそのままコピペすれば動く</li>
+<li><code>textlint --fix</code>を使った自動修正に対応</li>
+<li>Markdownファイルを読み書きできる</li>
+</ul>
+
+<h2 id="使い方">使い方</h2>
+
+<p>アプリを開くとエディタ画面が出てきます。
+最初はtextlintのルールが一切入っていない状態なので、ルールをインストールする必要があります。</p>
+
+<ul>
+<li><strong>1.</strong> &quot;Settings&quot;のタブを開く:</li>
+</ul>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/05/12-1494586278.png" alt="Step 1"></p>
+
+<ul>
+<li><strong>2.</strong> <code>.textlintrc</code>の設定を書く</li>
+</ul>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/05/12-1494586443.png" alt="Step 2"></p>
+
+<p>次のような設定の内容を<code>.textlintrc</code>のコピペします。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;preset-ja-technical-writing&quot;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><strong>3.</strong>: &quot;Install&quot;ボタンを押して完了する待つ</li>
+</ul>
+
+<p>&quot;Install&quot;ボタンを押すと内蔵しているnpm（パッケージマネージャ）を使ってルールをダウンロードしてきます。</p>
+
+<p>（ダウンロードしたルールや<code>package.json</code>、<code>.textlintrc</code>は &quot;Working directory&quot; に自動的に配置されるので、CLI版でもそこを参照すれば共有できます）</p>
+
+<ul>
+<li><strong>4.</strong> &quot;Edit with textlint&quot;でテキストを書く</li>
+</ul>
+
+<p>現状はMarkdownしかサポートしてませんが、エディタ部分に書いていくとリアルタイムで先ほどインストールしたルールでチェックされます。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint-app/issues/8" title="Support html/rst/re:view · Issue #8 · textlint/textlint-app">Support html/rst/re:view · Issue #8 · textlint/textlint-app</a></li>
+</ul>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/05/12-1494586618.png" alt="Screenshot"></p>
+
+<p>また&quot;Fix all errors&quot;ボタンを押すことで、修正可能なエラーは自動的に修正できます。</p>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p><a href="https://github.com/textlint/textlint-app" title="textlint/textlint-app: textlint standalone application top on Electron.">textlint/textlint-app</a>はまだ開発段階の状態です。</p>
+
+<p>目的としてNode.jsを普段使ってない人がてっとり早くtextlintを使えるようにすることです。
+また、<code>.textlintrc</code>の設定ファイルはCLIやアプリで共有できるので、コピペして使い始めることができる所にフォーカスしています。
+(この設定コピペすればとりあえずいい感じにチェックできるよみたいな）</p>
+
+<p><a href="https://github.com/textlint/textlint-app#development">https://github.com/textlint/textlint-app#development</a>にローカルでの開発方法についてドキュメントが書いてあります。
+デザインがまだまだだったり、目的に反してそこまで優しい感じではないのでその辺へのコントリビュートまってます。
+（CodeMirrorのパフォーマンスとかガタガタする問題をどうにかしたいです…）</p>
+
+<ul>
+<li><a href="https://github.com/textlint/textlint-app/issues" title="Issues · textlint/textlint-app">Issues · textlint/textlint-app</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>Living Documentation by design, with Domain-Driven Designを読んだ</title>
@@ -1880,149 +1986,6 @@ TodoMVCの例では、CQRSやドメインモデルなどの要素も登場し、
 <ul>
 <li>スライド: <a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html" title="複雑なJavaScriptアプリケーションを考えながら作る話">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
 <li><a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
-</ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>Inroducing Almin 0.10.0: TypeScript, FlowType, Logger</title>
-   <link href="http://efcl.info/2017/03/08/almim0.10/"/>
-   <updated>2017-03-08T21:55:00+09:00</updated>
-   <id>http://efcl.info/2017/03/08/almim0.10</id>
-   <content type="html"><![CDATA[ <p><a href="https://github.com/almin/almin" title="Almin">Almin</a>の0.10.0をリリースしました。</p>
-
-<ul>
-<li><a href="https://github.com/almin/almin/releases/tag/0.10.0" title="Release 0.10.0 · almin/almin">Release 0.10.0 · almin/almin</a></li>
-</ul>
-
-<p>AlminはいわゆるFluxライブラリ的なものですが、ドメイン駆動設計(DDD)を行うにあたって既存の<a href="https://github.com/reactjs/redux" title="Redux">Redux</a>や<a href="https://github.com/facebook/flux" title="Flux">Flux</a>では上手くレイヤリングがしにくい問題があったため作成しました。</p>
-
-<p>この辺の経緯については以前スライドやドキュメントにまとめてあるので、以下を参照してください。</p>
-
-<ul>
-<li><a href="https://github.com/azu/large-scale-javascript">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
-<li><a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
-<li><a href="http://efcl.info/2016/09/30/architecture-refs/">アーキテクチャをめぐるたび | Web Scratch</a></li>
-</ul>
-
-<h2 id="typescript">TypeScript</h2>
-
-<p>Almin 0.10.0ではコードベースがTypeScript化されました。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2017/03/08-1488978556.png" alt="TypeScript"></p>
-
-<p>殆どの作業を@<a href="https://github.com/saneyuki" title="saneyuki">saneyuki</a>さんがやってくれました。</p>
-
-<p>以下のPRを見ると既存のJavaScriptプロジェクトを徐々にTypeScript化する流れが見れるので面白いと思います。</p>
-
-<ul>
-<li><a href="https://github.com/almin/almin/pull/68" title="Convert src/ to TypeScript by saneyuki · Pull Request #68 · almin/almin">Convert src/ to TypeScript by saneyuki · Pull Request #68 · almin/almin</a></li>
-</ul>
-
-<p>これにより、<code>d.ts</code>がnpmパッケージに同梱されるようになったので、TypeScriptからも扱いやすくなりました。</p>
-
-<h2 id="flowtype">FlowType</h2>
-
-<p>Alminは以前からFlowTypeの型定義ファイルが同梱されていましたが、@<a href="https://github.com/k-kinzal" title="k-kinzal">k-kinzal</a>さんにいくつかPRを頂いて、<a href="https://flowtype.org/docs/declarations.html#declaration-files" title="Declaration files">Declaration files</a>の扱いが改善されました。</p>
-
-<ul>
-<li><a href="https://github.com/almin/almin/pull/108" title="fixes flow type-def can not be read. by k-kinzal · Pull Request #108 · almin/almin">fixes flow type-def can not be read. by k-kinzal · Pull Request #108 · almin/almin</a></li>
-</ul>
-
-<p>サンプルプロジェクトにFlowで書いたTodoMVCがあるので、Flowと一緒に使いたい人は参照してみてください。</p>
-
-<ul>
-<li><a href="https://github.com/almin/almin/tree/master/example/todomvc-flow" title="almin/example/todomvc-flow at master · almin/almin">almin/example/todomvc-flow at master · almin/almin</a></li>
-</ul>
-
-<h2 id="logger">Logger</h2>
-
-<p>0.10.0の直接的なBreaking Changeとして、AlminのUseCase(Actionみたいなものです)やStoreの変更などのイベントハンドラの形式が統一的なものへと変更されました。
-ハンドラに<code>meta</code>オブジェクトが追加され、そのイベントがどこ(useCase)でいつ(timestamp)起きたのかというメタ情報を取れるようになりました。</p>
-
-<ul>
-<li><a href="https://github.com/almin/almin/issues/61">Proposal: Introduce <code>meta</code> object to Dispatcher#dispatch(payload, meta) · Issue #61 · almin/almin</a></li>
-<li><a href="https://github.com/almin/almin/pull/62">Breaking Change: feat(Dispatcher): Introduce DispatcherPayloadMeta by azu · Pull Request #62 · almin/almin</a></li>
-</ul>
-
-<p>この辺は普通の人にはあんまり関係なくてロガーのようなものを作っている場合に関係してきます。</p>
-
-<p>Alminでは<a href="https://github.com/almin/almin-logger" title="almin-logger">almin-logger</a>というコンソールにUseCaseの実行結果やStoreの変化をログとして吐くライブラリが用意されています。</p>
-
-<p><iframe src="https://giphy.com/embed/xUA7aU9G9jatPmKIz6" width="480" height="324" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="http://giphy.com/gifs/xUA7aU9G9jatPmKIz6">via GIPHY</a></p></p>
-
-<p><code>meta</code>オブジェクトの導入によってこの辺のログ周りがより正確に出るように改善されました。</p>
-
-<p>例えば、AlminではParentUseCaseの中でChildUseCaseを実行するといったネストしたUseCaseを扱えるような仕組みも持っています。
-(トランザクション的なことがしたいときに使う)</p>
-
-<ul>
-<li><a href="https://almin.js.org/docs/tips/nesting-usecase.html" title="Nesting UseCase · Almin.js">Nesting UseCase · Almin.js</a></li>
-</ul>
-
-<p><code>meta</code>オブジェクトの導入で親子関係のあるUseCaseも、その関係がログとして出せるようになっています。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2017/03/08-1488979360.png" alt="nesting useCase"></p>
-
-<p>自分としては開発中のログは結構重視しているのでこの辺は充実させていきたいです。(実際のデバッグでかなり便利になるため)</p>
-
-<p>最近は<a href="https://github.com/zalmoxisus/redux-devtools-extension" title="redux-devtools-extension">redux-devtools-extension</a>でAlminのログを出す連携を実験してみたりしています。</p>
-
-<blockquote class="twitter-tweet" data-partner="tweetdeck"><p lang="ja" dir="ltr">Redux DevTools Redux以外でも動かせるんだ。<br>Alminで一応できた <a href="https://t.co/b0uvdEwd83">pic.twitter.com/b0uvdEwd83</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/839280950898876416">March 8, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<ul>
-<li><a href="https://github.com/almin/almin/issues/115" title="Integration with redux-devtools-extension · Issue #115 · almin/almin">Integration with redux-devtools-extension · Issue #115 · almin/almin</a>
-
-<ul>
-<li>Redux用のブラウザ拡張だけど、その他のライブラリと連携するAPIが用意されている</li>
-</ul></li>
-</ul>
-
-<p>追記: 作ってみた <a href="https://github.com/almin/almin-devtools" title="almin/almin-devtools: Integrate almin into redux-devtools">almin/almin-devtools: Integrate almin into redux-devtools</a></p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://t.co/CmAMJReV3W">https://t.co/CmAMJReV3W</a><br><br>AlminのログをRedux DevTools Extensionに流すやつとりあえず動いてきた。 <a href="https://t.co/Fer2fRaN0N">pic.twitter.com/Fer2fRaN0N</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/839845967729864705">March 9, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<h2 id="どんなことに向いてるのか">どんなことに向いてるのか</h2>
-
-<p><a href="https://github.com/almin/almin" title="Almin">Almin</a>の設計思想としては普通に読めるようなコードで、中規模以上にスケールできようにするというものです。</p>
-
-<p>よくあるFluxのサンプルでのカウントアプリのチュートリアルを見ると<a href="https://github.com/facebook/flux" title="facebook/flux">facebook/flux</a>と殆ど変わらないことが分かるかもしれません。</p>
-
-<ul>
-<li><a href="https://almin.js.org/docs/tutorial/counter/" title="Counter App · Almin.js">Counter App · Almin.js</a></li>
-</ul>
-
-<p><img src="https://almin.js.org/docs/tutorial/counter/img/almin-architecture-flux.png" alt="Counter"></p>
-
-<p>ただ<a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html">複雑なJavaScriptアプリケーションを考えながら作る話</a>でも書いてますが、ドメインロジックをどこに書くのかという問題が<a href="https://github.com/facebook/flux" title="facebook/flux">facebook/flux</a>や<a href="https://github.com/reactjs/redux" title="Redux">Redux</a>だと曖昧になりやすいです。</p>
-
-<p>Alminは、その辺や非同期処理やStateの持ち方もある程度方針を持って扱えるようにするパターンやドキュメントなどを提供しています。</p>
-
-<ul>
-<li><a href="https://almin.js.org/docs/tutorial/todomvc/" title="Todo App · Almin.js">Todo App · Almin.js</a></li>
-</ul>
-
-<p><img src="https://almin.js.org/docs/tutorial/todomvc/img/almin-architecture.png" alt="Almin Flow"></p>
-
-<p>今は、いくつかのプロダクションで数万行以上コードでもある程度安定して動いている感じです。</p>
-
-<p>今後は報告してもらった問題に泥臭いチェックを入れたり、もう少し簡単にセットアップできるような方法を見ています。</p>
-
-<ul>
-<li><a href="https://github.com/almin/almin/pull/116" title="test(UseCase): add isolated nesting usecase by azu · Pull Request #116 · almin/almin">test(UseCase): add isolated nesting usecase by azu · Pull Request #116 · almin/almin</a></li>
-<li><a href="https://github.com/almin/almin/issues/112" title="Proposal: almin-react-container · Issue #112 · almin/almin">Proposal: almin-react-container · Issue #112 · almin/almin</a></li>
-</ul>
-
-<p>また、TypeScriptの問題もまだ幾つかあるのでPR待っています！</p>
-
-<ul>
-<li><a href="https://github.com/almin/almin/issues/107">TypeScript: improve UseCase#execute typing · Issue #107 · almin/almin</a></li>
-<li><a href="https://github.com/almin/almin/issues/89">Move object-assign.d.ts to pacakges · Issue #89 · almin/almin</a></li>
-<li><a href="https://github.com/almin/almin/issues/81">Use StoreLike interface more aggressively · Issue #81 · almin/almin</a></li>
 </ul>
  ]]></content>
  </entry>
