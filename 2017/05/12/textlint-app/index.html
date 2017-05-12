@@ -345,12 +345,19 @@ var blog_categories = [
 <p>ダウンロードしたインストーラー（Windows）、<code>app</code>（Mac）を実行すれば動きます。（Node.jsの環境なども不要です）
 実行する際に署名されてないバイナリなので警告がでるので、その辺は許可しないと動きません。</p>
 
+<ul>
+<li>Windows: インストーラーで許可を選択する必要がある</li>
+<li>Mac: <code>/Application/textlint.app</code> をコンテキストメニューから&quot;開く&quot;をして許可する必要がある</li>
+</ul>
+
 <h2 id="特徴">特徴</h2>
 
 <p>一番の特徴はNode.jsなどの環境を作る必要なくインストールするだけで動く点です。
-<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>はNode.js（一応ブラウザも動く）で動くツールですが、そのセットアップが慣れてない人には大変なので作成しました。</p>
+<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>はNode.js（一応ブラウザも動く）で動くツールです。
+しかし、Node.jsのセットアップに慣れてない人には大変そうなので作成しました。</p>
 
-<p>内部的にはElectronアプリなのでNode.jsをnpmも同梱して、<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>のルールもアプリ上でインストールして動かします。</p>
+<p>内部的にはElectronアプリで、Node.jsとnpmを同梱しています。
+また<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>のルールもアプリ上でインストールして動かします。</p>
 
 <p>利用できるルールはNode.jsのCLI版と全く同じ、設定ファイルの<code>.textlintrc</code>も同じです。</p>
 
@@ -429,6 +436,29 @@ var blog_categories = [
 <li><a href="https://github.com/textlint/textlint-app/issues" title="Issues · textlint/textlint-app">Issues · textlint/textlint-app</a></li>
 </ul>
 
+<h2 id="おまけ">おまけ</h2>
+
+<p>この記事を書いているときの<code>.textlintrc</code>の設定は次のようなものでした。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&quot;filters&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;comments&quot;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;ja-no-redundant-expression&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;period-in-list-item&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;periodMark&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;preset-ja-technical-writing&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;no-exclamation-question-mark&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;allowFullWidthQuestion&quot;</span><span class="p">:</span> <span class="kc">true</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;max-kanji-continuous-len&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;max&quot;</span><span class="p">:</span> <span class="mi">6</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
     </div>
     <div class="post-post-toolbar">
         <a class="btn edit-on-github"
