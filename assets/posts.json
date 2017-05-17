@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "GitHubのラベルをいい感じにセットアップするツール",
+            "url": "http://efcl.info/2017/05/17/github-label/",
+            "date": "2017-05-17T10:23:00+09:00"
+        },
+        
+        {
             "title": "textlintのElectronアプリを作った",
             "url": "http://efcl.info/2017/05/12/textlint-app/",
             "date": "2017-05-12T19:36:00+09:00"

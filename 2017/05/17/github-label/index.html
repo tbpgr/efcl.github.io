@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        GitHubのラベルをいい感じにセットアップするツール | Web Scratch
+        
+    </title>
+    <meta name="description" content="github-label-setupというGitHubリポジトリのラベルにいい感じのプリセットを追加する自分用のツールを書きました。">
+    
+    <meta name="keywords" content="GitHub,Node.js" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="GitHubのラベルをいい感じにセットアップするツール">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2017/05/17/github-label/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="github-label-setupというGitHubリポジトリのラベルにいい感じのプリセットを追加する自分用のツールを書きました。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2017-05-17T10:23:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/05/12/textlint-app/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/05/12/Living-Documentation-DDD/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/05/11/almin-0.12/">
+
+
+
+
+
+<meta property="article:section" content="javascript">
+
+
+
+
+
+<meta property="article:tag" content="GitHub">
+
+<meta property="article:tag" content="Node.js">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 56
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 33
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 179
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 88
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 11
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 8
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2017/05/17/github-label/">
+                GitHubのラベルをいい感じにセットアップするツール
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/05/12/textlint-app/">
+                textlintのElectronアプリを作った
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/05/12/Living-Documentation-DDD/">
+                Living Documentation by design, with Domain-Driven Designを読んだ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/05/11/almin-0.12/">
+                Almin 0.12リリース: Read層におけるState更新のアプローチ
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2017/05/17/github-label/">
+    <h1 class="post-title">GitHubのラベルをいい感じにセットアップするツール</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2017年05月17日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-05-17-github-label.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="https://github.com/azu/github-label-setup" title="github-label-setup">github-label-setup</a>というGitHubリポジトリのラベルにいい感じのプリセットを追加する自分用のツールを書きました。</p>
+
+<p>次のIssueに追加されるラベルが全部貼ってあります。</p>
+
+<p><a href="https://github.com/azu/github-label-setup/issues/1"><img src="./img/demo.png" alt="demo"></a></p>
+
+<h2 id="install">Install</h2>
+
+<p>npmでインストールできます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install @azu/github-label-setup -g
+</code></pre></div>
+<h2 id="usage">Usage</h2>
+
+<p>基本的にはデフォルトのプリセットがあるので、<code>--token</code>でGitHubのtokenを渡すだけで後は自動でやってくれます。</p>
+
+<p>ラベルを設定したいプロジェクトのディレクトリに移動してコマンドを叩くだけです。
+(git remoteのoriginを見ます)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Usage
+  $ github-label-setup --token xxx
+
+Options
+
+  -h, --help                  output usage information
+  -l, --labels &lt;path&gt;         the path or npm packages name to look for the label configuration in. Default: labels.json
+  --token &lt;token&gt;  a GitHub access token (also settable with a GITHUB_ACCESS_TOKEN environment variable)
+  -d, --dry-run               calculate the required label changes but do not apply them
+</code></pre></div>
+<p>アクセストークンは<a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a>から <code>&quot;repo&quot;</code> scope が有効になったものがあれば良いです。</p>
+
+<p><code>--dry-run</code>オプションを使えば、実際にどういう変更が行われるかを見れるのでまずはそちらで確認してください。</p>
+
+<p>デフォルトのGitHubのラベルやよく使われる似た意味のラベルはマイグレーションしますが、リストにないラベルは単純に消えてしまうので注意が必要です。</p>
+
+<ul>
+<li><a href="https://github.com/azu/github-label-setup/blob/master/labels.json" title="github-label-setup/labels.json at master · azu/github-label-setup">github-label-setup/labels.json at master · azu/github-label-setup</a></li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Fetching labels from GitHub
+Changed: the &quot;duplicate&quot; label in the repo is out of date. It will be updated to &quot;duplicate&quot; with color &quot;#ededed&quot;.
+Changed: the &quot;help wanted&quot; label in the repo is out of date. It will be updated to &quot;help wanted&quot; with color &quot;#e99695&quot;.
+Missing: the &quot;good for beginner&quot; label is missing from the repo. It will be created.
+Missing: the &quot;Priority: Critical&quot; label is missing from the repo. It will be created.
+Missing: the &quot;Priority: High&quot; label is missing from the repo. It will be created.
+Missing: the &quot;Priority: Low&quot; label is missing from the repo. It will be created.
+Missing: the &quot;Priority: Medium&quot; label is missing from the repo. It will be created.
+Changed: the &quot;invalid&quot; label in the repo is out of date. It will be updated to &quot;Status: Abandoned&quot; with color &quot;#000000&quot;.
+Missing: the &quot;Status: Blocked&quot; label is missing from the repo. It will be created.
+Missing: the &quot;Status: In Progress&quot; label is missing from the repo. It will be created.
+Changed: the &quot;Idea&quot; label in the repo is out of date. It will be updated to &quot;Status: Proposal&quot; with color &quot;#d4c5f9&quot;.
+Missing: the &quot;Status: Ready for PR&quot; label is missing from the repo. It will be created.
+Missing: the &quot;Status: Review Needed&quot; label is missing from the repo. It will be created.
+Changed: the &quot;breaking&quot; label in the repo is out of date. It will be updated to &quot;Type: Breaking Change&quot; with color &quot;#b60205&quot;.
+Changed: the &quot;bug&quot; label in the repo is out of date. It will be updated to &quot;Type: Bug&quot; with color &quot;#ee0701&quot;.
+Changed: the &quot;documents&quot; label in the repo is out of date. It will be updated to &quot;Type: Documentation&quot; with color &quot;#5319e7&quot;.
+Changed: the &quot;enhancement&quot; label in the repo is out of date. It will be updated to &quot;Type: Feature&quot; with color &quot;#1d76db&quot;.
+Missing: the &quot;Type: Refactoring&quot; label is missing from the repo. It will be created.
+Changed: the &quot;greenkeeper&quot; label in the repo is out of date. It will be updated to &quot;Type: Maintenance&quot; with color &quot;#0e8a16&quot;.
+Changed: the &quot;question&quot; label in the repo is out of date. It will be updated to &quot;Type: Question&quot; with color &quot;#cc317c&quot;.
+Added: the &quot;example&quot; label in the repo is not expected. It will be deleted.
+Added: the &quot;implementing&quot; label in the repo is not expected. It will be deleted.
+Added: the &quot;Patch Welcome&quot; label in the repo is not expected. It will be deleted.
+Added: the &quot;proposal&quot; label in the repo is not expected. It will be deleted.
+Added: the &quot;wontfix&quot; label in the repo is not expected. It will be deleted.
+This is a dry run. No changes have been made on GitHub
+</code></pre></div>
+<p>このツールは <code>github-label-sync</code> のラッパーなので、細かい部分はそちらをみてください。</p>
+
+<ul>
+<li><a href="https://github.com/Financial-Times/github-label-sync" title="Financial-Times/github-label-sync: Synchronise your GitHub labels with as few destructive operations as possible">Financial-Times/github-label-sync: Synchronise your GitHub labels with as few destructive operations as possible</a></li>
+</ul>
+
+<h3 id="npm-packages-for-labels">Npm packages for labels</h3>
+
+<p><code>-l</code>オプションでラベルファイルを指定できますが、<code>require</code>できればなんでも通るので、npmパッケージを作っても多分通ります。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ github-label-setup --token xxx --labels @owner/github-label-presets
+</code></pre></div>
+<p>ラベルのフォーマットは<a href="https://github.com/Financial-Times/github-label-sync#label-json" title="Label JSON">Label JSON</a>をみてください。</p>
+
+<h2 id="デフォルトのラベル">デフォルトのラベル</h2>
+
+<p>最初に書いたように自分用のツールなので、ラベルのデフォルトは自分がよく使う感じのものになってます。</p>
+
+<p><a href="https://github.com/azu/github-label-setup/issues/1"><img src="./img/demo.png" alt="demo"></a></p>
+
+<ul>
+<li>duplicate</li>
+<li>help wanted</li>
+<li>good for beginner
+
+<ul>
+<li><a href="https://github.com/MunGell/awesome-for-beginners" title="MunGell/awesome-for-beginners: A list of awesome beginners-friendly projects.">MunGell/awesome-for-beginners: A list of awesome beginners-friendly projects.</a>を参考に</li>
+</ul></li>
+<li>Priority: Critical</li>
+<li>Priority: High</li>
+<li>Priority: Low</li>
+<li>Priority: Medium
+
+<ul>
+<li>優先度管理</li>
+</ul></li>
+<li>Status: Abandoned</li>
+<li>Status: Blocked</li>
+<li>Status: In Progress</li>
+<li>Status: Proposal</li>
+<li>Status: Ready for PR</li>
+<li>Status: Review Needed
+
+<ul>
+<li>ステータス管理</li>
+</ul></li>
+<li>Type: Breaking Change</li>
+<li>Type: Bug</li>
+<li>Type: Feature</li>
+<li>Type: Documentation</li>
+<li>Type: Refactoring</li>
+<li>Type: Maintenance
+
+<ul>
+<li>Related: <a href="https://conventionalcommits.org/" title="Conventional Commits">Conventional Commits</a></li>
+<li>これはコミットのスコープに大分近いです。</li>
+<li><a href="https://github.com/lerna/lerna-changelog" title="lerna-changelog">lerna-changelog</a>などラベルをCHANGELOGのソースに使うツールなどもあるのを考えて、コミットのスコープに合わせたセットを作っています</li>
+</ul></li>
+<li>Type: Question&quot;</li>
+</ul>
+
+<p>Typeに関してはプロジェクト特有のTypeが増えていくと思います。
+このスクリプトはリポジトリを作った直後に動かす目的が大きいです。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">hub create &amp;&amp; github-label-setup --token XXXX
+</code></pre></div>
+<h2 id="関連">関連</h2>
+
+<p>似たようなものは色々あるのでお気に入りを探してみてください。
+<a href="https://github.com/Financial-Times/github-label-sync" title="github-label-sync">github-label-sync</a>をベースにしたのは既存のラベルをマイグレーションすることができるからです(紐付いていたIssueを保持できる)</p>
+
+<ul>
+<li><a href="https://github.com/yoshuawuyts/github-standard-labels" title="yoshuawuyts/github-standard-labels: Create a standard set of issue labels for a GitHub project">yoshuawuyts/github-standard-labels: Create a standard set of issue labels for a GitHub project</a></li>
+<li><a href="https://github.com/Financial-Times/github-label-sync" title="Financial-Times/github-label-sync: Synchronise your GitHub labels with as few destructive operations as possible">Financial-Times/github-label-sync: Synchronise your GitHub labels with as few destructive operations as possible</a></li>
+<li><a href="https://github.com/MunGell/awesome-for-beginners" title="MunGell/awesome-for-beginners: A list of awesome beginners-friendly projects.">MunGell/awesome-for-beginners: A list of awesome beginners-friendly projects.</a></li>
+<li><a href="https://github.com/himynameisdave/git-labelmaker" title="himynameisdave/git-labelmaker: Manage your GitHub labels from the command line!">himynameisdave/git-labelmaker: Manage your GitHub labels from the command line!</a></li>
+<li><a href="https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63" title="Sane GitHub Labels – Dave Lunny – Medium">Sane GitHub Labels – Dave Lunny – Medium</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-05-17-github-label.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["GitHub","Node.js"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=GitHub">GitHub</a></li>
+                
+                <li><a href="/tags/?q=Node.js">Node.js</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>
