@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-05-22T10:47:18+09:00</updated>
+ <updated>2017-05-22T11:24:23+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -15,7 +15,7 @@
 
  
  <entry>
-   <title>GitHubのリポジトリをDprecatedにするスクリプト</title>
+   <title>GitHubのリポジトリをDeprecatedにするスクリプト</title>
    <link href="http://efcl.info/2017/05/22/move-github-repository/"/>
    <updated>2017-05-22T10:02:00+09:00</updated>
    <id>http://efcl.info/2017/05/22/move-github-repository</id>
