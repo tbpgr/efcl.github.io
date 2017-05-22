@@ -791,7 +791,9 @@
         
         "ssh",
         
-        "token"
+        "token",
+        
+        "Tools"
         
     ]
 }

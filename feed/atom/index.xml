@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-05-22T10:10:22+09:00</updated>
+ <updated>2017-05-22T10:33:56+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,70 @@
  </author>
  
 
+ 
+ <entry>
+   <title>GitHubのリポジトリをDprecatedにするスクリプト</title>
+   <link href="http://efcl.info/2017/05/22/move-github-repository/"/>
+   <updated>2017-05-22T10:02:00+09:00</updated>
+   <id>http://efcl.info/2017/05/22/move-github-repository</id>
+   <content type="html"><![CDATA[ <p>GitHubのリポジトリを別の場所に移す場合、リポジトリ毎移動できるなら<a href="https://help.github.com/articles/about-repository-transfers/" title="repository transfers">repository transfers</a>を利用するのが正解です。</p>
+
+<p>しかし、既存のリポジトリをmonorepoの一部として取り込む場合はそのようなことができません。リポジトリの履歴は<a href="https://lernajs.io/" title="Lerna">Lerna</a>などでは<code>lerna import</code>で取り込むことができますが、既に作ったリポジトリからリダイレクトさせることができません。</p>
+
+<p>既存のリポジトリを消してしまうと、既に貼ったリンクなどが404になるためあまり良くありませんし、そのままにしておくと紛らわしいです。</p>
+
+<p>そのため、よく取られるのはリポジトリは空にしてDescriptionなどで移動したことを書いておく手法です。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/05/22-1495415248.png" alt="moved"></p>
+
+<p>これをやる<a href="https://github.com/azu/move-github-repository" title="azu/move-github-repository: Move GitHub repository(Update description &amp;amp;&amp;amp; URL &amp;amp;&amp;amp; default branch).">move-github-repository</a>というツールを書きました。</p>
+
+<h2 id="move-github-repository"><a href="https://github.com/azu/move-github-repository" title="azu/move-github-repository: Move GitHub repository(Update description &amp;amp;&amp;amp; URL &amp;amp;&amp;amp; default branch).">move-github-repository</a></h2>
+
+<p><a href="https://github.com/azu/move-github-repository" title="azu/move-github-repository: Move GitHub repository(Update description &amp;amp;&amp;amp; URL &amp;amp;&amp;amp; default branch).">move-github-repository</a>は、コマンド一発で次のようなことをします。</p>
+
+<ul>
+<li>リポジトリのdescription &amp;&amp; homepageを更新する</li>
+<li>&quot;301_moved_permanently&quot;ブランチを作る
+
+<ul>
+<li>このブランチは移転してことを書いたREADME.mdのみがある</li>
+</ul></li>
+<li>&quot;301_moved_permanently&quot;をデフォルトブランチにする</li>
+</ul>
+
+<p>これによって既存のブランチは維持されるので、リンクなどは切れません。</p>
+
+<h2 id="インストール">インストール</h2>
+
+<p>npmでインストールできます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -g move-github-repository
+</code></pre></div>
+<p>GitHubのTokenと更新後に付けたいdescriptionとhomepageを引数に渡して実行できます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Usage
+  $ GH_TOKEN=xxx move-github-repository --description &quot;[[MOVED]]&quot; --homepage http://example.com/new
+
+Options
+  --description -d Description repository
+  --homepage -h    New URL
+
+Env
+  GH_TOKEN=xxx move-github-repository --description &quot;[[MOVED]]&quot; --homepage http://example.com/new
+
+Examples
+  $ GH_TOKEN=xxx move-github-repository --description &quot;[[MOVED]]&quot; --homepage http://example.com/new
+</code></pre></div>
+<h2 id="サンプル">サンプル</h2>
+
+<p><a href="https://github.com/textlint/textlint" title="textlint">textlint</a>をmonorepoに移動させていたので、実際に移動させたリポジトリなどは次のような感じです。</p>
+
+<ul>
+<li><a href="https://github.com/textlint/txt-to-ast" title="textlint/txt-to-ast: [CAUTION] This repository is MOVED to monorepo.">textlint/txt-to-ast: [CAUTION] This repository is MOVED to monorepo.</a></li>
+<li><a href="https://github.com/textlint/textlint-plugin-text" title="textlint/textlint-plugin-text: [CAUTION] This repository is MOVED to monorepo.">textlint/textlint-plugin-text: [CAUTION] This repository is MOVED to monorepo.</a></li>
+<li><a href="https://github.com/textlint/textlint-plugin-markdown" title="textlint/textlint-plugin-markdown: [CAUTION] This repository is MOVED to monorepo.">textlint/textlint-plugin-markdown: [CAUTION] This repository is MOVED to monorepo.</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>GitHubのラベルをいい感じにセットアップするツール</title>
@@ -1600,42 +1664,6 @@ C言語のようなよくあるアルファベット一文字 + 日本語から�
 # それをtextlintのルールに通してどんなところでおちるかをチェックする
 technological-book-corpus-ja  | xargs textlint --rule textlint-rule-ja-unnatural-alphabet -f pretty-error
 </code></pre></div> ]]></content>
- </entry>
- 
- <entry>
-   <title>3行でECMAScript仕様書アプリを作る</title>
-   <link href="http://efcl.info/2017/03/21/ecmascript-spec-electron-app/"/>
-   <updated>2017-03-21T09:45:00+09:00</updated>
-   <id>http://efcl.info/2017/03/21/ecmascript-spec-electron-app</id>
-   <content type="html"><![CDATA[ <p><a href="https://tc39.github.io/ecma262/" title="ECMAScript® 2017 Language Specification">ECMAScript® 2017 Language Specification</a>をアプリとして開けるWebViewアプリです。</p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">ECMAScript仕様書アプリ<a href="https://t.co/twhhFqPca8">https://t.co/twhhFqPca8</a> <a href="https://t.co/bs2onkxNDo">pic.twitter.com/bs2onkxNDo</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/834914935331155968">February 23, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>Electron製なのでどのプラットフォームでも動くと思います。</p>
-
-<h2 id="作り方">作り方</h2>
-
-<ul>
-<li><a href="https://github.com/jiahaog/nativefier" title="nativefier">nativefier</a>を入れます。</li>
-<li>サイト内検索をする<a href="https://github.com/azu/in-site-search-javascript" title="in-site-search-javascript">in-site-search-javascript</a>を入れます。</li>
-<li>ビルドします。</li>
-</ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -g nativefier
-curl https://azu.github.io/in-site-search-javascript/index.js &gt; index.js
-nativefier --name &quot;ECMAScript&quot; &quot;https://tc39.github.io/ecma262/&quot; --fast-quit --hide-window-frame --show-menu-bar --maximize --inject ./index.js
-</code></pre></div>
-<p>完成です。</p>
-
-<h2 id="使い方">使い方</h2>
-
-<p>アプリを開いたら仕様書が読めます。</p>
-
-<p>Cmd+Fとかでサイト内検索ができます(重たいです)</p>
-
-<p>以上。</p>
- ]]></content>
  </entry>
  
 

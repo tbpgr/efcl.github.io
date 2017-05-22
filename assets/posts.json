@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "GitHubのリポジトリをDprecatedにするスクリプト",
+            "url": "http://efcl.info/2017/05/22/move-github-repository/",
+            "date": "2017-05-22T10:02:00+09:00"
+        },
+        
+        {
             "title": "GitHubのラベルをいい感じにセットアップするツール",
             "url": "http://efcl.info/2017/05/17/github-label/",
             "date": "2017-05-17T10:23:00+09:00"
