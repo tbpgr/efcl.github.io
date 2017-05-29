@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-05-25T15:07:29+09:00</updated>
+ <updated>2017-05-29T20:09:58+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,86 @@
  </author>
  
 
+ 
+ <entry>
+   <title>書いた文章をレビューしてGitHubにIssueを切るためのGitBookプラグイン</title>
+   <link href="http://efcl.info/2017/05/29/gitbook-plugin-github-issue-for-review/"/>
+   <updated>2017-05-29T19:50:00+09:00</updated>
+   <id>http://efcl.info/2017/05/29/gitbook-plugin-github-issue-for-review</id>
+   <content type="html"><![CDATA[ <p><a href="https://github.com/azu/gitbook-plugin-github-issue-feedback" title="gitbook-plugin-github-issue-feedback">gitbook-plugin-github-issue-feedback</a>という<a href="https://github.com/GitbookIO/gitbook" title="GitBook">GitBook</a>のプラグインを書きました。</p>
+
+<p>次のGIFを見るとどんなものか分かるかもしれません。</p>
+
+<p><a href="http://www.giphy.com/gifs/3o7btYpgJvLlhkJMfC"><img src="https://media.giphy.com/media/3o7btYpgJvLlhkJMfC/giphy.gif" alt="gif"></a></p>
+
+<p><a href="https://github.com/azu/gitbook-plugin-github-issue-feedback" title="gitbook-plugin-github-issue-feedback">gitbook-plugin-github-issue-feedback</a>はGitBookの右下に<code>Bug Report</code>という雑なボタンを追加します。</p>
+
+<p>このボタンを押すと次のようなことをして該当リポジトリのIssue作成ページを開きます。</p>
+
+<ol>
+<li>選択してる範囲の文字列を取得</li>
+<li>現在表示してるページの元ソースであるMarkdownを取得</li>
+<li>選択してる文字列がMarkdownの何行目にあるかを<a href="https://github.com/azu/position-map-text-to-markdown" title="position-map-text-to-markdown">position-map-text-to-markdown</a>で探索</li>
+<li>取得した情報を使ってIssueのbodyを埋めた状態でIssueページを開く</li>
+</ol>
+
+<p>次のような感じの情報が入った状態のIssueを作れます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">URL : https://github.com/asciidwango/js-primer/blob/master/source/basic/string/README.md
+
+&gt; `/`を使いエスケープする必要があります。
+&gt; [:memo:](https://github.com/asciidwango/js-primer/edit/master/source/basic/string/README.md#L36 &quot;Edit&quot;) &lt;https://github.com/asciidwango/js-primer/blob/master/source/basic/string/README.md#L36&gt;
+</code></pre></div>
+<ul>
+<li><a href="https://github.com/asciidwango/js-primer/issues/243" title="文字列: / （バックスラッシュ） · Issue #243 · asciidwango/js-primer">文字列: / （バックスラッシュ） · Issue #243 · asciidwango/js-primer</a></li>
+</ul>
+
+<p>後は内容を少し書いてIssueを作るだけです。</p>
+
+<p>Issueには編集ページへのリンクも入るので、作ったIssueからすぐに修正しやすいです。(<code>#L行数</code>で指定した行数にカーソルがある状態で編集ページを開ける)</p>
+
+<h2 id="インストール">インストール</h2>
+
+<p>GitBookの<code>book.json</code>に設定を追加します。</p>
+
+<p><code>repo</code>には GitHubのリポジトリを<code>/</code>で入れます。
+<code>https://github.com/asciidwango/js-primer</code>がリポジトリなら、<code>repo</code>には<code>asciidwango/js-primer</code>を入れます。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;gitbook&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;=3.0.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Example&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;plugins&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;github-issue-feedback&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;pluginsConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;github-issue-feedback&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;azu/gitbook-plugin-github-issue-feedback&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="おわりに">おわりに</h2>
+
+<p>今、JavaScriptの入門書を書いていて半分ぐらいはできてきたので、ちょっとづつ過去の部分をレビューしながら修正もしています。</p>
+
+<ul>
+<li><a href="https://github.com/asciidwango/js-primer" title="asciidwango/js-primer: JavaScriptの入門書">asciidwango/js-primer: JavaScriptの入門書</a></li>
+<li><a href="https://asciidwango.github.io/js-primer/" title="Introduction · JavaScriptの入門書 #jsprimer">Introduction · JavaScriptの入門書 #jsprimer</a> (ウェブ版)</li>
+</ul>
+
+<p>GitHubのPRレビューだとMarkdownのままなので、GitBook上で見たときなどに違和感がある部分が見つかることが多いです。
+こういう問題を見つけたらすぐにIssueを切れるようにするのために<a href="https://github.com/azu/gitbook-plugin-github-issue-feedback" title="gitbook-plugin-github-issue-feedback">gitbook-plugin-github-issue-feedback</a>を作りました。</p>
+
+<p><a href="http://azu.github.io/promises-book/" title="JavaScript Promiseの本">JavaScript Promiseの本</a>のときも同じような仕組みを入れてました。
+こういう仕組みがあるとスマートフォンからIssueが簡単に切れるので、Issueだけ先に切っておいて後から直すということがしやすいです。</p>
+
+<ul>
+<li><a href="http://efcl.info/2015/01/06/ebook-env/" title="Promise本で取り組んだ電子書籍の開発ツール、CI、継続的リリースについて | Web Scratch">Promise本で取り組んだ電子書籍の開発ツール、CI、継続的リリースについて | Web Scratch</a></li>
+</ul>
+
+<p><a href="http://www.giphy.com/gifs/3o7btYpgJvLlhkJMfC"><img src="https://media.giphy.com/media/3o7btYpgJvLlhkJMfC/giphy.gif" alt="gif"></a></p>
+
+<p><a href="https://asciidwango.github.io/js-primer/" title="Introduction · JavaScriptの入門書 #jsprimer">Introduction · JavaScriptの入門書 #jsprimer</a>のサイト上に組み込んであるので、是非バグ/typoを探して報告してみてください。（ついでに直してくれるとさらに嬉しいです。一文字のPRも歓迎です）</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>GitHubのリポジトリをDeprecatedにするスクリプト</title>
@@ -1569,101 +1649,6 @@ search-prototype.js ./public/javascripts/application.js
 <p>箇条書きに句点を付けるか付けないかの明確な根拠は探した感じよく分かりませんでした。
 日本語だけじゃなくて英語でも人によっても違う感じだったので、何か興味深い資料があればおしらせください。</p>
  ]]></content>
- </entry>
- 
- <entry>
-   <title>不自然なアルファベットを見つけるtextlintルール</title>
-   <link href="http://efcl.info/2017/03/27/unnatural-alphabet/"/>
-   <updated>2017-03-27T20:14:00+09:00</updated>
-   <id>http://efcl.info/2017/03/27/unnatural-alphabet</id>
-   <content type="html"><![CDATA[ <p>不自然なアルファベットを検知する<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>のルールを書きました。</p>
-
-<ul>
-<li><a href="https://github.com/textlint-ja/textlint-rule-ja-unnatural-alphabet" title="textlint-ja/textlint-rule-ja-unnatural-alphabet: 不自然なアルファベットを検知するtextlintルール">textlint-ja/textlint-rule-ja-unnatural-alphabet: 不自然なアルファベットを検知するtextlintルール</a></li>
-</ul>
-
-<p>IMEの入力ミスによるtypoを見つける目的です</p>
-
-<h2 id="example">Example</h2>
-
-<p><strong>OK</strong>:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">リリース
-aiueo
-This is pen.
-</code></pre></div>
-<p><strong>NG</strong>:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">リイr−ス
-対応でｋない
-こrはおかしい。
-検索してくd際
-</code></pre></div>
-<p>上記のようなIME特有の日本語の間に不自然に挟まった1文字のアルファベットを見つけるルールです。</p>
-
-<h2 id="install">Install</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-rule-ja-unnatural-alphabet
-</code></pre></div>
-<p>でインストールできます。
-使い方はいろんな記事があるので、&quot;textlint 導入&quot;とかで検索してください。</p>
-
-<ul>
-<li><a href="http://qiita.com/azu/items/e36501d25593d008f6ac" title="textlintをTravis CIで動かして継続的に文章をチェックする - Qiita">textlintをTravis CIで動かして継続的に文章をチェックする - Qiita</a></li>
-<li><a href="http://qiita.com/azu/items/2c565a38df5ed4c9f4e1" title="VS Codeでtextlintを使って文章をチェックする - Qiita">VS Codeでtextlintを使って文章をチェックする - Qiita</a></li>
-</ul>
-
-<h2 id="オプション">オプション</h2>
-
-<p><code>X</code>軸などアルファベット一文字を使うことはあるので、そういうものはオプションで回避できるようになっています。
-C言語のようなよくあるアルファベット一文字 + 日本語からなる単語は<code>allowCommonCase</code>で無視されています。</p>
-
-<ul>
-<li><code>allow</code>: <code>string[]</code>
-
-<ul>
-<li>無視するアルファベットや単語の配列</li>
-<li>デフォルト: <code>[&quot;a&quot;, &quot;i&quot;, &quot;u&quot;, &quot;e&quot;, &quot;o&quot;, &quot;n&quot;, 典型例 ]</code></li>
-<li>デフォルトでは母音とnを除外している</li>
-<li><code>&quot;/正規表現/&quot;</code> のような文字列もサポート</li>
-</ul></li>
-</ul>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
-    <span class="c1">// 無視するアルファベット</span>
-    <span class="c1">// 例) [&quot;X&quot;]</span>
-    <span class="c1">// デフォルトでは母音とnを除外</span>
-    <span class="s2">&quot;allow&quot;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span>
-    <span class="p">],</span>
-    <span class="c1">// ビルトインの典型例を除外するかどうか</span>
-    <span class="c1">// 例) C言語</span>
-    <span class="s2">&quot;allowCommonCase&quot;</span><span class="o">:</span> <span class="kc">true</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="元ネタ">元ネタ</h2>
-
-<p>この<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>ルールは元ネタがあって、<a href="http://ci.nii.ac.jp/naid/110002893543">CiNii 論文 -  日本語文章校正ツール&quot;Chanterelle&quot; : 入力ミス及び表記揺らぎについて</a>という論文が元ネタです。</p>
-
-<p>不自然なアルファベットを見つけるルールが書かれていて、これを元に実装しました。</p>
-
-<blockquote>
-<p>(3) 不自然なアルファベット</p>
-</blockquote>
-
-<ul>
-<li>1文字のみのアルファベットが日本語中に現れた場合に検出対象とする</li>
-<li>大文字は、略記号などを意識して入れている可能性がある</li>
-<li>このミスでは母音(<code>aiueo</code>)は発生しないので除く</li>
-<li><code>n</code>も多くの場合には、<code>ん</code>となるため除く</li>
-</ul>
-
-<p>実装してみて<a href="https://github.com/textlint-ja/technological-book-corpus-ja">色々な再配布可能な技術書を集めた</a>ものに実際に通してみて、典型的な例外を少し加えるなどしています。</p>
-
-<ul>
-<li><a href="https://github.com/textlint-ja/technological-book-corpus-ja" title="textlint-ja/technological-book-corpus-ja: 日本語で書かれた技術書のコーパス">textlint-ja/technological-book-corpus-ja: 日本語で書かれた技術書のコーパス</a></li>
-</ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm i -g technological-book-corpus-ja textlint textlint-rule-ja-unnatural-alphabet
-# 技術書のMarkdonファイルパスが出力される
-# それをtextlintのルールに通してどんなところでおちるかをチェックする
-technological-book-corpus-ja  | xargs textlint --rule textlint-rule-ja-unnatural-alphabet -f pretty-error
-</code></pre></div> ]]></content>
  </entry>
  
 
