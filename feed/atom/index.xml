@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-05-29T20:09:58+09:00</updated>
+ <updated>2017-07-05T00:18:34+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,333 @@
  </author>
  
 
+ 
+ <entry>
+   <title>#teppeis_sushi でクライアントサイドDDDについて発表した</title>
+   <link href="http://efcl.info/2017/07/04/teppeis_sushi/"/>
+   <updated>2017-07-04T23:26:00+09:00</updated>
+   <id>http://efcl.info/2017/07/04/teppeis_sushi</id>
+   <content type="html"><![CDATA[ <p><a href="https://twitter.com/search?f=realtime&amp;q=%20%23teppeis_sushi" title="#teppeis_sushi">#teppeis_sushi</a>というイベントで、<a href="http://azu.github.io/slide/2017/teppeis-sushi/client-side-ddd-on-github.html" title="Faao - ドメイン駆動設計で作るGitHub Issue Client -">Faao - ドメイン駆動設計で作るGitHub Issue Client -</a>という話をしました。</p>
+
+<p>Electronやブラウザなどで動く<a href="https://github.com/azu/faao" title="faao">faao</a>というGitHubクライアントを書いていてそれの技術的な話です。
+クライアントサイドでDDDを取り入れた設計になっていて、その設計や規約の作り方やそれを守る方法についての話をしました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/faao" title="azu/faao: Faao is a GitHub issue/pull-request client on Electron.">azu/faao: Faao is a GitHub issue/pull-request client on Electron.</a></li>
+</ul>
+
+<p><a href="https://leanpub.com/livingdocumentation" title="Living Documentation by… by Cyrille Martraire [PDF/iPad/Kindle]">Living Documentation by design, with Domain-Driven Design by Cyrille Martraire [PDF/iPad/Kindle]</a>という無料から買える書籍では、ドキュメントとコードを同じ速度で成長させていくためにはドキュメントに対しても自動化が必要であるなど(コミュニケーションの話なども)が書かれています。</p>
+
+<p>それらを参考にして、レイヤーの違反を自動的に見つけたり、<a href="https://azu.github.io/faao/meta/use-case.html" title="Faao - UseCase architecture">Faao - UseCase architecture</a>のようにコードからユースケースの図を自動生成したりなど、モデリングへのフィードバックループができるようにしているという話です。</p>
+
+<hr>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> 前回も台風でしたね</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882191585122820096">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><a href="http://efcl.info/2016/07/14/teppeis_sushi/" title="#teppeis_sushi に参加した | Web Scratch">#teppeis_sushi に参加した | Web Scratch</a></li>
+</ul>
+
+<hr>
+
+<h2 id="vue-jsでssr">Vue.jsでSSR</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="cs" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> vue.jsでSSR - k2wanko</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882192039919599616">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><a href="https://firebase.google.com/?hl=ja" title="Firebase">Firebase</a></li>
+<li>lambdaのようなものが増えた</li>
+<li>Node.jsが動くのでVue.jsのサーバサイドレンダリングができる</li>
+<li><a href="https://vuejs.org/v2/guide/ssr.html" title="Server-Side Rendering — Vue.js">Server-Side Rendering — Vue.js</a></li>
+<li><a href="https://firebase.google.com/docs/database/?hl=ja" title="Firebase Realtime Database  |  Firebase">Firebase Realtime Database  |  Firebase</a></li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> Firebase裏がわにfastlyがいる</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882194840183689216">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+
+<h2 id="最近electronでローカルプロキシを作っていてこまったこと-kyo_ago">最近Electronでローカルプロキシを作っていてこまったこと - kyo_ago</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> Reduxを使ってStateとドメインと二重管理してる感じ。DDDの恩恵をあんまり受けてない感じする</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882195657447972864">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>クライアントとサーバで両方データがある感じ</li>
+<li>クライアントのデータはサーバのキャッシュにすぎないので嘘のデータに見える</li>
+<li>サーバへ送信するまでの一時的なデータであるならばそれは無理してモデル化するべきなのか</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> クライアント側のデータだけで動くものなら意味があるのかもしれない。<br>クライアントサイドに嘘のデータを持っている感じる。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882195906057183232">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>クライアントのデータはキャッシュでしかないならば、サーバに比べてDDDの魅力がオチている</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> ちょうどいいところ落とし所を見つけるの重要なのでは by TDDのDDD談</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882196495218352128">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>ドメインの共有はIsomorphicで辞めたほうがいいかも</li>
+<li>ドメインはクライアントとサーバで異なる</li>
+<li>サーバから見たドメインは所有という概念がなかったりする</li>
+<li>クライアントとサーバのドメインはアクターが異なるのでドメインモデルも異なる。 なので、クライアントとサーバで同じドメインモデルを共有することはできないのでは</li>
+<li>サーバは「自分が持っている」という概念はないので</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> クラサバ時代のおじさんたち「ようやくその境地にやってきたな」</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882196920440987648">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> ユビキタス言語は共有していいけど、それ以外の共有は難しいのでは</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882197484763619329">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+
+<h2 id="大規模フロントエンドのddd-83">大規模フロントエンドのDDD - 83</h2>
+
+<ul>
+<li>8人でやってるフロントエンドのチーム</li>
+<li>スキルレベルがバラバラ感</li>
+<li>Angular1だったものを2にする設計を始めた</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">「Just Angular！」 <a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a></p>&mdash; Local Proxy (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/882198460228706304">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>設計を担当して質問を受け付けるようになった</li>
+<li>些細な質問なども殺到して個人が開発する時間がなくなった</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> レビューが一人に集中。<br>@ 83</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882198608082108416">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>質問ルームをslackチャットに作ってそこでやってもらったら質問が分散した</li>
+<li>サーバのAPIを作ってる人とクライアントサイドを作って流人は別。</li>
+<li>コンテキストがそもそも違う。 そこで腐敗防止層としてのDDDを取り入れる</li>
+<li>サーバから渡ってきたものをリマップしてクライアント側に主導権を持てるように</li>
+<li>AngularはViewは決まってるけど、設計は別に決まってない。</li>
+<li>無理難題が振ってくることがあるので、ngrxじゃなくて普通にrxをベースにして開発した</li>
+<li>モデリングをちゃんとやることでコピペコードは減る</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> 「DDDとCQRSやってるよーいうと引かれる」</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882200748087427072">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>1画面を作るのに7 APIを叩く</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> 「BFFを作ればいいのでは」</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882201176560721921">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+
+<h2 id="faao-ドメイン駆動設計で作るgithub-issue-client-azu"><a href="http://azu.github.io/slide/2017/teppeis-sushi/client-side-ddd-on-github.html" title="Faao - ドメイン駆動設計で作るGitHub Issue Client -">Faao - ドメイン駆動設計で作るGitHub Issue Client -</a> - azu</h2>
+
+<ul>
+<li>クライアントサイドでTypeScript + <a href="https://github.com/almin/almin" title="Almin">Almin</a> + DDDでの開発</li>
+<li>Living Documentationについて</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">いいドキュメントは自動化されてなければならない <a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a></p>&mdash; OKUNOKENTARO (@armorik83) <a href="https://twitter.com/armorik83/status/882205550963851270">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">最も良いドキュメントは必要になるまで読まなくて良いドキュメント <a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a></p>&mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/status/882206099222482944">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">ESLintは良いドキュメント、エラーになるまで読まなくて良い <a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a></p>&mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/status/882206293204664320">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+
+<h2 id="本の読み方-t_wada">本の読み方 - t_wada</h2>
+
+<ul>
+<li>本は未来方向には書けなくて、過去方向にしか書けない</li>
+<li>技術書を読むときは発刊された年数をちゃんと見る</li>
+<li>特に翻訳本はやたらと古い場合がある</li>
+<li>DDD本はRailsが出る前に書かれたけど、翻訳はRailsのずっと後</li>
+<li>絶版ショック</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">(トッパン|ピアソン)ショック、単に絶版、様々な要因でOOA/OODの書籍がほぼ死滅し、訳書が出るタイミングが遅かったDDD本だけがオーパーツのような存在になった結果、日本ではDDD ≒ OOA/OODになってしまったという奇妙な状況の背景の話をした <a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a></p>&mdash; Takuto Wada (@t_wada) <a href="https://twitter.com/t_wada/status/882241157639487488">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+
+<h2 id="rx6の話-laco">Rx6の話 - laco</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> RxJS 6で何が変わるのかの話 <a href="https://t.co/XtDXct5F0m">https://t.co/XtDXct5F0m</a></p>&mdash; Laco (@laco0416) <a href="https://twitter.com/laco0416/status/882213465598771200">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> bufferの挙動がfindのバグ経由でBreaking Change  &quot;rxjs/CHANGELOG.md at 6.0.0-alpha.0 · ReactiveX/rxjs&quot;  <a href="https://t.co/BXIRrMQmE0">https://t.co/BXIRrMQmE0</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882212815339012096">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>バグ修正によるBreaking Change</li>
+<li>Rxを拡張してるユーザーには影響がある</li>
+</ul>
+
+<h2 id="api-aiの話-vvkame">api.aiの話 - vvkame</h2>
+
+<p>聞けてなかった</p>
+
+<hr>
+
+<h2 id="2017年のフォームの話-会長">2017年のフォームの話 - 会長</h2>
+
+<blockquote>
+<p>要スライド</p>
+</blockquote>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> 2017年のフォームの話 - 会長</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882214321186521088">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>Reactでのformの値の管理 unctrolledとcontrolled</li>
+<li>FBとしてはcontrolledで管理して</li>
+<li>ちょっと複雑なフォームをやるとバリデーションが複雑化する =&gt; controlled推奨</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> jQueryなどの昔ながらのバリデーションライブラリはunctrolledで作られてる。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882214853485617152">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> ちょっとまって!<br>2017年 いろんな所にstateがある。<br>どこにstateを保存するのが正しいの?</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882215092464398336">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>React/Redux/永続化されたState</li>
+<li>どこで何を管理する?</li>
+<li>Twitterはハイブリット的な構造
+
+<ul>
+<li>入力中はコンポーネント、適宜Reduxへ</li>
+</ul></li>
+<li>ユーザー入力中に外からpropsで値がすり替わるとIMEなどで問題が起きるため</li>
+<li>処理速度的にコンポーネントに閉じたほうが良いこともある</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> 再生時間みたいなMediaを考えると処理速度的にはコンポーネントで描画は行って、ドメインに定期的に状態を反映する形</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882216123596390400">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+
+<h2 id="es-class-fieldの話-teppeis">ES class fieldの話 - teppeis</h2>
+
+<blockquote>
+<p>スライド: <a href="https://gist.github.com/teppeis/06c2b7e97c7d67684c3d3c94159893f3" title="ES Class Fieldsのプライベートフィールドがハッシュな変態記法なのは何でなんだぜ？">ES Class Fieldsのプライベートフィールドがハッシュな変態記法なのは何でなんだぜ？</a></p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/tc39/proposal-private-fields" title="tc39/proposal-private-fields: A Private Fields Proposal for ECMAScript">tc39/proposal-private-fields: A Private Fields Proposal for ECMAScript</a></li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> Symbolでやれることをsyntaxでやる意味がない。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882217632459444228">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>hard protectionは言語としてできることを目指すべき</li>
+<li>Reflectとかで闇雲見られるようにはしない</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> 見えちゃうとお前ら使うだろ。使えないようにするのが正義</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882219462954336257">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+
+<h1 id="flutterの話">flutterの話</h1>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">「Flutterを知らないおじさん達へ」 <a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a></p>&mdash; Local Proxy (@kyo_ago) <a href="https://twitter.com/kyo_ago/status/882221826402734082">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">いつのまにかDartの話にすり替えるあくろすあざとい。 <a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a></p>&mdash; OKUNOKENTARO (@armorik83) <a href="https://twitter.com/armorik83/status/882221967205519361">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li><a href="https://flutter.io/web-analogs/" title="HTML/CSS Analogs in Flutter - Flutter">HTML/CSS Analogs in Flutter - Flutter</a></li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">OS再実装したりブラウザ再実装したり…。 <a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a></p>&mdash; OKUNOKENTARO (@armorik83) <a href="https://twitter.com/armorik83/status/882222891726544896">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+
+<h2 id="web-packaging-jxck">Web Packaging - jxck</h2>
+
+<ul>
+<li>ネットワークが遅いところで物理的p2pでサイトを見てるケース</li>
+<li>mhtmlみたいな</li>
+<li>データ・フォーマットなのでIETFへ</li>
+<li>ギリギリにGoogleから投げつけられてきた(いつもの)</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> ネットワークが悪い国ではmhtmlをsdカードでやり取りしてる。<br>もっとカジュアルに共有できるようにしたい</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882225567365386241">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>dispatchというWGで議論されて、どこで議論するべきなのかを決める</li>
+<li>WGができたら結構すごいことになるかも</li>
+<li>Service Workerの横つながりみたいな話がでてきるかも</li>
+<li>次回のプラハ会議に注目</li>
+</ul>
+
+<hr>
+
+<h2 id="その他">その他</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> 未だに2年前と同じ話をしてる es module</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/882228287862210560">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+<li>Nodeの進捗がよくわからない</li>
+<li>CSPとバグとお金</li>
+</ul>
+
+<hr>
+
+<h2 id="おわり">おわり</h2>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Big boss is watching you <a href="https://twitter.com/hashtag/teppeis_sushi?src=hash">#teppeis_sushi</a> <a href="https://t.co/Yxz03NerJq">pic.twitter.com/Yxz03NerJq</a></p>&mdash; Yosuke FURUKAWA (@yosuke_furukawa) <a href="https://twitter.com/yosuke_furukawa/status/882229938232754177">July 4, 2017</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>おめでとうございます</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>書いた文章をレビューしてGitHubにIssueを切るためのGitBookプラグイン</title>
@@ -1524,130 +1851,6 @@ search-prototype.js ./public/javascripts/application.js
 <hr>
 
 <p>お疲れ様でした。</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>箇条書きにおける文末の句点（。）を統一するtextlintルール</title>
-   <link href="http://efcl.info/2017/04/11/textlint-rule-period-in-list-item/"/>
-   <updated>2017-04-11T08:41:00+09:00</updated>
-   <id>http://efcl.info/2017/04/11/textlint-rule-period-in-list-item</id>
-   <content type="html"><![CDATA[ <p><a href="https://github.com/azu/textlint-rule-period-in-list-item" title="textlint-rule-period-in-list-item">textlint-rule-period-in-list-item</a>という<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>のルールを書きました。</p>
-
-<p>箇条書きの文末に。がついてたりついてなかったりするのを統一するためのルールです。
-本文中の句点（。）の統一するルールは別途あります。</p>
-
-<ul>
-<li><a href="https://github.com/textlint-ja/textlint-rule-ja-no-mixed-period/" title="textlint-ja/textlint-rule-ja-no-mixed-period: 文末の句点(。)の統一 と 抜けをチェックするtextlintルール">textlint-ja/textlint-rule-ja-no-mixed-period: 文末の句点(。)の統一 と 抜けをチェックするtextlintルール</a></li>
-</ul>
-
-<p><strong>デフォルトの挙動</strong> </p>
-
-<p>デフォルトは句点を付けないように統一します。
-以前アンケートを取ってみたところ、箇条書きの文末に句点はつけない人のほうが多そうではありました。</p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">[Poll] 箇条書きの文末に。をつける付けない</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/844535223278694404">March 22, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>(もちろんオプションで変更できます)</p>
-
-<p><strong>OK</strong>:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">- 項目1
-- 項目2
-- [textlint](https://github.com/textlint/textlint &quot;textlint&quot;)
-</code></pre></div>
-<p><strong>NG</strong>:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">- 項目1。
-- 項目2.
-</code></pre></div>
-<p>という感じになります。</p>
-
-<h2 id="install">Install</h2>
-
-<p><a href="https://www.npmjs.com/">npm</a>を使ってインストールできます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-rule-period-in-list-item
-</code></pre></div>
-<h2 id="usage">Usage</h2>
-
-<p><a href="https://www.google.com/search?q=textlint+%E4%BD%BF%E3%81%84%E6%96%B9">textlint 使い方</a>などで検索してください。</p>
-
-<p>Via <code>.textlintrc</code>(Recommended)</p>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;period-in-list-item&quot;</span><span class="p">:</span> <span class="kc">true</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="オプション">オプション</h2>
-
-<p>オプションは色々ありますが、句点をつけないひとはあんまり変更する必要がないはずです。
-句点を付ける人は、<code>periodMark</code>に利用する記号を指定してください。</p>
-
-<p>例えば、<code>periodMark: &quot;。&quot;</code>とすれば、箇条書きの文末に<code>。</code>を付けることをチェックします。</p>
-
-<p>文末に<code>。</code>を必須にした場合でも <code>- 「OK」</code> は許可したいという場合は、<code>allowPeriodMarks</code>で設定できます。(<code>!</code>や<code>?</code>といった文末に来る可能性が高いものはデフォルトで入っていますが)</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
-    <span class="c1">// prefer to use period mark.</span>
-    <span class="c1">// &quot;&quot; (default is no period)</span>
-    <span class="c1">// You can select period mark like &quot;.&quot; from &quot;periodMarks&quot;.</span>
-    <span class="s2">&quot;periodMark&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="c1">// Built-in recognized period mark list</span>
-    <span class="c1">// if the period of the text is not `periodMark` and it is a string in the `periodMarks`,</span>
-    <span class="s2">&quot;periodMarks&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;。&quot;</span><span class="p">,</span> <span class="s2">&quot;．&quot;</span><span class="p">],</span>
-    <span class="c1">// Ignore only link tag</span>
-    <span class="c1">// - [text](link)</span>
-    <span class="c1">// It is not needed period mark</span>
-    <span class="s2">&quot;ignoreLinkEnd&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="c1">// allow exception period mark list at end of the list item</span>
-    <span class="c1">// Ignore this period mark</span>
-    <span class="s2">&quot;allowPeriodMarks&quot;</span><span class="o">:</span> <span class="p">[],</span>
-    <span class="c1">// Allow emoji at end of the list item</span>
-    <span class="s2">&quot;allowEmoji&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="c1">// If not exist `periodMark` at end of the list item</span>
-    <span class="c1">// Automatically, append `periodMark` when does textlint --fix</span>
-    <span class="s2">&quot;forceAppendPeriod&quot;</span><span class="o">:</span> <span class="kc">false</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="句点をつけるように自動修正">句点をつけるように自動修正</h2>
-
-<p>このルールは<code>textlint --fix</code>の自動修正にも対応しています。
-句点を取り除く方は常に<code>--fix</code>で修正されますが、句点を付ける方は<code>forceAppendPeriod:true</code>の時のみ有効です。
-(エディタなどで保存ごとに<code>--fix</code>したいという場合に問題になるため)</p>
-
-<p>次の設定では、<code>.</code>が<code>--fix</code>をした時に自動で追加されます。</p>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;period-in-list-item&quot;</span><span class="p">:</span> <span class="p">{</span>
-           <span class="nt">&quot;periodMark&quot;</span><span class="p">:</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
-           <span class="nt">&quot;forceAppendPeriod&quot;</span><span class="p">:</span> <span class="kc">true</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p><strong>Before</strong></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">- item
-</code></pre></div>
-<p><strong>After</strong></p>
-
-<p><code>textlint --fix</code>した結果</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">- item.
-</code></pre></div>
-<h2 id="おわりに">おわりに</h2>
-
-<p>箇条書きにおける句点の表記を統一するtextlintルールでした。
-何か問題を見つけた場合次のリポジトリのIssueへ報告してください。</p>
-
-<ul>
-<li><a href="https://github.com/azu/textlint-rule-period-in-list-item" title="textlint-rule-period-in-list-item">textlint-rule-period-in-list-item</a></li>
-</ul>
-
-<p>また<a href="https://gitter.im/textlint-ja/textlint-ja">Gitterのtextlint-ja</a>のチャットでも問題ないです。</p>
-
-<p><a href="https://gitter.im/textlint-ja/textlint-ja?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img src="https://badges.gitter.im/textlint-ja/textlint-ja.svg" alt="Gitter"></a></p>
-
-<p>箇条書きに句点を付けるか付けないかの明確な根拠は探した感じよく分かりませんでした。
-日本語だけじゃなくて英語でも人によっても違う感じだったので、何か興味深い資料があればおしらせください。</p>
  ]]></content>
  </entry>
  
