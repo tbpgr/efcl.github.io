@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-07-05T00:38:23+09:00</updated>
+ <updated>2017-07-05T00:43:34+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -20,6 +20,8 @@
    <updated>2017-07-04T23:26:00+09:00</updated>
    <id>http://efcl.info/2017/07/04/teppeis_sushi</id>
    <content type="html"><![CDATA[ <p><a href="https://twitter.com/search?f=realtime&amp;q=%20%23teppeis_sushi" title="#teppeis_sushi">#teppeis_sushi</a>というイベントで、<a href="http://azu.github.io/slide/2017/teppeis-sushi/client-side-ddd-on-github.html" title="Faao - ドメイン駆動設計で作るGitHub Issue Client -">Faao - ドメイン駆動設計で作るGitHub Issue Client -</a>という話をしました。</p>
+
+<p><a href="http://azu.github.io/slide/2017/teppeis-sushi/client-side-ddd-on-github.html"><img src="http://efcl.info/wp-content/uploads/2017/07/05-1499182533.png" alt="image"></a></p>
 
 <p>Electronやブラウザなどで動く<a href="https://github.com/azu/faao" title="faao">faao</a>というGitHubクライアントを書いていてそれの技術的な話です。
 クライアントサイドでDDDを取り入れた設計になっていて、その設計や規約の作り方やそれを守る方法についての話をしました。</p>
@@ -299,6 +301,8 @@
 <h2 id="web-packaging-jxck">Web Packaging - jxck</h2>
 
 <ul>
+<li><a href="https://tools.ietf.org/html/draft-yasskin-dispatch-web-packaging-00" title="draft-yasskin-dispatch-web-packaging-00 - Web Packaging">draft-yasskin-dispatch-web-packaging-00 - Web Packaging</a></li>
+<li><a href="http://asnokaze.hatenablog.com/entry/2017/07/02/171513" title="Webページを丸ごとパッケージングする Web Packagingとは - ASnoKaze blog">Webページを丸ごとパッケージングする Web Packagingとは - ASnoKaze blog</a></li>
 <li>ネットワークが遅いところで物理的p2pでサイトを見てるケース</li>
 <li>mhtmlみたいな</li>
 <li>データ・フォーマットなのでIETFへ</li>
@@ -312,7 +316,7 @@
 <ul>
 <li>dispatchというWGで議論されて、どこで議論するべきなのかを決める</li>
 <li>WGができたら結構すごいことになるかも</li>
-<li>Service Workerの横つながりみたいな話がでてきるかも</li>
+<li>Service Workerの横つながりみたいな話がでてくるかも</li>
 <li>次回のプラハ会議に注目</li>
 </ul>
 
