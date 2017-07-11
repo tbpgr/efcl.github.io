@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "Array.prototypeのImmutable版メソッドを個別のパッケージで使えるものを作った",
+            "url": "http://efcl.info/2017/07/11/immutable-array/",
+            "date": "2017-07-11T20:03:00+09:00"
+        },
+        
+        {
             "title": "#teppeis_sushi でクライアントサイドDDDについて発表した",
             "url": "http://efcl.info/2017/07/04/teppeis_sushi/",
             "date": "2017-07-04T23:26:00+09:00"

@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-07-09T16:24:12+09:00</updated>
+ <updated>2017-07-11T20:28:24+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,118 @@
  </author>
  
 
+ 
+ <entry>
+   <title>Array.prototypeのImmutable版メソッドを個別のパッケージで使えるものを作った</title>
+   <link href="http://efcl.info/2017/07/11/immutable-array/"/>
+   <updated>2017-07-11T20:03:00+09:00</updated>
+   <id>http://efcl.info/2017/07/11/immutable-array</id>
+   <content type="html"><![CDATA[ <p>JavaScriptの配列には破壊的なものと非破壊的なものが混在しています。
+例えば<code>Arrray.prototype.push</code>は破壊的ですが、<code>Array.prototype.concat</code>は結合した新しい配列を返すので非破壊的です。</p>
+
+<p>破壊的か非破壊的かは、基本的には覚えることでしか区別できません。
+それらの破壊的メソッドの非破壊的なバージョン - Immutableバージョンのライブラリを作成しました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/immutable-array-prototype" title="azu/immutable-array-prototype: A collection of Immutable Array prototype methods(Per method packages).">azu/immutable-array-prototype: A collection of Immutable Array prototype methods(Per method packages).</a></li>
+</ul>
+
+<h2 id="インストール">インストール</h2>
+
+<p>すべてのImmutable版をまとめたものは次のパッケージでインストールできます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install @immutable-array/prototype
+</code></pre></div>
+<p>また、<code>push</code>のImmutable版だけ欲しいなどもあると思うので、それぞれのメソッド毎に別々のパッケージとしてインストールすることができます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install @immutable-array/pop
+npm install @immutable-array/push
+npm install @immutable-array/shift
+npm install @immutable-array/unshift
+npm install @immutable-array/sort
+npm install @immutable-array/reverse
+npm install @immutable-array/fill
+npm install @immutable-array/splice
+npm install @immutable-array/copy-within
+</code></pre></div>
+<p>対応してるメソッドは次の通りです。</p>
+
+<p>| Native method: Return type               | <code>@immutable-array/*</code>                       |
+| ---------------------------------------- | ---------------------------------------- |
+| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/pop"><code>Array.prototype.pop()</code></a>: <code>any</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/pop"><code>pop()</code></a>: new  <code>Array</code> |
+| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/push"><code>Array.prototype.push()</code></a>: <code>Number</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/push"><code>push()</code></a>: new  <code>Array</code> |
+| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/shift"><code>Array.prototype.shift()</code></a>: <code>any</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/shift"><code>shift()</code></a>: new  <code>Array</code> |
+| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift"><code>Array.prototype.unshift()</code></a>: <code>any</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/unshift"><code>unshift()</code></a>: new  <code>Array</code> |
+| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/splice"><code>Array.prototype.splice()</code></a>: <code>Array</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/splice"><code>splice()</code></a>: new  <code>Array</code> |
+| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse"><code>Array.prototype.reverse()</code></a>: <code>Array</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/sort"><code>reverse()</code></a>: new <code>Array</code> |
+| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/sort"><code>Array.prototype.sort()</code></a>: <code>Array</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/sort"><code>sort()</code></a>: new  <code>Array</code> |
+| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/fill"><code>Array.prototype.fill()</code></a>: <code>Array</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/fill"><code>fill()</code></a>: new <code>Array</code> |
+| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin"><code>Array.prototype.copyWithin()</code></a>: <code>Array</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/copy-within"><code>copyWithin()</code></a>: new <code>Array</code> |</p>
+
+<p>それぞれのメソッドの使い方は第一引数が対象の配列となるだけで他の引数や挙動はECMAScriptに合わせています。</p>
+
+<p>例えば<code>reverse</code>なら次のように書くことができます。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span>
+    <span class="nx">reverse</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;@immutable-array/prototype&quot;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">reversedArrray</span> <span class="o">=</span> <span class="nx">reverse</span><span class="p">(</span><span class="nx">array</span><span class="p">);</span> <span class="c1">// [&quot;e&quot;, &quot;d&quot;, &quot;c&quot;, &quot;b&quot;, &quot;a&quot;]</span>
+</code></pre></div>
+<p>またよくある<a href="https://github.com/azu/immutable-array-prototype#related">Immutableライブラリのように</a>独自のImmutableメソッドは追加していません。
+あくまで、JavaScriptの配列における破壊的なメソッドの非破壊的なバージョンを提供するという立ち位置にしています。</p>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p><a href="https://github.com/azu/immutable-array-prototype#benchmarks">Benchmark</a>(参考値)を見る限り、このImmutable版で配列を作り直してもそこまで急激な差はでませんでした。</p>
+
+<p>原理的にネイティブのメソッドのステップ + コピーなので、ネイティブのものより早くなりません。(勝ってる部分があるように見えますが恐らくそれは誤差です。)
+Lodashのように、エッジケースのステップを省略して早くすることは目的ではありません</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Native `Array.prototype`          |    @immutable-array
+&gt; node src/array.js |                  &gt; immutable-array.js
+                                  |
+# pop 200000 times               &gt;&gt;&gt;   # pop 200000 times
+ok ~330 ms (0 s + 330397151 ns)  &gt;&gt;&gt;   ok ~267 ms (0 s + 267348617 ns)
+                              |
+# push 200000 times              &gt;&gt;&gt;   # push 200000 times
+ok ~169 ms (0 s + 168738061 ns)  &gt;&gt;&gt;   ok ~141 ms (0 s + 140502324 ns)
+                              |
+# shift 200000 times             &lt;&lt;&lt;   # shift 200000 times
+ok ~296 ms (0 s + 295892983 ns)  &lt;&lt;&lt;   ok ~419 ms (0 s + 418852725 ns)
+                              |
+# unshift 200000 times           &lt;&lt;&lt;   # unshift 200000 times
+ok ~51 ms (0 s + 50817590 ns)    &lt;&lt;&lt;   ok ~191 ms (0 s + 191329502 ns)
+                              |
+# sort 2000 times                &gt;&gt;&gt;   # sort 2000 times
+ok ~933 ms (0 s + 932551400 ns)  &gt;&gt;&gt;   ok ~611 ms (0 s + 610748601 ns)
+                              |
+# reverse 200000 times           &gt;&gt;&gt;   # reverse 200000 times
+ok ~555 ms (0 s + 554921645 ns)  &gt;&gt;&gt;   ok ~455 ms (0 s + 455068191 ns)
+                              |
+# fill 200000 times              &gt;&gt;&gt;   # fill 200000 times
+ok ~782 ms (0 s + 782159758 ns)  &gt;&gt;&gt;   ok ~699 ms (0 s + 698677543 ns)
+                              |
+# splice 200000 times            &lt;&lt;&lt;   # splice 200000 times
+ok ~287 ms (0 s + 286547242 ns)  &lt;&lt;&lt;   ok ~391 ms (0 s + 391294720 ns)
+                              |
+# copyWithin 200000 times        &lt;&lt;&lt;   # copyWithin 200000 times
+ok ~237 ms (0 s + 236837575 ns)  &lt;&lt;&lt;   ok ~275 ms (0 s + 275267401 ns)
+                              |
+all benchmarks completed         &gt;&gt;&gt;   all benchmarks completed
+ok ~3.64 s (3 s + 638863405 ns)  &gt;&gt;&gt;   ok ~3.45 s (3 s + 449089624 ns)
+</code></pre></div>
+<p>今のReactやRedux、Alminなどを使ってアプリケーションを書くと、オブジェクトはImmutableでやることが多いです。</p>
+
+<ul>
+<li><a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
+<li><a href="http://azu.github.io/slide/2017/teppeis-sushi/client-side-ddd-on-github.html" title="Faao - ドメイン駆動設計で作るGitHub Issue Client -">Faao - ドメイン駆動設計で作るGitHub Issue Client -</a></li>
+</ul>
+
+<p>ある程度の規模のJavaScriptアプリケーションを作ったときに、ドメイン層やStateをImmutableにすることがボトルネックになることはそこまで多くありません(巨大なリストとは別ですが)
+Reactなどで作るアプリケーションは、配列などを作るよりも、値を比較する回数の方が圧倒的に多くなるため、作るコストよりも比較するコストを気にすることが多いです。</p>
+
+<p>Immutable.jsのような速度も兼ね備えたものを使うと便利ですが、通常の配列とは使い方やサイズも多いので使うのに躊躇します。
+ある程度小さくて、配列と同じ使い方ができるものがほしかったので作りました。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>#teppeis_sushi でクライアントサイドDDDについて発表した</title>
@@ -1637,224 +1749,6 @@ search-prototype.js ./public/javascripts/application.js
 <ul>
 <li><a href="https://github.com/sstephenson/prototype/commits/master" title="Commits · sstephenson/prototype">Commits · sstephenson/prototype</a></li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>Node学園 25時限目でECMAScriptの国際標準化の話をした</title>
-   <link href="http://efcl.info/2017/04/24/node-25/"/>
-   <updated>2017-04-24T23:51:00+09:00</updated>
-   <id>http://efcl.info/2017/04/24/node-25</id>
-   <content type="html"><![CDATA[ <p><a href="https://nodejs.connpass.com/event/54749/" title="Node学園 25時限目 - connpass">Node学園 25時限目 - connpass</a>に受付として参加してきて、ついでにECMAScript Specification SuiteについてのLTをしました。</p>
-
-<blockquote>
-<p>ECMAScript Specification Suite<br>
-スライド-- <a href="http://azu.github.io/slide/2017/node/ecmascript-specification-suite.html">http://azu.github.io/slide/2017/node/ecmascript-specification-suite.html</a></p>
-</blockquote>
-
-<p><a href="http://azu.github.io/slide/2017/node/ecmascript-specification-suite.html" title="ECMAScript Specification Suite">ECMAScript Specification Suite</a>は現在議論中のECMAScriptの新しい国際標準候補です。</p>
-
-<p>どういうものかは次の記事でも書いています。</p>
-
-<ul>
-<li><a href="http://efcl.info/2017/02/27/ecma-414/" title="ECMA-414 ECMAScript Specification Suiteについて | Web Scratch">ECMA-414 ECMAScript Specification Suiteについて | Web Scratch</a></li>
-</ul>
-
-<p>以下はメモです。</p>
-
-<p>受付をやっていたのでかなり断片的です。</p>
-
-<h2 id="node-8-0-0"><a href="mailto:node@8.0.0">node@8.0.0</a></h2>
-
-<blockquote>
-<p><a href="http://abouthiroppy.github.io/slides/node8/" title="abouthiroppy/node8">abouthiroppy/node8</a></p>
-</blockquote>
-
-<h2 id="introduction-to-rust-by-akito0107">Introduction to Rust by Akito0107</h2>
-
-<ul>
-<li>Rustとは</li>
-<li>Rustが新しいところ = メモリ管理</li>
-<li>所有権の概念</li>
-<li>メモリ領域の種類
-
-<ul>
-<li>Stack</li>
-<li>1つの関数とかサブルーチンとか1つのブロックの中のメモリ</li>
-<li>ブロックから抜けるとポップする</li>
-<li>基本的に高速</li>
-<li>Heap</li>
-<li>複数のサブルーチンとか、関数で使いまわしたりする</li>
-<li>明示的な管理が必要</li>
-<li>Stackに比べるメモリ管理のコストが高い</li>
-<li>メモリ管理</li>
-<li>手動でmalloc/free</li>
-</ul></li>
-<li>GC
-
-<ul>
-<li>自動でメモリ管理 確保と解放を行う</li>
-<li>生きてるオブジェクト死んでるオブジェクトを判別して処理する</li>
-<li>参照してるかどうか</li>
-<li>GC中は他の処理ができなくなることがある</li>
-</ul></li>
-<li>Rustのアプローチ
-
-<ul>
-<li>手動/GCでもなく所有権でメモリ管理を解決</li>
-<li>RustのデフォルトはStackでallocate</li>
-<li>Heap Allocation</li>
-<li>Box::newするとHeapへ確保</li>
-<li><code>let foo = boxed_foo()</code> fooはheap領域を参照</li>
-<li>Stackから抜けるときにheap領域のものも消す</li>
-</ul></li>
-<li>Rustのコンパイルエラー
-
-<ul>
-<li>所有権 =　オブジェクトを開放する権利</li>
-<li>Rustはオブジェクトの所有権は基本的に1つオブジェクトがもつ</li>
-<li>既に所有権をもってないものが触ろうとしたらコンパイルエラー</li>
-<li>Rust における <code>=</code> は「代入」じゃなくて「移譲」となる</li>
-<li>所有権を「移譲」してる</li>
-<li>参照と借用 = read onlyの参照は許可する概念がある</li>
-</ul></li>
-<li>寿命
-
-<ul>
-<li>借用先の寿命 &gt; 借用元の寿命</li>
-<li>デフォルトはスタックであることを思い出す</li>
-</ul></li>
-<li>メモリ安全、データ競合安全
-
-<ul>
-<li>コンパイラがチェックしてくれる</li>
-</ul></li>
-<li>言語機能
-
-<ul>
-<li>パターンマッチ、エラー処理などがある</li>
-</ul></li>
-<li>Rustのユースケースについて</li>
-<li><a href="https://tokio.rs/" title="Tokio">Tokio</a></li>
-<li><a href="https://github.com/hyperium/hyper" title="hyperium/hyper: An HTTP library for Rust">hyperium/hyper: An HTTP library for Rust</a></li>
-</ul>
-
-<hr>
-
-<h2 id="cycle-js">Cycle.js</h2>
-
-<ul>
-<li><a href="https://cycle.js.org/" title="Cycle.js">Cycle.js</a></li>
-<li>Rx的なものをラップしたフレームワーク</li>
-<li><a href="https://github.com/staltz/xstream" title="staltz/xstream: An extremely intuitive, small, and fast functional reactive stream library for JavaScript">staltz/xstream: An extremely intuitive, small, and fast functional reactive stream library for JavaScript</a>
-
-<ul>
-<li>RxJSのoperatorを減らしたり、変更したもの</li>
-</ul></li>
-<li>Cycle.jsの設計
-
-<ul>
-<li>Applicationを<code>main()</code> と <code>driver()</code> に分割</li>
-<li><code>driver()</code> DOM、APIを叩いたりする</li>
-<li><code>main()</code> 副作用のないRxの世界</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2 id="初めてのoss初めてのnode-contribute-chiiia12">初めてのOSS初めてのnode contribute - chiiia12</h2>
-
-<blockquote>
-<p><a href="https://speakerdeck.com/chiiia12/chu-metefalseosschu-metefalsenode-dot-js-contribute-number-tng25" title="初めてのOSS初めてのNode.js Contribute#tng25 // Speaker Deck">初めてのOSS初めてのNode.js Contribute#tng25 // Speaker Deck</a></p>
-</blockquote>
-
-<ul>
-<li>OSS勉強会</li>
-<li>Node.jsへのPRする</li>
-<li>3回目でやっとマージされた</li>
-<li>大きい所にPRすることで自信を持てた</li>
-<li>レビューしてもらえる</li>
-<li>運用方法が参考になる</li>
-</ul>
-
-<hr>
-
-<h2 id="v8-interpreter-ignitionについて-by-brn0227">V8 Interpreter Ignitionについて by brn0227</h2>
-
-<blockquote>
-<p><a href="https://www.slideshare.net/ssuser6f246f/v8-iginition-interpreter" title="V8 Iginition Interpreter">V8 Iginition Interpreter</a></p>
-</blockquote>
-
-<ul>
-<li>V8のインタープリタ</li>
-<li>昔は常にfull codegenだった
-
-<ul>
-<li>ファイルがサイズがでかい、時間がかかる</li>
-</ul></li>
-<li>関数を実行するときにコンパイルようにした
-
-<ul>
-<li>Facebookでなんか遅い</li>
-</ul></li>
-<li>Ignition
-
-<ul>
-<li>ピーク時はfull codegenよりは遅い</li>
-<li>平常時はまあまあな速度がある</li>
-</ul></li>
-</ul>
-
-<p>今までのビルドパス</p>
-
-<ul>
-<li>JavaScript -&gt; AST -&gt; アーキテクチャ毎のバイトコード</li>
-</ul>
-
-<p>Ignition</p>
-
-<ul>
-<li>JavaScript -&gt; AST -&gt; Ignition -&gt; 中間コード -&gt; アーキテクチャ毎のバイトコード</li>
-</ul>
-
-<p>TurboFun</p>
-
-<ul>
-<li>Ignitionの中間コードを最適化するオプティマイズコンパイラ</li>
-<li>Ignitionで実行中のプロファイルを取って、最適化する</li>
-<li>最適化パスが間違っていた場合は、de-optsして戻す</li>
-<li>小さな単位でやるので、de-opt時に戻りやすい(中間コードに戻す)</li>
-</ul>
-
-<p>IC(Inlining Cache)</p>
-
-<ul>
-<li>キャッシュミス時の劣化があった</li>
-<li>missとfound の2種類のみあった</li>
-<li>fast path/no inlined/miss の3パターンになった</li>
-<li>キャッシュミスを減らすことでICの効率を下げないような工夫が入った</li>
-</ul>
-
-<h2 id="hello-mobx-by-leader22">Hello, MobX! by leader22</h2>
-
-<blockquote>
-<p><a href="http://leader22.github.io/slides/node_gakuen-25/" title="Hello, MobX!">Hello, MobX!</a></p>
-</blockquote>
-
-<ul>
-<li><a href="https://github.com/mobxjs/mobx" title="MobX">MobX</a></li>
-<li>state管理ライブラリ</li>
-<li>どういうものなのか?</li>
-<li>autorun -&gt; stateをなんとかする</li>
-<li>state管理に絞ってる</li>
-<li>アーキテクチャ自体は自分で決める</li>
-</ul>
-
-<h2 id="slack-codegolf-by-darai0512">Slack CodeGolf by darai0512</h2>
-
-<hr>
-
-<p>お疲れ様でした。</p>
  ]]></content>
  </entry>
  
