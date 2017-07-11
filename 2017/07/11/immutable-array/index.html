@@ -356,17 +356,7 @@ npm install @immutable-array/copy-within
 </code></pre></div>
 <p>対応してるメソッドは次の通りです。</p>
 
-<p>| Native method: Return type               | <code>@immutable-array/*</code>                       |
-| ---------------------------------------- | ---------------------------------------- |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/pop"><code>Array.prototype.pop()</code></a>: <code>any</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/pop"><code>pop()</code></a>: new  <code>Array</code> |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/push"><code>Array.prototype.push()</code></a>: <code>Number</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/push"><code>push()</code></a>: new  <code>Array</code> |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/shift"><code>Array.prototype.shift()</code></a>: <code>any</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/shift"><code>shift()</code></a>: new  <code>Array</code> |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift"><code>Array.prototype.unshift()</code></a>: <code>any</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/unshift"><code>unshift()</code></a>: new  <code>Array</code> |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/splice"><code>Array.prototype.splice()</code></a>: <code>Array</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/splice"><code>splice()</code></a>: new  <code>Array</code> |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse"><code>Array.prototype.reverse()</code></a>: <code>Array</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/sort"><code>reverse()</code></a>: new <code>Array</code> |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/sort"><code>Array.prototype.sort()</code></a>: <code>Array</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/sort"><code>sort()</code></a>: new  <code>Array</code> |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/fill"><code>Array.prototype.fill()</code></a>: <code>Array</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/fill"><code>fill()</code></a>: new <code>Array</code> |
-| <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin"><code>Array.prototype.copyWithin()</code></a>: <code>Array</code>| <a href="https://github.com/azu/immutable-array-prototype/tree/master/packages/copy-within"><code>copyWithin()</code></a>: new <code>Array</code> |</p>
+<p><img src="http://efcl.info/wp-content/uploads/2017/07/11-1499771177.png" alt="method table"></p>
 
 <p>それぞれのメソッドの使い方は第一引数が対象の配列となるだけで他の引数や挙動はECMAScriptに合わせています。</p>
 
@@ -422,16 +412,20 @@ ok ~3.64 s (3 s + 638863405 ns)  &gt;&gt;&gt;   ok ~3.45 s (3 s + 449089624 ns)
 </code></pre></div>
 <p>今のReactやRedux、Alminなどを使ってアプリケーションを書くと、オブジェクトはImmutableでやることが多いです。</p>
 
+<p>ある程度の規模のJavaScriptアプリケーションを作ったときに、ドメイン層やStateをImmutableにすることがボトルネックになることはそこまで多くありません(巨大なリストとは別ですが)
+Reactなどで作るアプリケーションは、配列などを作るよりも、値を比較する回数の方が圧倒的に多くなるため、作るコストよりも比較するコストを気にすることが多いです。</p>
+
+<p>次のスライドでもそういう話をしてます。</p>
+
 <ul>
 <li><a href="https://github.com/azu/large-scale-javascript" title="azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
 <li><a href="http://azu.github.io/slide/2017/teppeis-sushi/client-side-ddd-on-github.html" title="Faao - ドメイン駆動設計で作るGitHub Issue Client -">Faao - ドメイン駆動設計で作るGitHub Issue Client -</a></li>
 </ul>
 
-<p>ある程度の規模のJavaScriptアプリケーションを作ったときに、ドメイン層やStateをImmutableにすることがボトルネックになることはそこまで多くありません(巨大なリストとは別ですが)
-Reactなどで作るアプリケーションは、配列などを作るよりも、値を比較する回数の方が圧倒的に多くなるため、作るコストよりも比較するコストを気にすることが多いです。</p>
+<p>Immutable.jsのような速度も兼ね備えたものを使うと便利ですが、通常の配列とは使い方やサイズも大きいので使うのに躊躇します。
+サイズが小さくて、配列と同じ使い方ができるものがほしかったので作りました。</p>
 
-<p>Immutable.jsのような速度も兼ね備えたものを使うと便利ですが、通常の配列とは使い方やサイズも多いので使うのに躊躇します。
-ある程度小さくて、配列と同じ使い方ができるものがほしかったので作りました。</p>
+<p>あとTypeScriptの型定義ファイルも入っています。</p>
 
     </div>
     <div class="post-post-toolbar">
