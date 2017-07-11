@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-07-11T20:36:04+09:00</updated>
+ <updated>2017-07-11T21:01:55+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -20,10 +20,17 @@
    <updated>2017-07-11T20:03:00+09:00</updated>
    <id>http://efcl.info/2017/07/11/immutable-array</id>
    <content type="html"><![CDATA[ <p>JavaScriptの配列には破壊的なものと非破壊的なものが混在しています。
-例えば<code>Arrray.prototype.push</code>は破壊的ですが、<code>Array.prototype.concat</code>は結合した新しい配列を返すので非破壊的です。</p>
+例えば<code>Arrray.prototype.push</code>は破壊的ですが、<code>Array.prototype.concat</code>は結合した新しい配列を返すので非破壊的です。
+破壊的か非破壊的かは、基本的には覚えることでしか区別できません。</p>
 
-<p>破壊的か非破壊的かは、基本的には覚えることでしか区別できません。
-それらの破壊的メソッドの非破壊的なバージョン - Immutableバージョンのライブラリを作成しました。</p>
+<p>配列のメソッドの使い方については次の記事やjs-primerで今書いています。</p>
+
+<ul>
+<li><a href="http://efcl.info/2016/10/11/array-patterns/" title="JavaScriptの配列のパターン | Web Scratch">JavaScriptの配列のパターン | Web Scratch</a></li>
+<li><a href="https://asciidwango.github.io/js-primer/basic/array/" title="配列 · JavaScriptの入門書 #jsprimer">配列 · JavaScriptの入門書 #jsprimer</a></li>
+</ul>
+
+<p>それらの破壊的メソッドの非破壊的なバージョン - Immutableバージョンのライブラリを作成しました。</p>
 
 <ul>
 <li><a href="https://github.com/azu/immutable-array-prototype" title="azu/immutable-array-prototype: A collection of Immutable Array prototype methods(Per method packages).">azu/immutable-array-prototype: A collection of Immutable Array prototype methods(Per method packages).</a></li>
@@ -61,6 +68,27 @@ npm install @immutable-array/copy-within
 </code></pre></div>
 <p>またよくある<a href="https://github.com/azu/immutable-array-prototype#related">Immutableライブラリのように</a>独自のImmutableメソッドは追加していません。
 あくまで、JavaScriptの配列における破壊的なメソッドの非破壊的なバージョンを提供するという立ち位置にしています。</p>
+
+<h2 id="作った理由">作った理由</h2>
+
+<p>すでにいくつか同じ試みはありますが、このmonorepoな<a href="https://github.com/azu/immutable-array-prototype#benchmarks" title="immutable-array-prototype">immutable-array-prototype</a>を作った理由としては次の通りです。</p>
+
+<ul>
+<li>TypeScriptに対応してるものがない</li>
+<li><code>Array#fill</code>など新しいメソッドに対応していない</li>
+<li><code>Array#splice</code>のImmutable実装が正しくできているものがない…
+
+<ul>
+<li><a href="https://github.com/azu/immutable-array-prototype/blob/d9654c9d23178df7a4bc417d67341478d9292193/packages/splice/test/splice-test.ts#L97-L111">この<code>-1</code>`をindexに受け取るテストケース</a>が殆どのライブラリで落ちます…</li>
+</ul></li>
+<li>独自のメソッドを追加しているケースが多い
+
+<ul>
+<li><code>update()</code>など独自のメソッドはいらない</li>
+</ul></li>
+</ul>
+
+<p><a href="https://github.com/azu/immutable-array-prototype#benchmarks" title="immutable-array-prototype">immutable-array-prototype</a>は基本的にドキュメントを見ないで<code>import</code>したら普通に使えるようにすることが目的なので、使い方はネイティブのArrayと同じです。</p>
 
 <h2 id="おわりに">おわりに</h2>
 
