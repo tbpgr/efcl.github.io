@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "JavaScriptのライブラリを徐々にTypeScriptに移行する",
+            "url": "http://efcl.info/2017/07/17/JavaScript-to-TypeScript/",
+            "date": "2017-07-17T22:27:00+09:00"
+        },
+        
+        {
             "title": "Array.prototypeのImmutable版メソッドを個別のパッケージで使えるものを作った",
             "url": "http://efcl.info/2017/07/11/immutable-array/",
             "date": "2017-07-11T20:03:00+09:00"
