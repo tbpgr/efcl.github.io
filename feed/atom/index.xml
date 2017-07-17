@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-07-17T23:16:41+09:00</updated>
+ <updated>2017-07-18T06:56:30+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -37,7 +37,7 @@
 <li>Babel -&gt; JS(js -&gt; js)だったものをTypeScript -&gt; Babel -&gt; JSに<a href="https://github.com/almin/almin/pull/68/commits/7afc5a9d5ed2aa2f45da497f07c881a8c13767f6">ビルドスクリプトを変更</a>
 
 <ul>
-<li>TypeScriptは<code>target</code>を<code>esnext</code>にすることで単純に型をと除くだけの変換にする</li>
+<li>TypeScriptは<code>target</code>を<code>esnext</code>にすることで単純に型を取り除くだけの変換にする</li>
 <li>ES2015 -&gt; ES5を実際にやるのは既存のBabelのまま</li>
 <li>空のtsファイルを一つおいて実際にコンパイルが通るかを検証</li>
 </ul></li>
