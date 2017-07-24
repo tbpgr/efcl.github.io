@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-07-24T22:12:33+09:00</updated>
+ <updated>2017-07-25T00:14:34+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -73,7 +73,7 @@
 
 <h2 id="breaking-change-🔥">Breaking Change 🔥</h2>
 
-<p>Almin 0.13は幾つか破壊的な変更がありますが、殆どの場合コードは変更シなくても動くと思います。</p>
+<p>Almin 0.13は幾つか破壊的な変更がありますが、殆どの場合コードは変更しなくても動くと思います。</p>
 
 <h3 id="drop-ie9-and-ie10">Drop IE9 and IE10</h3>
 
