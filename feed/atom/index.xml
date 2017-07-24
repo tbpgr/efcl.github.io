@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-07-18T11:00:13+09:00</updated>
+ <updated>2017-07-24T22:12:33+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,409 @@
  </author>
  
 
+ 
+ <entry>
+   <title>Almin 0.13リリース - アプリケーションレイヤーのトランザクション</title>
+   <link href="http://efcl.info/2017/07/24/almin-0.13/"/>
+   <updated>2017-07-24T10:35:00+09:00</updated>
+   <id>http://efcl.info/2017/07/24/almin-0.13</id>
+   <content type="html"><![CDATA[ <p><a href="https://github.com/almin/almin" title="Almin">Almin</a> 0.13.xのStable版をリリースしました。
+今後に向けて下地となる基盤部分をかなり書き換えたのと、Strict modeや試験的にTransactionを追加しました。</p>
+
+<p><a href="https://github.com/almin/almin/compare/almin%400.12.0...almin%400.13.10"><img src="http://efcl.info/wp-content/uploads/2017/07/24-1500860504.png" alt="Diff 12.x...13"></a></p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/releases/tag/almin%400.13.10" title="Release Almin 0.13.10 · almin/almin">Release Almin 0.13.10 · almin/almin</a></li>
+</ul>
+
+<h2 id="まとめ">まとめ</h2>
+
+<p>0.12xからの<a href="https://github.com/almin/almin/releases/tag/almin%400.13.10" title="Release Almin 0.13.10 · almin/almin">0.13.10</a>の変更をまとめると次の通りです。</p>
+
+<ul>
+<li>🔥 Breaking Changes
+
+<ul>
+<li>IE9/IE10のサポート終了
+
+<ul>
+<li>CIから落としただけなのでまだ動くかもしれないですが</li>
+</ul></li>
+<li>一部Deprecatedはありますが基本的にコードは変更しなくても動くはずです</li>
+</ul></li>
+<li>⚠️ Deprecated
+
+<ul>
+<li>リネーム <code>context.onWillExecuteEachUseCase</code> -&gt; <code>context.events.onWillExecuteEachUseCase</code></li>
+<li><a href="https://github.com/almin/migration-tools" title="almin/migration-tools">almin/migration-tools</a>を使うことで自動的にマイグレーションできます。</li>
+</ul></li>
+<li>🆕 Features
+
+<ul>
+<li>Strict mode</li>
+<li>Transaction(strict modeでのみ有効)</li>
+<li><code>executor</code> - <code>execute</code>のType Safe版です
+
+<ul>
+<li>意見募集中: <a href="https://github.com/almin/almin/issues/107" title="TypeScript: improve UseCase#execute typing · Issue #107 · almin/almin">TypeScript: improve UseCase#execute typing · Issue #107 · almin/almin</a></li>
+</ul></li>
+</ul></li>
+<li>:house: Internal
+
+<ul>
+<li>Unit of Work(作業単位)が内部的な実装として追加され、データフローなどがコードとしてきちんと管理されるように(Transactionなどもこれを利用)</li>
+</ul></li>
+</ul>
+
+<p>詳しくは<a href="https://github.com/almin/almin/releases/tag/almin%400.13.10" title="Release Almin 0.13.10 · almin/almin">Release Almin 0.13.10 · almin/almin</a>をみてください。</p>
+
+<hr>
+
+<h2 id="breaking-change-🔥">Breaking Change 🔥</h2>
+
+<p>Almin 0.13は幾つか破壊的な変更がありますが、殆どの場合コードは変更シなくても動くと思います。</p>
+
+<h3 id="drop-ie9-and-ie10">Drop IE9 and IE10</h3>
+
+<p>IE 9/10のサポートは終了しました。</p>
+
+<ul>
+<li><a href="https://www.microsoft.com/en-us/windowsforbusiness/end-of-ie-support" title="Internet Explorer End of Support">Internet Explorer End of Support</a></li>
+</ul>
+
+<h3 id="store-ondispatch-receive-only-dispatched-the-payload-by-usecase-dispatch-224-254-255">Store#onDispatch receive only dispatched the Payload by UseCase#dispatch #224 #254 #255</h3>
+
+<p><code>Store#onDispatch</code>は今まで<code>UseCase#dispatch</code>以外の内部的なpayloadを受け取っていました。
+今回からは<code>Store#onDispatch</code>は<code>UseCase#dispatch</code>のみ、つまりユーザー自身が<code>dispatch</code>したpayloadのみを受け取ります。</p>
+
+<p>他のAlminのライフサイクルイベントを受け取り対場合は<code>context.events</code>(<code>LifeCycleEventHub</code>)を参照してください。</p>
+
+<ul>
+<li><a href="https://almin.js.org/docs/tips/usecase-lifecycle.html" title="LifeCycle of UseCase · Almin.js">LifeCycle of UseCase · Almin.js</a></li>
+</ul>
+
+<p><strong>Recommened</strong>: 基本的にはStoreの更新は<code>Store#receivePayload</code>で行うことを推奨しています。(Strict modeはこれをチェックできます)</p>
+
+<p><code>Store#receivePayload</code>でのStore更新のパターン</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">class</span> <span class="nx">YourStore</span> <span class="kr">extends</span> <span class="nx">Store</span> <span class="p">{</span>
+   <span class="nx">constructor</span><span class="p">(){</span>
+      <span class="kr">super</span><span class="p">();</span>
+      <span class="c1">// Initialize state</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="nx">foo</span> <span class="o">:</span> <span class="s2">&quot;bar&quot;</span>
+      <span class="p">};</span>
+   <span class="p">}</span>
+
+   <span class="c1">// Update code here</span>
+   <span class="nx">receivePayload</span><span class="p">(</span><span class="nx">payload</span><span class="p">){</span>
+     <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">payload</span><span class="p">));</span>
+   <span class="p">}</span>
+
+   <span class="nx">getState</span><span class="p">(){</span>
+     <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="automatically-catch-throwing-error-from-usecase-execute-193-194">Automatically catch  throwing Error from <code>UseCase#execute()</code> #193 #194</h3>
+
+<p>0.12までは<code>UseCase#execute</code>で同期的なエラーが発生すると突き抜けて、<code>window.onerror</code>まで到達していました。</p>
+
+<p>0.13からは、同期的なエラーであっても<code>catch</code>できるようになっています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">class</span> <span class="nx">ThrowUseCase</span> <span class="kr">extends</span> <span class="nx">UseCase</span> <span class="p">{</span>
+  <span class="nx">execute</span><span class="p">()</span> <span class="p">{</span>
+     <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">context</span><span class="p">.</span><span class="nx">useCase</span><span class="p">(</span><span class="k">new</span> <span class="nx">ThrowUseCase</span><span class="p">).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;It can catch&quot;</span><span class="p">)</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="new-store-throw-error"><code>new Store()</code> throw Error</h3>
+
+<p><code>Store</code>はabstract classなので継承してください。
+<code>new Store()</code>は単純に<code>getState</code>時に例外を投げます。</p>
+
+<h2 id="notable-changes">Notable Changes</h2>
+
+<h3 id="renaming-context-on-to-context-events-on-239">Renaming: <code>context.on*</code> to <code>context.events.on*</code> #239</h3>
+
+<p><code>context.on*</code>などのライフサイクルイベントを検知するイベントを<code>context.events.on*</code>に移動しました。</p>
+
+<p>ただし、<code>Context#onChange</code>はライフサイクルイベントという扱いではなく、UI更新のためのハンドラを登録するAPIなのでそのまま<code>Context</code>に残っています。
+他のAPIは非推奨となっています。</p>
+
+<p>今はまだ<code>@deprecated</code>タグがついただけですが、もうちょっとしたらコンソールにも警告が出るようになります。そして次のメジャーアップデートで削除します。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/issues/258" title="almin: Deprecated warning should be print · Issue #258 · almin/almin">almin: Deprecated warning should be print · Issue #258 · almin/almin</a></li>
+</ul>
+
+<p>これを移行するマイグレーションツールも用意してあるのでご利用ください。</p>
+
+<ul>
+<li><a href="https://github.com/almin/migration-tools#migrate-012-to-013" title="almin/migration-tools: Migration scripts for Almin.">almin/migration-tools: Migration scripts for Almin.</a></li>
+</ul>
+
+<h3 id="migration">Migration</h3>
+
+<p><a href="https://github.com/almin/migration-tools" title="almin/migration-tools">almin/migration-tools</a>はつぎのようにnpmでインストールできます。
+後は移行したファイルを指定して対話に従って選択すれば完了です。</p>
+
+<p><strong>Notes</strong> 先にバージョン管理システムにコミットしてバックアップしてから実行してください。</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">npm install -g @almin/migration-tools
+almin-migration-tools <span class="o">[</span>&lt;file<span class="p">|</span>glob&gt; ...<span class="o">]</span>
+</code></pre></div>
+<p><strong>Before</strong>:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">context</span><span class="p">.</span><span class="nx">onWillExecuteEachUseCase</span><span class="p">((</span><span class="nx">payload</span><span class="p">,</span> <span class="nx">meta</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">onDispatch</span><span class="p">((</span><span class="nx">payload</span><span class="p">,</span> <span class="nx">meta</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">onDidExecuteEachUseCase</span><span class="p">((</span><span class="nx">payload</span><span class="p">,</span> <span class="nx">meta</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">onCompleteEachUseCase</span><span class="p">((</span><span class="nx">payload</span><span class="p">,</span> <span class="nx">meta</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">onErrorDispatch</span><span class="p">((</span><span class="nx">payload</span><span class="p">,</span> <span class="nx">meta</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+</code></pre></div>
+<p><strong>After</strong>:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">context</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">onWillExecuteEachUseCase</span><span class="p">((</span><span class="nx">payload</span><span class="p">,</span> <span class="nx">meta</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">onDispatch</span><span class="p">((</span><span class="nx">payload</span><span class="p">,</span> <span class="nx">meta</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">onDidExecuteEachUseCase</span><span class="p">((</span><span class="nx">payload</span><span class="p">,</span> <span class="nx">meta</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">onCompleteEachUseCase</span><span class="p">((</span><span class="nx">payload</span><span class="p">,</span> <span class="nx">meta</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">onErrorDispatch</span><span class="p">((</span><span class="nx">payload</span><span class="p">,</span> <span class="nx">meta</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+</code></pre></div>
+<h3 id="undocumentなapiであるusecaseexecutor-on-が削除-243">UndocumentなAPIである<code>UseCaseExecutor#on*</code>が削除 #243</h3>
+
+<p>Remove</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">UseCaseExecutor#onWillExecuteEachUseCase
+UseCaseExecutor#onDidExecuteEachUseCase
+UseCaseExecutor#onCompleteExecuteEachUseCase
+</code></pre></div>
+<h2 id="feature-🆕">Feature 🆕</h2>
+
+<h2 id="strict-mode">Strict mode</h2>
+
+<p>詳しくはドキュメントを見てください。</p>
+
+<p><strong>ドキュメント</strong>: <a href="https://almin.js.org/docs/tips/strict-mode.html">https://almin.js.org/docs/tips/strict-mode.html</a></p>
+
+<p>Strict modeは<code>Store#receivePayload</code>以外のタイミングで、<code>Store</code>を更新シていると警告を出すようにするモードです。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// enable strict mode</span>
+<span class="kr">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Context</span><span class="p">({</span> 
+   <span class="nx">dispatcher</span><span class="p">,</span> 
+   <span class="nx">store</span><span class="p">,</span> 
+   <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+     <span class="nx">strict</span><span class="o">:</span> <span class="kc">true</span>
+   <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>関連:</p>
+
+<ul>
+<li><a href="https://vuex.vuejs.org/en/strict.html">Strict Mode · Vuex</a></li>
+<li><a href="https://github.com/mobxjs/mobx/blob/gh-pages/docs/refguide/api.md#usestrict">mobx/api.md at gh-pages · mobxjs/mobx</a></li>
+</ul>
+
+<h3 id="context-transaction-226"><code>Context#transaction</code> #226</h3>
+
+<ul>
+<li><strong>Stability</strong>: Experimental</li>
+<li><strong>この機能はstrict modeではないと警告がでます</strong></li>
+</ul>
+
+<p><code>Context#transaction</code>はUseCaseをトランザクション的に実行するAPIです。
+<code>Context#useCase</code>は一つのUseCaseを一個ずつ実行して、そのUseCaseの実行終了毎にViewの更新が行われます。(具体的にはStoreが一つでも変更されているなら<code>Context#onChange</code>が呼び出されます)</p>
+
+<p>一方、<code>Context#transaction</code>は<code>TransactionContext</code>というトランザクション用のコンテキストを作り、<code>transactionContext.useCase</code>でUseCaseを実行してもすぐにはViewの更新は行われません。</p>
+
+<p>幾つかのUseCaseを<code>transactionContext.useCase</code>で実行した後に、確定したいタイミングで、<code>transactionContext.commit()</code>を実行するとそれまでに実行していたUseCaseからの<code>dispatch</code>やライフサイクルなどはまとめてStoreに伝わります。</p>
+
+<p><code>Context#transaction</code>の中でUseCaseを何度実行しても結果として起きるViewの更新は<code>commit()</code>したタイミングの一回だけになります。</p>
+
+<p><a href="http://www.nomnoml.com/#view/%23padding%3A%2010%0A%0A%5BContext%23useCase%7C%0A%20%20%20%5B%3Cusecase%3E%20UseCase%20A%5D%0A%5D%0A%5BContext%23transaction%7C%0A%20%20%5BUnit%20of%20Work%7C%0A%20%20%20%5B%3Cusecase%3E%20UseCase%20A%5D%0A%20%20%20%5B%3Cusecase%3E%20UseCase%20B%5D%0A%20%20%20%5B%3Cusecase%3E%20UseCase%20C%5D%0A%20%20%5D%0A%5D" title="nomnoml"><img src="https://user-images.githubusercontent.com/19714/28418288-245d9786-6d96-11e7-87af-611682a18dec.png" alt="UseCase vs. Transaction">
+</a></p>
+
+<p><strong>サンプルコード</strong>:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Context</span><span class="p">({</span>
+    <span class="nx">dispatcher</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Dispatcher</span><span class="p">(),</span>
+    <span class="nx">store</span><span class="o">:</span> <span class="nx">storeGroup</span><span class="p">,</span>
+    <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">strict</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// then - called change handler a one-time</span>
+<span class="kd">let</span> <span class="nx">onChangeCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">onChange</span><span class="p">(</span><span class="nx">stores</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">onChangeCount</span><span class="o">++</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="c1">// when</span>
+<span class="nx">context</span>
+    <span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;transaction name&quot;</span><span class="p">,</span> <span class="nx">transactionContext</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">transactionContext</span>
+            <span class="p">.</span><span class="nx">useCase</span><span class="p">(</span><span class="k">new</span> <span class="nx">ChangeAUseCase</span><span class="p">())</span>
+            <span class="p">.</span><span class="nx">execute</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">transactionContext</span><span class="p">.</span><span class="nx">useCase</span><span class="p">(</span><span class="k">new</span> <span class="nx">ChangeAUseCase</span><span class="p">()).</span><span class="nx">execute</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">transactionContext</span><span class="p">.</span><span class="nx">useCase</span><span class="p">(</span><span class="k">new</span> <span class="nx">ChangeAUseCase</span><span class="p">()).</span><span class="nx">execute</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">transactionContext</span><span class="p">.</span><span class="nx">useCase</span><span class="p">(</span><span class="k">new</span> <span class="nx">ChangeAUseCase</span><span class="p">()).</span><span class="nx">execute</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">transactionContext</span><span class="p">.</span><span class="nx">useCase</span><span class="p">(</span><span class="k">new</span> <span class="nx">ChangeAUseCase</span><span class="p">()).</span><span class="nx">execute</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="c1">// commit the result to StoreGroup</span>
+                <span class="nx">transactionContext</span><span class="p">.</span><span class="nx">commit</span><span class="p">();</span>
+            <span class="p">});</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="c1">// finish the transation</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">onChangeCount</span><span class="p">);</span> <span class="c1">// =&gt; 1</span>
+    <span class="p">});</span>
+</code></pre></div>
+<p>名前の通り大量のUseCaseを連続して実行する必要がある際に利用できます。
+初期画面に必要なUseCaseが複数があるが、その途中で何度もViewを更新する必要がないといった際に、一つのトランザクションとしてまとめることができます。</p>
+
+<p>例えばReactにも<a href="https://github.com/facebook/react/issues/10231#issuecomment-316644950" title="ReactDOM.unstable_batchedUpdates">ReactDOM.unstable_batchedUpdates</a>という隠しAPIみたいなものがありますが、そういうのをState管理側でやるための仕組みです。</p>
+
+<p>Reduxにも似たようなBatch updatingの仕組みを持ったmiddlewareがあります。</p>
+
+<ul>
+<li><a href="https://github.com/reactjs/redux/issues/542">Idea: Batching actions · Issue #542 · reactjs/redux</a></li>
+<li><a href="https://github.com/acdlite/redux-batched-updates">acdlite/redux-batched-updates: Batch React updates that occur as a result of Redux dispatches, to prevent cascading renders. See https://github.com/gaearon/redux/issues/125 for more details.</a></li>
+</ul>
+
+<p>Alminの<code>Context#transaction</code>はstrict modeじゃないと正しく動きません。
+簡単にいうと、Alminの範囲外でStoreが更新されているとそのトランザクションが正しくても結果が正しくないことがおこるのでそういうケースを防止するためです。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/issues/219" title="almin: Transaction of UseCase · Issue #219 · almin/almin">almin: Transaction of UseCase · Issue #219 · almin/almin</a></li>
+</ul>
+
+<p>現在の実装は1つのトランザクションで1回の<code>commit()</code>または<code>exit()</code>のみができます。<code>exit()</code>した場合はそのトランザクションで実行したUseCaseのイベントを破棄します。</p>
+
+<p>また、今はあるUseCaseの中から<code>commit()</code>したい！やサブトランザクションのような概念はありません。<strong>Stability</strong>: Experimentalなのでその辺に意見ある人は意見ください。</p>
+
+<h3 id="add-fluent-style-executor-193">Add Fluent style <code>executor</code> #193</h3>
+
+<ul>
+<li><strong>Stability</strong>: Experimental</li>
+<li>This feature is subject to change. It may change or be removed in future versions.</li>
+<li>See #193 </li>
+</ul>
+
+<p>TypeScriptで<code>UseCase#execute</code>をする際に型チェックがちゃんとできるバージョンです。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">context</span><span class="p">.</span><span class="nx">useCase</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyUseCase</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">executor</span><span class="p">(</span><span class="nx">useCase</span> <span class="o">=&gt;</span> <span class="nx">useCase</span><span class="p">.</span><span class="nx">execute</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">))</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+    <span class="p">});</span>
+</code></pre></div>
+<p><code>context.useCase(useCase).execute()</code>は<code>context.useCase(useCase).executor(useCase =&gt; useCase.execute())</code>の糖衣構文です。</p>
+
+<p>もっとこうした方がよさそうという意見がある場合は次のIssueに意見をください。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/issues/193" title="UseCase: Fluent style UseCase · Issue #193 · almin/almin">UseCase: Fluent style UseCase · Issue #193 · almin/almin</a></li>
+</ul>
+
+<h2 id="documentation">Documentation</h2>
+
+<p>APIドキュメントが更新されているので <a href="https://almin.js.org/">https://almin.js.org/</a> をみてください。</p>
+
+<h2 id="almin-logger">Almin-logger</h2>
+
+<ul>
+<li><a href="https://github.com/almin/almin/releases/tag/almin-logger%405.0.0" title="almin-logger@5.0.0">almin-logger@5.0.0</a>は Almin 0.13.x をサポートしています。</li>
+</ul>
+
+<h2 id="internals">Internals</h2>
+
+<p><a href="http://efcl.info/2017/07/17/JavaScript-to-TypeScript/" title="JavaScriptのライブラリを徐々にTypeScriptに移行する | Web Scratch">JavaScriptのライブラリを徐々にTypeScriptに移行する | Web Scratch</a>で書いたようにAlminのテストをTypeScriptに少しづつ移行しています。</p>
+
+<p>まだ全部は移行できてないので、Pull Request待ってます！</p>
+
+<h2 id="notes-📝">Notes 📝</h2>
+
+<h3 id="unit-of-work">Unit of Work</h3>
+
+<p>Almin 0.13から<a href="https://github.com/almin/almin/blob/master/packages/almin/src/UnitOfWork/UnitOfWork.ts" title="UnitOfWork">UnitOfWork</a>という内部的なクラスが追加されました。
+簡単にいうと通常はUseCaseの実行をそのままStoreに流してくれますが、トランザクション時はUseCaseの実行を止めたり進めたりできるものです。</p>
+
+<p><code>Context#transaction</code>はこれの上に作られています。</p>
+
+<p><a href="http://www.nomnoml.com/#view/%23padding%3A%2010%0A%0A%5BUseCase%7C%0A%20%20%20%20%5BUseCase%20Executor%20A%7C%0A%20%20%20%20%20%20%20%20%5B%3Cusecase%3EChild%20UseCase%5D%0A%20%20%20%20%5D%20--%3E%20%5BUseCase%20Executor%20B%5D%0A%20%20%20%20%5BUseCase%20Executor%20B%7C%0A%20%20%20%20%20%20%20%20%5B%3Cusecase%3EUseCase%5D%0A%20%20%20%20%5D%0A%5D%0A%5BUnit%20of%20Work%7C%0A%20%20%20%20%5BCommitments%7C%0A%20%20%20%20%20%20%20%20%5BDispatched%20Payload%5D%0A%20%20%20%20%20%20%20%20%5BSystem%20Payload%5D%0A%20%20%20%20%5D%0A%5D%0A%5BStoreGroup%7C%0A%20%20%20%20%5BStore%5D%0A%20%20%20%20%5B%3Cnote%3Eif%20any%20store%20is%20change%2C%20it%20emit%20changed%5D%0A%5D%0A%5BUseCase%5D%20payload%20--%3E%20%5BLifeCycleEventHub%7C%0A%09%5BDispatcher%5D%0A%5D%0A%5BUseCase%5D%20payload%20--%3E%20%5B%3Creadonly%3EUnit%20of%20Work%5D%0A%5BUnit%20of%20Work%5D%20%3Ctransaction%20event%3E%20--%3E%20%5BLifeCycleEventHub%5D%0A%5BUnit%20of%20Work%5D%20Commitment%20--%3E%20%5BStoreGroup%5D%20%0A%5BStoreGroup%5D%20changes%20--%3E%20%5BLifeCycleEventHub%5D%0A%5BLifeCycleEventHub%5D%20%3C-%20%5BContext%5D%0A" title="nomnoml"><img src="https://user-images.githubusercontent.com/19714/28418164-c121b12a-6d95-11e7-90e8-057ad12b6620.png" alt="Unit of Work">
+</a></p>
+
+<h2 id="サンプルコード">サンプルコード</h2>
+
+<p>サンプルコードにTypeScript + AlminでのTodoMVCの実装を追加しました。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/tree/master/examples/todomvc-typescript" title="almin/examples/todomvc-typescript at master · almin/almin">almin/examples/todomvc-typescript at master · almin/almin</a></li>
+</ul>
+
+<p><a href="https://github.com/almin/almin/tree/master/examples/todomvc">JavaScript版</a>や<a href="https://github.com/almin/almin/tree/master/examples/todomvc-flow">FlowType版</a>などもあります。</p>
+
+<p>個人的には<a href="https://github.com/almin/almin/tree/master/examples/shopping-cart" title="shopping-cart">shopping-cart</a>の方がらしく書けているかなと思います。</p>
+
+<p>触ってみて何かおかしなサンプルがある可能性はあるので、そのときはIssueを立ててください。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/issues/256" title="example: update svg-feeling&amp;#39;s postcss config · Issue #256 · almin/almin">example: update svg-feeling&#39;s postcss config · Issue #256 · almin/almin</a></li>
+</ul>
+
+<p>もっと実際のアプリケーション的なコードを見たい場合は<a href="https://github.com/azu/faao" title="Faao">Faao</a>などを見てみてください。
+これはプロダクションのレベル感で書いているので、そこそこ複雑です。</p>
+
+<ul>
+<li><a href="https://github.com/azu/faao">azu/faao: Faao is a GitHub issue/pull-request client on Electron.</a></li>
+<li><a href="http://azu.github.io/slide/2017/teppeis-sushi/client-side-ddd-on-github.html">Faao - ドメイン駆動設計で作るGitHub Issue Client -</a></li>
+</ul>
+
+<h2 id="おわり">おわり</h2>
+
+<p><a href="https://github.com/almin/almin" title="Almin">Almin</a>は大抵の人が読んで分かるコードを書けるようにデザインしています。
+ありふれたクラスベースにしているのもそうですが、
+<a href="https://github.com/reactjs/react-redux" title="react-redux">react-redux</a>の<code>connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])</code>みたいにいきなり厳しい感じになったしないように気をつけています。</p>
+
+<p><a href="https://github.com/reactjs/redux" title="Redux">Redux</a>はドキュメントも充実してるし、やっぱり基盤的な部分はよくできるてるのでReduxもちゃんと理解した方がいいと思います。ミドルウェアや拡張部分が複雑になったりしてるだけでコアはしっかりしてます。</p>
+
+<ul>
+<li><a href="https://azu.gitbooks.io/javascript-plugin-architecture/content/ja/Redux/" title="Redux · JavaScript Plugin Architecture">Redux · JavaScript Plugin Architecture</a></li>
+</ul>
+
+<p>Alminは<a href="https://almin.js.org/docs/tutorial/counter/">ReduxやFluxのようなこと</a>もできますが、ドメイン層をクライアントサイドどう扱うかという部分に焦点を置いています。
+逆をいえば、Alminが扱わない領域(ドメイン/インフラ)と扱う領域(アプリケーションレイヤー/Viewの連携)をはっきり区別するということにつながります。</p>
+
+<p>たとえば、Fluxだとドメイン(ロジック)をどこに置くかを考えると、Storeの中を構造化していくことになることが多いです。</p>
+
+<ul>
+<li><a href="http://blog.j5ik2o.me/entry/2016/09/09/200643">FluxとDDDの統合方法 - かとじゅんの技術日誌</a></li>
+<li><a href="http://qiita.com/Takepepe/items/1ce54a9564d5a6d4939d">Reduxにドメイン層を導入する - Qiita</a></li>
+<li><a href="http://embryo.hatenadiary.com/entry/2016/12/16/011446">FluxとDDD(レイヤードアーキテクチャ)について考えてみた - embryo</a></li>
+</ul>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/07/24-1500900273.png" alt="Flux"></p>
+
+<p>Storeの中だとドメイン側がライブラリの都合に引っ張られてしまいがちです。(強い意志が必要)
+なので、Alminは扱う領域をアプリケーションレイヤーのみにして、その他のドメインレイヤーなどはユーザー側で扱う領域としています。</p>
+
+<p><img src="http://efcl.info/wp-content/uploads/2017/07/24-1500900453.png" alt="Almin"></p>
+
+<p>この構造によってドメインのロジックはPureなJavaScriptとして書けることを期待しています。
+この辺については次のスライドで書いています。</p>
+
+<ul>
+<li><a href="http://azu.github.io/slide/2016/react-meetup/large-scale-javascript.html">複雑なJavaScriptアプリケーションを考えながら作る話</a></li>
+<li><a href="https://github.com/azu/large-scale-javascript">azu/large-scale-javascript: 複雑なJavaScriptアプリケーションを作るために考えること</a></li>
+<li><a href="http://azu.github.io/slide/2017/teppeis-sushi/client-side-ddd-on-github.html" title="Faao - ドメイン駆動設計で作るGitHub Issue Client -">Faao - ドメイン駆動設計で作るGitHub Issue Client -</a></li>
+</ul>
+
+<p>実際に<a href="http://niconare.nicovideo.jp/watch/kn2499">ある程度の規模感</a>のものもちゃんと書けるようです。</p>
+
+<p>今後の予定としては、トランザクション周りをもう少し考えたいのと、結局ライブラリの中として上手くできていてもプロジェクトの中で上手く動くかは別なのでその辺を上手くナビゲーションできる仕組みを考えたい気がします。</p>
+
+<p>例えば、AlminのUseCase実装から<a href="https://azu.github.io/faao/meta/use-case.html" title="Faao - UseCase architecture">ユースケース図を自動生成</a>とかは現実的にできます。このようなプロジェクトが目指すべき構造からずれていないかを可視化できたりチェックできるような仕組みを提供できると、ユーザーは書くことに集中できてモチベーションが維持しやすいのではないかなと思ったりします。</p>
+
+<p>そういう視点のContributeも待ってますし、それとは別にPRが送りやすそうなIssueは<code>Good for beginners</code>ラベルが付けてあります。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/issues?q=is%3Aissue+is%3Aopen+label%3A%22Good+for+beginners%22" title="Issues · almin/almin"><code>Good for beginners</code>: Issues · almin/almin</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>JavaScriptのライブラリを徐々にTypeScriptに移行する</title>
@@ -1717,110 +2120,6 @@ rm store-state-mapping.json
 <li><a href="https://github.com/almin/almin/issues/193" title="UseCase: Fluent style UseCase · Issue #193 · almin/almin">UseCase: Fluent style UseCase · Issue #193 · almin/almin</a></li>
 <li><a href="https://github.com/almin/almin/pull/194" title="[WIP] feat(UseCase): Fluent style UseCase by azu · Pull Request #194 · almin/almin">[WIP] feat(UseCase): Fluent style UseCase by azu · Pull Request #194 · almin/almin</a></li>
 </ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>Travis CIでGitHub Personal access tokensが漏れないようにする</title>
-   <link href="http://efcl.info/2017/05/09/travis-ci-github-token/"/>
-   <updated>2017-05-09T09:20:00+09:00</updated>
-   <id>http://efcl.info/2017/05/09/travis-ci-github-token</id>
-   <content type="html"><![CDATA[ <p>2017-05-09 漏れていた人はメールで通知が来ていると思いますが、Travis CIのログ上にGitHubのTokenが漏れていたケースがあるという話がありました。
-(漏れていたTokenはGitHub側で既にrevokeされていると思います。またメールに漏れている一覧が載ってるはず)</p>
-
-<ul>
-<li><a href="https://blog.travis-ci.com/2017-05-08-security-advisory" title="The Travis CI Blog: Security Advisory: Secured Environment Variables">The Travis CI Blog: Security Advisory: Secured Environment Variables</a></li>
-</ul>
-
-<p>これ自体はTravis CIのバグではなくて、ユーザーが書いたデプロイスクリプトなどのツール側のバグによってGitHubのTokenなどsecretな環境変数がログ上に出ている話です。
-Travis CIのログはPublicで誰でも見ることができるので、標準出力にTokenが露出していると問題があります。</p>
-
-<p>どのようなケースでGitHubのTokenが標準出力に出てしまうかというと、<code>git push</code>のミスが一番多いと思います。</p>
-
-<p>例えば次のようにGitHubのTokenを使って、Travis CIからGitHubへpushしているスクリプトは問題があります。</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh">git push --force --quiet <span class="s2">&quot;https://${GH_TOKEN}@github.com/example/test.git&quot;</span> gh-pages
-</code></pre></div>
-<p>このスクリプトは、<code>--quiet</code>が付いてるので <code>GH_TOKEN</code> が漏れないように見えますが、
-<code>git push</code>に失敗すると、エラー結果に含まれるpush先(<code>&quot;https://${GH_TOKEN}@github.com/example/test.git&quot;</code>)がログにでるため安全ではありません。</p>
-
-<p>そのため、標準出力と標準エラー出力を両方共潰さないと、<code>GH_TOKEN</code>が漏れるケースがあります。</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh">git push --force --quiet <span class="s2">&quot;https://${GH_TOKEN}@github.com/example/test.git&quot;</span> gh-pages &gt;/dev/null 2&gt;<span class="p">&amp;</span>1
-</code></pre></div>
-<ul>
-<li><a href="https://docs.travis-ci.com/user/best-practices-security/" title="Best Practices in Securing Your Data - Travis CI">Best Practices in Securing Your Data - Travis CI</a></li>
-</ul>
-
-<p>この手法は<a href="https://gist.github.com/domenic/ec8b0fc8ab45f39403dd" title="Auto-deploying built products to gh-pages with Travis">Auto-deploying built products to gh-pages with Travis</a>の古いバージョンで紹介されていたので知ってる人も多いと思います。</p>
-
-<p>このTravis CI上のGitHub Token(GitHubには限らないけど)漏れは結構前から見かけることがあって、いくつか報告した記憶もあります。</p>
-
-<ul>
-<li><a href="https://github.com/jirutka/rake-jekyll/issues/8" title="GH_TOKEN is leaked · Issue #8 · jirutka/rake-jekyll">GH_TOKEN is leaked · Issue #8 · jirutka/rake-jekyll</a></li>
-<li><a href="https://github.com/babel/babel/issues/3727" title="Security concern about merge-development-with-master.sh (T6661) · Issue #3727 · babel/babel">Security concern about merge-development-with-master.sh (T6661) · Issue #3727 · babel/babel</a></li>
-</ul>
-
-<p>この辺の問題があるリポジトリについて、Travis側が過去のログを調査して今回の通知を出したようです。
-また、今日から環境変数とマッチする文字列は、ログ上では<code>[secure]</code>に自動で置換されるようになっています。</p>
-
-<blockquote>
-<p>Both new builds and archived build logs with this issue will see the string [secure] instead of potentially exposed secure environment variables. Logs on both our open-source .org, and closed-source .com platforms have been updated.
--- <a href="https://blog.travis-ci.com/2017-05-08-security-advisory" title="The Travis CI Blog: Security Advisory: Secured Environment Variables">The Travis CI Blog: Security Advisory: Secured Environment Variables</a></p>
-</blockquote>
-
-<p><img src="http://efcl.info/wp-content/uploads/2017/05/09-1494289700.png" alt="image"></p>
-
-<h2 id="travis-ciからgithubへpushする">Travis CIからGitHubへpushする</h2>
-
-<p>Travis CIからGitHub(gh-pages)へpushしたい場合、自分の場合はGitHubのtokenではなくSSHのキーを使うようにしています。</p>
-
-<p>GitHubにはリポジトリごとにreadまたはwriteの<a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a>としてSSHの公開鍵を登録することができます。</p>
-
-<ul>
-<li><a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a></li>
-<li><a href="https://docs.travis-ci.com/user/deployment/custom/" title="Custom Deployment - Travis CI">Custom Deployment - Travis CI</a></li>
-<li><a href="https://circleci.com/docs/1.0/adding-read-write-deployment-key/" title="Adding read/write deployment key - CircleCI">Adding read/write deployment key - CircleCI</a></li>
-</ul>
-
-<p>GitHubのTokenは権限は設定できますがユーザー単位なので、一度漏れるとそのユーザーのすべてのリポジトリに影響があります。
-GitHubの<a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a>はリポジトリごとなので、漏れてもそのリポジトリのみしか読み書きすることができません。</p>
-
-<p><a href="https://github.com/azu/add-deploy-key-to-github" title="add-deploy-key-to-github">add-deploy-key-to-github</a>などを使うと、CLIから<a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a>を作ってリポジトリに登録できるので、それを使ってgit pushすると簡単です。
-(Token方式みたいにgit push先を変更する必要もないけど、ssh経由にする必要があるので <code>git config --global url.ssh://git@github.com/.insteadOf https://github.com/</code> などしておくとデプロイスクリプトの変更がいらない)</p>
-
-<p><a href="https://developer.github.com/guides/managing-deploy-keys/" title="Deploy Keys">Deploy Keys</a>(SSHキー)を使った<code>gh-pages</code>へのpush方法は次の記事などで解説されています。</p>
-
-<ul>
-<li><a href="https://gist.github.com/domenic/ec8b0fc8ab45f39403dd" title="Auto-deploying built products to gh-pages with Travis">Auto-deploying built products to gh-pages with Travis</a></li>
-<li><a href="http://efcl.info/2016/09/27/deploy-from-travis-ci-to-gh-pages/" title="Travis CIからgh-pagesへデプロイする設定 via SSH/git push | Web Scratch">Travis CIからgh-pagesへデプロイする設定 via SSH/git push | Web Scratch</a></li>
-<li><a href="https://www.tam-tam.co.jp/tipsnote/program/post11795.html" title="Travis CI から GitHub へ git push を行う設定 ｜ Tips Note by TAM">Travis CI から GitHub へ git push を行う設定 ｜ Tips Note by TAM</a></li>
-</ul>
-
-<h2 id="フローチャート">フローチャート</h2>
-
-<ol>
-<li>Travis CIからGitHubへpushしたい
-
-<ul>
-<li>=&gt; リポジトリ用のsshキーを作ってdeploy keyに登録して使う</li>
-</ul></li>
-<li>Travis CIでGitHubのtokenが必要(APIを使う処理)
-
-<ul>
-<li>=&gt; Personal access tokensをリポジトリ用に新規作成して使う</li>
-<li>Tokenが漏れると影響範囲が広いので、使い回しはしない</li>
-</ul></li>
-</ol>
-
-<h2 id="その他">その他</h2>
-
-<p>今回の話はまた違いますが、npmへpublishされたパッケージから秘密の情報が混じっていたり、awsのcredentialsがリポジトリに漏れているのは稀によく見るので、そういうのが起こりにくいような仕組みを保つ必要がありそうです。</p>
-
-<ul>
-<li><a href="https://github.com/ChALkeR/notes/blob/master/Do-not-underestimate-credentials-leaks.md" title="notes/Do-not-underestimate-credentials-leaks.md at master · ChALkeR/notes">notes/Do-not-underestimate-credentials-leaks.md at master · ChALkeR/notes</a></li>
-<li><a href="https://github.com/blog/1390-secrets-in-the-code" title="Secrets in the code">Secrets in the code</a></li>
-</ul>
-
-<p>npmへpublishするのに<a href="http://t-wada.hatenablog.jp/entry/nodejs-package-json-tips" title="package.json の files フィールドでホワイトリスト">package.json の files フィールドでホワイトリスト</a>を使うとか、<a href="https://github.com/awslabs/git-secrets" title="awslabs/git-secrets: Prevents you from committing secrets and credentials into git repositories">awslabs/git-secrets</a>などでpush前にチェックするなど</p>
  ]]></content>
  </entry>
  

@@ -2,6 +2,12 @@
     "posts": [
         
         {
+            "title": "Almin 0.13リリース - アプリケーションレイヤーのトランザクション",
+            "url": "http://efcl.info/2017/07/24/almin-0.13/",
+            "date": "2017-07-24T10:35:00+09:00"
+        },
+        
+        {
             "title": "JavaScriptのライブラリを徐々にTypeScriptに移行する",
             "url": "http://efcl.info/2017/07/17/JavaScript-to-TypeScript/",
             "date": "2017-07-17T22:27:00+09:00"
