@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-07-30T00:30:32+09:00</updated>
+ <updated>2017-07-30T00:40:53+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -89,7 +89,7 @@ Examples
 
 <h2 id="おわり">おわり</h2>
 
-<p>LDRも<a href="http://blog.livedoor.jp/staff_reader/archives/52278396.html" title="サービスを終了">サービスを終了</a>です。</p>
+<p>LDRも<a href="http://blog.livedoor.jp/staff_reader/archives/52278396.html" title="サービスを終了">サービス終了</a>です。</p>
 
 <p>乗り換え先をどうするのかがまだ決まってないけど多分必要になるので作りました。(バグってたらPull Requestください)</p>
 
