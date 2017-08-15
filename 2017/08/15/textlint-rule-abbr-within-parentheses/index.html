@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        略語は括弧の中 or 前? Open Source Software(OSS) or OSS(Open Source Software) | Web Scratch
+        
+    </title>
+    <meta name="description" content="タイトルにあるような正式名称に対する略語(主に頭文字を取るタイプ)を括弧の中に書いているかをチェックするtextlintルールを書きました。">
+    
+    <meta name="keywords" content="textlint" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="略語は括弧の中 or 前? Open Source Software(OSS) or OSS(Open Source Software)">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2017/08/15/textlint-rule-abbr-within-parentheses/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="タイトルにあるような正式名称に対する略語(主に頭文字を取るタイプ)を括弧の中に書いているかをチェックするtextlintルールを書きました。">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2017-08-15T19:25:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/07/29/ldr-rate-export/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/07/24/almin-0.13/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/07/17/JavaScript-to-TypeScript/">
+
+
+
+
+
+<meta property="article:section" content="javascript">
+
+
+
+
+
+<meta property="article:tag" content="textlint">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 55
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 34
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 185
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 89
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 11
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 8
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2017/08/15/textlint-rule-abbr-within-parentheses/">
+                略語は括弧の中 or 前? Open Source Software(OSS) or OSS(Open Source Software)
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/07/29/ldr-rate-export/">
+                LDRのフィードをレート情報付きでエクスポートする
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/07/24/almin-0.13/">
+                Almin 0.13リリース - アプリケーションレイヤーのトランザクション
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/07/17/JavaScript-to-TypeScript/">
+                JavaScriptのライブラリを徐々にTypeScriptに移行する
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2017/08/15/textlint-rule-abbr-within-parentheses/">
+    <h1 class="post-title">略語は括弧の中 or 前? Open Source Software(OSS) or OSS(Open Source Software)</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2017年08月15日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-08-15-textlint-rule-abbr-within-parentheses.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p>タイトルにあるような正式名称に対する略語(主に頭文字を取るタイプ)を括弧の中に書いているかをチェックする<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>ルールを書きました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-abbr-within-parentheses" title="textlint-rule-abbr-within-parentheses">textlint-rule-abbr-within-parentheses</a></li>
+</ul>
+
+<h2 id="例">例</h2>
+
+<p>例えば、Open Source Softwareの略語はOSSですということを表現したい場合に次のように書くというルールです。</p>
+
+<p><strong>OK</strong>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">This is Open Source Software(OSS)
+これはOpen Source Software（OSS）なルールです
+JavaScript(JS)
+</code></pre></div>
+<p><strong>NG</strong>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">LTS（Long-Term Support）
+JS(JavaScript)
+This rule is OSS(Open Source Software)
+これはOSS（Open Source Software）なルールです
+</code></pre></div>
+<h2 id="使い方">使い方</h2>
+
+<p>npmでインストールして</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-rule-abbr-within-parentheses
+</code></pre></div>
+<p><code>.textlintrc</code>(Recommended)を設定すれば動きます。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;abbr-within-parentheses&quot;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="略語は括弧の中-or-前">略語は括弧の中 or 前?</h2>
+
+<p>統一という観点から見ると次のような文章は略語の書き方が混ざっていてよくありません。</p>
+
+<blockquote>
+<p>混ざっていて良くない例<br>
+Ths Object Management Group(OMG) maintains specifications for the UML(Unified Modeling Language).</p>
+</blockquote>
+
+<p>そのため統一する書き方を探していたのですが、括弧の中に略語を書くというルールを採用してるケースが色々ありました。APA StyleやIBM Style Guideなどはそのような書き方を推奨しているようです。</p>
+
+<p>逆(略語を先に書く)を推奨してるルールは見つけることができませんでしたが、括弧ではなく言葉で略語を解説するスタイルも見られました。しかしながら略字は括弧の中に書くという根拠については見つけられませんでした。</p>
+
+<p>一つまだ疑問があって、括弧の中に書くとどうも補足的な印象が出てきてしまいます。
+たとえば、URLのような略字自体が言葉として一般的に成立してるパターンは、Uniform Resource Locatorという正式名称はもはやURLの補足情報になっているように思えます。
+先ほどもでてきたAP Styleの正式名称はAssociated Press Styleですが、AP(Associated Press) Styleのように紹介してる文章も見受けられます。(ここでの正式名称はわかりにくいしあまり重要ではないから括弧の中に書かれているのかも?)</p>
+
+<h3 id="english">English</h3>
+
+<ul>
+<li><a href="https://english.stackexchange.com/questions/84958/which-would-you-place-in-parentheses-the-expansion-or-the-abbreviation" title="Which would you place in parentheses: the expansion or the abbreviation? - English Language &amp;amp; Usage Stack Exchange">Which would you place in parentheses: the expansion or the abbreviation? - English Language &amp; Usage Stack Exchange</a></li>
+<li><a href="http://blog.apastyle.org/apastyle/2015/10/an-abbreviations-faq.html">APA Style Blog: An Abbreviations FAQ</a></li>
+<li><a href="http://www.kuediting.com/style/qa-why-you-shouldnt-put-acronyms-in-parentheses/" title="Q&amp;amp;A: Why you shouldn&amp;#39;t put acronyms in parentheses">Q&amp;A: Why you shouldn&#39;t put acronyms in parentheses</a></li>
+<li><a href="https://books.google.co.jp/books?id=77WoO_P8yA4C&amp;pg=PA57&amp;lpg=PA57" title="The IBM Style Guide: Conventions for Writers and Editors - Francis DeRespinis, Peter Hayward, Jana Jenkins, Amy Laird, Leslie McDonald, Eric Radzinski">The IBM Style Guide: Conventions for Writers and Editors - Francis DeRespinis, Peter Hayward, Jana Jenkins, Amy Laird, Leslie McDonald, Eric Radzinski - Google ブックス</a></li>
+</ul>
+
+<h3 id="japanese">Japanese</h3>
+
+<ul>
+<li><a href="http://www.jsphcs.jp/gakkaishi/denshi-m2.pdf" title="Microsoft Word - 執筆ガイドライン20151109訂正.docx - denshi-m2.pdf">Microsoft Word - 執筆ガイドライン20151109訂正.docx - denshi-m2.pdf</a></li>
+<li><a href="http://logicalskill.blog.fc2.com/blog-entry-79.html">Logical Skill の深い話 略語の表記</a></li>
+<li><a href="http://tmotooka.hatenablog.jp/entry/2013/05/18/212538">略語 : abbreviation と acronym - 職業プログラマの休日出勤</a></li>
+</ul>
+
+<p>ウェブに文書を書くと基本的にはHTMLなので、HTMLではどうなっているかが気になりました。
+HTMLタグの世界では<a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/dfn" title="dfn">dfn</a>と<a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/abbr" title="abbr">abbr</a>がそれぞれ関係します。</p>
+
+<blockquote>
+<p>We use <dfn><abbr title="Hypertext Markup Language">HTML</abbr></dfn> to structure our web documents.</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;p&gt;</span>We use <span class="nt">&lt;dfn&gt;&lt;abbr</span> <span class="na">title=</span><span class="s">&quot;Hypertext Markup Language&quot;</span><span class="nt">&gt;</span>HTML<span class="nt">&lt;/abbr&gt;&lt;/dfn&gt;</span> to structure our web documents.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div>
+<p>この場合も正式名称が属性値にあるので、正式名称の方が補足情報にも見えます。</p>
+
+<p>これは感覚的なものですが、略語をそもそも使うのは正式名称が毎回書くには長いためです。
+なので、最初にこの正式名称の略語はこう定義しますという意味で <code>正式名称(略語)</code>と書くスタイルがあるのだと思います。またこの時に2回目以降は正式名称は補足的な情報に逆転する感じがします。(<code>attr</code>タグの例)
+一方、そもそも一度しか出てこない単語はどちらでもいいという理由で表記が安定しないような気がします。(このルールで縛りたい部分)</p>
+
+<p>この辺の書き方や読んだときにどのような印象を受けるかについて調査レポートや論文とか知ってる人いたら教えてください。</p>
+
+<hr>
+
+<p>作ったtextlintルール</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-abbr-within-parentheses" title="textlint-rule-abbr-within-parentheses">textlint-rule-abbr-within-parentheses</a></li>
+</ul>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-08-15-textlint-rule-abbr-within-parentheses.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["textlint"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=textlint">textlint</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

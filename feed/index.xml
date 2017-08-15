@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-07-30T00:40:53+09:00</updated>
+ <updated>2017-08-15T20:37:14+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,104 @@
  </author>
  
 
+ 
+ <entry>
+   <title>略語は括弧の中 or 前? Open Source Software(OSS) or OSS(Open Source Software)</title>
+   <link href="http://efcl.info/2017/08/15/textlint-rule-abbr-within-parentheses/"/>
+   <updated>2017-08-15T19:25:00+09:00</updated>
+   <id>http://efcl.info/2017/08/15/textlint-rule-abbr-within-parentheses</id>
+   <content type="html"><![CDATA[ <p>タイトルにあるような正式名称に対する略語(主に頭文字を取るタイプ)を括弧の中に書いているかをチェックする<a href="https://github.com/textlint/textlint" title="textlint">textlint</a>ルールを書きました。</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-abbr-within-parentheses" title="textlint-rule-abbr-within-parentheses">textlint-rule-abbr-within-parentheses</a></li>
+</ul>
+
+<h2 id="例">例</h2>
+
+<p>例えば、Open Source Softwareの略語はOSSですということを表現したい場合に次のように書くというルールです。</p>
+
+<p><strong>OK</strong>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">This is Open Source Software(OSS)
+これはOpen Source Software（OSS）なルールです
+JavaScript(JS)
+</code></pre></div>
+<p><strong>NG</strong>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">LTS（Long-Term Support）
+JS(JavaScript)
+This rule is OSS(Open Source Software)
+これはOSS（Open Source Software）なルールです
+</code></pre></div>
+<h2 id="使い方">使い方</h2>
+
+<p>npmでインストールして</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">npm install textlint-rule-abbr-within-parentheses
+</code></pre></div>
+<p><code>.textlintrc</code>(Recommended)を設定すれば動きます。</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;abbr-within-parentheses&quot;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="略語は括弧の中-or-前">略語は括弧の中 or 前?</h2>
+
+<p>統一という観点から見ると次のような文章は略語の書き方が混ざっていてよくありません。</p>
+
+<blockquote>
+<p>混ざっていて良くない例<br>
+Ths Object Management Group(OMG) maintains specifications for the UML(Unified Modeling Language).</p>
+</blockquote>
+
+<p>そのため統一する書き方を探していたのですが、括弧の中に略語を書くというルールを採用してるケースが色々ありました。APA StyleやIBM Style Guideなどはそのような書き方を推奨しているようです。</p>
+
+<p>逆(略語を先に書く)を推奨してるルールは見つけることができませんでしたが、括弧ではなく言葉で略語を解説するスタイルも見られました。しかしながら略字は括弧の中に書くという根拠については見つけられませんでした。</p>
+
+<p>一つまだ疑問があって、括弧の中に書くとどうも補足的な印象が出てきてしまいます。
+たとえば、URLのような略字自体が言葉として一般的に成立してるパターンは、Uniform Resource Locatorという正式名称はもはやURLの補足情報になっているように思えます。
+先ほどもでてきたAP Styleの正式名称はAssociated Press Styleですが、AP(Associated Press) Styleのように紹介してる文章も見受けられます。(ここでの正式名称はわかりにくいしあまり重要ではないから括弧の中に書かれているのかも?)</p>
+
+<h3 id="english">English</h3>
+
+<ul>
+<li><a href="https://english.stackexchange.com/questions/84958/which-would-you-place-in-parentheses-the-expansion-or-the-abbreviation" title="Which would you place in parentheses: the expansion or the abbreviation? - English Language &amp;amp; Usage Stack Exchange">Which would you place in parentheses: the expansion or the abbreviation? - English Language &amp; Usage Stack Exchange</a></li>
+<li><a href="http://blog.apastyle.org/apastyle/2015/10/an-abbreviations-faq.html">APA Style Blog: An Abbreviations FAQ</a></li>
+<li><a href="http://www.kuediting.com/style/qa-why-you-shouldnt-put-acronyms-in-parentheses/" title="Q&amp;amp;A: Why you shouldn&amp;#39;t put acronyms in parentheses">Q&amp;A: Why you shouldn&#39;t put acronyms in parentheses</a></li>
+<li><a href="https://books.google.co.jp/books?id=77WoO_P8yA4C&amp;pg=PA57&amp;lpg=PA57" title="The IBM Style Guide: Conventions for Writers and Editors - Francis DeRespinis, Peter Hayward, Jana Jenkins, Amy Laird, Leslie McDonald, Eric Radzinski">The IBM Style Guide: Conventions for Writers and Editors - Francis DeRespinis, Peter Hayward, Jana Jenkins, Amy Laird, Leslie McDonald, Eric Radzinski - Google ブックス</a></li>
+</ul>
+
+<h3 id="japanese">Japanese</h3>
+
+<ul>
+<li><a href="http://www.jsphcs.jp/gakkaishi/denshi-m2.pdf" title="Microsoft Word - 執筆ガイドライン20151109訂正.docx - denshi-m2.pdf">Microsoft Word - 執筆ガイドライン20151109訂正.docx - denshi-m2.pdf</a></li>
+<li><a href="http://logicalskill.blog.fc2.com/blog-entry-79.html">Logical Skill の深い話 略語の表記</a></li>
+<li><a href="http://tmotooka.hatenablog.jp/entry/2013/05/18/212538">略語 : abbreviation と acronym - 職業プログラマの休日出勤</a></li>
+</ul>
+
+<p>ウェブに文書を書くと基本的にはHTMLなので、HTMLではどうなっているかが気になりました。
+HTMLタグの世界では<a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/dfn" title="dfn">dfn</a>と<a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/abbr" title="abbr">abbr</a>がそれぞれ関係します。</p>
+
+<blockquote>
+<p>We use <dfn><abbr title="Hypertext Markup Language">HTML</abbr></dfn> to structure our web documents.</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;p&gt;</span>We use <span class="nt">&lt;dfn&gt;&lt;abbr</span> <span class="na">title=</span><span class="s">&quot;Hypertext Markup Language&quot;</span><span class="nt">&gt;</span>HTML<span class="nt">&lt;/abbr&gt;&lt;/dfn&gt;</span> to structure our web documents.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div>
+<p>この場合も正式名称が属性値にあるので、正式名称の方が補足情報にも見えます。</p>
+
+<p>これは感覚的なものですが、略語をそもそも使うのは正式名称が毎回書くには長いためです。
+なので、最初にこの正式名称の略語はこう定義しますという意味で <code>正式名称(略語)</code>と書くスタイルがあるのだと思います。またこの時に2回目以降は正式名称は補足的な情報に逆転する感じがします。(<code>attr</code>タグの例)
+一方、そもそも一度しか出てこない単語はどちらでもいいという理由で表記が安定しないような気がします。(このルールで縛りたい部分)</p>
+
+<p>この辺の書き方や読んだときにどのような印象を受けるかについて調査レポートや論文とか知ってる人いたら教えてください。</p>
+
+<hr>
+
+<p>作ったtextlintルール</p>
+
+<ul>
+<li><a href="https://github.com/azu/textlint-rule-abbr-within-parentheses" title="textlint-rule-abbr-within-parentheses">textlint-rule-abbr-within-parentheses</a></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>LDRのフィードをレート情報付きでエクスポートする</title>
@@ -1551,217 +1649,6 @@ This is a dry run. No changes have been made on GitHub
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div> ]]></content>
- </entry>
- 
- <entry>
-   <title>Living Documentation by design, with Domain-Driven Designを読んだ</title>
-   <link href="http://efcl.info/2017/05/12/Living-Documentation-DDD/"/>
-   <updated>2017-05-12T09:55:00+09:00</updated>
-   <id>http://efcl.info/2017/05/12/Living-Documentation-DDD</id>
-   <content type="html"><![CDATA[ <p><a href="https://leanpub.com/livingdocumentation" title="Living Documentation by… by Cyrille Martraire [PDF/iPad/Kindle]">Living Documentation by design, with Domain-Driven Design by Cyrille Martraire [PDF/iPad/Kindle]</a>という電子書籍を読んだ。</p>
-
-<p>leanpubで$0から購入できて、任意の値段で購入できるドキュメンテーションとDDDについての書籍。</p>
-
-<p>ドキュメンテーションもソフトウェア開発のように設計やテストといったパターンやアプローチがあります。
-これは以前書いた技術文書をソフトウェア開発する話と似ているところがあります。</p>
-
-<ul>
-<li><a href="https://azu.gitbooks.io/nodefest-technical-writing/" title="Introduction | 技術文書をソフトウェア開発する話">Introduction | 技術文書をソフトウェア開発する話</a></li>
-</ul>
-
-<p>ドキュメントに書かれる知識としてGenericなものとSpecificなものがあります。
-ドキュメントもソフトウェアと同じように更新され続けるべきですが、
-会社やチーム、プロダクトにおけるSpecificな知識には次のような問題が生まれやすいです。</p>
-
-<ul>
-<li>アクセスできない</li>
-<li>古すぎる</li>
-<li>フラグメント化してる</li>
-<li>暗黙的になってる</li>
-<li>理解できない</li>
-<li>書かれてない</li>
-</ul>
-
-<p>要はドキュメントはコストがかかるので、更新されなくなって管理されなくなる。</p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">知識は会話から生まれ、知識がstableとなるには時間がかかる。<br>これは、その知識を記述したドキュメントにはメンテナンスコストが掛かることを示唆してる。<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/840907540586102785">March 12, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>一番良いドキュメントはNo Documentationであることではあるが、これらのドキュメントをどうやって更新され続けるようにするかという戦略、パターン、仕組みなどについて書かれている書籍です。</p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> 良いドキュメンテーションのアプローチは設計が関わる。<br>急速に変化するプロジェクトに対するドキュメンテーションには設計的なアプローチが必要になる <a href="https://t.co/EPBf6yldDs">pic.twitter.com/EPBf6yldDs</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/840915700575215616">March 12, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<h2 id="livingdocumentationのコア原則">LivingDocumentationのコア原則</h2>
-
-<ul>
-<li>Reliable
-
-<ul>
-<li>信頼性の高いドキュメントを作る2つの方法</li>
-<li>single source of truth
-
-<ul>
-<li>ソースは一つにする</li>
-</ul></li>
-<li>reconciliation mechanism
-
-<ul>
-<li>ソースが複数の場所にあることを認め、それをテストする</li>
-<li>Specifiction by Example</li>
-</ul></li>
-</ul></li>
-<li>Low-Effort</li>
-<li>Collaborative
-
-<ul>
-<li>Conversations over Documentations</li>
-<li>ペアプロは強い</li>
-<li>アクセスできる場所に知識は置く</li>
-</ul></li>
-<li>Insightful
-
-<ul>
-<li>意図を残す</li>
-</ul></li>
-</ul>
-
-<h2 id="メモ">メモ</h2>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">憶測をドキュメント化しない<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> では逐次的にドキュメントを作っていく。<br>そのため実際のニーズに基づくドキュメンテーションを行う。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/840944746684067841">March 12, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">多すぎる情報は、情報が全くないのと同じぐらい役に立たない。<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/840946011761647616">March 12, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">実装のドキュメントはよく変わるため別のアプローチを用意すべき。<br>戦略のドキュメントは複数のプロジェクト間で共有できるStableなドキュメントすべき。<br>そのためにプロジェクト特有の細部、変更されやすい所は戦略のドキュメントからは省略する。<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/842031191368769537">March 15, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>この辺は読んでいて、<a href="https://www.amazon.co.jp/dp/B01MQG41Y0/" title="関数型プログラミングの基礎">関数型プログラミングの基礎</a>も最近読んだのもあって、ドキュメントとプログラミングの次のような対比が浮かんだ。</p>
-
-<p>戦略というドキュメンテーションは、複数のプロジェクトで共有して参照できるStableなものであるべきで、逆にプロジェクト特有のものは変更の可能性が高いので、戦略からの参照はしない。</p>
-
-<ul>
-<li>OK: Unstable -&gt; Stable</li>
-<li>NG: Stable -&gt; Unstable</li>
-</ul>
-
-<p>プログラミングにおいて、副作用を持つ部分と副作用を持たない部分をきちんと分離する。
-副作用のあるものから純粋なものを参照するが、逆はしない(純粋なものが副作用を持って本末転倒)</p>
-
-<ul>
-<li>OK: 副作用を持つ関数 -&gt; 純粋な関数</li>
-<li>NG: 純粋な関数 -&gt; 副作用を持つ関数</li>
-</ul>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">URLはKnowledge Networkの一部である。<br>URLでリンクすることは知識を伝達するの有用。<br>壊れたリンクを回避するためのメカニズムも必要。<br>参照をするときは、揮発性の高いもの -&gt; 安定したものとなるようにリンクをする。<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/842035348204994560">March 15, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>これ読んでいて一番面白かった話。
-よくよく考えると当たり前だけど、文章からソースコードへリンクを貼るとすぐ壊れてしまうので、ソースコードから文章へリンクを貼ったほうが安定するという話。</p>
-
-<p>ソースコードへリンクする際に間接的な方法があるという話も何か面白かった。</p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> ファイルへ直接リンクするんじゃなくて、検索キーワードへ間接的にリンクするという話。 <a href="https://t.co/Vo4P3Q0xBi">pic.twitter.com/Vo4P3Q0xBi</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/842036645029322753">March 15, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> ドメイン学び方<br>- 調査結果を壁にはりつけるようにまとめる<br>- チームについてトレーニングを受ける<br>- 他の開発者がやってることを半日ぐらい観察する Live-my-Life Sessions<br>- そのプロダクトのユーザーの行動を見てみる</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843813350660173824">March 20, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a><br>これのペアプロ、クロスプログラミング、モブプログラミングのような形は、継続的なドキュメンテーションに役立つ。<br>ならならFace to Faceでインタラクティブに進む得ることで、お互いの知識を共有でき、<br>疑問点をすぐに質問することができる</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843818057076097024">March 20, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> Working collectivelyはトラック係数(Truck Factor)の改善にも役立つ。<br><br>単一障害点を避け、情報の集中度を分散できる。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843818978225012736">March 20, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">小さなTruck Factorはそのプロジェクトのヒーローであり、<br>他のチームメイトと共有されていない多くの知識があることを意味している。<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843819605499895808">March 20, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>ドメイン知識の共有の仕方と単一障害点の話。</p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a><br>現実的な例の話として、<br>コードスタイルのLintツールとLint結果の参考文献としてのガイドラインのドキュメントがベストな関係。<br>ユーザーは必要となるまでそのドキュメントを読まずにすみ、必要なタイミングはLintツールが教えてくれる。</p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843829013319639040">March 20, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>これは読んでいてESLintとかのドキュメントを思い浮かべた。</p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">ガイドラインの&quot;強制&quot;と&quot;推奨&quot;どっちをとるか。<br>新しく追加されたコードに対しては強制的にエラーとし、<br>既存のコードベースは、そのガイドラインを違反していることが多いため、警告に留める。<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843829944270516225">March 20, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> ガイドラインを決めたとしても、そのルールは既存のLintツールではカバーできないことがある。<br>このときに、コード自体を文書化することでできるかもという話。 annotationある言語は便利だなー <a href="https://t.co/6DHksjYiGl">pic.twitter.com/6DHksjYiGl</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843832241063047168">March 20, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>ガイドラインに向かって少しづつに移行する方法</p>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">例外はあるが、トラブルシューティングはShameful Documentationの一種とも言える。<br>そこに書かれているものは、つまり解決されていない問題で修正されていないことを意味してる。<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843834095599673344">March 20, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">問題を解決するためにトラブルシューティングのようなドキュメントを追加するよりも、その問題を直すために時間を使うべきであるという話<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/843834201291931650">March 20, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>なんでもかんでもトラブルシューティングに逃げてはいけないという話。</p>
-
-<p><strong>ADR(Architecture Decision Records)</strong></p>
-
-<p>重要なアーキテクチャの意思決定のプロセスを記録するフォーマットであるADRというやつがあるのを読んでて初めて知った。</p>
-
-<ul>
-<li><a href="http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions" title="Blog | Documenting Architecture Decisions | Relevance">Blog | Documenting Architecture Decisions | Relevance</a></li>
-<li><a href="http://tbpgr.hatenablog.com/entry/2017/02/22/080000" title="アーキテクチャの意思決定を記録する Lightweight Architecture Decision Records について - Tbpgr Blog">アーキテクチャの意思決定を記録する Lightweight Architecture Decision Records について - Tbpgr Blog</a></li>
-</ul>
-
-<p><a href="https://github.com/rwaldron/tc39-notes" title="ECMA, TC39 Meeting Notes">ECMA, TC39 Meeting Notes</a>とかもこれと似たようなフォーマットになっていて、自分がミーティングノートを書いたときも真似ていたので面白かった。</p>
-
-<ul>
-<li><a href="https://github.com/asciidwango/js-primer/tree/master/meetings" title="js-primer/meetings at master · asciidwango/js-primer">js-primer/meetings at master · asciidwango/js-primer</a></li>
-</ul>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr">実際の問題の小さな模型でシミュレートする。<br>頭で理解できる(複雑さの)サイズにし、シミュレートすることで、<br>後の議論において具体的に参照できるコードが作れる。<br>これがコミュニケーションツールとして役に立つ<a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> <a href="https://t.co/GvFG2hZGKy">pic.twitter.com/GvFG2hZGKy</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/861242247991271424">May 7, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/LivingDocumentation?src=hash">#LivingDocumentation</a> を取り入れるときは、セオリーの話をするんじゃなくて、シンプルな話として始める <a href="https://t.co/sG523au8O9">pic.twitter.com/sG523au8O9</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/861243980570177539">May 7, 2017</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<p>実践する時のやり方。</p>
-
-<hr>
-
-<p><a href="https://leanpub.com/livingdocumentation" title="Living Documentation by… by Cyrille Martraire [PDF/iPad/Kindle]">Living Documentation by design, with Domain-Driven Design by Cyrille Martraire [PDF/iPad/Kindle]</a> 400-500ページぐらいあって長かったけど読んでいて面白い話が多かったので良かった。
-感覚的なものが結構文章化されてので面白い。</p>
-
-<p>一応DDDの本ではあるので、DDDについては簡単に知っておくと読みやすいかも(コード的な話はあんまりないので、概念だけでもよさそう)</p>
-
-<ul>
-<li><a href="https://booth.pm/ja/items/392260" title="わかる！ドメイン駆動設計 ～もちこちゃんの大冒険～【C91新刊】 - TechBooster - BOOTH">わかる！ドメイン駆動設計 ～もちこちゃんの大冒険～【C91新刊】 - TechBooster - BOOTH</a></li>
-</ul>
-
-<p>あたりを見ておけば大体概念としての事前知識は大丈夫そうな気がする。
-後は、IA(情報設計)的なことが好きな人は読むといいのかもしれない。</p>
-
-<ul>
-<li><a href="https://www.amazon.co.jp/dp/4802510012/" title="今日からはじめる情報設計 -センスメイキングするための7ステップ | アビー・コバート, 長谷川敦士, 安藤 幸央 |本 | 通販 | Amazon">今日からはじめる情報設計 -センスメイキングするための7ステップ | アビー・コバート, 長谷川敦士, 安藤 幸央 |本 | 通販 | Amazon</a></li>
-<li><a href="http://efcl.info/2016/09/30/architecture-refs/" title="アーキテクチャをめぐるたび | Web Scratch">アーキテクチャをめぐるたび | Web Scratch</a></li>
-</ul>
-
-<p>実際のコードからドキュメントを同期するアプローチはアノテーション前提がちょっと強いので簡単には実践できない気はするけど、話として読むといいかなーと思った。</p>
- ]]></content>
  </entry>
  
 
