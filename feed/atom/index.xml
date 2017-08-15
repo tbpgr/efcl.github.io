@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-08-15T21:08:10+09:00</updated>
+ <updated>2017-08-15T21:12:45+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -87,7 +87,7 @@ Ths Object Management Group(OMG) maintains specifications for the UML(Unified Mo
 </ul>
 
 <p>ウェブに文書を書くと基本的にはHTMLなので、HTMLではどうなっているかが気になりました。
-HTMLタグの世界では<a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/dfn" title="dfn">dfn</a>と<a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/abbr" title="abbr">abbr</a>がそれぞれ関係します。</p>
+HTMLの世界では<a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/dfn" title="dfn">dfn</a>と<a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/abbr" title="abbr">abbr</a>がそれぞれ関係します。</p>
 
 <blockquote>
 <p>We use <dfn><abbr title="Hypertext Markup Language">HTML</abbr></dfn> to structure our web documents.</p>
@@ -97,7 +97,7 @@ HTMLタグの世界では<a href="https://developer.mozilla.org/ja/docs/Web/HTML
 <p>この場合も正式名称が属性値にあるので、正式名称の方が補足情報にも見えます。</p>
 
 <p>これは感覚的なものですが、略語をそもそも使うのは正式名称が毎回書くには長いためです。
-なので、最初にこの正式名称の略語はこう定義しますという意味で <code>正式名称(略語)</code>と書くスタイルがあるのだと思います。またこの時に2回目以降は正式名称は補足的な情報に逆転する感じがします。(<code>attr</code>タグの例)
+なので、最初にこの正式名称の略語はこう定義しますという意味で <code>正式名称(略語)</code>と書くスタイルがあるのだと思います。またこの時に2回目以降は正式名称は補足的な情報に逆転する感じがします。(<code>abbr</code>要素の例)
 一方、そもそも一度しか出てこない単語はどちらでもいいという理由で表記が安定しないような気がします。(このルールで縛りたい部分)</p>
 
 <p>この辺の書き方や読んだときにどのような印象を受けるかについて調査レポートや論文とか知ってる人いたら教えてください。</p>
