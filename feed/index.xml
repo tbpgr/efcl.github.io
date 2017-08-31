@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-08-31T11:54:24+09:00</updated>
+ <updated>2017-08-31T11:57:10+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -15,7 +15,7 @@
 
  
  <entry>
-   <title>LDRがサービス終了なのでInoreader/Feedlyをバックエンドに動くRSSリーダを書いている</title>
+   <title>LDRがサービス終了のため、Inoreader/Feedlyをバックエンドに動くRSSリーダを書いている</title>
    <link href="http://efcl.info/2017/08/31/ldr-to-irodr/"/>
    <updated>2017-08-31T10:03:00+09:00</updated>
    <id>http://efcl.info/2017/08/31/ldr-to-irodr</id>
