@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-08-31T12:14:13+09:00</updated>
+ <updated>2017-08-31T13:18:52+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -152,6 +152,12 @@
 <div class="highlight"><pre><code class="language-text" data-lang="text">npm start
 </code></pre></div>
 <p>Electronアプリにすれば簡単に無視できますが、RSSリーダはブラウザで開けるウェブアプリのほうが都合がいいのでそこまでやる気はないです（タブを開きまくるのでアプリよりブラウザの方がいい。PRは歓迎しています）</p>
+
+<p>後gh-pagesに公開したいのですが、 %PUBLIC_URL%が置換されないというcreate-react-app-typescriptの謎っぽい挙動を踏んでいるので、わかる方は次のIssueをみてください。</p>
+
+<ul>
+<li><a href="https://github.com/azu/irodr/issues/16" title="Not working on gh-pages · Issue #16 · azu/irodr">Not working on gh-pages · Issue #16 · azu/irodr</a></li>
+</ul>
 
 <p>他の既知の問題は <a href="https://github.com/azu/irodr/issues">https://github.com/azu/irodr/issues</a> にIssueを立てているので、気になる人は見てみてください。</p>
 
