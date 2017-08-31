@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-08-31T13:18:52+09:00</updated>
+ <updated>2017-08-31T14:13:18+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -181,6 +181,9 @@ npm install
 npm start
 open http://localhost:3000
 </code></pre></div>
+<p>ページを開くと多分TokenがないからInoreaderにログインして認証しろというエラーがでて、認証して戻ってくるとAPIを叩けるようになります。
+（おそらくめちゃくちゃわかりにくいし、CORSの問題とかもあるので、開発者ツールを開いて見れる人じゃないと難しい気はします）</p>
+
 <p>使ってみておかしなところは<a href="https://github.com/azu/irodr/issues">Issue</a>を立ててください。3日前に作り始めたばかりなので、まだちゃんと実装してない部分もありますがとりあえずIssueを立てておけば修正される気がします。</p>
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://t.co/xKJF7YUu5D">https://t.co/xKJF7YUu5D</a><br>面倒なのでInoreaderをバックエンドにLDRみたいなRSSリーダ書き始めた。<br>Inoreader CORS対応してないのがネック… FeedlyはOAuthのクライアントIDのとり方がよくわからない… <a href="https://t.co/cdbT55cC6x">pic.twitter.com/cdbT55cC6x</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/901991926676692992">August 28, 2017</a></blockquote>
