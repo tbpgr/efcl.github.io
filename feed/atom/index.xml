@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-08-31T11:51:52+09:00</updated>
+ <updated>2017-08-31T11:54:24+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -86,6 +86,7 @@
 <li>DOMの処理が重すぎてハングしてしまう(フィード数は3000弱)</li>
 <li>問い合わせたら、未読数の処理が一番のボトルネックらしく未読数をOFFにすると改善すると解答を貰った</li>
 <li>また、マスターDBはブルガリアのDCにあるらしいとのこと</li>
+<li>via <a href="https://twitter.com/azu_re/status/902083679551348736">https://twitter.com/azu_re/status/902083679551348736</a></li>
 </ul></li>
 <li>フィードから次のフィードに移動するときにリクエストのブロックが起きている
 
