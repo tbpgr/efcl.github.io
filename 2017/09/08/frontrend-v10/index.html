@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>
+        
+        Frontrend Vol.10 アウトラインメモ | Web Scratch
+        
+    </title>
+    <meta name="description" content="Frontrend Vol.10">
+    
+    <meta name="keywords" content="JavaScript,Frontrend" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="Frontrend Vol.10 アウトラインメモ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2017/09/08/frontrend-v10/">
+<meta property="og:image" content="http://efcl.info">
+
+<meta property="og:description" content="Frontrend Vol.10">
+<meta property="og:site_name" content="Web Scratch">
+
+
+
+
+<meta property="article:published_time" content="2017-09-08T20:52:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/08/31/ldr-to-irodr/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/08/15/textlint-rule-abbr-within-parentheses/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/07/29/ldr-rate-export/">
+
+
+
+
+
+<meta property="article:section" content="イベント">
+
+
+
+
+
+<meta property="article:tag" content="JavaScript">
+
+<meta property="article:tag" content="Frontrend">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 55
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 35
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 185
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 90
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 11
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 8
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2017/09/08/frontrend-v10/">
+                Frontrend Vol.10 アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/08/31/ldr-to-irodr/">
+                LDRがサービス終了のため、Inoreader/Feedlyをバックエンドに動くRSSリーダを書いている
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/08/15/textlint-rule-abbr-within-parentheses/">
+                略語は括弧の中 or 前? Open Source Software(OSS) or OSS(Open Source Software)
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/07/29/ldr-rate-export/">
+                LDRのフィードをレート情報付きでエクスポートする
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2017/09/08/frontrend-v10/">
+    <h1 class="post-title">Frontrend Vol.10 アウトラインメモ</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2017年09月08日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-09-08-frontrend-v10.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <h1 id="frontrend-vol-10">Frontrend Vol.10</h1>
+
+<p><a href="https://frontrend.connpass.com/event/63971/" title="Frontrend Vol.10 - 夏の終わりに納涼パフォーマンス話 - connpass">Frontrend Vol.10 - 夏の終わりに納涼パフォーマンス話 - connpass</a>に参加してきたのでメモ。</p>
+
+<hr>
+
+<h2 id="fresh-クライアントサイドパフォーマンス改善-by-sutiwo_">FRESH!: クライアントサイドパフォーマンス改善 by @sutiwo_</h2>
+
+<ul>
+<li><a href="https://developers.cyberagent.co.jp/blog/archives/6057/" title="FRESH! Web パフォーマンス改善 〜クライアントサイド編〜">FRESH! Web パフォーマンス改善 〜クライアントサイド編〜</a>の話</li>
+<li>FRESHはPCとSPの視聴/配信のブラウザ対応</li>
+<li>生放送のタイムラグを10秒 -&gt; 5秒
+
+<ul>
+<li><a href="https://www.cyberagent.co.jp/newsinfo/info/print/id=14062" title="映像配信プラットフォーム「FRESH!」が映像配信のタイムラグを大幅に短縮 業界最速水準で高画質映像の配信が可能に | 株式会社サイバーエージェント">映像配信プラットフォーム「FRESH!」が映像配信のタイムラグを大幅に短縮 業界最速水準で高画質映像の配信が可能に | 株式会社サイバーエージェント</a></li>
+</ul></li>
+<li>Freshのウェブプッシュ通知機能</li>
+<li>Freshアクセシビリティガイドライン
+
+<ul>
+<li><a href="https://openfresh.github.io/a11y-guidelines/" title="FRESH! Accessibility Guidelines">FRESH! Accessibility Guidelines</a></li>
+</ul></li>
+<li>Service Worker
+
+<ul>
+<li>バックグラインドで実行するWorker</li>
+<li>postMessageでのやり取り</li>
+<li>ネットワークのハンドリング</li>
+<li>PUsh通知</li>
+<li>httpsが必須
+
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/Security/Secure_Contexts" title="Secure Contexts - Web セキュリティ | MDN">Secure Contexts - Web セキュリティ | MDN</a></li>
+</ul></li>
+<li>ブラウザ &lt;-&gt; SW &lt;-&gt; ネットワーク</li>
+</ul></li>
+<li>FRESHではFirefox + Chrome = 50%ぐらいの利用者にある
+
+<ul>
+<li>SWが50%のユーザーに適応できる</li>
+</ul></li>
+<li>設計と実装</li>
+<li>キャッシュがあれば、キャッシュを使いない場合はFetchする
+
+<ul>
+<li>リリース単位でキャッシュさせる(CircleCIでビルド時にIDを含める)</li>
+<li>意図的に更新させないとキャッシュされ続けるもの
+
+<ul>
+<li><code>version.json</code>で任意の日付をマニュアル更新</li>
+</ul></li>
+</ul></li>
+<li>ディレクトリ構成
+
+<ul>
+<li>service-worker
+
+<ul>
+<li>asserts.js - キャッシュのホワイトリスト</li>
+<li>index.js - イベントハンドラ登録</li>
+<li>register.js SWのインストール判定</li>
+</ul></li>
+</ul></li>
+<li>デバッグ方法
+
+<ul>
+<li>Chrome DevToolsを使ってる</li>
+<li>assetsのパスに日付が入ってる</li>
+</ul></li>
+<li>ローカルで確認する時
+
+<ul>
+<li>環境変数でフラグを用意 = <code>DISABLED_SW_CACHE</code></li>
+<li>ブラウザでスーパーリロードする</li>
+</ul></li>
+<li>Intersection Observerでの遅延ロード
+
+<ul>
+<li>ランキングの表示</li>
+<li>50件でているが見えるのは最初の6-7件</li>
+</ul></li>
+<li>Intersection Observerを使って遅延ロード
+
+<ul>
+<li><a href="https://blog.jxck.io/entries/2016-06-25/intersection-observer.html">Intersection Observer を用いた要素出現検出の最適化 | blog.jxck.io</a></li>
+<li><a href="https://1000ch.net/posts/2016/intersection-observer-lazyload.html">IntersectionObserverを使ってlazyload-imageを書き直した - EagleLand</a></li>
+</ul></li>
+<li><a href="https://github.com/openfresh/viewport-observer" title="openfresh/viewport-observer: A React Component that observe changes in the intersection of a target element with viewport using IntersectionObserver">openfresh/viewport-observer: A React Component that observe changes in the intersection of a target element with viewport using IntersectionObserver</a>
+
+<ul>
+<li>Reactラッパー</li>
+</ul></li>
+<li>SVGスプライトとHTTP/2
+
+<ul>
+<li>SVGファイル毎にリクエストするHTTP/1だと問題がある</li>
+<li>SVGスプライトにまとめた
+
+<ul>
+<li>すべてのSVGが読み終わるまで、どのSVGもでない</li>
+</ul></li>
+<li>ただHTTP/2なら特に問題にならないので個別で読み込んだ
+
+<ul>
+<li>個別のSVGで読み込むようにした</li>
+</ul></li>
+</ul></li>
+<li>SpeedCurveで計測してる</li>
+</ul>
+
+<hr>
+
+<h2 id="パフォーマンスを改善して本を売る！「読書のお時間です」の取り組みについて">パフォーマンスを改善して本を売る！「読書のお時間です」の取り組みについて</h2>
+
+<ul>
+<li>5年続いたSPAのウェブサービスをSSRにした話</li>
+<li>問題分析
+
+<ul>
+<li>ボトルネック調査</li>
+</ul></li>
+<li>設計
+
+<ul>
+<li>Before
+
+<ul>
+<li>jQuery</li>
+<li>handlebars</li>
+<li>Grunt</li>
+</ul></li>
+<li>After
+
+<ul>
+<li>React/webpack色々</li>
+</ul></li>
+</ul></li>
+<li>開発
+
+<ul>
+<li>プロイピング</li>
+<li>主要ページからリニューアルする</li>
+<li>旧仕様のページと行き来できる作り(共存する)</li>
+<li><code>#!</code> から <code>/</code> に変更</li>
+</ul></li>
+<li>リリース
+
+<ul>
+<li>ページロード 30% down</li>
+<li>コンテンツサイズ 50% down</li>
+</ul></li>
+<li>展開
+
+<ul>
+<li>対象ページが100ページ以上あった</li>
+<li>既存のものを運用しないといけない</li>
+</ul></li>
+<li>画像との戦い
+
+<ul>
+<li>本の表紙 = 書影</li>
+<li>画像の提供元によってサイズなどがバラバラ</li>
+</ul></li>
+<li>パフォーマンス計測とKPIの紐付け
+
+<ul>
+<li>RUM-speedIndex
+
+<ul>
+<li><a href="https://github.com/WPO-Foundation/RUM-SpeedIndex" title="WPO-Foundation/RUM-SpeedIndex: Calculate SpeedIndex measurements from the field">WPO-Foundation/RUM-SpeedIndex: Calculate SpeedIndex measurements from the field</a></li>
+</ul></li>
+<li>SpeedIndexとKPIを紐付けてビジュアライズ
+
+<ul>
+<li><a href="https://developers.cyberagent.co.jp/blog/archives/9540/" title="WebパフォーマンスとプロダクトKPIの相関を可視化する話">WebパフォーマンスとプロダクトKPIの相関を可視化する話</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="アメブロ-isomprhicアプリケーションのパフォーマンス・チューニング">アメブロ: Isomprhicアプリケーションのパフォーマンス・チューニング</h2>
+
+<ul>
+<li><a href="https://developers.cyberagent.co.jp/blog/archives/636/" title="アメブロ2016 ~ React/ReduxでつくるIsomorphic web app ~">アメブロ2016 ~ React/ReduxでつくるIsomorphic web app ~</a>の話</li>
+<li>Javaベース -&gt; Node.jsベースに変更</li>
+<li>SSR: Isomorphic App(SPA + SSR) + React+ Redux + React Router</li>
+<li>バックエンドキャッシュは大分
+
+<ul>
+<li>React SSRはパフォーマンスが悪い</li>
+</ul></li>
+<li>クライントは特定のユーザー、サーバサイドはすべてのユーザにサービスを提供
+
+<ul>
+<li>なのでサーバサイドはキャッシュとかしないと</li>
+</ul></li>
+<li>バックエンドのキャッシュの設計</li>
+<li>問題点を洗い出す
+
+<ul>
+<li>何をキャッシュするか
+
+<ul>
+<li>Router -&gt; Redux Store準備(API Object) -&gt; Render -&gt; HTML</li>
+<li>RenderToStringはとても重たい
+
+<ul>
+<li>同期的な処理</li>
+<li>Note: React 16では30%程度改善</li>
+<li><a href="https://twitter.com/herablog/status/893421865670017024">https://twitter.com/herablog/status/893421865670017024</a></li>
+</ul></li>
+<li>RenderToStringはキャッシュしたい</li>
+<li>ただしユーザーによって違うのでそのままキャッシュできない</li>
+<li>RenderToStringはテンプレートを吐き出して、クライアントサイドでそれをレンダリングする</li>
+<li>API Objectもキャッシュすることでより改善された</li>
+</ul></li>
+<li>キャッシュするタイミング
+
+<ul>
+<li>アクセスされたとき</li>
+</ul></li>
+<li>キャッシュを削除するタイミング
+
+<ul>
+<li>記事を更新したら、記事IDから記事のキャッシュを消すのはNG</li>
+<li>実際は記事を更新したら、記事本体、記事一覧、記事の前後などいろんなところを影響する</li>
+<li>実装はかなり複雑になるので、キャッシュの削除は難しい</li>
+<li>AmebaブログはユーザIDに紐付いているので、更新したらユーザIDに紐づくページをすべて削除する</li>
+<li>FallbackとしてキャッシュのTTLで失効させる</li>
+</ul></li>
+<li>キッシュのトランザクション
+
+<ul>
+<li>キャッシュの更新とアクセスでキャッシュ作られたときに衝突してしまう問題</li>
+<li>キャッシュのkeyは namespace(user-id)+version をつかうようにした</li>
+<li>なので削除ではなくバージョンの更新 = キャッシュの削除</li>
+</ul></li>
+<li>Local Cache VS Cache Server
+
+<ul>
+<li>Node.jsのインスタンス数が多い(オンメモリだけではばらけてしまう)</li>
+<li>オンメモリのキャッシュ + キャッシュサーバを併用</li>
+</ul></li>
+</ul></li>
+<li>遅延ロード
+
+<ul>
+<li>SSR -&gt; SPA
+
+<ul>
+<li><a href="https://github.com/kouhin/rrr-lazy" title="kouhin/rrr-lazy: A fork of react-lazy-load and add support for react-router, react-router-hook.">kouhin/rrr-lazy: A fork of react-lazy-load and add support for react-router, react-router-hook.</a></li>
+<li>サーバサイドではレンダリングしないコンポーネントを指定できる</li>
+</ul></li>
+<li>ページの表示範囲
+
+<ul>
+<li>クライントサイドの処理</li>
+<li>Intersection Observer的な遅延ロード</li>
+</ul></li>
+<li>コードの分割
+
+<ul>
+<li>JavaScriptのパース時間が短くなる</li>
+<li>main.jsの肥大化を防ぐ</li>
+<li>webpack</li>
+<li>分割粒度: AtomicデザインのOrganisms毎
+
+<ul>
+<li>Dynamic Importで遅延ロード</li>
+</ul></li>
+<li>分割するとビルドが遅い
+
+<ul>
+<li>ローカルではコード分割しない</li>
+<li><a href="https://github.com/knpwrs/babel-plugin-remove-webpack" title="knpwrs/babel-plugin-remove-webpack: Removes webpack-specific functions from JavaScript code.">knpwrs/babel-plugin-remove-webpack: Removes webpack-specific functions from JavaScript code.</a>などで無効化してる</li>
+</ul></li>
+<li>chunkのサイズは結構でかい</li>
+</ul></li>
+</ul></li>
+<li>Service Worker
+
+<ul>
+<li>AMPなので専用のタグを使う</li>
+<li><a href="https://github.com/GoogleChrome/workbox" title="GoogleChrome/workbox: 📦 Workbox: JavaScript libraries for Offline Caching">GoogleChrome/workbox: 📦 Workbox: JavaScript libraries for Offline Caching</a></li>
+</ul></li>
+<li>HTTP/2 &amp;&amp; コード分割
+
+<ul>
+<li>Chromeは一度にリクエストできるの6つまで</li>
+<li>一括で読み込むと詰まることがある</li>
+<li>この辺は改善していきたい</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h1 id="q-amp-a">Q&amp;A</h1>
+
+<ul>
+<li>Q. パフォーマンス計測ツールはアメーバ社内で共通化されてるの?</li>
+<li>A. アメブロはSpeedCurveとか</li>
+<li>1000chに聞いて</li>
+</ul>
+
+<hr>
+
+<h2 id="まとめ">まとめ</h2>
+
+<p>おつかれまされました。</p>
+
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-09-08-frontrend-v10.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["JavaScript","Frontrend"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=JavaScript">JavaScript</a></li>
+                
+                <li><a href="/tags/?q=Frontrend">Frontrend</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>

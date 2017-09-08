@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-08-31T14:13:18+09:00</updated>
+ <updated>2017-09-08T20:57:45+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,324 @@
  </author>
  
 
+ 
+ <entry>
+   <title>Frontrend Vol.10 アウトラインメモ</title>
+   <link href="http://efcl.info/2017/09/08/frontrend-v10/"/>
+   <updated>2017-09-08T20:52:00+09:00</updated>
+   <id>http://efcl.info/2017/09/08/frontrend-v10</id>
+   <content type="html"><![CDATA[ <h1 id="frontrend-vol-10">Frontrend Vol.10</h1>
+
+<p><a href="https://frontrend.connpass.com/event/63971/" title="Frontrend Vol.10 - 夏の終わりに納涼パフォーマンス話 - connpass">Frontrend Vol.10 - 夏の終わりに納涼パフォーマンス話 - connpass</a>に参加してきたのでメモ。</p>
+
+<hr>
+
+<h2 id="fresh-クライアントサイドパフォーマンス改善-by-sutiwo_">FRESH!: クライアントサイドパフォーマンス改善 by @sutiwo_</h2>
+
+<ul>
+<li><a href="https://developers.cyberagent.co.jp/blog/archives/6057/" title="FRESH! Web パフォーマンス改善 〜クライアントサイド編〜">FRESH! Web パフォーマンス改善 〜クライアントサイド編〜</a>の話</li>
+<li>FRESHはPCとSPの視聴/配信のブラウザ対応</li>
+<li>生放送のタイムラグを10秒 -&gt; 5秒
+
+<ul>
+<li><a href="https://www.cyberagent.co.jp/newsinfo/info/print/id=14062" title="映像配信プラットフォーム「FRESH!」が映像配信のタイムラグを大幅に短縮 業界最速水準で高画質映像の配信が可能に | 株式会社サイバーエージェント">映像配信プラットフォーム「FRESH!」が映像配信のタイムラグを大幅に短縮 業界最速水準で高画質映像の配信が可能に | 株式会社サイバーエージェント</a></li>
+</ul></li>
+<li>Freshのウェブプッシュ通知機能</li>
+<li>Freshアクセシビリティガイドライン
+
+<ul>
+<li><a href="https://openfresh.github.io/a11y-guidelines/" title="FRESH! Accessibility Guidelines">FRESH! Accessibility Guidelines</a></li>
+</ul></li>
+<li>Service Worker
+
+<ul>
+<li>バックグラインドで実行するWorker</li>
+<li>postMessageでのやり取り</li>
+<li>ネットワークのハンドリング</li>
+<li>PUsh通知</li>
+<li>httpsが必須
+
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/Security/Secure_Contexts" title="Secure Contexts - Web セキュリティ | MDN">Secure Contexts - Web セキュリティ | MDN</a></li>
+</ul></li>
+<li>ブラウザ &lt;-&gt; SW &lt;-&gt; ネットワーク</li>
+</ul></li>
+<li>FRESHではFirefox + Chrome = 50%ぐらいの利用者にある
+
+<ul>
+<li>SWが50%のユーザーに適応できる</li>
+</ul></li>
+<li>設計と実装</li>
+<li>キャッシュがあれば、キャッシュを使いない場合はFetchする
+
+<ul>
+<li>リリース単位でキャッシュさせる(CircleCIでビルド時にIDを含める)</li>
+<li>意図的に更新させないとキャッシュされ続けるもの
+
+<ul>
+<li><code>version.json</code>で任意の日付をマニュアル更新</li>
+</ul></li>
+</ul></li>
+<li>ディレクトリ構成
+
+<ul>
+<li>service-worker
+
+<ul>
+<li>asserts.js - キャッシュのホワイトリスト</li>
+<li>index.js - イベントハンドラ登録</li>
+<li>register.js SWのインストール判定</li>
+</ul></li>
+</ul></li>
+<li>デバッグ方法
+
+<ul>
+<li>Chrome DevToolsを使ってる</li>
+<li>assetsのパスに日付が入ってる</li>
+</ul></li>
+<li>ローカルで確認する時
+
+<ul>
+<li>環境変数でフラグを用意 = <code>DISABLED_SW_CACHE</code></li>
+<li>ブラウザでスーパーリロードする</li>
+</ul></li>
+<li>Intersection Observerでの遅延ロード
+
+<ul>
+<li>ランキングの表示</li>
+<li>50件でているが見えるのは最初の6-7件</li>
+</ul></li>
+<li>Intersection Observerを使って遅延ロード
+
+<ul>
+<li><a href="https://blog.jxck.io/entries/2016-06-25/intersection-observer.html">Intersection Observer を用いた要素出現検出の最適化 | blog.jxck.io</a></li>
+<li><a href="https://1000ch.net/posts/2016/intersection-observer-lazyload.html">IntersectionObserverを使ってlazyload-imageを書き直した - EagleLand</a></li>
+</ul></li>
+<li><a href="https://github.com/openfresh/viewport-observer" title="openfresh/viewport-observer: A React Component that observe changes in the intersection of a target element with viewport using IntersectionObserver">openfresh/viewport-observer: A React Component that observe changes in the intersection of a target element with viewport using IntersectionObserver</a>
+
+<ul>
+<li>Reactラッパー</li>
+</ul></li>
+<li>SVGスプライトとHTTP/2
+
+<ul>
+<li>SVGファイル毎にリクエストするHTTP/1だと問題がある</li>
+<li>SVGスプライトにまとめた
+
+<ul>
+<li>すべてのSVGが読み終わるまで、どのSVGもでない</li>
+</ul></li>
+<li>ただHTTP/2なら特に問題にならないので個別で読み込んだ
+
+<ul>
+<li>個別のSVGで読み込むようにした</li>
+</ul></li>
+</ul></li>
+<li>SpeedCurveで計測してる</li>
+</ul>
+
+<hr>
+
+<h2 id="パフォーマンスを改善して本を売る！「読書のお時間です」の取り組みについて">パフォーマンスを改善して本を売る！「読書のお時間です」の取り組みについて</h2>
+
+<ul>
+<li>5年続いたSPAのウェブサービスをSSRにした話</li>
+<li>問題分析
+
+<ul>
+<li>ボトルネック調査</li>
+</ul></li>
+<li>設計
+
+<ul>
+<li>Before
+
+<ul>
+<li>jQuery</li>
+<li>handlebars</li>
+<li>Grunt</li>
+</ul></li>
+<li>After
+
+<ul>
+<li>React/webpack色々</li>
+</ul></li>
+</ul></li>
+<li>開発
+
+<ul>
+<li>プロイピング</li>
+<li>主要ページからリニューアルする</li>
+<li>旧仕様のページと行き来できる作り(共存する)</li>
+<li><code>#!</code> から <code>/</code> に変更</li>
+</ul></li>
+<li>リリース
+
+<ul>
+<li>ページロード 30% down</li>
+<li>コンテンツサイズ 50% down</li>
+</ul></li>
+<li>展開
+
+<ul>
+<li>対象ページが100ページ以上あった</li>
+<li>既存のものを運用しないといけない</li>
+</ul></li>
+<li>画像との戦い
+
+<ul>
+<li>本の表紙 = 書影</li>
+<li>画像の提供元によってサイズなどがバラバラ</li>
+</ul></li>
+<li>パフォーマンス計測とKPIの紐付け
+
+<ul>
+<li>RUM-speedIndex
+
+<ul>
+<li><a href="https://github.com/WPO-Foundation/RUM-SpeedIndex" title="WPO-Foundation/RUM-SpeedIndex: Calculate SpeedIndex measurements from the field">WPO-Foundation/RUM-SpeedIndex: Calculate SpeedIndex measurements from the field</a></li>
+</ul></li>
+<li>SpeedIndexとKPIを紐付けてビジュアライズ
+
+<ul>
+<li><a href="https://developers.cyberagent.co.jp/blog/archives/9540/" title="WebパフォーマンスとプロダクトKPIの相関を可視化する話">WebパフォーマンスとプロダクトKPIの相関を可視化する話</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="アメブロ-isomprhicアプリケーションのパフォーマンス・チューニング">アメブロ: Isomprhicアプリケーションのパフォーマンス・チューニング</h2>
+
+<ul>
+<li><a href="https://developers.cyberagent.co.jp/blog/archives/636/" title="アメブロ2016 ~ React/ReduxでつくるIsomorphic web app ~">アメブロ2016 ~ React/ReduxでつくるIsomorphic web app ~</a>の話</li>
+<li>Javaベース -&gt; Node.jsベースに変更</li>
+<li>SSR: Isomorphic App(SPA + SSR) + React+ Redux + React Router</li>
+<li>バックエンドキャッシュは大分
+
+<ul>
+<li>React SSRはパフォーマンスが悪い</li>
+</ul></li>
+<li>クライントは特定のユーザー、サーバサイドはすべてのユーザにサービスを提供
+
+<ul>
+<li>なのでサーバサイドはキャッシュとかしないと</li>
+</ul></li>
+<li>バックエンドのキャッシュの設計</li>
+<li>問題点を洗い出す
+
+<ul>
+<li>何をキャッシュするか
+
+<ul>
+<li>Router -&gt; Redux Store準備(API Object) -&gt; Render -&gt; HTML</li>
+<li>RenderToStringはとても重たい
+
+<ul>
+<li>同期的な処理</li>
+<li>Note: React 16では30%程度改善</li>
+<li><a href="https://twitter.com/herablog/status/893421865670017024">https://twitter.com/herablog/status/893421865670017024</a></li>
+</ul></li>
+<li>RenderToStringはキャッシュしたい</li>
+<li>ただしユーザーによって違うのでそのままキャッシュできない</li>
+<li>RenderToStringはテンプレートを吐き出して、クライアントサイドでそれをレンダリングする</li>
+<li>API Objectもキャッシュすることでより改善された</li>
+</ul></li>
+<li>キャッシュするタイミング
+
+<ul>
+<li>アクセスされたとき</li>
+</ul></li>
+<li>キャッシュを削除するタイミング
+
+<ul>
+<li>記事を更新したら、記事IDから記事のキャッシュを消すのはNG</li>
+<li>実際は記事を更新したら、記事本体、記事一覧、記事の前後などいろんなところを影響する</li>
+<li>実装はかなり複雑になるので、キャッシュの削除は難しい</li>
+<li>AmebaブログはユーザIDに紐付いているので、更新したらユーザIDに紐づくページをすべて削除する</li>
+<li>FallbackとしてキャッシュのTTLで失効させる</li>
+</ul></li>
+<li>キッシュのトランザクション
+
+<ul>
+<li>キャッシュの更新とアクセスでキャッシュ作られたときに衝突してしまう問題</li>
+<li>キャッシュのkeyは namespace(user-id)+version をつかうようにした</li>
+<li>なので削除ではなくバージョンの更新 = キャッシュの削除</li>
+</ul></li>
+<li>Local Cache VS Cache Server
+
+<ul>
+<li>Node.jsのインスタンス数が多い(オンメモリだけではばらけてしまう)</li>
+<li>オンメモリのキャッシュ + キャッシュサーバを併用</li>
+</ul></li>
+</ul></li>
+<li>遅延ロード
+
+<ul>
+<li>SSR -&gt; SPA
+
+<ul>
+<li><a href="https://github.com/kouhin/rrr-lazy" title="kouhin/rrr-lazy: A fork of react-lazy-load and add support for react-router, react-router-hook.">kouhin/rrr-lazy: A fork of react-lazy-load and add support for react-router, react-router-hook.</a></li>
+<li>サーバサイドではレンダリングしないコンポーネントを指定できる</li>
+</ul></li>
+<li>ページの表示範囲
+
+<ul>
+<li>クライントサイドの処理</li>
+<li>Intersection Observer的な遅延ロード</li>
+</ul></li>
+<li>コードの分割
+
+<ul>
+<li>JavaScriptのパース時間が短くなる</li>
+<li>main.jsの肥大化を防ぐ</li>
+<li>webpack</li>
+<li>分割粒度: AtomicデザインのOrganisms毎
+
+<ul>
+<li>Dynamic Importで遅延ロード</li>
+</ul></li>
+<li>分割するとビルドが遅い
+
+<ul>
+<li>ローカルではコード分割しない</li>
+<li><a href="https://github.com/knpwrs/babel-plugin-remove-webpack" title="knpwrs/babel-plugin-remove-webpack: Removes webpack-specific functions from JavaScript code.">knpwrs/babel-plugin-remove-webpack: Removes webpack-specific functions from JavaScript code.</a>などで無効化してる</li>
+</ul></li>
+<li>chunkのサイズは結構でかい</li>
+</ul></li>
+</ul></li>
+<li>Service Worker
+
+<ul>
+<li>AMPなので専用のタグを使う</li>
+<li><a href="https://github.com/GoogleChrome/workbox" title="GoogleChrome/workbox: 📦 Workbox: JavaScript libraries for Offline Caching">GoogleChrome/workbox: 📦 Workbox: JavaScript libraries for Offline Caching</a></li>
+</ul></li>
+<li>HTTP/2 &amp;&amp; コード分割
+
+<ul>
+<li>Chromeは一度にリクエストできるの6つまで</li>
+<li>一括で読み込むと詰まることがある</li>
+<li>この辺は改善していきたい</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h1 id="q-amp-a">Q&amp;A</h1>
+
+<ul>
+<li>Q. パフォーマンス計測ツールはアメーバ社内で共通化されてるの?</li>
+<li>A. アメブロはSpeedCurveとか</li>
+<li>1000chに聞いて</li>
+</ul>
+
+<hr>
+
+<h2 id="まとめ">まとめ</h2>
+
+<p>おつかれまされました。</p>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>LDRがサービス終了のため、Inoreader/Feedlyをバックエンドに動くRSSリーダを書いている</title>
@@ -1550,154 +1868,6 @@ Examples
 <li><a href="https://github.com/textlint/txt-to-ast" title="textlint/txt-to-ast: [CAUTION] This repository is MOVED to monorepo.">textlint/txt-to-ast: [CAUTION] This repository is MOVED to monorepo.</a></li>
 <li><a href="https://github.com/textlint/textlint-plugin-text" title="textlint/textlint-plugin-text: [CAUTION] This repository is MOVED to monorepo.">textlint/textlint-plugin-text: [CAUTION] This repository is MOVED to monorepo.</a></li>
 <li><a href="https://github.com/textlint/textlint-plugin-markdown" title="textlint/textlint-plugin-markdown: [CAUTION] This repository is MOVED to monorepo.">textlint/textlint-plugin-markdown: [CAUTION] This repository is MOVED to monorepo.</a></li>
-</ul>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>GitHubのラベルをいい感じにセットアップするツール</title>
-   <link href="http://efcl.info/2017/05/17/github-label/"/>
-   <updated>2017-05-17T10:23:00+09:00</updated>
-   <id>http://efcl.info/2017/05/17/github-label</id>
-   <content type="html"><![CDATA[ <p><a href="https://github.com/azu/github-label-setup" title="github-label-setup">github-label-setup</a>というGitHubリポジトリのラベルにいい感じのプリセットを追加する自分用のツールを書きました。</p>
-
-<p>次のIssueに追加されるラベルが全部貼ってあります。</p>
-
-<p><a href="https://github.com/azu/github-label-setup/issues/1"><img src="./img/demo.png" alt="demo"></a></p>
-
-<h2 id="install">Install</h2>
-
-<p>npmでインストールできます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install @azu/github-label-setup -g
-</code></pre></div>
-<h2 id="usage">Usage</h2>
-
-<p>基本的にはデフォルトのプリセットがあるので、<code>--token</code>でGitHubのtokenを渡すだけで後は自動でやってくれます。</p>
-
-<p>ラベルを設定したいプロジェクトのディレクトリに移動してコマンドを叩くだけです。
-(git remoteのoriginを見ます)</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">Usage
-  $ github-label-setup --token xxx
-
-Options
-
-  -h, --help                  output usage information
-  -l, --labels &lt;path&gt;         the path or npm packages name to look for the label configuration in. Default: labels.json
-  --token &lt;token&gt;  a GitHub access token (also settable with a GITHUB_ACCESS_TOKEN environment variable)
-  -d, --dry-run               calculate the required label changes but do not apply them
-</code></pre></div>
-<p>アクセストークンは<a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a>から <code>&quot;repo&quot;</code> scope が有効になったものがあれば良いです。</p>
-
-<p><code>--dry-run</code>オプションを使えば、実際にどういう変更が行われるかを見れるのでまずはそちらで確認してください。</p>
-
-<p>デフォルトのGitHubのラベルやよく使われる似た意味のラベルはマイグレーションしますが、リストにないラベルは単純に消えてしまうので注意が必要です。</p>
-
-<ul>
-<li><a href="https://github.com/azu/github-label-setup/blob/master/labels.json" title="github-label-setup/labels.json at master · azu/github-label-setup">github-label-setup/labels.json at master · azu/github-label-setup</a></li>
-</ul>
-<div class="highlight"><pre><code class="language-text" data-lang="text">Fetching labels from GitHub
-Changed: the &quot;duplicate&quot; label in the repo is out of date. It will be updated to &quot;duplicate&quot; with color &quot;#ededed&quot;.
-Changed: the &quot;help wanted&quot; label in the repo is out of date. It will be updated to &quot;help wanted&quot; with color &quot;#e99695&quot;.
-Missing: the &quot;good for beginner&quot; label is missing from the repo. It will be created.
-Missing: the &quot;Priority: Critical&quot; label is missing from the repo. It will be created.
-Missing: the &quot;Priority: High&quot; label is missing from the repo. It will be created.
-Missing: the &quot;Priority: Low&quot; label is missing from the repo. It will be created.
-Missing: the &quot;Priority: Medium&quot; label is missing from the repo. It will be created.
-Changed: the &quot;invalid&quot; label in the repo is out of date. It will be updated to &quot;Status: Abandoned&quot; with color &quot;#000000&quot;.
-Missing: the &quot;Status: Blocked&quot; label is missing from the repo. It will be created.
-Missing: the &quot;Status: In Progress&quot; label is missing from the repo. It will be created.
-Changed: the &quot;Idea&quot; label in the repo is out of date. It will be updated to &quot;Status: Proposal&quot; with color &quot;#d4c5f9&quot;.
-Missing: the &quot;Status: Ready for PR&quot; label is missing from the repo. It will be created.
-Missing: the &quot;Status: Review Needed&quot; label is missing from the repo. It will be created.
-Changed: the &quot;breaking&quot; label in the repo is out of date. It will be updated to &quot;Type: Breaking Change&quot; with color &quot;#b60205&quot;.
-Changed: the &quot;bug&quot; label in the repo is out of date. It will be updated to &quot;Type: Bug&quot; with color &quot;#ee0701&quot;.
-Changed: the &quot;documents&quot; label in the repo is out of date. It will be updated to &quot;Type: Documentation&quot; with color &quot;#5319e7&quot;.
-Changed: the &quot;enhancement&quot; label in the repo is out of date. It will be updated to &quot;Type: Feature&quot; with color &quot;#1d76db&quot;.
-Missing: the &quot;Type: Refactoring&quot; label is missing from the repo. It will be created.
-Changed: the &quot;greenkeeper&quot; label in the repo is out of date. It will be updated to &quot;Type: Maintenance&quot; with color &quot;#0e8a16&quot;.
-Changed: the &quot;question&quot; label in the repo is out of date. It will be updated to &quot;Type: Question&quot; with color &quot;#cc317c&quot;.
-Added: the &quot;example&quot; label in the repo is not expected. It will be deleted.
-Added: the &quot;implementing&quot; label in the repo is not expected. It will be deleted.
-Added: the &quot;Patch Welcome&quot; label in the repo is not expected. It will be deleted.
-Added: the &quot;proposal&quot; label in the repo is not expected. It will be deleted.
-Added: the &quot;wontfix&quot; label in the repo is not expected. It will be deleted.
-This is a dry run. No changes have been made on GitHub
-</code></pre></div>
-<p>このツールは <code>github-label-sync</code> のラッパーなので、細かい部分はそちらをみてください。</p>
-
-<ul>
-<li><a href="https://github.com/Financial-Times/github-label-sync" title="Financial-Times/github-label-sync: Synchronise your GitHub labels with as few destructive operations as possible">Financial-Times/github-label-sync: Synchronise your GitHub labels with as few destructive operations as possible</a></li>
-</ul>
-
-<h3 id="npm-packages-for-labels">Npm packages for labels</h3>
-
-<p><code>-l</code>オプションでラベルファイルを指定できますが、<code>require</code>できればなんでも通るので、npmパッケージを作っても多分通ります。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ github-label-setup --token xxx --labels @owner/github-label-presets
-</code></pre></div>
-<p>ラベルのフォーマットは<a href="https://github.com/Financial-Times/github-label-sync#label-json" title="Label JSON">Label JSON</a>をみてください。</p>
-
-<h2 id="デフォルトのラベル">デフォルトのラベル</h2>
-
-<p>最初に書いたように自分用のツールなので、ラベルのデフォルトは自分がよく使う感じのものになってます。</p>
-
-<p><a href="https://github.com/azu/github-label-setup/issues/1"><img src="./img/demo.png" alt="demo"></a></p>
-
-<ul>
-<li>duplicate</li>
-<li>help wanted</li>
-<li>good for beginner
-
-<ul>
-<li><a href="https://github.com/MunGell/awesome-for-beginners" title="MunGell/awesome-for-beginners: A list of awesome beginners-friendly projects.">MunGell/awesome-for-beginners: A list of awesome beginners-friendly projects.</a>を参考に</li>
-</ul></li>
-<li>Priority: Critical</li>
-<li>Priority: High</li>
-<li>Priority: Low</li>
-<li>Priority: Medium
-
-<ul>
-<li>優先度管理</li>
-</ul></li>
-<li>Status: Abandoned</li>
-<li>Status: Blocked</li>
-<li>Status: In Progress</li>
-<li>Status: Proposal</li>
-<li>Status: Ready for PR</li>
-<li>Status: Review Needed
-
-<ul>
-<li>ステータス管理</li>
-</ul></li>
-<li>Type: Breaking Change</li>
-<li>Type: Bug</li>
-<li>Type: Feature</li>
-<li>Type: Documentation</li>
-<li>Type: Refactoring</li>
-<li>Type: Maintenance
-
-<ul>
-<li>Related: <a href="https://conventionalcommits.org/" title="Conventional Commits">Conventional Commits</a></li>
-<li>これはコミットのスコープに大分近いです。</li>
-<li><a href="https://github.com/lerna/lerna-changelog" title="lerna-changelog">lerna-changelog</a>などラベルをCHANGELOGのソースに使うツールなどもあるのを考えて、コミットのスコープに合わせたセットを作っています</li>
-</ul></li>
-<li>Type: Question&quot;</li>
-</ul>
-
-<p>Typeに関してはプロジェクト特有のTypeが増えていくと思います。
-このスクリプトはリポジトリを作った直後に動かす目的が大きいです。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">hub create &amp;&amp; github-label-setup --token XXXX
-</code></pre></div>
-<h2 id="関連">関連</h2>
-
-<p>似たようなものは色々あるのでお気に入りを探してみてください。
-<a href="https://github.com/Financial-Times/github-label-sync" title="github-label-sync">github-label-sync</a>をベースにしたのは既存のラベルをマイグレーションすることができるからです(紐付いていたIssueを保持できる)</p>
-
-<ul>
-<li><a href="https://github.com/yoshuawuyts/github-standard-labels" title="yoshuawuyts/github-standard-labels: Create a standard set of issue labels for a GitHub project">yoshuawuyts/github-standard-labels: Create a standard set of issue labels for a GitHub project</a></li>
-<li><a href="https://github.com/Financial-Times/github-label-sync" title="Financial-Times/github-label-sync: Synchronise your GitHub labels with as few destructive operations as possible">Financial-Times/github-label-sync: Synchronise your GitHub labels with as few destructive operations as possible</a></li>
-<li><a href="https://github.com/MunGell/awesome-for-beginners" title="MunGell/awesome-for-beginners: A list of awesome beginners-friendly projects.">MunGell/awesome-for-beginners: A list of awesome beginners-friendly projects.</a></li>
-<li><a href="https://github.com/himynameisdave/git-labelmaker" title="himynameisdave/git-labelmaker: Manage your GitHub labels from the command line!">himynameisdave/git-labelmaker: Manage your GitHub labels from the command line!</a></li>
-<li><a href="https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63" title="Sane GitHub Labels – Dave Lunny – Medium">Sane GitHub Labels – Dave Lunny – Medium</a></li>
 </ul>
  ]]></content>
  </entry>
