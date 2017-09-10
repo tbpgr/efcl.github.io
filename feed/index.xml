@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-09-08T21:06:46+09:00</updated>
+ <updated>2017-09-10T10:28:56+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -201,6 +201,10 @@
 <hr>
 
 <h2 id="アメブロ-isomprhicアプリケーションのパフォーマンス・チューニング">アメブロ: Isomprhicアプリケーションのパフォーマンス・チューニング</h2>
+
+<blockquote>
+<p>スライド: <a href="https://speakerdeck.com/kouhin/ameburo-isomprhicapurikesiyonfalsepahuomansutiyuningu" title="アメブロ: Isomprhicアプリケーションのパフォーマンス・チューニング // Speaker Deck">アメブロ: Isomprhicアプリケーションのパフォーマンス・チューニング // Speaker Deck</a></p>
+</blockquote>
 
 <ul>
 <li><a href="https://developers.cyberagent.co.jp/blog/archives/636/" title="アメブロ2016 ~ React/ReduxでつくるIsomorphic web app ~">アメブロ2016 ~ React/ReduxでつくるIsomorphic web app ~</a>の話</li>
