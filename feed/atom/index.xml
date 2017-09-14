@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-09-10T10:28:56+09:00</updated>
+ <updated>2017-09-14T21:34:04+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -13,6 +13,372 @@
  </author>
  
 
+ 
+ <entry>
+   <title>pwa_study アウトラインメモ</title>
+   <link href="http://efcl.info/2017/09/14/pwa_study/"/>
+   <updated>2017-09-14T21:27:00+09:00</updated>
+   <id>http://efcl.info/2017/09/14/pwa_study</id>
+   <content type="html"><![CDATA[ <p><a href="https://web-study.connpass.com/event/65267/" title="pwa_study - connpass">pwa_study - connpass</a>に参加してきたのでメモ。</p>
+
+<h2 id="用語">用語</h2>
+
+<ul>
+<li>SW = Service Worker</li>
+<li>XSS = cross site scripting</li>
+<li>Fetch = Fetch API</li>
+</ul>
+
+<h2 id="ウェルカムlt">ウェルカムLT</h2>
+
+<ul>
+<li>クライアントサイドDDDが行われるようになってきた</li>
+<li>フロントサイドにロジックが寄ってきてる</li>
+<li>Service Workerもクライアントサイドにそういうロジックや仕組みがよってきたという現象の一つなのでは</li>
+</ul>
+
+<h2 id="service-worker-lifecycle-laco">Service Worker Lifecycle  - laco</h2>
+
+<blockquote>
+<p><a href="http://slides.com/laco/2017-09-14_sw-lifecycle#/" title="Service Worker Lifecycle by Suguru Inatomi">Service Worker Lifecycle by Suguru Inatomi</a></p>
+</blockquote>
+
+<ul>
+<li>SWのライフサイクル</li>
+<li><a href="https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/lifecycle?hl=ja" title="Service Worker のライフサイクル  |  Web  |  Google Developers">Service Worker のライフサイクル  |  Web  |  Google Developers</a> これよめば大体分かる</li>
+<li>スライド -&gt; 記事読むと良い</li>
+<li>register -&gt; redundantで死ぬ
+
+<ul>
+<li>ライフサイクルであるけど一方向</li>
+</ul></li>
+<li>SWの目的
+
+<ul>
+<li>オフラインファースト</li>
+<li>セーフマイグレーション</li>
+<li>consitency(SWないとタブごとに異なる感じになってしまう。SWは1つのアプリケーションに対して1つ)</li>
+</ul></li>
+<li>Window-side API
+
+<ul>
+<li>Workerを使う側</li>
+<li>SWを登録する <code>register</code></li>
+<li>SWを更新する <code>update</code> </li>
+<li>SWを停止する <code>unregister</code></li>
+</ul></li>
+<li>Install SW
+
+<ul>
+<li><code>register</code>が終わった段階ではSWはまだコントールできない
+
+<ul>
+<li><code>active</code> ではある</li>
+</ul></li>
+<li>リロードした後 コントロール できる状態になる</li>
+<li><code>register</code>した段階ではfetchなどをhookすることができない</li>
+</ul></li>
+<li>なぜこのような仕様になっているか
+
+<ul>
+<li>SWのconsitency</li>
+<li>タブ間での一貫性を保証する</li>
+<li>あるタブだけSWがコントロールできてない状態を作らない</li>
+</ul></li>
+<li>抜け道がある
+
+<ul>
+<li><code>clients.claim()</code> </li>
+<li>すぐにコントール状態にできる</li>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/API/Clients/claim" title="Clients.claim() - Web API インターフェイス | MDN">Clients.claim() - Web API インターフェイス | MDN</a></li>
+<li>claim*<em>s</em>*もある</li>
+<li>一貫性を求めるので 
+
+<ul>
+<li>やらない or すべてやる(すべてのタブに対してやる)</li>
+</ul></li>
+</ul></li>
+<li>Update SW
+
+<ul>
+<li>取ってきたsw.jsとdiffをとって、hash値が異なるなら新しいworkerとして作られる</li>
+<li>ハッシュが異なるときは、waitingになる = コントールはできない状態</li>
+<li>全部のタブのSWが新しくなったらコントール状態になる = waiting解除</li>
+</ul></li>
+<li>これも抜け道がある
+
+<ul>
+<li><code>skipWaiting()</code></li>
+<li>waiting時に<code>skipWaiting()</code>するとすぐにactivateになる</li>
+<li>Warning: 裏で動いているWorkerがリロードなしにすり替わる</li>
+</ul></li>
+<li>ユースケース
+
+<ul>
+<li><code>clients.claim()</code>
+
+<ul>
+<li>最初からSWを有効化できる</li>
+</ul></li>
+<li><code>clients.skipWaiting()</code>
+
+<ul>
+<li>壊れたsw.jsをデプロイしてしまって、そのバグを修正したバージョンを出す時</li>
+<li><code>postMessage</code>とかを使ってwindowからHot Updateみたいなことをやるとき</li>
+</ul></li>
+</ul></li>
+<li>active vs. controller
+
+<ul>
+<li>window-side
+
+<ul>
+<li>controllerがあるかどうか</li>
+</ul></li>
+<li>worker
+
+<ul>
+<li>worker stateだけを見てる</li>
+</ul></li>
+<li>controllerであるworker === activeであるworker</li>
+</ul></li>
+<li>まとめ
+
+<ul>
+<li><code>register</code>だけではSWはcontrollにならない</li>
+<li>すべてのタブが閉じないとSWはcontrollにならない</li>
+<li>claimですぐに取ることはできるけど</li>
+<li>skipWaitingは気をつけて使いましょう</li>
+</ul></li>
+<li>FAQ
+
+<ul>
+<li>redundantしたときすぐregisterすると死んだと思ったworkerが復活する</li>
+<li>active かつ un-controllerの場合でもmessageは受け取る
+
+<ul>
+<li>fetchなどはhandkingできない</li>
+</ul></li>
+<li><code>clients.skipWaiting()</code>
+
+<ul>
+<li>ページがコントールしてるSW、activeなSWが切り替わる</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="攻撃者視点で見る-service-worker-kinugawamasato">攻撃者視点で見る Service Worker - kinugawamasato</h2>
+
+<ul>
+<li>SWを使うと攻撃者は何ができるのか
+
+<ul>
+<li>SWを登録して攻撃</li>
+<li>アプリが使ってるSWを攻撃</li>
+</ul></li>
+<li>アプリ開発者の防御方法</li>
+<li>SWのスクリプトを次の条件を満たす必要がある
+
+<ul>
+<li>same origin</li>
+<li>secure context</li>
+<li>context-typeがJavaScript</li>
+</ul></li>
+<li>Secure Context
+
+<ul>
+<li>HTTPSとかlocalhostなどのコンテキストが限定される</li>
+<li>Geo</li>
+<li>WebUSB</li>
+<li>カメラとか</li>
+</ul></li>
+<li>Application Cacheは
+
+<ul>
+<li>SWの前身のキャッシュ</li>
+<li>Secure Contextの実行制限がない</li>
+<li><a href="https://html5experts.jp/kyo_ago/5153/" title="攻撃シナリオを使って解説するApplicationCacheのキャッシュポイズニング | HTML5Experts.jp">攻撃シナリオを使って解説するApplicationCacheのキャッシュポイズニング | HTML5Experts.jp</a></li>
+<li>Dropboxで公開ページの問題
+
+<ul>
+<li>Same origin</li>
+<li>クッキーを大量に埋め込むとApp CacheのFallbackが発動して全滅</li>
+</ul></li>
+</ul></li>
+<li>攻撃SWをつかうには
+
+<ul>
+<li>HTTPSなページでXSSをみつける</li>
+<li>SWのスクリプトになりうる場所をみつける
+
+<ul>
+<li>content-type: text/javascript</li>
+</ul></li>
+</ul></li>
+<li>都合のいい場所1: JSONP
+
+<ul>
+<li>JSONのsw.jsの内容を書いて</li>
+<li>それをregisterで登録する</li>
+</ul></li>
+<li>登録できるとどうなるか
+
+<ul>
+<li>XSSの永続化
+
+<ul>
+<li>XSSが修正されても継続する</li>
+</ul></li>
+<li>リクエスト/レスポンス内容の盗聴・変更</li>
+</ul></li>
+<li>XSSの永続化</li>
+<li>SWのスコープ
+
+<ul>
+<li>SWは<code>scope</code>がディレクトリ以下のcontrollできるかを設定できる</li>
+<li>Service-Worker-Allowedで設定もできる</li>
+<li>サーバの設定によっては <code>%2F</code> のようにエンコードしたパスを登録できないようになってる(仕様で<code>%2f</code>などは禁止されている)</li>
+<li><a href="https://www.w3.org/TR/service-workers-1/#navigator-service-worker-register" title="Service Workers 1">Service Workers 1</a></li>
+</ul></li>
+<li>登録後のスコープ
+
+<ul>
+<li><code>/..%2fout%2f</code>と<code>/out/</code>は同一されて、SWは禁止されてない</li>
+<li>登録時はかなり厳しくなってる</li>
+</ul></li>
+<li>SWは前回取得してから24時以上経ってると、SW起動時にHTTPキャッシュを無視して再取得する仕様がある</li>
+<li>検証
+
+<ul>
+<li>Firefox/Chromeは24時間以上で再取得が起きる</li>
+<li>404などで取得できなければ元のSWを使い付ける</li>
+<li>不正なSWを登録されることを防ぐ目的であって、永続化を防ぐものにはなってなかった</li>
+</ul></li>
+<li>XSS x SW x Flash
+
+<ul>
+<li>swfのページに直接アクセス + SWで不正なSWFを返す</li>
+<li>Flashは crossdomain.xml でクロスドメイン管理されてる</li>
+<li>SWで作ったFlashからもcrossdomain.xmlにリストされたサイトの読み取りができる</li>
+<li>=&gt; embed仕様では制限すぐべきと書いてあってある
+
+<ul>
+<li>embedとかobjectは制限されてる</li>
+<li>URLに <a href="http://example.com/attack.swf">http://example.com/attack.swf</a></li>
+</ul></li>
+</ul></li>
+<li>Foreign Fetch
+
+<ul>
+<li>外部サイトでXSSができる</li>
+<li>夢が広がる危ない仕様だった
+
+<ul>
+<li>SWの登録しやすさいに比べて危険</li>
+</ul></li>
+<li>しかし、Foreign Fetchは廃止予定</li>
+<li><a href="https://github.com/w3c/ServiceWorker/issues/1188" title="Remove foreign fetch · Issue #1188 · w3c/ServiceWorker">Remove foreign fetch · Issue #1188 · w3c/ServiceWorker</a></li>
+</ul></li>
+<li>SWのキャッシュ
+
+<ul>
+<li>SWのキャッシュ != HTTPキャッシュ</li>
+<li>正規に登録されていたSWを悪用する</li>
+<li>fetchされたURLのキャッシュがあれば、キャッシュを常に返すSWがある時</li>
+<li>XSSがあれば、キャッシュを汚染して攻撃コードのキャッシュを返すことができる</li>
+<li>localStorageのXSSに似てる</li>
+</ul></li>
+<li>SWを削除する
+
+<ul>
+<li>unregister</li>
+<li>Clear-Site-Dataで消せる
+
+<ul>
+<li><a href="https://github.com/w3c/webappsec-clear-site-data" title="w3c/webappsec-clear-site-data: WebAppSec Clear Site Data">w3c/webappsec-clear-site-data: WebAppSec Clear Site Data</a></li>
+</ul></li>
+<li>けど、これも一度登録されたそこまで届かない</li>
+</ul></li>
+<li>SWは登録された負け
+
+<ul>
+<li>SWは前回取得してから24時以上経ったときに、404であるならunregisterする仕様になっていれば永続化は避けられて良さそうな気がする</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2 id="foreign-fetch-jxck">Foreign Fetch - jxck</h2>
+
+<ul>
+<li>Foreign Fetch
+
+<ul>
+<li>オフライン対応をサイト全体をやろうという話なったらサードパーティも全部オフライン対応しないといけない</li>
+<li>それはつらい</li>
+<li>なので、各サービスがそれぞれオフライン対応のSWを公開してくれて</li>
+<li>ファーストパーティは自分のサイトだけ、サードパーティはサードパーティの対応するだけで良くなるという仕様</li>
+<li>=&gt; 駄目だった</li>
+<li><a href="https://github.com/w3c/ServiceWorker/issues/1188" title="Remove foreign fetch · Issue #1188 · w3c/ServiceWorker">Remove foreign fetch · Issue #1188 · w3c/ServiceWorker</a></li>
+</ul></li>
+<li>理由: Safariの<a href="https://webkit.org/blog/7675/intelligent-tracking-prevention/" title="Intelligent Tracking Prevention | WebKit">Intelligent Tracking Prevention | WebKit</a>
+
+<ul>
+<li>今までクッキー
+
+<ul>
+<li>ドメインに紐付いている</li>
+</ul></li>
+<li>この変更
+
+<ul>
+<li>今見てるページとサードパーティのドメインの2つをキーにする</li>
+<li>host+3rdparty</li>
+<li>つまり見てるページが異なれば、サードパーティが同じでも異なるキーとなる</li>
+</ul></li>
+</ul></li>
+<li>SWの責務分離
+
+<ul>
+<li>パスでしか責務を分けれない</li>
+</ul></li>
+<li>Foreign Fetchは代案がないと死ぬ</li>
+</ul>
+
+<hr>
+
+<h2 id="asking-for-sw-motivation-constellation"><a href="https://web-study.connpass.com/event/65267/" title="Asking for SW Motivation: @constellation">Asking for SW Motivation</a> - @constellation</h2>
+
+<ul>
+<li>Service Workerに懐疑的
+
+<ul>
+<li>ウェブページのライフサイクルを壊す可能性がある</li>
+<li>バッテリーを食う可能性がある</li>
+</ul></li>
+<li>モチベーション
+
+<ul>
+<li>ネイティブアプリでは駄目なの?
+
+<ul>
+<li>App Storeのディストリビューションの問題?</li>
+</ul></li>
+<li>Electronみたいなアプリを作る方向ではないの?</li>
+<li>アプリケーションでできないことブラウザでできるようになるの?</li>
+</ul></li>
+<li>議論 色々
+
+<ul>
+<li>「ウェブは二回目のエンゲージメントを得るのが難しい。」</li>
+<li>「だからPush通知が欲しい」</li>
+<li>続きは <a href="https://twitter.com/search?q=%23pwa_study&amp;src=typd" title="#pwa_study - Twitter Search">#pwa_study - Twitter Search</a> で</li>
+</ul></li>
+</ul>
+ ]]></content>
+ </entry>
  
  <entry>
    <title>Frontrend Vol.10 アウトラインメモ</title>
@@ -1803,70 +2169,6 @@ Reactなどで作るアプリケーションは、配列などを作るよりも
 <p><a href="http://www.giphy.com/gifs/3o7btYpgJvLlhkJMfC"><img src="https://media.giphy.com/media/3o7btYpgJvLlhkJMfC/giphy.gif" alt="gif"></a></p>
 
 <p><a href="https://asciidwango.github.io/js-primer/" title="Introduction · JavaScriptの入門書 #jsprimer">Introduction · JavaScriptの入門書 #jsprimer</a>のサイト上に組み込んであるので、是非バグ/typoを探して報告してみてください。（ついでに直してくれるとさらに嬉しいです。一文字のPRも歓迎です）</p>
- ]]></content>
- </entry>
- 
- <entry>
-   <title>GitHubのリポジトリをDeprecatedにするスクリプト</title>
-   <link href="http://efcl.info/2017/05/22/move-github-repository/"/>
-   <updated>2017-05-22T10:02:00+09:00</updated>
-   <id>http://efcl.info/2017/05/22/move-github-repository</id>
-   <content type="html"><![CDATA[ <p>GitHubのリポジトリを別の場所に移す場合、リポジトリまるごと移動できるなら<a href="https://help.github.com/articles/about-repository-transfers/" title="repository transfers">repository transfers</a>を利用するのが正解です。</p>
-
-<p>しかし、既存のリポジトリをmonorepoの一部として取り込む場合はそのようなことができません。リポジトリの履歴は<a href="https://lernajs.io/" title="Lerna">Lerna</a>などでは<code>lerna import</code>で取り込むことができますが、既に作ったリポジトリからリダイレクトさせることができません。</p>
-
-<p>既存のリポジトリを消してしまうと、既に貼ったリンクなどが404になるためあまり良くありませんし、そのままにしておくと紛らわしいです。</p>
-
-<p>そのため、よく取られるのはリポジトリは空にしてDescriptionなどで移動したことを書いておく手法です。</p>
-
-<p><img src="http://efcl.info/wp-content/uploads/2017/05/22-1495415248.png" alt="moved"></p>
-
-<p>これをやる<a href="https://github.com/azu/move-github-repository" title="azu/move-github-repository: Move GitHub repository(Update description &amp;amp;&amp;amp; URL &amp;amp;&amp;amp; default branch).">move-github-repository</a>というツールを書きました。</p>
-
-<h2 id="move-github-repository"><a href="https://github.com/azu/move-github-repository" title="azu/move-github-repository: Move GitHub repository(Update description &amp;amp;&amp;amp; URL &amp;amp;&amp;amp; default branch).">move-github-repository</a></h2>
-
-<p><a href="https://github.com/azu/move-github-repository" title="azu/move-github-repository: Move GitHub repository(Update description &amp;amp;&amp;amp; URL &amp;amp;&amp;amp; default branch).">move-github-repository</a>は、コマンド一発で次のようなことをします。</p>
-
-<ul>
-<li>リポジトリのdescription &amp;&amp; homepageを更新する</li>
-<li><code>301_moved_permanently</code>ブランチを作る
-
-<ul>
-<li>このブランチは移転してことを書いたREADME.mdのみがある</li>
-</ul></li>
-<li><code>301_moved_permanently</code>をデフォルトブランチにする</li>
-</ul>
-
-<p>これによって既存のブランチは維持されるので、リンクなどは切れません。</p>
-
-<h2 id="インストール">インストール</h2>
-
-<p>npmでインストールできます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">npm install -g move-github-repository
-</code></pre></div>
-<p>GitHubのTokenと更新後に付けたいdescriptionとhomepageを引数に渡して実行できます。</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">Usage
-  $ GH_TOKEN=xxx move-github-repository --description &quot;[[MOVED]]&quot; --homepage http://example.com/new
-
-Options
-  --description -d Description repository
-  --homepage -h    New URL
-
-Env
-  GH_TOKEN=xxx move-github-repository --description &quot;[[MOVED]]&quot; --homepage http://example.com/new
-
-Examples
-  $ GH_TOKEN=xxx move-github-repository --description &quot;[[MOVED]]&quot; --homepage http://example.com/new
-</code></pre></div>
-<h2 id="サンプル">サンプル</h2>
-
-<p><a href="https://github.com/textlint/textlint" title="textlint">textlint</a>をmonorepoに移動させていたので、実際に移動させたリポジトリなどは次のような感じです。</p>
-
-<ul>
-<li><a href="https://github.com/textlint/txt-to-ast" title="textlint/txt-to-ast: [CAUTION] This repository is MOVED to monorepo.">textlint/txt-to-ast: [CAUTION] This repository is MOVED to monorepo.</a></li>
-<li><a href="https://github.com/textlint/textlint-plugin-text" title="textlint/textlint-plugin-text: [CAUTION] This repository is MOVED to monorepo.">textlint/textlint-plugin-text: [CAUTION] This repository is MOVED to monorepo.</a></li>
-<li><a href="https://github.com/textlint/textlint-plugin-markdown" title="textlint/textlint-plugin-markdown: [CAUTION] This repository is MOVED to monorepo.">textlint/textlint-plugin-markdown: [CAUTION] This repository is MOVED to monorepo.</a></li>
-</ul>
  ]]></content>
  </entry>
  
