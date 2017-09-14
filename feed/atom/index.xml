@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/atom/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-09-14T21:34:04+09:00</updated>
+ <updated>2017-09-14T21:39:23+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -33,7 +33,11 @@
 
 <ul>
 <li>クライアントサイドDDDが行われるようになってきた</li>
-<li>フロントサイドにロジックが寄ってきてる</li>
+<li>クライアントサイドにロジックが寄ってきてる
+
+<ul>
+<li>難しい</li>
+</ul></li>
 <li>Service Workerもクライアントサイドにそういうロジックや仕組みがよってきたという現象の一つなのでは</li>
 </ul>
 
