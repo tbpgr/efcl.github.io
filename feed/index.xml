@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-09-15T08:51:01+09:00</updated>
+ <updated>2017-09-15T09:07:22+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -44,7 +44,7 @@
 <h2 id="service-worker-lifecycle-laco">Service Worker Lifecycle  - laco</h2>
 
 <blockquote>
-<p><a href="http://slides.com/laco/2017-09-14_sw-lifecycle#/" title="Service Worker Lifecycle by Suguru Inatomi">Service Worker Lifecycle by Suguru Inatomi</a></p>
+<p>スライド: <a href="http://slides.com/laco/2017-09-14_sw-lifecycle#/" title="Service Worker Lifecycle by Suguru Inatomi">Service Worker Lifecycle by Suguru Inatomi</a></p>
 </blockquote>
 
 <ul>
