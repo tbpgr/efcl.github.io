@@ -4,7 +4,7 @@
  <title>Web Scratch</title>
  <link href="http://efcl.info/feed/" rel="self"/>
  <link href="http://efcl.info"/>
- <updated>2017-09-20T15:33:48+09:00</updated>
+ <updated>2017-09-20T16:05:58+09:00</updated>
  <id>http://efcl.info/</id>
  
  <author>
@@ -68,6 +68,12 @@
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <p>この動画ではReactの<a href="https://facebook.github.io/react/docs/optimizing-performance.html" title="?react_perf">?react_perf</a>と組み合わせたものをタイムライン表示しています。</p>
+
+<p>動かしているサンプルはショッピングカートのコードです。</p>
+
+<ul>
+<li><a href="https://github.com/almin/almin/tree/master/examples/shopping-cart" title="almin/examples/shopping-cart at master · almin/almin">almin/examples/shopping-cart at master · almin/almin</a></li>
+</ul>
 
 <h2 id="vue-almin">Vue + Almin</h2>
 
