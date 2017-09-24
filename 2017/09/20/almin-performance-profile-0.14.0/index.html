@@ -1,58 +1,388 @@
-<p><a href="https://github.com/almin/almin"><img src="https://almin.github.io/media/logo/logo.png" alt="Almin.js"></a></p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-<p><a href="https://github.com/almin/almin" title="Almin">Almin</a> is a State management library like Redux/Flux. But Almin aim to help Client-side DDD/CQRS.</p>
+    <title>
+        
+        Almin + React/Vue.jsのパフォーマンスプロファイルをタイムライン表示できるように | Web Scratch
+        
+    </title>
+    <meta name="description" content="">
+    
+    <meta name="keywords" content="almin,react,vue,performance" />
+    
+    <meta name="author" content="azu">
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
 
-<p>This architecture is also known as <a href="https://www.safaribooksonline.com/library/view/software-architecture-patterns/9781491971437/ch01.html" title="Layered Architecture">Layered Architecture</a>.</p>
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed/">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- JavaScript -->
+    <!-- Open graph tags -->
+<meta property="og:title" content="Almin + React/Vue.jsのパフォーマンスプロファイルをタイムライン表示できるように">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://efcl.info/2017/09/20/almin-performance-profile-0.14.0/">
+<meta property="og:image" content="http://efcl.info">
 
-<p><img src="https://almin.js.org/docs/resources/almin-architecture.png" alt="Architecture"></p>
+<meta property="og:description" content="">
+<meta property="og:site_name" content="Web Scratch">
 
-<p>We have released <a href="https://github.com/almin/almin/releases/tag/almin%400.14.0" title="almin@0.14.0">Almin 0.14.0</a> that support to measure performance profile based on <code>performance.mark</code>.
-You can profiling UseCase execute, StoreGroup write/read, Store update using the browser developer tool timeline.</p>
 
-<p>TK: image
-<a href="https://github.com/almin/almin/releases/tag/almin%400.14.0"><img src="http://efcl.info/wp-content/uploads/2017/09/20-1505888631.png" alt="DevTool timeline"></a></p>
 
-<p><code>performance.mark</code> is defined <a href="https://w3c.github.io/user-timing/" title="User Timing Level 2">User Timing Level 2</a> as W3C standard API.
-It means that almin work with other library like React and Vue on performance profile.</p>
 
-<h2 id="usage">Usage</h2>
+<meta property="article:published_time" content="2017-09-20T10:07:00+09:00">
+<meta property="article:author" content="https://www.facebook.com/">
 
-<p>If you have not heard of almin, please see <a href="https://almin.js.org/" title="Introduction · Almin.js">Introduction · Almin.js</a></p>
+<meta property="og:see_also" content="http://efcl.info/2017/09/14/pwa_study/">
 
-<p>You can turn on performance profile by <code>performanceProfile</code> option.</p>
+<meta property="og:see_also" content="http://efcl.info/2017/09/08/frontrend-v10/">
+
+<meta property="og:see_also" content="http://efcl.info/2017/08/31/ldr-to-irodr/">
+
+
+
+
+
+<meta property="article:section" content="javascript">
+
+
+
+
+
+<meta property="article:tag" content="almin">
+
+<meta property="article:tag" content="react">
+
+<meta property="article:tag" content="vue">
+
+<meta property="article:tag" content="performance">
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-2184335-8', 'auto');
+    ga('send', 'pageview');
+</script>
+    <script>
+var blog_categories = [
+{
+    "title" : "greasemonkey",
+    "count" : 61
+},{
+    "title" : "ニコニコ動画",
+    "count" : 16
+},{
+    "title" : "小説電子化",
+    "count" : 3
+},{
+    "title" : "vista",
+    "count" : 12
+},{
+    "title" : "firefox",
+    "count" : 55
+},{
+    "title" : "その他",
+    "count" : 13
+},{
+    "title" : "webサービス",
+    "count" : 22
+},{
+    "title" : "software",
+    "count" : 58
+},{
+    "title" : "雑記",
+    "count" : 35
+},{
+    "title" : "まとめ",
+    "count" : 11
+},{
+    "title" : "zaurus",
+    "count" : 3
+},{
+    "title" : "ハードウェア",
+    "count" : 8
+},{
+    "title" : "アドオン",
+    "count" : 31
+},{
+    "title" : "wordpress",
+    "count" : 6
+},{
+    "title" : "javascript",
+    "count" : 186
+},{
+    "title" : "インストール設定",
+    "count" : 12
+},{
+    "title" : "iphone",
+    "count" : 10
+},{
+    "title" : "loox u",
+    "count" : 1
+},{
+    "title" : "tombloo",
+    "count" : 3
+},{
+    "title" : "イベント",
+    "count" : 91
+},{
+    "title" : "userchome.js",
+    "count" : 8
+},{
+    "title" : "jetpack",
+    "count" : 7
+},{
+    "title" : "onenote",
+    "count" : 2
+},{
+    "title" : "nilscript",
+    "count" : 4
+},{
+    "title" : "keysnail",
+    "count" : 3
+},{
+    "title" : "ios",
+    "count" : 15
+},{
+    "title" : "shell",
+    "count" : 3
+},{
+    "title" : "r言語",
+    "count" : 2
+},{
+    "title" : "node.js",
+    "count" : 3
+},{
+    "title" : "mac",
+    "count" : 2
+},{
+    "title" : "github",
+    "count" : 11
+},{
+    "title" : "jekyll",
+    "count" : 1
+},{
+    "title" : "golang",
+    "count" : 1
+},{
+    "title" : "web",
+    "count" : 1
+},{
+    "title" : "スライド",
+    "count" : 1
+},{
+    "title" : "ie",
+    "count" : 1
+},{
+    "title" : "書籍",
+    "count" : 2
+},{
+    "title" : "textlint",
+    "count" : 8
+}
+];
+    blog_categories = blog_categories.filter(function(categoryObject){
+        return !/^\d+$/.test(categoryObject.title);
+    });
+</script>
+</head>
+
+
+<body class="layout-reverse theme-base-0d">
+<a href="https://github.com/efcl/efcl.github.io" class="github-ribbon">
+    <img style="position: fixed; z-index:100; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<header>
+    <div class="site-header">
+    <img src="/public/img/reimu-right.png" class="header-logo">
+
+    <h1 class="site-title">
+        <a href="/">
+            Web Scratch
+        </a>
+    </h1>
+    <p class="lead">ブラウザ/JavaScript等についてのブログ</p>
+
+</div>
+</header>
+<aside>
+    <div class="sidebar">
+    <div class="container">
+        <div class="profile">
+            <a href="/about/" title="About"><img src="/public/img/azu.png" alt="Profile"></a>
+
+            <h2><a href="/about/" title="About">azu</a></h2>
+        </div>
+        <div class="social">
+            <a class="twitter" href="http://twitter.com/azu_re" title="Twitter">
+                <img src="/public/svg/twitter.svg" alt="twitter" width="32" height="32"/>
+            </a>
+            <a class="github" href="https://github.com/azu" title="GitHub">
+                <img src="/public/svg/github.svg" alt="GitHub" width="32" height="32"/>
+            </a>
+            <a class="rss" href="/feed/" title="RSS Feed">
+                <img src="/public/svg/feed.svg" alt="RSS" width="32" height="32"/>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="search">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <label for="search-box-label">検索:</label>
+                    <input type="hidden" name="q" value="site:efcl.info">
+                    <input id="search-box-label" type="search" name="q">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+            <div class="recent">
+    <h3 class="recent-posts-list-title">
+        <a href="/">最近の投稿</a>
+    </h3>
+    <ul class="recent-posts">
+        
+        <li>
+            <a href="/2017/09/20/almin-performance-profile-0.14.0/">
+                Almin + React/Vue.jsのパフォーマンスプロファイルをタイムライン表示できるように
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/09/14/pwa_study/">
+                pwa_study アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/09/08/frontrend-v10/">
+                Frontrend Vol.10 アウトラインメモ
+            </a>
+        </li>
+        
+        <li>
+            <a href="/2017/08/31/ldr-to-irodr/">
+                LDRがサービス終了のため、Inoreader/Feedlyをバックエンドに動くRSSリーダを書いている
+            </a>
+        </li>
+        
+    </ul>
+</div>
+            <div class="recent">
+    <h3 class="categories-list-title"><a href="/categories">カテゴリ一覧</a></h3>
+
+    <div class="categories-list" id="js-categories-list">
+
+    </div>
+    <script>
+        (function () {
+            var categoriesList = window.blog_categories;
+            var appendPoint = document.getElementById("js-categories-list");
+            // big ... small
+            var sortedCategories = categoriesList.sort(function (a, b) {
+                return a.count < b.count ? 1 : -1;
+            });
+            var ulTag = document.createElement("ul");
+            var displayCount = sortedCategories.length < 3 ? sortedCategories.length : 3;
+            for (var i = 0; i < displayCount; i++) {
+                var category = sortedCategories[i];
+                var liTag = document.createElement("li");
+                var aTag = document.createElement("a");
+                aTag.href = "/categories#" + category.title;
+                aTag.textContent = category.title;
+                var spanTag = document.createElement("span");
+                spanTag.appendChild(document.createTextNode("[" + category.count + "]"));
+                liTag.appendChild(aTag);
+                liTag.appendChild(spanTag);
+                ulTag.appendChild(liTag);
+            }
+            var lastLiTag = document.createElement("li");
+            var lastATag = document.createElement("a");
+            lastATag.href = "/categories";
+            lastATag.textContent = "その他のタグ…";
+            lastLiTag.appendChild(lastATag);
+            ulTag.appendChild(lastATag);
+            appendPoint.appendChild(ulTag);
+        })();
+    </script>
+</div>
+        </nav>
+    </div>
+</div>
+
+</aside>
+<article>
+    <div class="content container">
+        <div class="post" id="js-post-url" data-post-url="/2017/09/20/almin-performance-profile-0.14.0/">
+    <h1 class="post-title">Almin + React/Vue.jsのパフォーマンスプロファイルをタイムライン表示できるように</h1>
+
+    <div class="pre-post-toolbar">
+        <span class="post-date">2017年09月20日</span>
+        <a class="btn edit-on-github" href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-09-20-almin-performance-profile-0.14.0.md"><span class="edito-on-github-label"></span>Edit on GitHub</a>
+
+    </div>
+    <div class="post-content">
+        <p><a href="https://github.com/almin/almin"><img src="https://almin.github.io/media/logo/logo.png" alt="Almin.js"></a></p>
+
+<p><a href="https://github.com/almin/almin" title="Almin">Almin</a>はClient-side DDD/CQRSをしやすい構造を作ることを目的にした – いわゆるステート管理ライブラリです。</p>
+
+<p><a href="https://github.com/almin/almin/releases/tag/almin%400.14.0" title="almin@0.14.0">Almin 0.14.0</a>で<code>performance.mark</code>ベースのプロファイルを取れるようになりました。
+これにより、AlminのUseCaseやStoreといったそれぞれの処理にどれぐらいかかっているかを開発者ツールのタイムラインで見ることができます。</p>
+
+<p><a href="https://github.com/almin/almin/releases/tag/almin%400.14.0"><img src="http://efcl.info/wp-content/uploads/2017/09/20-1505888631.png" alt="DevTool timeline"></a></p>
+
+<p><code>performance.mark</code>は<a href="https://w3c.github.io/user-timing/" title="User Timing Level 2">User Timing Level 2</a>で標準化されている方法なので、後述するようにReactやVueなどのライブラリと組み合わせた状態も見ることができます。
+<code>performance.mark</code>については次の記事でも書いています。</p>
+
+<ul>
+<li><a href="http://efcl.info/2016/08/15/performance.mark/" title="performance.markでパフォーマンス計測する | Web Scratch">performance.markでパフォーマンス計測する | Web Scratch</a></li>
+</ul>
+
+<h2 id="使い方">使い方</h2>
+
+<p>Contextを作成する際に<code>performanceProfile</code>オプションを有効にするだけです。</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">appContext</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Context</span><span class="p">({</span>
     <span class="nx">dispatcher</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Dispatcher</span><span class="p">(),</span>
     <span class="nx">store</span><span class="o">:</span> <span class="nx">yourStoreGroup</span><span class="p">,</span>
     <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
         <span class="nx">strict</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nx">performanceProfile</span><span class="o">:</span> <span class="kc">true</span> <span class="c1">// &lt;= here</span>
+        <span class="nx">performanceProfile</span><span class="o">:</span> <span class="kc">true</span>
     <span class="p">}</span>
 <span class="p">});</span>
 </code></pre></div>
-<h3 id="steps">Steps</h3>
+<p>このオプションを有効にした状態で実際のウェブサイトにアクセスして、次のステップでみることができます。</p>
 
 <ol>
-<li>Turn on <code>performanceProfile</code> option</li>
-<li>Load your app</li>
-<li>Open the browser DevTools &quot;Performance&quot; tab and press <strong>Record</strong>
+<li><code>performanceProfile</code>オプションを有効化</li>
+<li>ウェブサイトを開く</li>
+<li>開発者ツールの&quot;Performance&quot;タブを開き<strong>Record</strong>を押す
 
 <ul>
-<li>For more details, See <a href="https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/timeline-tool">Chrome&#39;s Timeline Tool document</a> and <a href="https://docs.microsoft.com/en-us/microsoft-edge/f12-devtools-guide/performance" title="F12 devtools guide - Performance - Microsoft Edge Development | Microsoft Docs">MSEdge&#39;s F12 devtools guide</a></li>
+<li><a href="https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/timeline-tool">Chrome&#39;s Timeline Tool document</a>や<a href="https://docs.microsoft.com/en-us/microsoft-edge/f12-devtools-guide/performance" title="F12 devtools guide - Performance - Microsoft Edge Development | Microsoft Docs">MSEdge&#39;s F12 devtools guide</a>を参考に</li>
 </ul></li>
-<li>Stop recording</li>
-<li>Almin events will be grouped under the <strong>User Timing</strong> label</li>
+<li><strong>Record</strong>を停止する</li>
+<li><strong>User Timing</strong>というラベルにAlminのイベントが表示される</li>
 </ol>
 
-<p>Actually, you can see performance profile with Chrome DevTool timeline.</p>
+<p>実際にパフォーマンスプロファイルをタイムラインで見ている様子です。</p>
 
 <blockquote class="twitter-video" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/almin?src=hash">#almin</a> + <a href="https://twitter.com/hashtag/react?src=hash">#react</a> easy to profile web app with devTool&#39;s timeline.<a href="https://t.co/HLndVyS4hI">https://t.co/HLndVyS4hI</a> <a href="https://t.co/d7l2c2pP1K">pic.twitter.com/d7l2c2pP1K</a></p>&mdash; azu (@azu_re) <a href="https://twitter.com/azu_re/status/909418278153478144">September 17, 2017</a></blockquote>
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<p>This video show Almin + React on timeline.
-React has <a href="https://facebook.github.io/react/docs/optimizing-performance.html" title="?react_perf">?react_perf</a> options that does profiling performance.</p>
+<p>この動画ではReactの<a href="https://facebook.github.io/react/docs/optimizing-performance.html" title="?react_perf">?react_perf</a>と組み合わせたものをタイムライン表示しています。</p>
 
-<p>That example code is following.</p>
+<p>動かしているサンプルはショッピングカートのコードです。</p>
 
 <ul>
 <li><a href="https://github.com/almin/almin/tree/master/examples/shopping-cart" title="almin/examples/shopping-cart at master · almin/almin">almin/examples/shopping-cart at master · almin/almin</a></li>
@@ -60,9 +390,9 @@ React has <a href="https://facebook.github.io/react/docs/optimizing-performance.
 
 <h2 id="vue-almin">Vue + Almin</h2>
 
-<p>Vue also support <a href="https://vuejs.org/v2/api/#performance"><code>performance</code> option</a> based on <code>performance.mark</code>.</p>
+<p>ReactだけではなくVueも<code>performance.mark</code>ベースの<a href="https://vuejs.org/v2/api/#performance">パフォーマンスオプション</a>をサポートしています。</p>
 
-<p>I&#39;ve created a example project that use Almin + Vue.</p>
+<p>Vue + Alminで書いたサンプルを作ったので、次のリポジトリで試すことができます。</p>
 
 <ul>
 <li><a href="https://github.com/azu/vue-almin-counter-example" title="azu/vue-almin-counter-example: Vue + Almin counter example">azu/vue-almin-counter-example: Vue + Almin counter example</a></li>
@@ -70,12 +400,10 @@ React has <a href="https://facebook.github.io/react/docs/optimizing-performance.
 
 <p><img src="https://cdn.rawgit.com/azu/vue-almin-counter-example/master/img/performance-timeline.gif" alt="Vue + Almin"></p>
 
-<ul>
-<li>Vue&#39;s profile show view metrics(<code>render</code> and <code>patch</code>)</li>
-<li>Almin&#39;s profile show UseCase execute, StoreGroup write/read, Store update time</li>
-</ul>
+<p>VueのパフォーマンスプロファイルはVueによるViewの更新(<code>render</code>や<code>patch</code>)に関する情報がタイムラインにでます。
+Alminのパフォーマンスプロファイルは、UseCaseの実行、StoreGroup/Storeの更新、StoreからのState取得に関する情報がタイムラインにでます。</p>
 
-<p>The collection of metrics is writtend in following document.</p>
+<p>Alminが現在サポートしているメトリクスについては次のドキュメントで公開しています。</p>
 
 <p><a href="https://almin.js.org/docs/tips/performance-profile.html"><img src="http://efcl.info/wp-content/uploads/2017/09/20-1505887064.png" alt="Metrics"></a></p>
 
@@ -83,31 +411,92 @@ React has <a href="https://facebook.github.io/react/docs/optimizing-performance.
 <li><a href="https://almin.js.org/docs/tips/performance-profile.html" title="Performance profile · Almin.js">Performance profile · Almin.js</a></li>
 </ul>
 
-<p>This project is migrated from Vue + Vuex to Vue + Almin.
-The diff is following.</p>
+<p>このVue + Alminのサンプルプロジェクトは、Vue + Vuexで書いたものをAlminに変換して作ったので、そのときはDiffは次のPull Requestで見ることができます。</p>
 
 <ul>
 <li><a href="https://github.com/azu/vue-almin-counter-example/pull/1" title="Almin + Vue performance profile by azu · Pull Request #1 · azu/vue-almin-counter-example">Almin + Vue performance profile by azu · Pull Request #1 · azu/vue-almin-counter-example</a></li>
 </ul>
 
-<h2 id="conclusion">Conclusion</h2>
+<h2 id="おわりに">おわりに</h2>
 
-<p>Almin can measure performance profile with browser DevTools.</p>
+<p>Reactの<a href="https://facebook.github.io/react/docs/optimizing-performance.html" title="?react_perf">?react_perf</a>のように、<code>?almin_perf</code>をクエリに付けた時だけプロファイルを取りたい場合は次のように設定すればできます。</p>
 
-<ul>
-<li><a href="https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/timeline-tool">Chrome&#39;s Timeline Tool document</a></li>
-<li><a href="https://docs.microsoft.com/en-us/microsoft-edge/f12-devtools-guide/performance" title="F12 devtools guide - Performance - Microsoft Edge Development | Microsoft Docs">MSEdge&#39;s F12 devtools guide</a></li>
-</ul>
+<p>またパフォーマンスプロファイルのコードは、オプション値関係なくproductionビルドすると消えるようになっています。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// ?almin_perf をつけるとプロファイルが取れる</span>
+<span class="kr">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Context</span><span class="p">({</span>
+    <span class="nx">dispatcher</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Dispatcher</span><span class="p">(),</span>
+    <span class="nx">store</span><span class="o">:</span> <span class="k">new</span> <span class="nx">StoreGroup</span><span class="p">({</span>
+        <span class="nx">counter</span><span class="o">:</span> <span class="k">new</span> <span class="nx">CounterStore</span><span class="p">()</span>
+    <span class="p">}),</span>
+    <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">strict</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">performanceProfile</span><span class="o">:</span> <span class="sr">/[?&amp;]almin_perf\b/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Alminはロガーなどを外部実装するための<a href="https://almin.js.org/docs/tips/usecase-lifecycle.html" title="life-cycle events">ライフサイクルイベント</a>のAPIも公開しています。
+<a href="https://www.npmjs.com/package/almin-logger" title="almin-logger">almin-logger</a>や<a href="https://github.com/almin/almin-devtools" title="almin-devtools">almin-devtools</a>はこちらを使っていますが、それとは別にオプションを追加したのはパフォーマンスプロファイルはAlmin内部的な状態を出す可能性があるからです。
+そのため、Publicなものはライフサイクルイベントとして、内部的な状態のダンプデータは<code>performanceProfile</code>のみで出すようにしています。</p>
 
-<p>This performance profile also work with the other library like React, or Vue.</p>
-
-<p>You can find bottleneck using these metrics.</p>
-
-<p>For more details, See followoing documents.</p>
+<p>Alminのパフォーマンスプロファイルについて詳しくは次のドキュメントに書いています。</p>
 
 <ul>
 <li><a href="https://almin.js.org/docs/tips/performance-profile.html" title="Performance profile · Almin.js">Performance profile · Almin.js</a></li>
 <li><a href="https://almin.js.org/docs/tips/usecase-lifecycle.html" title="LifeCycle of UseCase · Almin.js">LifeCycle of UseCase · Almin.js</a></li>
 </ul>
 
-<p></p>
+    </div>
+    <div class="post-post-toolbar">
+        <a class="btn edit-on-github"
+           href="https://github.com/efcl/efcl.github.io/edit/develop/_posts/2017/2017-09-20-almin-performance-profile-0.14.0.md"><span
+                class="edit-on-github-label"></span>修正リクエストをする</a>
+        <nav class="tags"
+             id="js-post-tags"
+             data-post-tags='["almin","react","vue","performance"]'>
+            <span>タグ:</span>
+            <ul>
+                
+                <li><a href="/tags/?q=almin">almin</a></li>
+                
+                <li><a href="/tags/?q=react">react</a></li>
+                
+                <li><a href="/tags/?q=vue">vue</a></li>
+                
+                <li><a href="/tags/?q=performance">performance</a></li>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="announce-area">
+        <h3>お知らせ欄</h3>
+        <div class="announce-text">
+            <!--お知らせ-->
+JavaScriptに関する最新情報は週一で<a href="http://jser.info/" title="JSer.info">JSer.info</a>を更新しています。
+
+        </div>
+        <h3>次に書くかもしれない記事候補</h3>
+        <p>興味がありましたら<a href="https://github.com/efcl/efcl.github.io/labels/%E8%A8%98%E4%BA%8B%E5%80%99%E8%A3%9C" title="Issues · efcl/efcl.github.io">Issues · efcl/efcl.github.io</a>からご意見下さい</p>
+        <div class="announce-text">
+            <iframe src="https://azu.github.io/github-issue-widget/?owner=efcl&repo=efcl.github.io&labels=記事候補&limit=4&random"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="related-articles" id="js-related-articles">
+        <h3>関連記事</h3>
+    </div>
+</div>
+<div class="zenback-embed">
+    <!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//efcl.info/&nsid=89229392978401102%3A%3A89229398078677080&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget -->
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+
+<script type="text/javascript" src="/public/js/tag-fetcher.js"></script>
+<script type="text/javascript" src="/public/js/show-related-article.js"></script>
+<script type="text/javascript" src="/public/js/show-disqus.js"></script>
+
+    </div>
+</article>
+</body>
+</html>
